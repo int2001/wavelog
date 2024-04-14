@@ -409,6 +409,16 @@ class Visitor extends CI_Controller {
 
 	public function exportmap() {
 		$slug = $this->security->xss_clean($this->uri->segment(3));
+		$lastqso = $this->security->xss_clean($this->uri->segment(4));
+
+		if ($lastqso === "lastqso") {
+			$this->load->model('visitor_model');
+			$result = $this->visitor_model->getlastqsodate($slug)->row();
+			header('Content-Type: application/json');
+			echo json_encode($result);
+			return;
+		}
+
         $data['slug'] = $slug;
 
 		$data['page_title'] = "Export Map";
@@ -418,7 +428,7 @@ class Visitor extends CI_Controller {
 	}
 
 	public function mapqsos() {
-		$this->load->model('logbook_model');
+		$this->load->model('visitor_model');
 
 		$this->load->library('qra');
 
@@ -441,7 +451,7 @@ class Visitor extends CI_Controller {
             show_404('Unknown Public Page.');
         }
 
-		$qsos = $this->logbook_model->get_qsos($qsocount, null, $logbooks_locations_array, $band);
+		$qsos = $this->visitor_model->get_qsos($qsocount, $logbooks_locations_array, $band);
 		$userid = $this->stationsetup_model->public_slug_exists_userid($slug);
 		$user_default_confirmation = $this->get_user_default_confirmation($userid);
 
@@ -507,12 +517,28 @@ class Visitor extends CI_Controller {
 
 		$this->load->model('user_options_model');
 
-		$result=$this->user_options_model->get_options('map_custom', null, $userid);
-		$jsonout=[];
+		$result = $this->user_options_model->get_options('map_custom', null, $userid);
+		$jsonout = [];
 		foreach($result->result() as $options) {
 			if ($options->option_name=='icon') $jsonout[$options->option_key]=json_decode($options->option_value,true);
 				else $jsonout[$options->option_name.'_'.$options->option_key]=$options->option_value;
 		}
+
+		if (count($jsonout) == 0) {
+			$jsonout['qso'] = array(
+				"icon" => "fas fa-dot-circle",
+				"color" => "#ff0000"
+			);
+			$jsonout['qsoconfirm'] = array(
+				"icon" => "fas fa-dot-circle",
+				"color" => "#00aa00"
+			);
+			$jsonout['station'] = array(
+				"icon" => "fas fa-broadcast-tower",
+				"color" => "#0000ff"
+			);
+		}
+
 		$jsonout['gridsquare_layer'] = $this->user_options_model->get_options('ExportMapOptions',array('option_name'=>'gridsquare_layer','option_key'=>$slug), $userid)->row()->option_value ?? true;
 		$jsonout['path_lines'] = $this->user_options_model->get_options('ExportMapOptions',array('option_name'=>'path_lines','option_key'=>$slug), $userid)->row()->option_value ?? true;
 		$jsonout['cqzone_layer'] = $this->user_options_model->get_options('ExportMapOptions',array('option_name'=>'cqzone_layer','option_key'=>$slug), $userid)->row()->option_value ?? true;
