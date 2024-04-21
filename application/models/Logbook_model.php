@@ -1779,7 +1779,7 @@ class Logbook_model extends CI_Model {
 
   // returns the number of qso's total on this instance
   function count_all_qso() {
-    $sql = 'SELECT COUNT(*) AS total FROM '. $this->config->item('table_name').' WHERE station_id IS NOT NULL;';
+    $sql = 'SELECT COUNT(1) AS total FROM '. $this->config->item('table_name').' WHERE station_id IS NOT NULL;';
     $query = $this->db->query($sql);
     return $query->row()->total;
   }
