@@ -3447,7 +3447,6 @@ function lotw_last_qsl_date($user_id) {
 		  return($returner);
 	  }
 
-	  $this->load->library('frequency');
 	  $my_error = "";
 
 	  // Join date+time
