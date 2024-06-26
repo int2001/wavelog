@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2024-06-26 09:16+0000\n"
-"PO-Revision-Date: 2024-06-25 13:16+0000\n"
+"POT-Creation-Date: 2024-06-26 13:31+0200\n"
+"PO-Revision-Date: 2024-06-26 11:15+0000\n"
 "Last-Translator: Aurélien Barrau <abarrau378@gmail.com>\n"
 "Language-Team: French <https://translate.wavelog.org/projects/wavelog/main-translation/fr/>\n"
 "Language: fr_FR\n"
@@ -340,7 +340,7 @@ msgstr "RAC"
 
 #: application/controllers/Awards.php:776 application/views/bands/index.php:51
 msgid "H26"
-msgstr ""
+msgstr "H26"
 
 #: application/controllers/Awards.php:847
 msgid "IOTA (Island On The Air)"
@@ -503,7 +503,7 @@ msgstr "Nombre de jours par an avec les QSO"
 
 #: application/controllers/Debug.php:75
 msgid "Debug"
-msgstr ""
+msgstr "Debug"
 
 #: application/controllers/Distances.php:17
 #: application/views/distances/index.php:5
@@ -994,7 +994,7 @@ msgstr "Locator"
 #: application/views/view_log/partial/log_ajax.php:14
 #: application/views/visitor/index.php:30
 msgid "Distance"
-msgstr ""
+msgstr "Distance"
 
 #: application/controllers/Logbook.php:1286
 #: application/views/accumulate/index.php:18
@@ -1143,11 +1143,11 @@ msgstr "DXCC Supprimé"
 
 #: application/controllers/Logbookadvanced.php:31
 msgid "Advanced logbook"
-msgstr ""
+msgstr "Journal avancé"
 
 #: application/controllers/Lookup.php:22
 msgid "Quick Lookup"
-msgstr ""
+msgstr "Recherche rapide"
 
 #: application/controllers/Lotw.php:59 application/controllers/Lotw.php:88
 #: application/controllers/Lotw.php:135 application/views/adif/import.php:27
@@ -1187,7 +1187,7 @@ msgstr ""
 
 #: application/controllers/Mode.php:62
 msgid "Edit Mode"
-msgstr ""
+msgstr "Modifier le mode"
 
 #: application/controllers/Notes.php:19
 #: application/views/interface_assets/header.php:127
@@ -1199,7 +1199,7 @@ msgstr ""
 #: application/views/qso/index.php:541 application/views/qso/index.php:586
 #: application/views/view_log/qso.php:14 application/views/view_log/qso.php:590
 msgid "Notes"
-msgstr ""
+msgstr "Notes"
 
 #: application/controllers/Notes.php:38
 msgid "Add Notes"
@@ -1262,7 +1262,7 @@ msgstr ""
 #: application/controllers/Options.php:185
 #: application/controllers/Options.php:196
 msgid "Radio Settings"
-msgstr ""
+msgstr "Paramètres radio"
 
 #: application/controllers/Options.php:217
 msgid "Radio Timeout Warning changed to "
@@ -1272,59 +1272,59 @@ msgstr ""
 #: application/controllers/Options.php:240
 #: application/views/options/sidebar.php:6
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: application/controllers/Options.php:297
 msgid "The settings were saved successfully."
-msgstr ""
+msgstr "Les paramètres ont été sauvegardés avec succès."
 
 #: application/controllers/Options.php:299
 msgid "Something went wrong with saving the settings. Try again."
-msgstr ""
+msgstr "Problème rencontré lors de l'enregistrement des paramètres. Merci de réessayer."
 
 #: application/controllers/Options.php:310
 #: application/controllers/Options.php:320
 #: application/views/options/sidebar.php:8
 msgid "OQRS Options"
-msgstr ""
+msgstr "Options OQRS"
 
 #: application/controllers/Options.php:333
 msgid "OQRS options have been saved."
-msgstr ""
+msgstr "Les options OQRS ont été enregistrées."
 
 #: application/controllers/Options.php:373
 #: application/controllers/Options.php:378
 msgid "Testmail failed. Something went wrong."
-msgstr ""
+msgstr "Test d'envoi de mail : dysfonctionnement rencontré."
 
 #: application/controllers/Options.php:375
 msgid "Testmail sent. Email settings seem to be correct."
-msgstr ""
+msgstr "Test d'envoi de mail : les paramètres sont corrects."
 
 #: application/controllers/Options.php:388
 #: application/controllers/Options.php:398
 msgid "Version Info Settings"
-msgstr ""
+msgstr "Infos Version : paramètres"
 
 #: application/controllers/Options.php:404
 msgid "Version Info Header changed to"
-msgstr ""
+msgstr "Infos Version : En-tête changée en"
 
 #: application/controllers/Options.php:408
 msgid "Version Info Mode changed to"
-msgstr ""
+msgstr "Infos Version : Mode changé en"
 
 #: application/controllers/Options.php:413
 msgid "Version Info Custom Text saved!"
-msgstr ""
+msgstr "Infos Version : texte personnalisé enregistré !"
 
 #: application/controllers/Options.php:424
 msgid "Version Info will be shown to all users again"
-msgstr ""
+msgstr "Version Info sera montré à tous les utilisateurs à nouveau"
 
 #: application/controllers/Options.php:432
 msgid "Version Info will not be shown to any user"
-msgstr ""
+msgstr "Version Info ne sera pas montré à aucun utilisateur"
 
 #: application/controllers/Oqrs.php:22 application/controllers/Oqrs.php:61
 msgid "Log Search & OQRS"
@@ -1333,7 +1333,7 @@ msgstr ""
 #: application/controllers/Oqrs.php:92
 #: application/views/interface_assets/header.php:399
 msgid "OQRS Requests"
-msgstr ""
+msgstr "OQRS Demandes"
 
 #: application/controllers/Qrbcalc.php:17
 msgid "QRB Calculator"
@@ -1342,7 +1342,7 @@ msgstr ""
 #: application/controllers/Qrz.php:173
 #: application/views/interface_assets/header.php:411
 msgid "QRZ Logbook"
-msgstr ""
+msgstr "Journal QRZ"
 
 #: application/controllers/Qrz.php:253
 msgid "QRZ QSL Import"
@@ -1374,20 +1374,20 @@ msgstr ""
 
 #: application/controllers/Qso.php:91
 msgid "Add QSO"
-msgstr ""
+msgstr "Ajouter QSO"
 
 #: application/controllers/Radio.php:18
 #: application/views/interface_assets/header.php:417
 msgid "Hardware Interfaces"
-msgstr ""
+msgstr "Interfaces matérielles"
 
 #: application/controllers/Satellite.php:37
 msgid "Create Satellite"
-msgstr ""
+msgstr "Créer un satellite"
 
 #: application/controllers/Satellite.php:60
 msgid "Edit Satellite"
-msgstr ""
+msgstr "Modifier le satellite"
 
 #: application/controllers/Sattimers.php:41
 #, php-format
@@ -1401,7 +1401,7 @@ msgstr ""
 #: application/views/dashboard/index.php:82
 #: application/views/simplefle/index.php:15
 msgid "here"
-msgstr ""
+msgstr "ici"
 
 #: application/controllers/Sattimers.php:44
 #: application/views/sattimers/index.php:13
@@ -1807,31 +1807,31 @@ msgstr ""
 msgid "QO-100 Dx Club Upload"
 msgstr ""
 
-#: application/models/Logbook_model.php:4139
+#: application/models/Logbook_model.php:4135
 msgid "QSO could not be matched"
 msgstr "pas de correspondance pour le QSO"
 
-#: application/models/Logbook_model.php:4145
+#: application/models/Logbook_model.php:4141
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "confirmé par LoTW/Clublog/eQSL/Contest"
 
-#: application/models/Logbook_model.php:4150
+#: application/models/Logbook_model.php:4146
 msgid "confirmed by award manager"
 msgstr "confirmé par le manager de l'Award"
 
-#: application/models/Logbook_model.php:4153
+#: application/models/Logbook_model.php:4149
 msgid "confirmed by cross-check of DCL data"
 msgstr "confirmé par recoupement des données DCL"
 
-#: application/models/Logbook_model.php:4156
+#: application/models/Logbook_model.php:4152
 msgid "confirmation pending"
 msgstr "confirmation en attente"
 
-#: application/models/Logbook_model.php:4159
+#: application/models/Logbook_model.php:4155
 msgid "unconfirmed"
 msgstr "non confirmé"
 
-#: application/models/Logbook_model.php:4162
+#: application/models/Logbook_model.php:4158
 msgid "unknown"
 msgstr "inconnu"
 
