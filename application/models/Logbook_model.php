@@ -1638,7 +1638,7 @@ class Logbook_model extends CI_Model {
 			$this->db->join('station_profile', 'station_profile.station_id = '.$this->config->item('table_name').'.station_id');
 			$this->db->join('dxcc_entities', $this->config->item('table_name').'.col_dxcc = dxcc_entities.adif', 'left');
 			$this->db->join('lotw_users', 'lotw_users.callsign = '.$this->config->item('table_name').'.col_call', 'left outer');
-	
+
 			return $this->db->get($this->config->item('table_name'));
 		} else {
 			return;
@@ -4233,7 +4233,7 @@ function lotw_last_qsl_date($user_id) {
      */
     public function check_dxcc_table($call, $date){
 
-	    $csadditions = '/^T$|^P$|^R$|^A$|^M$/';
+	    $csadditions = '/^X$|^D$|^T$|^P$|^R$|^A$|^M$/';
 
 	    $dxcc_exceptions = $this->db->select('`entity`, `adif`, `cqz`, `cont`')
 				 ->where('`call`', $call)
@@ -4319,13 +4319,19 @@ function lotw_last_qsl_date($user_id) {
 		    }
 	    }
 
-	    return array("Not Found", "Not Found");
+	    return array(
+			'adif' => 0,
+			'cqz' => 0,
+			'long' => '',
+			'lat' => '',
+			'entity' => 'None',
+		);
 
     }
 
     public function dxcc_lookup($call, $date) {
 
-	    $csadditions = '/^T$|^P$|^R$|^A$|^M$/';
+		$csadditions = '/^X$|^D$|^T$|^P$|^R$|^A$|^M$|^LH$/';
 
 	    $dxcc_exceptions = $this->db->select('`entity`, `adif`, `cqz`,`cont`')
 				 ->where('`call`', $call)
@@ -4415,7 +4421,14 @@ function lotw_last_qsl_date($user_id) {
 		    }
 	    }
 
-	    return array("Not Found", "Not Found");
+	    return array(
+			'adif' => 0,
+			'cqz' => 0,
+			'long' => '',
+			'lat' => '',
+			'entity' => 'None',
+		);
+
     }
 
     function wpx($testcall, $i) {
@@ -4425,7 +4438,7 @@ function lotw_last_qsl_date($user_id) {
       $c = '';
 
       $lidadditions = '/^QRP$|^LGT$/';
-      $csadditions = '/^T$|^P$|^R$|^A$|^M$|^LH$/';
+      $csadditions = '/^X$|^D$|^T$|^P$|^R$|^A$|^M$|^LH$/';
       $noneadditions = '/^MM$|^AM$/';
 
       # First check if the call is in the proper format, A/B/C where A and C
