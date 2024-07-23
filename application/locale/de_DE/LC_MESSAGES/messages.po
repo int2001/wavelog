@@ -11,9 +11,9 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2024-07-22 13:58+0000\n"
-"PO-Revision-Date: 2024-07-17 15:14+0000\n"
-"Last-Translator: Florian Wolters <wavelog@df2et.de>\n"
+"POT-Creation-Date: 2024-07-22 20:55+0000\n"
+"PO-Revision-Date: 2024-07-22 18:28+0000\n"
+"Last-Translator: Fabian Berg <hb9hil@wavelog.org>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
 "Language: de_DE\n"
@@ -1912,47 +1912,47 @@ msgstr "FERTIG"
 msgid "User Accounts"
 msgstr "Benutzerkonten"
 
-#: application/controllers/User.php:51
+#: application/controllers/User.php:52
 msgid "Add User"
 msgstr "Füge Benutzer hinzu"
 
-#: application/controllers/User.php:165
+#: application/controllers/User.php:166
 msgid "Users"
 msgstr "Benutzer"
 
-#: application/controllers/User.php:238 application/controllers/User.php:671
+#: application/controllers/User.php:240 application/controllers/User.php:673
 msgid "Edit User"
 msgstr "Bearbeite Benutzer"
 
-#: application/controllers/User.php:663 application/controllers/User.php:666
+#: application/controllers/User.php:665 application/controllers/User.php:668
 #: application/views/user/main.php:3 application/views/user/main.php:46
 msgid "User"
 msgstr "Benutzer"
 
-#: application/controllers/User.php:663 application/controllers/User.php:666
+#: application/controllers/User.php:665 application/controllers/User.php:668
 msgid "edited"
 msgstr "bearbeitet"
 
-#: application/controllers/User.php:720
+#: application/controllers/User.php:722
 msgid "Profile"
 msgstr "Profil"
 
-#: application/controllers/User.php:838 application/controllers/User.php:848
+#: application/controllers/User.php:840 application/controllers/User.php:850
 msgid "Login failed. Try again."
 msgstr "Login fehlgeschlagen. Bitte erneut versuchen."
 
-#: application/controllers/User.php:855
+#: application/controllers/User.php:857
 #: application/views/interface_assets/header.php:348
 #: application/views/user/login.php:89
 #: application/views/visitor/layout/header.php:88
 msgid "Login"
 msgstr "Anmeldung"
 
-#: application/controllers/User.php:863
+#: application/controllers/User.php:865
 msgid "User logged in"
 msgstr "Benutzer eingeloggt"
 
-#: application/controllers/User.php:894
+#: application/controllers/User.php:896
 msgid ""
 "Sorry. This instance is currently in maintenance mode. If this message "
 "appears unexpectedly or keeps showing up, please contact an administrator. "
@@ -1963,32 +1963,32 @@ msgstr ""
 "kontaktiere bitte den Administrator. Nur Administratoren können sich derzeit "
 "einloggen."
 
-#: application/controllers/User.php:897
+#: application/controllers/User.php:899
 msgid "Incorrect username or password!"
 msgstr "Falscher Benutzername oder Passwort!"
 
-#: application/controllers/User.php:914
+#: application/controllers/User.php:916
 #, php-format
 msgid "User %s logged out."
 msgstr "Benutzer %s ausgeloggt."
 
-#: application/controllers/User.php:928
+#: application/controllers/User.php:930
 msgid "Password Reset is disabled on the Demo!"
 msgstr "Passwort Reset ist in der Demo nicht verfügbar!"
 
-#: application/controllers/User.php:941
+#: application/controllers/User.php:943
 msgid "Forgot Password"
 msgstr "Passwort vergessen"
 
-#: application/controllers/User.php:991 application/views/user/main.php:8
+#: application/controllers/User.php:993 application/views/user/main.php:8
 msgid "Email settings are incorrect."
 msgstr "E-Mail Einstellungen sind nicht korrekt."
 
-#: application/controllers/User.php:995 application/controllers/User.php:1000
+#: application/controllers/User.php:997 application/controllers/User.php:1002
 msgid "Password Reset Processed."
 msgstr "Passwort Zurücksetzen angefordert."
 
-#: application/controllers/User.php:1102
+#: application/controllers/User.php:1104
 #: application/views/user/forgot_password.php:51
 #: application/views/user/reset_password.php:8
 #: application/views/user/reset_password.php:35
@@ -2032,26 +2032,32 @@ msgstr "QO-100 Dx Club Upload"
 
 #: application/models/Eqslmethods_model.php:281
 msgid "Your eQSL username and/or password is incorrect."
-msgstr ""
+msgstr "Dein eQSL-Benutzername und/oder Passwort ist falsch."
 
 #: application/models/Eqslmethods_model.php:287
 msgid "Something went wrong with eQSL.cc!"
-msgstr ""
+msgstr "Etwas ist schiefgelaufen bei eQSL.cc!"
 
 #: application/models/Eqslmethods_model.php:303
 msgid "eQSL.cc is experiencing issues. Please try exporting QSOs later."
 msgstr ""
+"eQSL.cc hat Probleme. Bitte versuche es später nochmal mit dem Export der "
+"QSOs."
 
 #: application/models/Eqslmethods_model.php:309
 msgid ""
 "There was an error in one of the QSOs. You might want to manually upload "
 "them."
 msgstr ""
+"Es gab einen Fehler in einem der QSOs. Du solltest sie vielleicht manuell "
+"hochladen."
 
 #: application/models/Eqslmethods_model.php:315
 msgid ""
 "It seems that the eQSL site has changed. Please open up an issue on GitHub."
 msgstr ""
+"Es scheint, dass sich die eQSL-Seite geändert hat. Bitte ein Issue auf "
+"GitHub eröffnen."
 
 #: application/models/Hrdlog_model.php:22
 msgid ""
@@ -5758,18 +5764,22 @@ msgid "Polish"
 msgstr "Polnisch"
 
 #: application/views/debug/index.php:629
+msgid "Portuguese"
+msgstr "Portugiesisch"
+
+#: application/views/debug/index.php:630
 msgid "Russian"
 msgstr "Russisch"
 
-#: application/views/debug/index.php:630
+#: application/views/debug/index.php:631
 msgid "Spanish"
 msgstr "Spanisch"
 
-#: application/views/debug/index.php:631
+#: application/views/debug/index.php:632
 msgid "Swedish"
 msgstr "Schwedisch"
 
-#: application/views/debug/index.php:632
+#: application/views/debug/index.php:633
 msgid "Turkish"
 msgstr "Türkisch"
 
@@ -5990,6 +6000,9 @@ msgid ""
 "This does NOT upload any QSOs. It only marks QSOs as sent. If you use this "
 "button you need to upload them manually on the eQSL.cc website."
 msgstr ""
+"Dies lädt KEINE QSOs hoch. Sie werden nur als gesendet markiert. Wenn du "
+"diese Funktion also benutzt, musst du die QSOs manuell auf der eQSL.cc "
+"Website hochladen."
 
 #: application/views/eqsl/tools.php:29
 msgid "Mark All QSOs as Sent to eQSL"
