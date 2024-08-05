@@ -13,8 +13,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 $config['app_name'] = 'Wavelog';
-$config['directory'] = 'logbook';
-$config['callbook'] = 'hamqth'; // Options are hamqth or qrz
+$config['directory'] = '/%directory%';
+$config['callbook'] = '%callbook%'; // Options are hamqth or qrz
 
 $config['datadir'] = null; // default to install directory
 
@@ -25,11 +25,11 @@ $config['datadir'] = null; // default to install directory
 |
 | 	'table_name'	SQL table where log can be found
 |	'locator'	Default locator used to calculate bearings/distance
-|	'display_freq'	Show or Hide frequnecy info
+|	'display_freq'	Show or Hide frequnecy info 
 */
 
-$config['table_name'] = 'TABLE_HRD_CONTACTS_V01';
-$config['locator'] = '';
+$config['table_name'] = 'TABLE_HRD_CONTACTS_V01'; 
+$config['locator'] = '%baselocator%'; 
 $config['display_freq'] = true;
 
 /*
@@ -42,8 +42,8 @@ $config['display_freq'] = true;
 |	'use_fullname'  Get full names from QRZ, may not be GDPR compliant
 */
 
-$config['qrz_username'] = '';
-$config['qrz_password'] = '';
+$config['qrz_username'] = '%qrz_username%';
+$config['qrz_password'] = '%qrz_password%';
 $config['use_fullname'] = false;
 
 /*
@@ -54,8 +54,8 @@ $config['use_fullname'] = false;
 | 	'hamqth_username'	HamQTH user login
 |	'hamqth_password'	HamQTH user password
 */
-$config['hamqth_username'] = '';
-$config['hamqth_password'] = '';
+$config['hamqth_username'] = '%hamqth_username%';
+$config['hamqth_password'] = '%hamqth_password%';
 
 /*
 |--------------------------------------------------------------------------
@@ -64,7 +64,7 @@ $config['hamqth_password'] = '';
 |
 | 'use_auth'	False turns all authentication off, best used when setting up
 | 'auth_table'	MySQL Database Table defaults "users"
-| 'auth_mode'	Minimum user level required 0 = anonymous, 1 = viewer,
+| 'auth_mode'	Minimum user level required 0 = anonymous, 1 = viewer, 
 |				2 = editor, 3 = api user, 99 = owner
 | 'auth_level[]'	Defines level titles
 */
@@ -98,7 +98,7 @@ $config['auth_level'][99] = 'Administrator';
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/logbook';
+$config['base_url']	= '%websiteurl%';
 
 /*
 |--------------------------------------------------------------------------
@@ -286,7 +286,7 @@ $config['allow_get_array'] = TRUE;
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0;
+$config['log_threshold'] = '%log_threshold%';
 
 /*
 |--------------------------------------------------------------------------
@@ -399,7 +399,7 @@ $config['cache_query_string'] = FALSE;
 |
 |
 */
-$config['encryption_key'] = 'flossie1234555541';
+$config['encryption_key'] = '%encryptionkey%';
 
 /*
 |--------------------------------------------------------------------------
@@ -669,4 +669,4 @@ $config['disable_oqrs'] = false;
 $config['special_callsign'] = false;
 
 // hides the usermenu; takes action only if "special_callsign" is true
-$config['sc_hide_usermenu'] = true;   
+$config['sc_hide_usermenu'] = true;  
