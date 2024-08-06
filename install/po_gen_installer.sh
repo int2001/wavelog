@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Wavelog PO-File Generator
-# COMPONENT: Main
+# Wavelog PO-File Generator 
+# COMPONENT: Installer
 #
 # HB9HIL <mail@hb9hil.org>, 2024
 
@@ -25,7 +25,7 @@
 
 # Some variables. Usually you don't need to change them.
 
-POT_FILE="assets/lang_src/messages.pot"
+POT_FILE="install/includes/gettext/lang_src/installer.pot"
 BUG_MAIL="translations@wavelog.org"
 
 YEAR="$(date +"%Y")"
@@ -33,11 +33,11 @@ YEAR="$(date +"%Y")"
 POT_TITLE_TEXT="WAVELOG PO FILE"
 POT_COPYRIGHT_TEXT="Copyright (c) $YEAR Wavelog by DF2ET, DJ7NT, HB9HIL and LA8AJA."
 POT_LICENCE_TEXT="This file is distributed under the MIT licence."
-FOLDERS="application assets src system"
+FOLDERS="install"
 
 echo "####################################################"
 echo " "
-echo "Performing the PO Generator Script for the Main Code"
+echo "Performing the PO Generator Script for the Installer"
 echo " "
 
 # Find all PHP files and create a list in a temporary file 
@@ -60,7 +60,7 @@ xgettext    -F \
 # After the xgettext command, we don't need the temporary file anymore
 rm PHPFILESLIST
 
-# Let's edit the header of the TEMP_POT_FILE file
+# Let's edit the header of the TEMP_POT_FILE
 sed -i "1s/.*/# $POT_TITLE_TEXT/" "$TEMP_POT_FILE"
 sed -i "2s/.*/# $POT_COPYRIGHT_TEXT/" "$TEMP_POT_FILE"
 sed -i "3s/.*/# $POT_LICENCE_TEXT/" "$TEMP_POT_FILE"
@@ -70,11 +70,9 @@ sed -i '8d' "$TEMP_POT_FILE"
 # Compare the new POT file with the existing one (excluding the POT Creation Date)
 if ! diff -I 'POT-Creation-Date' "$TEMP_POT_FILE" "$POT_FILE" >/dev/null; then
     echo "Updating POT file with new translations."
-    echo " "
     mv "$TEMP_POT_FILE" "$POT_FILE"
 else
     echo "No changes detected in translations. POT file remains unchanged."
-    echo " "
     rm "$TEMP_POT_FILE"
 fi
 
