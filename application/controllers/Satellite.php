@@ -211,11 +211,11 @@ class Satellite extends CI_Controller {
 	}
 
 	function calcpass($sat_tle) {
-		require_once realpath(__DIR__ . "/../../predict/Predict.php");
-		require_once realpath(__DIR__ . "/../../predict/Predict/Sat.php");
-		require_once realpath(__DIR__ . "/../../predict/Predict/QTH.php");
-		require_once realpath(__DIR__ . "/../../predict/Predict/Time.php");
-		require_once realpath(__DIR__ . "/../../predict/Predict/TLE.php");
+		require_once "./src/predict/Predict.php";
+		require_once "./src/predict/Predict/Sat.php";
+		require_once "./src/predict/Predict/QTH.php";
+		require_once "./src/predict/Predict/Time.php";
+		require_once "./src/predict/Predict/TLE.php";
 
 		// The observer or groundstation is called QTH in ham radio terms
 		$predict  = new Predict();
@@ -262,7 +262,17 @@ class Satellite extends CI_Controller {
 		$filtered = $predict->filterVisiblePasses($results);
 
 		$zone   = $this->security->xss_clean($this->input->post('timezone'));
-		$format = 'm-d-Y H:i:s';         // Time format from PHP's date() function
+
+		// Get Date format
+		if ($this->session->userdata('user_date_format')) {
+			// If Logged in and session exists
+			$custom_date_format = $this->session->userdata('user_date_format');
+		} else {
+			// Get Default date format from /config/wavelog.php
+			$custom_date_format = $this->config->item('qso_date_format');
+		}
+
+		$format = $custom_date_format . ' H:i:s';
 
 		$data['filtered'] = $filtered;
 		$data['zone'] = $zone;
