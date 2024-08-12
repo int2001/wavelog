@@ -1,65 +1,20 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-/**
- * Gettext library config
- * @package 	CodeIgniter\CI-Gettext
- * @category 	Configuration
- * @author 	Kader Bouyakoub <bkader@mail.com>
- * 			MODIFIED BY Fabian Berg <mail@hb9hil.org>
- * @link 	http://www.bkader.com/
+
+/** 
+ * Basic Configuration for the gettext feature in the Wavelog Installer.
+ * Defines some basic parameters. Nothing fancy
+ * 
+ * Author: HB9HIL, 2024
+ * 
  */
 
-/*
-| -------------------------------------------------------------------
-|  Enable/Disable Gettext Library
-| -------------------------------------------------------------------
-| Setting this to TRUE turns ON the use of gettext and makes your
-| website multilingual. Which means that it will checks if current
-| user's supported language is available and automatically sets the
-| language in configuration.
-| Setting this to FALSE will still let you use the Gettext library
-| but the site will be in default language.
-*/
-$config['gettext_enabled'] = TRUE;
+$gt_conf['default_domain'] = 'installer';
 
-/*
-| -------------------------------------------------------------------
-|  Default Language
-| -------------------------------------------------------------------
-| We set a default language if no cookie or session is available.
-|
-*/
-$config['gettext_default'] = 'english';
+$gt_conf['default_lang'] = 'english';
 
-/*
-| -------------------------------------------------------------------
-| Gettext default domain
-| -------------------------------------------------------------------
-| This allows you to set a custom domain to be used by gettext.
-| Gettext *.MO files are located inside LC_MESSAGES folder like so:
-| English: ./application/language/english/LC_MESSAGES/{$domain}.mo
-| French: ./application/language/french/LC_MESSAGES/{$domain}.mo
-|
-| Note: by default, gettext_domain is set to 'messages' if this
-| option is set to NULL below
-*/
-$config['gettext_domain'] = NULL;
+$gt_conf['lang_cookie'] = 'install_lang';
 
-/*
-| -------------------------------------------------------------------
-|  Site languages
-| -------------------------------------------------------------------
-| A list of enabled languages. These are the language that will be
-| used on the site and in the installer. 
-|
-| Checklist to add a new language:
-|	- Add the new language to this array
-|	- Add the language at the bottom of application/views/debug/index.php
-|	- Add the language at the array in install/includes/gettext/gettext_conf.php
-|	- Add the language at the bottom of install/index.php
-|
-*/
-$config['languages'] = array(
+$gt_conf['languages'] = array(
 
 	'albanian' => array(
 		'name'      => 'Shqip',
@@ -272,18 +227,3 @@ $config['languages'] = array(
 		'flag'      => 'tr',
 	)
 );
-
-/*
-| -------------------------------------------------------------------
-|  Gettext library Session & Cookie use
-| -------------------------------------------------------------------
-| If one of these configurations is enabled, the language name (folder
-| name) will be stored in whether a session or a cookie BUT NOT BOTH
-| You must know that only one is allowed, session OR cookie. If both
-| are enabled, COOKIES are privileged.
-*/
-$config['gettext_session'] = NULL;
-$config['gettext_cookie']  = 'language';
-
-/* End of file gettext.php */
-/* Location: ./application/config/gettext.php */
