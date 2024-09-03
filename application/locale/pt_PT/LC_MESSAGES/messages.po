@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2024-09-02 14:12+0000\n"
-"PO-Revision-Date: 2024-08-30 05:57+0000\n"
+"POT-Creation-Date: 2024-09-02 21:28+0000\n"
+"PO-Revision-Date: 2024-09-02 17:42+0000\n"
 "Last-Translator: \"Francisco (F4VSE)\" <kikosgc@users.noreply.github.com>\n"
 "Language-Team: Portuguese (Portugal) <https://translate.wavelog.org/projects/"
 "wavelog/main-translation/pt_PT/>\n"
@@ -300,6 +300,7 @@ msgid "Log View - VUCC"
 msgstr "Visualização do log - VUCC"
 
 #: application/controllers/Awards.php:453
+#: application/controllers/Distancerecords.php:59
 #: application/controllers/Timeline.php:105
 #: application/controllers/Timeline.php:108
 #: application/controllers/Timeline.php:111
@@ -647,10 +648,11 @@ msgstr ""
 msgid "File Migration failed. Please check the Error Log."
 msgstr "A migração de ficheiros falhou. Verifique o registo de erros."
 
-#: application/controllers/Distancerecords.php:38
+#: application/controllers/Distancerecords.php:42
+#: application/controllers/Distancerecords.php:59
 #: application/views/interface_assets/header.php:146
 msgid "Satellite Distance Records"
-msgstr ""
+msgstr "Recordes de distância de satélite"
 
 #: application/controllers/Distances.php:17
 #: application/views/distances/index.php:5
@@ -2437,31 +2439,31 @@ msgid "HRDlog: No station profiles with HRDlog Credentials found."
 msgstr ""
 "HRDlog: Não foram encontrados perfis de estação com credenciais do HRDlog."
 
-#: application/models/Logbook_model.php:4239
+#: application/models/Logbook_model.php:4240
 msgid "QSO could not be matched"
 msgstr "Não há correspondência de contactos"
 
-#: application/models/Logbook_model.php:4245
+#: application/models/Logbook_model.php:4246
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "confirmado por LoTW/Clublog/eQSL/Contest"
 
-#: application/models/Logbook_model.php:4250
+#: application/models/Logbook_model.php:4251
 msgid "confirmed by award manager"
 msgstr "confirmado pelo gestor do diploma"
 
-#: application/models/Logbook_model.php:4253
+#: application/models/Logbook_model.php:4254
 msgid "confirmed by cross-check of DCL data"
 msgstr "confirmado pelo controlo cruzado dos dados da DCL"
 
-#: application/models/Logbook_model.php:4256
+#: application/models/Logbook_model.php:4257
 msgid "confirmation pending"
 msgstr "confirmação pendente"
 
-#: application/models/Logbook_model.php:4259
+#: application/models/Logbook_model.php:4260
 msgid "unconfirmed"
 msgstr "não confirmado"
 
-#: application/models/Logbook_model.php:4262
+#: application/models/Logbook_model.php:4263
 msgid "unknown"
 msgstr "desconhecido"
 
@@ -3257,7 +3259,7 @@ msgstr "Selecione se o ADIF importado não contiver esta informação."
 
 #: application/views/adif/import.php:103
 msgid "Mark imported QSOs as uploaded to eQSL Logbook"
-msgstr ""
+msgstr "Marcar os contactos importados como carregados no Logbook de eQSL"
 
 #: application/views/adif/import.php:113
 msgid "Mark imported QSOs as uploaded to HRDLog.net Logbook"
@@ -3635,6 +3637,7 @@ msgstr "Criar uma chave só de leitura"
 #: application/views/awards/counties/details.php:4
 #: application/views/awards/details.php:1
 #: application/views/awards/vucc/band.php:4
+#: application/views/distancerecords/details.php:1
 #: application/views/timeline/details.php:2
 msgid "Filtering on"
 msgstr "Filtragem ligada"
@@ -5701,12 +5704,16 @@ msgstr "saudável"
 msgid "failed"
 msgstr "falhou"
 
-#: application/views/cron/index.php:77
+#: application/views/cron/index.php:74
+msgid "pending"
+msgstr ""
+
+#: application/views/cron/index.php:79
 msgid "disabled"
 msgstr "desativado"
 
-#: application/views/cron/index.php:81 application/views/cron/index.php:83
-#: application/views/cron/index.php:85 application/views/debug/index.php:494
+#: application/views/cron/index.php:83 application/views/cron/index.php:85
+#: application/views/cron/index.php:87 application/views/debug/index.php:494
 #: application/views/debug/index.php:500 application/views/debug/index.php:505
 #: application/views/debug/index.php:510 application/views/debug/index.php:515
 #: application/views/debug/index.php:520 application/views/debug/index.php:525
@@ -5714,11 +5721,11 @@ msgstr "desativado"
 msgid "never"
 msgstr "nunca"
 
-#: application/views/cron/index.php:100
+#: application/views/cron/index.php:102
 msgid "Your Mastercron isn't running."
 msgstr "O Master-Cron não foi executado."
 
-#: application/views/cron/index.php:101
+#: application/views/cron/index.php:103
 msgid ""
 "Copy the cron above to a external cron service or into your server's cron to "
 "use this cron manager."
@@ -5726,7 +5733,7 @@ msgstr ""
 "Copie o cron acima para um serviço cron externo ou para o cron do seu "
 "servidor para utilizar este gestor cron."
 
-#: application/views/cron/index.php:102
+#: application/views/cron/index.php:104
 msgid ""
 "On a basic linux server with shell access use this command to edit your "
 "crons:"
@@ -5734,7 +5741,7 @@ msgstr ""
 "Num servidor linux básico com acesso à shell use este comando para editar os "
 "seus crons:"
 
-#: application/views/cron/index.php:109
+#: application/views/cron/index.php:111
 #, php-format
 msgid ""
 "You need to upgrade your PHP version. Minimum version is %s. Your Version is "
@@ -5797,12 +5804,15 @@ msgid ""
 "Your active Station Location isn't linked to your Logbook. Click %shere%s to "
 "do it."
 msgstr ""
+"Asua localização de estação ativa não está ligada ao seu Logbook. Clique "
+"%saqui%s para o fazer."
 
 #: application/views/dashboard/index.php:97
 #, php-format
 msgctxt "Dashboard Warning"
 msgid "You have no station linked to your Logbook. Click %shere%s to do it."
 msgstr ""
+"Não tem nenhuma estação ligada ao seu Logbook. Clique %saqui%s para o fazer."
 
 #: application/views/dashboard/index.php:106
 #, php-format
@@ -6429,6 +6439,8 @@ msgstr "Turco"
 #: application/views/distancerecords/index.php:4
 msgid "This page lists distance records per satellite based on gridsquares."
 msgstr ""
+"Esta página lista os recordes de distância por satélite com base em "
+"quadrículas."
 
 #: application/views/distances/index.php:7
 #: application/views/interface_assets/footer.php:30
@@ -9166,19 +9178,19 @@ msgstr "Modo Satélite"
 
 #: application/views/qso/edit_ajax.php:268 application/views/qso/index.php:546
 msgid "Antenna Azimuth (°)"
-msgstr ""
+msgstr "Azimute da Antena (°)"
 
 #: application/views/qso/edit_ajax.php:270 application/views/qso/index.php:548
 msgid "Antenna azimuth in decimal degrees."
-msgstr ""
+msgstr "Azimute da antena em graus decimais."
 
 #: application/views/qso/edit_ajax.php:274 application/views/qso/index.php:552
 msgid "Antenna Elevation (°)"
-msgstr ""
+msgstr "Elevação da Antena (°)"
 
 #: application/views/qso/edit_ajax.php:276 application/views/qso/index.php:554
 msgid "Antenna elevation in decimal degrees."
-msgstr ""
+msgstr "Elevação da antena em graus decimais."
 
 #: application/views/qso/edit_ajax.php:383 application/views/qso/index.php:255
 #: application/views/qso/index.php:510 application/views/user/edit.php:599
@@ -11902,6 +11914,9 @@ msgstr "O seu indicativo:"
 #: application/views/widgets/oqrs.php:90
 msgid "Submit Request"
 msgstr "Submeter pedido"
+
+#~ msgid "Distance Records"
+#~ msgstr "Recordes de Distância"
 
 #, php-format
 #~ msgid "%s = Serial, %s = Gridsquare, %s = Exchange."
