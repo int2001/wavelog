@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2024-09-06 13:22+0000\n"
-"PO-Revision-Date: 2024-09-05 15:09+0000\n"
+"POT-Creation-Date: 2024-09-06 17:33+0000\n"
+"PO-Revision-Date: 2024-09-06 11:03+0000\n"
 "Last-Translator: \"Francisco (F4VSE)\" <kikosgc@users.noreply.github.com>\n"
 "Language-Team: Portuguese (Portugal) <https://translate.wavelog.org/projects/"
 "wavelog/main-translation/pt_PT/>\n"
@@ -115,6 +115,7 @@ msgstr "Mapa Gridsquare activadas"
 #: application/controllers/Visitor.php:385
 #: application/views/activators/index.php:100
 #: application/views/interface_assets/footer.php:43
+#: application/views/visitor/layout/footer.php:22
 #: application/views/visitor/layout/header.php:68
 msgid "Gridsquares"
 msgstr "Gridsquares"
@@ -2625,7 +2626,7 @@ msgstr "Diferença"
 #: application/views/timeplotter/index.php:27
 #: application/views/timeplotter/index.php:47
 #: application/views/user/edit.php:633
-#: application/views/visitor/layout/footer.php:170
+#: application/views/visitor/layout/footer.php:171
 msgid "All"
 msgstr "Todos"
 
@@ -6927,7 +6928,7 @@ msgstr "Não contactado"
 
 #: application/views/interface_assets/footer.php:46
 #: application/views/qso/index.php:623
-#: application/views/visitor/layout/footer.php:245
+#: application/views/visitor/layout/footer.php:246
 msgid "Clear"
 msgstr "Limpar"
 
@@ -9675,13 +9676,15 @@ msgstr "Altura da antena acima do solo."
 
 #: application/views/reg1test/index.php:134
 msgid "Band multiplicator"
-msgstr ""
+msgstr "Multiplicador de banda"
 
 #: application/views/reg1test/index.php:136
 msgid ""
 "Band multiplicator. This is usually 1. Only change this if necessary "
 "according to the contest scoring rules."
 msgstr ""
+"Multiplicador de banda. Normalmente é 1. Só altere isto se necessário de "
+"acordo com as regras de pontuação do concurso."
 
 #: application/views/reg1test/index.php:141
 msgid "Any other remarks."
@@ -11918,7 +11921,7 @@ msgstr "Marcar cartão QSL como solicitado (Direto)"
 msgid "eQSL picture"
 msgstr "Imagem eQSL"
 
-#: application/views/visitor/layout/footer.php:241
+#: application/views/visitor/layout/footer.php:242
 msgid "CSV"
 msgstr "CSV"
 
