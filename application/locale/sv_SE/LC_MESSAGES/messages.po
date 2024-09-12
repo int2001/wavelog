@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2024-09-11 09:33+0000\n"
+"POT-Creation-Date: 2024-09-11 16:21+0000\n"
 "PO-Revision-Date: 2024-08-17 10:48+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Swedish <https://translate.wavelog.org/projects/wavelog/main-"
@@ -57,11 +57,11 @@ msgstr ""
 #: application/controllers/Lookup.php:17 application/controllers/Lotw.php:45
 #: application/controllers/Lotw.php:77 application/controllers/Lotw.php:104
 #: application/controllers/Lotw.php:379 application/controllers/Lotw.php:402
-#: application/controllers/Lotw.php:720 application/controllers/Lotw.php:828
-#: application/controllers/Lotw.php:836 application/controllers/Mode.php:15
+#: application/controllers/Lotw.php:722 application/controllers/Lotw.php:830
+#: application/controllers/Lotw.php:838 application/controllers/Mode.php:15
 #: application/controllers/Notes.php:10 application/controllers/Options.php:15
 #: application/controllers/Oqrs.php:15 application/controllers/Qrbcalc.php:13
-#: application/controllers/Qrz.php:251 application/controllers/Qsl.php:12
+#: application/controllers/Qrz.php:253 application/controllers/Qsl.php:12
 #: application/controllers/Qsl.php:13 application/controllers/Qsl.php:44
 #: application/controllers/Qsl.php:52 application/controllers/Qslprint.php:147
 #: application/controllers/Qso.php:9 application/controllers/Qso.php:19
@@ -186,25 +186,25 @@ msgstr ""
 msgid "Unsupported Filetype"
 msgstr ""
 
-#: application/controllers/Adif.php:240
+#: application/controllers/Adif.php:242
 #: application/views/adif/import_failed.php:12
 msgid "ADIF Import failed!"
 msgstr ""
 
-#: application/controllers/Adif.php:254
+#: application/controllers/Adif.php:256
 msgid "Station Profile not valid for User"
 msgstr ""
 
-#: application/controllers/Adif.php:261
+#: application/controllers/Adif.php:263
 #: application/views/adif/import_success.php:12
 msgid "ADIF Imported"
 msgstr ""
 
-#: application/controllers/Adif.php:272
+#: application/controllers/Adif.php:274
 msgid "DCL Import"
 msgstr ""
 
-#: application/controllers/Adif.php:328
+#: application/controllers/Adif.php:332
 msgid "DCL Data Imported"
 msgstr ""
 
@@ -1482,31 +1482,31 @@ msgid ""
 "typically a certificate request which has not been processed by LoTW yet."
 msgstr ""
 
-#: application/controllers/Lotw.php:618
+#: application/controllers/Lotw.php:620
 msgid "LoTW ADIF Information"
 msgstr ""
 
-#: application/controllers/Lotw.php:726
+#: application/controllers/Lotw.php:728
 msgid "LoTW ADIF Import"
 msgstr ""
 
-#: application/controllers/Lotw.php:753 application/controllers/Lotw.php:871
+#: application/controllers/Lotw.php:755 application/controllers/Lotw.php:873
 msgid "You have not defined your ARRL LoTW credentials!"
 msgstr ""
 
-#: application/controllers/Lotw.php:838
+#: application/controllers/Lotw.php:840
 msgid "LoTW .TQ8 Upload"
 msgstr ""
 
-#: application/controllers/Lotw.php:916
+#: application/controllers/Lotw.php:918
 msgid "Your ARRL username and/or password is incorrect."
 msgstr ""
 
-#: application/controllers/Lotw.php:935 application/controllers/Lotw.php:940
+#: application/controllers/Lotw.php:937 application/controllers/Lotw.php:942
 msgid "LoTW .TQ8 Sent"
 msgstr ""
 
-#: application/controllers/Lotw.php:947
+#: application/controllers/Lotw.php:949
 msgid "LoTW .TQ8 Not Sent"
 msgstr ""
 
@@ -1710,16 +1710,16 @@ msgid ""
 "Greenwich."
 msgstr ""
 
-#: application/controllers/Qrz.php:173
+#: application/controllers/Qrz.php:175
 #: application/views/interface_assets/header.php:432
 msgid "QRZ Logbook"
 msgstr "QRZ Loggbok"
 
-#: application/controllers/Qrz.php:253
+#: application/controllers/Qrz.php:255
 msgid "QRZ QSL Import"
 msgstr ""
 
-#: application/controllers/Qrz.php:307
+#: application/controllers/Qrz.php:309
 msgid "QRZ ADIF Information"
 msgstr ""
 
@@ -2304,8 +2304,8 @@ msgstr ""
 msgid "Export Map"
 msgstr ""
 
-#: application/controllers/Webadif.php:90
-#: application/controllers/Webadif.php:137
+#: application/controllers/Webadif.php:92
+#: application/controllers/Webadif.php:139
 #: application/views/interface_assets/header.php:433
 msgid "QO-100 Dx Club Upload"
 msgstr "QO-100 Dx Club Ladda upp"
@@ -2432,31 +2432,31 @@ msgstr ""
 msgid "HRDlog: No station profiles with HRDlog Credentials found."
 msgstr ""
 
-#: application/models/Logbook_model.php:4255
+#: application/models/Logbook_model.php:4263
 msgid "QSO could not be matched"
 msgstr ""
 
-#: application/models/Logbook_model.php:4261
+#: application/models/Logbook_model.php:4269
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr ""
 
-#: application/models/Logbook_model.php:4266
+#: application/models/Logbook_model.php:4274
 msgid "confirmed by award manager"
 msgstr ""
 
-#: application/models/Logbook_model.php:4269
+#: application/models/Logbook_model.php:4277
 msgid "confirmed by cross-check of DCL data"
 msgstr ""
 
-#: application/models/Logbook_model.php:4272
+#: application/models/Logbook_model.php:4280
 msgid "confirmation pending"
 msgstr ""
 
-#: application/models/Logbook_model.php:4275
+#: application/models/Logbook_model.php:4283
 msgid "unconfirmed"
 msgstr ""
 
-#: application/models/Logbook_model.php:4278
+#: application/models/Logbook_model.php:4286
 msgid "unknown"
 msgstr ""
 
@@ -2520,6 +2520,7 @@ msgstr ""
 #: application/views/activated_gridmap/index.php:32
 #: application/views/activated_gridmap/index.php:41
 #: application/views/activators/index.php:13
+#: application/views/adif/import.php:179
 #: application/views/awards/cq/index.php:77
 #: application/views/awards/cq/index.php:91
 #: application/views/awards/dok/index.php:94
@@ -3016,8 +3017,8 @@ msgid "Nothing found!"
 msgstr ""
 
 #: application/views/activators/index.php:98
-#: application/views/adif/import.php:66 application/views/adif/import.php:182
-#: application/views/adif/import.php:227
+#: application/views/adif/import.php:66 application/views/adif/import.php:183
+#: application/views/adif/import.php:228
 #: application/views/awards/pota/index.php:34
 #: application/views/awards/sig/qso_list.php:11
 #: application/views/awards/sota/index.php:25
@@ -3218,7 +3219,7 @@ msgstr ""
 msgid "DCL QSL Status"
 msgstr ""
 
-#: application/views/adif/import.php:36 application/views/adif/import.php:252
+#: application/views/adif/import.php:36 application/views/adif/import.php:253
 msgid "DARC DCL"
 msgstr ""
 
@@ -3239,8 +3240,8 @@ msgstr ""
 msgid "Maximum file upload size is "
 msgstr ""
 
-#: application/views/adif/import.php:56 application/views/adif/import.php:230
-#: application/views/adif/import.php:268 application/views/debug/index.php:175
+#: application/views/adif/import.php:56 application/views/adif/import.php:231
+#: application/views/adif/import.php:269 application/views/debug/index.php:175
 #: application/views/debug/index.php:192 application/views/debug/index.php:537
 #: application/views/hrdlog/export.php:25
 #: application/views/hrdlog/export.php:74
@@ -3254,7 +3255,7 @@ msgid "Warning"
 msgstr ""
 
 #: application/views/adif/import.php:60 application/views/adif/import.php:62
-#: application/views/adif/import.php:178 application/views/adif/import.php:225
+#: application/views/adif/import.php:177 application/views/adif/import.php:226
 #: application/views/eqsl/import.php:36 application/views/hrdlog/export.php:69
 #: application/views/qrz/export.php:89 application/views/reg1test/index.php:30
 #: application/views/webadif/export.php:89
@@ -3336,7 +3337,7 @@ msgid ""
 "regardless if they match to the chosen station-location."
 msgstr ""
 
-#: application/views/adif/import.php:168 application/views/adif/import.php:283
+#: application/views/adif/import.php:168 application/views/adif/import.php:284
 #: application/views/hrdlog/export.php:50 application/views/qrz/export.php:54
 #: application/views/webadif/export.php:55
 msgid "Upload"
@@ -3352,7 +3353,7 @@ msgid ""
 "like LoTW, Awards or just for keeping a backup."
 msgstr ""
 
-#: application/views/adif/import.php:186 application/views/adif/import.php:232
+#: application/views/adif/import.php:187 application/views/adif/import.php:233
 #: application/views/cfd/index.php:15 application/views/csv/index.php:118
 #: application/views/dxatlas/index.php:118
 #: application/views/hrdlog/export.php:77 application/views/kml/index.php:103
@@ -3361,7 +3362,7 @@ msgstr ""
 msgid "From date"
 msgstr "Från datum"
 
-#: application/views/adif/import.php:189 application/views/adif/import.php:235
+#: application/views/adif/import.php:190 application/views/adif/import.php:236
 #: application/views/cfd/index.php:20 application/views/csv/index.php:123
 #: application/views/dxatlas/index.php:123
 #: application/views/hrdlog/export.php:82 application/views/kml/index.php:108
@@ -3370,40 +3371,40 @@ msgstr "Från datum"
 msgid "To date"
 msgstr ""
 
-#: application/views/adif/import.php:197
+#: application/views/adif/import.php:198
 msgid "Mark exported QSOs as uploaded to LoTW"
 msgstr ""
 
-#: application/views/adif/import.php:205
+#: application/views/adif/import.php:206
 msgid "Export QSOs not uploaded to LoTW"
 msgstr ""
 
-#: application/views/adif/import.php:210
+#: application/views/adif/import.php:211
 msgid "Export QSO's"
 msgstr ""
 
-#: application/views/adif/import.php:215
+#: application/views/adif/import.php:216
 msgid "Export Satellite-Only QSOs"
 msgstr ""
 
-#: application/views/adif/import.php:216
+#: application/views/adif/import.php:217
 msgid "Export All Satellite QSOs"
 msgstr ""
 
-#: application/views/adif/import.php:218
+#: application/views/adif/import.php:219
 msgid "Export All Satellite QSOs Confirmed on LoTW"
 msgstr ""
 
-#: application/views/adif/import.php:230 application/views/hrdlog/export.php:74
+#: application/views/adif/import.php:231 application/views/hrdlog/export.php:74
 #: application/views/qrz/export.php:94 application/views/webadif/export.php:94
 msgid "If a date range is not selected then all QSOs will be marked!"
 msgstr ""
 
-#: application/views/adif/import.php:238
+#: application/views/adif/import.php:239
 msgid "Mark QSOs as exported to LoTW"
 msgstr ""
 
-#: application/views/adif/import.php:252
+#: application/views/adif/import.php:253
 #, php-format
 msgid ""
 "Go to %s and export your logbook with confirmed DOKs. To speed up the "
@@ -3412,31 +3413,31 @@ msgid ""
 "with DOK info."
 msgstr ""
 
-#: application/views/adif/import.php:259
+#: application/views/adif/import.php:260
 msgid "Only import DOK data from QSOs confirmed on DCL."
 msgstr ""
 
-#: application/views/adif/import.php:261
+#: application/views/adif/import.php:262
 msgid ""
 "Uncheck if you also want to update DOK with data from unconfirmed QSOs in "
 "DCL."
 msgstr ""
 
-#: application/views/adif/import.php:268
+#: application/views/adif/import.php:269
 msgid "Overwrites exisiting DOK in log by DCL (if different)."
 msgstr ""
 
-#: application/views/adif/import.php:270
+#: application/views/adif/import.php:271
 msgid ""
 "If checked Wavelog will forcibly overwrite existing DOK with DOK from DCL "
 "log."
 msgstr ""
 
-#: application/views/adif/import.php:277
+#: application/views/adif/import.php:278
 msgid "Ignore QSOs that cannot be matched."
 msgstr "Ignore QSOs that cannot be matched"
 
-#: application/views/adif/import.php:279
+#: application/views/adif/import.php:280
 msgid ""
 "If unchecked, information about QSOs which could not be found in Wavelog "
 "will be displayed."

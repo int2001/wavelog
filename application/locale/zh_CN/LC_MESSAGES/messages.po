@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2024-09-11 09:33+0000\n"
+"POT-Creation-Date: 2024-09-11 16:21+0000\n"
 "PO-Revision-Date: 2024-09-07 07:18+0000\n"
 "Last-Translator: imlonghao <wavelog@esd.cc>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
@@ -60,11 +60,11 @@ msgstr ""
 #: application/controllers/Lookup.php:17 application/controllers/Lotw.php:45
 #: application/controllers/Lotw.php:77 application/controllers/Lotw.php:104
 #: application/controllers/Lotw.php:379 application/controllers/Lotw.php:402
-#: application/controllers/Lotw.php:720 application/controllers/Lotw.php:828
-#: application/controllers/Lotw.php:836 application/controllers/Mode.php:15
+#: application/controllers/Lotw.php:722 application/controllers/Lotw.php:830
+#: application/controllers/Lotw.php:838 application/controllers/Mode.php:15
 #: application/controllers/Notes.php:10 application/controllers/Options.php:15
 #: application/controllers/Oqrs.php:15 application/controllers/Qrbcalc.php:13
-#: application/controllers/Qrz.php:251 application/controllers/Qsl.php:12
+#: application/controllers/Qrz.php:253 application/controllers/Qsl.php:12
 #: application/controllers/Qsl.php:13 application/controllers/Qsl.php:44
 #: application/controllers/Qsl.php:52 application/controllers/Qslprint.php:147
 #: application/controllers/Qso.php:9 application/controllers/Qso.php:19
@@ -189,25 +189,25 @@ msgstr "ADIF 导入"
 msgid "Unsupported Filetype"
 msgstr "文件类型不支持"
 
-#: application/controllers/Adif.php:240
+#: application/controllers/Adif.php:242
 #: application/views/adif/import_failed.php:12
 msgid "ADIF Import failed!"
 msgstr "ADIF 导入失败！"
 
-#: application/controllers/Adif.php:254
+#: application/controllers/Adif.php:256
 msgid "Station Profile not valid for User"
 msgstr "用户台站信息无效"
 
-#: application/controllers/Adif.php:261
+#: application/controllers/Adif.php:263
 #: application/views/adif/import_success.php:12
 msgid "ADIF Imported"
 msgstr "ADIF 已导入"
 
-#: application/controllers/Adif.php:272
+#: application/controllers/Adif.php:274
 msgid "DCL Import"
 msgstr "导入 DCL"
 
-#: application/controllers/Adif.php:328
+#: application/controllers/Adif.php:332
 msgid "DCL Data Imported"
 msgstr "DCL 数据已导入"
 
@@ -1490,31 +1490,31 @@ msgstr ""
 "文件 %s 中未找到呼号证书，如果文件名包含了 'key-only' 则此文件大概率是呼号证"
 "书的申请文件，LoTW 的工作人员依此来发放正式的呼号证书。"
 
-#: application/controllers/Lotw.php:618
+#: application/controllers/Lotw.php:620
 msgid "LoTW ADIF Information"
 msgstr "LoTW ADIF 信息"
 
-#: application/controllers/Lotw.php:726
+#: application/controllers/Lotw.php:728
 msgid "LoTW ADIF Import"
 msgstr "LoTW ADIF 导入"
 
-#: application/controllers/Lotw.php:753 application/controllers/Lotw.php:871
+#: application/controllers/Lotw.php:755 application/controllers/Lotw.php:873
 msgid "You have not defined your ARRL LoTW credentials!"
 msgstr "未配置 LoTW 登录信息！"
 
-#: application/controllers/Lotw.php:838
+#: application/controllers/Lotw.php:840
 msgid "LoTW .TQ8 Upload"
 msgstr "LoTW .TQ8 导入"
 
-#: application/controllers/Lotw.php:916
+#: application/controllers/Lotw.php:918
 msgid "Your ARRL username and/or password is incorrect."
 msgstr "LoTW 用户名/密码错误。"
 
-#: application/controllers/Lotw.php:935 application/controllers/Lotw.php:940
+#: application/controllers/Lotw.php:937 application/controllers/Lotw.php:942
 msgid "LoTW .TQ8 Sent"
 msgstr "LoTW .TQ8 已发送"
 
-#: application/controllers/Lotw.php:947
+#: application/controllers/Lotw.php:949
 msgid "LoTW .TQ8 Not Sent"
 msgstr "LoTW .TQ8 未发送"
 
@@ -1715,16 +1715,16 @@ msgid ""
 "Greenwich."
 msgstr "负数纬度表示南纬，负数经度表示西经。"
 
-#: application/controllers/Qrz.php:173
+#: application/controllers/Qrz.php:175
 #: application/views/interface_assets/header.php:432
 msgid "QRZ Logbook"
 msgstr "QRZ 日志簿"
 
-#: application/controllers/Qrz.php:253
+#: application/controllers/Qrz.php:255
 msgid "QRZ QSL Import"
 msgstr "QRZ QSL 导入"
 
-#: application/controllers/Qrz.php:307
+#: application/controllers/Qrz.php:309
 msgid "QRZ ADIF Information"
 msgstr "QRZ ADIF 信息"
 
@@ -2311,8 +2311,8 @@ msgstr "公开搜索"
 msgid "Export Map"
 msgstr "导出地图"
 
-#: application/controllers/Webadif.php:90
-#: application/controllers/Webadif.php:137
+#: application/controllers/Webadif.php:92
+#: application/controllers/Webadif.php:139
 #: application/views/interface_assets/header.php:433
 msgid "QO-100 Dx Club Upload"
 msgstr "QO-100 Dx Club 上传"
@@ -2439,31 +2439,31 @@ msgstr "HRDlog：无 QSO 可供上传，台站呼号为： "
 msgid "HRDlog: No station profiles with HRDlog Credentials found."
 msgstr "HRDlog：无台站配置信息。"
 
-#: application/models/Logbook_model.php:4255
+#: application/models/Logbook_model.php:4263
 msgid "QSO could not be matched"
 msgstr "QSO 无法匹配"
 
-#: application/models/Logbook_model.php:4261
+#: application/models/Logbook_model.php:4269
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "已经通过 LoTW/Clublog/eQSL/竞赛 确认"
 
-#: application/models/Logbook_model.php:4266
+#: application/models/Logbook_model.php:4274
 msgid "confirmed by award manager"
 msgstr "已经通过奖项管理员确认"
 
-#: application/models/Logbook_model.php:4269
+#: application/models/Logbook_model.php:4277
 msgid "confirmed by cross-check of DCL data"
 msgstr "已经通过 DCL 数据交叉检查确认"
 
-#: application/models/Logbook_model.php:4272
+#: application/models/Logbook_model.php:4280
 msgid "confirmation pending"
 msgstr "等待确认"
 
-#: application/models/Logbook_model.php:4275
+#: application/models/Logbook_model.php:4283
 msgid "unconfirmed"
 msgstr "未确认"
 
-#: application/models/Logbook_model.php:4278
+#: application/models/Logbook_model.php:4286
 msgid "unknown"
 msgstr "未知"
 
@@ -2527,6 +2527,7 @@ msgstr "差异"
 #: application/views/activated_gridmap/index.php:32
 #: application/views/activated_gridmap/index.php:41
 #: application/views/activators/index.php:13
+#: application/views/adif/import.php:179
 #: application/views/awards/cq/index.php:77
 #: application/views/awards/cq/index.php:91
 #: application/views/awards/dok/index.php:94
@@ -3023,8 +3024,8 @@ msgid "Nothing found!"
 msgstr "未找到！"
 
 #: application/views/activators/index.php:98
-#: application/views/adif/import.php:66 application/views/adif/import.php:182
-#: application/views/adif/import.php:227
+#: application/views/adif/import.php:66 application/views/adif/import.php:183
+#: application/views/adif/import.php:228
 #: application/views/awards/pota/index.php:34
 #: application/views/awards/sig/qso_list.php:11
 #: application/views/awards/sota/index.php:25
@@ -3225,7 +3226,7 @@ msgstr "DCL 中的 DOK"
 msgid "DCL QSL Status"
 msgstr "DCL QSL 状态"
 
-#: application/views/adif/import.php:36 application/views/adif/import.php:252
+#: application/views/adif/import.php:36 application/views/adif/import.php:253
 msgid "DARC DCL"
 msgstr "DARC DCL"
 
@@ -3246,8 +3247,8 @@ msgstr "日志文件的后缀必须是.adi"
 msgid "Maximum file upload size is "
 msgstr "最大上传文件大小是 "
 
-#: application/views/adif/import.php:56 application/views/adif/import.php:230
-#: application/views/adif/import.php:268 application/views/debug/index.php:175
+#: application/views/adif/import.php:56 application/views/adif/import.php:231
+#: application/views/adif/import.php:269 application/views/debug/index.php:175
 #: application/views/debug/index.php:192 application/views/debug/index.php:537
 #: application/views/hrdlog/export.php:25
 #: application/views/hrdlog/export.php:74
@@ -3261,7 +3262,7 @@ msgid "Warning"
 msgstr "注意"
 
 #: application/views/adif/import.php:60 application/views/adif/import.php:62
-#: application/views/adif/import.php:178 application/views/adif/import.php:225
+#: application/views/adif/import.php:177 application/views/adif/import.php:226
 #: application/views/eqsl/import.php:36 application/views/hrdlog/export.php:69
 #: application/views/qrz/export.php:89 application/views/reg1test/index.php:30
 #: application/views/webadif/export.php:89
@@ -3344,7 +3345,7 @@ msgid ""
 msgstr ""
 "如果选中，Wavelog 会从 ADIF 中尝试导入 %s全部的%s QSO，忽略是否匹配台站地址。"
 
-#: application/views/adif/import.php:168 application/views/adif/import.php:283
+#: application/views/adif/import.php:168 application/views/adif/import.php:284
 #: application/views/hrdlog/export.php:50 application/views/qrz/export.php:54
 #: application/views/webadif/export.php:55
 msgid "Upload"
@@ -3360,7 +3361,7 @@ msgid ""
 "like LoTW, Awards or just for keeping a backup."
 msgstr "导出 ADIF 方便您将日志导入到 LoTW 等第三方应用程序或备份日志。"
 
-#: application/views/adif/import.php:186 application/views/adif/import.php:232
+#: application/views/adif/import.php:187 application/views/adif/import.php:233
 #: application/views/cfd/index.php:15 application/views/csv/index.php:118
 #: application/views/dxatlas/index.php:118
 #: application/views/hrdlog/export.php:77 application/views/kml/index.php:103
@@ -3369,7 +3370,7 @@ msgstr "导出 ADIF 方便您将日志导入到 LoTW 等第三方应用程序或
 msgid "From date"
 msgstr "起始日期"
 
-#: application/views/adif/import.php:189 application/views/adif/import.php:235
+#: application/views/adif/import.php:190 application/views/adif/import.php:236
 #: application/views/cfd/index.php:20 application/views/csv/index.php:123
 #: application/views/dxatlas/index.php:123
 #: application/views/hrdlog/export.php:82 application/views/kml/index.php:108
@@ -3378,40 +3379,40 @@ msgstr "起始日期"
 msgid "To date"
 msgstr "终止日期"
 
-#: application/views/adif/import.php:197
+#: application/views/adif/import.php:198
 msgid "Mark exported QSOs as uploaded to LoTW"
 msgstr "将导出的 QSO 标记为已上传到 LoTW"
 
-#: application/views/adif/import.php:205
+#: application/views/adif/import.php:206
 msgid "Export QSOs not uploaded to LoTW"
 msgstr "导出没有上传到 LoTW 的 QSO"
 
-#: application/views/adif/import.php:210
+#: application/views/adif/import.php:211
 msgid "Export QSO's"
 msgstr "导出 QSO"
 
-#: application/views/adif/import.php:215
+#: application/views/adif/import.php:216
 msgid "Export Satellite-Only QSOs"
 msgstr "只导出卫星 QSO"
 
-#: application/views/adif/import.php:216
+#: application/views/adif/import.php:217
 msgid "Export All Satellite QSOs"
 msgstr "导出所有卫星 QSO"
 
-#: application/views/adif/import.php:218
+#: application/views/adif/import.php:219
 msgid "Export All Satellite QSOs Confirmed on LoTW"
 msgstr "导出 LoTW 上确认的所有卫星 QSO"
 
-#: application/views/adif/import.php:230 application/views/hrdlog/export.php:74
+#: application/views/adif/import.php:231 application/views/hrdlog/export.php:74
 #: application/views/qrz/export.php:94 application/views/webadif/export.php:94
 msgid "If a date range is not selected then all QSOs will be marked!"
 msgstr "如果未选择日期范围，则所有 QSO 都将被标记！"
 
-#: application/views/adif/import.php:238
+#: application/views/adif/import.php:239
 msgid "Mark QSOs as exported to LoTW"
 msgstr "将 QSO 标记为导出到 LoTW"
 
-#: application/views/adif/import.php:252
+#: application/views/adif/import.php:253
 #, php-format
 msgid ""
 "Go to %s and export your logbook with confirmed DOKs. To speed up the "
@@ -3422,31 +3423,31 @@ msgstr ""
 "前往 %s 导出已确认的 DOK，可选择仅导出 DL QSO 以加快速度。您可在此处上传已下"
 "载的 ADIF 日志，系统将以此更新 DOK 信息。"
 
-#: application/views/adif/import.php:259
+#: application/views/adif/import.php:260
 msgid "Only import DOK data from QSOs confirmed on DCL."
 msgstr "仅导入在 DCL 上确认的 QSO 的 DOK 数据。"
 
-#: application/views/adif/import.php:261
+#: application/views/adif/import.php:262
 msgid ""
 "Uncheck if you also want to update DOK with data from unconfirmed QSOs in "
 "DCL."
 msgstr "如果您还想使用 DCL 中未经确认的 QSO 的数据更新 DOK，请取消选中。"
 
-#: application/views/adif/import.php:268
+#: application/views/adif/import.php:269
 msgid "Overwrites exisiting DOK in log by DCL (if different)."
 msgstr "根据已有 DCL 覆盖 DOK 数据（如不同）。"
 
-#: application/views/adif/import.php:270
+#: application/views/adif/import.php:271
 msgid ""
 "If checked Wavelog will forcibly overwrite existing DOK with DOK from DCL "
 "log."
 msgstr "如果选中，Wavelog 将使用 DCL 日志中的 DOK 强制覆盖现有的 DOK 信息。"
 
-#: application/views/adif/import.php:277
+#: application/views/adif/import.php:278
 msgid "Ignore QSOs that cannot be matched."
 msgstr "忽略无法匹配的 QSO。"
 
-#: application/views/adif/import.php:279
+#: application/views/adif/import.php:280
 msgid ""
 "If unchecked, information about QSOs which could not be found in Wavelog "
 "will be displayed."
