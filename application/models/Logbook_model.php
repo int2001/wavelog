@@ -21,7 +21,7 @@ class Logbook_model extends CI_Model {
     $callsign = str_replace('Ø', '0', $this->input->post('callsign'));
     // Join date+time
     $datetime = date("Y-m-d",strtotime($this->input->post('start_date')))." ". $this->input->post('start_time');
-    if ($this->input->post('end_time') != null) {
+    if ( ($this->input->post('end_time') ?? '') != '') {
         $datetime_off = date("Y-m-d",strtotime($this->input->post('start_date')))." ". $this->input->post('end_time');
         // if time off < time on, and time off is on 00:xx >> add 1 day (concidering start and end are between 23:00 and 00:59) //
         $_tmp_datetime_off = strtotime($datetime_off);
@@ -4009,7 +4009,7 @@ function lotw_last_qsl_date($user_id) {
 			  'COL_AWARD_GRANTED' => (!empty($record['award_granted'])) ? $record['award_granted'] : '',
 			  'COL_AWARD_SUBMITTED' => (!empty($record['award_submitted'])) ? $record['award_submitted'] : '',
 			  'COL_BAND' => $band,
-			  'COL_BAND_RX' => $band_rx,
+			  'COL_BAND_RX' => $band_rx ?? '',
 			  'COL_BIOGRAPHY' => (!empty($record['biography'])) ? $record['biography'] : '',
 			  'COL_CALL' => (!empty($record['call'])) ? strtoupper($record['call']) : '',
 			  'COL_CHECK' => (!empty($record['check'])) ? $record['check'] : '',
