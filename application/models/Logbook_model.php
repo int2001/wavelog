@@ -3300,7 +3300,7 @@ function check_if_callsign_worked_in_logbook($callsign, $StationLocationsArray =
     }
 
   /* Used to check if the qso is already in the database */
-    function import_check($datetime, $callsign, $band, $mode, $station_callsign, $station_id = null) {
+    function import_check($datetime, $callsign, $band, $mode, $station_callsign, $station_ids = null) {
 	    $binding=[];
 	    $mode=$this->get_main_mode_from_mode($mode);
 
@@ -3320,9 +3320,8 @@ function check_if_callsign_worked_in_logbook($callsign, $StationLocationsArray =
 	    $binding[]=$mode;
 
 
-	    if(isset($station_id) && $station_id > 0) {
-		    $sql.=' AND station_id=?';
-		    $binding[]=$station_id;
+	    if(isset($station_ids)) {
+		    $sql.=' AND station_id IN ('.$station_ids.')';
 	    }
 
 	    $query = $this->db->query($sql, $binding);
