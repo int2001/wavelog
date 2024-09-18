@@ -74,7 +74,7 @@
                         </tr>
                         <tr>
                             <td><?= __("Total User"); ?></td>
-                            <td><?php echo $users_total . ' User'; ?></td>
+                            <td><?php echo number_format($users_total, 0, '.', ',') . ' ' . _ngettext("User", "Users", intval($users_total)); ?></td>
                         </tr>
                     </table>
                 </div>
