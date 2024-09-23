@@ -1842,6 +1842,10 @@ class Logbook_model extends CI_Model {
 			return array();
 		}
 
+		if (empty($logbooks_locations_array)) {
+			return array();
+		}
+
 		$this->db->select($this->config->item('table_name') . '.*, station_profile.*, dxcc_entities.*, lotw_users.callsign, lotw_users.lastupload');
 		$this->db->from($this->config->item('table_name'));
 
