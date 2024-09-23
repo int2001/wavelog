@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2024-09-20 16:52+0000\n"
+"POT-Creation-Date: 2024-09-23 15:20+0000\n"
 "PO-Revision-Date: 2024-09-17 03:35+0000\n"
 "Last-Translator: Michael Skolsky <r1blh@yandex.ru>\n"
 "Language-Team: Russian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -957,7 +957,6 @@ msgstr "Журнал"
 #: application/views/qslprint/qsolist.php:14
 #: application/views/qslprint/qsolist.php:16
 #: application/views/qso/edit_ajax.php:37 application/views/qso/index.php:43
-#: application/views/search/result_search.php:13
 #: application/views/timeline/index.php:56 application/views/user/edit.php:562
 #: application/views/user/edit.php:649
 msgid "QSL"
@@ -986,7 +985,6 @@ msgstr "QSL"
 #: application/views/qslprint/qsolist.php:167
 #: application/views/qslprint/qsolist.php:182
 #: application/views/qso/edit_ajax.php:412
-#: application/views/search/result_search.php:22
 #: application/views/search/search_result_ajax.php:298
 #: application/views/search/search_result_ajax.php:313
 #: application/views/timeline/index.php:60 application/views/user/edit.php:563
@@ -1016,7 +1014,6 @@ msgstr "LoTW"
 #: application/views/qslprint/qsolist.php:138
 #: application/views/qslprint/qsolist.php:151
 #: application/views/qso/edit_ajax.php:409
-#: application/views/search/result_search.php:16
 #: application/views/search/search_result_ajax.php:260
 #: application/views/search/search_result_ajax.php:273
 #: application/views/station_profile/edit.php:305
@@ -1098,7 +1095,6 @@ msgstr "Clublog"
 #: application/views/search/cqzones_result.php:10
 #: application/views/search/ituzones_result.php:10
 #: application/views/search/lotw_unconfirmed_result.php:8
-#: application/views/search/result_search.php:7
 #: application/views/search/search_result_ajax.php:4
 #: application/views/simplefle/index.php:150
 #: application/views/statistics/custom.php:60
@@ -1180,7 +1176,6 @@ msgstr "RST (RX)"
 #: application/views/qslcard/searchresult.php:63
 #: application/views/qslcard/searchresult.php:79
 #: application/views/qso/components/previous_contacts.php:80
-#: application/views/search/result_search.php:11
 #: application/views/search/search_result_ajax.php:7
 #: application/views/stationsetup/stationsetup.php:124
 #: application/views/statistics/custom_result.php:92
@@ -1374,7 +1369,6 @@ msgstr "Дистанция"
 #: application/views/search/cqzones_result.php:11
 #: application/views/search/ituzones_result.php:11
 #: application/views/search/lotw_unconfirmed_result.php:9
-#: application/views/search/result_search.php:10
 #: application/views/search/search_result_ajax.php:15
 #: application/views/simplefle/index.php:149
 #: application/views/stationsetup/exportmapoptions.php:31
@@ -2483,31 +2477,31 @@ msgstr "HRDlog: на найдены QSO для загруки для позыв�
 msgid "HRDlog: No station profiles with HRDlog Credentials found."
 msgstr "HRDlog: не найдены профили QTH с данными входя на HRDlog."
 
-#: application/models/Logbook_model.php:4270
+#: application/models/Logbook_model.php:4255
 msgid "QSO could not be matched"
 msgstr "QSO не может быть сопоставлено"
 
-#: application/models/Logbook_model.php:4276
+#: application/models/Logbook_model.php:4261
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "подтверждено LoTW/Clublog/eQSL/Contest"
 
-#: application/models/Logbook_model.php:4281
+#: application/models/Logbook_model.php:4266
 msgid "confirmed by award manager"
 msgstr "подтверждено менеджером диплома"
 
-#: application/models/Logbook_model.php:4284
+#: application/models/Logbook_model.php:4269
 msgid "confirmed by cross-check of DCL data"
 msgstr "подтверждено кросс-проверкой с данными DCL"
 
-#: application/models/Logbook_model.php:4287
+#: application/models/Logbook_model.php:4272
 msgid "confirmation pending"
 msgstr "подтверждение ожидается"
 
-#: application/models/Logbook_model.php:4290
+#: application/models/Logbook_model.php:4275
 msgid "unconfirmed"
 msgstr "не подтверждено"
 
-#: application/models/Logbook_model.php:4293
+#: application/models/Logbook_model.php:4278
 msgid "unknown"
 msgstr "неизвестно"
 
@@ -3193,7 +3187,6 @@ msgstr "Данные DOK в вашем логе отличаются от DCL"
 #: application/views/qso/index.php:101 application/views/satellite/pass.php:473
 #: application/views/search/cqzones_result.php:7
 #: application/views/search/ituzones_result.php:7
-#: application/views/search/result_search.php:4
 #: application/views/search/search_result_ajax.php:89
 #: application/views/simplefle/index.php:146
 #: application/views/statistics/custom.php:38
@@ -3232,7 +3225,6 @@ msgstr "Дата"
 #: application/views/qslprint/qsolist.php:8 application/views/qso/index.php:106
 #: application/views/search/cqzones_result.php:8
 #: application/views/search/ituzones_result.php:8
-#: application/views/search/result_search.php:5
 #: application/views/search/search_result_ajax.php:91
 #: application/views/simplefle/index.php:147
 #: application/views/statistics/custom_result.php:86
@@ -3256,7 +3248,6 @@ msgstr "Время"
 #: application/views/public_search/result.php:14
 #: application/views/qslcard/searchresult.php:8
 #: application/views/qso/components/previous_contacts.php:7
-#: application/views/search/result_search.php:6
 #: application/views/search/search_result_ajax.php:93
 #: application/views/statistics/custom_result.php:87
 #: application/views/view_log/partial/log.php:8
@@ -6032,7 +6023,6 @@ msgstr "Необходимо"
 #: application/views/qso/edit_ajax.php:418
 #: application/views/qso/edit_ajax.php:479
 #: application/views/qso/edit_ajax.php:515 application/views/qso/index.php:571
-#: application/views/search/result_search.php:8
 #: application/views/search/search_result_ajax.php:180
 #: application/views/search/search_result_ajax.php:260
 #: application/views/search/search_result_ajax.php:298
@@ -10058,12 +10048,6 @@ msgstr "Извините, прошлые QSO c %s не найдены"
 msgid "Callbook Search for %s"
 msgstr "Поиск в колбуке %s"
 
-#: application/views/search/result_search.php:9
-#: application/views/statistics/custom_result.php:90
-#: application/views/widgets/qsos.php:32
-msgid "Rcvd"
-msgstr "Получено"
-
 #: application/views/search/search_result_ajax.php:409
 #: application/views/view_log/partial/log.php:140
 #: application/views/view_log/partial/log_ajax.php:325
@@ -10937,6 +10921,11 @@ msgstr "Закончили выбор? Время поиска!"
 #: application/views/statistics/custom.php:86
 msgid "Results go here"
 msgstr "Результат будет здесь"
+
+#: application/views/statistics/custom_result.php:90
+#: application/views/widgets/qsos.php:32
+msgid "Rcvd"
+msgstr "Получено"
 
 #: application/views/statistics/index.php:14
 #: application/views/statistics/index.php:50
