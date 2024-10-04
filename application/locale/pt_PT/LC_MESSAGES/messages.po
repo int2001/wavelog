@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2024-10-03 13:41+0000\n"
-"PO-Revision-Date: 2024-09-30 15:32+0000\n"
+"PO-Revision-Date: 2024-10-03 21:11+0000\n"
 "Last-Translator: \"Francisco (F4VSE)\" <kikosgc@users.noreply.github.com>\n"
 "Language-Team: Portuguese (Portugal) <https://translate.wavelog.org/projects/"
 "wavelog/main-translation/pt_PT/>\n"
@@ -726,7 +726,7 @@ msgstr "Informações de importação eQSL"
 
 #: application/controllers/Eqsl.php:151
 msgid "eQSL Nicknames in Station Profiles aren't defined!"
-msgstr ""
+msgstr "Os apelidos eQSL nos perfis da estação não estão definidos!"
 
 #: application/controllers/Eqsl.php:158
 msgid "eQSL QSO Upload"
@@ -734,7 +734,7 @@ msgstr "Upload de contactos eQSL"
 
 #: application/controllers/Eqsl.php:170
 msgid "You have not defined your eQSL.cc credentials!"
-msgstr ""
+msgstr "Não definiste as tuas credenciais eQSL.cc!"
 
 #: application/controllers/Eqsl.php:429
 msgid "eQSL Tools"
@@ -2507,13 +2507,15 @@ msgstr "Verifica %s para dicas sobre erros em ficheiros ADIF."
 
 #: application/models/Logbook_model.php:3640
 msgid "QSO on"
-msgstr ""
+msgstr "Contacto em"
 
 #: application/models/Logbook_model.php:3640
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
 msgstr ""
+"Tentou importar um contacto sem nenhum CALL dado. Este contacto não foi "
+"importado. É inválido."
 
 #: application/models/Logbook_model.php:3936
 msgid "the qslrdate is invalid (YYYYMMDD)"
@@ -4431,13 +4433,15 @@ msgstr "Este mapa mostra apenas contactos realizados via satélite."
 
 #: application/views/awards/gridmaster/index.php:13
 msgid "Gridmaster Award"
-msgstr ""
+msgstr "Diploma Gridmaster"
 
 #: application/views/awards/gridmaster/index.php:14
 msgid ""
 "The Gridmaster Award was originally designed for the 488 gridsquares to be "
 "worked in the USA."
 msgstr ""
+"O Diploma Gridmaster foi originalmente concebido para os 488 quadrículas a "
+"serem trabalhadas nos EUA."
 
 #: application/views/awards/gridmaster/index.php:15
 msgid ""
@@ -4445,6 +4449,9 @@ msgid ""
 "award but just showing the grids which were worked according to the US "
 "Gridmaster Award rules for this DXCC."
 msgstr ""
+"Neste mapa são mostradas as grelhas para o DXCC específico. Este não é um "
+"diploma oficial, mas apenas mostra as grelhas que foram trabalhadas de "
+"acordo com as regras do US Gridmaster Award para este DXCC."
 
 #: application/views/awards/helvetia/index.php:3
 msgctxt "Switzerland Canton"
