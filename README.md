@@ -1,11 +1,3 @@
-![GitHub License](https://img.shields.io/github/license/wavelog/wavelog)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/wavelog/wavelog)
-
-
-# Wavelog
-
-> Important: Only accepting PRs on the "dev" branch.
-=======
 <h1 align="center">
   <a href="https://www.wavelog.org/">
     <picture>
