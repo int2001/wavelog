@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2024-10-21 06:05+0000\n"
-"PO-Revision-Date: 2024-10-18 12:15+0000\n"
-"Last-Translator: hellofinch <543933756@qq.com>\n"
+"PO-Revision-Date: 2024-10-21 06:05+0000\n"
+"Last-Translator: Karuru <karuru@aerodefense.co.uk>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
 "org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -6031,7 +6031,7 @@ msgstr "您的日志本没有绑定电台。单击 %s这里%s 进行设置。"
 #, php-format
 msgid "You have had %d QSO today"
 msgid_plural "You have had %d QSOs today"
-msgstr[0] "您今天有 %d 个QSO"
+msgstr[0] "您今天有 %d 个 QSO"
 
 #: application/views/dashboard/index.php:119
 msgid "You have made no QSOs today; time to turn on the radio!"
@@ -6838,7 +6838,7 @@ msgstr "所有日志都上传到了 eQSL，继续通联吧！"
 
 #: application/views/eqsl/import.php:28
 msgid "The next automatic sync with eQSL will happen at: "
-msgstr ""
+msgstr "eQSL 下次自动同步时间： "
 
 #: application/views/eqsl/import.php:31
 msgid "Import from file..."
@@ -8336,7 +8336,7 @@ msgstr "信息"
 
 #: application/views/lotw_views/index.php:144
 msgid "The next automatic sync with LoTW will happen at: "
-msgstr ""
+msgstr "LoTW 下次自动同步时间： "
 
 #: application/views/lotw_views/index.php:146
 msgid "Manual Sync"
@@ -9070,7 +9070,7 @@ msgstr "计算"
 
 #: application/views/qrz/export.php:27
 msgid "The next automatic Upload to QRZ will happen at: "
-msgstr ""
+msgstr "QRZ.com 下次自动同步时间： "
 
 #: application/views/qrz/export.php:28
 msgid ""
@@ -9088,7 +9088,7 @@ msgstr ""
 
 #: application/views/qrz/export.php:74
 msgid "The next automatic Download from QRZ-QSLs will happen at: "
-msgstr ""
+msgstr "QRZ-QSL 下次自动同步时间： "
 
 #: application/views/qrz/export.php:75
 msgid ""
