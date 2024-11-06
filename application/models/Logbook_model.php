@@ -382,6 +382,12 @@ class Logbook_model extends CI_Model {
 			$data['COL_MY_CNTY'] = strtoupper(trim($station['station_cnty']));
 			$data['COL_MY_CQ_ZONE'] = strtoupper(trim($station['station_cq']));
 			$data['COL_MY_ITU_ZONE'] = strtoupper(trim($station['station_itu']));
+
+			// if there are any static map images for this station, remove them so they can be regenerated
+			if (!$this->load->is_loaded('staticmap_model')) {
+				$this->load->model('staticmap_model');
+			}
+			$this->staticmap_model->remove_static_map_image($station_id);
 		}
 
 		// Decide whether its single gridsquare or a multi which makes it vucc_grids
@@ -1421,6 +1427,7 @@ class Logbook_model extends CI_Model {
 			'COL_DARC_DOK' => strtoupper($this->input->post('darc_dok')),
 			'COL_QTH' => $this->input->post('qth'),
 			'COL_PROP_MODE' => $this->input->post('prop_mode'),
+			'COL_ANT_PATH' => $this->input->post('ant_path'),
 			'COL_FREQ_RX' => $this->parse_frequency($this->input->post('freq_display_rx')),
 			'COL_STX_STRING' => strtoupper(trim($this->input->post('stx_string'))),
 			'COL_SRX_STRING' => strtoupper(trim($this->input->post('srx_string'))),
@@ -2525,7 +2532,7 @@ class Logbook_model extends CI_Model {
 		  OR q.COL_LOTW_QSL_RCVD = 'Y'
 		  OR q.COL_EQSL_QSL_RCVD = 'Y')
 		  AND q.station_id in (" . $location_list . ")
-		  AND (b.bandgroup='hf' or b.band = '6m') " . ($from ?? '') . " " . ($till ?? '') . "
+		  AND (b.bandgroup='hf' or b.band = '6m' or b.band = '160m') " . ($from ?? '') . " " . ($till ?? '') . "
 		  GROUP BY dx.prefix,dx.name , CASE
 		  WHEN q.col_mode = 'CW' THEN 'C'
 		  WHEN mo.qrgmode = 'DATA' THEN 'R'
@@ -3969,7 +3976,10 @@ class Logbook_model extends CI_Model {
 			}
 
 			if (isset($record['ant_path'])) {
-				$input_ant_path = mb_strimwidth($record['ant_path'], 0, 1);
+				$input_ant_path = strtoupper(mb_strimwidth($record['ant_path'], 0, 1));
+				if ($input_ant_path != 'G' && $input_ant_path != 'O' && $input_ant_path != 'S' && $input_ant_path != 'L') {
+					$input_ant_path = NULL;
+				}
 			} else {
 				$input_ant_path = NULL;
 			}
