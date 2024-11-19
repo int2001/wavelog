@@ -3,12 +3,13 @@
 # This file is distributed under the MIT licence.
 #
 # Fabian Berg <80885850+HB9HIL@users.noreply.github.com>, 2024.
+# Fabian Berg <fabian.berg@hb9hil.org>, 2024.
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2024-11-18 14:40+0000\n"
-"PO-Revision-Date: 2024-08-17 10:49+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"POT-Creation-Date: 2024-11-19 01:10+0000\n"
+"PO-Revision-Date: 2024-11-19 01:22+0000\n"
+"Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: Montenegrin <https://translate.wavelog.org/projects/wavelog/"
 "main-translation/cnr/>\n"
 "Language: cnr\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #: application/controllers/Accumulated.php:12
 #: application/controllers/Activators.php:13
@@ -1976,7 +1977,7 @@ msgstr ""
 
 #: application/controllers/Simplefle.php:90
 #: application/controllers/Simplefle.php:93
-#: application/models/Logbook_model.php:4423
+#: application/models/Logbook_model.php:4422
 #: application/views/simplefle/index.php:40
 msgid "Duplicate for"
 msgstr ""
@@ -2278,16 +2279,8 @@ msgid "Edit User"
 msgstr ""
 
 #: application/controllers/User.php:689 application/controllers/User.php:692
-#: application/views/debug/index.php:77 application/views/user/index.php:3
-#: application/views/user/index.php:44
-msgid "User"
-msgid_plural "Users"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: application/controllers/User.php:689 application/controllers/User.php:692
-msgid "edited"
+#, php-format
+msgid "User %s edited"
 msgstr ""
 
 #: application/controllers/User.php:746
@@ -2519,71 +2512,71 @@ msgstr ""
 msgid "HRDlog: No station profiles with HRDlog Credentials found."
 msgstr ""
 
-#: application/models/Logbook_model.php:3745
+#: application/models/Logbook_model.php:3744
 #, php-format
 msgid "Wrong station callsign %s while importing QSO with %s for %s: SKIPPED"
 msgstr ""
 
-#: application/models/Logbook_model.php:3746
+#: application/models/Logbook_model.php:3745
 #, php-format
 msgid "Check %s for hints about errors in ADIF files."
 msgstr ""
 
-#: application/models/Logbook_model.php:3758
+#: application/models/Logbook_model.php:3757
 msgid "QSO on"
 msgstr ""
 
-#: application/models/Logbook_model.php:3758
+#: application/models/Logbook_model.php:3757
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
 msgstr ""
 
-#: application/models/Logbook_model.php:4057
+#: application/models/Logbook_model.php:4056
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr ""
 
-#: application/models/Logbook_model.php:4068
+#: application/models/Logbook_model.php:4067
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr ""
 
-#: application/models/Logbook_model.php:4119
+#: application/models/Logbook_model.php:4118
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr ""
 
-#: application/models/Logbook_model.php:4139
+#: application/models/Logbook_model.php:4138
 msgid "the lotw_qslrdate is invalid (YYYYMMDD)"
 msgstr ""
 
-#: application/models/Logbook_model.php:4158
+#: application/models/Logbook_model.php:4157
 msgid "the lotw_qslsdate is invalid (YYYYMMDD)"
 msgstr ""
 
-#: application/models/Logbook_model.php:4484
+#: application/models/Logbook_model.php:4483
 msgid "QSO could not be matched"
 msgstr ""
 
-#: application/models/Logbook_model.php:4490
+#: application/models/Logbook_model.php:4489
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr ""
 
-#: application/models/Logbook_model.php:4495
+#: application/models/Logbook_model.php:4494
 msgid "confirmed by award manager"
 msgstr ""
 
-#: application/models/Logbook_model.php:4498
+#: application/models/Logbook_model.php:4497
 msgid "confirmed by cross-check of DCL data"
 msgstr ""
 
-#: application/models/Logbook_model.php:4501
+#: application/models/Logbook_model.php:4500
 msgid "confirmation pending"
 msgstr ""
 
-#: application/models/Logbook_model.php:4504
+#: application/models/Logbook_model.php:4503
 msgid "unconfirmed"
 msgstr ""
 
-#: application/models/Logbook_model.php:4507
+#: application/models/Logbook_model.php:4506
 #: application/views/view_log/qso.php:267
 msgid "unknown"
 msgstr ""
@@ -6270,6 +6263,14 @@ msgstr ""
 msgid "Total User"
 msgstr ""
 
+#: application/views/debug/index.php:77 application/views/user/index.php:3
+#: application/views/user/index.php:44
+msgid "User"
+msgid_plural "Users"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
 #: application/views/debug/index.php:84
 msgid "Server Information"
 msgstr ""
@@ -6519,99 +6520,99 @@ msgstr ""
 
 #: application/views/debug/index.php:654
 msgid "Albanian"
-msgstr ""
+msgstr "Albanski"
 
 #: application/views/debug/index.php:655
 msgid "Bosnian"
-msgstr ""
+msgstr "Bosanski"
 
 #: application/views/debug/index.php:656
 msgid "Bulgarian"
-msgstr ""
+msgstr "Bugarski"
 
 #: application/views/debug/index.php:657
 msgid "Chinese (Simplified)"
-msgstr ""
+msgstr "Kineski (pojednostavljeni)"
 
 #: application/views/debug/index.php:658
 msgid "Croatian"
-msgstr ""
+msgstr "Hrvatski"
 
 #: application/views/debug/index.php:659
 msgid "Czech"
-msgstr ""
+msgstr "Češki"
 
 #: application/views/debug/index.php:660
 msgid "Dutch"
-msgstr ""
+msgstr "Holandski"
 
 #: application/views/debug/index.php:661
 msgid "English"
-msgstr ""
+msgstr "Engleski"
 
 #: application/views/debug/index.php:662
 msgid "Estonian"
-msgstr ""
+msgstr "Estonski"
 
 #: application/views/debug/index.php:663
 msgid "Finnish"
-msgstr ""
+msgstr "Finski"
 
 #: application/views/debug/index.php:664
 msgid "French"
-msgstr ""
+msgstr "Francuski"
 
 #: application/views/debug/index.php:665
 msgid "German"
-msgstr ""
+msgstr "Njemački"
 
 #: application/views/debug/index.php:666
 msgid "Greek"
-msgstr ""
+msgstr "Grcki"
 
 #: application/views/debug/index.php:667
 msgid "Italian"
-msgstr ""
+msgstr "Italijanski"
 
 #: application/views/debug/index.php:668
 msgid "Latvian"
-msgstr ""
+msgstr "Letonski"
 
 #: application/views/debug/index.php:669
 msgid "Lithuanian"
-msgstr ""
+msgstr "Litvanski"
 
 #: application/views/debug/index.php:670
 msgid "Montenegrin"
-msgstr ""
+msgstr "Crnogorski"
 
 #: application/views/debug/index.php:671
 msgid "Polish"
-msgstr ""
+msgstr "Polirati"
 
 #: application/views/debug/index.php:672
 msgid "Portuguese"
-msgstr ""
+msgstr "Portugalski"
 
 #: application/views/debug/index.php:673
 msgid "Russian"
-msgstr ""
+msgstr "Ruski"
 
 #: application/views/debug/index.php:674
 msgid "Serbian"
-msgstr ""
+msgstr "Srpski"
 
 #: application/views/debug/index.php:675
 msgid "Spanish"
-msgstr ""
+msgstr "Španski"
 
 #: application/views/debug/index.php:676
 msgid "Swedish"
-msgstr ""
+msgstr "Švedski"
 
 #: application/views/debug/index.php:677
 msgid "Turkish"
-msgstr ""
+msgstr "Turski"
 
 #: application/views/distancerecords/index.php:4
 msgid "This page lists distance records per satellite based on gridsquares."
