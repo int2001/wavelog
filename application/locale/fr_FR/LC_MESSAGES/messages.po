@@ -10,9 +10,9 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2024-12-04 09:36+0000\n"
-"PO-Revision-Date: 2024-11-18 14:41+0000\n"
-"Last-Translator: \"Francisco (F4VSE)\" <kikosgc@users.noreply.github.com>\n"
+"POT-Creation-Date: 2024-12-04 16:45+0000\n"
+"PO-Revision-Date: 2024-12-04 07:53+0000\n"
+"Last-Translator: F4JSU <f4jsu.radio@gmail.com>\n"
 "Language-Team: French <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/fr/>\n"
 "Language: fr_FR\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.7.2\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #: application/controllers/Accumulated.php:12
 #: application/controllers/Activators.php:13
@@ -104,10 +104,10 @@ msgstr ""
 #: application/controllers/Themes.php:17
 #: application/controllers/Timeline.php:10
 #: application/controllers/Timeplotter.php:11
-#: application/controllers/Update.php:24 application/controllers/Update.php:289
-#: application/controllers/Update.php:300
-#: application/controllers/Update.php:311
-#: application/controllers/Update.php:322 application/controllers/User.php:13
+#: application/controllers/Update.php:24 application/controllers/Update.php:290
+#: application/controllers/Update.php:301
+#: application/controllers/Update.php:312
+#: application/controllers/Update.php:323 application/controllers/User.php:13
 #: application/controllers/User.php:45 application/controllers/User.php:230
 #: application/controllers/User.php:231 application/controllers/User.php:743
 #: application/controllers/User.php:762 application/controllers/User.php:1046
@@ -2303,23 +2303,23 @@ msgstr "Préparation des exceptions DXCC : "
 msgid "Preparing DXCC Prefixes: "
 msgstr "Préparation des préfixes DXCC : "
 
-#: application/controllers/Update.php:246
+#: application/controllers/Update.php:247
 msgid "DONE"
 msgstr "FAIT"
 
-#: application/controllers/Update.php:260
+#: application/controllers/Update.php:261
 msgid "Updating..."
 msgstr "Mise à jour..."
 
-#: application/controllers/Update.php:263
+#: application/controllers/Update.php:264
 msgid "Dxcc Entities:"
 msgstr "Entités DXCC :"
 
-#: application/controllers/Update.php:264
+#: application/controllers/Update.php:265
 msgid "Dxcc Exceptions:"
 msgstr "Exceptions DXCC :"
 
-#: application/controllers/Update.php:265
+#: application/controllers/Update.php:266
 msgid "Dxcc Prefixes:"
 msgstr "Préfixes DXCC :"
 
@@ -2918,7 +2918,7 @@ msgstr "Aircraft Scatter"
 #: application/views/view_log/qso.php:239
 msgctxt "Propagation Mode"
 msgid "Aurora"
-msgstr "Aurore"
+msgstr "Aurores"
 
 #: application/views/accumulate/index.php:88 application/views/csv/index.php:97
 #: application/views/distances/index.php:61
@@ -2930,7 +2930,7 @@ msgstr "Aurore"
 #: application/views/view_log/qso.php:242
 msgctxt "Propagation Mode"
 msgid "Aurora-E"
-msgstr "Aurora-E"
+msgstr "Aurore-E"
 
 #: application/views/accumulate/index.php:89 application/views/csv/index.php:98
 #: application/views/distances/index.php:62
