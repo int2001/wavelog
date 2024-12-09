@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2024-12-07 20:30+0000\n"
-"PO-Revision-Date: 2024-12-03 12:03+0000\n"
+"PO-Revision-Date: 2024-12-09 08:04+0000\n"
 "Last-Translator: hellofinch <543933756@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
 "org/projects/wavelog/main-translation/zh_Hans/>\n"
@@ -6311,7 +6311,7 @@ msgstr "通联连续记录"
 
 #: application/views/dayswithqso/index.php:26
 msgid "QSOs of Year"
-msgstr ""
+msgstr "今年的QSO"
 
 #: application/views/dayswithqso/index.php:34
 msgid "Number of days with QSOs each year"
@@ -6331,19 +6331,19 @@ msgstr "每年各月的通联数量统计"
 
 #: application/views/dayswithqso/index.php:86
 msgid "QSOs per Year"
-msgstr ""
+msgstr "每年的QSO"
 
 #: application/views/dayswithqso/index.php:94
 msgid "Less"
-msgstr ""
+msgstr "少"
 
 #: application/views/dayswithqso/index.php:99
 msgid "More"
-msgstr ""
+msgstr "多"
 
 #: application/views/dayswithqso/index.php:101
 msgid "Calendar with QSOs"
-msgstr ""
+msgstr "QSO日历"
 
 #: application/views/dayswithqso/index.php:110
 msgid "Longest streak with QSOs in the log"
@@ -8391,7 +8391,7 @@ msgstr "用选中行的条件进行快速搜索： "
 
 #: application/views/logbookadvanced/index.php:500
 msgid "Search Date"
-msgstr ""
+msgstr "搜索信息"
 
 #: application/views/logbookadvanced/index.php:506
 msgid "Search DXCC"
@@ -10233,7 +10233,7 @@ msgstr "持续时间"
 
 #: application/views/satellite/passtable.php:8
 msgid "AOS Azimuth"
-msgstr ""
+msgstr "AOS 方位角"
 
 #: application/views/satellite/passtable.php:9
 #: application/views/sattimers/index.php:45
@@ -10246,11 +10246,11 @@ msgstr "LOS 时间"
 
 #: application/views/satellite/passtable.php:11
 msgid "LOS Azimuth"
-msgstr ""
+msgstr "LOS 方位角"
 
 #: application/views/satellite/passtable.php:35
 msgid "min"
-msgstr ""
+msgstr "持续时间"
 
 #: application/views/sattimers/index.php:15
 #, php-format
@@ -11443,7 +11443,7 @@ msgstr "添加主题"
 
 #: application/views/timeline/index.php:119
 msgid "Only new in selected year"
-msgstr ""
+msgstr "只显示所选年份中新的QSO"
 
 #: application/views/timeplotter/index.php:2
 msgid "contacts were plotted"
@@ -12376,6 +12376,9 @@ msgstr "提交请求"
 
 #~ msgid "LOS El"
 #~ msgstr "LOS 仰角"
+
+#~ msgid "Maptiles Server"
+#~ msgstr "Maptiles 服务器"
 
 #~ msgid "Display / cleartext name of the satellite."
 #~ msgstr "显示 / 明文的卫星名称。"
