@@ -5472,32 +5472,31 @@ class Logbook_model extends CI_Model {
 	function getLongRegion($region = '') {
 		switch($region) {
 		case 'AI':
-			return 'African Italy';
+			return 'African Italy'.' ('.$region.')';
 			break;
 		case 'BI':
-			return 'Bear Island';
+			return 'Bear Island'.' ('.$region.')';
 			break;
 		case 'ET':
-			return 'European Turkey';
+			return 'European Turkey'.' ('.$region.')';
 			break;
 		case 'IV':
-			return 'ITU Vienna';
+			return 'ITU Vienna'.' ('.$region.')';
 			break;
 		case 'KO':
-			return 'Kosovo';
+			return 'Kosovo'.' ('.$region.')';
 			break;
 		case 'SY':
-			return 'Sicily';
+			return 'Sicily'.' ('.$region.')';
 			break;
 		case 'SI':
-			return 'Shetland Islands';
+			return 'Shetland Islands'.' ('.$region.')';
 			break;
 		default: 
 			return $region;
 			break;
 		}
 	}
-			
 
 	function getContinent($dxcc) {
 		$sql = "SELECT cont FROM dxcc_entities WHERE adif = ?";
