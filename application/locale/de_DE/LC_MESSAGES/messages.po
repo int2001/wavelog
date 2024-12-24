@@ -22,9 +22,9 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2024-12-23 16:46+0000\n"
-"PO-Revision-Date: 2024-12-23 15:28+0000\n"
-"Last-Translator: \"Sebastian K.\" <sebastian@sebastian-kettner.net>\n"
+"POT-Creation-Date: 2024-12-24 05:03+0000\n"
+"PO-Revision-Date: 2024-12-23 16:46+0000\n"
+"Last-Translator: Fabian Franz BSc <franz.fabian.94@gmail.com>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
 "Language: de_DE\n"
@@ -2377,7 +2377,7 @@ msgstr "DXCC-Präfixe:"
 
 #: application/controllers/Update.php:401
 msgid "LoTW SAT Update"
-msgstr "LoTW SAT Aktualisierung"
+msgstr "LoTW SAT-Aktualisierung"
 
 #: application/controllers/User.php:36
 #: application/views/interface_assets/header.php:276
@@ -8467,6 +8467,38 @@ msgstr "Ungültig"
 msgid "Verified"
 msgstr "Verifiziert"
 
+#: application/views/logbookadvanced/edit.php:174
+msgid "NONE"
+msgstr "KEIN"
+
+#: application/views/logbookadvanced/edit.php:175
+msgid "African Italy"
+msgstr ""
+
+#: application/views/logbookadvanced/edit.php:176
+msgid "Bear Island"
+msgstr ""
+
+#: application/views/logbookadvanced/edit.php:177
+msgid "European Turkey"
+msgstr ""
+
+#: application/views/logbookadvanced/edit.php:178
+msgid "ITU Vienna"
+msgstr ""
+
+#: application/views/logbookadvanced/edit.php:179
+msgid "Kosovo"
+msgstr ""
+
+#: application/views/logbookadvanced/edit.php:180
+msgid "Shetland Islands"
+msgstr ""
+
+#: application/views/logbookadvanced/edit.php:181
+msgid "Sicily"
+msgstr ""
+
 #: application/views/logbookadvanced/index.php:11
 #: application/views/logbookadvanced/useroptions.php:182
 msgctxt "Map Options"
@@ -13223,9 +13255,6 @@ msgstr "Anfrage senden"
 #~ msgstr ""
 #~ "Es gibt Fehler in der ADIF-Datei. Die QSO wurden hinzugefügt, jedoch "
 #~ "wurden die fehlerhaften Felder nicht ausgefüllt."
-
-#~ msgid "NONE"
-#~ msgstr "KEIN"
 
 #~ msgctxt "Logbook Advanced DXCC Select"
 #~ msgid "- NONE - (e.g. /MM, /AM)"
