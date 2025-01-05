@@ -22,8 +22,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2025-01-04 14:01+0000\n"
-"PO-Revision-Date: 2025-01-02 10:56+0000\n"
+"POT-Creation-Date: 2025-01-04 16:08+0000\n"
+"PO-Revision-Date: 2025-01-03 09:20+0000\n"
 "Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
@@ -125,10 +125,10 @@ msgstr ""
 #: application/controllers/Themes.php:17
 #: application/controllers/Timeline.php:10
 #: application/controllers/Timeplotter.php:11
-#: application/controllers/Update.php:24 application/controllers/Update.php:290
-#: application/controllers/Update.php:301
-#: application/controllers/Update.php:312
-#: application/controllers/Update.php:323 application/controllers/User.php:14
+#: application/controllers/Update.php:24 application/controllers/Update.php:304
+#: application/controllers/Update.php:315
+#: application/controllers/Update.php:326
+#: application/controllers/Update.php:337 application/controllers/User.php:14
 #: application/controllers/User.php:55 application/controllers/User.php:90
 #: application/controllers/User.php:114 application/controllers/User.php:307
 #: application/controllers/User.php:308 application/controllers/User.php:826
@@ -2450,27 +2450,27 @@ msgstr "Bereite DXCC-Ausnahmen vor: "
 msgid "Preparing DXCC Prefixes: "
 msgstr "Bereite DXCC-Präfixe vor: "
 
-#: application/controllers/Update.php:247
+#: application/controllers/Update.php:261
 msgid "DONE"
 msgstr "FERTIG"
 
-#: application/controllers/Update.php:261
+#: application/controllers/Update.php:275
 msgid "Updating..."
 msgstr "Aktualisierung läuft ..."
 
-#: application/controllers/Update.php:264
+#: application/controllers/Update.php:278
 msgid "Dxcc Entities:"
 msgstr "DXCC-Entitäten:"
 
-#: application/controllers/Update.php:265
+#: application/controllers/Update.php:279
 msgid "Dxcc Exceptions:"
 msgstr "DXCC-Ausnahmen:"
 
-#: application/controllers/Update.php:266
+#: application/controllers/Update.php:280
 msgid "Dxcc Prefixes:"
 msgstr "DXCC-Präfixe:"
 
-#: application/controllers/Update.php:401
+#: application/controllers/Update.php:415
 msgid "LoTW SAT Update"
 msgstr "LoTW SAT-Aktualisierung"
 
@@ -8498,7 +8498,7 @@ msgstr "ITU"
 
 #: application/views/interface_assets/header.php:181
 msgid "Worked All Europe (WAE)"
-msgstr ""
+msgstr "Worked All Europe (WAE)"
 
 #: application/views/interface_assets/header.php:199
 msgid "Canada"
@@ -13913,6 +13913,12 @@ msgstr "Rcvd"
 #~ msgid "Custom Statistics"
 #~ msgstr "Benutzerdefinierte Statistiken"
 
+#~ msgid "At least one of your LoTW certificates is expired!"
+#~ msgstr "Mindestens eines deiner LoTW-Zertifikate ist abgelaufen!"
+
+#~ msgid "At least one of your LoTW certificates is about to expire!"
+#~ msgstr "Mindestens eines deiner LoTW-Zertifikate läuft demnächst ab!"
+
 #~ msgid "Custom"
 #~ msgstr "Benutzerdefiniert"
 
@@ -13924,12 +13930,6 @@ msgstr "Rcvd"
 
 #~ msgid "Results go here"
 #~ msgstr "Ergebnisse hier"
-
-#~ msgid "At least one of your LoTW certificates is expired!"
-#~ msgstr "Mindestens eines deiner LoTW-Zertifikate ist abgelaufen!"
-
-#~ msgid "At least one of your LoTW certificates is about to expire!"
-#~ msgstr "Mindestens eines deiner LoTW-Zertifikate läuft demnächst ab!"
 
 #~ msgid "WAE (Worked All Europe)"
 #~ msgstr "WAE (Worked All Europe)"
