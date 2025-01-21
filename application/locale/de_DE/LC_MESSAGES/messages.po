@@ -22,8 +22,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2025-01-20 15:34+0000\n"
-"PO-Revision-Date: 2025-01-15 21:42+0000\n"
+"POT-Creation-Date: 2025-01-20 20:11+0000\n"
+"PO-Revision-Date: 2025-01-20 20:19+0000\n"
 "Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
@@ -612,7 +612,7 @@ msgstr "Cabrillo-Export"
 #: application/controllers/Callstats.php:19
 #: application/views/callstats/index.php:2
 msgid "Callsign statistics"
-msgstr ""
+msgstr "Rufzeichen Statistik"
 
 #: application/controllers/Cfdexport.php:20
 #: application/views/interface_assets/header.php:442
@@ -2499,15 +2499,15 @@ msgstr "Ungültige Benutzer-ID oder fehlendes Modal!"
 
 #: application/controllers/User.php:107
 msgid "User unlocked!"
-msgstr ""
+msgstr "Benutzer entsperrt!"
 
 #: application/controllers/User.php:110
 msgid "Failed to unlock user!"
-msgstr ""
+msgstr "Benutzer konnte nicht entsperrt werden!"
 
 #: application/controllers/User.php:114
 msgid "User not found!"
-msgstr ""
+msgstr "Benutzer nicht gefunden!"
 
 #: application/controllers/User.php:127
 msgid "Invalid Parameter!"
@@ -2590,6 +2590,8 @@ msgid ""
 "Your account is locked, due to too many failed login-attempts. Please reset "
 "your password."
 msgstr ""
+"Dein Konto ist gesperrt, da es zu viele fehlgeschlagene Anmeldeversuche gab. "
+"Bitte setze dein Passwort zurück."
 
 #: application/controllers/User.php:1062
 msgid ""
@@ -2922,23 +2924,23 @@ msgstr "HRDlog: Keine QSOs gefunden zum hochladen für Stationsrufzeichen: "
 msgid "HRDlog: No station profiles with HRDlog Credentials found."
 msgstr "HRDlog: Keine Stationsstandorte mit HRDlog Zugangsdaten gefunden."
 
-#: application/models/Logbook_model.php:3871
+#: application/models/Logbook_model.php:3875
 #, php-format
 msgid "Wrong station callsign %s while importing QSO with %s for %s: SKIPPED"
 msgstr ""
 "Falscher Stationscall %s im QSO mit %s für das Stationsprofil %s: Nicht "
 "importiert"
 
-#: application/models/Logbook_model.php:3872
+#: application/models/Logbook_model.php:3876
 #, php-format
 msgid "Check %s for hints about errors in ADIF files."
 msgstr "Schaue im %s für Tipps zu möglichen Fehlern in der ADIF-Datei."
 
-#: application/models/Logbook_model.php:3884
+#: application/models/Logbook_model.php:3888
 msgid "QSO on"
 msgstr "QSO am"
 
-#: application/models/Logbook_model.php:3884
+#: application/models/Logbook_model.php:3888
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
@@ -2946,62 +2948,62 @@ msgstr ""
 "Du hast versucht, ein QSO ohne angegebenes Rufzeichen zu importieren. Dieses "
 "QSO wurde nicht importiert. Es ist ungültig"
 
-#: application/models/Logbook_model.php:4183
+#: application/models/Logbook_model.php:4187
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "Das (Papier-)QSL-Empfangsdatum hat das falsche Format (JJJJMMDD)"
 
-#: application/models/Logbook_model.php:4194
+#: application/models/Logbook_model.php:4198
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "Das (Papier-)QSL Sendedatum hat das falsche Format (JJJJMMTT)"
 
-#: application/models/Logbook_model.php:4255
+#: application/models/Logbook_model.php:4259
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "Das Format des Clublog-Upload-Datums ist falsch (JJJJMMTT)"
 
-#: application/models/Logbook_model.php:4275
+#: application/models/Logbook_model.php:4279
 msgid "the lotw_qslrdate is invalid (YYYYMMDD)"
 msgstr "Das Format des LoTW-Empfangs-Datums ist falsch (JJJJMMTT)"
 
-#: application/models/Logbook_model.php:4296
+#: application/models/Logbook_model.php:4300
 msgid "the lotw_qslsdate is invalid (YYYYMMDD)"
 msgstr "Das Format des LoTW-Sende-Datums ist falsch (JJJJMMTT)"
 
-#: application/models/Logbook_model.php:4577
+#: application/models/Logbook_model.php:4581
 #: application/views/simplefle/index.php:40
 msgid "Duplicate for"
 msgstr "Doublette zu"
 
-#: application/models/Logbook_model.php:4638
+#: application/models/Logbook_model.php:4642
 msgid "QSO could not be matched"
 msgstr "QSO konnte nicht gefunden werden"
 
-#: application/models/Logbook_model.php:4644
+#: application/models/Logbook_model.php:4648
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "bestätigt durch LoTW/Clublog/eQSL/Contest"
 
-#: application/models/Logbook_model.php:4649
+#: application/models/Logbook_model.php:4653
 msgid "confirmed by award manager"
 msgstr "bestätigt durch Diplommananger"
 
-#: application/models/Logbook_model.php:4652
+#: application/models/Logbook_model.php:4656
 msgid "confirmed by cross-check of DCL data"
 msgstr "bestätigt durch Cross-Check von DCL-Daten"
 
-#: application/models/Logbook_model.php:4655
+#: application/models/Logbook_model.php:4659
 msgid "confirmation pending"
 msgstr "Bestätigung ausstehend"
 
-#: application/models/Logbook_model.php:4658
+#: application/models/Logbook_model.php:4662
 msgid "unconfirmed"
 msgstr "nicht bestätigt"
 
-#: application/models/Logbook_model.php:4661
+#: application/models/Logbook_model.php:4665
 #: application/views/satellite/index.php:52
 #: application/views/view_log/qso.php:287
 msgid "unknown"
 msgstr "unbekannt"
 
-#: application/models/Logbook_model.php:5471
+#: application/models/Logbook_model.php:5475
 #: application/views/activated_gridmap/index.php:110
 #: application/views/awards/ffma/index.php:38
 #: application/views/awards/gridmaster/index.php:44
@@ -6232,7 +6234,7 @@ msgstr "Alle ausser SAT"
 
 #: application/views/callstats/index.php:149
 msgid "#QSOs"
-msgstr ""
+msgstr "#QSOs"
 
 #: application/views/cfd/index.php:7
 #, php-format
@@ -8100,7 +8102,7 @@ msgstr ""
 #: application/views/eqslcard/index.php:34
 #: application/views/view_log/qso.php:544
 msgid "QSL Message"
-msgstr ""
+msgstr "QSL-Nachricht"
 
 #: application/views/eqsl/download.php:44
 msgid "eQSL Receive Date"
@@ -8643,7 +8645,7 @@ msgstr "Aktivierte Locator"
 
 #: application/views/interface_assets/header.php:165
 msgid "Callsign Statistics"
-msgstr ""
+msgstr "Rufzeichen Statistik"
 
 #: application/views/interface_assets/header.php:171
 msgid "International"
@@ -9666,13 +9668,13 @@ msgstr "QRZ"
 #: application/views/logbookadvanced/useroptions.php:82
 #: application/views/qso/edit_ajax.php:524
 msgid "QSL Msg (S)"
-msgstr ""
+msgstr "QSL-Nachricht (S)"
 
 #: application/views/logbookadvanced/index.php:694
 #: application/views/logbookadvanced/useroptions.php:86
 #: application/views/qso/edit_ajax.php:533
 msgid "QSL Msg (R)"
-msgstr ""
+msgstr "QSL-Nachricht (R)"
 
 #: application/views/logbookadvanced/index.php:742
 #: application/views/logbookadvanced/useroptions.php:150
@@ -11089,7 +11091,7 @@ msgstr "Setze die eQSL-Nachricht auf den Standardtext zurück."
 
 #: application/views/qso/edit_ajax.php:536
 msgid "Note: Not editable. Only displayed here."
-msgstr ""
+msgstr "Hinweis: Nicht bearbeitbar. Wird hier nur angezeigt."
 
 #: application/views/qso/edit_ajax.php:580
 #: application/views/view_log/partial/log_ajax.php:353
@@ -13565,11 +13567,11 @@ msgstr "Nie"
 
 #: application/views/user/index.php:74
 msgid "Account locked"
-msgstr ""
+msgstr "Konto gesperrt"
 
 #: application/views/user/index.php:74
 msgid "Account was locked due to too many login attempts."
-msgstr ""
+msgstr "Konto wurde wegen zu vieler Anmeldeversuche gesperrt."
 
 #: application/views/user/index.php:76 application/views/user/index.php:182
 msgid "Locations"
@@ -13758,7 +13760,7 @@ msgstr "Wähle eine Aktion für den Benutzer aus:"
 #: application/views/user/modals/more_actions_modal.php:62
 #: application/views/user/modals/more_actions_modal.php:75
 msgid "Unlock User"
-msgstr ""
+msgstr "Benutzer entsperren"
 
 #: application/views/user/modals/more_actions_modal.php:39
 #: application/views/user/modals/more_actions_modal.php:96
@@ -13779,6 +13781,9 @@ msgid ""
 "failed login attempts. After unlocking, the user will be able to log in "
 "again."
 msgstr ""
+"Du bist dabei das folgende Benutzerkonto zu entsperren. Der Benutzer wurde "
+"aufgrund zu vieler fehlgeschlagener Anmeldeversuche gesperrt. Nach dem "
+"Entsperren kann der Benutzer sich wieder anmelden."
 
 #: application/views/user/modals/more_actions_modal.php:67
 #: application/views/user/modals/more_actions_modal.php:102
