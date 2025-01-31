@@ -105,9 +105,8 @@ class Clublog_model extends CI_Model
 								$return .=  " Clublog upload for " . $station_row->station_callsign . ' successfully sent.';
 								log_message('info', 'Clublog DUPLICATE upload for ' . $station_row->station_callsign . ' successfully sent.');
 							} else {
-								$return =  "Error " . $response." // Code: ".$return;
 								$return = 'Clublog upload for ' . $station_row->station_callsign . ' failed reason ' . $response.' '.$return;
-								log_message('error', 'Clublog upload for ' . $station_row->station_callsign . ' failed reason ' . $response);
+								log_message('error', $return);
 								if (substr($response,0,13) == 'Upload denied') {	// Deactivate Upload for Station if Clublog rejects it due to non-configured Call (prevent being blacklisted at Clublog)
 									log_message('info', 'Deactivated upload for station ' . $station_row->station_callsign . ' due to non-configured Call (prevent being blacklisted at Clublog.');
 									$sql = 'update station_profile set clublogignore = 1 where station_id = ?';
