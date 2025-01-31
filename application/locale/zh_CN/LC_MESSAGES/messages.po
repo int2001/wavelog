@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2025-01-31 08:30+0000\n"
-"PO-Revision-Date: 2025-01-30 13:42+0000\n"
-"Last-Translator: BG6HJE <1753409828@qq.com>\n"
+"PO-Revision-Date: 2025-01-31 08:30+0000\n"
+"Last-Translator: Karuru <karuru@aerodefense.co.uk>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
 "org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -12008,7 +12008,7 @@ msgstr "竞赛交换码；序号或其他交换信息——或两者："
 #: application/views/simplefle/syntax_help.php:48
 msgid ""
 "Received exchange has to be prefixed with a dot '.', sent exchange with a "
-"comma ','. The last to lines are equivalent - i.e. spaces don't matter as "
+"comma ','. The last two lines are equivalent - i.e. spaces don't matter as "
 "the order doesn't as well. Exchange you have sent will automatically be "
 "included in the next QSO, if it contains received exchange, or if you use a "
 "single comma ','. To automatically increment the sent serial, use ',++' and "
@@ -13068,7 +13068,7 @@ msgstr "根据 POTA 编号自动查找网格坐标和公园。"
 
 #: application/views/user/edit.php:425
 msgid "Number of previous contacts displayed on QSO page."
-msgstr ""
+msgstr "QSO 页面中通联过的电台数量。"
 
 #: application/views/user/edit.php:442
 msgid "Menu Options"
