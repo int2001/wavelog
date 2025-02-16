@@ -58,11 +58,19 @@ L.Maidenhead = L.LayerGroup.extend({
 		for (var lon = left; lon < right; lon += (unit*2)) {
 			if (lon > -180 || lon < 180) {
 				for (var lat = bottom; lat < top; lat += unit) {
-					var bounds = [[lat,lon],[lat+unit,lon+(unit*2)]];
+					if (zoom == 10) {
+						var bounds = [[lat,lon],[lat-unit,lon+(unit*2)]];
+					} else if (zoom == 11) { // TODO: needs fixing, 6 char grid is placed wrong
+						var bounds = [[lat,lon],[lat+unit,lon+(unit*2)]];
+					} else if (zoom == 12) { // TODO: needs fixing, 6 char grid is placed wrong
+						var bounds = [[lat,lon],[lat+unit,lon+(unit*2)]];
+					} else {
+						var bounds = [[lat,lon],[lat+unit,lon+(unit*2)]];
+					}
 					var locator = this._getLocator(lon,lat);
-	
+
 					if(grid_two.includes(locator) || grid_four.includes(locator) || grid_six.includes(locator)) {
-	
+
 						if(grid_two_confirmed.includes(locator) || grid_four_confirmed.includes(locator) || grid_six_confirmed.includes(locator)) {
 							var rectConfirmed = L.rectangle(bounds, {className: 'grid-rectangle grid-confirmed', color: 'rgba(144,238,144, 0.6)', weight: 1, fillOpacity: 1, fill:true, interactive: false});
 							this.addLayer(rectConfirmed);
@@ -121,7 +129,11 @@ L.Maidenhead = L.LayerGroup.extend({
 		var title = '';
 		var locator = this._getLocator(lon,lat);
 		if (zoom != 3) {
-			title = '<span class="grid-text" style="cursor: default;"><font style="color:'+this.options.color+'; font-size:'+size+'; font-weight: 900; ">' + locator + '</font></span>';
+			if(grid_four.includes(locator) || grid_four_confirmed.includes(locator) || grid_two.includes(locator) || grid_two_confirmed.includes(locator)) {
+				title = '<span class="grid-text-worked" style="cursor: default;"><font style="color:'+this.options.color+'; font-size:'+size+'; font-weight: 900; ">' + locator + '</font></span>';
+			} else {
+				title = '<span class="grid-text-unworked" style="cursor: default;"><font style="color:'+this.options.color+'; font-size:'+size+'; font-weight: 900; ">' + locator + '</font></span>';
+			}
 		}
 		var myIcon = L.divIcon({className: 'my-div-icon', html: title});
 		var marker = L.marker([lat,lon], {icon: myIcon}, clickable=false);
@@ -171,7 +183,12 @@ L.Maidenhead = L.LayerGroup.extend({
 		var title_size = new Array(0, 10, 12, 16, 20, 26, 26, 16, 24, 36, 12, 14, 20, 36, 60, 12, 20, 36, 60, 12, 24);
 		var zoom = map.getZoom();
 		var size = title_size[zoom]+'px';
-		var title = '<span class="grid-text" style="cursor: default;"><font style="color:'+this.options.color+'; font-size:'+size+'; font-weight: 900; ">' + this._getLocator2(lon,lat) + '</font></span>';
+		if(grid_four.includes(locator) || grid_four_confirmed.includes(locator) || grid_two.includes(locator) || grid_two_confirmed.includes(locator)) {
+			var title = '<span class="grid-text-worked" style="cursor: default;"><font style="color:'+this.options.color+'; font-size:'+size+'; font-weight: 900; ">' + this._getLocator2(lon,lat) + '</font></span>';
+		} else {
+			var title = '<span class="grid-text-unworked" style="cursor: default;"><font style="color:'+this.options.color+'; font-size:'+size+'; font-weight: 900; ">' + this._getLocator2(lon,lat) + '</font></span>';
+		}
+
 		var myIcon = L.divIcon({className: 'my-div-icon', html: title});
 		var marker = L.marker([lat,lon], {icon: myIcon}, clickable=false);
 		return marker;

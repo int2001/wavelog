@@ -6,14 +6,14 @@ class Bandmap extends CI_Controller {
 		parent::__construct();
 
 		$this->load->model('user_model');
-		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('notice', 'You\'re not allowed to do that!'); redirect('dashboard'); }
+		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		$this->load->model('bands');
 	}
 
 	function index() {
 		$this->load->model('cat');
 		$this->load->model('bands');
-		$data['radios'] = $this->cat->radios();
+		$data['radios'] = $this->cat->radios(true);
 		$data['bands'] = $this->bands->get_user_bands_for_qso_entry();
 
         $footerData = [];
@@ -25,7 +25,7 @@ class Bandmap extends CI_Controller {
 			'assets/js/sections/bandmap.js',
 		];
 
-		$data['page_title'] = "DXCluster";
+		$data['page_title'] = __("DXCluster");
 		$this->load->view('interface_assets/header', $data);
 		$this->load->view('bandmap/index');
 		$this->load->view('interface_assets/footer', $footerData);
@@ -66,7 +66,7 @@ class Bandmap extends CI_Controller {
 		default: $pageData['custom_date_format'] = 'DD/MM/YYYY';
 		}
 
-		$data['page_title'] = "DXCluster";
+		$data['page_title'] = __("DXCluster");
 		$this->load->view('interface_assets/header', $data);
 		$this->load->view('bandmap/list',$pageData);
 		$this->load->view('interface_assets/footer', $footerData);

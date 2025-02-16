@@ -14,7 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $config['app_name'] = 'Wavelog';
 $config['directory'] = 'logbook';
-$config['callbook'] = 'hamqth'; // Options are hamqth or qrz
+$config['callbook'] = 'hamqth'; // Options are hamqth, qrz or qrzcq
 
 $config['datadir'] = null; // default to install directory
 
@@ -37,7 +37,7 @@ $config['display_freq'] = true;
 | QRZ Login Options
 |--------------------------------------------------------------------------
 |
-| 	'qrz_username'	QRZ.com user login
+| 	'qrz_username'	QRZ.com user login (callsign, not email)
 |	'qrz_password'	QRZ.com user password
 |	'use_fullname'  Get full names from QRZ, may not be GDPR compliant
 */
@@ -56,6 +56,17 @@ $config['use_fullname'] = false;
 */
 $config['hamqth_username'] = '';
 $config['hamqth_password'] = '';
+
+/*
+|--------------------------------------------------------------------------
+| QRZcq Login Options
+|--------------------------------------------------------------------------
+|
+| 	'qrzcq_username'	QRZcq.com user login
+|	'qrzcq_password'	QRZcq.com user password
+*/
+$config['qrzcq_username'] = '';
+$config['qrzcq_password'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -98,7 +109,7 @@ $config['auth_level'][99] = 'Administrator';
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/logbook';
+$config['base_url'] = 'http://localhost/logbook/';
 
 /*
 |--------------------------------------------------------------------------
@@ -143,72 +154,6 @@ $config['url_suffix'] = '';
 
 /*
 |--------------------------------------------------------------------------
-| Default Language
-|--------------------------------------------------------------------------
-|
-| This determines which set of language files should be used. Make sure
-| there is an available translation if you intend to use something other
-| than english.
-|
- */
-$lang = 'english'; // this language will be used per default
-
-if (isset($_COOKIE["language"])) {
-	$tmp_value = $_COOKIE["language"];
-	if (!empty($tmp_value)) { $lang = $tmp_value; }
-}
-switch ($lang) {	// do this for security-reasons! parse only langs, which are known to us
-case 'dutch':
-	$config['language'] = $lang;
-	break;
-case 'chinese_simplified':
-	$config['language'] = $lang;
-	break;
-case 'spanish':
-	$config['language'] = $lang;
-	break;
-case 'czech':
-	$config['language'] = $lang;
-	break;
-case 'bulgarian':
-	$config['language'] = $lang;
-	break;
-case 'turkish':
-	$config['language'] = $lang;
-	break;
-case 'swedish':
-	$config['language'] = $lang;
-	break;
-case 'polish':
-	$config['language'] = $lang;
-	break;
-case 'italian':
-	$config['language'] = $lang;
-	break;
-case 'greek':
-	$config['language'] = $lang;
-	break;
-case 'french':
-	$config['language'] = $lang;
-	break;
-case 'finnish':
-	$config['language'] = $lang;
-	break;
-case 'russian':
-	$config['language'] = $lang;
-	break;
-case 'english':
-	$config['language'] = $lang;
-	break;
-case 'german':
-	$config['language'] = $lang;
-	break;
-}
-
-$config['cl_multilanguage']=true;
-
-/*
-|--------------------------------------------------------------------------
 | Default Character Set
 |--------------------------------------------------------------------------
 |
@@ -229,7 +174,7 @@ $config['charset'] = 'UTF-8';
 | setting this variable to TRUE (boolean).  See the user guide for details.
 |
 */
-$config['enable_hooks'] = FALSE;
+$config['enable_hooks'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
@@ -460,10 +405,9 @@ $config['cache_query_string'] = FALSE;
 | Encryption Key
 |--------------------------------------------------------------------------
 |
-| If you use the Encryption class, you must set an encryption key.
-| See the user guide for more info.
+| Encryption Key is used to encrypt sensitive data. Choose a strong and secure key.
+| Example: 'cnawuihp87f4g3ofb837rf93brlcve378rgf93be9837dgvzcl39rlzfbrzvc834lvvf83frgv83zrbzv'
 |
-| https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
 $config['encryption_key'] = 'flossie1234555541';
@@ -526,6 +470,17 @@ $config['sess_save_path'] = '/tmp';
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;
+
+/*
+ * To make sure we do not collect infinite session we set some garbage collection settings
+ * see https://www.php.net/manual/en/session.configuration.php#ini.session.gc-probability
+ * and https://www.php.net/manual/en/session.configuration.php#ini.session.gc-divisor
+ * and https://osvaldas.info/enabling-codeigniters-garbage-collector/
+ *
+ * set the probability to 1/1000 to make sure we do not collect too often
+*/
+$config['sess_gc_probability'] = 1;
+$config['sess_gc_divisor'] = 1000;
 
 /*
 |--------------------------------------------------------------------------
@@ -676,4 +631,160 @@ $config['proxy_ips'] = '';
 |
 */
 
-$config['userdata'] = 'userdata';  
+$config['userdata'] = 'userdata';
+
+/*
+|--------------------------------------------------------------------------
+| Disable Syncing to 3rd party-Services at UI
+|--------------------------------------------------------------------------
+|
+| Here you can disable triggering the syncing-logics by Users.
+| Helpful if u have a huge instance or active-users, because of preventing race-conditions between UI and Cron
+|
+*/
+
+$config['disable_manual_lotw'] = false;
+$config['disable_manual_eqsl'] = false;
+$config['disable_manual_hrdlog'] = false;
+$config['disable_manual_qrz'] = false;
+
+/*
+|--------------------------------------------------------------------------
+| Disables QSL-Image-Feature
+|--------------------------------------------------------------------------
+|
+| This disabled the whole QSL image feature if you don't need it and want to hide it.
+| Set to true will hide all QSL image related stuff in Wavelog
+|
+*/
+
+$config['disable_qsl'] = false;
+
+/*
+|--------------------------------------------------------------------------
+| Disables OQRS-Feature
+|--------------------------------------------------------------------------
+|
+| This disabled the whole OQRS feature if you don't need it and want to hide it.
+| Set to true will hide all OQRS related stuff in Wavelog
+|
+*/
+
+$config['disable_oqrs'] = false;
+
+/*
+|--------------------------------------------------------------------------
+| Special Callsign Feature aka. Clubstations Support
+|--------------------------------------------------------------------------
+|
+| This config switch is meant to use for Special Callsign operations or Clubstations.
+| If this switch is set to true it enables a whole bunch of features to handle Special Callsigns and Club Callsigns.
+| For more Information please visit the Wiki:
+| https://github.com/wavelog/wavelog/wiki/Clubstations
+|
+| !!! Important !!!
+| $config['disable_impersonate'] has to be set to false to use this feature.
+|
+*/
+
+$config['special_callsign'] = false;
+
+
+/*
+|--------------------------------------------------------------------------
+| Impersonate
+|--------------------------------------------------------------------------
+|
+| This config switch disables the impersonate feature. This feauture is used to impersonate another user.
+| Impersonate is enabled by default. To disable it, set the value to false. Also the special_callsign feature needs this to be false.
+|
+*/
+
+$config['disable_impersonate'] = false;
+
+
+/*
+|--------------------------------------------------------------------------
+| Cronmanager Allow Insecure
+|--------------------------------------------------------------------------
+|
+| The cronmanager needs http or https with a valid certificate to work.
+| If you want to use it with https and a self-signed certificate, you need to set this to true.
+|
+*/
+
+$config['cron_allow_insecure'] = false;
+
+/*
+|--------------------------------------------------------------------------
+| Update / version check
+|--------------------------------------------------------------------------
+
+| This config switch disables the check for newer releases on github and
+| hides the banner to admin users if a newer release as published.
+| Default ON.
+ */
+
+$config['disable_version_check'] = false;
+
+/*
+|--------------------------------------------------------------------------
+| trx-control Configuration
+|--------------------------------------------------------------------------
+|
+| ***
+| No Features implemented yet, Nothing is going to happen if you set this.
+| ***
+|
+| This defines server and port of your personal trx-control server.
+| If you don't have a trx-control server, you can ignore this.
+|
+| trxd_server_ip            IP of your trx-control server
+| trxd_server_port          Port of your trx-control server
+| trxd_connection_type      Connection type of your trx-control server (ws, wss or plain)
+|                           ws:     normal websocket
+|                           wss:    secure websocket (requires a valid certificate on trx-control server)
+|                           plain:  plain tcp/ip socket connection
+| trxd_ws_path              Path of your trxd websocket server (only required for ws and wss)
+| trxd_server_timeout       Timeout before the connection to trx-control server is closed
+|
+| More Information about trx-control you can find here:
+| https://github.com/hb9ssb/trx-control
+|
+|*/
+
+// $config['trxd_server_ip'] = '10.0.0.10';
+// $config['trxd_server_port'] = '14290';
+// $config['trxd_connection_type'] = 'ws';
+// $config['trxd_ws_path'] = '/trx-control';
+// $config['trxd_timeout'] = 5;
+
+/*
+|--------------------------------------------------------------------------
+| eqsl.cc Massdownloa
+|--------------------------------------------------------------------------
+|
+| The eqsl.cc mass download function is not threadsafe. So it is disabled by default.
+| Please consider enabling this carefully. Not recommended for multi-user environments.
+ */
+
+$config['enable_eqsl_massdownload'] = false;
+
+/*
+|--------------------------------------------------------------------------
+| Lock Account after n failed login-attempts
+|--------------------------------------------------------------------------
+ */
+
+$config['max_login_attempts'] = 3;
+
+/*
+|--------------------------------------------------------------------------
+| Disable User QSO Count in User List (Admin Menu)
+| Reason for this setting is to prevent performance issues on large installations
+| where the QSO count is not needed. Set to true to disable the QSO count. 
+| This also hides the last Operator for CLubstations. Default is false.
+|--------------------------------------------------------------------------
+ */
+
+ $config['disable_user_stats'] = false;

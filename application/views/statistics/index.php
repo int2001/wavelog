@@ -11,32 +11,43 @@
 
 <script>
 		// General Language
-		var lang_statistics_years = "<?php echo lang('statistics_years')?>";
-		var lang_statistics_modes = "<?php echo lang('statistics_modes')?>";
-		var lang_statistics_bands = "<?php echo lang('statistics_bands')?>";
-		var lang_statistics_number_of_qso_worked_each_year = "<?php echo lang('statistics_number_of_qso_worked_each_year')?>";
-		var lang_statistics_year = "<?php echo lang('statistics_year')?>";
-		var lang_statistics_number_of_qso_worked = "<?php echo lang('statistics_number_of_qso_worked')?>";
-		var lang_gen_hamradio_mode = "<?php echo lang('gen_hamradio_mode')?>";
-		var lang_gen_hamradio_band = "<?php echo lang('gen_hamradio_band')?>";
+		var lang_statistics_years = "<?= __("Years")?>";
+		var lang_statistics_modes = "<?= __("Mode")?>";
+		var lang_statistics_bands = "<?= __("Bands")?>";
+		var lang_statistics_operators = "<?= __("Operators")?>";
+		var lang_statistics_number_of_qso_worked_each_year = "<?= __("Number of QSOs worked each year")?>";
+		var lang_statistics_year = "<?= __("Year")?>";
+		var lang_statistics_number_of_qso_worked = "<?= __("# of QSO's worked")?>";
+		var lang_gen_hamradio_mode = "<?= __("Mode")?>";
+		var lang_gen_hamradio_band = "<?= __("Band")?>";
+		var lang_gen_hamradio_operator = "<?= __("Operator")?>";
+		var lang_gen_satellite = "<?= __("Satellite")?>";
 </script>
 
 <div class="container statistics">
 
 	<h2>
 		<?php echo $page_title; ?>
-		<small class="text-muted"><?php echo lang('statistics_explore_the_logbook'); ?></small>
+		<small class="text-muted"><?= __("Explore the logbook."); ?></small>
 	</h2>
-
+		<br/>
+		<select class="form-select form-select-sm me-2 w-auto" style="display:none;" id="yr" name="yr">
+			<option value='All'><?= __("All Years"); ?></option>
+		<?php 
+			foreach($years as $yr) {
+				echo '<option value="'.$yr.'">'.__("Year")." ".$yr.'</option>';
+			}
+		?>
+		</select>
 	<br>
 	<div hidden class="tabs">
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
 			<li class="nav-item">
-				<a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">General</a>
+				<a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><?= __("General"); ?></a>
 			</li>
 			<?php if ($sat_active) { ?>
 			<li class="nav-item">
-				<a class="nav-link" id="satellite-tab" data-bs-toggle="tab" href="#satellite" role="tab" aria-controls="satellite" aria-selected="false">Satellites</a>
+				<a class="nav-link" id="satellite-tab" data-bs-toggle="tab" href="#satellite" role="tab" aria-controls="satellite" aria-selected="false"><?= __("Satellites"); ?></a>
 			</li>
 			<?php } ?>
 		</ul>
@@ -47,19 +58,22 @@
 					<br />
 					<ul class="nav nav-pills" id="myTab2" role="tablist">
 						<li class="nav-item">
-							<a class="nav-link active" id="years-tab" data-bs-toggle="tab" href="#yearstab" role="tab" aria-controls="yearstab" aria-selected="true"><?php echo lang('statistics_years'); ?></a>
+							<a class="nav-link active" id="years-tab" data-bs-toggle="tab" href="#yearstab" role="tab" aria-controls="yearstab" aria-selected="true"><?= __("Years"); ?></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" id="mode-tab" data-bs-toggle="tab" href="#modetab" role="tab" aria-controls="modetab" aria-selected="false"><?php echo lang('statistics_modes'); ?></a>
+							<a class="nav-link" id="mode-tab" data-bs-toggle="tab" href="#modetab" role="tab" aria-controls="modetab" aria-selected="false"><?= __("Mode"); ?></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" id="band-tab" data-bs-toggle="tab" href="#bandtab" role="tab" aria-controls="bandtab" aria-selected="false"><?php echo lang('statistics_bands'); ?></a>
+							<a class="nav-link" id="band-tab" data-bs-toggle="tab" href="#bandtab" role="tab" aria-controls="bandtab" aria-selected="false"><?= __("Bands"); ?></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" id="qso-tab" data-bs-toggle="tab" href="#qsotab" role="tab" aria-controls="bandtab" aria-selected="false"><?php echo lang('statistics_qsos'); ?></a>
+							<a class="nav-link" id="qso-tab" data-bs-toggle="tab" href="#qsotab" role="tab" aria-controls="bandtab" aria-selected="false"><?= __("QSOs"); ?></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" id="unique-tab" data-bs-toggle="tab" href="#uniquetab" role="tab" aria-controls="uniquetab" aria-selected="false"><?php echo lang('statistics_unique_callsigns'); ?></a>
+							<a class="nav-link" id="operators-tab" data-bs-toggle="tab" href="#operatorstab" role="tab" aria-controls="operatorstab" aria-selected="false"><?= __("Operators"); ?></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" id="unique-tab" data-bs-toggle="tab" href="#uniquetab" role="tab" aria-controls="uniquetab" aria-selected="false"><?= __("Unique callsigns"); ?></a>
 						</li>
 					</ul>
 				<div class="tab-content">
@@ -79,6 +93,10 @@
 							<div class="qsos">
 							</div>
 					</div>
+					<div class="tab-pane fade" id="operatorstab" role="tabpanel" aria-labelledby="operators-tab">
+							<div class="operators">
+							</div>
+					</div>
 					<div class="tab-pane fade" id="uniquetab" role="tabpanel" aria-labelledby="unique-tab">
 							<div class="unique">
 							</div>
@@ -90,32 +108,18 @@
 					<br />
 					<ul class="nav nav-pills" id="myTab3" role="tablist">
 						<li class="nav-item">
-							<a class="nav-link active" id="sat-tab" data-bs-toggle="tab" href="#sattab" role="tab" aria-controls="sattab" aria-selected="true">Satellites</a>
+							<a class="nav-link active" id="sat-tab" data-bs-toggle="tab" href="#sattab" role="tab" aria-controls="sattab" aria-selected="true"><?= __("Satellites"); ?></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" id="satqsos-tab" data-bs-toggle="tab" href="#satqsostab" role="tab" aria-controls="satqsostab" aria-selected="false"><?php echo lang('statistics_qsos'); ?></a>
+							<a class="nav-link" id="satqsos-tab" data-bs-toggle="tab" href="#satqsostab" role="tab" aria-controls="satqsostab" aria-selected="false"><?= __("QSOs"); ?></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" id="satunique-tab" data-bs-toggle="tab" href="#satuniquetab" role="tab" aria-controls="satuniquetab" aria-selected="false"><?php echo lang('statistics_unique_callsigns'); ?></a>
+							<a class="nav-link" id="satunique-tab" data-bs-toggle="tab" href="#satuniquetab" role="tab" aria-controls="satuniquetab" aria-selected="false"><?= __("Unique callsigns"); ?></a>
 						</li>
 					</ul>
 				<div class="tab-content">
 					<div class="tab-pane fade show active" id="sattab" role="tabpanel" aria-labelledby="sat-tab">
-						<div style="display: flex;" id="satContainer">
-							<div style="flex: 1;">
-								<canvas id="satChart" width="500" height="500"></canvas>
-							</div>
-							<div style="flex: 1;" id="satTable">
-								<table style="width:100%" class="sattable table table-sm table-bordered table-hover table-striped table-condensed text-center"><thead>
-									<tr>
-									<td>#</td>
-									<td>Satellite</td>
-									<td># of QSO's worked</td>
-									</tr>
-									</thead>
-									<tbody></tbody>
-								</table>
-							</div>
+						<div class="satsummary">
 						</div>
 					</div>
 					<div class="tab-pane fade" id="satqsostab" role="tabpanel" aria-labelledby="satqsos-tab">

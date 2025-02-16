@@ -19,16 +19,12 @@ class Lotw extends CI_Controller {
 	*/
 
 	/* Controls who can access the controller and its functions */
-	function __construct()
-	{
+	function __construct() {
 		parent::__construct();
 		$this->load->helper(array('form', 'url'));
 
-		// Load language files
-		$this->lang->load('lotw');
-
 		if (ENVIRONMENT == 'maintenance' && $this->session->userdata('user_id') == '') {
-            echo "Maintenance Mode is active. Try again later.\n";
+			echo __("Maintenance Mode is active. Try again later.")."\n";
 			redirect('user/login');
 		}
 	}
@@ -45,25 +41,23 @@ class Lotw extends CI_Controller {
 	public function index() {
 		$this->load->library('Permissions');
 		$this->load->model('user_model');
-		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('notice', 'You\'re not allowed to do that!'); redirect('dashboard'); }
-
-		// Fire OpenSSL missing error if not found
-		if (!extension_loaded('openssl')) {
-			echo "You must install php OpenSSL for LoTW functions to work";
-		}
+		if(!$this->user_model->authorize(2) || !clubaccess_check(9)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		// Load required models for page generation
-		$this->load->model('LotwCert');
+		$this->load->model('Lotw_model');
 
 		// Get Array of the logged in users LoTW certs.
-		$data['lotw_cert_results'] = $this->LotwCert->lotw_certs($this->session->userdata('user_id'));
+		$data['lotw_cert_results'] = $this->Lotw_model->lotw_certs($this->session->userdata('user_id'));
 
 		// Set Page Title
-		$data['page_title'] = "Logbook of the World";
+		$data['page_title'] = __("Logbook of the World");
 
 		// Check folder permissions
 		$uploads_folder = $this->permissions->is_really_writable('uploads');
 		$data['uploads_folder'] = $uploads_folder;
+
+		$this->load->model('cron_model');
+		$data['next_run'] = $this->cron_model->get_next_run("lotw_lotw_upload");
 
 		// Load Views
 		$this->load->view('interface_assets/header', $data);
@@ -82,13 +76,13 @@ class Lotw extends CI_Controller {
 	public function cert_upload() {
 		$this->load->model('user_model');
 		$this->load->model('dxcc');
-		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('notice', 'You\'re not allowed to do that!'); redirect('dashboard'); }
+		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		// Load DXCC Countrys List
 		$data['dxcc_list'] = $this->dxcc->list();
 
 		// Set Page Title
-		$data['page_title'] = "Logbook of the World";
+		$data['page_title'] = __("Logbook of the World");
 
 		// Load Views
 		$this->load->view('interface_assets/header', $data);
@@ -105,18 +99,12 @@ class Lotw extends CI_Controller {
 	| and processing of p12 files and storing the data into mysql
 	|
 	*/
-	public function do_cert_upload()
-    {
+	public function do_cert_upload() {
 		$this->load->model('user_model');
 		$this->load->model('dxcc');
-		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('notice', 'You\'re not allowed to do that!'); redirect('dashboard'); }
+		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
-		// Fire OpenSSL missing error if not found
-		if (!extension_loaded('openssl')) {
-			echo "You must install php OpenSSL for LoTW functions to work";
-		}
-
-    	// create folder to store certs while processing
+		// create folder to store certs while processing
     	if (!file_exists('./uploads/lotw/certs')) {
 		    mkdir('./uploads/lotw/certs', 0755, true);
 		}
@@ -126,8 +114,7 @@ class Lotw extends CI_Controller {
 
 		$this->load->library('upload', $config);
 
-        if ( ! $this->upload->do_upload('userfile'))
-        {
+        if ( ! $this->upload->do_upload('userfile')) {
         	// Upload of P12 Failed
             $error = array('error' => $this->upload->display_errors());
 
@@ -135,17 +122,15 @@ class Lotw extends CI_Controller {
 			$data['dxcc_list'] = $this->dxcc->list();
 
 			// Set Page Title
-			$data['page_title'] = "Logbook of the World";
+			$data['page_title'] = __("Logbook of the World");
 
 			// Load Views
 			$this->load->view('interface_assets/header', $data);
 			$this->load->view('lotw_views/upload_cert', $error);
 			$this->load->view('interface_assets/footer');
-        }
-        else
-        {
+        } else {
         	// Load database queries
-        	$this->load->model('LotwCert');
+        	$this->load->model('Lotw_model');
 
         	//Upload of P12 successful
         	$data = array('upload_data' => $this->upload->data());
@@ -153,23 +138,23 @@ class Lotw extends CI_Controller {
         	$info = $this->decrypt_key($data['upload_data']['full_path']);
 
 			// Check to see if certificate is already in the system
-			$new_certificate = $this->LotwCert->find_cert($info['issued_callsign'], $info['dxcc-id'], $this->session->userdata('user_id'));
+			$new_certificate = $this->Lotw_model->find_cert($info['issued_callsign'], $info['dxcc-id'], $this->session->userdata('user_id'));
 
         	if($new_certificate == 0) {
         		// New Certificate Store in Database
 
         		// Store Certificate Data into MySQL
-        		$this->LotwCert->store_certificate($this->session->userdata('user_id'), $info['issued_callsign'], $info['dxcc-id'], $info['validFrom'], $info['validTo_Date'], $info['qso-first-date'], $info['qso-end-date'], $info['pem_key'], $info['general_cert']);
+        		$this->Lotw_model->store_certificate($this->session->userdata('user_id'), $info['issued_callsign'], $info['dxcc-id'], $info['validFrom'], $info['validTo_Date'], $info['qso-first-date'], $info['qso-end-date'], $info['pem_key'], $info['general_cert']);
 
         		// Cert success flash message
-        		$this->session->set_flashdata('Success', $info['issued_callsign'].' Certificate Imported.');
+        		$this->session->set_flashdata('success', $info['issued_callsign'] . ' ' . __("Certificate Imported."));
         	} else {
         		// Certificate is in the system time to update
 
-				$this->LotwCert->update_certificate($this->session->userdata('user_id'), $info['issued_callsign'], $info['dxcc-id'], $info['validFrom'], $info['validTo_Date'], $info['qso-first-date'], $info['qso-end-date'], $info['pem_key'], $info['general_cert']);
+				$this->Lotw_model->update_certificate($this->session->userdata('user_id'), $info['issued_callsign'], $info['dxcc-id'], $info['validFrom'], $info['validTo_Date'], $info['qso-first-date'], $info['qso-end-date'], $info['pem_key'], $info['general_cert']);
 
         		// Cert success flash message
-        		$this->session->set_flashdata('Success', $info['issued_callsign'].' Certificate Updated.');
+        		$this->session->set_flashdata('success', $info['issued_callsign'] . ' ' . __("Certificate Updated."));
 
         	}
 
@@ -193,17 +178,22 @@ class Lotw extends CI_Controller {
 		$this->load->model('user_model');
 		$this->user_model->authorize(2);
 
-		// Fire OpenSSL missing error if not found
-		if (!extension_loaded('openssl')) {
-			echo "You must install php OpenSSL for LoTW functions to work";
-		}
+		// set the last run in cron table for the correct cron id
+		$this->load->model('cron_model');
+		$this->cron_model->set_last_run($this->router->class.'_'.$this->router->method);
 
 		// Get Station Profile Data
 		$this->load->model('Stations');
 
 		if ($this->user_model->authorize(2)) {
-			$station_profiles = $this->Stations->all_of_user($this->session->userdata('user_id'));
-			$sync_user_id=$this->session->userdata('user_id');
+			if (!($this->config->item('disable_manual_lotw'))) {
+				$station_profiles = $this->Stations->all_of_user($this->session->userdata('user_id'));
+				$sync_user_id=$this->session->userdata('user_id');
+			} else {
+				echo "Manual syncing is disabled by configuration";
+				redirect('dashboard');
+				exit();
+			}
 		} else {
 			$station_profiles = $this->Stations->all();
 			$sync_user_id=null;
@@ -219,12 +209,13 @@ class Lotw extends CI_Controller {
 			foreach ($station_profiles->result() as $station_profile) {
 
 				// Get Certificate Data
-				$this->load->model('LotwCert');
+				$this->load->model('Lotw_model');
 				$data['station_profile'] = $station_profile;
-				$data['lotw_cert_info'] = $this->LotwCert->lotw_cert_details($station_profile->station_callsign, $station_profile->station_dxcc);
+				$data['lotw_cert_info'] = $this->Lotw_model->lotw_cert_details($station_profile->station_callsign, $station_profile->station_dxcc, $station_profile->user_id);
 
 				// If Station Profile has no LoTW Cert continue on.
 				if(!isset($data['lotw_cert_info']->cert_dxcc_id)) {
+					echo $station_profile->station_callsign.": No LoTW certificate for station callsign found.<br>";
 					continue;
 				}
 
@@ -244,12 +235,15 @@ class Lotw extends CI_Controller {
 
 				$this->load->model('Logbook_model');
 
+				// First mark QSOs with unsupported propagation modes as ignore
+				$this->Logbook_model->mark_lotw_ignore($data['station_profile']->station_id);
+
 				$data['qsos'] = $this->Logbook_model->get_lotw_qsos_to_upload($data['station_profile']->station_id, $data['lotw_cert_info']->qso_start_date, $data['lotw_cert_info']->qso_end_date);
 
 				// Nothing to upload
 				if(empty($data['qsos']->result())){
 					if ($this->user_model->authorize(2)) {	// Only be verbose if we have a session
-						echo $station_profile->station_callsign." (".$station_profile->station_profile_name.") No QSOs to Upload <br>";
+						echo $station_profile->station_callsign." (".$station_profile->station_profile_name."): No QSOs to upload.<br>";
 					}
 					continue;
 				}
@@ -300,47 +294,50 @@ class Lotw extends CI_Controller {
 				//Tell cURL to return the output as a string.
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-				//If the function curl_file_create exists
-				if(function_exists('curl_file_create')){
-					//Use the recommended way, creating a CURLFile object.
-					$filePath = curl_file_create($filePath);
-				} else{
-					//Otherwise, do it the old way.
-					//Get the canonicalized pathname of our file and prepend
-					//the @ character.
-					$filePath = '@' . realpath($filePath);
-					//Turn off SAFE UPLOAD so that it accepts files
-					//starting with an @
-					curl_setopt($ch, CURLOPT_SAFE_UPLOAD, false);
-				}
+				//Use the recommended way, creating a CURLFile object.
+				$uploadfile = curl_file_create($filePath);
+				$uploadfile->setPostFilename(basename($filePath));
 
 				//Setup our POST fields
 				$postFields = array(
-					$uploadFieldName => $filePath
+					$uploadFieldName => $uploadfile
 				);
 
 				curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
+				curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
 
 				//Execute the request
 				$result = curl_exec($ch);
 
-				//If an error occured, throw an exception
-				//with the error message.
 				if(curl_errno($ch)){
-					throw new Exception(curl_error($ch));
+					echo $station_profile->station_callsign." (".$station_profile->station_profile_name."): Upload Failed - ".curl_strerror(curl_errno($ch))." (".curl_errno($ch).")<br>";
+					$this->Lotw_model->last_upload($data['lotw_cert_info']->lotw_cert_id, "Upload failed");
+					if (curl_errno($ch) == 28) {  // break on timeout
+						echo "Timeout reached. Stopping subsequent uploads.<br>";
+						break;
+					} else {
+						continue;
+					}
 				}
 
 				$pos = strpos($result, "<!-- .UPL.  accepted -->");
 
 				if ($pos === false) {
 					// Upload of TQ8 Failed for unknown reason
-					echo $station_profile->station_callsign." (".$station_profile->station_profile_name.") Upload Failed"."<br>";
+					echo $station_profile->station_callsign." (".$station_profile->station_profile_name."): Upload Failed - ".curl_strerror(curl_errno($ch))." (".curl_errno($ch).")<br>";
+					$this->Lotw_model->last_upload($data['lotw_cert_info']->lotw_cert_id, "Upload failed");
+					if (curl_errno($ch) == 28) {  // break on timeout
+						echo "Timeout reached. Stopping subsequent uploads.<br>";
+						break;
+					} else {
+						continue;
+					}
 				} else {
 					// Upload of TQ8 was successfull
 
-					echo "Upload Successful - ".$filename_for_saving."<br>";
+					echo $station_profile->station_callsign." (".$station_profile->station_profile_name."): Upload Successful - ".$filename_for_saving."<br>";
 
-					$this->LotwCert->last_upload($data['lotw_cert_info']->lotw_cert_id);
+					$this->Lotw_model->last_upload($data['lotw_cert_info']->lotw_cert_id, "Success");
 
 					// Mark QSOs as Sent
 					foreach ($qso_id_array as $qso_number) {
@@ -377,15 +374,15 @@ class Lotw extends CI_Controller {
 	*/
     public function delete_cert($cert_id) {
     	$this->load->model('user_model');
-		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('notice', 'You\'re not allowed to do that!'); redirect('dashboard'); }
+		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
-    	$this->load->model('LotwCert');
+    	$this->load->model('Lotw_model');
 
-    	$this->LotwCert->delete_certificate($this->session->userdata('user_id'), $cert_id);
+    	$this->Lotw_model->delete_certificate($this->session->userdata('user_id'), $cert_id);
 
-    	$this->session->set_flashdata('Success', 'Certificate Deleted.');
+    	$this->session->set_flashdata('success', __("Certificate Deleted."));
 
-    	redirect('/lotw/');
+    	redirect('lotw');
     }
 
 
@@ -400,14 +397,21 @@ class Lotw extends CI_Controller {
 	*/
 	public function decrypt_key($file, $password = "") {
 		$this->load->model('user_model');
-		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('notice', 'You\'re not allowed to do that!'); redirect('dashboard'); }
+		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$results = array();
 		$password = $password; // Only needed if 12 has a password set
 		$filename = file_get_contents('file://'.$file);
 		$worked = openssl_pkcs12_read($filename, $results, $password);
 
-		$data['general_cert'] = $results['cert'];
+		if ($results['cert']) {
+			$data['general_cert'] = $results['cert'];
+		} else {
+			log_message('error', 'Found no certificate in file '.$file);
+			unlink($file);
+			$this->session->set_flashdata('warning', sprintf(__("Found no certificate in file %s. If the filename contains 'key-only' this is typically a certificate request which has not been processed by LoTW yet."), basename($file)));
+			redirect('lotw');
+		}
 
 
 		if($worked) {
@@ -424,16 +428,16 @@ class Lotw extends CI_Controller {
 			    log_message('error', openssl_error_string());
 
 			    // Set warning message redirect to LoTW main page
-			    $this->session->set_flashdata('Warning', openssl_error_string());
-				redirect('/lotw/');
+			    $this->session->set_flashdata('warning', openssl_error_string());
+				redirect('lotw');
 			}
 		} else {
 			// Reading p12 failed log error message
 			log_message('error', openssl_error_string());
 
 			// Set warning message redirect to LoTW main page
-			$this->session->set_flashdata('Warning', openssl_error_string());
-			redirect('/lotw/');
+			$this->session->set_flashdata('warning', openssl_error_string());
+			redirect('lotw');
 		}
 
 		// Read Cert Data
@@ -462,141 +466,158 @@ class Lotw extends CI_Controller {
 	|	Internal function that takes the LoTW ADIF and imports into the log
 	|
 	*/
-	private function loadFromFile($filepath, $display_view = "TRUE")
-	{
+	private function loadFromFile($filepath, $station_ids, $display_view = "TRUE") {
 
 		// Figure out how we should be marking QSLs confirmed via LoTW
-		$query = $query = $this->db->query('SELECT lotw_rcvd_mark FROM config');
+		$query = $this->db->query('SELECT lotw_rcvd_mark FROM config');
 		$q = $query->row();
 		$config['lotw_rcvd_mark'] = $q->lotw_rcvd_mark;
 
 		ini_set('memory_limit', '-1');
 		set_time_limit(0);
 
-		$this->load->library('adif_parser');
+		if (!$this->load->is_loaded('adif_parser')) {
+			$this->load->library('adif_parser');
+		}
 
 		$this->adif_parser->load_from_file($filepath);
 
 		$this->adif_parser->initialize();
 
 		$tableheaders = "<table width=\"100%\">";
-			$tableheaders .= "<tr class=\"titles\">";
-				$tableheaders .= "<td>Station Callsign</td>";
-				$tableheaders .= "<td>QSO Date</td>";
-				$tableheaders .= "<td>Call</td>";
-				$tableheaders .= "<td>Mode</td>";
-				$tableheaders .= "<td>LoTW QSL Received</td>";
-				$tableheaders .= "<td>Date LoTW Confirmed</td>";
-				$tableheaders .= "<td>State</td>";
-				$tableheaders .= "<td>Gridsquare</td>";
-				$tableheaders .= "<td>IOTA</td>";
-				$tableheaders .= "<td>Log Status</td>";
-				$tableheaders .= "<td>LoTW Status</td>";
-			$tableheaders .= "</tr>";
+		$tableheaders .= "<tr class=\"titles\">";
+		$tableheaders .= "<td>Station Callsign</td>";
+		$tableheaders .= "<td>QSO Date</td>";
+		$tableheaders .= "<td>Call</td>";
+		$tableheaders .= "<td>Mode</td>";
+		$tableheaders .= "<td>LoTW QSL Received</td>";
+		$tableheaders .= "<td>Date LoTW Confirmed</td>";
+		$tableheaders .= "<td>State</td>";
+		$tableheaders .= "<td>Gridsquare</td>";
+		$tableheaders .= "<td>IOTA</td>";
+		$tableheaders .= "<td>Log Status</td>";
+		$tableheaders .= "<td>LoTW Status</td>";
+		$tableheaders .= "</tr>";
 
-			$table = "";
-			while($record = $this->adif_parser->get_record())
-			{
+		$table = "";
+		while($record = $this->adif_parser->get_record()) {
+			// Check for LoTW confirmation in ADIF record and skip if not existent
+			if (!isset($record['app_lotw_rxqsl'])) {
+				continue;
+			}
+			if (($record['call'] ?? '') == '') {	// Failsafe if no call is given
+				continue;
+			}
+			if (($record['station_callsign'] ?? '') == '') {	// Failsafe if no station_callsign is given
+				continue;
+			}
+			$time_on = date('Y-m-d', strtotime($record['qso_date'])) ." ".date('H:i', strtotime($record['time_on']));
 
-				$time_on = date('Y-m-d', strtotime($record['qso_date'])) ." ".date('H:i', strtotime($record['time_on']));
+			$qsl_date = date('Y-m-d H:i', strtotime($record['app_lotw_rxqsl']));
 
-				$qsl_date = date('Y-m-d H:i', strtotime($record['app_lotw_rxqsl']));
-
-				if (isset($record['time_off'])) {
-					$time_off = date('Y-m-d', strtotime($record['qso_date'])) ." ".date('H:i', strtotime($record['time_off']));
-				} else {
-				   $time_off = date('Y-m-d', strtotime($record['qso_date'])) ." ".date('H:i', strtotime($record['time_on']));
-				}
-
-				// If we have a positive match from LoTW, record it in the DB according to the user's preferences
-				if ($record['qsl_rcvd'] == "Y")
-				{
-					$record['qsl_rcvd'] = $config['lotw_rcvd_mark'];
-				}
-
-				$status = $this->logbook_model->import_check($time_on, $record['call'], $record['band'], $record['mode'], $record['station_callsign']);
-
-				if($status[0] == "Found") {
-					$qso_id4lotw=$status[1];
-					if (isset($record['state'])) {
-						$state = $record['state'];
-					} else {
-						$state = "";
-					}
-					// Present only if the QSLing station specified a single valid grid square value in its station location uploaded to LoTW.
-					if (isset($record['gridsquare'])) {
-						$qsl_gridsquare = $record['gridsquare'];
-					} else {
-						$qsl_gridsquare = "";
-					}
-
-					if (isset($record['vucc_grids'])) {
-						$qsl_vucc_grids = $record['vucc_grids'];
-					} else {
-						$qsl_vucc_grids = "";
-					}
-
-					if (isset($record['iota'])) {
-						$iota = $record['iota'];
-					} else {
-						$iota = "";
-					}
-
-					if (isset($record['cnty'])) {
-						$cnty = $record['cnty'];
-					} else {
-						$cnty = "";
-					}
-
-					if (isset($record['cqz'])) {
-						$cqz = $record['cqz'];
-					} else {
-						$cqz = "";
-					}
-
-					if (isset($record['ituz'])) {
-						$ituz = $record['ituz'];
-					} else {
-						$ituz = "";
-					}
-
-					$lotw_status = $this->logbook_model->lotw_update($time_on, $record['call'], $record['band'], $qsl_date, $record['qsl_rcvd'], $state, $qsl_gridsquare, $qsl_vucc_grids, $iota, $cnty, $cqz, $ituz, $record['station_callsign'],$qso_id4lotw);
-
-					$table .= "<tr>";
-						$table .= "<td>".$record['station_callsign']."</td>";
-						$table .= "<td>".$time_on."</td>";
-						$table .= "<td>".$record['call']."</td>";
-						$table .= "<td>".$record['mode']."</td>";
-						$table .= "<td>".$record['qsl_rcvd']."</td>";
-						$table .= "<td>".$qsl_date."</td>";
-						$table .= "<td>".$state."</td>";
-						$table .= "<td>".($qsl_gridsquare != '' ? $qsl_gridsquare : $qsl_vucc_grids)."</td>";
-						$table .= "<td>".$iota."</td>";
-						$table .= "<td>QSO Record: ".$status[0]."</td>";
-						$table .= "<td>LoTW Record: ".$lotw_status."</td>";
-					$table .= "</tr>";
-				} else {
-					$table .= "<tr>";
-						$table .= "<td>".$record['station_callsign']."</td>";
-						$table .= "<td>".$time_on."</td>";
-						$table .= "<td>".$record['call']."</td>";
-						$table .= "<td>".$record['mode']."</td>";
-						$table .= "<td>".$record['qsl_rcvd']."</td>";
-						$table .= "<td></td>";
-						$table .= "<td></td>";
-						$table .= "<td></td>";
-						$table .= "<td></td>";
-						$table .= "<td>QSO Record: ".$status[0]."</td>";
-						$table .= "<td></td>";
-					$table .= "</tr>";
-				}
+			if (isset($record['time_off'])) {
+				$time_off = date('Y-m-d', strtotime($record['qso_date'])) ." ".date('H:i', strtotime($record['time_off']));
+			} else {
+				$time_off = date('Y-m-d', strtotime($record['qso_date'])) ." ".date('H:i', strtotime($record['time_on']));
 			}
 
-			if ($table != "")
+			// If we have a positive match from LoTW, record it in the DB according to the user's preferences
+			if ($record['qsl_rcvd'] == "Y")
 			{
-				$table .= "</table>";
-				$data['lotw_table_headers'] = $tableheaders;
-				$data['lotw_table'] = $table;
+				$record['qsl_rcvd'] = $config['lotw_rcvd_mark'];
+			}
+
+			$status = $this->logbook_model->import_check($time_on, $record['call'], $record['band'], $record['mode'], $record['station_callsign'], $station_ids);
+
+			if($status[0] == "Found") {
+				$qso_id4lotw=$status[1];
+				if (isset($record['state'])) {
+					$state = $record['state'];
+				} else {
+					$state = "";
+				}
+				// Present only if the QSLing station specified a single valid grid square value in its station location uploaded to LoTW.
+				$qsl_gridsquare = "";
+				if (isset($record['gridsquare'])) {
+					if (strlen($record['gridsquare']) > strlen($status[2] ?? '') || substr(strtoupper($status[2] ?? ''), 0, 4) != substr(strtoupper($record['gridsquare']), 0, 4)) {
+						$qsl_gridsquare = $record['gridsquare'];
+					}
+				}
+
+				$ant_path = $status[3] ?? '';
+
+				if (isset($record['vucc_grids'])) {
+					$qsl_vucc_grids = $record['vucc_grids'];
+				} else {
+					$qsl_vucc_grids = "";
+				}
+
+				if (isset($record['iota'])) {
+					$iota = $record['iota'];
+				} else {
+					$iota = "";
+				}
+
+				if (isset($record['cnty'])) {
+					$cnty = $record['cnty'];
+				} else {
+					$cnty = "";
+				}
+
+				if (isset($record['cqz'])) {
+					$cqz = $record['cqz'];
+				} else {
+					$cqz = "";
+				}
+
+				if (isset($record['ituz'])) {
+					$ituz = $record['ituz'];
+				} else {
+					$ituz = "";
+				}
+
+				if (isset($record['dxcc'])) {
+					$dxcc = $record['dxcc'];
+				} else {
+					$dxcc = "";
+				}
+
+				$lotw_status = $this->logbook_model->lotw_update($time_on, $record['call'], $record['band'], $qsl_date, $record['qsl_rcvd'], $state, $qsl_gridsquare, $qsl_vucc_grids, $iota, $cnty, $cqz, $ituz, $record['station_callsign'],$qso_id4lotw, $station_ids, $dxcc, $ant_path);
+
+				$table .= "<tr>";
+				$table .= "<td>".$record['station_callsign']."</td>";
+				$table .= "<td>".$time_on."</td>";
+				$table .= "<td>".$record['call']."</td>";
+				$table .= "<td>".$record['mode']."</td>";
+				$table .= "<td>".$record['qsl_rcvd']."</td>";
+				$table .= "<td>".$qsl_date."</td>";
+				$table .= "<td>".$state."</td>";
+				$table .= "<td>".($qsl_gridsquare != '' ? $qsl_gridsquare : $qsl_vucc_grids)."</td>";
+				$table .= "<td>".$iota."</td>";
+				$table .= "<td>QSO Record: ".$status[0]."</td>";
+				$table .= "<td>LoTW Record: ".$lotw_status."</td>";
+				$table .= "</tr>";
+			} else {
+				$table .= "<tr>";
+				$table .= "<td>".$record['station_callsign']."</td>";
+				$table .= "<td>".$time_on."</td>";
+				$table .= "<td>".$record['call']."</td>";
+				$table .= "<td>".$record['mode']."</td>";
+				$table .= "<td>".$record['qsl_rcvd']."</td>";
+				$table .= "<td></td>";
+				$table .= "<td></td>";
+				$table .= "<td></td>";
+				$table .= "<td></td>";
+				$table .= "<td>QSO Record: ".$status[0]."</td>";
+				$table .= "<td></td>";
+				$table .= "</tr>";
+			}
+		}
+
+		if ($table != "") {
+			$table .= "</table>";
+			$data['lotw_table_headers'] = $tableheaders;
+			$data['lotw_table'] = $table;
 		}
 
 		unlink($filepath);
@@ -605,7 +626,7 @@ class Lotw extends CI_Controller {
 		if ($this->user_model->authorize(2)) {	// Only Output results if authorized User
 			if(isset($data['lotw_table_headers'])) {
 				if($display_view == TRUE) {
-					$data['page_title'] = "LoTW ADIF Information";
+					$data['page_title'] = __("LoTW ADIF Information");
 					$this->load->view('interface_assets/header', $data);
 					$this->load->view('lotw/analysis');
 					$this->load->view('interface_assets/footer');
@@ -630,6 +651,7 @@ class Lotw extends CI_Controller {
 	function lotw_download($sync_user_id = null) {
 		$this->load->model('user_model');
 		$this->load->model('logbook_model');
+		$this->load->model('Stations');
 
 		$query = $this->user_model->get_all_lotw_users();
 
@@ -643,6 +665,8 @@ class Lotw extends CI_Controller {
 
 			foreach ($query->result() as $user) {
 				if ( ($sync_user_id != null) && ($sync_user_id != $user->user_id) ) { continue; }
+				$station_ids=$this->Stations->all_station_ids_of_user($user->user_id);
+				if ($station_ids == '') { continue; } // User has no Station-ID! next one
 
 				// Validate that LoTW credentials are not empty
 				// TODO: We don't actually see the error message
@@ -652,14 +676,14 @@ class Lotw extends CI_Controller {
 				}
 
 				$config['upload_path'] = './uploads/';
-				$file = $config['upload_path'] . 'lotwreport_download.adi';
+				$file = $config['upload_path'] . 'lotwreport_download_'.$user->user_id.'_auto.adi';
 				if (file_exists($file) && ! is_writable($file)) {
 					$result = "Temporary download file ".$file." is not writable. Aborting!";
 					continue;
 				}
 
 				// Get credentials for LoTW
-		    	$data['user_lotw_name'] = urlencode($user->user_lotw_name);
+				$data['user_lotw_name'] = urlencode($user->user_lotw_name);
 				$data['user_lotw_password'] = urlencode($user->user_lotw_password);
 
 				$lotw_last_qsl_date = date('Y-m-d', strtotime($this->logbook_model->lotw_last_qsl_date($user->user_id)));
@@ -677,14 +701,30 @@ class Lotw extends CI_Controller {
 					$result = "Temporary download directory ".dirname($file)." is not writable. Aborting!";
 					continue;
 				}
-				file_put_contents($file, file_get_contents($lotw_url));
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, $lotw_url);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+				$content = curl_exec($ch);
+				if(curl_errno($ch)) {
+					$result = "LoTW download failed for user ".$data['user_lotw_name'].": ".curl_strerror(curl_errno($ch))." (".curl_errno($ch).").";
+					if (curl_errno($ch) == 28) {  // break on timeout
+						$result .= "<br>Timeout reached. Stopping subsequent downloads.";
+						break;
+					}
+					continue;
+				} else if(str_contains($content,"Username/password incorrect</I>")) {
+					$result = "LoTW download failed for user ".$data['user_lotw_name'].": Username/password incorrect";
+					continue;
+				}
+				file_put_contents($file, $content);
 				if (file_get_contents($file, false, null, 0, 39) != "ARRL Logbook of the World Status Report") {
-					$result = "LoTW downloading failed for User ".$data['user_lotw_name']." either due to it being down or incorrect logins.";
+					$result = "Downloaded LoTW report for user ".$data['user_lotw_name']." is invalid. Check your credentials.";
 					continue;
 				}
 
 				ini_set('memory_limit', '-1');
-				$result = $this->loadFromFile($file, false);
+				$result = $this->loadFromFile($file, $station_ids, false);
 			}
 			return $result;
 		} else {
@@ -692,11 +732,100 @@ class Lotw extends CI_Controller {
 		}
 	}
 
-	public function import() {
+	public function check_lotw_credentials () {
 		$this->load->model('user_model');
-		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('notice', 'You\'re not allowed to do that!'); redirect('dashboard'); }
+		if(!$this->user_model->authorize(2)) {
+			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
+			redirect('dashboard');
+			exit();
+		}
+		$ret=[];
+		$ret['status']='';
 
-		$data['page_title'] = "LoTW ADIF Import";
+
+		$raw = file_get_contents("php://input");
+		try {
+			$obj = json_decode($raw,true);
+		} catch (Exception $e) {
+			$ret['status']='failed_wrongcall';
+			log_message("Error",$ret['status']);
+		} finally {
+			$lotw_user=$obj['lotw_user'] ?? '';
+			$lotw_pass=$obj['lotw_pass'] ?? '';
+		}
+		$raw='';
+
+		$pw_placeholder = '**********';
+		if ($lotw_pass == $pw_placeholder) {	// User comes with unaltered credentials - take them from database
+			$query = $this->user_model->get_by_id($this->session->userdata('user_id'));
+			$q = $query->row();
+			$data['user_lotw_name'] = urlencode($q->user_lotw_name ?? '');
+			$data['user_lotw_password'] = urlencode($q->user_lotw_password ?? '');
+		} else {
+			$data['user_lotw_name'] = urlencode($lotw_user ?? '');
+			$data['user_lotw_password'] = urlencode($lotw_pass ?? '');
+		}
+
+		if ((($data['user_lotw_name'] ?? '') != '') && (($data['user_lotw_password'] ?? '') != '') && ($ret['status'] != 'failed_wrongcall')) {
+
+			// Get URL for downloading LoTW
+			$query = $query = $this->db->query('SELECT lotw_login_url FROM config');
+			$q = $query->row();
+			$lotw_url = $q->lotw_login_url;
+
+			// Validate that LoTW credentials are not empty
+			// TODO: We don't actually see the error message
+			if ($data['user_lotw_name'] == '' || $data['user_lotw_password'] == '') {
+				$ret='No Creds set';
+			}
+
+			// Build URL for LoTW report file
+			$lotw_url .= "?";
+			$lotw_url .= "login=" . $data['user_lotw_name'];
+			$lotw_url .= "&password=" . $data['user_lotw_password'];
+
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $lotw_url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+			$content = curl_exec($ch);
+			if ($content) {
+				if(curl_errno($ch)) {
+					$ret['status']='failed';
+					$ret['details']== sprintf(__("LoTW login failed for user %s: %s."), $data['user_lotw_name'], curl_strerror(curl_errno($ch))." (".curl_errno($ch).")");
+				} else if (str_contains($content,"Username/password incorrect</I>")) {
+					$ret['status']='failed_wrong_creds';
+					$ret['details']= sprintf(__("LoTW login failed for user %s: %s."), $data['user_lotw_name'], __("Username/password incorrect"));
+				} else {
+					$ret['status']='OK';
+					$ret['details']= __("LoTW login OK!");
+				}
+			} else {
+				$ret['status']='failed_na';
+				$ret['details']= __("LoTW currently not available. Try again later.");
+			}
+		} else {
+			if (($ret['status'] ?? '') == '') {
+				$ret['status']='failed_nocred';
+				$ret['details']= __("No LoTW credentials provided.");
+			}
+		}
+		header("Content-type: application/json");
+		echo json_encode($ret);
+		return $ret;
+	}
+
+	public function import() {	// Is only called via frontend. Cron uses "upload". within download the download is called
+		$this->load->model('user_model');
+		$this->load->model('Stations');
+		if(!$this->user_model->authorize(2)) {
+			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
+			redirect('dashboard');
+			exit();
+		}
+
+		$station_ids=$this->Stations->all_station_ids_of_user($this->session->userdata['user_id']);
+		$data['page_title'] = __("LoTW ADIF Import");
 
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = 'adi|ADI';
@@ -705,9 +834,8 @@ class Lotw extends CI_Controller {
 
 		$this->load->model('logbook_model');
 
-		if ($this->input->post('lotwimport') == 'fetch')
-		{
-			$file = $config['upload_path'] . 'lotwreport_download.adi';
+		if (($this->input->post('lotwimport') == 'fetch') && (!($this->config->item('disable_manual_lotw')))) {
+			$file = $config['upload_path'] . 'lotwreport_download_'.$this->session->userdata('user_id').'.adi';
 
 			// Get credentials for LoTW
 			$query = $this->user_model->get_by_id($this->session->userdata('user_id'));
@@ -722,17 +850,15 @@ class Lotw extends CI_Controller {
 
 			// Validate that LoTW credentials are not empty
 			// TODO: We don't actually see the error message
-			if ($data['user_lotw_name'] == '' || $data['user_lotw_password'] == '')
-			{
-				$this->session->set_flashdata('warning', 'You have not defined your ARRL LoTW credentials!'); redirect('lotw/import');
+			if ($data['user_lotw_name'] == '' || $data['user_lotw_password'] == '') {
+				$this->session->set_flashdata('warning', __("You have not defined your ARRL LoTW credentials!")); redirect('lotw/import');
 			}
 
 			$customDate = $this->input->post('from');
 
 			if ($customDate != NULL) {
 				$lotw_last_qsl_date = date($customDate);
-			}
-			else {
+			} else {
 				// Query the logbook to determine when the last LoTW confirmation was
 				$lotw_last_qsl_date = date('Y-m-d', strtotime($this->logbook_model->lotw_last_qsl_date($this->session->userdata['user_id'])));
 			}
@@ -751,10 +877,20 @@ class Lotw extends CI_Controller {
 			}
 
 			if (is_writable(dirname($file)) && (!file_exists($file) || is_writable($file))) {
-				file_put_contents($file, file_get_contents($lotw_url));
-
-				ini_set('memory_limit', '-1');
-				$this->loadFromFile($file);
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, $lotw_url);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+				$content = curl_exec($ch);
+				if(curl_errno($ch)) {
+					print "LoTW download failed for user ".$data['user_lotw_name'].": ".curl_strerror(curl_errno($ch))." (".curl_errno($ch).").";
+				} else if (str_contains($content,"Username/password incorrect</I>")) {
+					print "LoTW download failed for user ".$data['user_lotw_name'].": Username/password incorrect";
+				} else {
+					file_put_contents($file, $content);
+					ini_set('memory_limit', '-1');
+					$this->loadFromFile($file, $station_ids);
+				}
 			} else {
 				if (!is_writable(dirname($file))) {
 					$data['errormsg'] = 'Directory '.dirname($file).' is not writable!';
@@ -768,11 +904,8 @@ class Lotw extends CI_Controller {
 				$this->load->view('lotw/import', $data);
 				$this->load->view('interface_assets/footer');
 			}
-		}
-		else
-		{
-			if ( ! $this->upload->do_upload())
-			{
+		} else {
+			if (!$this->upload->do_upload()) {
 
 				$data['error'] = $this->upload->display_errors();
 				$this->load->model('Stations');
@@ -781,21 +914,19 @@ class Lotw extends CI_Controller {
 				$this->load->view('interface_assets/header', $data);
 				$this->load->view('lotw/import', $data);
 				$this->load->view('interface_assets/footer');
-			}
-			else
-			{
+			} else {
 				$data = array('upload_data' => $this->upload->data());
 
-				$this->loadFromFile('./uploads/'.$data['upload_data']['file_name']);
+				$this->loadFromFile('./uploads/'.$data['upload_data']['file_name'], $station_ids);
 			}
 		}
 	} // end function
 
 	public function export() {
 		$this->load->model('user_model');
-		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('notice', 'You\'re not allowed to do that!'); redirect('dashboard'); }
+		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
-		$data['page_title'] = "LoTW .TQ8 Upload";
+		$data['page_title'] = __("LoTW .TQ8 Upload");
 
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = 'tq8|TQ8';
@@ -828,7 +959,7 @@ class Lotw extends CI_Controller {
 
 			if ($fields['login'] == '' || $fields['password'] == '')
 			{
-				$this->session->set_flashdata('warning', 'You have not defined your ARRL LoTW credentials!'); redirect('lotw/status');
+				$this->session->set_flashdata('warning', __("You have not defined your ARRL LoTW credentials!")); redirect('lotw/status');
 			}
 
 			// Curl stuff goes here
@@ -873,7 +1004,7 @@ class Lotw extends CI_Controller {
 			$result = curl_exec($ch);
 			if (stristr($result, "Username/password incorrect"))
 			{
-			   $this->session->set_flashdata('warning', 'Your ARRL username and/or password is incorrect.'); redirect('lotw/status');
+			   $this->session->set_flashdata('warning', __("Your ARRL username and/or password is incorrect.")); redirect('lotw/status');
 			}
 
 
@@ -892,19 +1023,19 @@ class Lotw extends CI_Controller {
 			if (stristr($response, "accepted"))
 			{
 			   $this->session->set_flashdata('lotw_status', 'accepted');
-			   $data['page_title'] = "LoTW .TQ8 Sent";
+			   $data['page_title'] = __("LoTW .TQ8 Sent");
 			}
 			elseif (stristr($response, "rejected"))
 			{
 					$this->session->set_flashdata('lotw_status', 'rejected');
-					$data['page_title'] = "LoTW .TQ8 Sent";
+					$data['page_title'] = __("LoTW .TQ8 Sent");
 			}
 			else
 			{
 				// If we're here, we didn't find what we're looking for in the ARRL response
 				// and LoTW is probably down or broken.
 				$this->session->set_flashdata('warning', 'Did not receive proper response from LoTW. Try again later.');
-				$data['page_title'] = "LoTW .TQ8 Not Sent";
+				$data['page_title'] = __("LoTW .TQ8 Not Sent");
 			}
 
 			// Now we need to clean up
@@ -918,41 +1049,13 @@ class Lotw extends CI_Controller {
 	}
 
 	/*
-		Load the ARRL LoTW User Activity CSV and saves into uploads/lotw_users.csv
+		Deprecated. To be back compatible we do the same as update/lotw_users 
+		HB9HIL, July 2024
 	*/
 	public function load_users() {
-		$contents = file_get_contents('https://lotw.arrl.org/lotw-user-activity.csv', true);
-
-        if($contents === FALSE) {
-            echo "Something went wrong with fetching the LoTW users file.";
-        } else {
-            $file = './updates/lotw_users.csv';
-
-            if (file_put_contents($file, $contents) !== FALSE) {     // Save our content to the file.
-                echo "LoTW User Data Saved.";
-            } else {
-                echo "FAILED: Could not write to LoTW users file";
-            }
-        }
-	}
-
-	/*
-		Check if callsign is an active LoTW user and return whether its true or not
-	*/
-	function lotw_usercheck($callsign) {
-		$f = fopen('./updates/lotw_users.csv', "r");
-		$result = false;
-		while ($row = fgetcsv($f)) {
-		    if ($row[0] == strtoupper($callsign)) {
-			$result = $row[0];
-			echo "Found";
-			break;
-		    } else {
-			echo "Not Found";
-			break;
-		    }
-		}
-		fclose($f);
+		$this->load->model('Update_model');
+        $result = $this->Update_model->lotw_users();
+        echo $result;
 	}
 
 	function signlog($sign_key, $string) {
@@ -971,7 +1074,10 @@ class Lotw extends CI_Controller {
 					openssl_free_key($pkeyid);
 				}
 				$signature_b64 = base64_encode($signature);
-				return $signature_b64;
+				return $signature_b64."\n";
+			} else {
+				// in case of deprecation of SHA-1 in some distro
+				log_message('error', 'Error signing LoTW log: '.openssl_error_string());
 			}
 		} else {
 			log_message('error', 'Error signing LoTW log.');
@@ -982,38 +1088,6 @@ class Lotw extends CI_Controller {
 	}
 
 	/*
-	|	Function: lotw_satellite_map
-	|	Requires: OSCAR Satellite name $satname
-	|
-	|	Outputs if LoTW uses a different satellite name
-	|
-	*/
-	function lotw_satellite_map($satname) {
-		$arr = array(
-			"ARISS"		=>	"ISS",
-			"UKUBE1"	=>	"UKUBE-1",
-			"KEDR"		=>	"ARISSAT-1",
-			"TO-108"	=>	"CAS-6",
-			"TAURUS"	=>	"TAURUS-1",
-			"AISAT1"	=>	"AISAT-1",
-			'UVSQ'		=>	"UVSQ-SAT",
-			'CAS-3H'	=>	"LILACSAT-2",
-			'IO-117'	=>	"GREENCUBE",
-			"TEVEL1"	=>	"TEVEL-1",
-			"TEVEL2"	=>	"TEVEL-2",
-			"TEVEL3"	=>	"TEVEL-3",
-			"TEVEL4"	=>	"TEVEL-4",
-			"TEVEL5"	=>	"TEVEL-5",
-			"TEVEL6"	=>	"TEVEL-6",
-			"TEVEL7"	=>	"TEVEL-7",
-			"TEVEL8"	=>	"TEVEL-8",
-			"INSPR7"	=> "INSPIRE-SAT 7",
-		);
-
-		return array_search(strtoupper($satname),$arr,true);
-	}
-
-	/*
 	|	Function: lotw_ca_province_map
 	|	Requires: candian province map $ca_province
 	*/
@@ -1021,6 +1095,9 @@ class Lotw extends CI_Controller {
 		switch ($ca_prov):
 			case "QC":
 				return "PQ";
+				break;
+			case "NL":
+				return "NF";
 				break;
 			default:
 				return $ca_prov;

@@ -2,7 +2,7 @@
 
 <table class="table table-striped">
         <tr class="titles">
-            <td colspan="2"><i class="fas fa-broadcast-tower"></i> Radio Status</td>
+            <td colspan="2"><i class="fas fa-broadcast-tower"></i> <?= __("Radio Status"); ?></td>
         </tr>
 
         <?php foreach ($radio_status->result_array() as $row) { ?>
@@ -12,7 +12,7 @@
                 <?php if($row['prop_mode'] == 'SAT') { ?>
                     <?php echo $row['sat_name']; ?>
                 <?php } else { ?>
-                    <?php echo $this->frequency->hz_to_mhz($row['frequency']); ?> (<?php echo $row['mode']; ?>)
+                    <?php echo $this->frequency->qrg_conversion($row['frequency']); ?> (<?php echo $row['mode']; ?>)
                 <?php } ?>
             </td>
         </tr>

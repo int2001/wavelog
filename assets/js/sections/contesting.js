@@ -6,7 +6,37 @@ $(document).ready(async function () {
 	sessiondata=await getSession();			// save sessiondata global (we need it later, when adding qso)
 	await restoreContestSession(sessiondata);	// wait for restoring until finished
 	setRst($("#mode").val());
+	$('#contestname').val($('#contestname_select').val());
+
+	// Clear the localStorage for the qrg units
+	localStorage.clear();
+	set_qrg();
+	qrg_inputtype();
 });
+
+// Always update the contestname
+$('#contestname_select').change(function () {
+	$('#contestname').val($('#contestname_select').val());
+});
+
+function disabledContestnameSelect(disabled) {
+	if (disabled) {
+		$("#contestname_select")
+			.prop('disabled', true)
+			.attr({
+				'title': lang_contestname_warning,
+				'data-bs-toggle': 'tooltip',
+				'data-bs-html': 'true',
+				'data-bs-placement': 'top'
+			})
+			.tooltip();
+	} else {
+		$("#contestname_select")
+			.prop('disabled', false)
+			.removeAttr('title data-bs-toggle data-bs-html data-bs-placement')
+			.tooltip('dispose');
+	}
+}
 
 // Resets the logging form and deletes session from database
 async function reset_contest_session() {
@@ -17,6 +47,9 @@ async function reset_contest_session() {
 
 		}
 	});
+	// the user is now allowed again to change the contest name
+	disabledContestnameSelect(false);
+	// reset the form
 	$('#name').val("");
 	$('.callsign-suggestions').text("");
 	$('#callsign').val("");
@@ -32,7 +65,7 @@ async function reset_contest_session() {
 	setRst($("#mode").val());
 	$("#exchangetype").val("None");
 	setExchangetype("None");
-	$("#contestname").val("Other").change();
+	$("#contestname_select").val("Other").change();
 	$(".contest_qso_table_contents").empty();
  	$('#copyexchangeto').val("None");
 
@@ -53,13 +86,13 @@ async function reset_contest_session() {
 			"columnDefs": [
 				{
 					"render": function ( data, type, row ) {
-						return pad(row[8],3);
+						return row[8] !== null && row[8] !== '' ? pad(row[8], 3) : '';
 					},
 					"targets" : 8
 				},
 				{
 					"render": function ( data, type, row ) {
-						return pad(row[9],3);
+						return row[9] !== null && row[9] !== '' ? pad(row[9], 3) : '';
 					},
 					"targets" : 9
 				}
@@ -71,8 +104,56 @@ async function reset_contest_session() {
 
 }
 
+function sort_exchange() {
+
+	// Get the selected sequence
+	let exchangeSelect = $('#exchangesequence_select');
+
+	// If the sequence is not set, we need to set one to prevent errors
+	if (!exchangeSelect.val()) {
+		exchangeSelect.val('s-g-e');
+	}
+
+	// Split the squence into an array
+	let selectedOrder = exchangeSelect.val().split('-');
+
+	// Map sequence to corresponding SENT elements
+	let mapping = {
+		"g": ".gridsquares",
+		"s": ".serials",
+		"e": ".exchanges",
+	};
+
+	// Reorder the elements in the DOM
+	selectedOrder.forEach(function(item) {
+		$('#sent_exchange').append($(mapping[item]));
+	});
+
+	// Map sequence to corresponding RECEIVED elements
+	mapping = {
+		"g": ".gridsquarer",
+		"s": ".serialr",
+		"e": ".exchanger",
+	};
+
+	// Reorder the elements in the DOM
+	selectedOrder.forEach(function(item) {
+		$('#rcvd_exchange').append($(mapping[item]));
+	});
+}
+
+// Change the sequence of the exchange fields
+$('#exchangesequence_select').change(function () {
+	sort_exchange();
+});
+
+// Show Settings modal on click
+$('#moreSettingsButton').click(function () {
+	$('#moreSettingsModal').modal('show');
+});
+
 // Storing the contestid in contest session
-$('#contestname, #copyexchangeto').change(function () {
+$('#contestname, #copyexchangeto, #exchangesequence_select, #band, #mode, #frequency, #radio').change(function () {
 	var formdata = new FormData(document.getElementById("qso_input"));
 	setSession(formdata);
 });
@@ -94,10 +175,9 @@ async function setSession(formdata) {
 		processData: false,
 		contentType: false,
 		success: function (data) {
-
+			sessiondata=data;
 		}
 	});
-	sessiondata=await getSession();			// refresh Sessiondata
 }
 
 // realtime clock
@@ -113,9 +193,10 @@ if ( ! manual ) {
 
 // We don't want spaces to be written in callsign
 // We don't want spaces to be written in exchange
+// We don't want spaces to be written in gridsquare
 // We don't want spaces to be written in time :)
 $(function () {
-	$('#callsign, #exch_rcvd, #start_time').on('keypress', function (e) {
+	$('#callsign, #exch_rcvd, #exch_gridsquare_r, #start_time').on('keypress', function (e) {
 		if (e.which == 32) {
 			return false;
 		}
@@ -148,32 +229,38 @@ $(function () {
 // Here we capture keystrokes to execute functions
 document.onkeyup = function (e) {
 	// ALT-W wipe
-	if (e.altKey && e.which == 87) {
+	if (e.altKey && e.key == "w") {
 		reset_log_fields();
 		// CTRL-Enter logs QSO
-	} else if ((e.keyCode == 10 || e.keyCode == 13) && (e.ctrlKey || e.metaKey)) {
+	} else if ((e.key === "Enter") && (e.ctrlKey || e.metaKey)) {
 		$("#callsign").blur();
 		logQso();
 		// Enter in received exchange logs QSO
-	} else if ((e.which == 13) && (
-			($(document.activeElement).attr("id") == "exch_rcvd")
-			|| ($(document.activeElement).attr("id") == "exch_gridsquare_r")
-			|| ($(document.activeElement).attr("id") == "exch_serial_r")
-		)
-	) {
+	} else if ((e.key == "Enter") && (
+		($(document.activeElement).attr("id") == "exch_rcvd")
+		|| ($(document.activeElement).attr("id") == "exch_gridsquare_r")
+		|| ($(document.activeElement).attr("id") == "exch_serial_r")
+		|| (($(document.activeElement).attr("id") == "callsign") && ($("#exchangetype").val() == "None"))
+	)) {
 		logQso();
-	} else if (e.which == 27) {
+	} else if (e.key == "Escape") {
 		reset_log_fields();
 		// Space to jump to either callsign or the various exchanges
-	} else if (e.which == 32) {
-		getCallbook();
-		var exchangetype = $("#exchangetype").val();
+	} else if (e.key == " ") {
+		let exchangetype = $("#exchangetype").val();
+		let sequence = $('#exchangesequence_select').val().split('-');
+
+		let mapping = {
+			"g": "exch_gridsquare_r",
+			"s": "exch_serial_r",
+			"e": "exch_rcvd",
+		};
 
 		if (manual && $(document.activeElement).attr("id") == "start_time") {
 			$("#callsign").focus();
 			return false;
 		}
-        
+
 		if (exchangetype == 'Exchange') {
 			if ($(document.activeElement).attr("id") == "callsign") {
 				$("#exch_rcvd").focus();
@@ -192,30 +279,6 @@ document.onkeyup = function (e) {
 				return false;
 			}
 		}
-		else if (exchangetype == 'Serialexchange') {
-			if ($(document.activeElement).attr("id") == "callsign") {
-				$("#exch_serial_r").focus();
-				return false;
-			} else if ($(document.activeElement).attr("id") == "exch_serial_r") {
-				$("#exch_rcvd").focus();
-				return false;
-			} else if ($(document.activeElement).attr("id") == "exch_rcvd") {
-				$("#callsign").focus();
-				return false;
-			}
-		}
-		else if (exchangetype == 'Serialgridsquare') {
-			if ($(document.activeElement).attr("id") == "callsign") {
-				$("#exch_serial_r").focus();
-				return false;
-			} else if ($(document.activeElement).attr("id") == "exch_serial_r") {
-				$("#exch_gridsquare_r").focus();
-				return false;
-			} else if ($(document.activeElement).attr("id") == "exch_gridsquare_r") {
-				$("#callsign").focus();
-				return false;
-			}
-		}
 		else if (exchangetype == 'Gridsquare') {
 			if ($(document.activeElement).attr("id") == "callsign") {
 				$("#exch_gridsquare_r").focus();
@@ -225,7 +288,49 @@ document.onkeyup = function (e) {
 				return false;
 			}
 		}
+		else if (exchangetype == 'Serialexchange') {
+			let filteredSequence = sequence.filter(key => key !== 'g');
 
+			if ($(document.activeElement).attr("id") == "callsign") {
+				$(`#${mapping[filteredSequence[0]]}`).focus();
+				return false;
+			} else if ($(document.activeElement).attr("id") == mapping[filteredSequence[0]]) {
+				$(`#${mapping[filteredSequence[1]]}`).focus();
+				return false;
+			} else if ($(document.activeElement).attr("id") == mapping[filteredSequence[1]]) {
+				$("#callsign").focus();
+				return false;
+			}
+		}
+		else if (exchangetype == 'Serialgridsquare') {
+			let filteredSequence = sequence.filter(key => key !== 'e');
+
+			if ($(document.activeElement).attr("id") == "callsign") {
+				$(`#${mapping[filteredSequence[0]]}`).focus();
+				return false;
+			} else if ($(document.activeElement).attr("id") == mapping[filteredSequence[0]]) {
+				$(`#${mapping[filteredSequence[1]]}`).focus();
+				return false;
+			} else if ($(document.activeElement).attr("id") == mapping[filteredSequence[1]]) {
+				$("#callsign").focus();
+				return false;
+			}
+		}
+		else if (exchangetype == 'SerialGridExchange') {
+			if ($(document.activeElement).attr("id") == "callsign") {
+				$(`#${mapping[sequence[0]]}`).focus();
+				return false;
+			} else if ($(document.activeElement).attr("id") == mapping[sequence[0]]) {
+				$(`#${mapping[sequence[1]]}`).focus();
+				return false;
+			} else if ($(document.activeElement).attr("id") == mapping[sequence[1]]) {
+				$(`#${mapping[sequence[2]]}`).focus();
+				return false;
+			} else if ($(document.activeElement).attr("id") == mapping[sequence[2]]) {
+				$("#callsign").focus();
+				return false;
+			}
+		}
 	}
 
 };
@@ -371,17 +476,20 @@ function highlight(term, base) {
 // Only set the frequency when not set by userdata/PHP.
 if ($('#frequency').val() == "") {
 	$.get('qso/band_to_freq/' + $('#band').val() + '/' + $('.mode').val(), function (result) {
-		$('#frequency').val(result);
+		$('#frequency').val(result).trigger("change");
 		$('#frequency_rx').val("");
+		set_qrg();
 	});
 }
 
 /* on mode change */
 $('#mode').change(function () {
+		if ($('#radio').val() == '0') {
 	$.get('qso/band_to_freq/' + $('#band').val() + '/' + $('.mode').val(), function (result) {
-		$('#frequency').val(result);
+		$('#frequency').val(result).trigger("change");
 		$('#frequency_rx').val("");
 	});
+	}
 	setRst($("#mode").val());
 	checkIfWorkedBefore();
 });
@@ -389,11 +497,27 @@ $('#mode').change(function () {
 /* Calculate Frequency */
 /* on band change */
 $('#band').change(function () {
-	$.get('qso/band_to_freq/' + $(this).val() + '/' + $('.mode').val(), function (result) {
-		$('#frequency').val(result);
-		$('#frequency_rx').val("");
-	});
+	if ($('#radio').val() == '0') {
+		$.get('qso/band_to_freq/' + $(this).val() + '/' + $('.mode').val(), function (result) {
+			$('#frequency').val(result).trigger("change");
+			$('#frequency_rx').val("");
+		});
+	}
+	set_qrg();
 	checkIfWorkedBefore();
+});
+
+/* on radio change */
+// in the footer is defined that we want to clear the frequency when changing the radio
+// this may fit for QSOs, but not for the contesting module
+// so we want atleast to set the frequency to the default frequency of the band
+$('#radio').change(function () {
+	if ($('#radio').val() == '0') {
+		$.get('qso/band_to_freq/' + $('#band').val() + '/' + $('.mode').val(), function (result) {
+			$('#frequency').val(result).trigger("change");
+			$('#frequency_rx').val("");
+		});
+	}
 });
 
 function setSerial(data) {
@@ -406,6 +530,8 @@ function setSerial(data) {
 
 function setExchangetype(exchangetype) {
 	// Perhaps a better approach is to hide everything, then just enable the things you need
+	$('#sent_exchange').hide().removeClass();
+	$('#rcvd_exchange').hide().removeClass();
 	$(".exchanger").hide();
 	$(".exchanges").hide();
 	$(".serials").hide();
@@ -413,38 +539,35 @@ function setExchangetype(exchangetype) {
 	$(".gridsquarer").hide();
 	$(".gridsquares").hide();
 
-	if (exchangetype == 'Exchange') {
-		$(".exchanger").show();
-		$(".exchanges").show();
-	}
-	else if (exchangetype == 'Serial') {
-		$(".serials").show();
-		$(".serialr").show();
-	}
-	else if (exchangetype == 'Serialexchange') {
-		$(".exchanger").show();
-		$(".exchanges").show();
-		$(".serials").show();
-		$(".serialr").show();
-	}
-	else if (exchangetype == 'Serialgridsquare') {
-		$(".serials").show();
-		$(".serialr").show();
-		$(".gridsquarer").show();
-		$(".gridsquares").show();
-	}
-	else if (exchangetype == 'Gridsquare') {
-		$(".gridsquarer").show();
-		$(".gridsquares").show();
-	}
-
     // To track the transition, the code for the exchangecopy is kept
     // separate.
 	switch(exchangetype) {
       case 'None':
+		$('#sent_exchange').hide().removeClass();
+		$('#rcvd_exchange').hide().removeClass();
+		break;
+
       case 'Serial':
+		$('#sent_exchange').show().addClass('d-flex gap-2 col-md-2');
+		$('#rcvd_exchange').show().addClass('d-flex gap-2 col-md-2');
+		$(".serials").show();
+		$(".serialr").show();
+		break;
+
       case 'Serialgridsquare':
+		$('#sent_exchange').show().addClass('d-flex gap-2 col-md-3');
+		$('#rcvd_exchange').show().addClass('d-flex gap-2 col-md-3');
+		$(".serials").show();
+		$(".serialr").show();
+		$(".gridsquarer").show();
+		$(".gridsquares").show();
+		break;
+
       case 'Gridsquare':
+		$('#sent_exchange').show().addClass('d-flex gap-2 col-md-2');
+		$('#rcvd_exchange').show().addClass('d-flex gap-2 col-md-2');
+		$(".gridsquarer").show();
+		$(".gridsquares").show();
         if ($("#copyexchangeto").prop('disabled') == false) {
           $("#copyexchangeto").prop('disabled','disabled');
           $("#copyexchangeto").data('oldValue',$("#copyexchangeto").val());
@@ -453,8 +576,21 @@ function setExchangetype(exchangetype) {
           // Do nothing
         }
         break;
+
       case 'Exchange':
+		$('#sent_exchange').show().addClass('d-flex gap-2 col-md-2');
+		$('#rcvd_exchange').show().addClass('d-flex gap-2 col-md-2');
+		$(".exchanger").show();
+		$(".exchanges").show();
+		break;
+
       case 'Serialexchange':
+		$('#sent_exchange').show().addClass('d-flex gap-2 col-md-3');
+		$('#rcvd_exchange').show().addClass('d-flex gap-2 col-md-3');
+		$(".exchanger").show();
+		$(".exchanges").show();
+		$(".serials").show();
+		$(".serialr").show();
         if ($("#copyexchangeto").prop('disabled') == false) {
           // Do nothing
         } else {
@@ -462,6 +598,24 @@ function setExchangetype(exchangetype) {
           $("#copyexchangeto").prop('disabled',false);
         }
         break;
+
+	  case 'SerialGridExchange':
+		$('#sent_exchange').show().addClass('d-flex gap-2 col-md-4');
+		$('#rcvd_exchange').show().addClass('d-flex gap-2 col-md-4');
+		$(".serials").show();
+		$(".serialr").show();
+		$(".gridsquarer").show();
+		$(".gridsquares").show();
+		$(".exchanger").show();
+		$(".exchanges").show();
+		if ($("#copyexchangeto").prop('disabled') == false) {
+			// Do nothing
+		} else {
+			$("#copyexchangeto").val($("#copyexchangeto").data('oldValue') ?? 'None');
+			$("#copyexchangeto").prop('disabled',false);
+		}
+		break;
+
       default:
     }
 }
@@ -473,7 +627,12 @@ function setExchangetype(exchangetype) {
 function logQso() {
 	if ($("#callsign").val().length > 0) {
 
+		// To prevent changing the contest name while logging we disable the select
+		// Only "Start a new contest session" will enable it again
+		disabledContestnameSelect(true);
+
 		$('.callsign-suggestions').text("");
+		$('#callsign_info').text("");
 
 		var table = $('.qsotable').DataTable();
 		var exchangetype = $("#exchangetype").val();
@@ -522,6 +681,15 @@ function logQso() {
 				serials = $("#exch_serial_s").val();
 				serialr = $("#exch_serial_r").val();
 			break;
+
+			case 'SerialGridExchange':
+				gridr = gridsquare;
+				vuccr = vucc;
+				exchsent = $("#exch_sent").val();
+				exchrcvd = $("#exch_rcvd").val();
+				serials = $("#exch_serial_s").val();
+				serialr = $("#exch_serial_r").val();
+			break;
 		}
 
 		var formdata = new FormData(document.getElementById("qso_input"));
@@ -534,7 +702,7 @@ function logQso() {
 			enctype: 'multipart/form-data',
 			success: async function (html) {
 				var exchangetype = $("#exchangetype").val();
-				if (exchangetype == "Serial" || exchangetype == 'Serialexchange' || exchangetype == 'Serialgridsquare') {
+				if (exchangetype == "Serial" || exchangetype == 'Serialexchange' || exchangetype == 'Serialgridsquare' || exchangetype == 'SerialGridExchange') {
 					$("#exch_serial_s").val(+$("#exch_serial_s").val() + 1);
 					formdata.set('exch_serial_s', $("#exch_serial_s").val());
 				}
@@ -571,26 +739,52 @@ async function getSession() {
 
 async function restoreContestSession(data) {
 	if (data) {
-		if (data.copytodok != "") {
-			$('#copyexchangeto option')[data.copytodok].selected = true;
+		let settings = JSON.parse(data.settings);
+
+		if (settings.copyexchangeto != "") {
+			$('#copyexchangeto option')[settings.copyexchangeto].selected = true;
 		}
 
 		if (data.contestid != "") {
-			$("#contestname").val(data.contestid);
+			$("#contestname_select").val(data.contestid);
 		}
 
-		if (data.exchangetype != "") {
-			$("#exchangetype").val(data.exchangetype);
-			setExchangetype(data.exchangetype);
+		if (settings.exchangetype != "") {
+			$("#exchangetype").val(settings.exchangetype);
+			setExchangetype(settings.exchangetype);
 			setSerial(data);
+		}
+
+		if (settings.exchangesequence != "") {
+			$("#exchangesequence_select").val(settings.exchangesequence);
+			sort_exchange();
 		}
 
 		if (data.exchangesent != "") {
 			$("#exch_sent").val(data.exchangesent);
 		}
 
+		if (settings.radio != "0") {
+			$("#radio").val(settings.radio);
+		} else {
+			$("#radio").val(settings.radio);
+			$("#band").val(settings.band);
+			$("#mode").val(settings.mode);
+			if (settings.freq_display != "") {
+				$("#frequency").val(settings.freq_display);
+			} else {
+				$.get('qso/band_to_freq/' + settings.band + '/' + settings.mode, function (result) {
+					$('#frequency').val(result).trigger("change");
+				});
+			}
+		}
+
 		if (data.qso != "") {
+			disabledContestnameSelect(true);
 			await refresh_qso_table(data);
+		} else {
+			disabledContestnameSelect(false);
+			$("#contestname_select").val("Other").change();
 		}
 	} else {
 		$("#exch_serial_s").val("1");
@@ -621,13 +815,13 @@ async function refresh_qso_table(data) {
 						"columnDefs": [
 							{
 								"render": function ( data, type, row ) {
-									return pad(row[8],3);
+									return row[8] !== null && row[8] !== '' ? pad(row[8], 3) : '';
 								},
 								"targets" : 8
 							},
 							{
 								"render": function ( data, type, row ) {
-									return pad(row[9],3);
+									return row[9] !== null && row[9] !== '' ? pad(row[9], 3) : '';
 								},
 								"targets" : 9
 							}
@@ -638,34 +832,33 @@ async function refresh_qso_table(data) {
 				table.clear();
 
 				var mode = '';
-				var data;
-				$.each(html, function () {
-					if (this.col_submode == null || this.col_submode == '') {
-						mode = this.col_mode;
-					} else {
-						mode = this.col_submode;
-					}
+				var data = [];
+                $.each(html, function () {
+                    if (this.col_submode == null || this.col_submode == '') {
+                        mode = this.col_mode;
+                    } else {
+                        mode = this.col_submode;
+                    }
 
-					data = [[
+                    data.push([
 						this.col_time_on,
-						this.col_call,
-						this.col_band,
-						mode,
-						this.col_rst_sent,
-						this.col_rst_rcvd,
-						this.col_stx_string,
-						this.col_srx_string,
-						this.col_stx,
-						this.col_srx,
-						this.col_gridsquare,
-						this.col_vucc_grids
-					]];
+						'<a href="javascript:displayQso(' + this.col_primary_key + ');">'+this.col_call + '</a>',
+                        this.col_band,
+                        mode,
+                        this.col_rst_sent,
+                        this.col_rst_rcvd,
+                        this.col_stx_string,
+                        this.col_srx_string,
+                        this.col_stx,
+                        this.col_srx,
+                        this.col_gridsquare,
+                        this.col_vucc_grids
+                    ]);
+                });
 
-					if (data.length > 0) {
-						table.rows.add(data).draw();
-					}
-
-				});
+                if (data.length > 0) {
+                    table.rows.add(data).draw();
+                }
 
 			}
 		});

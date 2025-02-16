@@ -72,7 +72,7 @@ class CI_Session {
 		// No sessions under CLI
 		if (is_cli())
 		{
-			log_message('debug', 'Session: Initialization under CLI aborted.');
+			log_message('info', 'Session: Initialization under CLI aborted.');
 			return;
 		}
 		elseif ((bool) ini_get('session.auto_start'))
@@ -123,6 +123,9 @@ class CI_Session {
 		{
 			unset($_COOKIE[$this->_config['cookie_name']]);
 		}
+
+		ini_set('session.gc_probability', config_item('sess_gc_probability') ?? 1);
+		ini_set('session.gc_divisor', config_item('sess_gc_divisor') ?? 1000);
 
 		session_start();
 
@@ -353,7 +356,11 @@ class CI_Session {
 			{
 				// Add as many more characters as necessary to reach at least 160 bits
 				$sid_length += (int) ceil((160 % $bits) / $bits_per_character);
-				ini_set('session.sid_length', $sid_length);
+				if (PHP_VERSION_ID >= 80400) {
+					@ini_set('session.sid_length', $sid_length);
+				} else {
+					ini_set('session.sid_length', $sid_length);
+				}
 			}
 		}
 

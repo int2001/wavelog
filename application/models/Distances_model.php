@@ -5,9 +5,11 @@ class Distances_model extends CI_Model
 {
 
 	function get_distances($postdata, $measurement_base) {
-		$CI =& get_instance();
-		$CI->load->model('logbooks_model');
-		$logbooks_locations_array = $CI->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
+
+		$clean_postdata = $this->security->xss_clean($postdata);
+
+		$this->load->model('logbooks_model');
+		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
 
 		if (!$logbooks_locations_array) {
 			header('Content-Type: application/json');
@@ -24,22 +26,37 @@ class Distances_model extends CI_Model
 			if ($station_gridsquare != null) {
 				$gridsquare = explode(',', $station_gridsquare); // We need to convert to an array, since a user can enter several gridsquares
 
-				$this->db->select('COL_PRIMARY_KEY,COL_DISTANCE,col_call callsign, col_gridsquare grid');
+				$this->db->select('COL_PRIMARY_KEY,COL_DISTANCE,COL_ANT_PATH,col_call callsign, col_gridsquare grid');
 				$this->db->join('satellite', 'satellite.name = '.$this->config->item('table_name').'.COL_SAT_NAME', 'left outer');
 				$this->db->where('LENGTH(col_gridsquare) >', 0);
 
-				if ($postdata['band'] == 'sat') {
-					$this->db->where('col_prop_mode', $postdata['band']);
-					if ($postdata['sat'] != 'All') {
-						$this->db->where('col_sat_name', $postdata['sat']);
+				if ($clean_postdata['band'] != 'All') {
+					if ($clean_postdata['band'] == 'sat') {
+						$this->db->where('col_prop_mode', $clean_postdata['band']);
+						if ($clean_postdata['sat'] != 'All') {
+							$this->db->where('col_sat_name', $clean_postdata['sat']);
+						}
+					}
+					else {
+						$this->db->where('col_band', $clean_postdata['band']);
 					}
 				}
-				else {
-					$this->db->where('col_band', $postdata['band']);
+
+				if ($clean_postdata['orbit'] != 'All') {
+					$this->db->where('satellite.orbit', $clean_postdata['orbit']);
 				}
 
-				if ($postdata['orbit'] != 'All') {
-					$this->db->where('satellite.orbit', $postdata['orbit']);
+				if ( $clean_postdata['propagation'] == 'NoSAT' ) {		// All without SAT
+					$this->db->where('col_prop_mode !=', 'SAT');
+				} elseif ($clean_postdata['propagation'] == 'None') {	// Empty Propmode
+					$this->db->group_start();
+					$this->db->where('trim(col_prop_mode)', '');
+					$this->db->or_where('col_prop_mode is null');
+					$this->db->group_end();
+				} elseif ($clean_postdata['propagation'] == 'All') {		// Dont care for propmode
+					; // No Prop-Filter
+				} else {				// Propmode set, take care of it
+					$this->db->where('col_prop_mode', $clean_postdata['propagation']);
 				}
 
 				$this->db->where('station_id', $station_id);
@@ -126,7 +143,9 @@ class Distances_model extends CI_Model
     // It builds an array, which has 50km intervals, then inputs each length into the correct spot
     // The function returns a json-encoded array.
 	function plot($qsoArray, $gridsquare, $measurement_base) {
-		$this->load->library('Qra');
+		if(!$this->load->is_loaded('Qra')) {
+			$this->load->library('Qra');
+		}
 		$stationgrid = strtoupper($gridsquare[0]);              // We use only the first entered gridsquare from the active profile
 		if (strlen($stationgrid) == 4) $stationgrid .= 'MM';    // adding center of grid if only 4 digits are specified
 
@@ -173,9 +192,10 @@ class Distances_model extends CI_Model
 
 			foreach ($qsoArray as $qso) {
 				$qrb['Qsos']++;                                                        // Counts up number of qsos
-				$bearingdistance = $this->qra->distance($stationgrid, $qso['grid'], $measurement_base);
-				if ($bearingdistance != $qso['COL_DISTANCE']) {
-					$data = array('COL_DISTANCE' => $bearingdistance);
+				$bearingdistance = $this->qra->distance($stationgrid, $qso['grid'], $measurement_base, $qso['COL_ANT_PATH']);
+				$bearingdistance_km = $this->qra->distance($stationgrid, $qso['grid'], 'K', $qso['COL_ANT_PATH']);
+				if ($bearingdistance_km != $qso['COL_DISTANCE']) {
+					$data = array('COL_DISTANCE' => $bearingdistance_km);
 					$this->db->where('COL_PRIMARY_KEY', $qso['COL_PRIMARY_KEY']);
 					$this->db->update($this->config->item('table_name'), $data);
 				}
@@ -225,15 +245,24 @@ class Distances_model extends CI_Model
     /*
 	 * Used to fetch QSOs from the logbook in the awards
 	 */
-	public function qso_details($distance, $band, $sat){
+	public function qso_details($distance, $band, $sat, $propagation){
 		$distarray = $this->getdistparams($distance);
-		$CI =& get_instance();
-		$CI->load->model('logbooks_model');
-		$logbooks_locations_array = $CI->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
+		$this->load->model('logbooks_model');
+		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
 
+		$this->db->select('dxcc_entities.adif, lotw_users.callsign, COL_BAND, COL_CALL, COL_CLUBLOG_QSO_DOWNLOAD_DATE,
+			COL_CLUBLOG_QSO_DOWNLOAD_STATUS, COL_CLUBLOG_QSO_UPLOAD_DATE, COL_CLUBLOG_QSO_UPLOAD_STATUS, COL_CONTEST_ID, COL_DISTANCE,
+			COL_EQSL_QSL_RCVD, COL_EQSL_QSLRDATE, COL_EQSL_QSLSDATE, COL_EQSL_QSL_SENT, COL_FREQ, COL_GRIDSQUARE, COL_IOTA, COL_LOTW_QSL_RCVD,
+			COL_LOTW_QSLRDATE, COL_LOTW_QSLSDATE, COL_LOTW_QSL_SENT, COL_MODE, COL_NAME, COL_OPERATOR, COL_POTA_REF, COL_PRIMARY_KEY,
+			COL_QRZCOM_QSO_DOWNLOAD_DATE, COL_QRZCOM_QSO_DOWNLOAD_STATUS, COL_QRZCOM_QSO_UPLOAD_DATE, COL_QRZCOM_QSO_UPLOAD_STATUS,
+			COL_QSL_RCVD, COL_QSL_RCVD_VIA, COL_QSLRDATE, COL_QSLSDATE, COL_QSL_SENT, COL_QSL_SENT_VIA, COL_QSL_VIA, COL_RST_RCVD,
+			COL_RST_SENT, COL_SAT_NAME, COL_SOTA_REF, COL_SRX, COL_SRX_STRING, COL_STATE, COL_STX, COL_STX_STRING, COL_SUBMODE, COL_TIME_ON,
+			COL_VUCC_GRIDS, COL_WWFF_REF, dxcc_entities.end, lotw_users.lastupload, dxcc_entities.name, satellite.displayname AS sat_displayname,
+			station_profile.station_callsign, station_profile.station_gridsquare, station_profile.station_profile_name');
 		$this->db->join('station_profile', 'station_profile.station_id = '.$this->config->item('table_name').'.station_id');
 		$this->db->join('dxcc_entities', 'dxcc_entities.adif = '.$this->config->item('table_name').'.COL_DXCC', 'left outer');
 		$this->db->join('lotw_users', 'lotw_users.callsign = '.$this->config->item('table_name').'.col_call', 'left outer');
+		$this->db->join('satellite', 'satellite.name = '.$this->config->item('table_name').'.COL_SAT_NAME', 'left outer');
 		$this->db->where('COL_DISTANCE >=', $distarray[0]);
 		$this->db->where('COL_DISTANCE <=', $distarray[1]);
 		$this->db->where('LENGTH(col_gridsquare) >', 0);
@@ -250,6 +279,19 @@ class Distances_model extends CI_Model
 					$this->db->where('COL_SAT_NAME', $sat);
 				}
 			}
+		}
+
+		if ($propagation == 'NoSAT' ) {		// All without SAT
+			$this->db->where('col_prop_mode !=', 'SAT');
+		} elseif ($propagation == 'None') {	// Empty Propmode
+			$this->db->group_start();
+			$this->db->where('trim(col_prop_mode)', '');
+			$this->db->or_where('col_prop_mode is null');
+			$this->db->group_end();
+		} elseif ($propagation == 'All') {		// Dont care for propmode
+			; // No Prop-Filter
+		} else {				// Propmode set, take care of it
+			$this->db->where('col_prop_mode', $propagation);
 		}
 		$this->db->order_by("COL_TIME_ON", "desc");
 

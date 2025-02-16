@@ -13,246 +13,301 @@ class Update extends CI_Controller {
 		parent::__construct();
 
 		if (ENVIRONMENT == 'maintenance' && $this->session->userdata('user_id') == '') {
-            echo "Maintenance Mode is active. Try again later.\n";
+            echo __("Maintenance Mode is active. Try again later.")."\n";
 			redirect('user/login');
 		}
 	}
 
 	public function index()
 	{
-	    $data['page_title'] = "Updates";
+        $this->load->model('user_model');
+		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
+
+	    $data['page_title'] = __("Updates");
 	    $this->load->view('interface_assets/header', $data);
 	    $this->load->view('update/index');
 	    $this->load->view('interface_assets/footer');
 
 	}
 
-    /*
-     * Create a path to a file in the updates folder, respecting the datadir
-     * configuration option.
-     */
-    private function make_update_path($path) {
-        $path = "updates/" . $path;
-        $datadir = $this->config->item('datadir');
-        if(!$datadir) {
-            return $path;
-        }
-        return $datadir . "/" . $path;
-    }
+	/*
+	* Load the DXCC entities
+	*/
+	public function dxcc_entities($xml_data = null) {
+		// Ensure the Paths library is loaded
+		if (!$this->load->is_loaded('Paths')) {
+			$this->load->library('Paths');
+		}
 
-    /*
-     * Load the dxcc entities
-     */
-	public function dxcc_entities() {
-		// Load Database connectors
+		// Load XML data if not provided
+		if ($xml_data === null) {
+			$xml_data = simplexml_load_file($this->paths->make_update_path("cty.xml"));
+		}
 
-		// Load the cty file
-		$xml_data = simplexml_load_file($this->make_update_path("cty.xml"));
-
-		//$xml_data->entities->entity->count();
-
+		$a_data = [];
+		$batch_size = 100; // Batch size for database insertion
 		$count = 0;
-		$a_data=[];
+
 		foreach ($xml_data->entities->entity as $entity) {
-			$startinfo = strtotime($entity->start);
-			$endinfo = strtotime($entity->end);
+			$a_data[] = [
+				'adif' => isset($entity->adif) ? (int) $entity->adif : 0,
+				'name' => isset($entity->cqz) ? (string) $entity->name : (string) $entity->entity,
+				'prefix' => isset($entity->cqz) ? (string) $entity->prefix : (string) $entity->call,
+				'ituz' => isset($entity->ituz) ? (float) $entity->ituz : 0,
+				'cqz' => isset($entity->cqz) ? (int) $entity->cqz : 0,
+				'cont' => isset($entity->cont) ? (string) $entity->cont : '',
+				'long' => isset($entity->long) ? (float) $entity->long : 0,
+				'lat' => isset($entity->lat) ? (float) $entity->lat : 0,
+				'start' => isset($entity->start) ? date('Y-m-d H:i:s', strtotime($entity->start)) : null,
+				'end' => isset($entity->end) ? date('Y-m-d H:i:s', strtotime($entity->end)) : null,
+			];
 
-			$start_date = ($startinfo) ? date('Y-m-d H:i:s',$startinfo) : null;
-			$end_date = ($endinfo) ? date('Y-m-d H:i:s',$endinfo) : null;
+			$count++;
 
-			if(!$entity->cqz) {
-				$data = array(
-					'prefix' => (string) $entity->call,
-					'name' =>  (string) $entity->entity,
-				);
-			} else {
-				$data = array(
-					'adif' => (int) $entity->adif,
-					'name' =>  (string) $entity->name,
-					'prefix' => (string)  $entity->prefix,
-					'ituz' => (float) $entity->ituz,
-					'cqz' => (int) $entity->cqz,
-					'cont' => (string) $entity->cont,
-					'long' => (float) $entity->long,
-					'lat' => (float) $entity->lat,
-					'start' => $start_date,
-					'end' => $end_date,
-				);
+			// Insert in batches for better performance
+			if ($count % $batch_size === 0) {
+				$this->db->insert_batch('dxcc_entities', $a_data);
+				$a_data = []; // Clear batch data
+				$this->update_status(__("Preparing DXCC-Entries: ") . $count);
 			}
-
-			array_push($a_data,$data);
-			$count += 1;
-			if ($count % 10  == 0)
-				$this->update_status("Preparing DXCC-Entries: ".$count);
 		}
-		$this->db->insert_batch('dxcc_entities', $a_data);
 
-		$this->update_status();
+		// Add the final special entity
+		$a_data[] = [
+			'adif' => 0,
+			'name' => '- NONE - (e.g. /MM, /AM)',
+			'prefix' => '',
+			'ituz' => 0,
+			'cqz' => 0,
+			'cont' => '',
+			'long' => 0,
+			'lat' => 0,
+			'start' => null,
+			'end' => null,
+		];
+
+		// Insert remaining data
+		if (!empty($a_data)) {
+			$this->db->insert_batch('dxcc_entities', $a_data);
+		}
+
+		$this->update_status(); // Final status update
 		return $count;
 	}
 
-    /*
-     * Load the dxcc exceptions
-     */
-	public function dxcc_exceptions() {
-		// Load Database connectors
-		// Load the cty file
-		$xml_data = simplexml_load_file($this->make_update_path("cty.xml"));
-
-		$count = 0;
-		$a_data=[];
-		foreach ($xml_data->exceptions->exception as $record) {
-			$startinfo = strtotime($record->start);
-			$endinfo = strtotime($record->end);
-
-			$start_date = ($startinfo) ? date('Y-m-d H:i:s',$startinfo) : null;
-			$end_date = ($endinfo) ? date('Y-m-d H:i:s',$endinfo) : null;
-
-			$data = array(
-				'record' => (int) $record->attributes()->record,
-				'call' => (string) $record->call,
-				'entity' =>  (string) $record->entity,
-				'adif' => (int) $record->adif,
-				'cqz' => (int) $record->cqz,
-				'cont' => (string) $record->cont,
-				'long' => (float) $record->long,
-				'lat' => (float) $record->lat,
-				'start' => $start_date,
-				'end' => $end_date,
-			);
-
-			array_push($a_data,$data);
-			$count += 1;
-			if ($count % 10  == 0)
-				$this->update_status("Preparing DXCC Exceptions: ".$count);
-		}
-		$this->db->insert_batch('dxcc_exceptions', $a_data);
-
-		$this->update_status();
-		return $count;
-	}
-
-    /*
+	/*
      * Load the dxcc prefixes
      */
-	public function dxcc_prefixes() {
-		// Load Database connectors
-		// Load the cty file
-		$xml_data = simplexml_load_file($this->make_update_path("cty.xml"));
+	public function dxcc_exceptions($xml_data = null) {
+		// Ensure the Paths library is loaded
+		if (!$this->load->is_loaded('Paths')) {
+			$this->load->library('Paths');
+		}
 
+		// Load XML data if not provided
+		if ($xml_data === null) {
+			$xml_data = simplexml_load_file($this->paths->make_update_path("cty.xml"));
+		}
+
+		$a_data = [];
+		$batch_size = 100; // Batch size for efficient database inserts
 		$count = 0;
-		$a_data=[];
-		foreach ($xml_data->prefixes->prefix as $record) {
-			$startinfo = strtotime($record->start);
-			$endinfo = strtotime($record->end);
 
-			$start_date = ($startinfo) ? date('Y-m-d H:i:s',$startinfo) : null;
-			$end_date = ($endinfo) ? date('Y-m-d H:i:s',$endinfo) : null;
-
-			$data = array(
+		foreach ($xml_data->exceptions->exception as $record) {
+			$a_data[] = [
 				'record' => (int) $record->attributes()->record,
 				'call' => (string) $record->call,
-				'entity' =>  (string) $record->entity,
+				'entity' => (string) $record->entity,
 				'adif' => (int) $record->adif,
 				'cqz' => (int) $record->cqz,
 				'cont' => (string) $record->cont,
 				'long' => (float) $record->long,
 				'lat' => (float) $record->lat,
-				'start' => $start_date,
-				'end' => $end_date,
-			);
+				'start' => (!empty($record->start) && strtotime($record->start)) ? date('Y-m-d H:i:s', strtotime($record->start))  : null,
+				'end' => $record->end ? date('Y-m-d H:i:s', strtotime($record->end)) : null,
+			];
 
-			array_push($a_data,$data);
-			$count += 1;
-			if ($count % 10  == 0)
-				$this->update_status("Preparing DXCC Prefixes: ".$count);
+			$count++;
+
+			// Insert in batches for better performance
+			if ($count % $batch_size === 0) {
+				$this->db->insert_batch('dxcc_exceptions', $a_data);
+				$a_data = []; // Clear batch data
+				$this->update_status(__("Preparing DXCC Exceptions: ") . $count);
+			}
 		}
-		$this->db->insert_batch('dxcc_prefixes', $a_data);
 
-		//print("$count prefixes processed");
-		$this->update_status();
+		// Insert any remaining records
+		if (!empty($a_data)) {
+			$this->db->insert_batch('dxcc_exceptions', $a_data);
+		}
+
+		$this->update_status(); // Final status update
+		return $count;
+	}
+
+	/*
+     * Load the dxcc prefixes
+     */
+	public function dxcc_prefixes($xml_data = null) {
+		// Load the cty file
+		if (!$this->load->is_loaded('Paths')) {
+			$this->load->library('Paths');
+		}
+
+		// Load XML data if not provided
+		if ($xml_data === null) {
+			$xml_data = simplexml_load_file($this->paths->make_update_path("cty.xml"));
+		}
+
+		$a_data = [];
+		$batch_size = 100; // Insert in batches of 100 for efficiency
+		$count = 0;
+
+		foreach ($xml_data->prefixes->prefix as $record) {
+			$a_data[] = [
+				'record' => (int) $record->attributes()->record,
+				'call' => (string) $record->call,
+				'entity' => (string) $record->entity,
+				'adif' => (int) $record->adif,
+				'cqz' => (int) $record->cqz,
+				'cont' => (string) $record->cont,
+				'long' => (float) $record->long,
+				'lat' => (float) $record->lat,
+				'start' => (!empty($record->start) && strtotime($record->start)) ? date('Y-m-d H:i:s', strtotime($record->start))  : null,
+				'end' => $record->end ? date('Y-m-d H:i:s', strtotime($record->end)) : null,
+			];
+
+			$count++;
+
+			// Insert in batches to avoid memory overload
+			if ($count % $batch_size === 0) {
+				$this->db->insert_batch('dxcc_prefixes', $a_data);
+				$a_data = []; // Clear the batch array
+				$this->update_status(__("Preparing DXCC Prefixes: ") . $count);
+			}
+		}
+
+		// Insert any remaining records
+		if (!empty($a_data)) {
+			$this->db->insert_batch('dxcc_prefixes', $a_data);
+		}
+
+		$this->update_status(); // Clear the status message
 		return $count;
 	}
 
 	// Updates the DXCC & Exceptions from the Club Log Cty.xml file.
 	public function dxcc() {
-	    $this->update_status("Downloading file");
 
-	    // give it 10 minutes...
-	    set_time_limit(600);
-
-		// Load Migration data if any.
-		$this->load->library('migration');
-		$this->fix_migrations();
-		$this->migration->latest();
-
-		// Download latest file.
-		$url = "https://cdn.clublog.org/cty.php?api=608df94896cb9c5421ae748235492b43815610c9";
-
-		$gz = gzopen($url, 'r');
-		if ($gz === FALSE) {
-			$this->update_status("FAILED: Could not download from clublog.org");
-			log_message('error', 'FAILED: Could not download exceptions from clublog.org');
-			return;
+		if(!$this->load->is_loaded('Paths')) {
+        	$this->load->library('Paths');
 		}
 
-		$data = "";
-		while (!gzeof($gz)) {
-		  $data .= gzgetc($gz);
-		}
-		gzclose($gz);
+        // set the last run in cron table for the correct cron id
+        $this->load->model('cron_model');
+        $this->cron_model->set_last_run($this->router->class.'_'.$this->router->method);
 
-		if (file_put_contents($this->make_update_path("cty.xml"), $data) === FALSE) {
-			$this->update_status("FAILED: Could not write to cty.xml file");
-			return;
-		}
+        $this->update_status("Downloading file");
 
-	    // Clear the tables, ready for new data
-		$this->db->empty_table("dxcc_entities");
-		$this->db->empty_table("dxcc_exceptions");
-		$this->db->empty_table("dxcc_prefixes");
-		$this->update_status();
+        // give it 10 minutes...
+        set_time_limit(600);
 
-	    // Parse the three sections of the file and update the tables
-	    $this->db->trans_start();
-		$this->dxcc_entities();
-		$this->dxcc_exceptions();
-		$this->dxcc_prefixes();
-		$this->db->trans_complete();
+        // Load Migration data if any.
+        $this->load->library('migration');
+        $this->fix_migrations();
+        $this->migration->latest();
 
-		$this->update_status("DONE");
+        // Download latest file.
+        $url = "https://cdn.clublog.org/cty.php?api=608df94896cb9c5421ae748235492b43815610c9";
+
+        $gz = gzopen($url, 'r');
+        if ($gz === FALSE) {
+			$msg = "FAILED: Could not download data from clublog.org. Trying alternative URL.";
+            $this->update_status($msg);
+            log_message('error', $msg);
+
+			$alt_url = "https://github.com/wavelog/dxcc_data/raw/refs/heads/master/cty.xml.gz";
+			$gz = gzopen($alt_url, 'r');
+
+			if ($gz === FALSE) {
+				$msg = "FAILED: Could not download dxcc data. Please check your internet connection.";
+				$this->update_status($msg);
+				log_message('error', $msg);
+				exit();
+			} else {
+				$msg = "Downloaded data successfully from alternative URL (github).";
+				$this->update_status($msg);
+				log_message('debug', $msg);
+			}
+        }
+
+        $data = "";
+        while (!gzeof($gz)) {
+        $data .= gzgetc($gz);
+        }
+        gzclose($gz);
+
+        if (file_put_contents($this->paths->make_update_path("cty.xml"), $data) === FALSE) {
+            $this->update_status("FAILED: Could not write to cty.xml file");
+			log_message('error', 'DXCC UPDATE FAILED: Could not write to cty.xml file');
+            exit();
+        }
+
+        // Clear the tables, ready for new data
+        $this->db->empty_table("dxcc_entities");
+        $this->db->empty_table("dxcc_exceptions");
+        $this->db->empty_table("dxcc_prefixes");
+        $this->update_status();
+
+        // Parse the three sections of the file and update the tables
+        $this->db->trans_start();
+		$xml_data = simplexml_load_file($this->paths->make_update_path("cty.xml"));
+        $this->dxcc_exceptions($xml_data);
+        $this->dxcc_entities($xml_data);
+        $this->dxcc_prefixes($xml_data);
+		$sql = "update dxcc_entities
+		join dxcc_temp on dxcc_entities.adif = dxcc_temp.adif
+		set dxcc_entities.ituz = dxcc_temp.ituz;";
+		$this->db->query($sql);
+        $this->db->trans_complete();
+
+        $this->update_status(__("DONE"));
+
+		echo 'success';
 	}
 
 	public function update_status($done=""){
 
+        if(!$this->load->is_loaded('Paths')) {
+        	$this->load->library('Paths');
+		}
+
 		if ($done != "Downloading file"){
 			// Check that everything is done?
 			if ($done == ""){
-				$done = "Updating...";
+				$done = __("Updating...");
 			}
 			$html = $done."<br/>";
-			$html .= "Dxcc Entities: ".$this->db->count_all('dxcc_entities')."<br/>";
-			$html .= "Dxcc Exceptions: ".$this->db->count_all('dxcc_exceptions')."<br/>";
-			$html .= "Dxcc Prefixes: ".$this->db->count_all('dxcc_prefixes')."<br/>";
+			$html .= __("Dxcc Entities:")." ".$this->db->count_all('dxcc_entities')."<br/>";
+			$html .= __("Dxcc Exceptions:")." ".$this->db->count_all('dxcc_exceptions')."<br/>";
+			$html .= __("Dxcc Prefixes:")." ".$this->db->count_all('dxcc_prefixes')."<br/>";
 		} else {
 			$html = $done."....<br/>";
-			$datetime = new DateTime("now", new DateTimeZone('UTC'));
-			$datetime = $datetime->format('Ymd h:i');
-			$this->optionslib->update('dxcc_clublog_update', $datetime , 'no');
 		}
 
-		file_put_contents($this->make_update_path("status.html"), $html);
+		file_put_contents($this->paths->make_update_path("status.html"), $html);
 	}
 
 
 	private function fix_migrations(){
-        $res = $this->db->query("select version from migrations");
+        $res = $this->db->query("SELECT version FROM migrations");
         if ($res->num_rows() >0){
             $row = $res->row();
             $version = $row->version;
 
             if ($version < 7){
-                $this->db->query("update migrations set version=7");
+                $this->db->query("UPDATE migrations SET version=7");
             }
         }
 	}
@@ -260,7 +315,7 @@ class Update extends CI_Controller {
 	public function check_missing_dxcc($all = false){
 		$this->load->model('user_model');
 		if (!$this->user_model->authorize(99)) {
-			$this->session->set_flashdata('notice', 'You\'re not allowed to do that!');
+			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
 		}
 
@@ -271,7 +326,7 @@ class Update extends CI_Controller {
 	public function check_missing_continent() {
 		$this->load->model('user_model');
 		if (!$this->user_model->authorize(99)) {
-			$this->session->set_flashdata('notice', 'You\'re not allowed to do that!');
+			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
 		}
 
@@ -279,21 +334,21 @@ class Update extends CI_Controller {
 		$this->logbook_model->check_missing_continent();
 	}
 
-	public function update_distances() {
+	public function update_distances($all = false) {
 		$this->load->model('user_model');
 		if (!$this->user_model->authorize(99)) {
-			$this->session->set_flashdata('notice', 'You\'re not allowed to do that!');
+			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
 		}
 
 		$this->load->model('logbook_model');
-		$this->logbook_model->update_distances();
+		$this->logbook_model->update_distances($all);
 	}
 
 	public function check_missing_grid($all = false){
 		$this->load->model('user_model');
 		if (!$this->user_model->authorize(99)) {
-			$this->session->set_flashdata('notice', 'You\'re not allowed to do that!');
+			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
 		}
 
@@ -302,281 +357,145 @@ class Update extends CI_Controller {
 	}
 
     public function update_clublog_scp() {
-        $strFile = $this->make_update_path("clublog_scp.txt");
-        $url = "https://cdn.clublog.org/clublog.scp.gz";
-        set_time_limit(300);
-        echo "Downloading Club Log SCP file...<br>";
-        $gz = gzopen($url, 'r');
-        if ($gz)
-        {
-            $data = "";
-            while (!gzeof($gz)) {
-                $data .= gzgetc($gz);
-            }
-            gzclose($gz);
-            if (file_put_contents($strFile, $data) !== FALSE)
-            {
-                $nCount = count(file($strFile));
-                if ($nCount > 0)
-                {
-                    echo "DONE: " . number_format($nCount) . " callsigns loaded";
-                    $datetime = new DateTime("now", new DateTimeZone('UTC'));
-                    $datetime = $datetime->format('Ymd h:i');
-                    $this->optionslib->update('scp_update', $datetime , 'no');
-                } else {
-                    echo "FAILED: Empty file";
-                }
-            } else {
-                echo "FAILED: Could not write to Club Log SCP file";
-            }
-        } else {
-            echo "FAILED: Could not connect to Club Log";
-        }
+
+        $this->load->model('Update_model');
+        $result = $this->Update_model->clublog_scp();
+        if($this->session->userdata('user_type') == '99') {
+			if (substr($result, 0, 4) == 'DONE') {
+				$this->session->set_flashdata('success', __("SCP Update complete. Result: ") . "'" . $result . "'");
+			} else {
+				$this->session->set_flashdata('error', __("SCP Update failed. Result: ") . "'" . $result . "'");
+			}
+			redirect('debug');
+		} else {
+        	echo $result;
+		}
     }
 
     public function download_lotw_users() {
-        $contents = file_get_contents('https://lotw.arrl.org/lotw-user-activity.csv', true);
-
-        if($contents === FALSE) {
-            echo "Something went wrong with fetching the LoTW users file.";
-        } else {
-            $file = './updates/lotw_users.csv';
-
-            if (file_put_contents($file, $contents) !== FALSE) {     // Save our content to the file.
-                echo "LoTW User Data Saved.";
-            } else {
-                echo "FAILED: Could not write to LoTW users file";
-            }
-        }
-
+        $this->lotw_users();
     }
 
     public function lotw_users() {
-        $mtime = microtime();
-        $mtime = explode(" ",$mtime);
-        $mtime = $mtime[1] + $mtime[0];
-        $starttime = $mtime;
 
-        $file = 'https://lotw.arrl.org/lotw-user-activity.csv';
-
-        $handle = fopen($file, "r");
-        if ($handle === FALSE) {
-            echo "Something went wrong with fetching the LoTW uses file";
-            return;
-        }
-        $this->db->empty_table("lotw_users");
-        $i = 0;
-        $data = fgetcsv($handle,1000,",");
-        do {
-            if ($data[0]) {
-                $lotwdata[$i]['callsign'] = $data[0];
-                $lotwdata[$i]['lastupload'] = $data[1] . ' ' . $data[2];
-                if (($i % 2000) == 0) {
-                    $this->db->insert_batch('lotw_users', $lotwdata);
-                    unset($lotwdata);
-                    // echo 'Record ' . $i . '<br />';
-                }
-                $i++;
-            }
-        } while ($data = fgetcsv($handle,1000,","));
-        fclose($handle);
-
-        $this->db->insert_batch('lotw_users', $lotwdata);
-
-        $mtime = microtime();
-        $mtime = explode(" ",$mtime);
-        $mtime = $mtime[1] + $mtime[0];
-        $endtime = $mtime;
-        $totaltime = ($endtime - $starttime);
-        echo "This page was created in ".$totaltime." seconds <br />";
-        echo "Records inserted: " . $i . " <br/>";
-        $datetime = new DateTime("now", new DateTimeZone('UTC'));
-        $datetime = $datetime->format('Ymd h:i');
-        $this->optionslib->update('lotw_users_update', $datetime , 'no');
-    }
-
-    public function lotw_check() {
-        $f = fopen('./updates/lotw_users.csv', "r");
-        $result = false;
-        while ($row = fgetcsv($f)) {
-            if ($row[0] == '4W7EST/MM') {
-                $result = $row[0];
-                echo "found";
-                break;
-            }
-        }
-        fclose($f);
+        $this->load->model('Update_model');
+        $result = $this->Update_model->lotw_users();
+        if($this->session->userdata('user_type') == '99') {
+			if (substr($result, 0, 7) == 'Records') {
+				$this->session->set_flashdata('success', __("LoTW Users Update complete. Result: ") . "'" . $result . "'");
+			} else {
+				$this->session->set_flashdata('error', __("LoTW Users Update failed. Result: ") . "'" . $result . "'");
+			}
+			redirect('debug');
+		} else {
+        	echo $result;
+		}
     }
 
     /*
      * Used for autoupdating the DOK file which is used in the QSO entry dialog for autocompletion.
      */
     public function update_dok() {
-        $contents = file_get_contents('https://www.df2et.de/cqrlog/dok_and_sdok.txt', true);
 
-        if($contents === FALSE) {
-            echo "Something went wrong with fetching the DOK file.";
-        } else {
-            $file = './assets/json/dok.txt';
-
-            if (file_put_contents($file, $contents) !== FALSE) {     // Save our content to the file.
-                $nCount = count(file($file));
-                if ($nCount > 0)
-                {
-                    echo "DONE: " . number_format($nCount) . " DOKs and SDOKs saved";
-                    $datetime = new DateTime("now", new DateTimeZone('UTC'));
-                    $datetime = $datetime->format('Ymd h:i');
-                    $this->optionslib->update('dok_file_update', $datetime , 'no');
-                } else {
-                    echo"FAILED: Empty file";
-                }
-            } else {
-                echo"FAILED: Could not write to dok.txt file";
-            }
-        }
+        $this->load->model('Update_model');
+        $result = $this->Update_model->dok();
+		if($this->session->userdata('user_type') == '99') {
+			if (substr($result, 0, 4) == 'DONE') {
+				$this->session->set_flashdata('success', __("DOK Update complete. Result: ") . "'" . $result . "'");
+			} else {
+				$this->session->set_flashdata('error', __("DOK Update failed. Result: ") . "'" . $result . "'");
+			}
+			redirect('debug');
+		} else {
+        	echo $result;
+		}
     }
 
     /*
      * Used for autoupdating the SOTA file which is used in the QSO entry dialog for autocompletion.
      */
     public function update_sota() {
-        $csvfile = 'https://www.sotadata.org.uk/summitslist.csv';
 
-        $sotafile = './assets/json/sota.txt';
-
-        $csvhandle = fopen($csvfile,"r");
-        if ($csvhandle === FALSE) {
-            echo "Something went wrong with fetching the SOTA file";
-            return;
-        }
-
-        $data = fgetcsv($csvhandle,1000,","); // Skip line we are not interested in
-        $data = fgetcsv($csvhandle,1000,","); // Skip line we are not interested in
-        $data = fgetcsv($csvhandle,1000,",");
-        $sotafilehandle = fopen($sotafile, 'w');
-
-        if ($sotafilehandle === FALSE) {
-            echo"FAILED: Could not write to sota.txt file";
-            return;
-        }
-
-        $nCount = 0;
-        do {
-            if ($data[0]) {
-                fwrite($sotafilehandle, $data[0].PHP_EOL);
-                $nCount++;
-            }
-        } while ($data = fgetcsv($csvhandle,1000,","));
-
-        fclose($csvhandle);
-        fclose($sotafilehandle);
-
-        if ($nCount > 0)
-        {
-            echo "DONE: " . number_format($nCount) . " SOTA's saved";
-            $datetime = new DateTime("now", new DateTimeZone('UTC'));
-            $datetime = $datetime->format('Ymd h:i');
-            $this->optionslib->update('sota_file_update', $datetime , 'no');
-        } else {
-            echo"FAILED: Empty file";
-        }
+        $this->load->model('Update_model');
+        $result = $this->Update_model->sota();
+        if($this->session->userdata('user_type') == '99') {
+			if (substr($result, 0, 4) == 'DONE') {
+				$this->session->set_flashdata('success', __("SOTA Update complete. Result: ") . "'" . $result . "'");
+			} else {
+				$this->session->set_flashdata('error', __("SOTA Update failed. Result: ") . "'" . $result . "'");
+			}
+			redirect('debug');
+		} else {
+        	echo $result;
+		}
     }
 
     /*
      * Pulls the WWFF directory for autocompletion in QSO dialogs
      */
     public function update_wwff() {
-        $csvfile = 'https://wwff.co/wwff-data/wwff_directory.csv';
 
-        $wwfffile = './assets/json/wwff.txt';
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $csvfile);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_USERAGENT, 'Wavelog Updater');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $csv = curl_exec($ch);
-        curl_close($ch);
-        if ($csv === FALSE) {
-            echo "Something went wrong with fetching the WWFF file";
-            return;
-        }
-
-        $wwfffilehandle = fopen($wwfffile, 'w');
-        if ($wwfffilehandle === FALSE) {
-            echo"FAILED: Could not write to wwff.txt file";
-            return;
-        }
-
-        $data = str_getcsv($csv,"\n");
-        $nCount = 0;
-        foreach ($data as $idx => $row) {
-        if ($idx == 0) continue; // Skip line we are not interested in
-        $row = str_getcsv($row, ',');
-        if ($row[0]) {
-            fwrite($wwfffilehandle, $row[0].PHP_EOL);
-            $nCount++;
-        }
-        }
-
-        fclose($wwfffilehandle);
-
-        if ($nCount > 0)
-        {
-            echo "DONE: " . number_format($nCount) . " WWFF's saved";
-            $datetime = new DateTime("now", new DateTimeZone('UTC'));
-            $datetime = $datetime->format('Ymd h:i');
-            $this->optionslib->update('wwff_file_update', $datetime , 'no');
-        } else {
-            echo"FAILED: Empty file";
-        }
+        $this->load->model('Update_model');
+        $result = $this->Update_model->wwff();
+        if($this->session->userdata('user_type') == '99') {
+			if (substr($result, 0, 4) == 'DONE') {
+				$this->session->set_flashdata('success', __("WWFF Update complete. Result: ") . "'" . $result . "'");
+			} else {
+				$this->session->set_flashdata('error', __("WWFF Update failed. Result: ") . "'" . $result . "'");
+			}
+			redirect('debug');
+		} else {
+        	echo $result;
+		}
     }
 
     public function update_pota() {
-        $csvfile = 'https://pota.app/all_parks.csv';
 
-        $potafile = './assets/json/pota.txt';
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $csvfile);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_USERAGENT, 'Wavelog Updater');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $csv = curl_exec($ch);
-        curl_close($ch);
-        if ($csv === FALSE) {
-            echo "Something went wrong with fetching the POTA file";
-            return;
-        }
-
-        $potafilehandle = fopen($potafile, 'w');
-        if ($potafilehandle === FALSE) {
-            echo"FAILED: Could not write to pota.txt file";
-            return;
-        }
-        $data = str_getcsv($csv,"\n");
-        $nCount = 0;
-        foreach ($data as $idx => $row) {
-        if ($idx == 0) continue; // Skip line we are not interested in
-        $row = str_getcsv($row, ',');
-        if ($row[0]) {
-            fwrite($potafilehandle, $row[0].PHP_EOL);
-            $nCount++;
-        }
-        }
-
-        fclose($potafilehandle);
-
-        if ($nCount > 0)
-        {
-            echo "DONE: " . number_format($nCount) . " POTA's saved";
-            $datetime = new DateTime("now", new DateTimeZone('UTC'));
-            $datetime = $datetime->format('Ymd h:i');
-            $this->optionslib->update('pota_file_update', $datetime , 'no');
-        } else {
-            echo"FAILED: Empty file";
-        }
+        $this->load->model('Update_model');
+        $result = $this->Update_model->pota();
+        if($this->session->userdata('user_type') == '99') {
+			if (substr($result, 0, 4) == 'DONE') {
+				$this->session->set_flashdata('success', __("POTA Update complete. Result: ") . "'" . $result . "'");
+			} else {
+				$this->session->set_flashdata('error', __("POTA Update failed. Result: ") . "'" . $result . "'");
+			}
+			redirect('debug');
+		} else {
+        	echo $result;
+		}
     }
 
+    public function update_tle() {
+        $this->load->model('Update_model');
+        $result = $this->Update_model->tle();
+        if($this->session->userdata('user_type') == '99') {
+			if (substr($result, 0, 4) == 'This') {
+				$this->session->set_flashdata('success', __("TLE Update complete. Result: ") . "'" . $result . "'");
+			} else {
+				$this->session->set_flashdata('error', __("TLE Update failed. Result: ") . "'" . $result . "'");
+			}
+			redirect('debug');
+		} else {
+        	echo $result;
+		}
+    }
+
+    public function update_lotw_sats() {
+       $this->load->model('Update_model');
+       $bodyData['satupdates'] = $this->Update_model->lotw_sats();
+       $data['page_title'] = __("LoTW SAT Update");
+       $this->load->view('interface_assets/header', $data);
+       $this->load->view('lotw/satupdate', $bodyData);
+       $this->load->view('interface_assets/footer');
+    }
+
+	function version_check() {
+		// set the last run in cron table for the correct cron id
+		$this->load->model('cron_model');
+		$this->cron_model->set_last_run($this->router->class . '_' . $this->router->method);
+
+		$this->load->model('Update_model');
+		$this->Update_model->update_check();
+	}
 }
 ?>

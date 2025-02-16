@@ -1,10 +1,65 @@
+body {
+	font-family: "Twemoji Country Flags", "Helvetica", "Comic Sans", sans-serif;
+}
+
 @media (min-width: 992px) {
 	.modal-lg,
 	.modal-xl {
 		max-width: 900px;
 	}
+
+	#firstloginwizard_modal_content {
+		overflow-y: visible;
+	}
 }
 
+@media (max-width: 991px) {
+
+	#firstloginwizard_modal_content {
+		overflow-y: auto;
+	}
+
+	.h-lg-25 {
+		height: 25% !important;
+	}
+
+	.h-lg-50 {
+		height: 50% !important;
+	}
+
+	.h-lg-75 {
+		height: 75% !important;
+	}
+
+	.h-lg-100 {
+		height: 100% !important;
+	}
+
+	.h-lg-auto {
+		height: auto !important;
+	}
+
+	.w-lg-25 {
+		width: 25% !important;
+	}
+
+	.w-lg-50 {
+		width: 50% !important;
+	}
+
+	.w-lg-75 {
+		width: 75% !important;
+	}
+
+	.w-lg-100 {
+		width: 100% !important;
+	}
+
+	.w-lg-auto {
+		width: auto !important;
+	}
+
+}
 /* ============  HEADER MENU ============ */
 /* Adapted from https://bootstrap-menu.com/detail-multilevel.html  */
 /* ============ desktop view ============ */
@@ -83,6 +138,10 @@
 
 }
 /* ============ small devices .end// ============ */
+
+.modal-header {
+	display: initial;
+}
 
 .dropdown-menu {
 	z-index: 2000 !important;
@@ -179,14 +238,6 @@ thead > tr > td {
 	padding-top: 25px;
 }
 
-.qso_panel #callsign {
-	text-transform: uppercase;
-}
-
-.qso_panel #locator {
-	text-transform: uppercase;
-}
-
 .qso_panel .iota_ref {
 	text-transform: uppercase;
 }
@@ -207,18 +258,6 @@ thead > tr > td {
 	text-transform: uppercase;
 }
 
-.card-body #callsign {
-	text-transform: uppercase;
-}
-
-.card-body #locator {
-	text-transform: uppercase;
-}
-
-.card-body #vucc_grids {
-	text-transform: uppercase;
-}
-
 .card-body #sota_ref_edit-selectized {
 	text-transform: uppercase;
 }
@@ -235,16 +274,9 @@ thead > tr > td {
 	text-transform: uppercase;
 }
 
-.card-body #exch_rcvd {
-	text-transform: uppercase;
-}
-
-.card-body #exch_sent {
-	text-transform: uppercase;
-}
-
-.card-body #exch_gridsquare_r {
-	text-transform: uppercase;
+#share_modal {
+	display: grid;
+	grid-template-columns: auto;
 }
 
 #oqrssearch:valid {
@@ -270,6 +302,7 @@ thead > tr > td {
 
 TD.eqsl {
 	width: 33px;
+	white-space: nowrap;
 }
 
 .eqsl-green {
@@ -280,6 +313,16 @@ TD.eqsl {
 .eqsl-red {
 	color: #f00 !important;
 	font-size: 1.1em;
+}
+
+.eqsl-grey {
+	color: #dddddd !important;
+	font-size: 1.1em;
+}
+
+TD.qsl {
+	width: 33px;
+	white-space: nowrap;
 }
 
 .qsl-green {
@@ -302,8 +345,29 @@ TD.eqsl {
 	font-size: 1.1em;
 }
 
+TD.clublog {
+	width: 33px;
+	white-space: nowrap;
+}
+
+.clublog-green {
+	color: #00a000 !important;
+	font-size: 1.1em;
+}
+
+.clublog-yellow {
+	color: #d39e00 !important;
+	font-size: 1.1em;
+}
+
+.clublog-red {
+	color: #f00 !important;
+	font-size: 1.1em;
+}
+
 TD.qrz {
 	width: 33px;
+	white-space: nowrap;
 }
 
 .qrz-green {
@@ -316,8 +380,19 @@ TD.qrz {
 	font-size: 1.1em;
 }
 
+.qrz-yellow {
+	color: #d39e00 !important;
+	font-size: 1.1em;
+}
+
+.qrz-grey {
+	color: #dddddd !important;
+	font-size: 1.1em;
+}
+
 TD.lotw {
 	width: 33px;
+	white-space: nowrap;
 }
 
 .lotw-green {
@@ -327,6 +402,16 @@ TD.lotw {
 
 .lotw-red {
 	color: #f00 !important;
+	font-size: 1.1em;
+}
+
+.lotw-grey {
+	color: #dddddd !important;
+	font-size: 1.1em;
+}
+
+.lotw-yellow {
+	color: #d39e00 !important;
 	font-size: 1.1em;
 }
 
@@ -358,8 +443,12 @@ TD.lotw {
 	text-transform: uppercase;
 }
 
-#nav-bar-search-input:focus {
-	text-transform: uppercase;
+#nav-bar-search-input {
+    text-transform: uppercase;
+}
+
+#nav-bar-search-input::placeholder {
+    text-transform: none;
 }
 
 .settings {
@@ -573,7 +662,7 @@ div#station_logbooks_linked_table_paginate {
 }
 
 .activeRow a {
-	color: #fff !important;
+	color: #fff;
 }
 
 .w-qsl {
@@ -654,11 +743,6 @@ div#station_logbooks_linked_table_paginate {
 	margin-bottom: 0px;
 }
 
-#advancedmap {
-	height: calc(100vh - 280px) !important;
-	max-height: 1000px !important;
-}
-
 .lotw-cert-list table {
 	margin-bottom: 0px;
 }
@@ -674,6 +758,15 @@ div#station_logbooks_linked_table_paginate {
 #wwff,
 #pota {
 	text-transform: uppercase;
+}
+
+#dx::placeholder,
+#state::placeholder,
+#gridsquare::placeholder,
+#sota::placeholder,
+#wwff::placeholder,
+#pota::placeholder {
+    text-transform: none;
 }
 
 #awardInfoButton {
@@ -694,31 +787,46 @@ div#station_logbooks_linked_table_paginate {
 	margin-right: 30px;
 }
 
-.sfletable {
-	height: 470px;
+@media (min-width: 768px) {
+
+	.sfletable.table {
+		width: 100%;
+	}
+
+	.sfletable.table thead,
+	.sfletable.table tbody tr {
+		display: block;
+		width: 100%;
+		table-layout: fixed;
+		display: inline-table;
+	}
+
+	.sfletable.table tbody {
+		width: 95%;
+		overflow-y: scroll;
+		position: absolute;
+	}
+
+	.simplefle {
+		--bs-card-bg: none;
+	}
+
+	#sfle_textarea {
+		width: 100%;
+		box-sizing: border-box;
+	}
 }
 
-.sfletable.table {
-	width: 100%;
-}
+@media (max-width: 767px) {
 
-.sfletable.table thead,
-.sfletable.table tbody tr {
-	display: block;
-	width: 100%;
-	table-layout: fixed;
-	display: inline-table;
-}
+	.sfletable.table {
+		overflow-x: auto;
+		font-size: 0.8em;
+	}
 
-.sfletable.table tbody {
-	width: 95%;
-	overflow-y: scroll;
-	max-height: 440px;
-	position: absolute;
-}
-
-.simplefle {
-	--bs-card-bg: none;
+	#refs_hint {
+		font-size: 0.8em;
+	}
 }
 
 .red {
@@ -828,9 +936,14 @@ label {
 }
 
 .coordinates {
-    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+	justify-content: center;
     align-items: stretch;
 }
+
 .cohidden {
     display:none;
 }
@@ -838,7 +951,7 @@ label {
 #latDeg, #lngDeg {
     width: 170px;
 }
-#locator, #distance, #bearing {
+#locator, #distance, #bearing, #ituzonedisplay, #cqzonedisplay{
     width: 120px;
 }
 
@@ -939,4 +1052,158 @@ label {
 	border-color: #fff;
 	border-width: 1px;
 	border-style: solid;
+}
+
+.blank-row {
+	height: 20px !important;
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+.tables-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Optional: add some space between tables */
+    justify-content: center;
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
+	max-width: 100%; /* Ensure the container doesn't exceed the viewport width */
+    padding: 10px; /* Optional: add some padding */
+    box-sizing: border-box;
+}
+
+.table-wrapper {
+    flex: 1 1 400px; /* Adjust the base width of tables */
+    box-sizing: border-box;
+}
+
+.multiselect-container.dropdown-menu {
+    --bs-dropdown-padding-y: 0;
+}
+
+.btn-group .multiselect-container .multiselect-option input[type="radio"] {
+    display: none;
+}
+
+@media screen and (max-width:991px){ 
+	.multiselect-container button.dropdown-item {
+	  pointer-events:none;
+	}
+	.multiselect-container span.form-check input {
+	  pointer-events: all;
+	}
+	.multiselect-container span.form-check label  {
+	  pointer-events: none;
+	}
+	.btn-group .multiselect-container .multiselect-option input[type="radio"] {
+		display: block !important;
+	}
+}
+
+/* ============  Glanceyear ============ */
+.glanceyear-container {
+	border: 1px solid #D8D8D8;
+	border-radius: 5px;
+	max-width: 683px;
+}
+.glanceyear-header {
+	position: relative;
+	background-color: #F5F5F5;
+	border-bottom: 1px solid #D8D8D8;
+	border-radius: 5px 5px 0 0;
+	color: #000;
+	font-size: 15px;
+	font-weight: bold;
+	margin: 0;
+	padding: 7px 10px;
+}
+.glanceyear-quantity {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	color:#aaa;
+	font-size: 10px;
+}
+.glanceyear-content { padding: 10px; }
+.glanceyear-text {
+	color: #aaa;
+	font-size: 12px;
+	font-weight: normal;
+	margin: 0 0;
+	padding: 0;
+}
+.glanceyear-summary { color: #aaa; font-size: 12px; margin: 0 10px 10px; }
+
+.glanceyear-legend {
+	color: #aaa;
+	float: right;
+	font-size: 12px;
+	text-align: middle;
+	text-wrap: none;
+}
+.glanceyear-legend span { display: inline-block; height: 10px; width: 10px; }
+
+svg rect.day { fill: #eee; shape-rendering: crispedges; }
+svg rect.day:hover { stroke: #aaa; stroke-width: 1px; }
+svg rect.day[data-col] { fill: #3d9692; }
+svg rect.day[data-col='1'] { fill: #c3dbda; }
+svg rect.day[data-col='3'] { fill: #5caeaa; }
+svg rect.day[data-col='6'] { fill: #277672; }
+svg rect.day[data-col='12'] { fill: #176662; }
+svg rect.day[data-col='24'] { fill: #075652; }
+svg rect.day[data-col='48'] { fill: #004642; }
+
+svg text { fill: #CCC; font-size: 9px; }
+svg text.month { fill: #AAA; }
+
+.svg-tag {
+	background-color: rgba(0,0,0,0.8);
+	border-radius: 3px;
+	color: #eee;
+	font-size: 12px;
+	line-height: 15px;
+	padding: 5px 15px;
+	position: absolute;
+	text-align: center;
+}
+.svg-tag:after {
+	border-color: rgba(0,0,0,0.8) transparent transparent transparent;
+	border-style: solid;
+	border-width: 5px 5px 0 5px;
+	bottom: -5px;
+	content: "";
+	height: 0;
+	left: 50%;
+	margin-left: -5px;
+	position: absolute;
+	width: 0;
+}
+
+.glanceyear-legend-1 {
+	background-color: #eee;	
+}
+.glanceyear-legend-2 {
+	background-color: #c3dbda;	
+}
+.glanceyear-legend-3 {
+	background-color: #5caeaa;	
+}
+.glanceyear-legend-4 {
+	background-color: #277672;	
+}
+
+.leaflet-popup-content {
+    font-family: "Twemoji Country Flags", sans-serif;
+	min-width: 260px; /* Minimum width to ensure readability */
+}
+
+.big-flag {
+	float: left;
+    font-size: 3em;
+    line-height: 1;
+	white-space: no-wrap;
+	display: flex;
+    align-items: center; /* Vertically aligns the flag and callsign */
+    gap: 0.5em; /* Adds space between the flag and callsign */
 }

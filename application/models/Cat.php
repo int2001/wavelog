@@ -2,7 +2,7 @@
 
 	class Cat extends CI_Model {
 
-		function update($result, $user_id) {
+		function update($result, $user_id, $operator) {
 
 			$timestamp = gmdate("Y-m-d H:i:s");
 
@@ -16,6 +16,7 @@
 			}
 
 			$this->db->where('radio', $result['radio']);
+			$this->db->where('operator', $operator);
 			$this->db->where('user_id', $user_id);
 			$query = $this->db->get('cat');
 
@@ -26,10 +27,14 @@
 				'sat_name' => $result['sat_name'] ?? NULL,
 				'timestamp' => $timestamp,
 			);
-			if (isset($result['frequency']) && $result['frequency'] != "NULL") {
+			if ( (isset($result['frequency'])) && ($result['frequency'] != "NULL") && ($result['frequency'] != '') && (is_numeric($result['frequency']))) {
 				$data['frequency'] = $result['frequency'];
 			} else {
-				$data['frequency'] = $result['uplink_freq'];
+				if ( (isset($result['uplink_freq'])) && ($result['uplink_freq'] != "NULL") && ($result['uplink_freq'] != '') && (is_numeric($result['uplink_freq'])) ) {
+					$data['frequency'] = $result['uplink_freq'];
+				} else {
+					unset($data['frequency']);	// Do not update Frequency since it wasn't provided
+				}
 			}
 			if (isset($result['mode']) && $result['mode'] != "NULL") {
 				$data['mode'] = $result['mode'];
@@ -40,9 +45,9 @@
 					$data['mode'] = NULL;
 				}
 			}
-			if (isset($result['frequency_rx'])) {
+			if ( (isset($result['frequency_rx'])) && (is_numeric($result['frequency_rx'])) ) {
 				$data['frequency_rx'] = $result['frequency_rx'];
-			} else if (isset($result['downlink_freq']) && $result['downlink_freq'] != "NULL") {
+			} else if (isset($result['downlink_freq']) && ($result['downlink_freq'] != "NULL") && (is_numeric($result['downlink_freq'])))  {
 				$data['frequency_rx'] = $result['downlink_freq'];
 			} else {
 				$data['frequency_rx'] = NULL;
@@ -70,6 +75,7 @@
 				// Add a new record
 				$data['radio'] = $result['radio'];
 				$data['user_id'] = $user_id;
+				$data['operator'] = $operator;
 
 				$this->db->insert('cat', $data);
 			}
@@ -78,6 +84,9 @@
 		function status() {
 			//$this->db->where('radio', $result['radio']);
 			$this->db->where('user_id', $this->session->userdata('user_id'));
+			if ($this->session->userdata('clubstation') == 1 && !clubaccess_check(9)) {
+				$this->db->where('operator', $this->session->userdata('source_uid'));
+			}
 			$query = $this->db->get('cat');
 
 			return $query;
@@ -85,6 +94,9 @@
 
 		function recent_status() {
 			$this->db->where('user_id', $this->session->userdata('user_id'));
+			if ($this->session->userdata('clubstation') == 1 && !clubaccess_check(9)) {
+				$this->db->where('operator', $this->session->userdata('source_uid'));
+			}
 			$this->db->where("timestamp > date_sub(UTC_TIMESTAMP(), interval 15 minute)", NULL, FALSE);
 
 			$query = $this->db->get('cat');
@@ -92,23 +104,53 @@
 		}
 
 		/* Return list of radios */
-		function radios() {
+		function radios($only_operator = false) {
 			$this->db->select('id, radio');
 			$this->db->where('user_id', $this->session->userdata('user_id'));
+			if ($only_operator && ($this->session->userdata('clubstation') == 1 && !clubaccess_check(9))) {
+				$this->db->where('operator', $this->session->userdata('source_uid'));
+			}
 			$query = $this->db->get('cat');
 
 			return $query;
 		}
 
 		function radio_status($id) {
-			$sql = 'SELECT * FROM `cat` WHERE id = ' . $id . ' and user_id =' . $this->session->userdata('user_id');
-			return $this->db->query($sql);
+			$binding = [];
+			$sql = 'SELECT * FROM `cat` WHERE id = ? AND user_id = ?';
+			$binding[] = $id;
+			$binding[] = $this->session->userdata('user_id');
+			if ($this->session->userdata('clubstation') == 1 && !clubaccess_check(9)) {
+				$sql .= ' AND operator = ?';
+				$binding[] = $this->session->userdata('source_uid');
+			}
+			return $this->db->query($sql, $binding);
+		}
+
+		function last_updated() {
+			$binding = [];
+			$sql = 'SELECT * FROM cat WHERE user_id = ?';
+			$binding[] = $this->session->userdata('user_id');
+			if ($this->session->userdata('clubstation') == 1 && !clubaccess_check(9)) {
+				$sql .= ' AND operator = ?';
+				$binding[] = $this->session->userdata('source_uid');
+			}
+			$sql .= ' ORDER BY timestamp DESC LIMIT 1';
+			return $this->db->query($sql, $binding);
 		}
 
 		function delete($id) {
 			$this->db->where('id', $id);
 			$this->db->where('user_id', $this->session->userdata('user_id'));
 			$this->db->delete('cat');
+
+			return true;
+		}
+
+		function updateCatUrl($id,$caturl) {
+			$this->db->where('id', $id);
+			$this->db->where('user_id', $this->session->userdata('user_id'));
+			$this->db->update('cat',array('cat_url' => $caturl));
 
 			return true;
 		}

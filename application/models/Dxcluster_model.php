@@ -29,6 +29,7 @@ class Dxcluster_model extends CI_Model {
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $dxcache_url);
 			curl_setopt($ch, CURLOPT_USERAGENT, 'Wavelog '.$this->optionslib->get_option('version').' DXLookup');
+			curl_setopt($ch, CURLOPT_TIMEOUT, 10);
 			curl_setopt($ch, CURLOPT_HEADER, false);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			$jsonraw = curl_exec($ch);
@@ -77,6 +78,15 @@ class Dxcluster_model extends CI_Model {
 							$singlespot->cnfmd_dxcc = ($this->logbook_model->check_if_dxcc_cnfmd_in_logbook($singlespot->dxcc_spotted->dxcc_id, $logbooks_locations_array, $singlespot->band) >= 1);
 							$singlespot->worked_call = ($this->logbook_model->check_if_callsign_worked_in_logbook($singlespot->spotted, $logbooks_locations_array, $singlespot->band) >= 1);
 							$singlespot->cnfmd_call = ($this->logbook_model->check_if_callsign_cnfmd_in_logbook($singlespot->spotted, $logbooks_locations_array, $singlespot->band) >= 1);
+							if ($singlespot->worked_call) {
+								$singlespot->last_wked=$this->logbook_model->last_worked_callsign_in_logbook($singlespot->spotted, $logbooks_locations_array, $singlespot->band)[0];
+								if ($this->session->userdata('user_date_format')) {
+									$custom_date_format = $this->session->userdata('user_date_format');
+								} else {
+									$custom_date_format = $this->config->item('qso_date_format');
+								}
+								$singlespot->last_wked->LAST_QSO = date($custom_date_format, strtotime($singlespot->last_wked->LAST_QSO));
+							}
 							array_push($spotsout,$singlespot);
 						}
 					} else {	// No de continent? No Filter --> Just push

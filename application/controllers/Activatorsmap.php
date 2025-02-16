@@ -10,11 +10,11 @@ class Activatorsmap extends CI_Controller {
 		parent::__construct();
 
 		$this->load->model('user_model');
-		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('notice', 'You\'re not allowed to do that!'); redirect('dashboard'); }
+		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 	}
 
 	public function index() {
-		$data['page_title'] = "Activators Map";
+		$data['page_title'] = __("Activators Map");
 
 		$this->load->model('stations');
         $data['station_locator'] = $this->stations->find_gridsquare();

@@ -24,7 +24,7 @@ $(function() {
 					'targets': 2,
 					'createdCell':  function (td, cellData, rowData, row, col) {
 						$(td).addClass("spotted_call"); 
-						// $(td).attr( "title", "Click to prepare logging" );
+						$(td).attr( "title", lang_click_to_prepare_logging);
 					}
 				}
 			],
@@ -35,7 +35,7 @@ $(function() {
 		return table;
 	}
 
-	function fill_list(band,de,maxAgeMinutes) {
+	function fill_list(band,de,maxAgeMinutes,cwn) {
 		// var table = $('.spottable').DataTable();
 		var table = get_dtable();
 		if ((band != '') && (band !== undefined)) {
@@ -48,9 +48,14 @@ $(function() {
 				table.page.len(50);
 				let oldtable=table.data();
 				table.clear();
+				let spots2render=0;
 				if (dxspots.length>0) {
 					dxspots.sort(SortByQrg);
 					dxspots.forEach((single) => {
+						if ((cwn == 'wkd') && (!(single.worked_dxcc))) { return; }
+						if ((cwn == 'cnf') && (!(single.cnfmd_dxcc))) { return; }
+						if ((cwn == 'ucnf') && ((single.cnfmd_dxcc))) { return; }
+						spots2render++;
 						var data=[];
 						if (single.cnfmd_dxcc) {
 							dxcc_wked_info="text-success";
@@ -94,6 +99,11 @@ $(function() {
 						data[0].push('<a href="javascript:spawnLookupModal(\''+single.dxcc_spotted.dxcc_id+'\',\'dxcc\')";>'+dxcc_wked_info+'</a>');
 						data[0].push(single.spotter);
 						data[0].push(single.message || '');
+						if (single.worked_call) {
+							data[0].push(single.last_wked.LAST_QSO+' in '+single.last_wked.LAST_MODE);
+						} else {
+							data[0].push('');
+						}
 						if (oldtable.length > 0) {
 							let update=false;
 							oldtable.each( function (srow) {
@@ -114,6 +124,10 @@ $(function() {
 						$(".fresh").removeClass("fresh");
 					},10000);
 				} else {
+					table.clear();
+					table.draw();
+				}
+				if (spots2render == 0) {
 					table.clear();
 					table.draw();
 				}
@@ -145,17 +159,22 @@ $(function() {
 	var table=get_dtable();
 	table.order([1, 'asc']);
 	table.clear();
-	fill_list($('#band option:selected').val(), $('#decontSelect option:selected').val(),dxcluster_maxage);
-	setInterval(function () { fill_list($('#band option:selected').val(), $('#decontSelect option:selected').val(),dxcluster_maxage); },60000);
+	fill_list($('#band option:selected').val(), $('#decontSelect option:selected').val(),dxcluster_maxage,$('#cwnSelect option:selected').val());
+	setInterval(function () { fill_list($('#band option:selected').val(), $('#decontSelect option:selected').val(),dxcluster_maxage,$('#cwnSelect option:selected').val()); },60000);
+
+	$("#cwnSelect").on("change",function() {
+		table.clear();
+		fill_list($('#band option:selected').val(), $('#decontSelect option:selected').val(),dxcluster_maxage,$('#cwnSelect option:selected').val());
+	});
 
 	$("#decontSelect").on("change",function() {
 		table.clear();
-		fill_list($('#band option:selected').val(), $('#decontSelect option:selected').val(),dxcluster_maxage);
+		fill_list($('#band option:selected').val(), $('#decontSelect option:selected').val(),dxcluster_maxage,$('#cwnSelect option:selected').val());
 	});
 
 	$("#band").on("change",function() {
 		table.clear();
-		fill_list($('#band option:selected').val(), $('#decontSelect option:selected').val(),dxcluster_maxage);
+		fill_list($('#band option:selected').val(), $('#decontSelect option:selected').val(),dxcluster_maxage,$('#cwnSelect option:selected').val());
 	});
 
 	$("#spottertoggle").on("click", function() {
@@ -166,40 +185,80 @@ $(function() {
 		}
 	});
 
-	var qso_window_last_seen=Date.now()-3600;
+	let qso_window_last_seen=Date.now()-3600;
+	let bc_qsowin = new BroadcastChannel('qso_window');
+	let pong_rcvd = false;
 
-	var bc_qsowin = new BroadcastChannel('qso_window');
 	bc_qsowin.onmessage = function (ev) {
 		if (ev.data == 'pong') {
 			qso_window_last_seen=Date.now();
+			pong_rcvd = true;
 		}
 	};
 
-	setInterval(function () { bc_qsowin.postMessage('ping') },500);
-	var bc2qso = new BroadcastChannel('qso_wish');
+	setInterval(function () {
+		// reset the pong flag if the last seen time is older than 1 second in case the qso window was closed
+		if (qso_window_last_seen < (Date.now()-1000)) {
+			pong_rcvd = false;
+		}
+		bc_qsowin.postMessage('ping');
+	},500);
+	
+	let bc2qso = new BroadcastChannel('qso_wish');
+
+	// set some times
+	let wait4pong = 2000; // we wait in max 2 seconds for the pong
+	let check_intv = 100; // check every 100 ms
 
 	$(document).on('click','#prepcall', function() {
+		let ready_listener = true;
 		let call=this.innerText;
 		let qrg=''
-		if ((this.parentNode.parentNode.className != 'odd') && (this.parentNode.parentNode.className != 'even')) {
+		if (this.parentNode.parentNode.className.indexOf('spotted_call')>=0) {
 			qrg=this.parentNode.parentNode.parentNode.cells[1].textContent*1000;
 		} else {
 			qrg=this.parentNode.parentNode.cells[1].textContent*1000;
 		}
-		if (Date.now()-qso_window_last_seen < 2000) {
-			bc2qso.postMessage({ frequency: qrg, call: call });
-			try {
-				irrelevant=fetch('http://127.0.0.1:54321/'+qrg);
-			} finally {}
-		} else {
-			let cl={};
-			cl.call=call;
-			cl.qrg=qrg;
-			window.open(base_url + 'index.php/qso?manual=0','_blank');
-			setTimeout(function () {
-				bc2qso.postMessage({ frequency: cl.qrg, call: cl.call })
-			},2500);        // Wait at least 2500ms for new-Window to appear, before posting data to it
-		}
+
+		try {
+			irrelevant=fetch(CatCallbackURL + '/'+qrg).catch(() => {
+				openedWindow = window.open(CatCallbackURL + '/' + qrg);
+				openedWindow.close();
+			});
+		} finally {}
+
+		let check_pong = setInterval(function() {
+			if (pong_rcvd || ((Date.now() - qso_window_last_seen) < wait4pong)) {
+                clearInterval(check_pong); // max time reached or pong received
+				bc2qso.postMessage({ frequency: qrg, call: call });
+			} else {
+				clearInterval(check_pong);
+				let cl={};
+				cl.call=call;
+				cl.qrg=qrg;
+
+				let newWindow = window.open(base_url + 'index.php/qso?manual=0', '_blank');
+
+                if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                    $('#errormessage').html(popup_warning).addClass('alert alert-danger').show();
+					setTimeout(function() {
+						$('#errormessage').fadeOut();
+					}, 3000);
+                } else {
+                    newWindow.focus();
+                }
+
+				// wait for the ready message
+                bc2qso.onmessage = function(ev) {
+					if (ready_listener == true) {
+						if (ev.data === 'ready') {
+							bc2qso.postMessage({ frequency: cl.qrg, call: cl.call })
+							ready_listener = false;
+						}
+					}
+				};
+			}
+		}, check_intv);
 	});
 
 	$("#menutoggle").on("click", function() {
@@ -218,7 +277,9 @@ $(function() {
 		}
 	});
 	
+	var CatCallbackURL = "http://127.0.0.1:54321";
 	var updateFromCAT = function() {
+
 	if($('select.radios option:selected').val() != '0') {
 		radioID = $('select.radios option:selected').val();
 		$.getJSON( base_url+"index.php/radio/json/" + radioID, function( data ) {
@@ -236,7 +297,7 @@ $(function() {
 					$(".radio_login_error" ).remove();
 				}
 				var band = frequencyToBand(data.frequency);
-
+				CatCallbackURL=data.cat_url;
 				if (band !== $("#band").val()) {
 					$("#band").val(band);
 					$("#band").trigger("change");

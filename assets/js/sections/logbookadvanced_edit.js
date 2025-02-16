@@ -2,6 +2,15 @@ function editQsos() {
 	var elements = $('#qsoList tbody input:checked');
 	var nElements = elements.length;
 	if (nElements == 0) {
+		BootstrapDialog.alert({
+			title: 'INFO',
+			message: 'You need to select at least 1 row to use batch edit!',
+			type: BootstrapDialog.TYPE_INFO,
+			closable: false,
+			draggable: false,
+			callback: function (result) {
+			}
+		});
 		return;
 	}
 	var id_list=[];
@@ -24,9 +33,10 @@ function editQsos() {
 				message: html,
 				onshown: function(dialog) {
 					prepareEditDialog();
+					$('#saveButton').prop("disabled", true);
 				},
 				buttons: [{
-					label: 'Save',
+					label: lang_admin_save,
 					cssClass: 'btn-primary btn-sm',
 					id: 'saveButton',
 					action: function (dialogItself) {
@@ -132,9 +142,14 @@ function saveBatchEditQsos(id_list) {
 	var column = $("#editColumn").val();
 	var value;
 	var value2;
+	var value3;
+	var value4;
 
 	if (column == 'cqz') {
 		value = $("#editCqz").val();
+	}
+	if (column == 'ituz') {
+		value = $("#editItuz").val();
 	}
 	if (column == 'dxcc') {
 		value = $("#editDxcc").val();
@@ -164,8 +179,31 @@ function saveBatchEditQsos(id_list) {
 	if (column == 'satellite') {
 		value = $("#editSatellite").val();
 		value2 = $("#editSatelliteMode").val();
+		value3 = $("#editBand").val();
+		value4 = $("#editBandRx").val();
 	}
-	if (column == 'sota' || column == 'pota' || column == 'wwff' || column == 'gridsquare' || column == 'comment' || column == 'operator' || column == 'qslvia') {
+	if (column == 'contest') {
+		value = $("#editContest").val();
+	}
+	if (column == 'lotwsent' || column == 'lotwreceived') {
+		value = $("#editLoTW").val();
+	}
+	if (column == 'qrzsent' || column == 'qrzreceived') {
+		value = $("#editQrz").val();
+	}
+	if (column == 'eqslsent' || column == 'eqslreceived') {
+		value = $("#editEqsl").val();
+	}
+	if (column == 'clublogsent' || column == 'clublogreceived') {
+		value = $("#editClublog").val();
+	}
+	if (column == 'continent') {
+		value = $("#editContinent").val();
+	}
+	if (column == 'region') {
+		value = $("#editRegion").val();
+	}
+	if (column == 'sota' || column == 'pota' || column == 'wwff' || column == 'gridsquare' || column == 'comment' || column == 'operator' || column == 'qslvia' || column == 'qslmsg' || column == 'stationpower') {
 		value = $("#editTextInput").val();
 	}
 
@@ -176,7 +214,9 @@ function saveBatchEditQsos(id_list) {
 			ids: JSON.stringify(id_list, null, 2),
 			column: column,
 			value: value,
-			value2: value2
+			value2: value2,
+			value3: value3,
+			value4: value4
 		},
 		success: function (data) {
 			if (data != []) {
@@ -191,6 +231,7 @@ function saveBatchEditQsos(id_list) {
 
 function changeEditType(type) {
 	$('#editCqz').hide();
+	$('#editItuz').hide();
 	$('#editIota').hide();
 	$('#editDxcc').hide();
 	$('#editState').hide();
@@ -199,6 +240,7 @@ function changeEditType(type) {
 	$('#editTextInput').hide();
 	$('#editDate').hide();
 	$('#editBand').hide();
+	$('#editBandTxLabel').hide();
 	$('#editMode').hide();
 	$('#editSatellite').hide();
 	$('#editSatelliteMode').hide();
@@ -208,13 +250,22 @@ function changeEditType(type) {
 	$('#editDxccState').hide();
 	$('#editDxccStateList').hide();
 	$('#editDxccStateListLabel').hide();
-	editDxccStateListLabel
+	$('#editContest').hide();
+	$('#editLoTW').hide();
+	$('#editContinent').hide();
+	$('#editQrz').hide();
+	$('#saveButton').prop("disabled", false);
+	$('#editEqsl').hide();
+	$('#editRegion').hide();
+	$('#editClublog').hide();
 	if (type == "dxcc") {
 		$('#editDxcc').show();
 	} else if (type == "iota") {
 		$('#editIota').show();
 	} else if (type == "cqz") {
 		$('#editCqz').show();
+	} else if (type == "ituz") {
+		$('#editItuz').show();
 	} else if (type == "state") {
 		$('#editDxccState').show();
 		$('#editDxccStateList').show();
@@ -225,6 +276,7 @@ function changeEditType(type) {
 		$('#editStationLocation').show();
 	} else if (type == "band") {
 		$('#editBand').show();
+		$('#editBandTxLabel').show();
 		$('#editBandRx').show();
 		$('#editBandRxLabel').show();
 	}else if (type == "mode") {
@@ -235,8 +287,28 @@ function changeEditType(type) {
 		$('#editSatellite').show();
 		$('#editSatelliteMode').show();
 		$('#editSatelliteModeLabel').show();
-	} else if (type == "gridsquare" || type == "sota" || type == "wwff" || type == "operator" || type == "pota" || type == "comment" || type == "qslvia") {
+		$('#editBand').show();
+		$('#editBandRx').show();
+		$('#editBandTxLabel').show();
+		$('#editBandRxLabel').show();
+	} else if (type == "contest") {
+		$('#editContest').show();
+	} else if (type == "lotwsent" || type == "lotwreceived") {
+		$('#editLoTW').show();
+	} else if (type == "qrzsent" || type == "qrzreceived") {
+		$('#editQrz').show();
+	} else if (type == "eqslsent" || type == "eqslreceived") {
+		$('#editEqsl').show();
+	} else if (type == "continent") {
+		$('#editContinent').show();
+	} else if (type == "gridsquare" || type == "sota" || type == "wwff" || type == "operator" || type == "pota" || type == "comment" || type == "qslvia" || type == "contest" || type == "qslmsg" || type == "stationpower") {
 		$('#editTextInput').show();
+	} else if (type == "region") {
+		$('#editRegion').show();
+	} else if (type == "clublogsent"  || type == "clublogreceived") {
+		$('#editClublog').show();
+	} else if (type == "") {
+		$('#saveButton').prop("disabled", true);
 	}
 }
 

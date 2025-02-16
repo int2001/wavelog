@@ -64,7 +64,7 @@ $autoload['libraries'] = array('database', 'session', 'curl', 'OptionsLib', 'Pat
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'security', 'language');
+$autoload['helper'] = array('url', 'security', 'language', 'club');
 
 
 /*
@@ -80,42 +80,7 @@ $autoload['helper'] = array('url', 'security', 'language');
 |
 */
 
-$autoload['config'] = array('wavelog', 'bands', 'lotw');
-
-
-/*
-| -------------------------------------------------------------------
-|  Auto-load Language files
-| -------------------------------------------------------------------
-| Prototype:
-|
-|	$autoload['language'] = array('lang1', 'lang2');
-|
-| NOTE: Do not include the "_lang" part of your file.  For example
-| "codeigniter_lang.php" would be referenced as array('codeigniter');
-|
-*/
-
-$autoload['language'] = array(
-    'account',
-    'adif',
-    'admin',
-    'awards',
-    'contesting',
-    'eqsl',
-    'export',
-    'filter',
-    'general_words',
-    'gridsquares',
-    'lotw',
-    'menu',
-    'notes',
-    'options',
-    'qslcard',
-    'qso',
-    'station',
-    'statistics'
-    );
+$autoload['config'] = array('wavelog', 'bands', 'lotw', 'gettext');
 
 /*
 | -------------------------------------------------------------------

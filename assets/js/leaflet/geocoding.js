@@ -69,11 +69,98 @@ function onMapMove(event) {
 	$('#locator').html(locator);
 	var distance = bearingDistance(homegrid, locator);
 
-	$('#bearing').html(distance.deg + ' deg');
-	$('#distance').html(Math.round(distance.km * 10) / 10 + ' km');
+	let unit;
+
+	switch (measurement_base) {
+		case 'M':
+			distance.distance = distance.distance * 3959;
+			unit = 'mi';
+			break;
+		case 'K':
+			distance.distance = distance.distance * 6371;
+			unit = 'km';
+			break;
+		case 'N':
+			distance.distance = distance.distance * 3440;
+			unit = 'nmi';
+			break;
+		default:
+			distance.distance = distance.distance * 6371;
+			unit = 'km';
+			break;
+	}
+
+	$('#bearing').html(distance.deg + '°');
+	$('#distance').html(Math.round(distance.distance * 10) / 10 + ' ' +unit);
+
+	if (typeof zonestuff !== 'undefined' && zonestuff) {
+		const cqZone = findCQZone(event.latlng);
+		$('#cqzonedisplay').html(cqZone);
+	}
+
+	if (typeof ituzonestuff !== 'undefined' && ituzonestuff) {
+		const ituZone = findITUZone(event.latlng);
+		$('#ituzonedisplay').html(ituZone);
+	}
 };
 
+function findCQZone(latlng) {
+	let cqZone = null;
+	zonestuff.features.forEach(feature => {
+        try {
+            if (isMarkerInsidePolygon(latlng, feature)) {
+				cqZone = feature.properties.cq_zone_number;
+			}
+        } catch (error) {
+            console.error(error);
+        }
+    });
+
+    return cqZone;
+}
+
+function findITUZone(latlng) {
+	if (85 < parseFloat(latlng.lat).toFixed(6))
+		return "75";
+	if (-85 > parseFloat(latlng.lat).toFixed(6))
+		return "74";
+	let ituZone = null;
+	ituzonestuff.features.forEach(feature => {
+        try {
+            if (isMarkerInsidePolygon(latlng, feature)) {
+				ituZone = feature.properties.itu_zone_number;
+			}
+        } catch (error) {
+            console.error(error);
+        }
+    });
+
+    return ituZone;
+}
+
+function isMarkerInsidePolygon(marker, poly) {
+    const x = marker.lng; // Longitude
+    const y = marker.lat; // Latitude
+
+    const polyPoints = poly.geometry.coordinates[0];
+    let inside = false;
+
+    for (let i = 0, j = polyPoints.length - 1; i < polyPoints.length; j = i++) {
+        const xi = polyPoints[i][0], yi = polyPoints[i][1];
+        const xj = polyPoints[j][0], yj = polyPoints[j][1];
+
+        const intersect = ((yi > y) !== (yj > y)) &&
+                          (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+        if (intersect) inside = !inside;
+    }
+
+    return inside;
+}
+
 function onMapClick(event) {
+	if ($('.modal-dialog')[0]) {
+		return;
+	}
 	var LatLng = event.latlng;
 	var lat = LatLng.lat;
 	var lng = LatLng.lng;
@@ -86,8 +173,30 @@ function onMapClick(event) {
 
 	var result = bearingDistance(homegrid, locator);
 
-	var distance = Math.round(result.km * 10) / 10 + ' km';
-	var bearing = Math.round(result.deg * 10) / 10 + ' deg';
+	let unit;
+
+	switch (measurement_base) {
+		case 'M':
+			result.distance = result.distance * 3959;
+			unit = 'mi';
+			break;
+		case 'K':
+			result.distance = result.distance * 6371;
+			unit = 'km';
+			break;
+		case 'N':
+			result.distance = result.distance * 3440;
+			unit = 'nmi';
+			break;
+		default:
+			result.distance = result.distance * 6371;
+			unit = 'km';
+			break;
+	}
+
+
+	var distance = Math.round(result.distance * 10) / 10 + ' ' +unit;
+	var bearing = Math.round(result.deg * 10) / 10 + '°';
 	var popupmessage = '<div class="popup">' +
 	'From gridsquare: ' + homegrid + '<br />To gridsquare: ' + locator +'<br />Distance: ' + distance+ '<br />Bearing: ' + bearing +
 	'</div>';
@@ -140,7 +249,7 @@ const bearingDistance = (from, to) => {
 	}
 
 	return {
-		km: b * 6371,
+		distance: b,
 		deg: calcAngle(fromCoords, toCoords)
 	};
 };

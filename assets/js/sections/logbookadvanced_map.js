@@ -124,49 +124,6 @@ function toggleGridsquares(bool) {
 	}
 };
 
-const cqzonenames = [
-	[ "75", "-140" ],
-	[ "70", "-82.5" ],
-	[ "45", "-125" ],
-	[ "45", "-100" ],
-	[ "45", "-65" ],
-	[ "25.5", "-115" ],
-	[ "14.5", "-90" ],
-	[ "22", "-60" ],
-	[ "11.5", "-70" ],
-	[ "-5", "-100" ],
-	[ "-9", "-45" ],
-	[ "-45", "-106" ],
-	[ "-45", "-55" ],
-	[ "52", "-14" ],
-	[ "46", "11" ],
-	[ "60", "35" ],
-	[ "55", "65" ],
-	[ "70", "90" ],
-	[ "70", "150" ],
-	[ "42", "29" ],
-	[ "28", "53" ],
-	[ "6", "75" ],
-	[ "44", "93" ],
-	[ "33", "110" ],
-	[ "38", "134" ],
-	[ "16", "100" ],
-	[ "15", "140" ],
-	[ "0", "125" ],
-	[ "-25", "115" ],
-	[ "-25", "145" ],
-	[ "15", "-165" ],
-	[ "-25", "-165" ],
-	[ "32", "-26" ],
-	[ "25", "25.5" ],
-	[ "15", "-6" ],
-	[ "-5", "-6" ],
-	[ "6", "51" ],
-	[ "-45", "8" ],
-	[ "-25", "55"],
-	[  "78", "-10"],
-];
-
 const ituzonenames = [
 	["60","-160"],
 	["55","-125"],
@@ -262,8 +219,8 @@ const ituzonenames = [
 
 function loadMap(data, iconsList) {
 	$('#mapButton').prop("disabled", false).removeClass("running");
-	var osmUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-	var osmAttrib='Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
+	var osmUrl = tileUrl;
+	var osmAttrib = option_map_tile_server_copyright;
 	// If map is already initialized
 	var container = L.DomUtil.get('advancedmap');
 
@@ -273,8 +230,8 @@ function loadMap(data, iconsList) {
 		container._leaflet_id = null;
 		container.remove();
 		$(".coordinates").remove();
-		$(".qso_manager").append('<div id="advancedmap" class="map-leaflet"></div>');
-		$(".qso_manager").append('<div class="coordinates d-flex">' +
+		$("#lba_div").append('<div id="advancedmap" class="map-leaflet"></div>');
+		$("#lba_div").append('<div class="coordinates d-flex">' +
         '<div class="cohidden">' + lang_gen_hamradio_latitude + '&nbsp;</div>' +
         '<div class="cohidden col-auto text-success fw-bold" id="latDeg"></div>' +
         '<div class="cohidden">' + lang_gen_hamradio_longitude + '&nbsp;</div>' +
@@ -285,8 +242,13 @@ function loadMap(data, iconsList) {
         '<div class="cohidden col-auto text-success fw-bold" id="distance"></div>' +
         '<div class="cohidden">' + lang_gen_hamradio_bearing + '&nbsp;</div>' +
         '<div class="cohidden col-auto text-success fw-bold" id="bearing"></div>' +
+		'<div class="cohidden">' + lang_gen_hamradio_cqzone + '&nbsp;</div>' +
+		'<div class="cohidden col-auto text-success fw-bold" id="cqzonedisplay"></div>' +
+		'<div class="cohidden">' + lang_gen_hamradio_ituzone + '&nbsp;</div>' +
+		'<div class="cohidden col-auto text-success fw-bold" id="ituzonedisplay"></div>' +
 		'</div>');
 		$('.cohidden').show();
+		set_advancedmap_height();
 	}
 
 	map = new L.Map('advancedmap', {
@@ -299,7 +261,7 @@ function loadMap(data, iconsList) {
 	var osm = L.tileLayer(
 		osmUrl,
 		{
-			attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+			attribution: osmAttrib,
 			maxZoom: 18,
 			zoom: 3,
             minZoom: 2,
@@ -324,6 +286,12 @@ function loadMap(data, iconsList) {
 		}
 		if (this.latlng1[1] < -170) {
 			this.latlng1[1] =  parseFloat(this.latlng1[1])+360;
+		}
+
+		if ((this.latlng1[1] - this.latlng2[1]) < -180) {
+			this.latlng2[1] =  parseFloat(this.latlng2[1]) -360;
+		} else if ((this.latlng1[1] - this.latlng2[1]) > 180) {
+			this.latlng2[1] =  parseFloat(this.latlng2[1]) +360;
 		}
 
 		var popupmessage = createContentMessage(this);
@@ -374,12 +342,12 @@ function loadMap(data, iconsList) {
 
     legend.onAdd = function(map) {
         var div = L.DomUtil.create("div", "legend");
-        div.innerHTML += '<div>' + counter + " QSOs plotted</div>";
-		div.innerHTML += '<input type="checkbox" onclick="toggleFunction(this.checked)" ' + (typeof path_lines !== 'undefined' && path_lines ? 'checked' : '') + ' style="outline: none;"><span> Path lines</span><br>';
-		div.innerHTML += '<input type="checkbox" onclick="toggleGridsquares(this.checked)" ' + (typeof gridsquare_layer !== 'undefined' && gridsquare_layer ? 'checked' : '') + ' style="outline: none;"><span> Gridsquares</span><br>';
-		div.innerHTML += '<input type="checkbox" onclick="toggleCqZones(this.checked)" ' + (typeof cqzones_layer !== 'undefined' && cqzones_layer ? 'checked' : '') + ' style="outline: none;"><span> CQ Zones</span><br>';
-		div.innerHTML += '<input type="checkbox" onclick="toggleItuZones(this.checked)" ' + (typeof ituzones_layer !== 'undefined' && ituzones_layer ? 'checked' : '') + ' style="outline: none;"><span> ITU Zones</span><br>';
-		div.innerHTML += '<input type="checkbox" onclick="toggleNightShadow(this.checked)" ' + (typeof nightshadow_layer !== 'undefined' && nightshadow_layer ? 'checked' : '') + ' style="outline: none;"><span> Night shadow</span>';
+        div.innerHTML += '<div>' + counter + " QSO" +(counter > 1 ? 's' : '') +" plotted</div>";
+		div.innerHTML += '<input type="checkbox" onclick="toggleFunction(this.checked)" ' + (typeof path_lines !== 'undefined' && path_lines ? 'checked' : '') + ' style="outline: none;"><span> ' + lang_gen_hamradio_pathlines + '</span><br>';
+		div.innerHTML += '<input type="checkbox" onclick="toggleGridsquares(this.checked)" ' + (typeof gridsquare_layer !== 'undefined' && gridsquare_layer ? 'checked' : '') + ' style="outline: none;"><span> ' + lang_gen_hamradio_gridsquares + '</span><br>';
+		div.innerHTML += '<input type="checkbox" onclick="toggleCqZones(this.checked)" ' + (typeof cqzones_layer !== 'undefined' && cqzones_layer ? 'checked' : '') + ' style="outline: none;"><span> ' + lang_gen_hamradio_cq_zones + '</span><br>';
+		div.innerHTML += '<input type="checkbox" onclick="toggleItuZones(this.checked)" ' + (typeof ituzones_layer !== 'undefined' && ituzones_layer ? 'checked' : '') + ' style="outline: none;"><span> ' + lang_gen_hamradio_itu_zones + '</span><br>';
+		div.innerHTML += '<input type="checkbox" onclick="toggleNightShadow(this.checked)" ' + (typeof nightshadow_layer !== 'undefined' && nightshadow_layer ? 'checked' : '') + ' style="outline: none;"><span> ' + lang_gen_hamradio_nightshadow + '</span>';
         return div;
     };
 
@@ -388,7 +356,10 @@ function loadMap(data, iconsList) {
 	maidenhead = L.maidenheadqrb().addTo(map);
 	nightlayer = L.terminator().addTo(map);
 
-	map.fitBounds(bounds);
+
+	if (bounds && bounds._southWest && bounds._northEast) {
+        map.fitBounds(bounds);
+    }
 
 	$.each(iconsList, function (icon, data) {
 		$('#advancedmap' + ' .cspot_' + icon).addClass(data.icon).css("color", data.color);
@@ -435,204 +406,203 @@ function loadMap(data, iconsList) {
 	}
 }
 
-	function createContentMessage(qso) {
-		var table = '<table><tbody>' +
-		'<tr>' +
-		'<td>' +
-		'Station callsign: ' + qso.mycallsign +
-		"</td></tr>" +
-		'<tr>' +
-		'<td>' +
-		'Gridsquare: ' + qso.mygridsquare +
-		"</td></tr>";
-		return (table += "</tbody></table>");
-	}
+function createContentMessage(qso) {
+	var table = '<table><tbody>' +
+	'<tr>' +
+	'<td>' +
+	'Station callsign: ' + qso.mycallsign.replaceAll('0', 'Ø') +
+	"</td></tr>" +
+	'<tr>' +
+	'<td>' +
+	'Gridsquare: ' + qso.mygridsquare +
+	"</td></tr>";
+	return (table += "</tbody></table>");
+}
 
-	function createContentMessageDx(qso) {
-		var table = '<table><tbody>' +
-		'<tr>' +
-		'<td>Callsign</td>' +
-		'<td>' + qso.callsign + '</td>' +
-		'</tr>' +
-		'<tr>' +
-		'<td>Date/time</td>' +
-		'<td>' + qso.datetime + '</td>' +
+function createContentMessageDx(qso) {
+	var table = '<table><tbody>' +
+	'<tr>' +
+	'<td colspan=2><div class="big-flag">';
+	if (qso.dxccFlag != '') {
+		table += '<div class="flag">' + qso.dxccFlag + '</div>';
+	}
+	table += '<a id="edit_qso" href="javascript:displayQso('+qso.id+')">'+qso.callsign.replaceAll('0', 'Ø')+'</a></div>';
+	table += '</td>' +
+	'</tr>' +
+	'<tr>' +
+	'<td>Date/Time</td>' +
+	'<td>' + qso.datetime + '</td>' +
+	'</tr>' +
+	'<tr>';
+	if (qso.satname != "") {
+		table += '<td>Band</td>' +
+		'<td>SAT ' + qso.satname
+		if (qso.orbit != "") {
+			table += ' (' + qso.orbit + ') '
+		}
+		table += '</td>' +
 		'</tr>' +
 		'<tr>';
-		if (qso.satname != "") {
-			table += '<td>Band</td>' +
-			'<td>SAT ' + qso.satname
-			if (qso.orbit != "") {
-				table += ' (' + qso.orbit + ') '
-			}
-			table += '</td>' +
-			'</tr>' +
-			'<tr>';
+	} else {
+		table += '<td>Band</td>' +
+		'<td>' + qso.band + '</td>' +
+		'</tr>' +
+		'<tr>';
+	}
+	table += '<td>Mode</td>' +
+	'<td>' + qso.mode + '</td>' +
+	'</tr>' +
+	'<tr>';
+	if (qso.gridsquare != undefined) {
+		table += '<td>Gridsquare</td>' +
+		'<td>' + qso.gridsquare + '</td>' +
+		'</tr>';
+	}
+	if (qso.distance != undefined) {
+		table += '<td>Distance</td>' +
+		'<td>' + qso.distance + '</td>' +
+		'</tr>';
+	}
+	if (qso.bearing != undefined) {
+		table += '<td>Bearing</td>' +
+		'<td>' + qso.bearing + '</td>' +
+		'</tr>';
+	}
+	return (table += '</tbody></table>');
+}
+
+function loadMapOptions(data) {
+	let json_mapinfo = user_map_custom;
+	if (typeof json_mapinfo.qso !== "undefined") {
+		iconsList = json_mapinfo;
+	}
+	loadMap(data, iconsList)
+}
+
+function mapQsos(form) {
+	$('#mapButton').prop("disabled", true).addClass("running");
+
+	var id_list=[];
+	var elements = $('#qsoList tbody input:checked');
+	var nElements = elements.length;
+
+	elements.each(function() {
+		let id = $(this).first().closest('tr').data('qsoID')
+		id_list.push(id);
+		unselectQsoID(id);
+	});
+
+	$("#qsoList").attr("Hidden", true);
+	$("#qsoList_wrapper").attr("Hidden", true);
+	$("#qsoList_info").attr("Hidden", true);
+
+	amap = $('#advancedmap').val();
+	if (amap == undefined) {
+		$("#lba_div").append('<div id="advancedmap" class="map-leaflet"></div>');
+	}
+
+		if (id_list.length > 0) {
+			$.ajax({
+				url: base_url + 'index.php/logbookadvanced/mapSelectedQsos',
+				type: 'post',
+				data: {
+					ids: id_list,
+					de: $('#de').val()
+				},
+				success: function(data) {
+					loadMapOptions(data);
+				},
+				error: function() {
+					$('#mapButton').prop("disabled", false).removeClass("running");
+				},
+			});
 		} else {
-			table += '<td>Band</td>' +
-			'<td>' + qso.band + '</td>' +
-			'</tr>' +
-			'<tr>';
+			$.ajax({
+				url: base_url + 'index.php/logbookadvanced/mapQsos',
+				type: 'post',
+				data: {
+					dateFrom: form.dateFrom.value,
+					dateTo: form.dateTo.value,
+					de: $('#de').val(),
+					dx: form.dx.value,
+					mode: form.mode.value,
+					band: form.band.value,
+					qslSent: form.qslSent.value,
+					qslReceived: form.qslReceived.value,
+					qslSentMethod: this.qslSentMethod.value,
+					qslReceivedMethod: this.qslReceivedMethod.value,
+					iota: form.iota.value,
+					dxcc: form.dxcc.value,
+					propmode: form.propmode.value,
+					gridsquare: form.gridsquare.value,
+					state: form.state.value,
+					qsoresults: form.qsoresults.value,
+					sats: form.sats.value,
+					orbits: form.orbits.value,
+					cqzone: form.cqzone.value,
+					lotwSent: form.lotwSent.value,
+					lotwReceived: form.lotwReceived.value,
+					eqslSent: form.eqslSent.value,
+					eqslReceived: form.eqslReceived.value,
+					qslvia: $('[name="qslvia"]').val(),
+					sota: form.sota.value,
+					pota: form.pota.value,
+					operator: form.operator.value,
+					wwff: form.wwff.value,
+					qslimages: form.qslimages.value,
+					continent: form.continent.value,
+					contest: form.contest.value,
+					comment: form.comment.value
+				},
+				success: function(data) {
+					loadMapOptions(data);
+				},
+				error: function() {
+					$('#mapButton').prop("disabled", false).removeClass("running");
+				},
+			});
 		}
-		table += '<td>Mode</td>' +
-		'<td>' + qso.mode + '</td>' +
-		'</tr>' +
-		'<tr>';
-		if (qso.gridsquare != undefined) {
-			table += '<td>Gridsquare</td>' +
-			'<td>' + qso.gridsquare + '</td>' +
-			'</tr>';
-		}
-		if (qso.distance != undefined) {
-			table += '<td>Distance</td>' +
-			'<td>' + qso.distance + '</td>' +
-			'</tr>';
-		}
-		if (qso.bearing != undefined) {
-			table += '<td>Bearing</td>' +
-			'<td>' + qso.bearing + '</td>' +
-			'</tr>';
-		}
-		return (table += '</tbody></table>');
+	};
+
+function mapGlobeQsos(form) {
+	var container = L.DomUtil.get('advancedmap');
+	if(container != null){
+		container._leaflet_id = null;
+		container.remove();
+		$(".coordinates").remove();
 	}
 
-	function loadMapOptions(data) {
+	var id_list=[];
+	var elements = $('#qsoList tbody input:checked');
+	var nElements = elements.length;
+
+	elements.each(function() {
+		let id = $(this).first().closest('tr').data('qsoID')
+		id_list.push(id);
+		unselectQsoID(id);
+	});
+
+	$("#qsoList").attr("Hidden", true);
+	$("#qsoList_wrapper").attr("Hidden", true);
+	$("#qsoList_info").attr("Hidden", true);
+
+	amap = $('#advancedmap').val();
+	if (amap == undefined) {
+		$("#lba_div").append('<div id="advancedmap" class="map-leaflet"></div>');
+	}
+
+	if (id_list.length > 0) {
 		$.ajax({
-			url: base_url + 'index.php/user_options/get_map_custom',
-			type: 'GET',
-			dataType: 'json',
-		error: function () {
-		},
-		success: function (json_mapinfo) {
-				if (typeof json_mapinfo.qso !== "undefined") {
-					iconsList = json_mapinfo;
-				}
-				loadMap(data, iconsList)
-			}
-		});
-	}
-
-	function mapQsos(form) {
-		$('#mapButton').prop("disabled", true).addClass("running");
-
-		var id_list=[];
-		var elements = $('#qsoList tbody input:checked');
-		var nElements = elements.length;
-
-		elements.each(function() {
-			let id = $(this).first().closest('tr').data('qsoID')
-			id_list.push(id);
-			unselectQsoID(id);
-		});
-
-		$("#qsoList").attr("Hidden", true);
-		$("#qsoList_wrapper").attr("Hidden", true);
-		$("#qsoList_info").attr("Hidden", true);
-
-		amap = $('#advancedmap').val();
-		if (amap == undefined) {
-			$(".qso_manager").append('<div id="advancedmap" class="map-leaflet"></div>');
-		}
-
-		if (id_list.length > 0) {
-			$.ajax({
-				url: base_url + 'index.php/logbookadvanced/mapSelectedQsos',
-				type: 'post',
-				data: {
-					ids: id_list,
-					de: form.de.value
-				},
-				success: function(data) {
-					loadMapOptions(data);
-				},
-				error: function() {
-					$('#mapButton').prop("disabled", false).removeClass("running");
-				},
-			});
-		} else {
-			$.ajax({
-				url: base_url + 'index.php/logbookadvanced/mapQsos',
-				type: 'post',
-				data: {
-					dateFrom: form.dateFrom.value,
-					dateTo: form.dateTo.value,
-					de: form.de.value,
-					dx: form.dx.value,
-					mode: form.mode.value,
-					band: form.band.value,
-					qslSent: form.qslSent.value,
-					qslReceived: form.qslReceived.value,
-					qslSentMethod: this.qslSentMethod.value,
-					qslReceivedMethod: this.qslReceivedMethod.value,
-					iota: form.iota.value,
-					dxcc: form.dxcc.value,
-					propmode: form.selectPropagation.value,
-					gridsquare: form.gridsquare.value,
-					state: form.state.value,
-					qsoresults: form.qsoResults.value,
-					sats: form.sats.value,
-					orbits: form.orbits.value,
-					cqzone: form.cqzone.value,
-					lotwSent: form.lotwSent.value,
-					lotwReceived: form.lotwReceived.value,
-					eqslSent: form.eqslSent.value,
-					eqslReceived: form.eqslReceived.value,
-					qslvia: $('[name="qslviainput"]').val(),
-					sota: form.sota.value,
-					pota: form.pota.value,
-					operator: form.operator.value,
-					wwff: form.wwff.value,
-					qslimages: form.qslimages.value,
-				},
-				success: function(data) {
-					loadMapOptions(data);
-				},
-				error: function() {
-					$('#mapButton').prop("disabled", false).removeClass("running");
-				},
-			});
-		}
-	};
-
-	function mapGlobeQsos(form) {
-		var container = L.DomUtil.get('advancedmap');
-		if(container != null){
-			container._leaflet_id = null;
-			container.remove();
-			$(".coordinates").remove();
-		}
-
-		var id_list=[];
-		var elements = $('#qsoList tbody input:checked');
-		var nElements = elements.length;
-
-		elements.each(function() {
-			let id = $(this).first().closest('tr').data('qsoID')
-			id_list.push(id);
-			unselectQsoID(id);
-		});
-
-		$("#qsoList").attr("Hidden", true);
-		$("#qsoList_wrapper").attr("Hidden", true);
-		$("#qsoList_info").attr("Hidden", true);
-
-		amap = $('#advancedmap').val();
-		if (amap == undefined) {
-			$(".qso_manager").append('<div id="advancedmap" class="map-leaflet"></div>');
-		}
-
-		if (id_list.length > 0) {
-			$.ajax({
-				url: base_url + 'index.php/logbookadvanced/mapSelectedQsos',
-				type: 'post',
-				data: {
-					ids: id_list,
-					de: form.de.value
-				},
-				success: function(data) {
-					globemap(data);
-				},
-				error: function() {
+			url: base_url + 'index.php/logbookadvanced/mapSelectedQsos',
+			type: 'post',
+			data: {
+				ids: id_list,
+				de: $('#de').val()
+			},
+			success: function(data) {
+				globemap(data);
+			},
+			error: function() {
 
 				},
 			});
@@ -643,7 +613,7 @@ function loadMap(data, iconsList) {
 				data: {
 					dateFrom: form.dateFrom.value,
 					dateTo: form.dateTo.value,
-					de: form.de.value,
+					de: $('#de').val(),
 					dx: form.dx.value,
 					mode: form.mode.value,
 					band: form.band.value,
@@ -653,10 +623,10 @@ function loadMap(data, iconsList) {
 					qslReceivedMethod: this.qslReceivedMethod.value,
 					iota: form.iota.value,
 					dxcc: form.dxcc.value,
-					propmode: form.selectPropagation.value,
+					propmode: form.propmode.value,
 					gridsquare: form.gridsquare.value,
 					state: form.state.value,
-					qsoresults: form.qsoResults.value,
+					qsoresults: form.qsoresults.value,
 					sats: form.sats.value,
 					orbits: form.orbits.value,
 					cqzone: form.cqzone.value,
@@ -664,63 +634,97 @@ function loadMap(data, iconsList) {
 					lotwReceived: form.lotwReceived.value,
 					eqslSent: form.eqslSent.value,
 					eqslReceived: form.eqslReceived.value,
-					qslvia: $('[name="qslviainput"]').val(),
+					qslvia: $('[name="qslvia"]').val(),
 					sota: form.sota.value,
 					pota: form.pota.value,
 					operator: form.operator.value,
 					wwff: form.wwff.value,
 					qslimages: form.qslimages.value,
+					continent: form.continent.value,
+					contest: form.contest.value,
+					comment: form.comment.value
 				},
 				success: function(data) {
 					globemap(data);
 				},
 				error: function() {
 
-				},
-			});
-		}
-	};
-
-	function globemap(x) {
-		globePayArc=[];
-		globePayLab=[];
-		x.forEach((element) => {
-			let OneQsoArc={};
-			OneQsoArc.startLat=element.latlng1[0];
-			OneQsoArc.startLng=element.latlng1[1];
-			OneQsoArc.endLat=element.latlng2[0];
-			OneQsoArc.endLng=element.latlng2[1];
-			OneQsoArc.name=element.callsign;
-			if (element.confirmed) {
-				OneQsoArc.color = 'green';
-			} else {
-				OneQsoArc.color = 'red';
-			}
-			// OneQsoArc.color = [['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)], ['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)]]
-			OneQsoArc.altitude=0.15;
-			globePayArc.push(OneQsoArc);
-			let OneQsoLab={};
-			OneQsoLab.lat=element.latlng2[0];
-			OneQsoLab.lng=element.latlng2[1];
-			OneQsoLab.text=element.callsign;
-			globePayLab.push(OneQsoLab);
+			},
 		});
-		renderGlobe(globePayArc,globePayLab);
 	}
+};
 
-	function renderGlobe(arcsData,labelData) {
-		Globe()
-		.globeImageUrl(base_url + '/assets/images/earth-blue-marble.jpg')
-		.pointOfView({ lat: arcsData[0].startLat, lng: arcsData[0].startLng, altitude:1}, 100)
-		.labelsData(labelData)
-		.arcsData(arcsData)
-		.arcColor('color')
-		//.arcAltitude('altitude')
-		.arcAltitudeAutoScale(.3)
-		.arcStroke(.2)
-		.arcDashLength(() => .1)
-		.arcDashGap(() => 0.01)
-		.arcDashAnimateTime(() => 4000 + 500)
-		(document.getElementById('advancedmap'))
-	}
+function globemap(x) {
+	globePayArc=[];
+	globePayLab=[];
+	x.forEach((element) => {
+		let OneQsoArc={};
+		OneQsoArc.startLat=element.latlng1[0];
+		OneQsoArc.startLng=element.latlng1[1];
+		OneQsoArc.endLat=element.latlng2[0];
+		OneQsoArc.endLng=element.latlng2[1];
+		OneQsoArc.name=element.callsign;
+		if (element.confirmed) {
+			OneQsoArc.color = 'green';
+		} else {
+			OneQsoArc.color = 'red';
+		}
+		// OneQsoArc.color = [['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)], ['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)]]
+		OneQsoArc.altitude=0.15;
+		globePayArc.push(OneQsoArc);
+		let OneQsoLab={};
+		OneQsoLab.lat=element.latlng2[0];
+		OneQsoLab.lng=element.latlng2[1];
+		OneQsoLab.text=element.callsign;
+		globePayLab.push(OneQsoLab);
+	});
+	renderGlobe(globePayArc,globePayLab);
+}
 
+function renderGlobe(arcsData,labelData) {
+	Globe()
+	.globeImageUrl(base_url + '/assets/images/earth-blue-marble.jpg')
+	.pointOfView({ lat: arcsData[0].startLat, lng: arcsData[0].startLng, altitude:1}, 100)
+	.labelsData(labelData)
+	.arcsData(arcsData)
+	.arcColor('color')
+	//.arcAltitude('altitude')
+	.arcAltitudeAutoScale(.37)
+	.arcStroke(.2)
+	.arcDashLength(() => .1)
+	.arcDashGap(() => 0.01)
+	.arcDashAnimateTime(() => 4000 + 500)
+	(document.getElementById('advancedmap'))
+}
+
+// auto setting of gridmap height
+function set_advancedmap_height() {
+    //header menu
+    var headerNavHeight = $('nav').outerHeight();
+    // console.log('nav: ' + headerNavHeight);
+
+    // line with coordinates
+    var coordinatesHeight = $('.coordinates').outerHeight();
+    // console.log('.coordinates: ' + coordinatesHeight);
+
+    // form for gridsquare map
+    var qsoManagerHeight = $('.qso_manager').outerHeight();
+    // console.log('.qso_manager: ' + qsoManagerHeight);
+
+    // calculate correct map height
+    var advancedMapHeight = window.innerHeight - headerNavHeight - coordinatesHeight - qsoManagerHeight;
+
+    // and set it
+    $('#advancedmap').css('height', advancedMapHeight + 'px');
+    // console.log('#advancedmap: ' + advancedMapHeight);
+}
+
+$(document).ready(function() {
+	$(window).resize(function() {
+		set_advancedmap_height();
+	});
+	$('.lba_buttons').click(function() {
+        // we need some delay because of the bs collapse menu
+        setTimeout(set_advancedmap_height, 400);
+    });
+});

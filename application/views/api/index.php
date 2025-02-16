@@ -1,143 +1,97 @@
-<?php
+<div class="container">
+	<br>
+	<?php $this->load->view('layout/messages'); ?>
+	<h2><?php echo $page_title; ?></h2>
 
-// Create the DOMDocument for the XML output
-$xmlDoc = new DOMDocument("1.0");
+	<div class="card">
+		<div class="card-header">
+			<?= __("API Keys"); ?>
+		</div>
+		<div class="card-body">
+			<p class="card-text"><?= __("The Wavelog API (Application Programming Interface) lets third party systems access Wavelog in a controlled way. Access to the API is managed via API keys."); ?></p>
+			<p class="card-text"><?= __("You will need to generate an API key for each tool you wish to use (e.g. WLgate). Generate a read-write key if the application needs to send data to Wavelog. Generate a read-only key if the application only needs to obtain data from Wavelog."); ?></p>
+			<p class="card-text"><span class="badge text-bg-warning"><?= __("API URL"); ?></span> <?= __("The API URL for this Wavelog instance is"); ?>: <span class="api-url" id="apiUrl"><code class="ms-3 me-3"><?php echo base_url(); ?></code></span><span data-bs-toggle="tooltip" title="<?= __("Copy to clipboard"); ?>" onClick='copyApiUrl()'><i class="copy-icon fas fa-copy"></i></span></p>
+			<p class="card-text"><span class="badge text-bg-info"><?= __("Info"); ?></span> <?= __("It's good practice to delete a key if you are no longer using the associated application."); ?></p>
+			<?php if ($clubmode) { ?>
+				<p class="card-text"><span class="badge text-bg-danger"><?= __("Important"); ?></span> <?= __("On Clubstations the API Keys are personal and not shared. Clubstation users can only see their own keys."); ?></p>
+			<?php } ?>
 
-if($data['format'] == "xml") {
-    // Add reference to the XSLT
-    $xsl = $xmlDoc->createProcessingInstruction("xml-stylesheet", "type=\"text/xsl\" href=\"".base_url()."assets/api.xsl\"");
-    $xmlDoc->appendChild($xsl);
-}
+			<?php if ($api_keys->num_rows() > 0) { ?>
 
-// Get the method called, and build the root node
-$call = $data['queryInfo']['call'];
-$rootNode = $xmlDoc->createElement("Wavelog-API");
-$parentNode = $xmlDoc->appendChild($rootNode);
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col"><?= __("API Key"); ?></th>
+							<th scope="col"><?= __("Description"); ?></th>
+							<th scope="col"><?= __("Last Used"); ?></th>
+							<?php if ($clubmode) { ?>
+								<th scope="col"><?= __("Created By"); ?></th>
+							<?php } ?>
+							<th scope="col"><?= __("Permissions"); ?></th>
+							<th scope="col"><?= __("Status"); ?></th>
+							<th scope="col"><?= __("Actions"); ?></th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ($api_keys->result() as $row) { ?>
+							<tr>
+								<?php if ($clubmode && $row->user_callsign !== $this->session->userdata('cd_src_call')) { 
+									$api_key = substr($row->key, 0, 2) . str_repeat('*', strlen($row->key) - 6) . substr($row->key, -4);
+									$masked = true;
+								} else {
+									$api_key = $row->key;
+									$masked = false;
+								} ?>
+								<td>
+									<i class="fas fa-key"></i> <span class="api-key" id="<?php echo $api_key; ?>"><?php echo $api_key; ?></span>
+									<?php if (!$masked) { ?>
+									<span data-bs-toggle="tooltip" title="<?= __("Copy to clipboard"); ?>" onclick='copyApiKey("<?php echo $api_key; ?>")'><i class="copy-icon fas fa-copy"></i></span>
+									<?php } ?>
+								</td>
+								<td><?php echo $row->description; ?></td>
+								<td><?php echo $row->last_used; ?></td>
+								<?php if ($clubmode) { ?>
+									<td><?php echo $row->user_callsign; ?></td>
+								<?php } ?>
+								<td>
+									<?php if ($row->rights == "rw") {
+										echo "<span class=\"badge bg-warning\">" . __("Read & Write") . "</span>";
+									} elseif ($row->rights == "r") {
+										echo "<span class=\"badge bg-success\">" . __("Read-Only") . "</span>";
+									} else {
+										echo "<span class=\"badge bg-dark\">" . __("Unknown") . "</span>";
+									} ?>
+								</td>
+								<td><span class="badge rounded-pill text-bg-success"><?php echo ucfirst($row->status); ?></span></td>
+								<td>
+									<?php if (!$masked) { ?>
+										<a href="<?php echo site_url('api/edit'); ?>/<?php echo $api_key; ?>" class="btn btn-outline-primary btn-sm"><?= __("Edit"); ?></a>
+										
+										<a href="<?php echo site_url('api/auth/' . $api_key); ?>" target="_blank" class="btn btn-primary btn-sm"><?= __("Test"); ?></a>
+										
+										<?php 
+											$cfnm_delete = sprintf(__("Are you sure you want delete the API Key %s?"), '&quot;'.($row->description ?? '<noname>').'&quot;');
+										?>
+										<a href="<?php echo site_url('api/delete/' . $api_key); ?>" class="btn btn-danger btn-sm" onclick="return confirm('<?php echo $cfnm_delete; ?>');"><?= __("Delete"); ?></a>
+									<?php } ?>
+								</td>
 
-// Get the results output
-$output = $data[$call."_Result"];
+							</tr>
 
-// Add the queryInfo node
-$node = $xmlDoc->createElement("queryInfo");
-$queryElement = $parentNode->appendChild($node);
-$queryElement->setAttribute("timeStamp", date("r", time()));
-$queryElement->setAttribute("calledMethod", $data['queryInfo']['call']);
-//$queryElement->setAttribute("queryArgs", $queryArgsString);
-$queryElement->setAttribute("resultsCount", count($data['queryInfo']['numResults']));
-if(ENVIRONMENT == "development") {
-	$debugInfo = $xmlDoc->createElement("debugInfo");
-	$debugElement = $queryElement->appendChild($debugInfo);
-	$debugElement->setAttribute("dbQuery", $data['queryInfo']['dbQuery']);
-	$debugElement->setAttribute("clientVersion", $_SERVER['HTTP_USER_AGENT']);
-	$debugElement->setAttribute("requestURI", $_SERVER['REQUEST_URI']);
-#	$debugElement->setAttribute("benchMark", $this->benchmark->marker['total_execution_time_start'].", ".$this->benchmark->marker['loading_time:_base_classes_start'].", ".$this->benchmark->marker['loading_time:_base_classes_end'].", ".$this->benchmark->marker['controller_execution_time_( api / add )_start']);
-}
-$queryElement->setAttribute("executionTime", $data['queryInfo']['executionTime']);
-$queryElement->setAttribute("logbookURL", $this->config->item('base_url'));
+						<?php } ?>
 
-// Add the main results node
-$node = $xmlDoc->createElement("results");
-$elementsNode = $parentNode->appendChild($node);
+				</table>
 
-// Cycle through the results and add to the results node
-if($output['results'])
-{
-	foreach($output['results'] as $e) {
-		$node = $xmlDoc->createElement("result");
-		$element = $elementsNode->appendChild($node);
+			<?php } else { ?>
+				<p><?= __("You have no API Keys."); ?></p>
+			<?php } ?>
 
-		foreach($e as $attr) {
-		#while($attr = current($e)) {
-		    if(is_array($attr))
-			{
-			  foreach($attr as $subattr)
-			  {
-				$node = $xmlDoc->createElement(key($e));
-				foreach($subattr as $subsubattr)
-				{
-				  $node->setAttribute(key($subattr), $subsubattr);
-				  next($subattr);
-				}
-				$element->appendChild($node);
-			  }
-			}
-			else
-			{
-			  $element->setAttribute(key($e), $attr);
-			}
-			next($e);
-		}
-	}
-}
+			<p>
+				<a href="<?php echo site_url('api/generate/rw'); ?>" class="btn btn-primary "><i class="fas fa-plus"></i> <?= __("Create a read & write key"); ?></a>
+				<a href="<?php echo site_url('api/generate/r'); ?>" class="btn btn-primary"><i class="fas fa-plus"></i> <?= __("Create a read-only key"); ?></a>
+			</p>
 
-if(isset($data['error']))
-{
-  $node = $xmlDoc->createElement("error");
-  $errorNode = $parentNode->appendChild($node);
+		</div>
+	</div>
 
-  $errorNode->setAttribute("id", $data['error']);
-}
-
-// Output
-
-// Check whether we want XML or JSON output
-if(($data['format'] == "xml") || ($data['format'] == "xmlp") || ($data['format'] == "xmlt")) {
-  if(($data['format'] == "xml") || ($data['format'] == "xmlp")) {
-    // Set the content-type for browsers
-    header("Content-type: text/xml");
-  }
-  echo formatXmlString($xmlDoc->saveXML());
-} else if($data['format'] == "json") {
-  // Set the content-type for browsers
-  header("Content-type: application/json");
-  // For now, our JSON output is simply the XML re-parsed with SimpleXML and
-  // then re-encoded with json_encode
-  $x = simplexml_load_string($xmlDoc->saveXML());
-  $j = json_encode($x);
-  echo $j;
-} else {
-  echo "Error: Unknown format type '".$data['format']."'.";
-}
-
-// This function tidies up the outputted XML
-function formatXmlString($xml) {
-
-  // add marker linefeeds to aid the pretty-tokeniser (adds a linefeed between all tag-end boundaries)
-  $xml = preg_replace('/(>)(<)(\/*)/', "$1\n$2$3", $xml);
-
-  // now indent the tags
-  $token      = strtok($xml, "\n");
-  $result     = ''; // holds formatted version as it is built
-  $pad        = 0; // initial indent
-  $matches    = array(); // returns from preg_matches()
-
-  // scan each line and adjust indent based on opening/closing tags
-  while ($token !== false) :
-
-    // test for the various tag states
-
-    // 1. open and closing tags on same line - no change
-    if (preg_match('/.+<\/\w[^>]*>$/', $token, $matches)) :
-      $indent=0;
-    // 2. closing tag - outdent now
-    elseif (preg_match('/^<\/\w/', $token, $matches)) :
-      $pad--;
-    // 3. opening tag - don't pad this one, only subsequent tags
-    elseif (preg_match('/^<\w[^>]*[^\/]>.*$/', $token, $matches)) :
-      $indent=1;
-    // 4. no indentation needed
-    else :
-      $indent = 0;
-    endif;
-
-    // pad the line with the required number of leading spaces
-    $line    = str_pad($token, strlen($token)+$pad, ' ', STR_PAD_LEFT);
-    $result .= $line . "\n"; // add to the cumulative result, with linefeed
-    $token   = strtok("\n"); // get the next token
-    $pad    += $indent; // update the pad size for subsequent lines
-  endwhile;
-
-  return $result;
-}
-
-?>
+</div>

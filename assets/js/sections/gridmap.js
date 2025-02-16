@@ -3,17 +3,23 @@ var modalloading=false;
 $('#band').change(function(){
 	var band = $("#band option:selected").text();
 	if (band != "SAT") {
-		$("#sats").val('All');
+		$("#sat").val('All');
 		$("#orbits").val('All');
-		$("#sats").hide();
-		$("#orbits").hide();
+		$("#sats_div").hide();
+        $("#sats").hide(); // used in activated_gridmap
+		$("#orbits_div").hide();
+        $("#orbits").hide(); // used in activated_gridmap
 		$("#satslabel").hide();
 		$("#orbitslabel").hide();
+        $('#propagation').val('').prop('disabled', false);
 	} else {
-		$("#sats").show();
-		$("#orbits").show();
+		$("#sats_div").show();
+        $("#sats").show(); // used in activated_gridmap
+		$("#orbits_div").show();
+        $("#orbits").show(); // used in activated_gridmap
 		$("#orbitslabel").show();
 		$("#satslabel").show();
+        $('#propagation').val('SAT').prop('disabled', true);
 	}
 });
 
@@ -37,7 +43,8 @@ function gridPlot(form, visitor=true) {
     if(container != null){
         container._leaflet_id = null;
         container.remove();
-        $("#gridmapcontainer").append('<div id="gridsquare_map" class="map-leaflet" style="width: 100%; height: 800px"></div>');
+        $("#gridmapcontainer").append('<div id="gridsquare_map" class="map-leaflet" style="width: 100%;"></div>');
+        set_map_height();
     }
 
     if (typeof type == 'undefined') { type=''; }
@@ -60,11 +67,13 @@ function gridPlot(form, visitor=true) {
             lotw: $("#lotw").is(":checked"),
             eqsl: $("#eqsl").is(":checked"),
             qrz: $("#qrz").is(":checked"),
-            sat: $("#sats").val(),
+            sat: $("#sat").val(),
             orbit: $("#orbits").val(),
+            propagation: $('#propagation').val()
 		},
 		success: function (data) {
             $('.cohidden').show();
+            set_map_height();
             $(".ld-ext-right-plot").removeClass('running');
             $(".ld-ext-right-plot").prop('disabled', false);
             $('#plot').prop("disabled", false);
@@ -122,6 +131,10 @@ function plot(visitor, grid_two, grid_four, grid_six, grid_two_confirmed, grid_f
                 div.innerHTML += '<i style="background: green"></i><span>' + gridsquares_gridsquares_confirmed + ' ('+grid_four_confirmed.length+')</span><br>';
                 div.innerHTML += '<i style="background: red"></i><span>' + gridsquares_gridsquares_not_confirmed + ' ('+(grid_four.length - grid_four_confirmed.length)+')</span><br>';
                 div.innerHTML += '<i></i><span>' + gridsquares_gridsquares_total_worked + ' ('+grid_four.length+')</span><br>';
+				div.innerHTML += "<h4>" + gridsquares_fields + "</h4>";
+				div.innerHTML += '<i style="background: green"></i><span>' + gridsquares_fields_confirmed + ' ('+grid_two_confirmed.length+')</span><br>';
+				div.innerHTML += '<i style="background: red"></i><span>' + gridsquares_fields_not_confirmed + ' ('+(grid_two.length - grid_two_confirmed.length)+')</span><br>';
+				div.innerHTML += '<i></i><span>' + gridsquares_fields_total_worked + ' ('+grid_two.length+')</span><br>';
                 return div;
             };
 
@@ -140,8 +153,9 @@ function spawnGridsquareModal(loc_4char) {
 			'Searchphrase': loc_4char,
 			'Band': $("#band").val(),
 			'Mode': $("#mode").val(),
-			'Sat': $("#sats").val(),
+			'Sat': $("#sat").val(),
 			'Orbit': $("#orbits").val(),
+            'Propagation': $('#propagation').val(),
 			'Type': 'VUCC'
 		})
 		if (type == 'activated') {
@@ -153,7 +167,7 @@ function spawnGridsquareModal(loc_4char) {
 			type: 'post',
 			data: ajax_data,
 			success: function (html) {
-				BootstrapDialog.show({
+		    		var dialog = new BootstrapDialog({
 					title: lang_general_word_qso_data,
 					cssClass: 'qso-dialog',
 					size: BootstrapDialog.SIZE_WIDE,
@@ -186,6 +200,9 @@ function spawnGridsquareModal(loc_4char) {
                             showQsoActionsMenu($(this).closest('.dropdown'));
                         });
 					},
+                    onhide: function(dialog) {
+                        enableMap();
+                    },
 					buttons: [{
 						label: lang_admin_close,
 						action: function(dialogItself) {
@@ -193,7 +210,11 @@ function spawnGridsquareModal(loc_4char) {
 						}
 					}]
 				});
-			},
+			    dialog.realize();
+                    $('#gridsquare_map').append(dialog.getModal());
+                    disableMap();
+		    		dialog.open();
+                },
 			error: function(e) {
 				modalloading=false;
 			}
@@ -215,5 +236,8 @@ function clearMarkers() {
 }
 
 $(document).ready(function(){
-   gridPlot(this.form, visitor);
+    gridPlot(this.form, visitor);
+    $(window).resize(function () {
+        set_map_height();
+    });
 })

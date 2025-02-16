@@ -12,7 +12,7 @@ class Mode extends CI_Controller {
 		$this->load->helper(array('form', 'url'));
 
 		$this->load->model('user_model');
-		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('notice', 'You\'re not allowed to do that!'); redirect('dashboard'); }
+		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 	}
 
 	public function index()
@@ -22,7 +22,7 @@ class Mode extends CI_Controller {
 		$data['modes'] = $this->modes->all();
 		
 		// Render Page
-		$data['page_title'] = "Modes";
+		$data['page_title'] = __("Modes");
 		$this->load->view('interface_assets/header', $data);
 		$this->load->view('mode/index');
 		$this->load->view('interface_assets/footer');
@@ -38,7 +38,7 @@ class Mode extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$data['page_title'] = "Create Mode";
+			$data['page_title'] = __("Create Mode");
 			$this->load->view('mode/create', $data);
 		}
 		else
@@ -59,7 +59,7 @@ class Mode extends CI_Controller {
 
 		$data['my_mode'] = $mode_query->row();
 		
-		$data['page_title'] = "Edit Mode";
+		$data['page_title'] = __("Edit Mode");
 
 		$this->form_validation->set_rules('mode', 'Mode', 'required');
 		$this->form_validation->set_rules('qrgmode', 'QRG-Mode', 'required');

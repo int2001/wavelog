@@ -1,11 +1,11 @@
 <div class="container lotw">
 
-	<h2><?php echo lang('lotw_title'); ?></h2>
+	<h2><?= __("Logbook of the World"); ?></h2>
 
 	<!-- Card Starts -->
 	<div class="card">
 		<div class="card-header">
-			<?php echo lang('lotw_title_upload_p12_cert'); ?>
+			<?= __("Upload Logbook of the World .p12 Certificate"); ?>
 		</div>
 
 		<div class="card-body">
@@ -13,29 +13,31 @@
 				<div class="alert alert-danger" role="alert">
 			  	<?php echo $error; ?>
 				</div>
-	    	<?php } ?>
+			<?php } ?>
 
-	    	<div class="alert alert-info" role="alert">
-		    	<h5><?php echo lang('lotw_title_export_p12_file_instruction'); ?></h5>
+			<div class="alert alert-info" role="alert">
+				<h5><?= __("Export .p12 File Instructions"); ?></h5>
 
-		    	<ul>
-		    		<li><?php echo lang('lotw_p12_export_step_one'); ?></li>
-		    		<li><?php echo lang('lotw_p12_export_step_two'); ?></li>
-		    		<li><?php echo lang('lotw_p12_export_step_three'); ?></li>
-		    		<li><?php echo lang('lotw_p12_export_step_four'); ?></li>
-		    	</ul>
-	    	</div>
+				<ul>
+					<li><b><?= __("Use at least version 2.7 of TQSL"); ?></b></li>
+					<li><?= __("Open TQSL and go to the Callsign Certificates Tab"); ?></li>
+					<li><?= __("Right click on desired Callsign"); ?></li>
+					<li><?= __("Click 'Save Callsign Certificate File'"); ?></li>
+					<li><b><?= __("Do not add a password"); ?></b></li>
+					<li><?= __("Upload File below"); ?></li>
+				</ul>
+			</div>
 
 			<?php echo form_open_multipart('lotw/do_cert_upload');?>
 				<div class="mb-3">
-				    <label for="exampleFormControlFile1"><?php echo lang('lotw_title_upload_p12_cert'); ?></label>
-				    <input type="file" name="userfile" class="form-control" id="exampleFormControlFile1">
+					<label for="exampleFormControlFile1"><?= __("Upload Logbook of the World .p12 Certificate"); ?></label>
+					<input type="file" name="userfile" class="form-control" id="exampleFormControlFile1">
 				 </div>
 
-				<button type="submit" value="upload" class="btn btn-primary"><?php echo lang('lotw_btn_upload_file'); ?></button>
+				<button type="submit" value="upload" class="btn btn-primary"><?= __("Upload File"); ?></button>
 			</form>
 
-	    </div>
+		</div>
 	</div>
 	<!-- Card Ends -->
 

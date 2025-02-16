@@ -7,9 +7,10 @@ class Continents extends CI_Controller {
         $this->load->model('user_model');
         $this->load->model('bands');
         $this->load->model('logbookadvanced_model');
+		$this->load->model('gridmap_model');
 
         $data['bands'] = $this->bands->get_worked_bands();
-		$data['modes'] = $this->logbookadvanced_model->get_modes();
+		$data['modes'] = $this->gridmap_model->get_worked_modes();
 
         if(!$this->user_model->authorize($this->config->item('auth_mode'))) {
             if($this->user_model->validate_session()) {
@@ -18,18 +19,18 @@ class Continents extends CI_Controller {
             } else {
                 redirect('user/login');
             }
-        }	
+        }
 		// Render User Interface
 
 		// Set Page Title
-		$data['page_title'] = "Continents";
+		$data['page_title'] = __("Continents");
 
 		// Load Views
 		$this->load->view('interface_assets/header', $data);
 		$this->load->view('continents/index');
 		$this->load->view('interface_assets/footer');
 	}
-	
+
 
 	public function get_continents() {
 

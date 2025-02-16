@@ -87,6 +87,22 @@ class CI_Migration {
 	protected $_migration_table = 'migrations';
 
 	/**
+	 * Name and Path of the migration lockfile
+	 * 
+	 * @var string
+	 */
+	protected $_migration_lockfile = NULL;
+
+	/**
+	 * Max Age of the migration lockfile
+	 * 
+	 * @var int
+	 */
+
+	protected $_migration_lf_maxage = NULL;
+
+
+	/**
 	 * Whether to automatically run migrations
 	 *
 	 * @var	bool
@@ -139,6 +155,12 @@ class CI_Migration {
 
 		// Add trailing slash if not set
 		$this->_migration_path = rtrim($this->_migration_path, '/').'/';
+
+		// If not set, set it
+		$this->_migration_lockfile !== '' OR $this->_migration_lockfile = '/tmp/.migration_running';
+
+		// selockfile maxage if not set in config file. Fallback is 480 seconds. 
+		$this->_migration_lf_maxage !== '' OR $this->_migration_lf_maxage = 480;
 
 		// Load migration language
 		$this->lang->load('migration');
@@ -228,7 +250,7 @@ class CI_Migration {
 		else
 		{
 			// Well, there's nothing to migrate then ...
-			return TRUE;
+			return $current_version;
 		}
 
 		// Validate all available migrations within our target range.
@@ -297,26 +319,68 @@ class CI_Migration {
 			$pending[$number] = array($class, $method);
 		}
 
-		// Now just run the necessary migrations
-		foreach ($pending as $number => $migration)
-		{
-			log_message('debug', 'Migrating '.$method.' from version '.$current_version.' to version '.$number);
+		// Let's check if a migration is currently running
+        if (!file_exists($this->_migration_lockfile)) {
 
-			$migration[0] = new $migration[0];
-			call_user_func($migration);
-			$current_version = $number;
-			$this->_update_version($current_version);
+			// Create the lockfile
+			if (touch($this->_migration_lockfile)) {
+				log_message('debug', 'Created migration lockfile');
+
+				// Now just run the necessary migrations
+				foreach ($pending as $number => $migration)
+				{
+					log_message('debug', 'Migrating '.$method.' from version '.$current_version.' to version '.$number);
+
+					$migration[0] = new $migration[0];
+					call_user_func($migration);
+					$current_version = $number;
+					$this->_update_version($current_version);
+				}
+
+				// This is necessary when moving down, since the the last migration applied
+				// will be the down() method for the next migration up from the target
+				if ($current_version <> $target_version)
+				{
+					$current_version = $target_version;
+					$this->_update_version($current_version);
+				}
+				
+				log_message('debug', 'Finished migrating to '.$current_version);
+
+				// After the migrations we can remove the lockfile
+				if (file_exists($this->_migration_lockfile)) {
+					unlink($this->_migration_lockfile);
+					log_message('debug', 'Deleted migration lockfile');
+				}
+
+			} else {
+				log_message('error', 'Failed to create Migration Lockfile. Check directory permissions.');
+			}
+
+		} else {
+
+			log_message('debug', 'There is a lockfile for migrations. Checking the age...');
+
+			// Get the file creation date
+			$lockfile_ctime = filemtime($this->_migration_lockfile);
+
+			//compare to the current time
+			$tdiff = time() - $lockfile_ctime;
+			log_message('debug', 'Migration lockfile lifetime in seconds: '.$tdiff.'/'.$this->_migration_lf_maxage);
+
+			// if the file is older then the configured limit, delete it
+			if ($tdiff > $this->_migration_lf_maxage) {
+
+				unlink($this->_migration_lockfile);
+				log_message('debug', 'Deleted migration lockfile because it was older then maxage.');
+
+			} else {
+
+				log_message('debug', 'Migration process is currently locked. Second migration attempt ignored.');
+
+			}
 		}
 
-		// This is necessary when moving down, since the the last migration applied
-		// will be the down() method for the next migration up from the target
-		if ($current_version <> $target_version)
-		{
-			$current_version = $target_version;
-			$this->_update_version($current_version);
-		}
-
-		log_message('debug', 'Finished migrating to '.$current_version);
 		return $current_version;
 	}
 

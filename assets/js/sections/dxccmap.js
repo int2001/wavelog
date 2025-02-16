@@ -76,12 +76,12 @@ function load_dxcc_map2(data, worked, confirmed, notworked) {
     L.tileLayer(
         osmUrl,
         {
-            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            attribution: option_map_tile_server_copyright,
             maxZoom: 18
         }
     ).addTo(map);
 
-    var notworkedcount = data.length;
+    var notworkedcount = 0;
     var confirmedcount = 0;
     var workednotconfirmedcount = 0;
 
@@ -95,7 +95,6 @@ function load_dxcc_map2(data, worked, confirmed, notworked) {
                 if (confirmed != '0') {
                     addMarker(L, D, mapColor, map);
                     confirmedcount++;
-                    notworkedcount--;
                 }
             }
             if (D['status'] == 'W') {
@@ -103,15 +102,13 @@ function load_dxcc_map2(data, worked, confirmed, notworked) {
                 if (worked != '0') {
                     addMarker(L, D, mapColor, map);
                     workednotconfirmedcount++;
-                    notworkedcount--;
                 }
             }
-
-
-        // Make a check here and hide what I don't want to show
-            if (notworked != '0') {
-                if (mapColor == 'red') {
+            if (D['status'] == '-') {
+                mapColor = 'red';
+                if (notworked != '0') {
                     addMarker(L, D, mapColor, map);
+                    notworkedcount++;
                 }
             }
         }
@@ -127,9 +124,9 @@ function load_dxcc_map2(data, worked, confirmed, notworked) {
     legend.onAdd = function(map) {
         var div = L.DomUtil.create("div", "legend");
         div.innerHTML += "<h4>Colors</h4>";
-        div.innerHTML += '<i style="background: green"></i><span>Confirmed ('+confirmedcount+')</span><br>';
-        div.innerHTML += '<i style="background: orange"></i><span>Worked not confirmed ('+workednotconfirmedcount+')</span><br>';
-        div.innerHTML += '<i style="background: red"></i><span>Not worked ('+notworkedcount+')</span><br>';
+        div.innerHTML += '<i style="background: green"></i><span>' + lang_general_word_confirmed + ' ('+confirmedcount+')</span><br>';
+        div.innerHTML += '<i style="background: orange"></i><span>' + lang_general_word_worked_not_confirmed + ' ('+workednotconfirmedcount+')</span><br>';
+        div.innerHTML += '<i style="background: red"></i><span>' + lang_general_word_not_worked + ' ('+notworkedcount+')</span><br>';
         return div;
     };
 

@@ -6,7 +6,7 @@
 
     <div class="card">
         <div class="card-header">
-            Request a QSL card
+            <?= __("Request a QSL card"); ?>
         </div>
         <div class="card-body">
 
@@ -17,10 +17,15 @@
 			echo $global_oqrs_text;
 			echo '<br /><br />';
 		}
+        if (($widget_call ?? false) == true) {
+            $callsign_value = 'value="'.$callsign.'"';
+        } else {
+            $callsign_value = '';
+        }
 		if ($groupedSearch == 'on') {
-			echo 'This search will search in all station locations where OQRS is active.<br /><br /><form class="d-flex align-items-center" onsubmit="return false;"><label class="my-1 me-2" for="oqrssearch">Enter your callsign: </label>
-			<input class="form-control me-sm-2 w-auto" id="oqrssearch" type="search" name="callsign" placeholder="Search Callsign" aria-label="Search" required="required">
-			<button onclick="searchOqrsGrouped();" class="btn btn-sm btn-primary" id="stationbuttonsubmit" type="button"><i class="fas fa-search"></i> Search</button>
+			echo __("This search will search in all station locations where OQRS is active.").'<br /><br /><form class="d-flex align-items-center" onsubmit="return false;"><label class="my-1 me-2" for="oqrssearch">' . __("Enter your callsign") . ': </label>
+			<input class="form-control me-sm-2 w-auto" id="oqrssearch" type="search" name="callsign" placeholder="' . __("Search Callsign") . '" aria-label="Search" '.$callsign_value.' required="required">
+			<button onclick="searchOqrsGrouped();" class="btn btn-sm btn-primary" id="stationbuttonsubmit" type="button"><i class="fas fa-search"></i> ' . __("Search") . '</button>
 			</form>';
 			echo '<div class="searchinfo"></div>';
 			?>
@@ -45,13 +50,13 @@
 		  if ($stations->result() != NULL) { ?>
 
                 <form class="d-flex align-items-center" enctype="multipart/form-data">
-                    <label class="my-1 me-2" for="station">Select station: </label>
+                    <label class="my-1 me-2" for="station"><?= __("Select station"); ?>: </label>
                     <select id="station" class="form-select w-auto my-1 me-sm-2" name="station">
                         <?php foreach($stations->result() as $station) {
 									echo '<option value="' . $station->station_id . '">' . $station->station_profile_name . ' - ' . $station->station_callsign . '</option>'."\n";
 								} ?>
                     </select>
-                    <button id="button1id" type="button" onclick="loadStationInfo();" name="button1id" class="btn btn-sm btn-primary"> Proceed</button>
+                    <button id="button1id" type="button" onclick="loadStationInfo();" name="button1id" class="btn btn-sm btn-primary"> <?= __("Proceed"); ?></button>
                 </form>
             </div>
 			<div class="resulttable"></div>
@@ -61,7 +66,7 @@
 		}
 
 		else {
-			echo 'No stations found that are using Wavelog OQRS.';
+			echo __("No stations found that are using Wavelog OQRS.");
 		}
 	}
 		?>

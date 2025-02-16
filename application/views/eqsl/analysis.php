@@ -8,16 +8,16 @@ $custom_date_format = $this->session->userdata('user_date_format');
     <h5 class="card-title"><?php echo $page_title; ?></h5>
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link active" href="<?php echo site_url('eqsl/import');?>">Download QSOs</a>
+        <a class="nav-link active" href="<?php echo site_url('eqsl/import');?>"><?= __("Download QSOs"); ?></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo site_url('eqsl/Export');?>">Upload QSOs</a>
+        <a class="nav-link" href="<?php echo site_url('eqsl/Export');?>"><?= __("Upload QSOs"); ?></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo site_url('eqsl/tools');?>">Tools</a>
+        <a class="nav-link" href="<?php echo site_url('eqsl/tools');?>"><?= __("Tools"); ?></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo site_url('eqsl/download');?>">Download eQSL cards</a>
+        <a class="nav-link" href="<?php echo site_url('eqsl/download');?>"><?= __("Download eQSL cards"); ?></a>
       </li>
     </ul>
   </div>
@@ -33,13 +33,14 @@ $custom_date_format = $this->session->userdata('user_date_format');
 			<?php if (count($import['qsos']) > 0) { ?>
 				<table width="100%">
 					<tr class="titles">
-						<td>Date</td>
-						<td>Time</td>
-						<td>Call</td>
-						<td>Mode</td>
-						<td>Submode</td>
-						<td>Log Status</td>
-						<td>eQSL Status</td>
+						<td><?= __("Date"); ?></td>
+						<td><?= __("Time"); ?></td>
+						<td><?= __("Call"); ?></td>
+						<td><?= __("Mode"); ?></td>
+						<td><?= __("Submode"); ?></td>
+						<td><?= __("eQSL Received Date"); ?></td>
+						<td><?= __("Log Status"); ?></td>
+						<td><?= __("eQSL Status"); ?></td>
 					</tr>
 					<?php foreach ($import['qsos'] as $qso) { ?>
 						<tr>
@@ -53,13 +54,14 @@ $custom_date_format = $this->session->userdata('user_date_format');
 							<?php } ?>
 							<td><?php echo $qso['mode']; ?></td>
 							<td><?php echo $qso['submode']; ?></td>
+							<td><?php echo date ($custom_date_format, strtotime($qso['eqsl_qslrdate'])); ?></td>
 							<td><?php echo $qso['status']; ?></td>
 							<td><?php echo $qso['eqsl_status']; ?></td>
 						</tr>
 					<?php } ?>
 				</table>
 			<?php } else { ?>
-				<p>There are no QSO confirmations waiting for you at eQSL.cc</p>
+				<p><?= __("There are no QSO confirmations waiting for you at eQSL.cc"); ?></p>
 			<?php } ?>
 		<?php } ?>
 	</div>

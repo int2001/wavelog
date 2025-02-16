@@ -3,7 +3,9 @@
 class DXCC extends CI_Model {
 
 	function __construct() {
-		$this->load->library('Genfunctions');
+		if(!$this->load->is_loaded('Genfunctions')) {
+			$this->load->library('Genfunctions');
+		}
 	}
 
 	/**
@@ -14,9 +16,9 @@ class DXCC extends CI_Model {
 		$exceptions = $this->db->query('
 				SELECT *
 				FROM `dxcc_exceptions`
-				WHERE `prefix` = \''.$callsign.'\'
+				WHERE `prefix` = ?
 				LIMIT 1
-			');
+			',array($callsign));
 
 		if ($exceptions->num_rows() > 0) {
 			return $exceptions;
@@ -24,10 +26,10 @@ class DXCC extends CI_Model {
 			$query = $this->db->query('
 					SELECT *
 					FROM dxcc_entities
-					WHERE prefix = SUBSTRING( \''.$callsign.'\', 1, LENGTH( prefix ) )
+					WHERE prefix = SUBSTRING(?, 1, LENGTH( prefix ) )
 					ORDER BY LENGTH( prefix ) DESC
 					LIMIT 1
-				');
+				',array($callsign));
 
 			return $query;
 		}
@@ -65,11 +67,15 @@ class DXCC extends CI_Model {
 
 		$location_list = "'".implode("','",$logbooks_locations_array)."'";
 
-        	$qsl = $this->genfunctions->gen_qsl_from_postdata($postdata);
+		$qsl = $this->genfunctions->gen_qsl_from_postdata($postdata);
 
 		foreach ($bands as $band) {             	// Looping through bands and entities to generate the array needed for display
 			foreach ($dxccArray as $dxcc) {
-				$dxccMatrix[$dxcc->adif]['name'] = ucwords(strtolower($dxcc->name), "- (/");
+				if ($dxcc->adif == '0') {
+					$dxccMatrix[$dxcc->adif]['name'] = $dxcc->name;
+				} else {
+					$dxccMatrix[$dxcc->adif]['name'] = ucwords(strtolower($dxcc->name), "- (/");
+				}
 				$dxccMatrix[$dxcc->adif]['Dxccprefix'] = $dxcc->prefix;
 				if ($postdata['includedeleted'])
 					$dxccMatrix[$dxcc->adif]['Deleted'] = isset($dxcc->Enddate) ? 1 : 0;
@@ -80,7 +86,7 @@ class DXCC extends CI_Model {
 			if ($postdata['worked'] != NULL) {
 				$workedDXCC = $this->getDxccBandWorked($location_list, $band, $postdata);
 				foreach ($workedDXCC as $wdxcc) {
-					$dxccMatrix[$wdxcc->dxcc][$band] = '<div class="bg-danger awardsBgDanger" ><a href=\'javascript:displayContacts("'.str_replace("&", "%26", $wdxcc->name).'","'. $band . '","'. $postdata['sat'] . '","' . $postdata['orbit'] . '","'. $postdata['mode'] . '","DXCC", "")\'>W</a></div>';
+					$dxccMatrix[$wdxcc->dxcc][$band] = '<div class="bg-danger awardsBgDanger" ><a href=\'javascript:displayContacts("'.$wdxcc->dxcc.'","'. $band . '","'. $postdata['sat'] . '","' . $postdata['orbit'] . '","'. $postdata['mode'] . '","DXCC2", "")\'>W</a></div>';
 				}
 			}
 
@@ -88,7 +94,7 @@ class DXCC extends CI_Model {
 			if ($postdata['confirmed'] != NULL) {
 				$confirmedDXCC = $this->getDxccBandConfirmed($location_list, $band, $postdata);
 				foreach ($confirmedDXCC as $cdxcc) {
-					$dxccMatrix[$cdxcc->dxcc][$band] = '<div class="bg-success awardsBgSuccess"><a href=\'javascript:displayContacts("'.str_replace("&", "%26", $cdxcc->name).'","'. $band . '","'. $postdata['sat'] . '","'. $postdata['orbit'] . '","' . $postdata['mode'] . '","DXCC","'.$qsl.'")\'>C</a></div>';
+					$dxccMatrix[$cdxcc->dxcc][$band] = '<div class="bg-success awardsBgSuccess"><a href=\'javascript:displayContacts("'.$cdxcc->dxcc.'","'. $band . '","'. $postdata['sat'] . '","'. $postdata['orbit'] . '","' . $postdata['mode'] . '","DXCC2","'.$qsl.'")\'>C</a></div>';
 				}
 			}
 		}
@@ -121,6 +127,7 @@ class DXCC extends CI_Model {
 	}
 
 	function getDxccBandConfirmed($location_list, $band, $postdata) {
+		$bindings=[];
 		$sql = "select adif as dxcc, name from dxcc_entities
 				join (
 					select col_dxcc from ".$this->config->item('table_name')." thcv
@@ -128,18 +135,21 @@ class DXCC extends CI_Model {
 					where station_id in (" . $location_list .
 				  ") and col_dxcc > 0";
 
-		$sql .= $this->genfunctions->addBandToQuery($band);
+		$sql .= $this->genfunctions->addBandToQuery($band,$bindings);
 		if ($band == 'SAT') {
 			if ($postdata['sat'] != 'All') {
-				$sql .= " and col_sat_name ='" . $postdata['sat'] . "'";
+				$sql .= " and col_sat_name = ?";
+				$bindings[]=$postdata['sat'];
 			}
 		}
 
 		if ($postdata['mode'] != 'All') {
-			$sql .= " and (col_mode = '" . $postdata['mode'] . "' or col_submode = '" . $postdata['mode'] . "')";
+			$sql .= " and (col_mode = ? or col_submode = ?)";
+			$bindings[]=$postdata['mode'];
+			$bindings[]=$postdata['mode'];
 		}
 
-		$sql .= $this->addOrbitToQuery($postdata);
+		$sql .= $this->addOrbitToQuery($postdata,$bindings);
 
 		$sql .= $this->genfunctions->addQslToQuery($postdata);
 
@@ -152,28 +162,32 @@ class DXCC extends CI_Model {
 
 		$sql .= $this->addContinentsToQuery($postdata);
 
-		$query = $this->db->query($sql);
+		$query = $this->db->query($sql,$bindings);
 
 		return $query->result();
 	}
 
 	function getDxccBandWorked($location_list, $band, $postdata) {
+		$bindings=[];
 		$sql = "select adif as dxcc, name from dxcc_entities
 				join (
 					select col_dxcc from ".$this->config->item('table_name')." thcv
 					LEFT JOIN satellite on thcv.COL_SAT_NAME = satellite.name
 					where station_id in (" . $location_list .
 					") and col_dxcc > 0";
-		$sql .= $this->genfunctions->addBandToQuery($band);
+		$sql .= $this->genfunctions->addBandToQuery($band,$bindings);
 		if ($band == 'SAT') {
 			if ($postdata['sat'] != 'All') {
-				$sql .= " and col_sat_name ='" . $postdata['sat'] . "'";
+				$sql .= " and col_sat_name = ?";
+				$bindings[]=$postdata['sat'];
 			}
 		}
 		if ($postdata['mode'] != 'All') {
-			$sql .= " and (col_mode = '" . $postdata['mode'] . "' or col_submode = '" . $postdata['mode'] . "')";
+			$sql .= " and (col_mode = ? or col_submode = ?)";
+			$bindings[]=$postdata['mode'];
+			$bindings[]=$postdata['mode'];
 		}
-		$sql .= $this->addOrbitToQuery($postdata);
+		$sql .= $this->addOrbitToQuery($postdata,$bindings);
 
 		$sql .= " group by col_dxcc
 				) x on dxcc_entities.adif = x.col_dxcc";;
@@ -182,14 +196,14 @@ class DXCC extends CI_Model {
 		}
 		$sql .= $this->addContinentsToQuery($postdata);
 
-		$query = $this->db->query($sql);
+		$query = $this->db->query($sql,$bindings);
 		return $query->result();
 	}
 
 	function fetchDxcc($postdata) {
-		$CI =& get_instance();
-		$CI->load->model('logbooks_model');
-		$logbooks_locations_array = $CI->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
+		$bindings=[];
+		$this->load->model('logbooks_model');
+		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
 
 		if (!$logbooks_locations_array) {
 			return null;
@@ -207,21 +221,26 @@ class DXCC extends CI_Model {
 
 			if ($postdata['band'] != 'All') {
 				if ($postdata['band'] == 'SAT') {
-					$sql .= " and col_prop_mode ='" . $postdata['band'] . "'";
+					$sql .= " and col_prop_mode = ?";
+					$bindings[]=$postdata['band'];
 					if ($postdata['sat'] != 'All') {
-						$sql .= " and col_sat_name ='" . $postdata['sat'] . "'";
+						$sql .= " and col_sat_name = ?";
+						$bindings[]=$postdata['sat'];
 					}
 				} else {
 					$sql .= " and col_prop_mode !='SAT'";
-					$sql .= " and col_band ='" . $postdata['band'] . "'";
+					$sql .= " and col_band = ?";
+					$bindings[]=$postdata['band'];
 				}
 			}
 
 			if ($postdata['mode'] != 'All') {
-				$sql .= " and (col_mode = '" . $postdata['mode'] . "' or col_submode = '" . $postdata['mode'] . "')";
+			$sql .= " and (col_mode = ? or col_submode = ?)";
+			$bindings[]=$postdata['mode'];
+			$bindings[]=$postdata['mode'];
 			}
 
-			$sql .= $this->addOrbitToQuery($postdata);
+			$sql .= $this->addOrbitToQuery($postdata, $bindings);
 
 			$sql .= ' group by col_dxcc) x on dxcc_entities.adif = x.col_dxcc';
 		}
@@ -235,12 +254,13 @@ class DXCC extends CI_Model {
 		$sql .= $this->addContinentsToQuery($postdata);
 
 		$sql .= ' order by prefix';
-		$query = $this->db->query($sql);
+		$query = $this->db->query($sql,$bindings);
 
 		return $query->result();
 	}
 
 	function getDxccWorked($location_list, $postdata) {
+		$bindings=[];
 		$sql = "SELECT adif as dxcc FROM dxcc_entities
 			join (
 				select col_dxcc
@@ -248,30 +268,36 @@ class DXCC extends CI_Model {
 				LEFT JOIN satellite on thcv.COL_SAT_NAME = satellite.name
 				where station_id in (" . $location_list .
 				") and col_dxcc > 0";
-		$sql .= $this->genfunctions->addBandToQuery($postdata['band']);
+		$sql .= $this->genfunctions->addBandToQuery($postdata['band'],$bindings);
 		if ($postdata['band'] == 'SAT') {
 			if ($postdata['sat'] != 'All') {
-				$sql .= " and col_sat_name ='" . $postdata['sat'] . "'";
+				$sql .= " and col_sat_name = ?";
+				$bindings[]=$postdata['sat'];
 			}
 		}
 
-		$sql .= $this->addOrbitToQuery($postdata);
+		$sql .= $this->addOrbitToQuery($postdata,$bindings);
 
 		if ($postdata['mode'] != 'All') {
-			$sql .= " and (col_mode = '" . $postdata['mode'] . "' or col_submode = '" . $postdata['mode'] . "')";
+			$sql .= " and (col_mode = ? or col_submode = ?)";
+			$bindings[]=$postdata['mode'];
+			$bindings[]=$postdata['mode'];
 		}
 
 		$sql .= " and not exists (select 1 from ".$this->config->item('table_name')." where station_id in (". $location_list .") and col_dxcc = thcv.col_dxcc and col_dxcc > 0";
-		$sql .= $this->genfunctions->addBandToQuery($postdata['band']);
+		$sql .= $this->genfunctions->addBandToQuery($postdata['band'],$bindings);
 		if ($postdata['band'] == 'SAT') {
 			if ($postdata['sat'] != 'All') {
-				$sql .= " and col_sat_name ='" . $postdata['sat'] . "'";
+				$sql .= " and col_sat_name = ?";
+				$bindings[]=$postdata['sat'];
 			}
 		}
-		$sql .= $this->addOrbitToQuery($postdata);
+		$sql .= $this->addOrbitToQuery($postdata,$bindings);
 
 		if ($postdata['mode'] != 'All') {
-			$sql .= " and (col_mode = '" . $postdata['mode'] . "' or col_submode = '" . $postdata['mode'] . "')";
+			$sql .= " and (col_mode = ? or col_submode = ?)";
+			$bindings[]=$postdata['mode'];
+			$bindings[]=$postdata['mode'];
 		}
 
 		$sql .= $this->genfunctions->addQslToQuery($postdata);
@@ -286,11 +312,12 @@ class DXCC extends CI_Model {
 
 		$sql .= $this->addContinentsToQuery($postdata);
 
-		$query = $this->db->query($sql);
+		$query = $this->db->query($sql,$bindings);
 		return $query->result();
 	}
 
 	function getDxccConfirmed($location_list, $postdata) {
+		$bindings=[];
 		$sql = "SELECT adif as dxcc FROM dxcc_entities
 	    join (
 		select col_dxcc
@@ -299,18 +326,21 @@ class DXCC extends CI_Model {
 		where station_id in (". $location_list .
 		    ") and col_dxcc > 0";
 
-		$sql .= $this->genfunctions->addBandToQuery($postdata['band']);
+		$sql .= $this->genfunctions->addBandToQuery($postdata['band'],$bindings);
 		if ($postdata['band'] == 'SAT') {
 			if ($postdata['sat'] != 'All') {
-				$sql .= " and col_sat_name ='" . $postdata['sat'] . "'";
+				$sql .= " and col_sat_name = ?";
+				$bindings[]=$postdata['sat'];
 			}
 		}
 
 		if ($postdata['mode'] != 'All') {
-			$sql .= " and (col_mode = '" . $postdata['mode'] . "' or col_submode = '" . $postdata['mode'] . "')";
+			$sql .= " and (col_mode = ? or col_submode = ?)";
+			$bindings[]=$postdata['mode'];
+			$bindings[]=$postdata['mode'];
 		}
 
-		$sql .= $this->addOrbitToQuery($postdata);
+		$sql .= $this->addOrbitToQuery($postdata,$bindings);
 
 		$sql .= $this->genfunctions->addQslToQuery($postdata);
 
@@ -325,7 +355,7 @@ class DXCC extends CI_Model {
 		$sql .= $this->addContinentsToQuery($postdata);
 
 
-		$query = $this->db->query($sql);
+		$query = $this->db->query($sql,$bindings);
 
 		return $query->result();
 	}
@@ -394,6 +424,7 @@ class DXCC extends CI_Model {
 	}
 
 	function getSummaryByBand($band, $postdata, $location_list) {
+		$bindings=[];
 		$sql = "SELECT count(distinct thcv.col_dxcc) as count FROM " . $this->config->item('table_name') . " thcv";
 		$sql .= " LEFT JOIN satellite on thcv.COL_SAT_NAME = satellite.name";
 		$sql .= " join dxcc_entities d on thcv.col_dxcc = d.adif";
@@ -403,7 +434,8 @@ class DXCC extends CI_Model {
 		if ($band == 'SAT') {
 			$sql .= " and thcv.col_prop_mode ='" . $band . "'";
 			if ($band != 'All' && $postdata['sat'] != 'All') {
-				$sql .= " and col_sat_name ='" . $postdata['sat'] . "'";
+				$sql .= " and col_sat_name = ?";
+				$bindings[]=$postdata['sat'];
 			}
 		} else if ($band == 'All') {
 			$this->load->model('bands');
@@ -416,11 +448,14 @@ class DXCC extends CI_Model {
 				" and thcv.col_prop_mode !='SAT'";
 		} else {
 			$sql .= " and thcv.col_prop_mode !='SAT'";
-			$sql .= " and thcv.col_band ='" . $band . "'";
+			$sql .= " and thcv.col_band = ?";
+			$bindings[]=$band;
 		}
 
 		if ($postdata['mode'] != 'All') {
-			$sql .= " and (col_mode = '" . $postdata['mode'] . "' or col_submode = '" . $postdata['mode'] . "')";
+			$sql .= " and (col_mode = ? or col_submode = ?)";
+			$bindings[]=$postdata['mode'];
+			$bindings[]=$postdata['mode'];
 		}
 
 		if ($postdata['includedeleted'] == NULL) {
@@ -429,34 +464,38 @@ class DXCC extends CI_Model {
 
 		$sql .= $this->addContinentsToQuery($postdata);
 
-		$sql .= $this->addOrbitToQuery($postdata);
+		$sql .= $this->addOrbitToQuery($postdata,$bindings);
 
-		$query = $this->db->query($sql);
+		$query = $this->db->query($sql,$bindings);
 
 		return $query->result();
 	}
 
 	// Adds orbit type to query
-	function addOrbitToQuery($postdata) {
+	function addOrbitToQuery($postdata,&$binding) {
 		$sql = '';
 		if ($postdata['orbit'] != 'All') {
-			$sql .= ' AND satellite.orbit = \''.$postdata['orbit'].'\'';
+			$sql .= ' AND satellite.orbit = ?';
+			$binding[]=$postdata['orbit'];
 		}
 
 		return $sql;
 	}
 
 	function getSummaryByBandConfirmed($band, $postdata, $location_list) {
+		$bindings=[];
 		$sql = "SELECT count(distinct thcv.col_dxcc) as count FROM " . $this->config->item('table_name') . " thcv";
 		$sql .= " LEFT JOIN satellite on thcv.COL_SAT_NAME = satellite.name";
 		$sql .= " join dxcc_entities d on thcv.col_dxcc = d.adif";
 
-		$sql .= " where station_id in (" . $location_list . ")";
+		$sql .= " where station_id in (" . $location_list . ") and col_dxcc > 0";
 
 		if ($band == 'SAT') {
-			$sql .= " and thcv.col_prop_mode ='" . $band . "'";
+			$sql .= " and thcv.col_prop_mode = ?";
+			$bindings[]=$band;
 			if ($postdata['sat'] != 'All') {
-				$sql .= " and col_sat_name ='" . $postdata['sat'] . "'";
+				$sql .= " and col_sat_name = ?";
+				$bindings[]=$postdata['sat'];
 			}
 		} else if ($band == 'All') {
 			$this->load->model('bands');
@@ -469,16 +508,19 @@ class DXCC extends CI_Model {
 				" and thcv.col_prop_mode !='SAT'";
 		} else {
 			$sql .= " and thcv.col_prop_mode !='SAT'";
-			$sql .= " and thcv.col_band ='" . $band . "'";
+			$sql .= " and thcv.col_band = ?";
+			$bindings[]=$band;
 		}
 
 		if ($postdata['mode'] != 'All') {
-			$sql .= " and (col_mode = '" . $postdata['mode'] . "' or col_submode = '" . $postdata['mode'] . "')";
+			$sql .= " and (col_mode = ? or col_submode = ?)";
+			$bindings[]=$postdata['mode'];
+			$bindings[]=$postdata['mode'];
 		}
 
 		$sql .= $this->genfunctions->addQslToQuery($postdata);
 
-		$sql .= $this->addOrbitToQuery($postdata);
+		$sql .= $this->addOrbitToQuery($postdata,$bindings);
 
 
 		if ($postdata['includedeleted'] == NULL) {
@@ -487,19 +529,20 @@ class DXCC extends CI_Model {
 
 		$sql .= $this->addContinentsToQuery($postdata);
 
-		$query = $this->db->query($sql);
+		$query = $this->db->query($sql,$bindings);
 
 		return $query->result();
 	}
 
 	function lookup_country($country) {
+		$bindings=[];
 		$query = $this->db->query('
 					SELECT *
 					FROM dxcc_entities
-					WHERE name = "'.$country.'"
+					WHERE name = ?
 					ORDER BY LENGTH( prefix ) DESC
 					LIMIT 1
-				');
+				',array($country));
 
 		return $query->row();
 	}

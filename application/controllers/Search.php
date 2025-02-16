@@ -10,19 +10,13 @@ class Search extends CI_Controller {
         $this->load->helper(array('form', 'url'));
         if($this->optionslib->get_option('global_search') != "true") {
             $this->load->model('user_model');
-            if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('notice', 'You\'re not allowed to do that!'); redirect('dashboard'); }
+            if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
         }
-
-        // Load language files
-        $this->lang->load(array(
-          'lotw',
-          'eqsl',
-        ));
     }
 
 	public function index()
 	{
-		$data['page_title'] = "Search";
+		$data['page_title'] = __("Search");
 
         $this->load->view('interface_assets/header', $data);
 		$this->load->view('search/main');
@@ -31,7 +25,7 @@ class Search extends CI_Controller {
 
     // Filter is for advanced searching and filtering of the logbook
     public function filter() {
-        $data['page_title'] = "Search & Filter Logbook";
+        $data['page_title'] = __("Search & Filter Logbook");
 
         $this->load->library('form_validation');
 
@@ -61,19 +55,31 @@ class Search extends CI_Controller {
 		$this->load->model('stations');
 
 		$data['station_profile'] = $this->stations->all_of_user();
-		$data['page_title'] = "Incorrectly logged CQ zones";
+		$data['page_title'] = __("Incorrectly logged CQ zones");
 
 		$this->load->view('interface_assets/header', $data);
 		$this->load->view('search/cqzones');
 		$this->load->view('interface_assets/footer');
 	}
 
+		// Searches for incorrect ITU Zones
+		public function incorrect_itu_zones() {
+			$this->load->model('stations');
+
+			$data['station_profile'] = $this->stations->all_of_user();
+			$data['page_title'] = __("Incorrectly logged ITU zones");
+
+			$this->load->view('interface_assets/header', $data);
+			$this->load->view('search/ituzones');
+			$this->load->view('interface_assets/footer');
+		}
+
 	// Searches for unconfirmed Lotw QSOs where QSO partner has uploaded to LoTW after the QSO date
 	public function lotw_unconfirmed() {
 		$this->load->model('stations');
 
 		$data['station_profile'] = $this->stations->all_of_user();
-		$data['page_title'] = "QSOs unconfirmed on LoTW, but the callsign has uploaded to LoTW after QSO date";
+		$data['page_title'] = __("QSOs unconfirmed on LoTW, but the callsign has uploaded to LoTW after QSO date");
 
 		$this->load->view('interface_assets/header', $data);
 		$this->load->view('search/lotw_unconfirmed');
@@ -81,10 +87,8 @@ class Search extends CI_Controller {
 	}
 
     function json_result() {
-          if(isset($_POST['search'])) {
-			  $result = $this->fetchQueryResult($_POST['search'], false);
-			  echo json_encode($result->result_array());
-		  }
+		$result = $this->fetchQueryResult(($this->input->post('search', TRUE) ?? ''), FALSE);
+		echo json_encode($result->result_array());
     }
 
 	function get_stored_queries() {
@@ -94,17 +98,15 @@ class Search extends CI_Controller {
 	}
 
 	function search_result() {
-		if(isset($_POST['search'])) {
-			$data['results'] = $this->fetchQueryResult($_POST['search'], false);
-			$this->load->view('search/search_result_ajax', $data);
-		}
+		$sstring = str_replace('Ø', "0", $this->input->post("search", TRUE) ?? '');
+		$data['results'] = $this->fetchQueryResult($sstring, FALSE);
+		$this->load->view('search/search_result_ajax', $data);
 	}
 
 	function export_to_adif() {
-		if(isset($_POST['search'])) {
-			$data['qsos'] = $this->fetchQueryResult($_POST['search'], false);
-			$this->load->view('adif/data/exportall', $data);
-		}
+		$sstring = str_replace('Ø', "0", $this->input->post("search", TRUE) ?? '');
+		$data['qsos'] = $this->fetchQueryResult($sstring, FALSE);
+		$this->load->view('adif/data/exportall', $data);
 	}
 
 	function export_stored_query_to_adif() {
@@ -128,20 +130,21 @@ class Search extends CI_Controller {
 	}
 
 	function save_query() {
-		if(isset($_POST['search'])) {
-			$query = $this->fetchQueryResult($_POST['search'], true);
+		$search_param = $this->input->post('search', TRUE);
+		$description = $this->input->post('description', TRUE);
 
-			$data = array(
-				'userid' => xss_clean($this->session->userdata('user_id')),
-				'query' => $query,
-				'description' => xss_clean($_POST['description'])
-			);
+		$query = $this->fetchQueryResult($search_param, TRUE);
 
-			$this->db->insert('queries', $data);
-			$last_id = $this->db->insert_id();
-			header('Content-Type: application/json');
-			echo json_encode(array('id' => $last_id, 'description' => xss_clean($_POST['description'])));
-		}
+		$data = array(
+			'userid' => xss_clean($this->session->userdata('user_id')),
+			'query' => $query,
+			'description' => $description
+		);
+
+		$this->db->insert('queries', $data);
+		$last_id = $this->db->insert_id();
+		header('Content-Type: application/json');
+		echo json_encode(array('id' => $last_id, 'description' => $description));
 	}
 
 	function delete_query() {
@@ -302,8 +305,9 @@ class Search extends CI_Controller {
 
 		$this->db->order_by('COL_TIME_ON', 'DESC');
 		$this->db->join('station_profile', 'station_profile.station_id = '.$this->config->item('table_name').'.station_id');
-		$this->db->join('dxcc_entities', $this->config->item('table_name').'.col_dxcc = dxcc_entities.adif', 'left');
+		$this->db->join('dxcc_entities', 'station_profile.station_dxcc = dxcc_entities.adif', 'left');
 		$this->db->where('station_profile.user_id', $this->session->userdata('user_id'));
+		$this->db->limit(5000);
 
 		if ($returnquery) {
 			$query = $this->db->get_compiled_select($this->config->item('table_name'));

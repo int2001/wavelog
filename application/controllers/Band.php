@@ -12,7 +12,7 @@ class Band extends CI_Controller {
 		$this->load->helper(array('form', 'url'));
 
 		$this->load->model('user_model');
-		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('notice', 'You\'re not allowed to do that!'); redirect('dashboard'); }
+		if(!$this->user_model->authorize(2) || !clubaccess_check(9)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 	}
 
 	public function index()
@@ -22,7 +22,7 @@ class Band extends CI_Controller {
 		$data['bands'] = $this->bands->get_all_bands_for_user();
 
 		// Render Page
-		$data['page_title'] = "Bands";
+		$data['page_title'] = __("Bands");
 		$this->load->view('interface_assets/header', $data);
 		$this->load->view('bands/index');
 		$this->load->view('interface_assets/footer');
@@ -35,14 +35,19 @@ class Band extends CI_Controller {
 
 		$this->form_validation->set_rules('band', 'Band', 'required');
 
-		if ($this->form_validation->run() == FALSE)
-		{
-			$data['page_title'] = "Create Mode";
+		if ($this->form_validation->run() == FALSE) {
+			$data['page_title'] = __("Create Mode");
 			$this->load->view('bands/create', $data);
-		}
-		else
-		{
-			$this->bands->add();
+		} else {
+			$band_data = array(
+				'band' 		=> $this->input->post('band', true),
+				'bandgroup' => $this->input->post('bandgroup', true),
+				'ssb'	 	=> $this->input->post('ssbqrg', true),
+				'data' 		=> $this->input->post('dataqrg', true),
+				'cw' 		=> $this->input->post('cwqrg', true),
+			);
+
+			$this->bands->add($band_data);
 		}
 	}
 
@@ -56,7 +61,7 @@ class Band extends CI_Controller {
 
 		$data['my_band'] = $band_query->row();
 
-		$data['page_title'] = "Edit Band";
+		$data['page_title'] = __("Edit Band");
 
         $this->load->view('bands/edit', $data);
 	}
@@ -154,4 +159,15 @@ class Band extends CI_Controller {
         echo json_encode(array('message' => 'OK'));
 		return;
     }
+
+	public function saveBandUnit() {
+		$unit = $this->security->xss_clean($this->input->post('unit'));
+		$band_id = $this->security->xss_clean($this->input->post('band_id'));
+
+		$this->load->model('bands');
+		$band = $this->bands->getband($band_id)->row()->band;
+
+		$this->user_options_model->set_option('frequency', 'unit', array($band => $unit));
+		$this->session->set_userdata('qrgunit_'.$band, $unit);
+	}
 }

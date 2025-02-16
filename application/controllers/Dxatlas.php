@@ -4,7 +4,7 @@ class Dxatlas extends CI_Controller {
 
 	public function index()	{
 		$this->load->model('user_model');
-		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('notice', 'You\'re not allowed to do that!'); redirect('dashboard'); }
+		if(!$this->user_model->authorize(2) || !clubaccess_check(9)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$this->load->model('modes');
 		$this->load->model('logbook_model');
@@ -16,7 +16,7 @@ class Dxatlas extends CI_Controller {
 		$data['modes'] = $this->modes->active(); 					// Used in the view for mode select
 		$data['dxcc'] = $this->logbook_model->fetchDxcc(); 			// Used in the view for dxcc select
 
-		$data['page_title'] = "DX Atlas Gridsquare Export";
+		$data['page_title'] = __("DX Atlas Gridsquare Export");
 
 		$this->load->view('interface_assets/header', $data);
 		$this->load->view('dxatlas/index');
@@ -26,7 +26,7 @@ class Dxatlas extends CI_Controller {
 
 	public function export()  {
 		$this->load->model('user_model');
-		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('notice', 'You\'re not allowed to do that!'); redirect('dashboard'); }
+		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$this->load->model('dxatlas_model');
 
@@ -48,7 +48,7 @@ class Dxatlas extends CI_Controller {
 
 	function generateFiles($wkdArray, $cfmArray, $band) {
 		$this->load->model('user_model');
-		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('notice', 'You\'re not allowed to do that!'); redirect('dashboard'); }
+		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$gridCfmArray = [];
 		$gridWkdArray = [];
@@ -105,7 +105,7 @@ class Dxatlas extends CI_Controller {
 
 	function makeZip($gridWkdString, $gridCfmString, $band) {
 		$this->load->model('user_model');
-		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('notice', 'You\'re not allowed to do that!'); redirect('dashboard'); }
+		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		$zipFileName = 'dxatlas_gridsquares_'. $band . '.zip';
 		// Prepare File
 		$file = tempnam(".", "zip");

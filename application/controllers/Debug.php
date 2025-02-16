@@ -7,7 +7,7 @@ class Debug extends CI_Controller
 
 		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
-			$this->session->set_flashdata('notice', 'You\'re not allowed to do that!');
+			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
 		}
 
@@ -18,25 +18,68 @@ class Debug extends CI_Controller
 	public function index() {
 		$this->load->helper('file');
 
-		$this->load->model('MigrationVersion');
 		$this->load->model('Logbook_model');
+		$this->load->model('Debug_model');
 		$this->load->model('Stations');
+		$this->load->model('cron_model');
+		$this->load->model('Update_model');
 
 		$footerData = [];
 		$footerData['scripts'] = ['assets/js/sections/debug.js'];
 
+		// Get Custom Date format
+		if ($this->session->userdata('user_date_format')) {
+			$custom_date_format = $this->session->userdata('user_date_format');
+		} else {
+			$custom_date_format = $this->config->item('qso_date_format');
+		}
+		$data['system_time'] = date($custom_date_format . " H:i:s", time());
+
+		$data['running_version'] = $this->optionslib->get_option('version');
+		$data['latest_release'] = $this->optionslib->get_option('latest_release');
+
+		$data['newer_version_available'] = false;
+		if (!$this->config->item('disable_version_check') ?? false) {
+			$this->Update_model->update_check(true);
+			if ($data['latest_release'] && version_compare($data['latest_release'], $data['running_version'], '>')) {
+				$data['newer_version_available'] = true;
+			}
+		}
+
 		$data['stations'] = $this->Stations->all();
+
+		$data['qso_total'] = $this->Debug_model->count_all_qso();
+		$data['users_total'] = $this->Debug_model->count_users();
+		$data['available_languages'] = $this->config->item('languages');
 
 		$data['qsos_with_no_station_id'] = $this->Logbook_model->check_for_station_id();
 		if ($data['qsos_with_no_station_id']) {
-			$data['calls_wo_sid'] = $this->Logbook_model->calls_without_station_id();
+			$data['calls_wo_sid'] = $this->Debug_model->calls_without_station_id();
 		}
 
-		$data['migration_version'] = $this->MigrationVersion->getMigrationVersion();
+		// get mig version from database
+		$data['migration_version'] = $this->Debug_model->getMigrationVersion();
+
+		// get mig version from config file
+		$this->load->config('migration');
+		$data['migration_config'] = $this->config->item('migration_version');
+		$data['migration_lockfile'] = $this->config->item('migration_lockfile');
+		$data['miglock_lifetime'] = $this->config->item('migration_lf_maxage');
+
+		// compare mig versions
+		if ($data['migration_version'] != $data['migration_config'] && file_exists($data['migration_lockfile'])) {
+			$data['migration_is_uptodate'] = false;
+		} else {
+			$data['migration_is_uptodate'] = true;
+		}
 
 		// Test writing to backup folder
 		$backup_folder = $this->permissions->is_really_writable('backup');
 		$data['backup_folder'] = $backup_folder;
+
+		// Test writing to cache folder
+		$cache_folder = $this->permissions->is_really_writable('application/cache');
+		$data['cache_folder'] = $cache_folder;
 
 		// Test writing to updates folder
 		$updates_folder = $this->permissions->is_really_writable('updates');
@@ -60,7 +103,16 @@ class Debug extends CI_Controller
 			$data['userdata_status'] = $userdata_status;
 		}
 
-		$data['page_title'] = "Debug";
+		$data['dxcc_update'] = $this->cron_model->cron('update_dxcc')->row();
+		$data['dok_update'] = $this->cron_model->cron('update_update_dok')->row();
+		$data['lotw_user_update'] = $this->cron_model->cron('update_lotw_users')->row();
+		$data['pota_update'] = $this->cron_model->cron('update_update_pota')->row();
+		$data['scp_update'] = $this->cron_model->cron('update_update_clublog_scp')->row();
+		$data['sota_update'] = $this->cron_model->cron('update_update_sota')->row();
+		$data['wwff_update'] = $this->cron_model->cron('update_update_wwff')->row();
+		$data['tle_update'] = $this->cron_model->cron('update_update_tle')->row();
+
+		$data['page_title'] = __("Debug");
 
 		$this->load->view('interface_assets/header', $data);
 		$this->load->view('debug/index');
@@ -99,23 +151,23 @@ class Debug extends CI_Controller
 				if (!empty($qsl_files_filtered) || !empty($eqsl_files_filtered)) {
 					if (!$flag_file) {
 						$status['btn_class'] = '';
-						$status['btn_text'] = 'Migrate data now';
+						$status['btn_text'] = __("Migrate data now");
 					} else {
 						$status['btn_class'] = '';
-						$status['btn_text'] = 'Migration already done. Run again?';
+						$status['btn_text'] = __("Migration already done. Run again?");
 					}
 				} else {
 					$status['btn_class'] = 'disabled';
-					$status['btn_text'] = 'No data to migrate';
+					$status['btn_text'] = __("No data to migrate");
 				}
 			} else {
 				$status['btn_class'] = 'disabled';
-				$status['btn_text'] = 'No migration possible';
+				$status['btn_text'] = __("No migration possible");
 			}
 		} else {
 			// If the folder is not writable, we don't need to continue
 			$status['btn_class'] = 'disabled';
-			$status['btn_text'] = 'No migration possible';
+			$status['btn_text'] = __("No migration possible");
 		}
 
 		return $status;
@@ -150,38 +202,83 @@ class Debug extends CI_Controller
 		return;
 	}
 
-	public function selfupdate() { 
-		if (file_exists('.git')) {
-			try {
-				$st=exec('touch '.realpath(APPPATH.'../').'/.maintenance');
-				$st=exec('git stash push --include-untracked');
-				$st=exec('git fetch');
-				$st=exec('git pull');
-				$st=exec('git stash pop');
-				$st=exec('rm '.realpath(APPPATH.'../').'/.maintenance');
-               		} catch (\Throwable $th) {
-				log_message("Error","Error at selfupdating");
+	public function selfupdate() {
+
+		$stashfile = realpath(APPPATH.'../').'/.updater';
+		$maintenancefile = realpath(APPPATH.'../').'/.maintenance';
+
+		if (function_usable('exec')) {
+			if (file_exists('.git')) {
+				try {
+					// enter maintenance mode
+					exec('touch '.$maintenancefile);
+					log_message('debug', 'Updater: Entered Maintenance mode by creating .maintenance file');
+
+					// we need atleast one file which gets stashed. this file should NOT be in .gitignore
+					exec('touch '.$stashfile);
+					log_message('debug', 'Updater: Created stashfile');
+
+					// stash everything else
+					exec('git stash push --include-untracked');
+					log_message('debug', 'Updater: Stash everything');
+
+					// perform the pull
+					exec('git fetch');
+					exec('git pull');
+					log_message('debug', 'Updater: git fetch and git pull');
+
+					// we can now pop all other changes
+					exec('git stash pop');
+					log_message('debug', 'Updater: Pop stashed changes');
+
+					// Show success message
+					$this->session->set_flashdata('success', __("Wavelog was updated successfully!"));
+
+					} catch (\Throwable $th) {
+					log_message("Error","Error at selfupdating");
+				}
 			}
+			// delete the stash file
+			if(file_exists($stashfile)) {
+				exec('rm '.$stashfile);
+				log_message('debug', 'Updater: Delete stashfile');
+			}
+			// exit maintenance mode
+			if(file_exists($maintenancefile)) {
+				exec('rm '.$maintenancefile);
+				log_message('debug', 'Updater: Delete .maintenance file to exit Maintenance Mode');
+			}
+		} else {
+			log_message('error', 'function exec() not available. Debug Controller selfupdate()');
+			$this->session->set_flashdata('error', __("Selfupdate() not available. Check the Error Log."));
 		}
 		redirect('debug');
 	}
 
 	public function wavelog_fetch() {
 		$a_versions=[];
-		try {
-			$st=exec('git fetch');	// Fetch latest things from Repo. ONLY Fetch. Doesn't hurt since it isn't a pull!
-                        $versions['branch'] = trim(exec('git rev-parse --abbrev-ref HEAD')); // Get ONLY Name of the Branch we're on
-			$versions['latest_commit_hash']=substr(trim(exec('git log --pretty="%H" -n1 origin'.'/'.$versions['branch'])),0,8);	// fetch latest commit-hash from repo
-		}  catch (Exception $e) {
-			$versions['latest_commit_hash']='';
-			$versions['branch']='';
+		if (function_usable('exec')) {
+			try {
+				$st=exec('git fetch');	// Fetch latest things from Repo. ONLY Fetch. Doesn't hurt since it isn't a pull!
+							$versions['branch'] = trim(exec('git rev-parse --abbrev-ref HEAD')); // Get ONLY Name of the Branch we're on
+				$versions['latest_commit_hash']=substr(trim(exec('git log --pretty="%H" -n1 origin'.'/'.$versions['branch'])),0,8);	// fetch latest commit-hash from repo
+			}  catch (Exception $e) {
+				$versions['latest_commit_hash']='';
+				$versions['branch']='';
+			}
+		} else {
+			log_message('error', 'wavelog_fetch() not available. Function exec() not usable.');
 		}
 		header('Content-Type: application/json');
 		echo json_encode($versions);
 	}
 
 	public function wavelog_version() {
-		$commit_hash=substr(trim(exec('git log --pretty="%H" -n1 HEAD')),0,8);	// Get latest LOCAL Hash
+		if (function_usable('exec')) {
+			$commit_hash=substr(trim(exec('git log --pretty="%H" -n1 HEAD')),0,8);	// Get latest LOCAL Hash
+		} else {
+			log_message('error', 'wavelog_version() not available. Function exec() not usable.');
+		}
 		header('Content-Type: application/json');
 		echo json_encode($commit_hash);
 	}
@@ -197,10 +294,10 @@ class Debug extends CI_Controller
 			$migrate = $this->debug_model->migrate_userdata();
 
 			if ($migrate == true) {
-				$this->session->set_flashdata('success', 'File Migration was successfull, but please check also manually. If everything seems right you can delete the folders "assets/qslcard" and "images/eqsl_card_images".');
+				$this->session->set_flashdata('success', __("File Migration was successfull, but please check also manually. If everything seems right you can delete the folders 'assets/qslcard' and 'images/eqsl_card_images'."));
 				redirect('debug');
 			} else {
-				$this->session->set_flashdata('error', 'File Migration failed. Please check the Error Log.');
+				$this->session->set_flashdata('error', __("File Migration failed. Please check the Error Log."));
 				redirect('debug');
 			}
 		}
