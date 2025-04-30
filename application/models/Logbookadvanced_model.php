@@ -319,7 +319,8 @@ class Logbookadvanced_model extends CI_Model {
 		}
 
 		if ($searchCriteria['contest'] !== '*' && $searchCriteria['contest'] !== '') {
-			$conditions[] = "COL_CONTEST_ID like ?";
+			$conditions[] = "(COL_CONTEST_ID like ? OR contest.name like ?)";
+			$binding[] = '%'.$searchCriteria['contest'].'%';
 			$binding[] = '%'.$searchCriteria['contest'].'%';
 		}
 
@@ -370,7 +371,7 @@ class Logbookadvanced_model extends CI_Model {
 			SELECT qsos.*, dxcc_entities.*, lotw_users.*, station_profile.*, satellite.*, dxcc_entities.name as dxccname, mydxcc.name AS station_country, exists(select 1 from qsl_images where qsoid = qsos.COL_PRIMARY_KEY) as qslcount, coalesce(contest.name, qsos.col_contest_id) as contestname
 			FROM " . $this->config->item('table_name') . " qsos
 			INNER JOIN station_profile ON qsos.station_id=station_profile.station_id
-			LEFT OUTER JOIN satellite ON qsos.COL_SAT_NAME = satellite.name
+			LEFT OUTER JOIN satellite ON qsos.col_prop_mode='SAT' and qsos.COL_SAT_NAME = COALESCE(NULLIF(satellite.name, ''), NULLIF(satellite.displayname, ''))
 			LEFT OUTER JOIN dxcc_entities ON qsos.col_dxcc = dxcc_entities.adif
 			left outer join dxcc_entities mydxcc on qsos.col_my_dxcc = mydxcc.adif
 			LEFT OUTER JOIN lotw_users ON qsos.col_call = lotw_users.callsign
@@ -442,13 +443,18 @@ class Logbookadvanced_model extends CI_Model {
 			return 'ORDER BY qsos.COL_TIME_ON desc';
 		} else {
 			$sortorder = explode(',', $sortorder);
+			if (strtoupper($sortorder[1] ?? '') == 'ASC') {
+				$sortorder[1]='asc';
+			} else {
+				$sortorder[1]='desc';
+			}
 
 			if ($this->session->userdata('user_lotw_name') != "" && $this->session->userdata('user_eqsl_name') != ""){
 				switch($sortorder[0]) {
 					case 1: return 'ORDER BY qsos.COL_TIME_ON ' . $sortorder[1];
 					case 2: return 'ORDER BY station_profile.station_callsign ' . $sortorder[1];
 					case 3: return 'ORDER BY qsos.COL_CALL ' . $sortorder[1];
-					case 4: return 'ORDER BY qsos.COL_MODE' .  $sortorder[1] . ', qsos.COL_SUBMODE ' . $sortorder[1];
+					case 4: return 'ORDER BY qsos.COL_MODE ' .  $sortorder[1] . ', qsos.COL_SUBMODE ' . $sortorder[1];
 					case 7: return 'ORDER BY qsos.COL_BAND ' . $sortorder[1] . ', qsos.COL_SAT_NAME ' . $sortorder[1];
 					case 16: return 'ORDER BY qsos.COL_COUNTRY ' . $sortorder[1];
 					case 17: return 'ORDER BY qso.COL_STATE ' . $sortorder[1];
@@ -463,7 +469,7 @@ class Logbookadvanced_model extends CI_Model {
 					case 1: return 'ORDER BY qsos.COL_TIME_ON ' . $sortorder[1];
 					case 2: return 'ORDER BY station_profile.station_callsign ' . $sortorder[1];
 					case 3: return 'ORDER BY qsos.COL_CALL ' . $sortorder[1];
-					case 4: return 'ORDER BY qsos.COL_MODE' .  $sortorder[1] . ', qsos.COL_SUBMODE ' . $sortorder[1];
+					case 4: return 'ORDER BY qsos.COL_MODE ' .  $sortorder[1] . ', qsos.COL_SUBMODE ' . $sortorder[1];
 					case 7: return 'ORDER BY qsos.COL_BAND ' . $sortorder[1] . ', qsos.COL_SAT_NAME ' . $sortorder[1];
 					case 15: return 'ORDER BY qsos.COL_COUNTRY ' . $sortorder[1];
 					case 16: return 'ORDER BY qso.COL_STATE ' . $sortorder[1];
@@ -478,7 +484,7 @@ class Logbookadvanced_model extends CI_Model {
 					case 1: return 'ORDER BY qsos.COL_TIME_ON ' . $sortorder[1];
 					case 2: return 'ORDER BY station_profile.station_callsign ' . $sortorder[1];
 					case 3: return 'ORDER BY qsos.COL_CALL ' . $sortorder[1];
-					case 4: return 'ORDER BY qsos.COL_MODE' .  $sortorder[1] . ', qsos.COL_SUBMODE ' . $sortorder[1];
+					case 4: return 'ORDER BY qsos.COL_MODE ' .  $sortorder[1] . ', qsos.COL_SUBMODE ' . $sortorder[1];
 					case 7: return 'ORDER BY qsos.COL_BAND ' . $sortorder[1] . ', qsos.COL_SAT_NAME ' . $sortorder[1];
 					case 14: return 'ORDER BY qsos.COL_COUNTRY ' . $sortorder[1];
 					case 15: return 'ORDER BY qso.COL_STATE ' . $sortorder[1];
@@ -537,7 +543,7 @@ class Logbookadvanced_model extends CI_Model {
 		}
 	}
 
-	public function updateQsoWithCallbookInfo($qsoID, $qso, $callbook) {
+	public function updateQsoWithCallbookInfo($qsoID, $qso, $callbook, $station_gridsquare = null) {
 		$updatedData = array();
 		$updated = false;
 		if (!empty($callbook['name']) && empty($qso['COL_NAME'])) {
@@ -547,8 +553,20 @@ class Logbookadvanced_model extends CI_Model {
 		if (!empty($callbook['gridsquare']) && empty($qso['COL_GRIDSQUARE']) && empty($qso['COL_VUCC_GRIDS'] )) {
 			if (strpos(trim($callbook['gridsquare']), ',') === false) {
 				$updatedData['COL_GRIDSQUARE'] = strtoupper(trim($callbook['gridsquare']));
+				if ($station_gridsquare != null && $station_gridsquare != '') {
+					if (!$this->load->is_loaded('Qra')) {
+						$this->load->library('Qra');
+					}
+					$updatedData['COL_DISTANCE'] = $this->qra->distance($station_gridsquare, strtoupper(trim($callbook['gridsquare'])), 'K');
+				}
 			} else {
 				$updatedData['COL_VUCC_GRIDS'] = strtoupper(trim($callbook['gridsquare']));
+				if ($station_gridsquare != null && $station_gridsquare != '') {
+					if (!$this->load->is_loaded('Qra')) {
+						$this->load->library('Qra');
+					}
+					$updatedData['COL_DISTANCE'] = $this->qra->distance($station_gridsquare, strtoupper(trim($callbook['gridsquare'])), 'K');
+				}
 			}
 			$updated = true;
 		}

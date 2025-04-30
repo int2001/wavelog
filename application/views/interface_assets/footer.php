@@ -1060,6 +1060,7 @@ $($('#callsign')).on('keypress',function(e) {
 <?php if ($this->uri->segment(1) == "qso") { ?>
 
 <script src="<?php echo base_url() ;?>assets/js/sections/qso.js"></script>
+<script src="<?php echo base_url() ;?>assets/js/sections/satellite_functions.js"></script>
 <script src="<?php echo base_url() ;?>assets/js/bootstrap-multiselect.js"></script>
 <?php if ($this->session->userdata('isWinkeyEnabled')) { ?>
 	<script src="<?php echo base_url() ;?>assets/js/winkey.js"></script>
@@ -1311,7 +1312,7 @@ $($('#callsign')).on('keypress',function(e) {
 						    if (data.error == 'not_logged_in') {
 							    $(".radio_cat_state" ).remove();
 							    if($('.radio_login_error').length == 0) {
-								    $('.qso_panel').prepend('<div class="alert alert-danger radio_login_error" role="alert"><i class="fas fa-broadcast-tower"></i> ' + '<?= sprintf(__("You're not logged in. Please %slogin%s"), '<a href="' . base_url() . '">', '</a>'); ?>' + '</div>');
+								    $('.qso_panel').prepend('<div class="alert alert-danger radio_login_error" role="alert"><i class="fas fa-broadcast-tower"></i> ' + "<?= sprintf(__("You're not logged in. Please %slogin%s"), '<a href=\"' . base_url() . '\">', '</a>'); ?>" + '</div>');
 							    }
 						    }
 						    // Put future Errorhandling here

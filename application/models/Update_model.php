@@ -238,6 +238,7 @@ class Update_model extends CI_Model {
             return "Something went wrong with fetching the LoTW uses file";
         }
         $this->db->empty_table("lotw_users");
+        $this->db->query("ALTER TABLE lotw_users AUTO_INCREMENT 1");
         $i = 0;
         $data = fgetcsv($handle, 1000, ",");
         do {
@@ -315,10 +316,11 @@ class Update_model extends CI_Model {
 		$this->load->model('cron_model');
 		$this->cron_model->set_last_run($this->router->class . '_' . $this->router->method);
 		$mtime = microtime();
-        $mtime = explode(" ",$mtime);
-        $mtime = $mtime[1] + $mtime[0];
-        $starttime = $mtime;
+		$mtime = explode(" ",$mtime);
+		$mtime = $mtime[1] + $mtime[0];
+		$starttime = $mtime;
 
+		$this->update_norad_ids();
 		$url = 'https://www.amsat.org/tle/dailytle.txt';
 		$curl = curl_init($url);
 
@@ -344,18 +346,18 @@ class Update_model extends CI_Model {
 				// Check if there are at least three lines remaining
 				if (isset($lines[$i], $lines[$i + 1], $lines[$i + 2])) {
 					// Get the three lines
-					$satname = $lines[$i];
+					$satname = substr($lines[$i+1], 2, 5);
 					$tleline1 = $lines[$i + 1];
 					$tleline2 = $lines[$i + 2];
 					$sql = "
 					INSERT INTO tle (satelliteid, tle)
 					SELECT id, ?
 					FROM satellite
-					WHERE name = ? OR displayname = ?
+					WHERE norad_id = ?
 					ON DUPLICATE KEY UPDATE
 					tle = VALUES(tle), updated = now()
 				";
-				$this->db->query($sql, array($tleline1 . "\n" . $tleline2, $satname, $satname));
+				$this->db->query($sql, array($tleline1 . "\n" . $tleline2, $satname));
 				}
 			}
 		}
@@ -418,6 +420,10 @@ class Update_model extends CI_Model {
 					$this->db->update('satellite');
 					if ($this->db->affected_rows() > 0) {
 						$status = __('SAT already existing. LoTW status updated.');
+						$updateresult = $this->reset_lotw_qsl_fields($name, $existingSats["$name"][1]);
+						if ($updateresult > 0) {
+							$status .= ' '.sprintf(_ngettext('LoTW status for %d QSO updated', 'LoTW status for %d QSOs updated', intval($updateresult)), intval($updateresult));
+						}
 					} else {
 						$status = __('SAT already existing. Updating LoTW status failed.');
 					}
@@ -442,6 +448,12 @@ class Update_model extends CI_Model {
 				);
 				if ($this->db->insert('satellite', $data)) {
 					$status = __('New SAT. Inserted.');
+					if (array_key_exists($name, $existingSats)) {
+						$updateresult = $this->reset_lotw_qsl_fields($data['name'], $existingSats["$name"][1]);
+						if ($updateresult > 0) {
+							$status .= ' '.sprintf(_ngettext('LoTW status for %d QSO updated', 'LoTW status for %d QSOs updated', intval($updateresult)), intval($updateresult));
+						}
+					}
 				} else {
 					$status = __('New SAT. Insert failed.');
 				}
@@ -449,6 +461,89 @@ class Update_model extends CI_Model {
 			array_push($result, array('name' => $name, 'displayname' => $displayname, 'startDate' => $startDate, 'endDate' => $endDate, 'status' => $status));
 		}
 		return $result;
-	 }
+	}
+
+	function reset_lotw_qsl_fields($satname = null, $displayname = null) {
+		if (isset($satname) && $satname != '' && isset($displayname) && $displayname != '') {
+			$sql = "UPDATE ".$this->config->item('table_name')." SET COL_LOTW_QSL_SENT = 'N', COL_LOTW_QSL_RCVD = 'N', COL_LOTW_QSLSDATE = NULL, COL_LOTW_QSLRDATE = NULL, COL_SAT_NAME = ? WHERE COL_SAT_NAME = ? AND COL_PROP_MODE = 'SAT' AND COL_LOTW_QSL_SENT = 'I' AND COL_LOTW_QSL_RCVD = 'I';";
+			$this->db->query($sql, array($satname, $displayname));
+			return $this->db->affected_rows();
+		} else {
+			return 0;
+		}
+	}
+
+	function update_norad_ids() {
+		$csvfile = 'https://www.df2et.de/cqrlog/lotw_norad.csv';
+		$csvhandle = fopen($csvfile, "r");
+		while (false !== ($data = fgetcsv($csvhandle, 1000, ","))) {
+			$this->db->set('norad_id', $data[1]);
+			$this->db->where('name', $data[0]);
+			$this->db->update('satellite');
+		}
+		return;
+	}
+
+	function update_hams_of_note() {
+		if (($this->optionslib->get_option('hon_url') ?? '') == '') {
+			$file = 'https://api.ham2k.net/data/ham2k/hams-of-note.txt';
+		} else {
+			$file = $this->optionslib->get_option('hon_url');
+		}
+		$result = array();
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $file);
+		curl_setopt($ch, CURLOPT_HEADER, false);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+		curl_setopt($ch, CURLOPT_USERAGENT, 'Wavelog Updater');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response = curl_exec($ch);
+		$http_result = curl_getinfo($ch);
+		curl_close($ch);
+		if ($http_result['http_code'] == "200") {
+			$lines = explode("\n", $response);
+			if (count($lines) > 0) {	// Check if there was data, otherwise skip parsing / truncating the table and preserve whats there
+				$this->db->empty_table("hams_of_note");
+				$this->db->query("ALTER TABLE hams_of_note AUTO_INCREMENT 1");
+				$i = 0;
+				foreach($lines as $data) {
+					$line = trim($data);
+					if ($line != "" && $line[0] != '#') {
+						$index = strpos($line, ' ');
+						$call = $this->security->xss_clean(substr($line, 0, $index));
+						if (preg_match('/[^a-zA-Z0-9\/]/', $call)) {
+							continue;
+						}
+						$name = $this->security->xss_clean(substr($line, strpos($line, ' ')));
+						$linkname = $link = null;
+						if (strpos($name, '[')) {
+							$linkname = $this->security->xss_clean(substr($name, strpos($name, '[')+1, (strpos($name, ']') - strpos($name, '[')-1)));
+							$link= $this->security->xss_clean(substr($name, strpos($name, '(')+1, (strpos($name, ')') - strpos($name, '(')-1)));
+							$name = substr($name, 0, strpos($name, '['));
+						}
+						array_push($result, array('callsign' => $call, 'name' => $name, 'linkname' => $linkname, 'link' => $link));
+						$hon[$i]['callsign'] = $call;
+						$hon[$i]['description'] = $name;
+						$hon[$i]['linkname'] = $linkname;
+						$hon[$i]['link'] = $link;
+						$i++;
+						if (($i % 100) == 0) {
+							$this->db->insert_batch('hams_of_note', $hon);
+							unset($hon);
+							$i=0;	// reset $i to see if there's something more at the end
+						}
+					}
+				}
+				if ($i>0) {	// Leftovers?
+					$this->db->insert_batch('hams_of_note', $hon);
+				}
+			} else {
+				$result=null;
+			}
+		} else {
+			$result=null;
+		}
+		return $result;
+	}
 
 }
