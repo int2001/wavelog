@@ -1065,6 +1065,9 @@ class Logbookadvanced_model extends CI_Model {
 		} else if ($column == 'COL_DISTANCE' && $value == '') {
 			$this->update_distances($ids);
 			$skipqrzupdate = true;
+		} else if ($column == 'COL_DARC_DOK') {
+			$sql = "UPDATE ".$this->config->item('table_name')." JOIN station_profile ON ".$this->config->item('table_name').".station_id = station_profile.station_id SET " . $this->config->item('table_name').".".$column . " = ? WHERE " . $this->config->item('table_name').".col_primary_key in ? and station_profile.user_id = ?";
+			$query = $this->db->query($sql, array(strtoupper($value), json_decode($ids, true), $this->session->userdata('user_id')));
 		} else {
 
 			$sql = "UPDATE ".$this->config->item('table_name')." JOIN station_profile ON ".$this->config->item('table_name').".station_id = station_profile.station_id SET " . $this->config->item('table_name').".".$column . " = ? WHERE " . $this->config->item('table_name').".col_primary_key in ? and station_profile.user_id = ?";
