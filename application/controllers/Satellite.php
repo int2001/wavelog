@@ -52,7 +52,7 @@ class Satellite extends CI_Controller {
 		];
 
 		// Render Page
-		$pageData['page_title'] = "Satellites";
+		$pageData['page_title'] = __("Satellites");
 		$this->load->view('interface_assets/header', $pageData);
 		$this->load->view('satellite/index');
 		$this->load->view('interface_assets/footer', $footerData);
@@ -148,9 +148,9 @@ class Satellite extends CI_Controller {
 		$id 						= $this->security->xss_clean($this->input->post('id'));
 		$satmode['name'] 			= $this->security->xss_clean($this->input->post('name'));
 		$satmode['uplink_mode'] 	= $this->security->xss_clean($this->input->post('uplink_mode'));
-		$satmode['uplink_freq'] 	= $this->security->xss_clean($this->input->post('uplink_freq'));
+		$satmode['uplink_freq'] 	= filter_var($this->security->xss_clean($this->input->post('uplink_freq')),FILTER_VALIDATE_INT);
 		$satmode['downlink_mode'] 	= $this->security->xss_clean($this->input->post('downlink_mode'));
-		$satmode['downlink_freq'] 	= $this->security->xss_clean($this->input->post('downlink_freq'));
+		$satmode['downlink_freq'] 	= filter_var($this->security->xss_clean($this->input->post('downlink_freq')),FILTER_VALIDATE_INT);;
 
 		$this->load->model('satellite_model');
 		$this->satellite_model->saveSatelliteMode($id, $satmode);
@@ -210,7 +210,7 @@ class Satellite extends CI_Controller {
 		$pageData['latlng'] = $this->qra->qra2latlong($homegrid[0]);
 		$pageData['homegrid'] = $homegrid[0];
 		// Render Page
-		$pageData['page_title'] = "Satellite Flightpath";
+		$pageData['page_title'] = __("Satellite Flightpath");
 		$this->load->view('interface_assets/header', $pageData);
 		$this->load->view('satellite/flightpath', $data);
 		$this->load->view('interface_assets/footer', $footerData);
@@ -248,11 +248,12 @@ class Satellite extends CI_Controller {
 
 		$footerData = [];
 		$footerData['scripts'] = [
+			'assets/js/bootstrap-multiselect.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/bootstrap-multiselect.js")),
 			'assets/js/sections/satpasses.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/satpasses.js")),
 		];
 
 		// Render Page
-		$pageData['page_title'] = "Satellite pass";
+		$pageData['page_title'] = __("Satellite pass");
 		$this->load->view('interface_assets/header', $pageData);
 		$this->load->view('satellite/pass');
 		$this->load->view('interface_assets/footer', $footerData);
@@ -266,11 +267,7 @@ class Satellite extends CI_Controller {
 			$date = $this->security->xss_clean($this->input->post('date'));
 			$mintime = $this->security->xss_clean($this->input->post('mintime'));
 			$minelevation = $this->security->xss_clean($this->input->post('minelevation'));
-			if (($this->security->xss_clean($this->input->post('sat')) ?? '') != '') {	// specific SAT
-				$data = $this->calcPass($tles[0], $yourgrid, $date, $mintime, $minelevation);
-			} else {	// All SATs
-				$data = $this->calcPasses($tles, $yourgrid, $date, $mintime,$minelevation);
-			}
+			$data = $this->calcPasses($tles, $yourgrid, $date, $mintime,$minelevation);
 
 			$this->load->view('satellite/passtable', $data);
 		}
@@ -284,7 +281,7 @@ class Satellite extends CI_Controller {
 
 		try {
 			$tle = $this->get_tle_for_predict();
-			$this->calcSkedPass($tle[0]);
+			$this->calcSkedPasses($tle);
 		}
 		catch (Exception $e) {
 			header("Content-type: application/json");
@@ -292,18 +289,108 @@ class Satellite extends CI_Controller {
 		}
 	}
 
-	public function get_tle_for_predict() {
+	public function savePassSettings() {
 
-		$input_sat = $this->security->xss_clean($this->input->post('sat'));
-		$this->load->model('satellite_model');
-		$tles=[];
-		if (($input_sat ?? '') == '') {
-			$satellites = $this->satellite_model->get_all_satellites_with_tle();
-			foreach ($satellites as $sat) {
-				$tles[]=$this->satellite_model->get_tle($sat->satname);
+		$settings = [];
+		$msg = [];
+
+		$settings['name']         	= $this->input->post('setting_name', true);
+		$settings['minelevation']  	= $this->input->post('minelevation', true);
+		$settings['minazimuth']    	= $this->input->post('minazimuth', true);
+		$settings['maxazimuth']    	= $this->input->post('maxazimuth', true);
+		$settings['grid']          	= $this->input->post('grid', true);
+		$settings['sat']           	= $this->input->post('sat', true);
+
+		$settings['sked_minelevation'] 	= $this->input->post('sked_minelevation', true) ?? '';
+		$settings['sked_minazimuth']   	= $this->input->post('sked_minazimuth', true) ?? '';
+		$settings['sked_maxazimuth']  	= $this->input->post('sked_maxazimuth', true) ?? '';
+		$settings['sked_grid']         	= $this->input->post('sked_grid', true) ?? '';
+
+		$settings_id  				= md5($settings['name']);
+		if(!$this->user_options_model->set_option('sat_pass_settings', $settings_id, array('data' => json_encode($settings)))) {
+			log_message('error', 'Failed to save pass settings; User: '.$this->session->userdata('user_id').'; Settings: '.json_encode($settings));
+			$msg['ok'] = 'Error';
+			$msg['message'] = __("Failed to save pass settings!");
+		} else {
+			$msg['ok'] = 'OK';
+			$msg['message'] = __("Pass settings saved!");
+		}
+
+		header('Content-Type: application/json');
+		echo json_encode($msg);
+	}
+
+	public function loadPassSettings() {
+
+		$settings_id = $this->input->post('settings_id', true) ?? '';
+		$settings = $this->user_options_model->get_options('sat_pass_settings', array('option_name' => $settings_id))->row();
+
+		if ($settings == false) {
+			echo json_encode(array('ok' => 'Error', 'message' => __("No settings found!")));
+			return;
+		}
+
+		header('Content-Type: application/json');
+		echo json_encode($settings->option_value);
+	}
+
+	public function delPassSettings() {
+
+		$settings_id = $this->input->post('settings_id', true);
+
+		if(!$this->user_options_model->del_option('sat_pass_settings', $settings_id)) {
+			log_message('error', 'Failed to delete pass settings; User: '.$this->session->userdata('user_id').'; settings id: '.$settings_id);
+			echo json_encode(array('ok' => 'Error', 'message' => __("Failed to delete pass settings!")));
+		} else {
+			echo json_encode(array('ok' => 'OK', 'message' => __("Pass settings deleted!")));
+		}
+	}
+
+	public function getPassSettingsList() {
+
+		$sat_pass_settings = $this->user_options_model->get_options('sat_pass_settings', null, $this->session->userdata('user_id'))->result();
+
+		$r = '';
+		if (!empty($sat_pass_settings)) {
+			$r .= '<li class="dropdown-header">'.__("Saved Pass Settings").'</li>';
+			foreach ($sat_pass_settings as $setting) {
+				$value = json_decode($setting->option_value);
+				$settings_id  = $setting->option_name;
+
+				$r .= 	'<li>
+							<div class="dropdown-item d-flex justify-content-between align-items-center">
+								<button type="button" class="btn d-flex align-items-center" onclick="loadPassSettings(\''. $settings_id .'\')">
+									<i class="fas fa-download me-2"></i>'. $value->name .'
+								</button>
+								<button type="button" class="btn btn-sm bg-danger d-flex align-items-center" onclick="delPassSettings(\''. $settings_id .'\')">
+									<i class="fas fa-trash-alt"></i>
+								</button>
+							</div>
+						</li>';
 			}
 		} else {
-			$tles[]=$this->satellite_model->get_tle($input_sat);
+			$r .= '<li><p class="text-muted text-center">'.__("No presets available").'</p></li>';
+		}
+
+		echo $r;
+	}
+
+	public function get_tle_for_predict() {
+
+		$input_sat = (array) ($this->security->xss_clean($this->input->post('sat')) ?? []);
+		$this->load->model('satellite_model');
+		$tles=[];
+		$satellites = $this->satellite_model->get_all_satellites_with_tle();
+		foreach ($satellites as $sat) {			// Loop through known SATs
+			if ( (count($input_sat) > 0) && !((count($input_sat) == 1) && (($input_sat[0] ?? '') == '')) ) {		// User wants specific SATs (which isn't "All" or empty)??
+				if (in_array($sat->satname,$input_sat)) {
+					$tles[]=$this->satellite_model->get_tle($sat->satname);
+				} else {
+					continue;
+				}
+			} else {				// No specific SAT, but all
+				$tles[]=$this->satellite_model->get_tle($sat->satname);
+			}
 		}
 		return $tles;
 	}
@@ -344,6 +431,9 @@ class Satellite extends CI_Controller {
 
 		$filtered=[];
 		foreach ($sat_tles as $sat_tle) {
+			if ($sat_tle->tle == null) {
+				continue;
+			}
 			try {
 				$temp = preg_split('/\n/', $sat_tle->tle);
 
@@ -457,32 +547,39 @@ class Satellite extends CI_Controller {
 
 	}
 
-	function calcSkedPass($tle) {
+	function calcSkedPasses($tles) {
+		$overlaps=[];
+		foreach ($tles as $tle) {
 
-		$yourgrid = $this->security->xss_clean($this->input->post('yourgrid'));
-		$date = $this->security->xss_clean($this->input->post('date'));
-		$mintime = $this->security->xss_clean($this->input->post('mintime'));
-		$minelevation = $this->security->xss_clean($this->input->post('minelevation'));
+			$yourgrid = $this->security->xss_clean($this->input->post('yourgrid'));
+			$date = $this->security->xss_clean($this->input->post('date'));
+			$mintime = $this->security->xss_clean($this->input->post('mintime'));
+			$minelevation = $this->security->xss_clean($this->input->post('minelevation'));
 
-		$homePass =	$this->calcPass($tle, $yourgrid, $date, $mintime, $minelevation);
+			$homePass =	$this->calcPass($tle, $yourgrid, $date, $mintime, $minelevation);
 
-		$skedgrid = $this->security->xss_clean($this->input->post('skedgrid'));
-		$minskedelevation = $this->security->xss_clean($this->input->post('minskedelevation'));
+			$skedgrid = $this->security->xss_clean($this->input->post('skedgrid'));
+			$minskedelevation = $this->security->xss_clean($this->input->post('minskedelevation'));
 
-		$skedPass = $this->calcPass($tle, $skedgrid, $date, $mintime, $minskedelevation);
+			$skedPass = $this->calcPass($tle, $skedgrid, $date, $mintime, $minskedelevation);
 
-		// Get Date format
-		if ($this->session->userdata('user_date_format')) {
-			// If Logged in and session exists
-			$custom_date_format = $this->session->userdata('user_date_format');
-		} else {
-			// Get Default date format from /config/wavelog.php
-			$custom_date_format = $this->config->item('qso_date_format');
+			// Get Date format
+			if ($this->session->userdata('user_date_format')) {
+				// If Logged in and session exists
+				$custom_date_format = $this->session->userdata('user_date_format');
+			} else {
+				// Get Default date format from /config/wavelog.php
+				$custom_date_format = $this->config->item('qso_date_format');
+			}
+
+			$data['format'] = $custom_date_format . ' H:i:s';
+
+			array_push($overlaps, ...$this->findOverlaps($homePass, $skedPass));
 		}
-
-		$data['format'] = $custom_date_format . ' H:i:s';
-
-		$data['overlaps'] = $this->findOverlaps($homePass, $skedPass);
+		usort($overlaps, function($a, $b) {
+			return $a['grid1']->aos <=> $b['grid1']->aos;
+		});
+		$data['overlaps'] = $overlaps;
 		$data['yourgrid'] = $yourgrid;
 		$data['skedgrid'] = $skedgrid;
 		$data['date'] = $date;

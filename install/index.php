@@ -360,6 +360,7 @@ if (!file_exists('.lock') && !file_exists('../application/config/config.php') &&
 													<option value="hamqth" selected>HamQTH</option>
 													<option value="qrz">QRZ.com</option>
 													<option value="qrzcq">QRZCQ.com</option>
+													<option value="qrzru">QRZ.ru</option>
 												</select>
 											</div>
 											<div class="row">
@@ -1008,7 +1009,7 @@ if (!file_exists('.lock') && !file_exists('../application/config/config.php') &&
 												];
 
 												usort($timezones, function ($a, $b) {
-													return strcmp($a[1], $b[1]);
+													return floatval($a[1]) <=> floatval($b[1]);
 												});
 
 												// Loop through timezones to generate options

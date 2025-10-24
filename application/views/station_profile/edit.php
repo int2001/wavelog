@@ -43,7 +43,11 @@ if ($dxcc_list->result() > 0) {
 
 	<?php $this->load->helper('form'); ?>
 
-	<?php echo validation_errors(); ?>
+   <?php if(validation_errors()) { ?>
+      <div class="alert alert-danger">
+         <?php echo validation_errors(); ?>
+      </div>
+   <?php } ?>
 
 	<?php if($my_station_profile->station_id != NULL) {
 		$form_action = __("Update");
@@ -134,9 +138,9 @@ if ($dxcc_list->result() > 0) {
 
 					<!-- US County -->
 					<div class="mb-3" id="location_us_county">
-						<label for="stationCntyInput"><?= __("Station County"); ?></label>
+						<label for="stationCntyInputEdit"><?= __("Station County"); ?></label>
 						<input type="text" class="form-control" name="station_cnty" id="stationCntyInputEdit" aria-describedby="stationCntyInputHelp" value="<?php if(set_value('station_cnty') != "") { echo set_value('station_cnty'); } else { echo $my_station_profile->station_cnty; } ?>">
-						<small id="stationCntyInputHelp" class="form-text text-muted"><?= __("Station County (Only used for USA/Alaska/Hawaii)."); ?></small>
+						<small id="stationCntyInputHelp" class="form-text text-muted"><?= __("Station County (Only used for specific DXCCs)."); ?></small>
 					</div>
 				</div>
 			</div>
@@ -281,18 +285,18 @@ if ($dxcc_list->result() > 0) {
 	<div class="row">
 		<div class="col-md">
 			<div class="card">
-				<h5 class="card-header"><?= __("Signature"); ?></h5>
+				<h5 class="card-header"><?= __("Special Interest Group"); ?></h5>
 				<div class="card-body">
 					<div class="mb-3">
-						<label for="stationSigInput"><?= __("Signature Name"); ?></label>
+						<label for="stationSigInput"><?= __("Special Interest Group Name"); ?></label>
 						<input type="text" class="form-control uppercase" name="sig" id="stationSigInput" aria-describedby="stationSigInputHelp" value="<?php if(set_value('sig') != "") { echo set_value('sig'); } else { echo $my_station_profile->station_sig; } ?>">
-						<small id="stationSigInputHelp" class="form-text text-muted"><?= __("Station Signature (e.g. GMA).."); ?></small>
+						<small id="stationSigInputHelp" class="form-text text-muted"><?= __("Station Special Interest Group Name (e.g. GMA).."); ?></small>
 					</div>
 
 					<div class="mb-3">
-						<label for="stationSigInfoInput"><?= __("Signature Information"); ?></label>
+						<label for="stationSigInfoInput"><?= __("Special Interest Group Information"); ?></label>
 						<input type="text" class="form-control uppercase" name="sig_info" id="stationSigInfoInput" aria-describedby="stationSigInfoInputHelp" value="<?php if(set_value('sig_info') != "") { echo set_value('sig_info'); } else { echo $my_station_profile->station_sig_info; } ?>">
-						<small id="stationSigInfoInputHelp" class="form-text text-muted"><?= __("Station Signature Info (e.g. DA/NW-357)."); ?></small>
+						<small id="stationSigInfoInputHelp" class="form-text text-muted"><?= __("Station Special Interest Group Info (e.g. DA/NW-357)."); ?></small>
 					</div>
 				</div>
 			</div>
@@ -302,7 +306,7 @@ if ($dxcc_list->result() > 0) {
 	<div class="row">
 		<div class="col-md">
 			<div class="card">
-				<h5 class="card-header"><?= __("eQSL"); ?></h5>
+				<h5 class="card-header"><?= __("eQSL"); ?> <span class="badge text-bg-warning"><?= sprintf(__("Trouble? Check the %swiki%s."), '<a href="https://github.com/wavelog/wavelog/wiki/eQSL#read-common-pitfalls-with-eqsl" target="_blank">', '</a>'); ?></span></h5>
 				<div class="card-body">
 					<div class="mb-3">
 						<label for="eqslNickname"><?php echo _pgettext("Probably no translation needed","eQSL QTH Nickname"); ?></label> <!-- This does not need Multilanguage Support -->
@@ -394,7 +398,7 @@ if ($dxcc_list->result() > 0) {
 						<select class="form-select" id="hrdlogrealtime" name="hrdlogrealtime">
 							<option value="1" <?php if ($my_station_profile->hrdlogrealtime == 1) { echo " selected =\"selected\""; } ?>><?= __("Yes"); ?></option>
 							<option value="0" <?php if ($my_station_profile->hrdlogrealtime == 0) { echo " selected =\"selected\""; } ?>><?= __("No"); ?></option>
-							<option value="0" <?php if ($my_station_profile->hrdlogrealtime == -1) { echo " selected =\"selected\""; } ?>><?= __("Disabled"); ?></option>
+							<option value="-1" <?php if ($my_station_profile->hrdlogrealtime == -1) { echo " selected =\"selected\""; } ?>><?= __("Disabled"); ?></option>
 						</select>
 					</div>
 				</div>

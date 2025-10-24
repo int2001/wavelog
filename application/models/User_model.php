@@ -19,7 +19,7 @@ class User_Model extends CI_Model {
 		// Clean ID
 		$clean_username = $this->security->xss_clean($username);
 
-		$this->db->where('user_name', $clean_username);
+		$this->db->where('upper(user_name)', strtoupper($clean_username));
 		$r = $this->db->get($this->config->item('auth_table'));
 		return $r;
 	}
@@ -55,13 +55,21 @@ class User_Model extends CI_Model {
 		return $r;
 	}
 
+	// FUNCTION: object get_all_dcl_users
+	// Returns all users with dcl details
+	function get_all_dcl_users() {
+		$sql="SELECT distinct user_id from user_options where option_name='dcl_key' and option_key='key' and option_value is not null";
+		$resu=$this->db->query($sql);
+		return $resu->result();
+	}
+
 	// FUNCTION: object get_by_email($email)
 	// Retrieve a user by email address
 	function get_by_email($email) {
 
 		$clean_email = $this->security->xss_clean($email);
 
-		$this->db->where('user_email', $clean_email);
+		$this->db->where('upper(user_email)', strtoupper($clean_email));
 		$r = $this->db->get($this->config->item('auth_table'));
 		return $r;
 	}
@@ -180,7 +188,7 @@ class User_Model extends CI_Model {
 		// if there is a space it's probably a firstname + lastname search
 		if (strpos($query, ' ') !== false) {
 			$parts = explode(' ', $query, 2);
-	
+
 			$this->db->group_start();
 			$this->db->like('user_firstname', $parts[0]);
 			$this->db->or_like('user_lastname', $parts[0]);
@@ -205,7 +213,7 @@ class User_Model extends CI_Model {
 	// FUNCTION: bool add($username, $password, $email, $type)
 	// Add a user
 	// !!!!!!!!!!!!!!!!
-	// !! IMPORTANT NOTICE: Please inform DJ7NT and/or DF2ET when adding/removing/changing parameters here. 
+	// !! IMPORTANT NOTICE: Please inform DJ7NT and/or DF2ET when adding/removing/changing parameters here.
 	// !!!!!!!!!!!!!!!!
 	function add($username, $password, $email, $type, $firstname, $lastname, $callsign, $locator, $timezone,
 		$measurement, $dashboard_map, $user_date_format, $user_stylesheet, $user_qth_lookup, $user_sota_lookup, $user_wwff_lookup,
@@ -216,7 +224,7 @@ class User_Model extends CI_Model {
 		$user_wwff_to_qso_tab, $user_pota_to_qso_tab, $user_sig_to_qso_tab, $user_dok_to_qso_tab,
 		$user_lotw_name, $user_lotw_password, $user_eqsl_name, $user_eqsl_password, $user_clublog_name, $user_clublog_password,
 		$user_winkey, $on_air_widget_enabled, $on_air_widget_display_last_seen, $on_air_widget_show_only_most_recent_radio,
-		$qso_widget_display_qso_time, $clubstation = 0) {
+		$qso_widget_display_qso_time, $dashboard_banner,$dashboard_solar, $clubstation = 0) {
 		// Check that the user isn't already used
 		if(!$this->exists($username)) {
 			$data = array(
@@ -299,6 +307,8 @@ class User_Model extends CI_Model {
 			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'qso_tab','sig','show',".(xss_clean($user_sig_to_qso_tab ?? 'off') == "on" ? 1 : 0).");");
 			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'qso_tab','dok','show',".(xss_clean($user_dok_to_qso_tab ?? 'off') == "on" ? 1 : 0).");");
 			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'dashboard','show_map','boolean','".xss_clean($dashboard_map ?? 'Y')."');");
+			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'dashboard','show_dashboard_banner','boolean','".xss_clean($dashboard_banner ?? 'Y')."');");
+			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'dashboard','show_dashboard_solar','boolean','".xss_clean($dashboard_solar ?? 'Y')."');");
 			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'widget','on_air','enabled','".(xss_clean($on_air_widget_enabled ?? 'false'))."');");
 			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'widget','on_air','display_last_seen','".(xss_clean($on_air_widget_display_last_seen ?? 'false'))."');");
 			$this->db->query("insert into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $insert_id . ", 'widget','on_air','display_only_most_recent_radio','".(xss_clean($on_air_widget_show_only_most_recent_radio ?? 'true'))."');");
@@ -346,7 +356,7 @@ class User_Model extends CI_Model {
 					'user_amsat_status_upload' => xss_clean($fields['user_amsat_status_upload']),
 					'user_mastodon_url' => xss_clean($fields['user_mastodon_url']),
 					'user_default_band' => xss_clean($fields['user_default_band']),
-					'user_default_confirmation' => (isset($fields['user_default_confirmation_qsl']) ? 'Q' : '').(isset($fields['user_default_confirmation_lotw']) ? 'L' : '').(isset($fields['user_default_confirmation_eqsl']) ? 'E' : '').(isset($fields['user_default_confirmation_qrz']) ? 'Z' : '').(isset($fields['user_default_confirmation_clublog']) ? 'C' : ''),
+					'user_default_confirmation' => (isset($fields['user_default_confirmation_qsl']) ? 'Q' : '').(isset($fields['user_default_confirmation_lotw']) ? 'L' : '').(isset($fields['user_default_confirmation_eqsl']) ? 'E' : '').(isset($fields['user_default_confirmation_qrz']) ? 'Z' : '').(isset($fields['user_default_confirmation_clublog']) ? 'C' : '').(isset($fields['user_default_confirmation_dcl']) ? 'D' : ''),
 					'user_qso_end_times' => xss_clean($fields['user_qso_end_times']),
 					'user_quicklog' => xss_clean($fields['user_quicklog']),
 					'user_quicklog_enter' => xss_clean($fields['user_quicklog_enter']),
@@ -375,9 +385,13 @@ class User_Model extends CI_Model {
 				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'dashboard','last_qso_count','count','".$dashboard_last_qso_count."');");
 				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'qso_tab','last_qso_count','count','".$qso_page_last_qso_count."');");
 				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'dashboard','show_map','boolean','".xss_clean($fields['user_dashboard_map'] ?? 'Y')."');");
+				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'dashboard','show_dashboard_banner','boolean','".xss_clean($fields['user_dashboard_banner'] ?? 'Y')."');");
+				$this->db->query("replace into user_options (user_id, option_type, option_name, option_key, option_value) values (" . $fields['id'] . ", 'dashboard','show_dashboard_solar','boolean','".xss_clean($fields['user_dashboard_solar'] ?? 'N')."');");
 				$this->session->set_userdata('dashboard_last_qso_count', $dashboard_last_qso_count);
-				$this->session->set_userdata('qso_page_last_qso_count', $qso_page_last_qso_count);				
+				$this->session->set_userdata('qso_page_last_qso_count', $qso_page_last_qso_count);
 				$this->session->set_userdata('user_dashboard_map',xss_clean($fields['user_dashboard_map'] ?? 'Y'));
+				$this->session->set_userdata('user_dashboard_banner',xss_clean($fields['user_dashboard_banner'] ?? 'Y'));
+				$this->session->set_userdata('user_dashboard_solar',xss_clean($fields['user_dashboard_solar'] ?? 'N'));
 
 				// Check to see if the user is allowed to change user levels
 				if($this->session->userdata('user_type') == 99) {
@@ -521,6 +535,7 @@ class User_Model extends CI_Model {
 		$userdata = array(
 			'user_id'		 => $u->row()->user_id,
 			'user_name'		 => $u->row()->user_name,
+			'user_email'		 => $u->row()->user_email,
 			'user_type'		 => $u->row()->user_type,
 			'user_callsign'		 => $u->row()->user_callsign,
 			'operator_callsign'	 => ((($this->session->userdata('operator_callsign') ?? '') == '') ? $u->row()->user_callsign : $this->session->userdata('operator_callsign')),
@@ -534,6 +549,8 @@ class User_Model extends CI_Model {
 			'station_profile_id' => $this->session->userdata('station_profile_id') ?? '',
 			'user_measurement_base' => $u->row()->user_measurement_base,
 			'user_dashboard_map' => ((($this->session->userdata('user_dashboard_map') ?? 'Y') == 'Y') ? $this->user_options_model->get_options('dashboard', array('option_name' => 'show_map', 'option_key' => 'boolean'))->row()->option_value ?? 'Y' : $this->session->userdata('user_dashboard_map')),
+			'user_dashboard_banner' => ((($this->session->userdata('user_dashboard_banner') ?? 'Y') == 'Y') ? $this->user_options_model->get_options('dashboard', array('option_name' => 'show_dashboard_banner', 'option_key' => 'boolean'))->row()->option_value ?? 'Y' : $this->session->userdata('user_dashboard_banner')),
+			'user_dashboard_solar' => ((($this->session->userdata('user_dashboard_solar') ?? 'N') == 'Y') ? $this->session->userdata('user_dashboard_solar') : $this->user_options_model->get_options('dashboard', array('option_name' => 'show_dashboard_solar', 'option_key' => 'boolean'))->row()->option_value ?? 'N'),
 			'user_date_format' => $u->row()->user_date_format,
 			'user_stylesheet' => $u->row()->user_stylesheet,
 			'user_qth_lookup' => isset($u->row()->user_qth_lookup) ? $u->row()->user_qth_lookup : 0,
@@ -733,9 +750,9 @@ class User_Model extends CI_Model {
 		$qsocount_join = "";
 		if (!($this->config->item('disable_user_stats') ?? false)) {
 			$qsocount_select = ", COALESCE(lc.qsocount, 0) AS qsocount, lc.lastqso";
-			$qsocount_join = 
+			$qsocount_join =
 				" LEFT JOIN (
-					SELECT sp.user_id, 
+					SELECT sp.user_id,
 						COUNT(l.col_primary_key) AS qsocount,
 						MAX(l.COL_TIME_ON)      AS lastqso
 					FROM station_profile sp
@@ -743,7 +760,7 @@ class User_Model extends CI_Model {
 					GROUP BY sp.user_id
 				) lc ON lc.user_id = u.user_id";
 		}
-		$sql = "SELECT 
+		$sql = "SELECT
 					u.user_id,
 					u.user_name,
 					u.user_firstname,
@@ -944,23 +961,23 @@ class User_Model extends CI_Model {
 
 	function convert($user_id, $clubstation) {
 		$sql = "UPDATE users SET clubstation = ? WHERE user_id = ?;";
-	
+
 		$this->db->trans_start();
-	
+
 		if (!$this->db->query($sql, [$clubstation, $user_id])) {
 			$this->db->trans_rollback();
 			return false;
 		}
-	
+
 		// Remove all club permissions in case there is a club with this user id
 		$delete_sql = "DELETE FROM club_permissions WHERE club_id = ?;";
 		if (!$this->db->query($delete_sql, [$user_id])) {
 			$this->db->trans_rollback();
 			return false;
 		}
-	
+
 		$this->db->trans_complete();
-	
+
 		return $this->db->trans_status();
 	}
 
@@ -971,13 +988,13 @@ class User_Model extends CI_Model {
 		}
 
 		try {
-			$this->db->query("INSERT INTO station_logbooks (user_id, logbook_name, modified, public_slug, public_search) 
+			$this->db->query("INSERT INTO station_logbooks (user_id, logbook_name, modified, public_slug, public_search)
 				VALUES (?, 'Home Logbook', NULL, NULL, 0)", [$stationdata['user_id']]
 			);
 			$station_logbooks_insert_id = $this->db->insert_id();
 
-			$this->db->query("UPDATE users 
-				SET active_station_logbook = ? 
+			$this->db->query("UPDATE users
+				SET active_station_logbook = ?
 				WHERE user_id = ?", [$station_logbooks_insert_id, $stationdata['user_id']]
 			);
 
@@ -989,7 +1006,7 @@ class User_Model extends CI_Model {
 					station_sig, station_sig_info, qrzrealtime, user_id, station_wwff, station_pota, oqrs, oqrs_text, oqrs_email,
 					webadifapikey, webadifapiurl, webadifrealtime, clublogignore, clublogrealtime, hrdlogrealtime, hrdlog_code, hrdlog_username
 				) VALUES (
-					?, ?, '', '', '', ?, NULL, ?, '', ?, ?, 1, '', '', '', '', '', '', 0, ?, '', '', 0, '', 0, '', 
+					?, ?, '', '', '', ?, NULL, ?, '', ?, ?, 1, '', '', '', '', '', '', 0, ?, '', '', 0, '', 0, '',
 					'https://qo100dx.club/api', 0, 0, 0, 0, '', ''
 				)", [
 					$stationdata['station_name'],
@@ -1003,7 +1020,7 @@ class User_Model extends CI_Model {
 			);
 			$station_profile_insert_id = $this->db->insert_id();
 
-			$this->db->query("INSERT INTO station_logbooks_relationship (station_logbook_id, station_location_id, modified) 
+			$this->db->query("INSERT INTO station_logbooks_relationship (station_logbook_id, station_location_id, modified)
 				VALUES (?, ?, NULL)", [$station_logbooks_insert_id, $station_profile_insert_id]
 			);
 

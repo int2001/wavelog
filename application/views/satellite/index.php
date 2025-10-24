@@ -97,7 +97,7 @@
 					echo '</td>';
 					?>
 					<?php echo '<td style="text-align: center; vertical-align: middle;">';
-					if ($sat->updated != null) {
+					if ($sat->tle != null) {
 						echo '<button class="btn btn-sm btn-success" onclick="editTle(' . $sat->id . ');" data-bs-toggle="tooltip" title="Last TLE updated was ' . date($custom_date_format . " H:i", strtotime($sat->updated)) . '">'.__("Yes").'</i></button>';
 					} else {
 						echo '<button class="btn btn-sm btn-danger" onclick="editTle(' . $sat->id . ');">'.__("No").'</button>';
@@ -106,13 +106,11 @@
 					echo '</td>';
 					?>
 					<td style="text-align: center; vertical-align: middle;"><button onclick="editSatelliteDialog(<?php echo $sat->id ?>)" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></i></button></td>
-					<td style="text-align: center; vertical-align: middle;"><button onclick="deleteSatellite('<?php echo $sat->id . '\',\'' . xss_clean(htmlentities(str_replace('\'',"\\'",str_replace('"','\"',str_replace('\\',' ',$sat->satname))))) ?>')" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button></td>
+					<td style="text-align: center; vertical-align: middle;"><button onclick="deleteSatellite('<?php echo addslashes($sat->id); ?>', '<?php echo addslashes(htmlspecialchars($sat->satname, ENT_QUOTES, 'UTF-8')); ?>')" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button></td>
 				</tr>
-
 				<?php } ?>
 			</tbody>
-		<table>
-
+		</table>
 	</div>
   <br/>
 </div>

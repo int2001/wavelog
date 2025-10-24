@@ -3,21 +3,19 @@ use Wavelog\QSLManager\QSO;
 
 class Logbookadvanced_model extends CI_Model {
 
-	private $logbooks_locations_array;
-	public function __construct()
-	{
-		$this->load->model('logbooks_model');
-		$this->logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
-	}
-
 	public function searchDb($searchCriteria) {
 		$conditions = [];
 		$binding = [$searchCriteria['user_id']];
 
+		if (isset($searchCriteria['qsoids']) && ($searchCriteria['qsoids'] !== '')) {
+			$ids2fetch = $searchCriteria['qsoids'];
+			$conditions[] = "qsos.COL_PRIMARY_KEY in (".$ids2fetch.")";
+		}
+
 		if ((isset($searchCriteria['dupes'])) && ($searchCriteria['dupes'] !== '')) {
 			$id_sql="select GROUP_CONCAT(col_primary_key separator ',') as qsoids, COL_CALL, COL_MODE, COL_SUBMODE, station_callsign, COL_SAT_NAME, COL_BAND,  min(col_time_on) Mintime, max(col_time_on) Maxtime from " . $this->config->item('table_name') . "
-				 join station_profile on " . $this->config->item('table_name') . ".station_id = station_profile.station_id where station_profile.user_id = ?
-				group by col_call, col_mode, COL_SUBMODE, STATION_CALLSIGN, col_band, COL_SAT_NAME having count(*) > 1 and timediff(maxtime, mintime) < 1500";
+				join station_profile on " . $this->config->item('table_name') . ".station_id = station_profile.station_id where station_profile.user_id = ?
+				group by col_call, col_mode, COL_SUBMODE, STATION_CALLSIGN, col_band, COL_SAT_NAME having count(*) > 1 AND TIMESTAMPDIFF(SECOND, Mintime, Maxtime) < 1500";
 			$id_query = $this->db->query($id_sql, $searchCriteria['user_id']);
 			$ids2fetch = '';
 			foreach ($id_query->result() as $id) {
@@ -94,7 +92,7 @@ class Logbookadvanced_model extends CI_Model {
 			$conditions[] = "date(COL_TIME_ON) <= ?";
 			$binding[] = $to;
 		}
-		if ($searchCriteria['de'] !== 'All') {
+		if ($searchCriteria['de'] !== 'All' && $searchCriteria['qsoids'] === '') {
 			if ($searchCriteria['de'] == '') {
 				$stationids = 'null';
 			} else {
@@ -103,8 +101,12 @@ class Logbookadvanced_model extends CI_Model {
 			$conditions[] = "qsos.station_id in (".$stationids.")";
 		}
 		if ($searchCriteria['dx'] !== '*' && $searchCriteria['dx'] !== '') {
-			$conditions[] = "COL_CALL LIKE ?";
-			$binding[] = '%' . trim($searchCriteria['dx']) . '%';
+			if (strtolower($searchCriteria['dx']) == '!empty') {
+				$conditions[] = "COL_CALL <> ''";
+			} else {
+				$conditions[] = "COL_CALL like ?";
+				$binding[] = '%' . trim($searchCriteria['dx']) . '%';
+			}
 		}
 		if ($searchCriteria['dx'] == '') {
 			$conditions[] = "coalesce(COL_CALL, '') = ''";
@@ -217,6 +219,24 @@ class Logbookadvanced_model extends CI_Model {
 			$conditions[] = $condition;
 			$binding[] = $searchCriteria['eqslReceived'];
 		}
+		if ($searchCriteria['dclSent'] !== '') {
+			$condition = "COL_DCL_QSL_SENT = ?";
+			if ($searchCriteria['dclSent'] == 'N') {
+				$condition = '('.$condition;
+				$condition .= " OR COL_DCL_QSL_SENT IS NULL OR COL_DCL_QSL_SENT = '')";
+			}
+			$conditions[] = $condition;
+			$binding[] = $searchCriteria['dclSent'];
+		}
+		if ($searchCriteria['dclReceived'] !== '') {
+			$condition = "COL_DCL_QSL_RCVD = ?";
+			if ($searchCriteria['dclReceived'] == 'N') {
+				$condition = '('.$condition;
+				$condition .= " OR COL_DCL_QSL_RCVD IS NULL OR COL_DCL_QSL_RCVD = '')";
+			}
+			$conditions[] = $condition;
+			$binding[] = $searchCriteria['dclReceived'];
+		}
 
         if ($searchCriteria['iota'] !== '') {
 			$conditions[] = "COL_IOTA = ?";
@@ -229,26 +249,66 @@ class Logbookadvanced_model extends CI_Model {
 		}
 
         if ($searchCriteria['state'] !== '*' && $searchCriteria['state'] !== '') {
-			$conditions[] = "COL_STATE = ?";
-			$binding[] = $searchCriteria['state'];
+			if (strtolower($searchCriteria['state']) == '!empty') {
+				$conditions[] = "COL_STATE <> ''";
+			} else {
+				$conditions[] = "COL_STATE like ?";
+				$binding[] = $searchCriteria['state'];
+			}
 		}
 		if ($searchCriteria['state'] == '') {
 			$conditions[] = "coalesce(COL_STATE, '') = ''";
 		}
 
-		if ($searchCriteria['cqzone'] !== '') {
-			$conditions[] = "COL_CQZ = ?";
-			$binding[] = $searchCriteria['cqzone'];
+		if ($searchCriteria['dok'] !== '*' && $searchCriteria['dok'] !== '') {
+			if (strtolower($searchCriteria['dok']) == '!empty') {
+				$conditions[] = "COL_DARC_DOK <> ''";
+			} else {
+				$conditions[] = "COL_DARC_DOK like ?";
+				$binding[] = $searchCriteria['dok'];
+			}
+		}
+		if ($searchCriteria['dok'] == '') {
+			$conditions[] = "coalesce(COL_DARC_DOK, '') = ''";
 		}
 
-		if ($searchCriteria['ituzone'] !== '') {
-			$conditions[] = "COL_ITUZ = ?";
-			$binding[] = $searchCriteria['ituzone'];
+		if ($searchCriteria['county'] !== '*' && $searchCriteria['county'] !== '') {
+			if (strtolower($searchCriteria['county']) == '!empty') {
+				$conditions[] = "COL_CNTY <> ''";
+			} else {
+				$conditions[] = "COL_CNTY like ?";
+				$binding[] = '%' . $searchCriteria['county'] . '%';
+			}
+		}
+		if ($searchCriteria['county'] == '') {
+			$conditions[] = "coalesce(COL_CNTY, '') = ''";
+		}
+
+		if ($searchCriteria['cqzone'] !== 'All') {
+			if ($searchCriteria['cqzone'] == '') {
+				$conditions[] = "(COL_CQZ = '' or COL_CQZ is null)";
+			} else {
+				$conditions[] = "COL_CQZ = ?";
+				$binding[] = $searchCriteria['cqzone'];
+			}
+		}
+
+		if ($searchCriteria['ituzone'] !== 'All') {
+			if ($searchCriteria['ituzone'] == '') {
+				$conditions[] = "(COL_ITUZ = '' or COL_ITUZ is null)";
+			} else {
+				$conditions[] = "COL_ITUZ = ?";
+				$binding[] = $searchCriteria['ituzone'];
+			}
 		}
 
 		if ($searchCriteria['qslvia'] !== '*' && $searchCriteria['qslvia'] !== '') {
-			$conditions[] = "COL_QSL_VIA like ?";
-			$binding[] = $searchCriteria['qslvia'].'%';
+			if (strtolower($searchCriteria['qslvia']) == '!empty') {
+				$conditions[] = "COL_QSL_VIA <> ''";
+			} else {
+				$conditions[] = "COL_QSL_VIA like ?";
+				$binding[] = $searchCriteria['qslvia'].'%';
+			}
 		}
 
 		if ($searchCriteria['qslvia'] == '') {
@@ -256,49 +316,74 @@ class Logbookadvanced_model extends CI_Model {
 		}
 
 		if ($searchCriteria['sota'] !== '*' && $searchCriteria['sota'] !== '') {
-			$conditions[] = "COL_SOTA_REF like ?";
-			$binding[] = $searchCriteria['sota'].'%';
+			if (strtolower($searchCriteria['sota']) == '!empty') {
+				$conditions[] = "COL_SOTA_REF <> ''";
+			} else {
+				$conditions[] = "COL_SOTA_REF like ?";
+				$binding[] = $searchCriteria['sota'].'%';
+			}
 		}
 		if ($searchCriteria['sota'] == '') {
 			$conditions[] = "coalesce(COL_SOTA_REF, '') = ''";
 		}
 
+
 		if ($searchCriteria['comment'] !== '*' && $searchCriteria['comment'] !== '') {
-			$conditions[] = "COL_COMMENT like ?";
-			$binding[] = '%' . $searchCriteria['comment'].'%';
+			if (strtolower($searchCriteria['comment']) == '!empty') {
+				$conditions[] = "COL_COMMENT <> ''";
+			} else {
+				$conditions[] = "COL_COMMENT like ?";
+				$binding[] = '%' . $searchCriteria['comment'].'%';
+			}
 		}
 		if ($searchCriteria['comment'] == '') {
 			$conditions[] = "coalesce(COL_COMMENT, '') = ''";
 		}
 
 		if ($searchCriteria['pota'] !== '*' && $searchCriteria['pota'] !== '') {
-			$conditions[] = "COL_POTA_REF like ?";
-			$binding[] = $searchCriteria['pota'].'%';
+			if (strtolower($searchCriteria['pota']) == '!empty') {
+				$conditions[] = "COL_POTA_REF <> ''";
+			} else {
+				$conditions[] = "COL_POTA_REF like ?";
+				$binding[] = $searchCriteria['pota'].'%';
+			}
 		}
 		if ($searchCriteria['pota'] == '') {
 			$conditions[] = "coalesce(COL_POTA_REF, '') = ''";
 		}
 
 		if ($searchCriteria['wwff'] !== '*' && $searchCriteria['wwff'] !== '') {
-			$conditions[] = "COL_WWFF_REF like ?";
-			$binding[] = $searchCriteria['wwff'].'%';
+			if (strtolower($searchCriteria['wwff']) == '!empty') {
+				$conditions[] = "COL_WWFF_REF <> ''";
+			} else {
+				$conditions[] = "COL_WWFF_REF like ?";
+				$binding[] = $searchCriteria['wwff'].'%';
+			}
 		}
 		if ($searchCriteria['wwff'] == '') {
 			$conditions[] = "coalesce(COL_WWFF_REF, '') = ''";
 		}
 
 		if ($searchCriteria['operator'] !== '*' && $searchCriteria['operator'] !== '') {
-			$conditions[] = "COL_OPERATOR like ?";
-			$binding[] = $searchCriteria['operator'].'%';
+			if (strtolower($searchCriteria['operator']) == '!empty') {
+				$conditions[] = "COL_OPERATOR <> ''";
+			} else {
+				$conditions[] = "COL_OPERATOR like ?";
+				$binding[] = $searchCriteria['operator'].'%';
+			}
 		}
 		if ($searchCriteria['operator'] == '') {
 			$conditions[] = "coalesce(COL_OPERATOR, '') = ''";
 		}
 
         if ($searchCriteria['gridsquare'] !== '*' && $searchCriteria['gridsquare'] !== '') {
-                $conditions[] = "(COL_GRIDSQUARE like ? or COL_VUCC_GRIDS like ?)";
-                $binding[] = '%' . $searchCriteria['gridsquare'] . '%';
-                $binding[] = '%' . $searchCriteria['gridsquare'] . '%';
+			if (strtolower($searchCriteria['gridsquare']) == '!empty') {
+				$conditions[] = "(COL_GRIDSQUARE <> '' or COL_VUCC_GRIDS <> '')";
+			} else {
+				$conditions[] = "(COL_GRIDSQUARE like ? or COL_VUCC_GRIDS like ?)";
+				$binding[] = '%' . $searchCriteria['gridsquare'] . '%';
+				$binding[] = '%' . $searchCriteria['gridsquare'] . '%';
+			}
         }
 
 		if ($searchCriteria['gridsquare'] == '') {
@@ -319,9 +404,13 @@ class Logbookadvanced_model extends CI_Model {
 		}
 
 		if ($searchCriteria['contest'] !== '*' && $searchCriteria['contest'] !== '') {
-			$conditions[] = "(COL_CONTEST_ID like ? OR contest.name like ?)";
-			$binding[] = '%'.$searchCriteria['contest'].'%';
-			$binding[] = '%'.$searchCriteria['contest'].'%';
+			if (strtolower($searchCriteria['contest']) == '!empty') {
+				$conditions[] = "(COL_CONTEST_ID <> '' OR contest.name <> '')";
+			} else {
+				$conditions[] = "(COL_CONTEST_ID <> '' OR contest.name <> '')";$conditions[] = "(COL_CONTEST_ID like ? OR contest.name like ?)";
+				$binding[] = '%'.$searchCriteria['contest'].'%';
+				$binding[] = '%'.$searchCriteria['contest'].'%';
+			}
 		}
 
 		if ($searchCriteria['contest'] == '') {
@@ -423,7 +512,7 @@ class Logbookadvanced_model extends CI_Model {
 		$order = $this->getSortorder($sortorder);
 
         $sql = "
-            SELECT qsos.*, lotw_users.*, station_profile.*, dxcc_entities.name AS station_country, dxcc_entities.adif as adif, d2.name as dxccname, exists(select 1 from qsl_images where qsoid = qsos.COL_PRIMARY_KEY) as qslcount, coalesce(contest.name, qsos.col_contest_id) as contestname
+            SELECT qsos.*, lotw_users.*, station_profile.*, dxcc_entities.name AS station_country, d2.adif as adif, d2.name as dxccname, exists(select 1 from qsl_images where qsoid = qsos.COL_PRIMARY_KEY) as qslcount, coalesce(contest.name, qsos.col_contest_id) as contestname
 			FROM " . $this->config->item('table_name') . " qsos
 			INNER JOIN station_profile ON qsos.station_id = station_profile.station_id
 			LEFT OUTER JOIN dxcc_entities ON qsos.COL_MY_DXCC = dxcc_entities.adif
@@ -504,7 +593,7 @@ class Logbookadvanced_model extends CI_Model {
 		} else {
 			$sql = "UPDATE " . $this->config->item('table_name') ."
 				SET
-				COL_QSLRDATE = CURRENT_TIMESTAMP,
+				COL_QSLSDATE = CURRENT_TIMESTAMP,
 				COL_QSL_SENT = ?,
 				COL_QSL_SENT_VIA = ?,
 				COL_QRZCOM_QSO_UPLOAD_STATUS = CASE
@@ -592,6 +681,10 @@ class Logbookadvanced_model extends CI_Model {
 		}
 		if (!empty($callbook['us_county']) && empty($qso['COL_CNTY'])) {
 			$updatedData['COL_CNTY'] = $callbook['state'].','.$callbook['us_county'];
+			$updated = true;
+		}
+		if (!empty($callbook['county']) && empty($qso['COL_CNTY'])) {
+			$updatedData['COL_CNTY'] = $callbook['county'];
 			$updated = true;
 		}
 		if (!empty($callbook['qslmgr']) && empty($qso['COL_QSL_VIA'])) {
@@ -698,8 +791,9 @@ class Logbookadvanced_model extends CI_Model {
         $this->db->select('*');
 		$this->db->from($this->config->item('table_name'));
         $this->db->join('qsl_images', 'qsl_images.qsoid = ' . $this->config->item('table_name') . '.col_primary_key');
+		$this->db->join('station_profile', 'station_profile.station_id = '.$this->config->item('table_name').'.station_id');
+		$this->db->where('station_profile.user_id', $this->session->userdata('user_id'));
         $this->db->where_in('qsoid', $ids);
-		$this->db->where_in('station_id', $this->logbooks_locations_array);
         $this->db->order_by("id", "desc");
 
         return $this->db->get()->result();
@@ -731,19 +825,33 @@ class Logbookadvanced_model extends CI_Model {
 			case "lotwreceived": $column = 'COL_LOTW_QSL_RCVD'; break;
 			case "qslmsg": $column = 'COL_QSLMSG'; break;
 			case "continent": $column = 'COL_CONT'; break;
+			case "qslsent": $column = 'COL_QSL_SENT'; break;
+			case "qslreceived": $column = 'COL_QSL_RCVD'; break;
 			case "qrzsent": $column = 'COL_QRZCOM_QSO_UPLOAD_STATUS'; break;
 			case "qrzreceived": $column = 'COL_QRZCOM_QSO_DOWNLOAD_STATUS'; break;
 			case "eqslsent": $column = 'COL_EQSL_QSL_SENT'; break;
 			case "eqslreceived": $column = 'COL_EQSL_QSL_RCVD'; break;
+			case "dclsent": $column = 'COL_DCL_QSL_SENT'; break;
+			case "dclreceived": $column = 'COL_DCL_QSL_RCVD'; break;
 			case "stationpower": $column = 'COL_TX_PWR'; break;
 			case "clublogsent": $column = 'COL_CLUBLOG_QSO_UPLOAD_STATUS'; break;
 			case "clublogreceived": $column = 'COL_CLUBLOG_QSO_DOWNLOAD_STATUS'; break;
 			case "region": $column = 'COL_REGION'; break;
+			case "distance": $column = 'COL_DISTANCE'; break;
+			case "dok": $column = 'COL_DARC_DOK'; break;
+			case "stxstring": $column = 'COL_STX_STRING'; break;
+			case "rstr": $column = 'COL_RST_RCVD'; break;
+			case "rsts": $column = 'COL_RST_SENT'; break;
+			case "qslsentmethod": $column = 'COL_QSL_SENT_VIA'; break;
+			case "qslreceivedmethod": $column = 'COL_QSL_RCVD_VIA'; break;
 			default: return;
 		}
 
 		$this->db->trans_start();
 
+		if ($column == 'COL_DARC_DOK') {
+			$value=strtoupper($value);
+		}
 		if ($column == 'station_id') {
 
 			$this->load->model('stations');
@@ -787,26 +895,30 @@ class Logbookadvanced_model extends CI_Model {
 
 			$query = $this->db->query($sql, array($value, $value2, $frequencyBand, $frequencyBandRx, json_decode($ids, true), $this->session->userdata('user_id')));
 		} else if ($column == 'COL_GRIDSQUARE') {
-			if(!$this->load->is_loaded('Qra')) {
-			    $this->load->library('Qra');
-		    }
-			$latlng=$this->qra->qra2latlong(trim(xss_clean($value) ?? ''));
-			if ($latlng[1] ?? '--' != '--') {
-				if (strpos(trim(xss_clean($value) ?? ''), ',') !== false) {
-					$grid_value = null;
-					$vucc_value = strtoupper(preg_replace('/\s+/', '', xss_clean($value) ?? ''));
-				} else {
-					$vucc_value = null;
-					$grid_value = strtoupper(trim(xss_clean($value) ?? ''));
+			if ($value == '') {
+				$grid_value = null;
+				$vucc_value = null;
+			} else {
+				if(!$this->load->is_loaded('Qra')) {
+					 $this->load->library('Qra');
+				 }
+				$latlng=$this->qra->qra2latlong(trim(xss_clean($value) ?? ''));
+				if ($latlng[1] ?? '--' != '--') {
+					if (strpos(trim(xss_clean($value) ?? ''), ',') !== false) {
+						$grid_value = null;
+						$vucc_value = strtoupper(preg_replace('/\s+/', '', xss_clean($value) ?? ''));
+					} else {
+						$vucc_value = null;
+						$grid_value = strtoupper(trim(xss_clean($value) ?? ''));
+					}
+
 				}
-
-				$sql = "UPDATE ".$this->config->item('table_name')." JOIN station_profile ON ". $this->config->item('table_name').".station_id = station_profile.station_id" .
-					" SET " . $this->config->item('table_name').".COL_GRIDSQUARE = ?" .
-					", " . $this->config->item('table_name').".COL_VUCC_GRIDS = ?" .
-					" WHERE " . $this->config->item('table_name').".col_primary_key in ? and station_profile.user_id = ?";
-
-				$query = $this->db->query($sql, array($grid_value, $vucc_value, json_decode($ids, true), $this->session->userdata('user_id')));
 			}
+			$sql = "UPDATE ".$this->config->item('table_name')." JOIN station_profile ON ". $this->config->item('table_name').".station_id = station_profile.station_id" .
+				" SET " . $this->config->item('table_name').".COL_GRIDSQUARE = ?" .
+				", " . $this->config->item('table_name').".COL_VUCC_GRIDS = ?" .
+				" WHERE " . $this->config->item('table_name').".col_primary_key in ? and station_profile.user_id = ?";
+			$query = $this->db->query($sql, array($grid_value, $vucc_value, json_decode($ids, true), $this->session->userdata('user_id')));
 		} else if ($column == 'COL_MODE') {
 
 			$this->load->model('logbook_model');
@@ -896,6 +1008,20 @@ class Logbookadvanced_model extends CI_Model {
 			" WHERE " . $this->config->item('table_name').".col_primary_key in ? and station_profile.user_id = ?";
 
 			$query = $this->db->query($sql, array($value, json_decode($ids, true), $this->session->userdata('user_id')));
+		} else if ($column == 'COL_DCL_QSL_SENT') {
+
+			$sql = "UPDATE ".$this->config->item('table_name')." JOIN station_profile ON ". $this->config->item('table_name').".station_id = station_profile.station_id" .
+			" SET " . $this->config->item('table_name').".COL_DCL_QSL_SENT = ?, " . $this->config->item('table_name').".COL_DCL_QSLSDATE = now()" .
+			" WHERE " . $this->config->item('table_name').".col_primary_key in ? and station_profile.user_id = ?";
+
+			$query = $this->db->query($sql, array($value, json_decode($ids, true), $this->session->userdata('user_id')));
+		} else if ($column == 'COL_DCL_QSL_RCVD') {
+
+			$sql = "UPDATE ".$this->config->item('table_name')." JOIN station_profile ON ". $this->config->item('table_name').".station_id = station_profile.station_id" .
+			" SET " . $this->config->item('table_name').".COL_DCL_QSL_RCVD = ?, " . $this->config->item('table_name').".COL_DCL_QSLRDATE = now()" .
+			" WHERE " . $this->config->item('table_name').".col_primary_key in ? and station_profile.user_id = ?";
+
+			$query = $this->db->query($sql, array($value, json_decode($ids, true), $this->session->userdata('user_id')));
 
 		} else if ($column == 'COL_QRZCOM_QSO_UPLOAD_STATUS') {
 			$skipqrzupdate = true;
@@ -977,6 +1103,23 @@ class Logbookadvanced_model extends CI_Model {
 			" WHERE " . $this->config->item('table_name').".col_primary_key in ? and station_profile.user_id = ?";
 
 			$query = $this->db->query($sql, array($value, json_decode($ids, true), $this->session->userdata('user_id')));
+		} else if ($column == 'COL_QSL_SENT_VIA') {
+
+			$sql = "UPDATE ".$this->config->item('table_name')." JOIN station_profile ON ". $this->config->item('table_name').".station_id = station_profile.station_id" .
+			" SET " . $this->config->item('table_name').".COL_QSL_SENT_VIA = ? " .
+			" WHERE " . $this->config->item('table_name').".col_primary_key in ? and station_profile.user_id = ?";
+
+			$query = $this->db->query($sql, array($value, json_decode($ids, true), $this->session->userdata('user_id')));
+		} else if ($column == 'COL_QSL_RCVD_VIA') {
+
+			$sql = "UPDATE ".$this->config->item('table_name')." JOIN station_profile ON ". $this->config->item('table_name').".station_id = station_profile.station_id" .
+			" SET " . $this->config->item('table_name').".COL_QSL_RCVD_VIA = ? " .
+			" WHERE " . $this->config->item('table_name').".col_primary_key in ? and station_profile.user_id = ?";
+
+			$query = $this->db->query($sql, array($value, json_decode($ids, true), $this->session->userdata('user_id')));
+		} else if ($column == 'COL_DISTANCE' && $value == '') {
+			$this->update_distances($ids);
+			$skipqrzupdate = true;
 		} else {
 
 			$sql = "UPDATE ".$this->config->item('table_name')." JOIN station_profile ON ".$this->config->item('table_name').".station_id = station_profile.station_id SET " . $this->config->item('table_name').".".$column . " = ? WHERE " . $this->config->item('table_name').".col_primary_key in ? and station_profile.user_id = ?";
@@ -993,6 +1136,38 @@ class Logbookadvanced_model extends CI_Model {
 
 		return array('message' => 'OK');
     }
+
+	public function update_distances($ids) {
+		$idarray = (json_decode($ids, true));
+		ini_set('memory_limit', '-1');
+		$this->db->trans_start();
+		$this->db->select("COL_PRIMARY_KEY, COL_GRIDSQUARE, COL_ANT_PATH, station_gridsquare");
+		$this->db->join('station_profile', 'station_profile.station_id = ' . $this->config->item('table_name') . '.station_id');
+
+		$this->db->where("COL_GRIDSQUARE is NOT NULL");
+		$this->db->where("COL_GRIDSQUARE != ''");
+		$this->db->where("COL_GRIDSQUARE != station_gridsquare");
+		$this->db->where_in("COL_PRIMARY_KEY", $idarray);
+		$query = $this->db->get($this->config->item('table_name'));
+
+		if ($query->num_rows() > 0) {
+			if (!$this->load->is_loaded('Qra')) {
+				$this->load->library('Qra');
+			}
+			foreach ($query->result() as $row) {
+				$ant_path = $row->COL_ANT_PATH ?? null;
+				$distance = $this->qra->distance($row->station_gridsquare, $row->COL_GRIDSQUARE, 'K', $ant_path);
+				$data = array(
+					'COL_DISTANCE' => $distance,
+				);
+
+				$this->db->where(array('COL_PRIMARY_KEY' => $row->COL_PRIMARY_KEY));
+				$this->db->update($this->config->item('table_name'), $data);
+			}
+		}
+		$this->db->trans_complete();
+	}
+
 
 	function deleteQsos($ids) {
 		$this->db->trans_start();
@@ -1018,5 +1193,22 @@ class Logbookadvanced_model extends CI_Model {
 
 		$query = $this->db->query($sql, array($dxccid));
 		return $query->result();
+    }
+
+	function fixCqZones($ids) {
+		$sql = "UPDATE ".$this->config->item('table_name')." JOIN dxcc_entities ON ". $this->config->item('table_name').".col_dxcc = dxcc_entities.adif JOIN station_profile ON ". $this->config->item('table_name').".station_id = station_profile.station_id" .
+			" SET " . $this->config->item('table_name').".COL_CQZ = dxcc_entities.cqz" .
+			" WHERE " . $this->config->item('table_name').".col_primary_key in ? and station_profile.user_id = ?";
+
+		$query = $this->db->query($sql, array(json_decode($ids, true), $this->session->userdata('user_id')));
+	}
+
+
+	function fixItuZones($ids) {
+		$sql = "UPDATE ".$this->config->item('table_name')." JOIN dxcc_entities ON ". $this->config->item('table_name').".col_dxcc = dxcc_entities.adif JOIN station_profile ON ". $this->config->item('table_name').".station_id = station_profile.station_id" .
+			" SET " . $this->config->item('table_name').".COL_ITUZ = dxcc_entities.ituz" .
+			" WHERE " . $this->config->item('table_name').".col_primary_key in ? and station_profile.user_id = ?";
+
+		$query = $this->db->query($sql, array(json_decode($ids, true), $this->session->userdata('user_id')));
     }
 }

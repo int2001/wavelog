@@ -1,14 +1,43 @@
 <div class="container qso_panel">
+<?php
+// Get Date format
+if($this->session->userdata('user_date_format')) {
+    // If Logged in and session exists
+    $date_format = $this->session->userdata('user_date_format');
+} else {
+    // Get Default date format from /config/wavelog.php
+    $date_format = $this->config->item('qso_date_format');
+}
+
+// Convert PHP date format to appropriate input pattern for validation
+switch ($date_format) {
+    case "d/m/y": $current_pattern = '[0-3][0-9]/[0-1][0-9]/[0-9]{2}'; break;
+    case "d/m/Y": $current_pattern = '[0-3][0-9]/[0-1][0-9]/[0-9]{4}'; break;
+    case "m/d/y": $current_pattern = '[0-1][0-9]/[0-3][0-9]/[0-9]{2}'; break;
+    case "m/d/Y": $current_pattern = '[0-1][0-9]/[0-3][0-9]/[0-9]{4}'; break;
+    case "d.m.Y": $current_pattern = '[0-3][0-9]\.[0-1][0-9]\.[0-9]{4}'; break;
+    case "y/m/d": $current_pattern = '[0-9]{2}/[0-1][0-9]/[0-3][0-9]'; break;
+    case "Y-m-d": $current_pattern = '[0-9]{4}-[0-1][0-9]-[0-3][0-9]'; break;
+    case "M d, Y": $current_pattern = '[A-Za-z]{3}\s[0-3][0-9],\s[0-9]{4}'; break;
+    case "M d, y": $current_pattern = '[A-Za-z]{3}\s[0-3][0-9],\s[0-9]{2}'; break;
+    default: $current_pattern = '[0-3][0-9]-[0-1][0-9]-[0-9]{4}'; $date_format = 'd-m-Y';
+}
+?>
+
 <script language="javascript">
   var qso_manual  = "<?php echo $manual_mode; ?>";
   var text_error_timeoff_less_timeon = "<?= __("TimeOff is less than TimeOn"); ?>";
   var lang_qso_title_previous_contacts = "<?= __("Previous Contacts"); ?>";
   var lang_qso_title_times_worked_before = "<?= __("times worked before"); ?>";
   var lang_qso_title_not_worked_before = "<?= __("Not worked before"); ?>";
+  var lang_qso_more = "<?= __("more"); ?>";
+  var lang_qso_less = "<?= __("less"); ?>";
   var lang_dxccsummary_for = "<?= __("DXCC Summary for "); ?>";
   var lang_lotw_upload_day_ago = "<?= __("LoTW User. Last upload was 1 day ago."); ?>";
   var lang_lotw_upload_days_ago = "<?= __("LoTW User. Last upload was %x days ago."); ?>"; // due to the way the string is built (PHP to JS), %x is replaced with the number of days
+  var lang_invalid_ant_el = "<?= __("Invalid value for antenna elevation:"); ?>";
   var latlng=[<?php echo $lat.','.$lng;?>];
+  var user_date_format = "<?php echo $date_format; ?>"; // Pass the user's date format to JavaScript
 </script>
 
 <div class="row qsopane">
@@ -21,7 +50,7 @@
       <div class="card-header">
         <ul style="font-size: 15px;" class="nav nav-tabs card-header-tabs pull-right"  id="myTab" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" id="qsp-tab" data-bs-toggle="tab" href="#qso" role="tab" aria-controls="qso" aria-selected="true"><?= __("QSO"); ?><?php if ($manual_mode == 0) { echo " <span class=\"badge text-bg-success\">" . __("LIVE") . "</span>"; }; if ($manual_mode == 1) { echo " <span class=\"badge text-bg-danger\">" . __("POST") . "</span>"; } ?></a>
+            <a class="nav-link active" id="qso-tab" data-bs-toggle="tab" href="#qso" role="tab" aria-controls="qso" aria-selected="true"><?= __("QSO"); ?><?php if ($manual_mode == 0) { echo " <span class=\"badge text-bg-success\">" . __("LIVE") . "</span>"; }; if ($manual_mode == 1) { echo " <span class=\"badge text-bg-danger\">" . __("POST") . "</span>"; } ?></a>
           </li>
 
           <li class="nav-item">
@@ -66,7 +95,7 @@
               <div class="row">
                 <div class="mb-3 col-sm-12 col-md-12 col-lg-4 col-xl-4 col-4">
                   <label for="start_date"><?= __("Date"); ?></label>
-                  <input type="text" class="form-control form-control-sm input_date" name="start_date" id="start_date" tabindex="4" value="<?php echo date('d-m-Y'); ?>" <?php echo ($manual_mode == 0 ? "disabled" : "");  ?> required pattern="[0-3][0-9]-[0-1][0-9]-[0-9]{4}">
+                  <input type="text" class="form-control form-control-sm input_date" name="start_date" id="start_date" tabindex="4" value="<?php echo date($date_format); ?>" <?php echo ($manual_mode == 0 ? "disabled" : ""); ?> required pattern="<?php echo $current_pattern; ?>">
                 </div>
 
                 <div class="mb-3 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-4 ps-0 pe-0">
@@ -94,7 +123,7 @@
                 <?php if ( $manual_mode == 0 ) { ?>
                   <input class="input_start_time" type="hidden" id="start_time"  name="start_time"value="<?php echo date('H:i:s'); ?>" />
                   <input class="input_end_time" type="hidden" id="end_time"  name="end_time"value="<?php echo date('H:i:s'); ?>" />
-                  <input class="input_date" type="hidden" id="start_date" name="start_date" value="<?php echo date('d-m-Y'); ?>" />
+                  <input class="input_date" type="hidden" id="start_date" name="start_date" value="<?php echo date($date_format); ?>" />
                 <?php } ?>
               </div>
 
@@ -102,7 +131,7 @@
               <div class="row">
                 <div class="mb-3 col-6">
                   <label for="start_date"><?= __("Date"); ?></label>
-                  <input type="text" class="form-control form-control-sm input_date" name="start_date" id="start_date" tabindex="4" value="<?php echo date('d-m-Y'); ?>" <?php echo ($manual_mode == 0 ? "disabled" : "");  ?> required pattern="[0-3][0-9]-[0-1][0-9]-[0-9]{4}">
+                  <input type="text" class="form-control form-control-sm input_date" name="start_date" id="start_date" tabindex="4" value="<?php echo date($date_format); ?>" <?php echo ($manual_mode == 0 ? "disabled" : ""); ?> required pattern="<?php echo $current_pattern; ?>">
                 </div>
 
                 <div class="mb-3 col-6">
@@ -117,7 +146,7 @@
 
                 <?php if ( $manual_mode == 0 ) { ?>
                   <input class="input_start_time" type="hidden" id="start_time"  name="start_time"value="<?php echo date('H:i:s'); ?>" />
-                  <input class="input_date" type="hidden" id="start_date" name="start_date" value="<?php echo date('d-m-Y'); ?>" />
+                  <input class="input_date" type="hidden" id="start_date" name="start_date" value="<?php echo date($date_format); ?>" />
                 <?php } ?>
               </div>
               <?php } ?>
@@ -132,7 +161,7 @@
                     <span id="hamqth_info" class="input-group-text btn-included-on-field d-none py-0"></span>
                   </div>
                   <small id="callsign_info" class="badge text-bg-secondary"></small> <a id="lotw_link"><small id="lotw_info" class="badge text-bg-success"></small></a>
-                  <p id="ham_of_note_line" style="margin-top: 5px; display: none"><small id="ham_of_note_info"></small><small><a id="ham_of_note_link"></a></small></p>
+                  <p id="ham_of_note_line" style="margin-top: 5px; display: none"><small id="ham_of_note_info"></small><small><a id="ham_of_note_link" target="_blank"></a></small></p>
                 </div>
               </div>
 
@@ -141,7 +170,7 @@
                   <label for="mode"><?= __("Mode"); ?></label>
                   <select id="mode" tabindex="1" class="form-select mode form-select-sm" name="mode">
                   <?php
-                      foreach($modes->result() as $mode){
+                      foreach($modes as $mode){
                         if ($mode->submode == null) {
                           printf("<option value=\"%s\" %s>%s</option>", $mode->mode, $this->session->userdata('mode')==$mode->mode?"selected=\"selected\"":"",$mode->mode);
                         } else {
@@ -254,14 +283,14 @@
 
               <?php if ($user_sig_to_qso_tab ?? false) { ?>
               <div class="mb-3 row">
-                <label class="col-sm-3 col-form-label" for="sig"><?= __("Sig"); ?></label>
+                <label class="col-sm-3 col-form-label" for="sig"><?= __("SIG"); ?></label>
                 <div class="col-sm-9">
                   <input class="form-control text-uppercase" id="sig" tabindex="15" type="text" name="sig" value="" />
                 </div>
               </div>
 
               <div class="mb-3 row">
-                <label class="col-sm-3 col-form-label" for="sig_info"><?= __("Sig Info"); ?></label>
+                <label class="col-sm-3 col-form-label" for="sig_info"><?= __("SIG Info"); ?></label>
                 <div class="col-sm-9">
                   <input class="form-control text-uppercase" id="sig_info" tabindex="16" type="text" name="sig_info" value="" />
                 </div>
@@ -486,7 +515,7 @@
             </div>
 
             <div class="mb-3" id="location_us_county">
-                <label for="stationCntyInputQso"><?= __("USA County"); ?></label>
+                <label for="stationCntyInputQso"><?= __("Station County"); ?></label>
                 <input class="form-control" id="stationCntyInputQso" type="text" name="county" value="" />
             </div>
 
@@ -547,13 +576,13 @@
 
             <?php if (!$user_sig_to_qso_tab ?? false) { ?>
             <div class="mb-3">
-              <label for="sig"><?= __("Sig"); ?></label>
+              <label for="sig"><?= __("SIG"); ?></label>
               <input class="form-control text-uppercase" id="sig" type="text" name="sig" value="" />
               <small id="sigHelp" class="form-text text-muted"><?= __("For example: GMA"); ?></small>
             </div>
 
             <div class="mb-3">
-              <label for="sig_info"><?= __("Sig Info"); ?></label>
+              <label for="sig_info"><?= __("SIG Info"); ?></label>
               <input class="form-control text-uppercase" id="sig_info" type="text" name="sig_info" value="" />
               <small id="sigInfoHelp" class="form-text text-muted"><?= __("For example: DA/NW-357"); ?></small>
             </div>
@@ -602,7 +631,7 @@
 
             <div class="mb-3">
               <label for="ant_el"><?= __("Antenna Elevation (°)"); ?></label>
-              <input type="number" inputmode="decimal" step="0.1" min="-5" max="90" class="form-control" id="ant_el" name="ant_el" />
+              <input type="number" inputmode="decimal" step="0.1" min="-5" max="90" class="form-control" id="ant_el" name="ant_el" onInvalid="invalidAntEl()" />
               <small id="elHelp" class="form-text text-muted"><?= __("Antenna elevation in decimal degrees."); ?></small>
             </div>
           </div>

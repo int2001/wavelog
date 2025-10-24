@@ -43,7 +43,7 @@
                         </tr>
                         <tr>
                             <td><?= __("Base URL"); ?></td>
-                            <td><span id="baseUrl"><a href="<?php echo $this->config->item('base_url') ?>" target="_blank"><?php echo $this->config->item('base_url'); ?></a></span> <span data-bs-toggle="tooltip" title="<?= __("Copy to clipboard"); ?>" onclick='copyURL("<?php echo $this->config->item('base_url'); ?>")'><i class="copy-icon fas fa-copy"></span></td>
+                            <td><span id="baseUrl"><a href="<?php echo site_url(); ?>" target="_blank"><?php echo site_url(); ?></a></span> <span data-bs-toggle="tooltip" title="<?= __("Copy to clipboard"); ?>" onclick='copyURL("<?php echo site_url(); ?>")'><i class="copy-icon fas fa-copy"></span></td>
                         </tr>
                         <tr>
                             <td><?= __("Migration"); ?></td>
@@ -124,7 +124,7 @@
                     <p><?= __("This verifies that the folders used by Wavelog have read and write permissions by PHP."); ?></p>
                     <table width="100%">
                         <tr>
-                            <td>/backup</td>
+                            <td>backup</td>
                             <td>
                                 <?php if ($backup_folder == true) { ?>
                                     <span class="badge text-bg-success"><?= __("Success"); ?></span>
@@ -135,7 +135,7 @@
                         </tr>
 
                         <tr>
-                            <td>/cache</td>
+                            <td>application/cache</td>
                             <td>
                                 <?php if ($cache_folder == true) { ?>
                                     <span class="badge text-bg-success"><?= __("Success"); ?></span>
@@ -146,7 +146,7 @@
                         </tr>
 
                         <tr>
-                            <td>/updates</td>
+                            <td>updates</td>
                             <td>
                                 <?php if ($updates_folder == true) { ?>
                                     <span class="badge text-bg-success"><?= __("Success"); ?></span>
@@ -157,7 +157,7 @@
                         </tr>
 
                         <tr>
-                            <td>/uploads</td>
+                            <td>uploads</td>
                             <td>
                                 <?php if ($uploads_folder == true) { ?>
                                     <span class="badge text-bg-success"><?= __("Success"); ?></span>
@@ -169,7 +169,7 @@
 
                         <?php if (isset($userdata_enabled)) { ?>
                             <tr>
-                                <td>/userdata</td>
+                                <td>userdata</td>
                                 <td>
                                     <?php if ($userdata_folder == true) { ?>
                                         <span class="badge text-bg-success"><?= __("Success"); ?></span>
@@ -554,15 +554,20 @@
                             <td><?php echo $wwff_update->last_run ?? __("never"); ?></td>
                             <td><a class="btn btn-sm btn-primary" href="<?php echo site_url('update/update_wwff'); ?>"><?= __("Update"); ?></a></td>
                         </tr>
-			<tr>
+						<tr>
                             <td><?= __("TLE update"); ?></td>
                             <td><?php echo $tle_update->last_run ?? __("never"); ?></td>
                             <td><a class="btn btn-sm btn-primary" href="<?php echo site_url('update/update_tle'); ?>"><?= __("Update"); ?></a></td>
                         </tr>
-			<tr>
+						<tr>
                             <td><?= __("Hams Of Note update"); ?></td>
                             <td><?php echo $hon_update->last_run ?? __("never"); ?></td>
                             <td><a class="btn btn-sm btn-primary" href="<?php echo site_url('update/update_hamsofnote'); ?>"><?= __("Update"); ?></a></td>
+                        </tr>
+						<tr>
+                            <td><?= __("HAMqsl"); ?></td>
+                            <td><?php echo $hamqsl_update->last_run ?? __("never"); ?></td>
+                            <td><a class="btn btn-sm btn-primary" href="<?php echo site_url('update/update_hamqsl'); ?>"><?= __("Update"); ?></a></td>
                         </tr>
                     </table>
                 </div>
@@ -681,6 +686,7 @@
     <?= __("Greek"); ?>
     <?= __("Hungarian"); ?>
     <?= __("Italian"); ?>
+    <?= __("Japanese"); ?>
     <?= __("Latvian"); ?>
     <?= __("Lithuanian"); ?>
     <?= __("Montenegrin"); ?>
@@ -688,6 +694,7 @@
     <?= __("Portuguese"); ?>
     <?= __("Russian"); ?>
     <?= __("Serbian"); ?>
+    <?= __("Slovak"); ?>
     <?= __("Slovenian"); ?>
     <?= __("Spanish"); ?>
     <?= __("Swedish"); ?>

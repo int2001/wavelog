@@ -43,6 +43,7 @@
     var lang_general_word_confirmed = "<?= __("Confirmed"); ?>";
     var lang_general_word_worked_not_confirmed = "<?= __("Worked not confirmed"); ?>";
     var lang_general_word_not_worked = "<?= __("Not worked"); ?>";
+    var lang_general_word_all = "<?= __("All"); ?>";
     var lang_general_gridsquares = "<?= __("Gridsquares"); ?>";
     var lang_admin_close = "<?= __("Close"); ?>";
     var lang_admin_save = "<?= __("Save"); ?>";
@@ -54,6 +55,19 @@
     var lang_general_refresh_list = '<?= __("Refresh List"); ?>';
     var lang_general_word_please_wait = "<?= __("Please Wait ..."); ?>";
     var lang_general_states_deprecated = "<?= _pgettext("Word for country states that are deprecated but kept for legacy reasons.", "deprecated"); ?>";
+    var lang_gen_hamradio_sat_info = "<?= __("Satellite Information"); ?>";
+    var lang_notes_error_loading = "<?= __("Error loading notes"); ?>";
+    var lang_notes_sort = "<?= __("Sorting"); ?>";
+    var lang_notes_duplication_disabled = "<?= __("Duplication is disabled for Contacts notes"); ?>";
+    var lang_notes_duplicate = "<?= __("Duplicate"); ?>";
+    var lang_general_word_delete = "<?= __("Delete"); ?>";
+    var lang_general_word_duplicate = "<?= __("Duplicate"); ?>";
+    var lang_notes_delete = "<?= __("Delete Note"); ?>";
+    var lang_notes_duplicate = "<?= __("Duplicate Note"); ?>";
+    var lang_notes_delete_confirmation = "<?= __("Delete this note?"); ?>";
+    var lang_notes_duplicate_confirmation = "<?= __("Duplicate this note?"); ?>";
+    var lang_notes_duplication_disabled_short = "<?= __("Duplication Disabled"); ?>";
+    var lang_notes_not_found = "<?= __("No notes were found"); ?>";
 
 </script>
 
@@ -277,9 +291,11 @@ function stopImpersonate_modal() {
     <script src="<?php echo base_url() ;?>assets/js/jszip.min.js"></script>
 <?php } ?>
 
-<?php if ($this->uri->segment(1) == "notes" && ($this->uri->segment(2) == "add" || $this->uri->segment(2) == "edit") ) { ?>
+<?php if ($this->uri->segment(1) == "notes" ) { ?>
     <!-- Javascript used for Notes Area -->
+	<?php if ($this->uri->segment(2) == "add" || $this->uri->segment(2) == "edit") { ?>
     <script src="<?php echo base_url() ;?>assets/plugins/easymde/easymde.min.js"></script>
+	<?php } ?>
     <script src="<?php echo base_url() ;?>assets/js/sections/notes.js"></script>
 <?php } ?>
 
@@ -351,7 +367,7 @@ function copyApiKey(apiKey) {
 
 function copyApiUrl() {
    var apiUrlField = $('#apiUrl');
-   navigator.clipboard.writeText("<?php echo base_url(); ?>").then(function() {
+   navigator.clipboard.writeText("<?php echo site_url(); ?>").then(function() {
    });
    apiUrlField.addClass('flash-copy')
       .delay('1000').queue(function() {
@@ -517,7 +533,8 @@ $(function () {
             })
             .done(function(data) {
 
-                $('.exportbutton').html('<button class="btn btn-sm btn-primary" onclick="export_stored_query(' + id + ')">'+"<?= __("Export to ADIF"); ?>"+'</button>');
+                $('.exportbutton').html('<button class="btn btn-sm btn-primary me-1" onclick="export_stored_query(' + id + ')">'+"<?= __("Export to ADIF"); ?>"+'</button>');
+				$('.exportbutton').append('<button class="btn btn-sm btn-primary me-1" id="btn-lba" onclick="open_in_lba();"><?= __("Open in the Advanced Logbook"); ?></button>');
                 $('.card-body.result').empty();
                 $(".search-results-box").show();
 
@@ -653,7 +670,8 @@ $(function () {
                     search: JSON.stringify(result, null, 2)
                 })
                 .done(function(data) {
-                    $('.exportbutton').html('<button class="btn btn-sm btn-primary" onclick="export_search_result();">'+"<?= __("Export to ADIF"); ?>"+'</button>');
+                    $('.exportbutton').html('<button class="btn btn-sm btn-primary me-1" onclick="export_search_result();">'+"<?= __("Export to ADIF"); ?>"+'</button>');
+					$('.exportbutton').append('<button class="btn btn-sm btn-primary me-1" id="btn-lba" onclick="open_in_lba();"><?= __("Open in the Advanced Logbook"); ?></button>');
 
                     $('.card-body.result').empty();
                     $(".search-results-box").show();
@@ -760,6 +778,7 @@ $('#dxcc_id').on('change', function() {
             return dxcc.adif == dxccadif;
         });
         $("#stationCQZoneInput").val(dxccinfo[0].cq);
+		$("#stationITUZoneInput").val(dxccinfo[0].itu);
         if (dxccadif == 0) {
             $("#stationITUZoneInput").val(dxccinfo[0].itu); // Only set ITU zone to none if DXCC none is selected. We don't have ITU data for other DXCCs.
         }
@@ -869,6 +888,20 @@ function showActivatorsMap(call, count, grids) {
 
 <?php if ($this->uri->segment(1) == "search") { ?>
 <script type="text/javascript">
+	function open_in_lba() {
+		var user_id = <?php echo $this->session->userdata('user_id'); ?>;
+		var elements = $('.table tbody tr');
+
+		var id_list=[];
+		elements.each(function() {
+			let id = $(this).first().closest('tr').attr('id')?.replace(/\D/g, '')
+			id_list.push(id);
+		});
+
+		localStorage.setItem(`user_${user_id}_qsoids`, id_list);
+		window.location.href = base_url + 'index.php/logbookadvanced';
+	}
+
 i=0;
 
 function findlotwunconfirmed(){
@@ -932,6 +965,7 @@ function findincorrectcqzones() {
 	    if (isDarkModeTheme()) {
 		    $(".buttons-csv").css("color", "white");
 	    }
+		$('#btn-lba').removeAttr('hidden');
 	    $(document).ready(function() {
 		    var target = document.body;
 		    var observer = new MutationObserver(function() {
@@ -977,6 +1011,7 @@ function findincorrectituzones() {
 	    if (isDarkModeTheme()) {
 		    $(".buttons-csv").css("color", "white");
 	    }
+		$('#btn-lba').removeAttr('hidden');
 
 	    $(document).ready(function() {
 		    var target = document.body;
@@ -998,6 +1033,7 @@ function findincorrectituzones() {
 function searchButtonPress() {
     if (event) { event.preventDefault(); }
     if ($('#callsign').val()) {
+		$('#btn-lba').removeAttr('hidden');
         let fixedcall = $('#callsign').val().trim();
         $('#partial_view').load("logbook/search_result/" + fixedcall.replaceAll('Ø', '0'), function() {
             $('[data-bs-toggle="tooltip"]').tooltip();
@@ -1081,11 +1117,25 @@ $($('#callsign')).on('keypress',function(e) {
         $user_gridsquare = ($active_station_info->station_gridsquare ?? '');
     }
 ?>
-
+<style>
+.grid-text {
+  word-wrap: normal !important;
+}
+</style>
 <script>
+  var lang_gen_hamradio_gridsquares = '<?= _pgettext("Map Options", "Gridsquares"); ?>';
+  var maidenhead;
   var markers = L.layerGroup();
   var pos = [51.505, -0.09];
-  var mymap = L.map('qsomap').setView(pos, 12);
+  var mymap = L.map('qsomap', {
+    fullscreenControl: true,
+    fullscreenControlOptions: {
+			position: 'topleft'
+		},
+}).setView(pos, 12);
+
+maidenhead = L.maidenheadqrb().addTo(mymap);
+mymap.on('mousemove', onQsoMapMove);
   $.ajax({
      url: base_url + 'index.php/logbook/qralatlngjson',
      type: 'post',
@@ -1112,9 +1162,49 @@ $($('#callsign')).on('keypress',function(e) {
 
   L.tileLayer('<?php echo $this->optionslib->get_option('option_map_tile_server');?>', {
     maxZoom: 18,
+    minZoom: 1,
     attribution: '<?php echo $this->optionslib->get_option('option_map_tile_server_copyright');?>',
     id: 'mapbox.streets'
   }).addTo(mymap);
+  mymap.on('click', function(e) {
+    $('#locator').val((latLngToLocator(e.latlng.lat, e.latlng.lng).toUpperCase()));
+    $('#locator').trigger('input');
+	if (mymap._isFullscreen) {
+    	mymap.toggleFullscreen(); // only exits if in fullscreen
+  	}
+  });
+
+   var legend = L.control({ position: "topright" });
+
+    legend.onAdd = function(mymap) {
+        var div = L.DomUtil.create("div", "legend");
+        div.innerHTML += '<div id="qsomapgrid"></div>';
+		div.innerHTML += '<input type="checkbox" onclick="toggleGridsquares(this.checked)" ' + (typeof gridsquare_layer !== 'undefined' && gridsquare_layer ? 'checked' : '') + ' style="outline: none;"><span> ' + lang_gen_hamradio_gridsquares + '</span><br>';
+        return div;
+    };
+
+    legend.addTo(mymap);
+
+    if (typeof gridsquare_layer !== 'undefined') {
+		toggleGridsquares(gridsquare_layer);
+	} else {
+		toggleGridsquares(false);
+	}
+
+  function onQsoMapMove(event) {
+	var LatLng = event.latlng;
+	var lat = LatLng.lat;
+	var lng = LatLng.lng;
+	var locator = latLngToLocator(lat,lng);
+	$('#qsomapgrid').html(locator.toUpperCase());
+  }
+  function toggleGridsquares(bool) {
+	if(!bool) {
+		mymap.removeLayer(maidenhead);
+	} else {
+		maidenhead.addTo(mymap);
+	}
+};
 
 </script>
 
@@ -1792,7 +1882,7 @@ $(document).ready(function(){
 		<script src="<?php echo base_url(); ?>assets/js/sections/webadif.js"></script>
 	<?php } ?>
 
-<?php if ($this->uri->segment(2) == "dxcc" || $this->uri->segment(2) == "wae") { ?>
+<?php if ($this->uri->segment(2) == "dxcc" || $this->uri->segment(2) == "wae" || $this->uri->segment(2) == "wpx") { ?>
 <script>
     $('.tabledxcc').DataTable({
         "pageLength": 25,
@@ -1809,7 +1899,7 @@ $(document).ready(function(){
         buttons: [
 			{
 				extend: 'csv',
-				className: 'mb-1 btn btn-primary', // Bootstrap classes
+				className: 'mb-1 btn btn-sm btn-primary', // Bootstrap classes
 					init: function(api, node, config) {
 						$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
 					},
@@ -1832,7 +1922,7 @@ $(document).ready(function(){
         buttons: [
             {
 				extend: 'csv',
-				className: 'mb-1 btn btn-primary', // Bootstrap classes
+				className: 'mb-1 btn btn-sm btn-primary', // Bootstrap classes
 					init: function(api, node, config) {
 						$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
 					},
@@ -1846,7 +1936,7 @@ $(document).ready(function(){
     }
  </script>
     <?php } ?>
-	<?php if ($this->uri->segment(2) == "wae") { ?>
+	<?php if ($this->uri->segment(2) == "wae" || $this->uri->segment(2) == "wpx") { ?>
 		<script>
 	$('#band2').change(function(){
    var band = $("#band2 option:selected").text();
@@ -1870,9 +1960,9 @@ $('#sats').change(function(){
 </script>
     <?php } ?>
 
-<?php if ($this->uri->segment(2) == "waja") { ?>
+<?php if ($this->uri->segment(2) == "wapc") { ?>
 <script>
-    $('.tablewaja').DataTable({
+    $('.tablewapc').DataTable({
         "pageLength": 25,
         responsive: false,
         ordering: false,
@@ -1910,7 +2000,62 @@ $('#sats').change(function(){
         buttons: [
             {
 				extend: 'csv',
-				className: 'mb-1 btn btn-primary', // Bootstrap classes
+				className: 'mb-1 btn-sm btn btn-primary', // Bootstrap classes
+					init: function(api, node, config) {
+						$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
+					},
+			}
+        ]
+    });
+
+    // change color of csv-button if dark mode is chosen
+    if (isDarkModeTheme()) {
+        $(".buttons-csv").css("color", "white");
+    }
+ </script>
+<?php } ?>
+
+<?php if ($this->uri->segment(2) == "waja") { ?>
+<script>
+    $('.tablewaja').DataTable({
+        "pageLength": 25,
+        responsive: false,
+        ordering: false,
+        "scrollY":        "400px",
+        "scrollCollapse": true,
+        "paging":         false,
+        "scrollX": true,
+        "language": {
+            url: getDataTablesLanguageUrl(),
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+				extend: 'csv',
+				className: 'mb-1 btn btn-sm btn-primary', // Bootstrap classes
+					init: function(api, node, config) {
+						$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
+					},
+			}
+        ]
+    });
+
+    $('.tablesummary').DataTable({
+        info: false,
+        searching: false,
+        ordering: false,
+        "paging":         false,
+        "language": {
+            url: getDataTablesLanguageUrl(),
+        },
+        dom: 'Bfrtip',
+        "language": {
+            url: getDataTablesLanguageUrl(),
+        },
+        buttons: [
+            {
+				extend: 'csv',
+				className: 'mb-1 btn btn-sm btn-primary', // Bootstrap classes
 					init: function(api, node, config) {
 						$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
 					},
@@ -1942,7 +2087,7 @@ $('#sats').change(function(){
         buttons: [
             {
 				extend: 'csv',
-				className: 'mb-1 btn btn-primary', // Bootstrap classes
+				className: 'mb-1 btn btn-sm btn-primary', // Bootstrap classes
 					init: function(api, node, config) {
 						$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
 					},
@@ -1965,7 +2110,7 @@ $('#sats').change(function(){
         buttons: [
             {
 				extend: 'csv',
-				className: 'mb-1 btn btn-primary', // Bootstrap classes
+				className: 'mb-1 btn btn-sm btn-primary', // Bootstrap classes
 					init: function(api, node, config) {
 						$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
 					},
@@ -2274,6 +2419,10 @@ $('#sats').change(function(){
         <?php } ?>
 
 
+    <?php if ($this->uri->segment(1) == "usermode") { ?>
+		<script src="<?php echo base_url(); ?>assets/js/sections/usermode.js"></script>
+    <?php } ?>
+
     <?php if ($this->uri->segment(1) == "mode") { ?>
 		<script src="<?php echo base_url(); ?>assets/js/sections/mode.js"></script>
     <?php } ?>
@@ -2295,7 +2444,7 @@ $('#sats').change(function(){
 	<script src="<?php echo base_url(); ?>assets/js/sections/timeplot.js"></script>
 <?php } ?>
 
-<?php if ($this->uri->segment(1) == "qsl" || $this->uri->segment(1) == "eqsl") {
+<?php if ($this->uri->segment(1) == "generic_qsl" || $this->uri->segment(1) == "qsl" || $this->uri->segment(1) == "eqsl") {
     	// Get Date format
 	if($this->session->userdata('user_date_format')) {
 		// If Logged in and session exists
@@ -2330,6 +2479,8 @@ $('#sats').change(function(){
         };
     </script>
     <?php if ($this->uri->segment(1) == "qsl") {
+        $qsl_eqsl_table = '.qsltable';
+    } else if ($this->uri->segment(1) == "generic_qsl") {
         $qsl_eqsl_table = '.qsltable';
     } else if ($this->uri->segment(1) == "eqsl") {
         $qsl_eqsl_table = '.eqsltable';
@@ -2474,7 +2625,8 @@ function viewEqsl(picture, callsign) {
         var awardInfoLines = [
             lang_award_info_ln2,
             lang_award_info_ln3,
-            lang_award_info_ln4
+            lang_award_info_ln4,
+            typeof lang_award_info_ln5 !== 'undefined' ? lang_award_info_ln5 : ''
         ];
         var awardInfoContent = "";
         awardInfoLines.forEach(function (line) {
@@ -2512,7 +2664,7 @@ function viewEqsl(picture, callsign) {
                     message: html,
                     onshown: function(dialog) {
                        $('[data-bs-toggle="tooltip"]').tooltip();
-                       $('.contacttable').DataTable({
+                       $('.displaycontactstable').DataTable({
                             "pageLength": 7,
                             responsive: false,
                             ordering: false,
@@ -2583,8 +2735,16 @@ function viewEqsl(picture, callsign) {
 			    nl2br: false,
 			    message: html,
 			    onshown: function(dialog) {
+					// Block propagation on the modal body
+					L.DomEvent.disableScrollPropagation(dialog.getModalBody()[0]);
+					L.DomEvent.disableClickPropagation(dialog.getModalBody()[0]);
+
+					// Also block on the DataTables scroll container once it exists
+					dialog.getModalBody().find('.dataTables_scrollBody').each(function() {
+						L.DomEvent.disableScrollPropagation(this);
+					});
 				    $('[data-bs-toggle="tooltip"]').tooltip();
-				    $('.contacttable').DataTable({
+				    $('.displaycontactstable').DataTable({
 				    "pageLength": 25,
 					    responsive: false,
 					    ordering: false,
@@ -2761,17 +2921,6 @@ function viewEqsl(picture, callsign) {
 		});
 	}
 
-	function searchAdditionalQsos(filename) {
-		$.ajax({
-			url: base_url + 'index.php/qsl/searchQsos',
-			type: 'post',
-			data: {'callsign': $('#callsign').val(), 'filename': filename},
-			success: function(html) {
-				$('#searchresult').empty();
-				$('#searchresult').append(html);
-			}
-		});
-	}
 </script>
 <?php if ($this->uri->segment(1) == "contesting" && ($this->uri->segment(2) != "add" && $this->uri->segment(2) != "edit")) { ?>
     <script>
@@ -3018,6 +3167,51 @@ function viewEqsl(picture, callsign) {
                 }
             };
             $('#wwfftable').DataTable({
+                "pageLength": 25,
+                responsive: false,
+                ordering: true,
+                "scrollY":        "500px",
+                "scrollCollapse": true,
+                "paging":         false,
+                "scrollX": true,
+                "language": {
+                    url: getDataTablesLanguageUrl(),
+                },
+                "order": [ 0, 'asc' ],
+                dom: 'Bfrtip',
+                buttons: [
+					{
+						extend: 'csv',
+						className: 'mb-1 btn btn-primary', // Bootstrap classes
+							init: function(api, node, config) {
+								$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
+						},
+					},
+                   {
+                      extend: 'clear',
+					  className: 'mb-1 btn btn-primary', // Bootstrap classes
+							init: function(api, node, config) {
+								$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
+						},
+                      text: lang_admin_clear
+                   }
+                ]
+            });
+            // change color of csv-button if dark mode is chosen
+            if (isDarkModeTheme()) {
+               $('[class*="buttons"]').css("color", "white");
+            }
+        </script>
+    <?php } else if ($this->uri->segment(2) == 'sota') { ?>
+        <script>
+            $.fn.dataTable.moment('<?php echo $usethisformat ?>');
+            $.fn.dataTable.ext.buttons.clear = {
+                className: 'buttons-clear',
+                action: function ( e, dt, node, config ) {
+                   dt.search('').draw();
+                }
+            };
+            $('#sotatable').DataTable({
                 "pageLength": 25,
                 responsive: false,
                 ordering: true,

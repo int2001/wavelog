@@ -223,11 +223,11 @@ class Lotw extends CI_Controller {
 				// Validty of QSO dates will be checked later
 				$current_date = date('Y-m-d H:i:s');
 				if ($current_date <= $data['lotw_cert_info']->date_created) {
-					echo $data['lotw_cert_info']->callsign.": LoTW certificate not valid yet!";
+					echo $data['lotw_cert_info']->callsign.": LoTW certificate not valid yet!<br>";
 					continue;
 				}
 				if ($current_date >= $data['lotw_cert_info']->date_expires) {
-					echo $data['lotw_cert_info']->callsign.": LoTW certificate expired!";
+					echo $data['lotw_cert_info']->callsign.": LoTW certificate expired!<br>";
 					continue;
 				}
 
@@ -243,7 +243,7 @@ class Lotw extends CI_Controller {
 				// Nothing to upload
 				if(empty($data['qsos']->result())){
 					if ($this->user_model->authorize(2)) {	// Only be verbose if we have a session
-						echo $station_profile->station_callsign." (".$station_profile->station_profile_name."): No QSOs to upload.<br>";
+						echo str_replace("0", "&Oslash;", $station_profile->station_callsign)." (".$station_profile->station_profile_name."): No QSOs to upload.<br>";
 					}
 					continue;
 				}
@@ -256,7 +256,7 @@ class Lotw extends CI_Controller {
 				$adif_to_save = $this->load->view('lotw_views/adif_views/adif_export', $data, TRUE);
 				if (strpos($adif_to_save, '<SIGN_LOTW_V2.0:1:6>')) {
 					// Signing failed
-					echo "Signing failed.";
+					echo "Signing failed.<br>";
 					continue;
 				}
 
@@ -320,9 +320,7 @@ class Lotw extends CI_Controller {
 					}
 				}
 
-				$pos = strpos($result, "<!-- .UPL.  accepted -->");
-
-				if ($pos === false) {
+				if (!preg_match('/<!-- \.UPL\.\s*accepted -->/', $result)) {
 					// Upload of TQ8 Failed for unknown reason
 					echo $station_profile->station_callsign." (".$station_profile->station_profile_name."): Upload Failed - ".curl_strerror(curl_errno($ch))." (".curl_errno($ch).")<br>";
 					$this->Lotw_model->last_upload($data['lotw_cert_info']->lotw_cert_id, "Upload failed");
@@ -541,6 +539,9 @@ class Lotw extends CI_Controller {
 
 			if($status[0] == "Found") {
 				$qso_id4lotw=$status[1];
+
+				$call = str_replace("0", "&Oslash;", $record['call']);
+
 				if (isset($record['state'])) {
 					$state = $record['state'];
 				} else {
@@ -549,7 +550,7 @@ class Lotw extends CI_Controller {
 				// Present only if the QSLing station specified a single valid grid square value in its station location uploaded to LoTW.
 				$qsl_gridsquare = "";
 				if (isset($record['gridsquare'])) {
-					if (strlen($record['gridsquare']) > strlen($status[2] ?? '') || substr(strtoupper($status[2] ?? ''), 0, 4) != substr(strtoupper($record['gridsquare']), 0, 4)) {
+					if (strlen($record['gridsquare']) >= strlen($status[2] ?? '') || substr(strtoupper($status[2] ?? ''), 0, 4) != substr(strtoupper($record['gridsquare']), 0, 4)) {
 						$qsl_gridsquare = $record['gridsquare'];
 					}
 				}
@@ -603,7 +604,7 @@ class Lotw extends CI_Controller {
 				$table .= "<tr>";
 				$table .= "<td>".$record['station_callsign']."</td>";
 				$table .= "<td>".$time_on."</td>";
-				$table .= "<td><a id=\"view_lotw_qso\" href=\"javascript:displayQso(".$status[1].")\">".$record['call']."</a></td>";
+				$table .= "<td><a id=\"view_lotw_qso\" href=\"javascript:displayQso(".$status[1].")\">".$call."</a></td>";
 				$table .= "<td>".$record['mode']."</td>";
 				$table .= "<td>".$record['qsl_rcvd']."</td>";
 				$table .= "<td>".$qsl_date."</td>";
@@ -1117,6 +1118,23 @@ class Lotw extends CI_Controller {
 				break;
 			default:
 				return $ca_prov;
+		endswitch;
+	}
+
+	/*
+	|	Function: lotw_ru_oblast_map
+	|	Requires: russian oblast map $ru_oblast
+	*/
+	function lotw_ru_oblast_map($ru_oblast) {
+		switch ($ru_oblast):
+			case "YR":
+				return "JA";
+				break;
+			case "YN":
+				return "JN";
+				break;
+			default:
+				return $ru_oblast;
 		endswitch;
 	}
 

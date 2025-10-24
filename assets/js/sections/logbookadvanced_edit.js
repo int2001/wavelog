@@ -1,7 +1,7 @@
 function editQsos() {
-	var elements = $('#qsoList tbody input:checked');
-	var nElements = elements.length;
-	if (nElements == 0) {
+	const id_list = getSelectedIds();
+
+	if (id_list.length === 0) {
 		BootstrapDialog.alert({
 			title: 'INFO',
 			message: 'You need to select at least 1 row to use batch edit!',
@@ -13,11 +13,6 @@ function editQsos() {
 		});
 		return;
 	}
-	var id_list=[];
-	elements.each(function() {
-		let id = $(this).closest('tr').attr('id')?.replace(/\D/g, ''); // Removes non-numeric characters
-		id_list.push(id);
-	});
 
 	$('#editButton').prop("disabled", true);
 
@@ -185,11 +180,17 @@ function saveBatchEditQsos(id_list) {
 	if (column == 'contest') {
 		value = $("#editContest").val();
 	}
+	if (column == 'qslsent' || column == 'qslreceived') {
+		value = $("#editQsl").val();
+	}
 	if (column == 'lotwsent' || column == 'lotwreceived') {
 		value = $("#editLoTW").val();
 	}
 	if (column == 'qrzsent' || column == 'qrzreceived') {
 		value = $("#editQrz").val();
+	}
+	if (column == 'dclsent' || column == 'dclreceived') {
+		value = $("#editDcl").val();
 	}
 	if (column == 'eqslsent' || column == 'eqslreceived') {
 		value = $("#editEqsl").val();
@@ -203,8 +204,20 @@ function saveBatchEditQsos(id_list) {
 	if (column == 'region') {
 		value = $("#editRegion").val();
 	}
-	if (column == 'sota' || column == 'pota' || column == 'wwff' || column == 'gridsquare' || column == 'comment' || column == 'operator' || column == 'qslvia' || column == 'qslmsg' || column == 'stationpower') {
+	if (column == 'sota' || column == 'pota' || column == 'wwff' || column == 'gridsquare' || column == 'comment' || column == 'operator' || column == 'qslvia' || column == 'qslmsg' || column == 'stationpower' || column == 'stxstring' || column == 'rsts' || column == 'rstr') {
 		value = $("#editTextInput").val();
+	}
+	if (column == 'distance') {
+		value = $("#editDistanceInput").val();
+	}
+	if (column == 'dok') {
+		value = $("#editDokInput").val();
+	}
+	if (column == 'gridsquare') {
+		value = $("#editGridsquareInput").val();
+	}
+	if (column == 'qslsentmethod' || column == 'qslreceivedmethod') {
+		value = $("#editQslMethod").val();
 	}
 
 	$.ajax({
@@ -254,10 +267,16 @@ function changeEditType(type) {
 	$('#editLoTW').hide();
 	$('#editContinent').hide();
 	$('#editQrz').hide();
+	$('#editDcl').hide();
 	$('#saveButton').prop("disabled", false);
 	$('#editEqsl').hide();
 	$('#editRegion').hide();
 	$('#editClublog').hide();
+	$('#editDistanceInputLabel').hide();
+	$('#editDistanceInput').hide();
+	$('#editDokInput').hide();
+	$('#editGridsquareInput').hide();
+	$('#editQslMethod').hide();
 	if (type == "dxcc") {
 		$('#editDxcc').show();
 	} else if (type == "iota") {
@@ -293,15 +312,19 @@ function changeEditType(type) {
 		$('#editBandRxLabel').show();
 	} else if (type == "contest") {
 		$('#editContest').show();
+	} else if (type == "qslsent" || type == "qslreceived") {
+		$('#editQsl').show();
 	} else if (type == "lotwsent" || type == "lotwreceived") {
 		$('#editLoTW').show();
 	} else if (type == "qrzsent" || type == "qrzreceived") {
 		$('#editQrz').show();
+	} else if (type == "dclsent" || type == "dclreceived") {
+		$('#editDcl').show();
 	} else if (type == "eqslsent" || type == "eqslreceived") {
 		$('#editEqsl').show();
 	} else if (type == "continent") {
 		$('#editContinent').show();
-	} else if (type == "gridsquare" || type == "sota" || type == "wwff" || type == "operator" || type == "pota" || type == "comment" || type == "qslvia" || type == "contest" || type == "qslmsg" || type == "stationpower") {
+	} else if (type == "sota" || type == "wwff" || type == "operator" || type == "pota" || type == "comment" || type == "qslvia" || type == "contest" || type == "qslmsg" || type == "stationpower" || type == 'stxstring' || type == 'rsts' || type == 'rstr') {
 		$('#editTextInput').show();
 	} else if (type == "region") {
 		$('#editRegion').show();
@@ -309,6 +332,15 @@ function changeEditType(type) {
 		$('#editClublog').show();
 	} else if (type == "") {
 		$('#saveButton').prop("disabled", true);
+	} else if (type == "dok") {
+		$('#editDokInput').show();
+	} else if (type == "gridsquare") {
+		$('#editGridsquareInput').show();
+	} else if (type == "distance") {
+		$('#editDistanceInput').show();
+		$('#editDistanceInputLabel').show();
+	} else if (type == "qslsentmethod" || type == "qslreceivedmethod") {
+		$('#editQslMethod').show();
 	}
 }
 

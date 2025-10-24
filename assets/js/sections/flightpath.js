@@ -695,7 +695,7 @@ function getBearing(lat1, lng1, lat2, lng2) {
   }
 
   function start(data) {
-	init(data.satellite);
+	init((data.satellite != '' ? (data.satellite+' ('+data.displayname+')') : data.displayname));
 	initSats(parseTle(data.tle));
   }
 
@@ -726,7 +726,7 @@ function plot_sat() {
 		},
 		success: function (data) {
 			sats.start(data);
-			$("#satname").html($("#sats").val());
+			$("#satname").html($("#sats :selected").text());
 		},
 		error: function (data) {
 			alert('Something went wrong!');
@@ -818,7 +818,7 @@ function getSatelliteInfo(element) {
         },
         success: function (html) {
 			BootstrapDialog.show({
-				title: 'Satellite information',
+				title: lang_gen_hamradio_sat_info,
 				size: BootstrapDialog.SIZE_WIDE,
 				cssClass: 'information-dialog',
 				nl2br: false,
