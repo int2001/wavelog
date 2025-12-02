@@ -109,6 +109,7 @@ class QSLPrint extends CI_Controller {
 						"ADIF",
 						"ENTITY",
 						"GRIDSQUARE",
+						"PROP_MODE",
 						"STATION_GRIDSQUARE");
 
 		fputcsv($file, $header, separator: ",", enclosure: "\"", escape: "\\");
@@ -137,6 +138,7 @@ class QSLPrint extends CI_Controller {
 				$qso->ADIF,
 				$qso->ENTITY,
 				$qso->COL_GRIDSQUARE,
+				$qso->COL_PROP_MODE,
 				$qso->COL_MY_GRIDSQUARE), separator: ",", enclosure: "\"", escape: "\\");
 		}
 
