@@ -117,6 +117,51 @@ class API extends CI_Controller {
 		}
 	}
 
+	function create_station($key = '') {
+		$this->load->model('api_model');
+		if ($this->api_model->access($key) == "No Key Found" || $this->api_model->access($key) == "Key Disabled") {
+			$this->output->set_status_header(401)->set_content_type('application/json')->set_output(json_encode(['status' => 'error', 'message' => 'Auth Error, invalid key']));
+			return;
+		}
+		try {
+			$raw = file_get_contents("php://input");
+			if ($raw === false) {
+				throw new Exception("Failed to read input data");
+			}
+
+			if (empty($raw)) {
+				$this->output->set_status_header(400)->set_content_type('application/json')->set_output(json_encode(['status' => 'error', 'message' => 'No file uploaded']));
+				return;
+			}
+
+			$raw = preg_replace('#<([eE][oO][rR])>[\r\n\t]+#', '<$1>', $raw);
+			if ($raw === null) {
+				throw new Exception("Regex processing failed");
+			}
+
+			$locations = json_decode($raw, true);
+
+			if ($locations === null) {
+				$this->output->set_status_header(400)->set_content_type('application/json')->set_output(json_encode(['status' => 'error', 'message' => 'Invalid JSON file']));
+				return;
+			}
+		} catch (Exception $e) {
+			$this->output->set_status_header(500)->set_content_type('application/json')->set_output(json_encode(['status' => 'error', 'message' => 'Processing error: ' . $e->getMessage()]));
+		}
+		$this->load->model('stationsetup_model');
+		$user_id = $this->api_model->key_userid($key);
+		$imported = $this->stationsetup_model->import_locations_parse($locations,$user_id);
+		if (($imported[0] ?? '0') == 'limit') {
+			$this->output->set_status_header(201)->set_content_type('application/json')->set_output(json_encode(['status' => 'success', 'message' => ($imported[1] ?? '0')." locations imported. Maximum limit of 1000 locations reached."]));
+		} else {
+			if (($imported[1] ?? 0) == 0) {
+				$this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode(['status' => 'dupe', 'message' => ($imported[1] ?? '0')." locations imported."]));
+			} else {
+				$this->output->set_status_header(201)->set_content_type('application/json')->set_output(json_encode(['status' => 'success', 'message' => ($imported[1] ?? '0')." locations imported."]));
+			}
+		}
+	}
+
 	function station_info($key = '') {
 		$this->load->model('api_model');
 		$this->load->model('stations');
@@ -132,6 +177,7 @@ class API extends CI_Controller {
 				$result['station_gridsquare']=$row->station_gridsquare;
 				$result['station_callsign']=$row->station_callsign;;
 				$result['station_active']=$row->station_active;
+				$result['station_uuid']=$row->station_uuid;
 				array_push($station_ids, $result);
 			}
 			echo json_encode($station_ids);
@@ -143,7 +189,6 @@ class API extends CI_Controller {
 
 	function check_auth($key) {
 		$this->load->model('api_model');
-			header("Content-type: text/xml");
 		if($this->api_model->access($key) == "No Key Found" || $this->api_model->access($key) == "Key Disabled") {
 			// set the content type as json
 			header("Content-type: application/json");
@@ -263,6 +308,19 @@ class API extends CI_Controller {
 					if(count($record) == 0) {
 						break;
 					}
+
+					// Handle slashed zeros
+					$record['call'] = str_replace('Ø', "0", $record['call']);
+					if (($record['operator'] ?? '') != '') {
+						$record['operator'] = str_replace('Ø', "0", $record['operator']);
+					}
+					if (($record['station_callsign'] ?? '') != '') {
+						$record['station_callsign'] = str_replace('Ø', "0", $record['station_callsign']);
+					}
+					if (($record['owner_callsign'] ?? '') != '') {
+						$record['owner_callsign'] = str_replace('Ø', "0", $record['owner_callsign']);
+					}
+
 					// in case the provided op call is the same as the clubstation callsign, we need to use the creator of the API key as the operator
 					$recorded_operator = $record['operator'] ?? '';
 					if (key_exists('operator',$record) && $real_operator != null && ($record['operator'] == $record['station_callsign']) || ($recorded_operator == '')) {
@@ -382,33 +440,64 @@ class API extends CI_Controller {
 
 		//load adif data module
 		$this->load->model('adif_data');
+		$this->load->library('AdifHelper');
 
-		//get qso data
-		$data['qsos'] = $this->adif_data->export_past_id($station_id, $fetchfromid, $limit);
+		// Initialize tracking variables
+		$total_fetched = 0;
+		$all_qso_ids = [];
+		$lastfetchedid = $fetchfromid;
 
-		//set internalonly attribute for adif creation
-		$data['internalrender'] = true;
+		// Process in chunks to avoid memory issues
+		$chunk_size = 5000;
+		$remaining_limit = $limit;
+		$offset = 0;
 
-		//if no new QSOs are ready, return that
-		$qso_count = count($data['qsos']->result());
-		if($qso_count <= 0) {
+		// Start building ADIF content
+		$adif_content = $this->adifhelper->getAdifHeader($this->config->item('app_name'),$this->optionslib->get_option('version'));
+
+		do {
+			// Calculate chunk size for this iteration
+			$current_chunk_size = min($chunk_size, $remaining_limit);
+
+			// Fetch chunk
+			$qsos = $this->adif_data->export_past_id_chunked($station_id, $fetchfromid, $current_chunk_size, null, $offset, $current_chunk_size);
+
+			if ($qsos && $qsos->num_rows() > 0) {
+				// Process chunk
+				foreach ($qsos->result() as $row) {
+					// Build ADIF content directly
+					$adif_content .= $this->adifhelper->getAdifLine($row);
+
+					// Track data for response
+					$all_qso_ids[] = $row->COL_PRIMARY_KEY;
+					$lastfetchedid = max($lastfetchedid, $row->COL_PRIMARY_KEY);
+					$total_fetched++;
+				}
+
+				// Free memory
+				$qsos->free_result();
+
+				// Update tracking
+				$remaining_limit -= $qsos->num_rows();
+				$offset += $qsos->num_rows();
+
+				// Stop if we've hit the requested limit
+				if ($total_fetched >= $limit) {
+					break;
+				}
+			}
+
+			// Continue if we got a full chunk and haven't hit the limit
+		} while ($qsos && $qsos->num_rows() > 0 && $total_fetched < $limit);
+
+		// Return response (same format as original)
+		if($total_fetched <= 0) {
 			http_response_code(200);
 			echo json_encode(['status' => 'successfull', 'message' => 'No new QSOs available.', 'lastfetchedid' => $fetchfromid, 'exported_qsos' => 0, 'adif' => null]);
-			return;
+		} else {
+			http_response_code(200);
+			echo json_encode(['status' => 'successfull', 'message' => 'Export successfull', 'lastfetchedid' => $lastfetchedid, 'exported_qsos' => $total_fetched, 'adif' => $adif_content]);
 		}
-
-		//convert data to ADIF
-		$adif_content = $this->load->view('adif/data/exportall', $data, TRUE);
-
-		//get new goalpost
-		$lastfetchedid = 0;
-		foreach ($data['qsos']->result() as $row) {
-			$lastfetchedid = max($lastfetchedid, $row->COL_PRIMARY_KEY);
-		}
-
-		//return API result
-		http_response_code(200);
-		echo json_encode(['status' => 'successfull', 'message' => 'Export successfull', 'lastfetchedid' => $lastfetchedid, 'exported_qsos' => $qso_count, 'adif' => $adif_content]);
 	}
 
 

@@ -107,6 +107,8 @@ class AdifHelper {
 			'MORSE_KEY_INFO',
 			'MORSE_KEY_TYPE',
 			'QSLMSG_RCVD',
+			'DCL_QSL_RCVD',
+			'DCL_QSL_SENT'
 		);
 
 		$dateFields = array(
@@ -120,7 +122,7 @@ class AdifHelper {
 			'HRDLOG_QSO_UPLOAD_DATE',
 			'QRZCOM_QSO_UPLOAD_DATE',
 			'DCL_QSLRDATE',
-			'DCL_QSLSDATE',
+			'DCL_QSLSDATE'
 		);
 
 	/**
@@ -258,6 +260,15 @@ class AdifHelper {
 		$line .= "<EOR>\r\n\r\n";
 
 		return $line;
+	}
+
+	function getAdifHeader($app_name,$version) {
+		$adif_header = "Wavelog ADIF export\n";
+		$adif_header .= "<ADIF_VER:5>3.1.6\n";
+		$adif_header .= "<PROGRAMID:".strlen($app_name).">".$app_name."\r\n";
+		$adif_header .= "<PROGRAMVERSION:".strlen($version).">".$version."\r\n";
+		$adif_header .= "<EOH>\n\n";
+		return $adif_header;
 	}
 
     function getAdifFieldLine($adifcolumn, $dbvalue) {

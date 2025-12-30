@@ -46,6 +46,17 @@ class Lotw extends CI_Controller {
 		// Load required models for page generation
 		$this->load->model('Lotw_model');
 
+		// Check for superseded certificates
+		$certcheck = $this->Lotw_model->lotw_certs($this->session->userdata('user_id'));
+		foreach ($certcheck->result() as $row) {
+			if ($row->serial != null) {
+				$status = $this->lotw_cert_status($row->serial);
+				if ($status != 99 && $status != $row->status) {
+					$this->Lotw_model->update_cert_status($row->lotw_cert_id, $status);
+				}
+			}
+		}
+
 		// Get Array of the logged in users LoTW certs.
 		$data['lotw_cert_results'] = $this->Lotw_model->lotw_certs($this->session->userdata('user_id'));
 
@@ -144,14 +155,14 @@ class Lotw extends CI_Controller {
         		// New Certificate Store in Database
 
         		// Store Certificate Data into MySQL
-        		$this->Lotw_model->store_certificate($this->session->userdata('user_id'), $info['issued_callsign'], $info['dxcc-id'], $info['validFrom'], $info['validTo_Date'], $info['qso-first-date'], $info['qso-end-date'], $info['pem_key'], $info['general_cert']);
+            $this->Lotw_model->store_certificate($this->session->userdata('user_id'), $info['issued_callsign'], $info['dxcc-id'], $info['validFrom'], $info['validTo_Date'], $info['qso-first-date'], $info['qso-end-date'], $info['pem_key'], $info['general_cert'], $info['serialNumber']);
 
         		// Cert success flash message
         		$this->session->set_flashdata('success', $info['issued_callsign'] . ' ' . __("Certificate Imported."));
         	} else {
         		// Certificate is in the system time to update
 
-				$this->Lotw_model->update_certificate($this->session->userdata('user_id'), $info['issued_callsign'], $info['dxcc-id'], $info['validFrom'], $info['validTo_Date'], $info['qso-first-date'], $info['qso-end-date'], $info['pem_key'], $info['general_cert']);
+				$this->Lotw_model->update_certificate($this->session->userdata('user_id'), $info['issued_callsign'], $info['dxcc-id'], $info['validFrom'], $info['validTo_Date'], $info['qso-first-date'], $info['qso-end-date'], $info['pem_key'], $info['general_cert'], $info['serialNumber']);
 
         		// Cert success flash message
         		$this->session->set_flashdata('success', $info['issued_callsign'] . ' ' . __("Certificate Updated."));
@@ -211,22 +222,50 @@ class Lotw extends CI_Controller {
 				// Get Certificate Data
 				$this->load->model('Lotw_model');
 				$data['station_profile'] = $station_profile;
-				$data['lotw_cert_info'] = $this->Lotw_model->lotw_cert_details($station_profile->station_callsign, $station_profile->station_dxcc, $station_profile->user_id);
+
+				$cert_query = $this->Lotw_model->lotw_cert_details($station_profile->station_callsign, $station_profile->user_id);
+				if ($cert_query->num_rows() > 1) {
+					echo $station_profile->station_callsign.": Multiple matching LoTW certificates found. Skipping.<br>";
+					continue;
+				}
 
 				// If Station Profile has no LoTW Cert continue on.
-				if(!isset($data['lotw_cert_info']->cert_dxcc_id)) {
+				if ($cert_query->num_rows() == 0) {
 					echo $station_profile->station_callsign.": No LoTW certificate for station callsign found.<br>";
 					continue;
+				}
+
+				$data['lotw_cert_info'] = $cert_query->row();
+				// Check if station profile DXCC matches cert DXCC
+				if ($data['lotw_cert_info']->cert_dxcc_id != $station_profile->station_dxcc) {
+					echo $station_profile->station_callsign.": DXCC of station profile does not match DXCC of LoTW certificate.<br>";
+					continue;
+				}
+
+				// Check LoTW cert against CRL
+				if ($data['lotw_cert_info']->status != 0) {
+					if ($data['lotw_cert_info']->status == 1) {
+						echo $station_profile->station_callsign.": LoTW certificate superseded.<br>";
+						continue;
+					}
 				}
 
 				// Check if LoTW certificate itself is valid
 				// Validty of QSO dates will be checked later
 				$current_date = date('Y-m-d H:i:s');
-				if ($current_date <= $data['lotw_cert_info']->date_created) {
+				if ($current_date < $data['lotw_cert_info']->qso_start_date) {
+					echo $data['lotw_cert_info']->callsign.": QSO start date of LoTW certificate not reached yet!<br>";
+					continue;
+				}
+				if ($current_date > $data['lotw_cert_info']->qso_end_date) {
+					echo $data['lotw_cert_info']->callsign.": QSO end date of LoTW certificate exceeded!<br>";
+					continue;
+				}
+				if ($current_date < $data['lotw_cert_info']->date_created) {
 					echo $data['lotw_cert_info']->callsign.": LoTW certificate not valid yet!<br>";
 					continue;
 				}
-				if ($current_date >= $data['lotw_cert_info']->date_expires) {
+				if ($current_date > $data['lotw_cert_info']->date_expires) {
 					echo $data['lotw_cert_info']->callsign.": LoTW certificate expired!<br>";
 					continue;
 				}
@@ -402,7 +441,7 @@ class Lotw extends CI_Controller {
 		$filename = file_get_contents('file://'.$file);
 		$worked = openssl_pkcs12_read($filename, $results, $password);
 
-		if ($results['cert']) {
+		if (array_key_exists('cert', $results)) {
 			$data['general_cert'] = $results['cert'];
 		} else {
 			log_message('error', 'Found no certificate in file '.$file);
@@ -442,6 +481,7 @@ class Lotw extends CI_Controller {
 		$certdata= openssl_x509_parse($results['cert'],0);
 
 		// Store Variables
+		$data['serialNumber'] = $certdata['serialNumber'];
 		$data['issued_callsign'] = $certdata['subject']['undefined'];
 		$data['issued_name'] = $certdata['subject']['commonName'];
 		$data['validFrom'] = date('Y-m-d H:i:s', $certdata['validFrom_time_t']);
@@ -699,16 +739,12 @@ class Lotw extends CI_Controller {
 					continue;
 				}
 
-				// Get credentials for LoTW
-				$data['user_lotw_name'] = urlencode($user->user_lotw_name);
-				$data['user_lotw_password'] = urlencode($user->user_lotw_password);
-
 				$lotw_last_qsl_date = date('Y-m-d', strtotime($this->logbook_model->lotw_last_qsl_date($user->user_id)));
 
 				// Build URL for LoTW report file
 				$lotw_url = $lotw_base_url."?";
-				$lotw_url .= "login=" . $data['user_lotw_name'];
-				$lotw_url .= "&password=" . $data['user_lotw_password'];
+				$lotw_url .= "login=" . urlencode($user->user_lotw_name);
+				$lotw_url .= "&password=" . urlencode($user->user_lotw_password);
 				$lotw_url .= "&qso_query=1&qso_qsl='yes'&qso_qsldetail='yes'&qso_mydetail='yes'";
 
 				$lotw_url .= "&qso_qslsince=";
@@ -724,19 +760,26 @@ class Lotw extends CI_Controller {
 				curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
 				$content = curl_exec($ch);
 				if(curl_errno($ch)) {
-					$result = "LoTW download failed for user ".$data['user_lotw_name'].": ".curl_strerror(curl_errno($ch))." (".curl_errno($ch).").";
+					$result = "LoTW download failed for user ".$user->user_lotw_name.": ".curl_strerror(curl_errno($ch))." (".curl_errno($ch).").";
 					if (curl_errno($ch) == 28) {  // break on timeout
 						$result .= "<br>Timeout reached. Stopping subsequent downloads.";
 						break;
 					}
 					continue;
 				} else if(str_contains($content,"Username/password incorrect</I>")) {
-					$result = "LoTW download failed for user ".$data['user_lotw_name'].": Username/password incorrect";
+					$result = "LoTW download failed for user ".$user->user_lotw_name.": Username/password incorrect";
+					log_message('error', 'LoTW download failed for user '.$user->user_name.': Username/password incorrect');
+					if ($this->Lotw_model->remove_lotw_credentials($user->user_id)) {
+						log_message('error', 'LoTW credentials deleted for user '.$user->user_name);
+					} else {
+						log_message('error', 'Deleting LoTW credentials for user '.$user->user_name.' failed');
+					}
 					continue;
 				}
 				file_put_contents($file, $content);
 				if (file_get_contents($file, false, null, 0, 39) != "ARRL Logbook of the World Status Report") {
-					$result = "Downloaded LoTW report for user ".$data['user_lotw_name']." is invalid. Check your credentials.";
+					$result = "Downloaded LoTW report for user ".$user->user_lotw_name." is invalid. Check your credentials.";
+					log_message('error', 'Downloaded LoTW report is invalid for user '.$user->user_name);
 					continue;
 				}
 
@@ -1231,6 +1274,36 @@ class Lotw extends CI_Controller {
 			default:
 				return $mode;
 		endswitch;
+	}
+
+	function lotw_cert_status ($serial) {
+		if (($serial ?? '') != '' && is_numeric($serial)) {
+			$url = 'https://lotw.arrl.org/lotw/crl?serial='.$serial;
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+			$result = curl_exec($ch);
+			if(curl_errno($ch)){
+				log_message('error', 'Error fetch LoTW CRL results: '.curl_strerror(curl_errno($ch)));
+				return 99;
+			}
+			$xml = new SimpleXMLElement($result);
+			if (!isset($xml->Status)) {
+				log_message('error', 'Error parsing LoTW CRL result: '.$result);
+				return 98;
+			}
+			switch ((string)$xml->Status) {
+			case 'Superceded':
+				return 1;
+			case 'Unrevoked':
+				return 0;
+			default:
+				log_message('error', 'Unknown LotW CRL status: '.(string)$xml->Status);
+				return 97;
+			}
+		}
+		return 99;
 	}
 
 } // end class

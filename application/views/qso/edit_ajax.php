@@ -119,7 +119,7 @@
                                     <div class="row">
                                         <div class="mb-3 col-sm-6">
                                             <label for="freq"><?= __("Mode"); ?></label>
-                                            <select id="edit_mode" class="form-select mode" name="mode">
+                                            <select id="edit_mode" class="form-select" name="mode">
                                                 <?php
                                                 foreach ($modes->result() as $mode) {
                                                     var_dump($mode);
@@ -598,7 +598,7 @@
                                                 </div>
                                             </div>
                                         </div>
-					<div class="tab-pane fade" id="dcl-edit" role="tabpanel" aria-labelledby="dcl-tab">
+                                        <div class="tab-pane fade" id="dcl-edit" role="tabpanel" aria-labelledby="dcl-tab">
                                             <div class="mt-3 mb-3 row">
                                                 <label for="sent" class="col-sm-3 col-form-label"><?= __("Sent"); ?></label>
                                                 <div class="col-sm-9">
@@ -624,7 +624,7 @@
                                                 </div>
                                             </div>
                                         </div>
-					<div class="tab-pane fade" id="clublog-edit" role="tabpanel" aria-labelledby="clublog-tab">
+                                        <div class="tab-pane fade" id="clublog-edit" role="tabpanel" aria-labelledby="clublog-tab">
                                             <div class="mt-3 mb-3 row">
                                                 <label for="sent" class="col-sm-3 col-form-label"><?= __("Sent"); ?></label>
                                                 <div class="col-sm-9">

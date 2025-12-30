@@ -238,6 +238,25 @@ class Logbookadvanced_model extends CI_Model {
 			$binding[] = $searchCriteria['dclReceived'];
 		}
 
+		if ($searchCriteria['qrzSent'] !== '') {
+			$condition = "COL_QRZCOM_QSO_UPLOAD_STATUS = ?";
+			if ($searchCriteria['qrzSent'] == 'N') {
+				$condition = '('.$condition;
+				$condition .= " OR COL_QRZCOM_QSO_UPLOAD_STATUS IS NULL OR COL_QRZCOM_QSO_UPLOAD_STATUS = '')";
+			}
+			$conditions[] = $condition;
+			$binding[] = $searchCriteria['qrzSent'];
+		}
+		if ($searchCriteria['qrzReceived'] !== '') {
+			$condition = "COL_QRZCOM_QSO_DOWNLOAD_STATUS = ?";
+			if ($searchCriteria['qrzReceived'] == 'N') {
+				$condition = '('.$condition;
+				$condition .= " OR COL_QRZCOM_QSO_DOWNLOAD_STATUS IS NULL OR COL_QRZCOM_QSO_DOWNLOAD_STATUS = '')";
+			}
+			$conditions[] = $condition;
+			$binding[] = $searchCriteria['qrzReceived'];
+		}
+
         if ($searchCriteria['iota'] !== '') {
 			$conditions[] = "COL_IOTA = ?";
 			$binding[] = $searchCriteria['iota'];
@@ -390,6 +409,20 @@ class Logbookadvanced_model extends CI_Model {
 			$conditions[] = "(coalesce(COL_GRIDSQUARE, '') = '' and coalesce(COL_VUCC_GRIDS, '') = '')";
 		}
 
+
+		if ($searchCriteria['distance'] !== '*' && $searchCriteria['distance'] !== '') {
+			if (strtolower($searchCriteria['distance']) == '!empty') {
+				$conditions[] = "COL_DISTANCE <> ''";
+			} else {
+				$conditions[] = "COL_DISTANCE >= ?";
+				$binding[] = $searchCriteria['distance'];
+			}
+        }
+
+		if ($searchCriteria['distance'] == '') {
+			$conditions[] = "coalesce(COL_DISTANCE, '') = ''";
+		}
+
 		if (($searchCriteria['propmode'] ?? '') == 'None') {
 			$conditions[] = "(trim(COL_PROP_MODE) = '' OR COL_PROP_MODE is null)";
 		} elseif ($searchCriteria['propmode'] !== '') {
@@ -432,6 +465,11 @@ class Logbookadvanced_model extends CI_Model {
 
 		if (($searchCriteria['ids'] ?? '') !== '') {
 			$conditions[] = "qsos.COL_PRIMARY_KEY in (".implode(",",$searchCriteria['ids']).")";
+		}
+
+		$where = trim(implode(" AND ", $conditions));
+		if ($where != "") {
+			$where = "AND $where";
 		}
 
 		$where = trim(implode(" AND ", $conditions));
@@ -632,32 +670,50 @@ class Logbookadvanced_model extends CI_Model {
 		}
 	}
 
-	public function updateQsoWithCallbookInfo($qsoID, $qso, $callbook, $station_gridsquare = null) {
+	public function updateQsoWithCallbookInfo($qsoID, $qso, $callbook, $gridsquareAccuracyCheck, $station_gridsquare = null) {
 		$updatedData = array();
 		$updated = false;
 		if (!empty($callbook['name']) && empty($qso['COL_NAME'])) {
 			$updatedData['COL_NAME'] = $callbook['name'];
 			$updated = true;
 		}
-		if (!empty($callbook['gridsquare']) && empty($qso['COL_GRIDSQUARE']) && empty($qso['COL_VUCC_GRIDS'] )) {
-			if (strpos(trim($callbook['gridsquare']), ',') === false) {
-				$updatedData['COL_GRIDSQUARE'] = strtoupper(trim($callbook['gridsquare']));
-				if ($station_gridsquare != null && $station_gridsquare != '') {
-					if (!$this->load->is_loaded('Qra')) {
-						$this->load->library('Qra');
+		if (!empty($callbook['gridsquare']) && $callbook['geoloc'] != 'grid') {
+			if (empty($qso['COL_GRIDSQUARE']) && empty($qso['COL_VUCC_GRIDS'] )) {
+				if (strpos(trim($callbook['gridsquare']), ',') === false) {
+					$updatedData['COL_GRIDSQUARE'] = strtoupper(trim($callbook['gridsquare']));
+					if ($station_gridsquare != null && $station_gridsquare != '') {
+						if (!$this->load->is_loaded('Qra')) {
+							$this->load->library('Qra');
+						}
+						$updatedData['COL_DISTANCE'] = $this->qra->distance($station_gridsquare, strtoupper(trim($callbook['gridsquare'])), 'K');
 					}
-					$updatedData['COL_DISTANCE'] = $this->qra->distance($station_gridsquare, strtoupper(trim($callbook['gridsquare'])), 'K');
+				} else {
+					$updatedData['COL_VUCC_GRIDS'] = strtoupper(trim($callbook['gridsquare']));
+					if ($station_gridsquare != null && $station_gridsquare != '') {
+						if (!$this->load->is_loaded('Qra')) {
+							$this->load->library('Qra');
+						}
+						$updatedData['COL_DISTANCE'] = $this->qra->distance($station_gridsquare, strtoupper(trim($callbook['gridsquare'])), 'K');
+					}
 				}
-			} else {
-				$updatedData['COL_VUCC_GRIDS'] = strtoupper(trim($callbook['gridsquare']));
-				if ($station_gridsquare != null && $station_gridsquare != '') {
-					if (!$this->load->is_loaded('Qra')) {
-						$this->load->library('Qra');
+				$updated = true;
+			} else if (!empty($qso['COL_GRIDSQUARE']) && $gridsquareAccuracyCheck == true) {
+				$existingGridsquare = $qso['COL_GRIDSQUARE'];
+				//Check if existing gridsquare is less accurate than callbook gridsquare
+				if (strlen(trim($callbook['gridsquare'])) > strlen(trim($existingGridsquare))) {
+					if ($existingGridsquare == substr($callbook['gridsquare'], 0, strlen($existingGridsquare))) {
+						//Callbook gridsquare is more accurate, update it
+						$updatedData['COL_GRIDSQUARE'] = strtoupper(trim($callbook['gridsquare']));
+						if ($station_gridsquare != null && $station_gridsquare != '') {
+							if (!$this->load->is_loaded('Qra')) {
+								$this->load->library('Qra');
+							}
+							$updatedData['COL_DISTANCE'] = $this->qra->distance($station_gridsquare, strtoupper(trim($callbook['gridsquare'])), 'K');
+						}
+						$updated = true;
 					}
-					$updatedData['COL_DISTANCE'] = $this->qra->distance($station_gridsquare, strtoupper(trim($callbook['gridsquare'])), 'K');
 				}
 			}
-			$updated = true;
 		}
 		if (!empty($callbook['city']) && empty($qso['COL_QTH'])) {
 			$updatedData['COL_QTH'] = $callbook['city'];
@@ -697,6 +753,10 @@ class Logbookadvanced_model extends CI_Model {
 		}
 		if (empty($qso['COL_CONT'])) {
 			$updatedData['COL_CONT'] = $this->logbook_model->getContinent($callbook['dxcc']);
+			$updated = true;
+		}
+		if (!empty($callbook['email']) && empty($qso['COL_EMAIL'])) {
+			$updatedData['COL_EMAIL'] = $callbook['email'];
 			$updated = true;
 		}
 
@@ -1211,4 +1271,179 @@ class Logbookadvanced_model extends CI_Model {
 
 		$query = $this->db->query($sql, array(json_decode($ids, true), $this->session->userdata('user_id')));
     }
+
+	/**
+	 * Fix state for a single QSO using GeoJSON lookup
+	 *
+	 * @param int $qso_id QSO primary key
+	 * @return array Result array with success, dxcc_name, dxcc_number, state_code, skipped
+	 */
+	function fixStateSingle($qso_id) {
+		$this->load->library('Geojson');
+
+		// Get QSO data
+		$sql = "SELECT COL_PRIMARY_KEY, COL_CALL, COL_GRIDSQUARE, COL_DXCC, COL_STATE, d.name as dxcc_name
+				FROM " . $this->config->item('table_name') . " qsos
+				JOIN station_profile ON qsos.station_id = station_profile.station_id
+				LEFT JOIN dxcc_entities d ON qsos.COL_DXCC = d.adif
+				WHERE qsos.COL_PRIMARY_KEY = ? AND station_profile.user_id = ?";
+
+		$query = $this->db->query($sql, [$qso_id, $this->session->userdata('user_id')]);
+
+		if ($query->num_rows() === 0) {
+			return [
+				'success' => false,
+				'skipped' => true,
+				'reason' => 'QSO not found'
+			];
+		}
+
+		$qso = $query->row();
+		$callsign = $qso->COL_CALL ?? 'Unknown';
+		$dxcc = (int)$qso->COL_DXCC;
+		$gridsquare = $qso->COL_GRIDSQUARE;
+		$state = $qso->COL_STATE ?? '';
+		$dxcc_name = $qso->dxcc_name ?? 'Unknown';
+
+		// Skip if state is already populated
+		if (!empty($state)) {
+			return [
+				'success' => false,
+				'skipped' => true,
+				'callsign' => $callsign,
+				'dxcc_number' => $dxcc,
+				'dxcc_name' => $dxcc_name,
+				'reason' => 'State already set'
+			];
+		}
+
+		// Check if gridsquare exists
+		if (empty($gridsquare)) {
+			return [
+				'success' => false,
+				'skipped' => true,
+				'callsign' => $callsign,
+				'dxcc_number' => $dxcc,
+				'dxcc_name' => $dxcc_name,
+				'reason' => 'No gridsquare'
+			];
+		}
+
+		// Check if gridsquare is precise enough (at least 6 characters)
+		if (strlen($gridsquare) < 6) {
+			return [
+				'success' => false,
+				'skipped' => true,
+				'callsign' => $callsign,
+				'dxcc_number' => $dxcc,
+				'dxcc_name' => $dxcc_name,
+				'reason' => 'Gridsquare not precise enough'
+			];
+		}
+
+		// Check if state is supported for this DXCC
+		if (!$this->geojson->isStateSupported($dxcc)) {
+			return [
+				'success' => false,
+				'skipped' => true,
+				'callsign' => $callsign,
+				'dxcc_number' => $dxcc,
+				'dxcc_name' => $dxcc_name,
+				'reason' => 'DXCC not supported'
+			];
+		}
+
+		// Find state from gridsquare
+		$state = $this->geojson->findStateFromGridsquare($gridsquare, $dxcc);
+
+		if ($state === null || !isset($state['code'])) {
+			// Get coordinates for debugging
+			$coords = $this->geojson->gridsquareToLatLng($gridsquare);
+			return [
+				'success' => false,
+				'skipped' => false,
+				'callsign' => $callsign,
+				'dxcc_number' => $dxcc,
+				'dxcc_name' => $dxcc_name,
+				'gridsquare' => $gridsquare,
+				'lat' => $coords['lat'] ?? null,
+				'lng' => $coords['lng'] ?? null,
+				'reason' => 'State not found in GeoJSON'
+			];
+		}
+
+		// Update the state
+		$update_sql = "UPDATE " . $this->config->item('table_name') . "
+					   SET COL_STATE = ?
+					   WHERE COL_PRIMARY_KEY = ?";
+
+		$this->db->query($update_sql, [$state['code'], $qso_id]);
+
+		return [
+			'success' => true,
+			'skipped' => false,
+			'callsign' => $callsign,
+			'dxcc_number' => $dxcc,
+			'dxcc_name' => $dxcc_name,
+			'state_code' => $state['code'],
+			'state_name' => $state['name'] ?? null
+		];
+	}
+
+	public function check_missing_continent() {
+		// get all records with no COL_CONT
+		$this->db->trans_start();
+		$sql = "UPDATE " . $this->config->item('table_name') . "
+			JOIN dxcc_entities ON " . $this->config->item('table_name') . ".col_dxcc = dxcc_entities.adif
+			JOIN station_profile on " . $this->config->item('table_name') . ".station_id = station_profile.station_id
+			SET col_cont = dxcc_entities.cont
+			WHERE COALESCE(" . $this->config->item('table_name') . ".col_cont, '') = '' and station_profile.user_id = ?";
+
+		$query = $this->db->query($sql, array($this->session->userdata('user_id')));
+		$result = $this->db->affected_rows();
+		$this->db->trans_complete();
+
+		return $result;
+	}
+
+	public function update_distances_batch() {
+		ini_set('memory_limit', '-1');
+
+		$sql = "SELECT COL_ANT_PATH, COL_DISTANCE, COL_PRIMARY_KEY, station_profile.station_gridsquare, COL_GRIDSQUARE, COL_VUCC_GRIDS FROM " . $this->config->item('table_name') . "
+			JOIN station_profile on " . $this->config->item('table_name') . ".station_id = station_profile.station_id
+			WHERE COL_GRIDSQUARE is NOT NULL
+			AND COL_GRIDSQUARE != ''
+			AND station_profile.user_id = ?
+			AND (COL_DISTANCE = '' or COL_DISTANCE is NULL)
+			and COL_GRIDSQUARE != station_gridsquare";
+
+		$query = $this->db->query($sql, array($this->session->userdata('user_id')));
+
+		$recordcount = $query->num_rows();
+
+		if ($recordcount > 0) {
+			$this->load->library('Qra');
+
+			$updates = [];
+			foreach ($query->result() as $row) {
+				$distance = $this->qra->distance(
+					$row->station_gridsquare,
+					$row->COL_GRIDSQUARE,
+					'K',
+					$row->COL_ANT_PATH ?? null
+				);
+
+				$updates[] = [
+					'COL_PRIMARY_KEY' => $row->COL_PRIMARY_KEY,
+					'COL_DISTANCE' => $distance,
+				];
+			}
+
+			if (!empty($updates)) {
+				$this->db->update_batch($this->config->item('table_name'), $updates, 'COL_PRIMARY_KEY');
+			}
+		}
+
+		return $recordcount;
+	}
 }

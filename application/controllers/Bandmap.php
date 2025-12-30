@@ -35,13 +35,19 @@ class Bandmap extends CI_Controller {
 		$this->load->model('cat');
 		$this->load->model('bands');
 		$data['radios'] = $this->cat->radios();
+		$data['radio_last_updated'] = $this->cat->last_updated()->row();
 		$data['bands'] = $this->bands->get_user_bands_for_qso_entry();
 
 		$footerData = [];
 		$footerData['scripts'] = [
 			'assets/js/moment.min.js',
-			'assets/js/datetime-moment.js',
-			'assets/js/sections/bandmap_list.js'
+			'assets/js/datetime-moment.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/datetime-moment.js")),
+			'assets/js/cat.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/cat.js")),
+			'assets/js/leaflet/leaflet.geodesic.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/leaflet/leaflet.geodesic.js")),
+			'assets/js/leaflet.polylineDecorator.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/leaflet.polylineDecorator.js")),
+			'assets/js/leaflet/L.Terminator.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/leaflet/L.Terminator.js")),
+			'assets/js/sections/callstats.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/callstats.js")),
+			'assets/js/sections/bandmap_list.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/bandmap_list.js")),
 		];
 
 		// Get Date format
@@ -71,4 +77,6 @@ class Bandmap extends CI_Controller {
 		$this->load->view('bandmap/list',$pageData);
 		$this->load->view('interface_assets/footer', $footerData);
 	}
+
+	// Get user's active bands and modes/submodes
 }

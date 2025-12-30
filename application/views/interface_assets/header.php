@@ -26,6 +26,18 @@
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/<?php echo $theme; ?>/overrides.css">
 	<?php } ?>
 
+	<?php if (($this->uri->segment(1) == "awards")) {
+		$colors = json_decode($user_map_custom);?>
+		<style>
+			.awardsBgSuccess {
+				background-color: <?php echo $colors->qsoconfirm->color; ?> !important;
+			}
+			.awardsBgWarning {
+				background-color: <?php echo $colors->qso->color; ?> !important;
+			}
+		</style>
+	<?php } ?>
+
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/fontawesome/css/all.min.css">
 
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery.fancybox.min.css" />
@@ -38,7 +50,7 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/query-builder.default.min.css" />
 	<?php } ?>
 
-	<?php if ($this->uri->segment(1) == "notes" && ($this->uri->segment(2) == "add" || $this->uri->segment(2) == "edit" || $this->uri->segment(2) == "view")) { ?>
+	<?php if (($this->uri->segment(1) == "notes" && ($this->uri->segment(2) == "add" || $this->uri->segment(2) == "edit" || $this->uri->segment(2) == "view")) || $this->uri->segment(1) == "qso") { ?>
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/plugins/easymde/easymde.css" />
 	<?php } ?>
 
@@ -253,6 +265,12 @@
 									</ul>
 								</li>
 								<div class="dropdown-divider"></div>
+								<li><a class="dropdown-item dropdown-toggle dropdown-toggle-submenu" data-bs-toggle="dropdown" href="#">🇵🇱 <?= __("Poland"); ?></a>
+									<ul class="submenu dropdown-menu">
+										<li><a class="dropdown-item" href="<?php echo site_url('awards/pl_polska'); ?>"><i class="fas fa-trophy"></i> <?= __("\"Polska\" Award"); ?></a></li>
+									</ul>
+								</li>
+								<div class="dropdown-divider"></div>
 								<li><a class="dropdown-item dropdown-toggle dropdown-toggle-submenu" data-bs-toggle="dropdown" href="#">🇨🇭 <?= __("Switzerland"); ?></a>
 									<ul class="submenu dropdown-menu">
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/helvetia'); ?>"><i class="fas fa-trophy"></i> H26</a></li>
@@ -282,13 +300,13 @@
 						<li class="nav-item dropdown"> <!-- TOOLS -->
 							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><?= __("Tools"); ?></a>
 							<ul class="dropdown-menu header-dropdown">
+								<li><a class="dropdown-item" href="<?php echo site_url('bandmap/list'); ?>" title="DX Cluster"><i class="fa fa-tower-broadcast"></i> <?= __("DX Cluster"); ?></a></li>
+								<div class="dropdown-divider"></div>
 								<li><a class="dropdown-item" href="<?php echo site_url('dxcalendar'); ?>" title="DX Calendar"><i class="fas fa-calendar"></i> <?= __("DX Calendar"); ?></a></li>
 								<div class="dropdown-divider"></div>
 								<li><a class="dropdown-item" href="<?php echo site_url('contestcalendar'); ?>" title="Contest Calendar"><i class="fas fa-calendar"></i> <?= __("Contest Calendar"); ?></a></li>
 								<div class="dropdown-divider"></div>
 								<li><a class="dropdown-item" href="<?php echo site_url('hamsat'); ?>" title="Hams.at"><i class="fas fa-list"></i> Hams.at</a></li>
-								<div class="dropdown-divider"></div>
-								<li><a class="dropdown-item" href="<?php echo site_url('bandmap/list'); ?>" title="Bandmap"><i class="fa fa-id-card"></i> <?= __("Bandmap"); ?></a></li>
 								<div class="dropdown-divider"></div>
 								<li><a class="dropdown-item" href="<?php echo site_url('sattimers'); ?>" title="SAT Timers"><i class="fas fa-satellite"></i> <?= __("SAT Timers"); ?></a></li>
 								<div class="dropdown-divider"></div>
@@ -452,7 +470,11 @@
 
 								<div class="dropdown-divider"></div>
 
+								<?php } if ((clubaccess_check(3) || clubaccess_check(3)) && !(clubaccess_check(9))) { ?> <!-- Club Access Check -->
+								<li><a class="dropdown-item" href="<?php echo site_url('stationsetup/list_locations'); ?>" title="Manage station setup"><i class="fas fa-home"></i> <?= __("Station Setup"); ?></a></li>
+								<?php } if (clubaccess_check(6) || clubaccess_check(9)) { ?> <!-- Club Access Check -->
 								<li><a class="dropdown-item" href="<?php echo site_url('adif'); ?>" title="Amateur Data Interchange Format (ADIF) import / export"><i class="fas fa-sync"></i> <?= __("ADIF Import / Export"); ?></a></li>
+								<?php } if (clubaccess_check(9)) { ?> <!-- Club Access Check -->
 
 								<li><a class="dropdown-item dropdown-toggle dropdown-toggle-submenu" data-bs-toggle="dropdown"><i class="fas fa-sync"></i> <?= __("Other Export Options"); ?></a>
 									<ul class="submenu submenu-left dropdown-menu">
@@ -465,8 +487,6 @@
 										<li><a class="dropdown-item" href="<?php echo site_url('cabrillo'); ?>" title="Cabrillo Export"><i class="fas fa-sync"></i> <?= __("Cabrillo Export"); ?></a></li>
 
 										<li><a class="dropdown-item" href="<?php echo site_url('reg1test'); ?>" title="EDI Export"><i class="fas fa-sync"></i> <?= __("EDI Export"); ?></a></li>
-
-										<li><a class="dropdown-item" href="<?php echo site_url('cfdexport'); ?>" title="CFD Export"><i class="fas fa-sync"></i> <?= __("CFD Export"); ?></a></li>
 									</ul>
 								</li>
 

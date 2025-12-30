@@ -7,15 +7,15 @@
 class Station extends CI_Controller
 {
 
-	function __construct()
-	{
+	function __construct() {
 		parent::__construct();
 		$this->load->helper(array('form', 'url'));
 
 		$this->load->model('user_model');
-		if (!$this->user_model->authorize(2)) {
-			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
-			redirect('dashboard');
+		if (($this->router->method == 'stationProfileCoords') && $this->user_model->authorize(2) && ((clubaccess_check(3) || clubaccess_check(6)))) { return; }	// Allow Clubmembers and Clubmembers ADIF to access list_locations
+		if (!$this->user_model->authorize(2) || !clubaccess_check(9)) { 
+			$this->session->set_flashdata('error', __("You're not allowed to do that!")); 
+			redirect('dashboard'); 
 		}
 	}
 
@@ -37,7 +37,7 @@ class Station extends CI_Controller
 		if ($this->form_validation->run() == FALSE) {
 			$data['page_title'] = __("Create Station Location");
 			$data['station_profile_name'] = $this->input->post('station_profile_name');
-			$data['station_callsign'] = $this->input->post('station_callsign');
+			$data['station_callsign'] = str_replace('Ø', '0', ($this->input->post('station_callsign') ?? ''));
 			$data['station_power'] = $this->input->post('station_power');
 			$data['dxcc'] = $this->input->post('dxcc');
 			$data['city'] = $this->input->post('city');

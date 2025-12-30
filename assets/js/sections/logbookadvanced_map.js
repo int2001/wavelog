@@ -546,7 +546,10 @@ function getFormData(form) {
 		continent: form.continent.value,
 		contest: form.contest.value,
 		comment: form.comment.value,
-		dok: form.dok.value
+		dok: form.dok.value,
+		qrzSent: form.qrzSent.value,
+		qrzReceived: form.qrzReceived.value,
+		distance: form.distance.value,
 	};
 }
 

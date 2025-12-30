@@ -10,6 +10,7 @@
   var option_map_tile_server_copyright = '<?php echo $this->optionslib->get_option('option_map_tile_server_copyright');?>';
   var option_map_tile_subdomains = '<?php echo $this->optionslib->get_option('option_map_tile_subdomains') ?? 'abc';?>';
   var lang_general_gridsquares = "<?= __("Gridsquares"); ?>";
+  var lang_general_word_search = "<?= __("Search"); ?>";
 </script>
 
 <!-- General JS Files used across Wavelog -->
@@ -92,8 +93,8 @@ if ($lang_code != 'en' && !file_exists(FCPATH . "assets/json/datatables_language
 
 <?php if ($this->uri->segment(2) == "satellites") { ?>
 
-<script type="text/javascript" src="<?php echo base_url();?>assets/js/leaflet/L.MaidenheadColoured.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/sections/gridmap.js?"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/js/leaflet/L.MaidenheadColoured.js"></script>
 
 <script>
 

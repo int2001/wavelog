@@ -1,28 +1,77 @@
 <script type="text/javascript">
-    var user_id = <?php echo $this->session->userdata('user_id'); ?>;
+    let user_id = <?php echo $this->session->userdata('user_id'); ?>;
 
     /*
      * Custom user settings
      */
-    var custom_date_format = "<?php echo $custom_date_format ?>";
+    let custom_date_format = "<?php echo $custom_date_format ?>";
     let user_map_custom = JSON.parse('<?php echo $user_map_custom; ?>');
 
-    var lang_gen_hamradio_latitude = '<?= __("Latitude"); ?>';
-    var lang_gen_hamradio_longitude = '<?= __("Longitude"); ?>';
-    var lang_gen_hamradio_gridsquare = '<?= __("Gridsquare"); ?>';
-    var lang_gen_hamradio_gridsquares = '<?= _pgettext("Map Options", "Gridsquares"); ?>';
-    var lang_gen_hamradio_distance = '<?= __("Distance"); ?>';
-    var lang_gen_hamradio_bearing = '<?= __("Bearing"); ?>';
-    var lang_gen_hamradio_pathlines = '<?= _pgettext("Map Options", "Path lines"); ?>';
-    var lang_gen_hamradio_callsigns = '<?= __("Show Callsigns"); ?>';
-    var lang_gen_hamradio_cq_zones = '<?= _pgettext("Map Options", "CQ Zones"); ?>';
-    var lang_gen_hamradio_itu_zones = '<?= _pgettext("Map Options", "ITU Zones"); ?>';
-    var lang_gen_hamradio_nightshadow = '<?= _pgettext("Map Options", "Night Shadow"); ?>';
-    var lang_gen_hamradio_ituzone = '<?= __("ITU Zone"); ?>';
-    var lang_gen_hamradio_cqzone = '<?= __("CQ Zone"); ?>';
-	var lang_gen_advanced_logbook_help = '<?= __("Advanced Logbook Help"); ?>';
+    let lang_gen_hamradio_latitude = '<?= __("Latitude"); ?>';
+    let lang_gen_hamradio_longitude = '<?= __("Longitude"); ?>';
+    let lang_gen_hamradio_gridsquare = '<?= __("Gridsquare"); ?>';
+    let lang_gen_hamradio_gridsquares = '<?= _pgettext("Map Options", "Gridsquares"); ?>';
+    let lang_gen_hamradio_distance = '<?= __("Distance"); ?>';
+    let lang_gen_hamradio_bearing = '<?= __("Bearing"); ?>';
+    let lang_gen_hamradio_pathlines = '<?= _pgettext("Map Options", "Path lines"); ?>';
+    let lang_gen_hamradio_callsigns = '<?= __("Show Callsigns"); ?>';
+    let lang_gen_hamradio_cq_zones = '<?= _pgettext("Map Options", "CQ Zones"); ?>';
+    let lang_gen_hamradio_itu_zones = '<?= _pgettext("Map Options", "ITU Zones"); ?>';
+    let lang_gen_hamradio_nightshadow = '<?= _pgettext("Map Options", "Night Shadow"); ?>';
+    let lang_gen_hamradio_ituzone = '<?= __("ITU Zone"); ?>';
+    let lang_gen_hamradio_cqzone = '<?= __("CQ Zone"); ?>';
+	let lang_gen_advanced_logbook_help = '<?= __("Advanced Logbook Help"); ?>';
+	let lang_gen_advanced_logbook_continent_fix = '<?= __("Continent fix"); ?>';
+	let lang_gen_advanced_logbook_problem_fixing_itu_zones = '<?= __("There was a problem fixing ITU Zones."); ?>';
+	let lang_gen_advanced_logbook_problem_fixing_cq_zones = '<?= __("There was a problem fixing CQ Zones."); ?>';
+	let lang_gen_advanced_logbook_itu_zones_updated = '<?= __("ITU Zones updated successfully!"); ?>';
+	let lang_gen_advanced_logbook_cq_zones_updated = '<?= __("CQ Zones updated successfully!"); ?>';
+	let lang_gen_advanced_logbook_select_row_itu_zones = '<?= __("You need to select at least 1 row to fix ITU Zones!"); ?>';
+	let lang_gen_advanced_logbook_select_row_cq_zones = '<?= __("You need to select at least 1 row to fix CQ Zones!"); ?>';
+	let lang_gen_advanced_logbook_select_row_state = '<?= __("You need to select at least 1 row to fix State!"); ?>';
+	let lang_gen_advanced_logbook_state_updated = '<?= __("State updated successfully!"); ?>';
+	let lang_gen_advanced_logbook_problem_fixing_state = '<?= __("There was a problem fixing State."); ?>';
+	let lang_gen_advanced_logbook_fixing_state = '<?= __("Fixing State"); ?>';
+	let lang_gen_advanced_logbook_fixing_state_qsos = '<?= __("Fixing State (%s QSOs)"); ?>';
+	let lang_gen_advanced_logbook_fixing_state_remaining = '<?= __("Fixing State: %s remaining"); ?>';
+	let lang_gen_advanced_logbook_fixed = '<?= __("Fixed"); ?>';
+	let lang_gen_advanced_logbook_fixed_with_count = '<?= __("Fixed: %s"); ?>';
+	let lang_gen_advanced_logbook_skipped = '<?= __("Skipped"); ?>';
+	let lang_gen_advanced_logbook_skipped_with_count = '<?= __("Skipped: %s, see details for skipped rows below"); ?>';
+	let lang_gen_advanced_logbook_state_fix_complete = '<?= __("State Fix Complete"); ?>';
+	let lang_gen_advanced_logbook_state_not_supported = '<?= __("Not all DXCC entities have state support. If you need support for additional countries, please create a ticket at %s with the GeoJSON file and desired letter coding for your country."); ?>';
+	let lang_gen_advanced_logbook_github_url = 'https://github.com/wavelog/wavelog/issues';
+	let lang_gen_advanced_logbook_github_link = '<a href="https://github.com/wavelog/wavelog/issues" target="_blank">Wavelog GitHub</a>';
+	let lang_gen_advanced_logbook_select_only_one_row_quickfilter = '<?= __("Only 1 row can be selected for Quickfilter!"); ?>'
+	let lang_gen_advanced_logbook_select_at_least_one_row_quickfilter = '<?= __("You need to select a row to use the Quickfilters!"); ?>';
+	let lang_gen_advanced_logbook_select_at_least_one_row_qslcard = '<?= __("You need to select a least 1 row to display a QSL card!"); ?>';
+	let lang_gen_advanced_logbook_continents_updated = '<?= __("Continents updated successfully!"); ?>';
+	let lang_gen_advanced_logbook_problem_fixing_continents = '<?= __("There was a problem fixing Continents."); ?>';
+	let lang_gen_advanced_logbook_error = '<?= __("ERROR"); ?>';
+	let lang_gen_advanced_logbook_success = '<?= __("SUCCESS"); ?>';
+	let lang_gen_advanced_logbook_info = '<?= __("INFO"); ?>';
+	let lang_gen_advanced_logbook_warning = '<?= __("WARNING"); ?>';
+	let lang_gen_advanced_logbook_qsl_card = '<?= __("QSL Card"); ?>';
+	let lang_gen_advanced_logbook_close = '<?= __("Close"); ?>';
+	let lang_gen_advanced_logbook_save = '<?= __("Save"); ?>';
+	let lang_gen_advanced_logbook_update_now = '<?= __("Update now"); ?>';
+	let lang_gen_advanced_logbook_options = '<?= __("Options for the Advanced Logbook"); ?>';
+	let lang_gen_advanced_logbook_label_print_error = '<?= __("Something went wrong with label print. Go to labels and check if you have defined a label, and that it is set for print!"); ?>';
+	let lang_gen_advanced_logbook_select_at_least_one_row = '<?= __("You need to select a least 1 row!"); ?>';
+	let lang_gen_advanced_logbook_start_printing_at_which_label = '<?= __("Start printing at which label?"); ?>';
+	let lang_gen_advanced_logbook_select_at_least_one_row_label = '<?= __("You need to select at least 1 row to print a label!"); ?>';
+	let lang_gen_advanced_logbook_error_saving_options = '<?= __("An error occurred while saving options: "); ?>';
+	let lang_gen_advanced_logbook_select_at_least_one_row_delete = '<?= __("You need to select a least 1 row to delete!"); ?>';
+	let lang_gen_advanced_logbook_select_at_least_one_row_callbook = '<?= __("You need to select a least 1 row to update from callbook!"); ?>';
+	let lang_gen_advanced_logbook_an_error_ocurred_while_making_request = '<?= __("An error ocurred while making the request"); ?>';
+	let lang_gen_advanced_logbook_select_at_least_one_location = '<?= __("You need to select at least 1 location to do a search!"); ?>';
+	let lang_gen_advanced_logbook_update_distances = '<?= __("Update Distances"); ?>';
+	let lang_gen_advanced_logbook_records_updated = '<?= __("QSO records updated."); ?>';
+	let lang_gen_advanced_logbook_problem_updating_distances = '<?= __("There was a problem updating distances."); ?>';
+	let lang_gen_advanced_logbook_distances_updated = '<?= __("Distances updated successfully!"); ?>';
+
+    let homegrid ='<?php echo strtoupper($homegrid[0]); ?>';
     <?php
-    echo "var homegrid ='" . strtoupper($homegrid[0]) . "';";
     if (!isset($options)) {
         $options = "{
             \"datetime\":{\"show\":\"true\"},
@@ -221,15 +270,31 @@ $options = json_decode($options);
                             <i class="fas fa-filter"></i> <?= __("Filters"); ?>
                         </button>
                         <div class="dropdown-menu dropdown-menu-start p-3 mt-2" aria-labelledby="filterDropdown" style="min-width: 900px; max-height: 600px; overflow-y: auto;">
-                            <div class="card-body filterbody">
+                            <div class="card-body filterbody container-fluid">
+								<div class="row">
+									<div class="mb-3 col-lg-2 col-md-2 col-sm-3 col-xl">
+									<label class="form-label" for="checkboxes"><?= __("Date Presets") . ": " ?></label>
+										<div class="d-flex flex-wrap gap-1">
+											<button type="button" class="btn btn-primary btn-sm flex-shrink-0" onclick="applyPreset('today')"><?= __("Today") ?></button>
+											<button type="button" class="btn btn-primary btn-sm flex-shrink-0" onclick="applyPreset('yesterday')"><?= __("Yesterday") ?></button>
+											<button type="button" class="btn btn-primary btn-sm flex-shrink-0" onclick="applyPreset('last7days')"><?= __("Last 7 Days") ?></button>
+											<button type="button" class="btn btn-primary btn-sm flex-shrink-0" onclick="applyPreset('last30days')"><?= __("Last 30 Days") ?></button>
+											<button type="button" class="btn btn-primary btn-sm flex-shrink-0" onclick="applyPreset('thismonth')"><?= __("This Month") ?></button>
+											<button type="button" class="btn btn-primary btn-sm flex-shrink-0" onclick="applyPreset('lastmonth')"><?= __("Last Month") ?></button>
+											<button type="button" class="btn btn-primary btn-sm flex-shrink-0" onclick="applyPreset('thisyear')"><?= __("This Year") ?></button>
+											<button type="button" class="btn btn-primary btn-sm flex-shrink-0" onclick="applyPreset('lastyear')"><?= __("Last Year") ?></button>
+											<button type="button" class="btn btn-danger btn-sm flex-shrink-0" onclick="resetDates()"><i class="fas fa-times"></i> <?= __("Clear") ?></button>
+										</div>
+									</div>
+								</div>
                                 <div class="row">
                                     <div <?php if (($options->datetime->show ?? "true") == "false") { echo 'style="display:none"'; } ?> class="mb-3 col-lg-2 col-md-2 col-sm-3 col-xl">
                                         <label class="form-label" for="dateFrom"><?= __("From") . ": " ?></label>
-                                        <input name="dateFrom" id="dateFrom" type="date" class="form-control form-control-sm w-auto border border-secondary">
+                                        <input name="dateFrom" id="dateFrom" type="date" class="form-control form-control-sm border border-secondary">
                                     </div>
                                     <div <?php if (($options->datetime->show ?? "true") == "false") { echo 'style="display:none"'; } ?> class="mb-3 col-lg-2 col-md-2 col-sm-3 col-xl">
                                         <label class="form-label" for="dateTo"><?= __("To") . ": " ?></label>
-                                        <input name="dateTo" id="dateTo" type="date" class="form-control form-control-sm w-auto border border-secondary">
+                                        <input name="dateTo" id="dateTo" type="date" class="form-control form-control-sm border border-secondary">
                                     </div>
                                     <div <?php if (($options->dx->show ?? "true") == "false") { echo 'style="display:none"'; } ?> class="mb-3 col-lg-2 col-md-2 col-sm-3 col-xl">
                                         <label class="form-label" for="dx"><?= __("Dx"); ?></label>
@@ -414,11 +479,15 @@ $options = json_decode($options);
                                             <option value="invalid"><?= __("Invalid"); ?></option>
                                         </select>
                                     </div>
-									</div>
+								</div>
 								<div class="row">
                                     <div <?php if (($options->comment->show ?? "true") == "false") { echo 'style="display:none"'; } ?> class="mb-3 col-lg-2 col-md-2 col-sm-3 col-xl">
                                         <label class="form-label" for="comment"><?= __("Comment"); ?></label>
                                         <input onclick="this.select()" type="text" name="comment" id="comment" class="form-control form-control-sm border border-secondary" value="*" placeholder="<?= __("Empty"); ?>">
+                                    </div>
+									<div <?php if (($options->distance->show ?? "true") == "false") { echo 'style="display:none"'; } ?> class="mb-3 col-lg-2 col-md-2 col-sm-3 col-xl">
+                                        <label class="form-label" for="distance"><?= __("Distance"); ?> <i class="fa fa-question-circle" aria-hidden="true" data-bs-toggle="tooltip" title="<?= __("Distance in kilometers. Search will look for distances greater than or equal to this value."); ?>"></i></label>
+                                        <input onclick="this.select()" type="text" name="distance" class="form-control form-control-sm border border-secondary" value="*" placeholder="<?= __("Empty"); ?>">
                                     </div>
                                 </div>
                             </div>
@@ -578,6 +647,24 @@ $options = json_decode($options);
                                             <option value="N"><?= __("No"); ?></option>
                                         </select>
                                     </div>
+									<div <?php if (($options->qrz->show ?? "true") == "false") { echo 'style="display:none"'; } ?> class="mb-3 col-lg-2 col-md-2 col-sm-3 col-xl">
+                                        <label for="qrzSent"><?= __("QRZ sent"); ?></label>
+                                        <select id="qrzSent" name="qrzSent" class="form-select form-select-sm border border-secondary">
+                                            <option value=""><?= __("All"); ?></option>
+                                            <option value="Y"><?= __("Yes"); ?></option>
+                                            <option value="N"><?= __("No"); ?></option>
+                                            <option value="I"><?= __("Invalid (Ignore)"); ?></option>
+                                        </select>
+                                    </div>
+                                    <div <?php if (($options->qrz->show ?? "true") == "false") { echo 'style="display:none"'; } ?> class="mb-3 col-lg-2 col-md-2 col-sm-3 col-xl">
+                                        <label for="qrzReceived"><?= __("QRZ received"); ?></label>
+                                        <select id="qrzReceived" name="qrzReceived" class="form-select form-select-sm border border-secondary">
+                                            <option value=""><?= __("All"); ?></option>
+                                            <option value="Y"><?= __("Yes"); ?></option>
+                                            <option value="N"><?= __("No"); ?></option>
+                                            <option value="I"><?= __("Invalid (Ignore)"); ?></option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -681,6 +768,9 @@ $options = json_decode($options);
 									<button type="button" class="btn btn-sm btn-info dropdown-action" id="qslSlideshow"><?= __("QSL Slideshow"); ?></button>
 									<button type="button" class="btn btn-sm btn-success dropdown-action" id="fixCqZones"><?= __("Fix CQ Zones"); ?></button>
 									<button type="button" class="btn btn-sm btn-success dropdown-action" id="fixItuZones"><?= __("Fix ITU Zones"); ?></button>
+									<button type="button" class="btn btn-sm btn-success dropdown-action" id="fixContinent"><?= __("Fix Continent"); ?></button>
+									<button type="button" class="btn btn-sm btn-success dropdown-action" id="fixState"><?= __("Fix State"); ?></button>
+									<button type="button" class="btn btn-sm btn-success dropdown-action" id="updateDistances"><?= __("Update Distances"); ?></button>
 									</div>
 								</div>
 							</div>

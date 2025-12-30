@@ -8,12 +8,21 @@
 
 class Awards extends CI_Controller {
 
+	private $user_map_color_qso;
+	private $user_map_color_qsoconfirm;
+	private $user_map_color_unworked;
+
 	function __construct()
 	{
 		parent::__construct();
 
 		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
+
+		$map_custom = json_decode($this->optionslib->get_map_custom());
+		$this->user_map_color_qso = $map_custom->qso->color;
+		$this->user_map_color_qsoconfirm = $map_custom->qsoconfirm->color;
+		$this->user_map_color_unworked = $map_custom->unworked->color ?? '';
 	}
 
 	public function index()
@@ -30,6 +39,7 @@ class Awards extends CI_Controller {
 
 		$this->load->model('logbooks_model');
 		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
 		$this->load->model('dok');
 		$this->load->model('bands');
@@ -104,6 +114,7 @@ class Awards extends CI_Controller {
 		$data['orbits'] = $this->bands->get_worked_orbits();
 		$data['sats_available'] = $this->bands->get_worked_sats();
 		$data['user_default_band'] = $this->session->userdata('user_default_band');
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
 		$data['worked_bands'] = $this->bands->get_worked_bands('dxcc'); // Used in the view for band select
 		$data['modes'] = $this->modes->active(); // Used in the view for mode select
@@ -142,6 +153,10 @@ class Awards extends CI_Controller {
 			$postdata['mode'] = $this->security->xss_clean($this->input->post('mode'));
 			$postdata['sat'] = $this->security->xss_clean($this->input->post('sats'));
 			$postdata['orbit'] = $this->security->xss_clean($this->input->post('orbits'));
+
+			$postdata['dateFrom'] = $this->security->xss_clean($this->input->post('dateFrom'));
+			$postdata['dateTo'] = $this->security->xss_clean($this->input->post('dateTo'));
+
 		} else { // Setting default values at first load of page
 			$postdata['qsl'] = 1;
 			$postdata['lotw'] = 1;
@@ -163,10 +178,13 @@ class Awards extends CI_Controller {
 			$postdata['mode'] = 'All';
 			$postdata['sat'] = 'All';
 			$postdata['orbit'] = 'All';
+
+			$postdata['dateFrom'] = null;
+			$postdata['dateTo'] = null;
 		}
 
 		$dxcclist = $this->dxcc->fetchdxcc($postdata);
-		if ($dxcclist[0]->adif == "0") {
+		if ($dxcclist && $dxcclist[0]->adif == "0") {
 			unset($dxcclist[0]);
 		}
 		$data['dxcc_array'] = $this->dxcc->get_dxcc_array($dxcclist, $bands, $postdata);
@@ -189,6 +207,7 @@ class Awards extends CI_Controller {
 
 		$data['worked_bands'] = $this->bands->get_worked_bands('wapc');
 		$data['modes'] = $this->modes->active();
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
 		if ($this->input->post('band') != NULL) {   			// Band is not set when page first loads.
 			if ($this->input->post('band') == 'All') {         // Did the user specify a band? If not, use all bands
@@ -326,6 +345,7 @@ class Awards extends CI_Controller {
 
 		$data['waja_array'] = $this->waja->get_waja_array($bands, $postdata);
 		$data['waja_summary'] = $this->waja->get_waja_summary($bands, $postdata);
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
 		// Render Page
 		$data['page_title'] =__( "Awards - WAJA");
@@ -347,6 +367,7 @@ class Awards extends CI_Controller {
 
 		$data['worked_bands'] = $this->bands->get_worked_bands('jcc');
 		$data['modes'] = $this->modes->active();
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
 		if ($this->input->post('band') != NULL) {   			// Band is not set when page first loads.
 			if ($this->input->post('band') == 'All') {         // Did the user specify a band? If not, use all bands
@@ -438,6 +459,7 @@ class Awards extends CI_Controller {
 
 	public function jcc_cities() {
 		$this->load->model('Jcc_model');
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 		$data = $this->Jcc_model->jccCities();
 		header('Content-Type: application/json');
 		echo json_encode($data, JSON_PRETTY_PRINT);
@@ -447,6 +469,7 @@ class Awards extends CI_Controller {
 	public function vucc()	{
 		$this->load->model('vucc');
 		$this->load->model('bands');
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 		$data['worked_bands'] = $this->bands->get_worked_bands('vucc');
 
 		$data['vucc_array'] = $this->vucc->get_vucc_array($data);
@@ -460,9 +483,11 @@ class Awards extends CI_Controller {
 
 	public function vucc_band(){
 		$this->load->model('vucc');
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 		$band = str_replace('"', "", $this->security->xss_clean($this->input->get("Band")));
 		$type = str_replace('"', "", $this->security->xss_clean($this->input->get("Type")));
 		$data['vucc_array'] = $this->vucc->vucc_details($band, $type);
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 		$data['type'] = $type;
 
 		// Render Page
@@ -502,7 +527,9 @@ class Awards extends CI_Controller {
 		$type = $this->security->xss_clean($this->input->post('Type'));
 		$qsl = $this->input->post('QSL') == null ? '' : $this->security->xss_clean($this->input->post('QSL'));
 		$searchmode = $this->input->post('searchmode') == null ? '' : $this->security->xss_clean($this->input->post('searchmode'));
-		$data['results'] = $this->logbook_model->qso_details($searchphrase, $band, $mode, $type, $qsl, $sat, $orbit, $searchmode, $propagation);
+		$dateFrom = $this->security->xss_clean($this->input->post('dateFrom'));
+		$dateTo = $this->security->xss_clean($this->input->post('dateTo'));
+		$data['results'] = $this->logbook_model->qso_details($searchphrase, $band, $mode, $type, $qsl, $sat, $orbit, $searchmode, $propagation, $dateFrom, $dateTo);
 
 		// This is done because we have two different ways to get dxcc info in Wavelog. Once is using the name (in awards), and the other one is using the ADIF DXCC.
 		// We replace the values to make it look a bit nicer
@@ -562,6 +589,7 @@ class Awards extends CI_Controller {
 		// Grab all worked sota stations
 		$this->load->model('sota');
 		$data['sota_all'] = $this->sota->get_all();
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
 		// Render page
 		$data['page_title'] = sprintf(__("Awards - %s"), __("SOTA"));
@@ -579,6 +607,7 @@ class Awards extends CI_Controller {
 		// Grab all worked wwff stations
 		$this->load->model('wwff');
 		$data['wwff_all'] = $this->wwff->get_all();
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
 		// Render page
 		$data['page_title'] = sprintf(__("Awards - %s"), __("WWFF"));
@@ -596,6 +625,7 @@ class Awards extends CI_Controller {
 		// Grab all worked pota stations
 		$this->load->model('pota');
 		$data['pota_all'] = $this->pota->get_all();
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
 		// Render page
 		$data['page_title'] = sprintf(__("Awards - %s"), __("POTA"));
@@ -619,6 +649,7 @@ class Awards extends CI_Controller {
         $this->load->model('bands');
 
         $data['worked_bands'] = $this->bands->get_worked_bands('cq');
+        $data['user_map_custom'] = $this->optionslib->get_map_custom();
 		$data['modes'] = $this->modes->active(); // Used in the view for mode select
 
         if ($this->input->post('band') != NULL) {   // Band is not set when page first loads.
@@ -645,6 +676,8 @@ class Awards extends CI_Controller {
             $postdata['notworked'] = $this->security->xss_clean($this->input->post('notworked'));
             $postdata['band'] = $this->security->xss_clean($this->input->post('band'));
 			$postdata['mode'] = $this->security->xss_clean($this->input->post('mode'));
+			$postdata['datefrom'] = $this->security->xss_clean($this->input->post('dateFrom'));
+			$postdata['dateto'] = $this->security->xss_clean($this->input->post('dateTo'));
         }
         else { // Setting default values at first load of page
             $postdata['qsl'] = 1;
@@ -656,6 +689,8 @@ class Awards extends CI_Controller {
             $postdata['notworked'] = 1;
             $postdata['band'] = 'All';
 			$postdata['mode'] = 'All';
+			$postdata['datefrom'] = null;
+			$postdata['dateto'] = null;
         }
 
         if ($logbooks_locations_array) {
@@ -728,6 +763,7 @@ class Awards extends CI_Controller {
 
         $data['was_array'] = $this->was->get_was_array($bands, $postdata);
         $data['was_summary'] = $this->was->get_was_summary($bands, $postdata);
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
         // Render Page
         $data['page_title'] = sprintf(__("Awards - %s"), __("Worked All States (WAS)"));;
@@ -739,7 +775,6 @@ class Awards extends CI_Controller {
 	public function rac() {
 		$footerData = [];
 		$footerData['scripts'] = [
-			'assets/js/sections/racmap_geojson.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/racmap_geojson.js")),
 			'assets/js/sections/racmap.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/racmap.js")),
 			'assets/js/leaflet/L.Maidenhead.js',
 		];
@@ -750,6 +785,7 @@ class Awards extends CI_Controller {
 
         $data['worked_bands'] = $this->bands->get_worked_bands('rac');
 		$data['modes'] = $this->modes->active(); // Used in the view for mode select
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
         if ($this->input->post('band') != NULL) {   // Band is not set when page first loads.
             if ($this->input->post('band') == 'All') {         // Did the user specify a band? If not, use all bands
@@ -801,7 +837,6 @@ class Awards extends CI_Controller {
     public function helvetia() {
 		$footerData = [];
 		$footerData['scripts'] = [
-			'assets/js/sections/helvetiamap_geojson.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/helvetiamap_geojson.js")),
 			'assets/js/sections/helvetiamap.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/helvetiamap.js")),
 			'assets/js/leaflet/L.Maidenhead.js',
 		];
@@ -852,6 +887,7 @@ class Awards extends CI_Controller {
 
         $data['helvetia_array'] = $this->helvetia_model->get_helvetia_array($bands, $postdata);
         $data['helvetia_summary'] = $this->helvetia_model->get_helvetia_summary($bands, $postdata);
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
         // Render Page
         $data['page_title'] =sprintf(__("Awards - %s"), __("H26"));
@@ -871,6 +907,8 @@ class Awards extends CI_Controller {
 		if (!$logbooks_locations_array) {
 			return null;
 		}
+
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
 		$location_list = "'".implode("','",$logbooks_locations_array)."'";
 
@@ -946,6 +984,7 @@ class Awards extends CI_Controller {
     public function counties()	{
         $this->load->model('counties');
         $data['counties_array'] = $this->counties->get_counties_array();
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
         // Render Page
         $data['page_title'] = sprintf(__("Awards - %s"), __("US Counties"));
@@ -960,6 +999,7 @@ class Awards extends CI_Controller {
         $type = str_replace('"', "", $this->security->xss_clean($this->input->get("Type")));
         $data['counties_array'] = $this->counties->counties_details($state, $type);
         $data['type'] = $type;
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
         // Render Page
         $data['page_title'] = __("US Counties");
@@ -990,6 +1030,8 @@ class Awards extends CI_Controller {
       $this->load->model('gridmap_model');
       $this->load->model('stations');
 
+	  $data['user_map_custom'] = $this->optionslib->get_map_custom();
+
       $data['homegrid']= explode(',', $this->stations->find_gridsquare());
 
       $data['modes'] = $this->gridmap_model->get_worked_modes();
@@ -1004,6 +1046,7 @@ class Awards extends CI_Controller {
       $data['gridsquares_gridsquares_worked']= __("Gridsquares worked");
       $data['gridsquares_gridsquares_lotw']= __("Gridsquares confirmed on LoTW");
       $data['gridsquares_gridsquares_paper']= __("Gridsquares confirmed by paper QSL");
+      $data['gridsquares_total_gridsquares_worked']= __("Total Gridsquares worked");
 
       $indexData['dxcc'] = $dxcc;
 
@@ -1026,6 +1069,9 @@ class Awards extends CI_Controller {
 		$this->load->model('ffma_model');
 		$this->load->model('stations');
 
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
+
+
 		$data['homegrid']= explode(',', $this->stations->find_gridsquare());
 
 		$data['layer']= $this->optionslib->get_option('option_map_tile_server');
@@ -1036,14 +1082,15 @@ class Awards extends CI_Controller {
 		$data['gridsquares_gridsquares_worked']= __("Gridsquares worked");
 		$data['gridsquares_gridsquares_lotw']= __("Gridsquares confirmed on LoTW");
 		$data['gridsquares_gridsquares_paper']= __("Gridsquares confirmed by paper QSL");
+      $data['gridsquares_total_gridsquares_worked']= __("Total Gridsquares worked");
 		$data['grid_count'] = $this->ffma_model->get_grid_count();
 		$data['grids'] = $this->ffma_model->get_grids();
 
 		$footerData = [];
 		$footerData['scripts']= [
 			'assets/js/leaflet/geocoding.js',
-			'assets/js/leaflet/L.MaidenheadColouredGridmasterMap.js',
-			'assets/js/sections/ffma.js'
+			'assets/js/sections/ffma.js',
+			'assets/js/leaflet/L.MaidenheadColouredGridmasterMap.js'
 		];
 
 		$this->load->view('interface_assets/header',$data);
@@ -1219,6 +1266,7 @@ class Awards extends CI_Controller {
 		$this->load->model('sig');
 
 		$data['sig_types'] = $this->sig->get_all_sig_types();
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
 		// Render page
 		$data['page_title'] = sprintf(__("Awards - %s"), __("SIG"));
@@ -1237,6 +1285,7 @@ class Awards extends CI_Controller {
 		$type = str_replace('"', "", $this->security->xss_clean($this->input->get("type")));
 		$data['sig_all'] = $this->sig->get_all($type);
 		$data['type'] = $type;
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
 		// Render page
 		$data['page_title'] = __("Awards - SIG - ") . $type;
@@ -1318,7 +1367,6 @@ class Awards extends CI_Controller {
 	public function wap() {
 		$footerData = [];
 		$footerData['scripts'] = [
-			'assets/js/sections/wapmap_geojson.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/wapmap_geojson.js")),
 			'assets/js/sections/wapmap.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/wapmap.js")),
 			'assets/js/leaflet/L.Maidenhead.js',
 		];
@@ -1369,6 +1417,7 @@ class Awards extends CI_Controller {
 
         $data['wap_array'] = $this->wap->get_wap_array($bands, $postdata);
         $data['wap_summary'] = $this->wap->get_wap_summary($bands, $postdata);
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
         // Render Page
         $data['page_title'] = sprintf(__("Awards - %s"), __("WAP"));
@@ -1412,12 +1461,12 @@ class Awards extends CI_Controller {
         foreach ($wap_array as $was => $value) {
             foreach ($value  as $key) {
                 if($key != "") {
-                    if (strpos($key, '>W<') !== false) {
-                        $states[$was] = 'W';
-                        break;
-                    }
                     if (strpos($key, '>C<') !== false) {
                         $states[$was] = 'C';
+                        break;
+                    }
+                    if (strpos($key, '>W<') !== false) {
+                        $states[$was] = 'W';
                         break;
                     }
                     if (strpos($key, '-') !== false) {
@@ -1564,10 +1613,12 @@ class Awards extends CI_Controller {
         $postdata['notworked'] = $this->input->post('notworked')  == 0 ? NULL: 1;
         $postdata['band'] = $this->security->xss_clean($this->input->post('band'));
 		$postdata['mode'] = $this->security->xss_clean($this->input->post('mode'));
+		$postdata['datefrom'] = $this->security->xss_clean($this->input->post('datefrom'));
+		$postdata['dateto'] = $this->security->xss_clean($this->input->post('dateto'));
 
         if ($logbooks_locations_array) {
 			$location_list = "'".implode("','",$logbooks_locations_array)."'";
-            $cq_array = $this->cq->get_cq_array($bands, $postdata, $location_list);
+            $cq_array = $this->cq->get_cq_array($bands, $postdata, $location_list, $this->user_map_color_qso, $this->user_map_color_qsoconfirm);
 		} else {
             $location_list = null;
             $cq_array = null;
@@ -1686,6 +1737,8 @@ class Awards extends CI_Controller {
 	    $postdata['sat'] = $this->security->xss_clean($this->input->post('sat'));
 	    $postdata['orbit'] = $this->security->xss_clean($this->input->post('orbit'));
 
+		$postdata['dateFrom'] = $this->security->xss_clean($this->input->post('dateFrom'));
+		$postdata['dateTo'] = $this->security->xss_clean($this->input->post('dateTo'));
 
 	    $dxcclist = $this->dxcc->fetchdxcc($postdata);
 	    if ($dxcclist[0]->adif == "0") {
@@ -1838,6 +1891,7 @@ class Awards extends CI_Controller {
 
 	    $data['user_default_band'] = $this->session->userdata('user_default_band');
 	    $data['user_default_confirmation'] = $this->session->userdata('user_default_confirmation');
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
 	    $footerData = [];
 	    $footerData['scripts'] = [
@@ -1931,6 +1985,7 @@ class Awards extends CI_Controller {
         $this->load->model('itu');
 		$this->load->model('modes');
         $this->load->model('bands');
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
         $data['worked_bands'] = $this->bands->get_worked_bands('cq');
 		$data['modes'] = $this->modes->active(); // Used in the view for mode select
@@ -2057,6 +2112,7 @@ class Awards extends CI_Controller {
 
         $data['worked_bands'] = $this->bands->get_worked_bands();
 		$data['modes'] = $this->modes->active(); // Used in the view for mode select
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
 		$data['orbits'] = $this->bands->get_worked_orbits();
 		$data['sats_available'] = $this->bands->get_worked_sats();
@@ -2128,6 +2184,7 @@ class Awards extends CI_Controller {
 		$data['orbits'] = $this->bands->get_worked_orbits();
 		$data['sats_available'] = $this->bands->get_worked_sats();
 		$data['user_default_band'] = $this->session->userdata('user_default_band');
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
 		$data['worked_bands'] = $this->bands->get_worked_bands('dxcc'); // Used in the view for band select
 		$data['modes'] = $this->modes->active(); // Used in the view for mode select
@@ -2203,6 +2260,7 @@ class Awards extends CI_Controller {
 		// Grab all worked stations on AO-73
 		$this->load->model('Seven3on73');
 		$data['seven3on73_array'] = $this->Seven3on73->get_all();
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
 		$data['page_title'] = sprintf(__("Awards - %s"), __("73 on 73"));
 		$this->load->view('interface_assets/header', $data);
@@ -2223,6 +2281,7 @@ class Awards extends CI_Controller {
 		$data['orbits'] = $this->bands->get_worked_orbits();
 		$data['sats_available'] = $this->bands->get_worked_sats();
 		$data['user_default_band'] = $this->session->userdata('user_default_band');
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
 		$data['worked_bands'] = $this->bands->get_worked_bands('dxcc'); // Used in the view for band select
 		$data['modes'] = $this->modes->active(); // Used in the view for mode select
@@ -2317,5 +2376,145 @@ class Awards extends CI_Controller {
 
 		$this->load->view('awards/wpx/wpx_details', $data);
 	}
+
+	/*
+		Handles displaying the Polska Award (Polish Award)
+		Tracks contacts with Polish voivodeships (provinces) for the Poland award program
+		Uses COL_STATE field for voivodeship codes (16 Polish voivodeships)
+	*/
+	public function pl_polska() {
+		$footerData = [];
+		$footerData['scripts'] = [
+			'assets/js/sections/award_pl_polska.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/award_pl_polska.js")),
+			'assets/js/leaflet/L.Maidenhead.js',
+		];
+
+		$this->load->model('logbooks_model');
+		$this->load->model('stations');
+
+		$data['active_station_logbook'] = $this->logbooks_model->find_name($this->session->userdata('active_station_logbook'));
+
+		$this->load->model('award_pl_polska');
+		$this->load->model('bands');
+		$this->load->library('Genfunctions');
+
+		// Define valid bands for Polska award (per PZK rules)
+		// https://awards.pzk.org.pl/polish-awards/polska.html
+		// SAT is explicitly excluded (no satellite/repeater contacts allowed)
+		$data['worked_bands'] = array('160M', '80M', '40M', '30M', '20M', '17M', '15M', '12M', '10M', '6M', '2M');
+
+		if($this->input->method() === 'post') {
+			$postdata['qsl'] = $this->security->xss_clean($this->input->post('qsl'));
+			$postdata['lotw'] = $this->security->xss_clean($this->input->post('lotw'));
+			$postdata['eqsl'] = $this->security->xss_clean($this->input->post('eqsl'));
+			$postdata['qrz'] = $this->security->xss_clean($this->input->post('qrz'));
+			$postdata['clublog'] = $this->security->xss_clean($this->input->post('clublog'));
+
+			// Always use active logbook (no multiselect)
+			$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
+		} else {
+			$postdata['qsl'] = 1;
+			$postdata['lotw'] = 1;
+			$postdata['eqsl'] = 0;
+			$postdata['qrz'] = 0;
+			$postdata['clublog'] = 0;
+
+			// Default to active logbook
+			$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
+		}
+
+		// Add confirmed key for gen_qsl_from_postdata function compatibility
+		$postdata['confirmed'] = 1;
+
+		// Generate QSL string for displayContacts links
+		$data['qsl_string'] = $this->genfunctions->gen_qsl_from_postdata($postdata);
+
+		if ($logbooks_locations_array) {
+			$location_list = "'".implode("','",$logbooks_locations_array)."'";
+
+			// Worked data (all QSOs, not just confirmed)
+			$data['polska_worked'] = $this->award_pl_polska->get_polska_worked_by_modes($location_list);
+			$data['polska_worked_bands'] = $this->award_pl_polska->get_polska_worked_by_bands($data['worked_bands'], $location_list);
+
+			// Confirmed data
+			$data['polska_array'] = $this->award_pl_polska->get_polska_simple_by_modes($postdata, $location_list);
+			$data['polska_totals'] = $this->award_pl_polska->get_polska_totals_by_modes($postdata, $location_list);
+
+			// Band-based confirmed data
+			$data['polska_array_bands'] = $this->award_pl_polska->get_polska_simple_by_bands($data['worked_bands'], $postdata, $location_list);
+			$data['polska_totals_bands'] = $this->award_pl_polska->get_polska_totals_by_bands($data['worked_bands'], $postdata, $location_list);
+
+			// Calculate award classes for each mode category
+			$data['polska_classes'] = array();
+			$mode_categories = array('MIXED', 'PHONE', 'CW', 'DIGI');
+			foreach ($mode_categories as $category) {
+				$postdata_temp = $postdata;
+				$postdata_temp['mode'] = $category;
+				$postdata_temp['band'] = 'All';
+				$data['polska_classes'][$category] = $this->award_pl_polska->getPolskaClassByCategory($location_list, $category, $postdata_temp, true);
+			}
+
+			// Calculate award classes for each band
+			$data['polska_classes_bands'] = array();
+			$valid_bands = array('160M', '80M', '40M', '30M', '20M', '17M', '15M', '12M', '10M', '6M', '2M');
+			foreach ($valid_bands as $band) {
+				$postdata_temp = $postdata;
+				$postdata_temp['band'] = $band;
+				$postdata_temp['mode'] = 'All';
+				$data['polska_classes_bands'][$band] = $this->award_pl_polska->getPolskaClassByBand($location_list, $band, $postdata_temp, true);
+			}
+		} else {
+			$location_list = null;
+			$data['polska_worked'] = null;
+			$data['polska_worked_bands'] = null;
+			$data['polska_array'] = null;
+			$data['polska_totals'] = null;
+			$data['polska_array_bands'] = null;
+			$data['polska_totals_bands'] = null;
+			$data['polska_classes'] = null;
+			$data['polska_classes_bands'] = null;
+		}
+
+		// Pass postdata for use in view
+		$data['postdata'] = $postdata;
+
+		// Render page
+		$data['page_title'] = sprintf(__("Awards - %s"), __('"Polska" Award'));
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
+		$this->load->view('interface_assets/header', $data);
+		$this->load->view('awards/pl_polska/index');
+		$this->load->view('interface_assets/footer', $footerData);
+	}
+
+	/*
+        function polska_map
+        Returns JSON data for Polska Award map visualization
+    */
+    public function polska_map() {
+        $this->load->model('award_pl_polska');
+
+		// Get category (MIXED, PHONE, CW, DIGI, or band like 20M)
+		$category = $this->security->xss_clean($this->input->post('category'));
+		if (!$category) {
+			$category = 'MIXED';
+		}
+
+        $postdata['qsl'] = $this->input->post('qsl') == 0 ? NULL: 1;
+        $postdata['lotw'] = $this->input->post('lotw') == 0 ? NULL: 1;
+        $postdata['eqsl'] = $this->input->post('eqsl') == 0 ? NULL: 1;
+        $postdata['qrz'] = $this->input->post('qrz') == 0 ? NULL: 1;
+        $postdata['clublog'] = $this->input->post('clublog') == 0 ? NULL: 1;
+
+		// Get location list for active station
+		$this->load->model('logbooks_model');
+		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
+		$location_list = "'" . implode("','", $logbooks_locations_array) . "'";
+
+		// Get map status directly from model
+		$voivodeships = $this->award_pl_polska->get_polska_map_status($category, $postdata, $location_list);
+
+        header('Content-Type: application/json');
+        echo json_encode($voivodeships);
+    }
 
 }

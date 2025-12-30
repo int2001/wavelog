@@ -1,6 +1,6 @@
 <div class="container">
     <br>
-    <h2><?= sprintf(__("Club Permissions for %s"), $club->user_callsign); ?></h2>
+    <h2><?= sprintf(__("Club Permissions for %s"), str_replace('0', 'Ø', $club->user_callsign)); ?></h2>
     <!-- <a class="btn btn-primary" href="<?= site_url('user'); ?>"><i class="fas fa-arrow-left"></i> <?= __("Go back"); ?></a> -->
 
     <?php $this->load->view('layout/messages'); ?>
@@ -25,12 +25,14 @@
                                         <tr>
                                             <th><?= __("Action"); ?></th>
                                             <th><?php echo $permissions[3]; ?></th>
+                                            <th><?php echo $permissions[6]; ?></th>
                                             <th><?php echo $permissions[9]; ?></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td><?= __("Log QSOs via Web GUI (live and post)"); ?></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
                                             <td><i class="fas fa-check text-success"></i></td>
                                             <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
@@ -41,6 +43,7 @@
                                             <td><?= __("Log QSOs via API"); ?></td>
                                             <td><i class="fas fa-check text-success"></i></td>
                                             <td><i class="fas fa-check text-success"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
                                         <tr class="empty-row">
                                             <td colspan="3"></td>
@@ -49,14 +52,17 @@
                                             <td><?= __("Edit a QSO"); ?></td>
                                             <td></td>
                                             <td></td>
+                                            <td></td>
                                         </tr>
                                         <tr>
                                             <td class="ps-5"><i class="fas fa-arrow-right me-3"></i><?= __("QSO was done by the operator"); ?></td>
                                             <td><i class="fas fa-check text-success"></i></td>
                                             <td><i class="fas fa-check text-success"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
                                         <tr>
                                             <td class="ps-5"><i class="fas fa-arrow-right me-3"></i><?= __("QSO was done by another operator"); ?></td>
+                                            <td><i class="fas fa-times text-danger"></i></td>
                                             <td><i class="fas fa-times text-danger"></i></td>
                                             <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
@@ -67,22 +73,26 @@
                                             <td><?= __("Delete a QSO"); ?></td>
                                             <td></td>
                                             <td></td>
+                                            <td></td>
                                         </tr>
                                         <tr>
                                             <td class="ps-5"><i class="fas fa-arrow-right me-3"></i><?= __("QSO was done by the operator"); ?></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
                                             <td><i class="fas fa-check text-success"></i></td>
                                             <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
                                         <tr>
                                             <td class="ps-5"><i class="fas fa-arrow-right me-3"></i><?= __("QSO was done by another operator"); ?></td>
                                             <td><i class="fas fa-times text-danger"></i></td>
+                                            <td><i class="fas fa-times text-danger"></i></td>
                                             <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
                                         <tr class="empty-row">
-                                            <td colspan="3"></td>
+                                            <td colspan="4"></td>
                                         </tr>
                                         <tr>
                                             <td><?= __("Manage Stationsetup (edit/create logbooks and locations)"); ?></td>
+                                            <td><i class="fas fa-times text-danger"></i></td>
                                             <td><i class="fas fa-times text-danger"></i></td>
                                             <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
@@ -91,6 +101,7 @@
                                         </tr>
                                         <tr>
                                             <td><?= __("Manage Third-Party services"); ?></td>
+                                            <td><i class="fas fa-times text-danger"></i></td>
                                             <td><i class="fas fa-times text-danger"></i></td>
                                             <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
@@ -101,21 +112,30 @@
                                             <td><?= __("Import QSO per ADIF"); ?></td>
                                             <td><i class="fas fa-times text-danger"></i></td>
                                             <td><i class="fas fa-check text-success"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
 
                                         <tr class="empty-row">
-                                            <td colspan="3"></td>
+                                            <td colspan="4"></td>
                                         </tr>
                                         <tr>
                                             <td><?= __("Export QSO per ADIF"); ?></td>
                                             <td><i class="fas fa-times text-danger"></i></td>
+                                            <td><i class="fas fa-times text-danger"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <td><?= __("Export own QSO per ADIF"); ?></td>
+                                            <td><i class="fas fa-times text-danger"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
                                             <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
                                         <tr class="empty-row">
-                                            <td colspan="3"></td>
+                                            <td colspan="4"></td>
                                         </tr>
                                         <tr>
                                             <td><?= __("User Management"); ?></td>
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                         </tr>
@@ -123,14 +143,17 @@
                                             <td class="ps-5"><i class="fas fa-arrow-right me-3"></i><?= __("Can create new users in Wavelog"); ?></td>
                                             <td><i class="fas fa-times text-danger"></i></td>
                                             <td><i class="fas fa-times text-danger"></i></td>
+                                            <td><i class="fas fa-times text-danger"></i></td>
                                         </tr>
                                         <tr>
                                             <td class="ps-5"><i class="fas fa-arrow-right me-3"></i><?= __("Can edit other users in Wavelog"); ?></td>
                                             <td><i class="fas fa-times text-danger"></i></td>
                                             <td><i class="fas fa-times text-danger"></i></td>
+                                            <td><i class="fas fa-times text-danger"></i></td>
                                         </tr>
                                         <tr>
                                             <td class="ps-5"><i class="fas fa-arrow-right me-3"></i><?= __("Can edit Club permissions and add/remove users"); ?></td>
+                                            <td><i class="fas fa-times text-danger"></i></td>
                                             <td><i class="fas fa-times text-danger"></i></td>
                                             <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
@@ -164,7 +187,7 @@
                             <div class="modal-body">
                                 <input type="hidden" name="club_id" value="<?php echo $club->user_id; ?>">
                                 <p>
-                                    <?= sprintf(__("You can only add users to the %s Clubstation if they already exist on this Wavelog Server."), $club->user_callsign); ?>
+                                    <?= sprintf(__("You can only add users to the %s Clubstation if they already exist on this Wavelog Server."), str_replace('0', 'Ø', $club->user_callsign)); ?>
                                     <?= __("If they don't exist, please ask your Wavelog Administrator to create an account for them."); ?><br><br>
                                     <?= __("Search for the user by their callsign or first/lastname and select the permission level."); ?>
                                 </p>
@@ -185,6 +208,7 @@
                                                 <td>
                                                     <select class="form-select" id="permission" name="permission" required>
                                                         <option value="3"><?php echo $permissions[3]; ?></option>
+                                                        <option value="6"><?php echo $permissions[6]; ?></option>
                                                         <option value="9"><?php echo $permissions[9]; ?></option>
                                                     </select>
                                                     <div class="mt-2 form-check d-flex justify-content-end text-muted">
@@ -231,12 +255,14 @@
                                 <tr>
                                     <td style="text-align: center; vertical-align: middle;"><?php echo $member->user_firstname; ?></td>
                                     <td style="text-align: center; vertical-align: middle;"><?php echo $member->user_lastname; ?></td>
-                                    <td style="text-align: center; vertical-align: middle;"><?php echo $member->user_callsign; ?></td>
+                                    <td style="text-align: center; vertical-align: middle;"><?php echo str_replace('0', 'Ø' ,$member->user_callsign); ?></td>
                                     <td style="text-align: center; vertical-align: middle;"><?php echo $member->user_name; ?></td>
                                     <td style="text-align: center; vertical-align: middle;"><?php echo '<a href="mailto:' . $member->user_email . '">' . $member->user_email . '</a>'; ?></td>
                                     <td style="text-align: center; vertical-align: middle;">
                                         <?php if ($member->p_level == 3) { ?>
                                             <span class="badge bg-info"><?php echo $permissions[3]; ?></span>
+                                        <?php } else if ($member->p_level == 6) { ?>
+                                            <span class="badge bg-success"><?php echo $permissions[6]; ?></span>
                                         <?php } else if ($member->p_level == 9) { ?>
                                             <span class="badge bg-warning"><?php echo $permissions[9]; ?></span>
                                         <?php } ?>
@@ -272,11 +298,12 @@
                                                                     <tbody>
                                                                         <tr>
                                                                             <td class="text-center pt-3">
-                                                                                <p><b><?php echo $member->user_callsign; ?> - <?php echo $member->user_firstname . ' ' . $member->user_lastname; ?></b></p>
+                                                                                <p><b><?php echo str_replace('0', 'Ø', $member->user_callsign); ?> - <?php echo $member->user_firstname . ' ' . $member->user_lastname; ?></b></p>
                                                                             </td>
                                                                             <td>
                                                                                 <select class="form-select" id="permission" name="permission" required>
                                                                                     <option value="3" <?php if ($member->p_level == 3) { echo 'selected'; } ?>><?php echo $permissions[3]; ?></option>
+                                                                                    <option value="6" <?php if ($member->p_level == 6) { echo 'selected'; } ?>><?php echo $permissions[6]; ?></option>
                                                                                     <option value="9" <?php if ($member->p_level == 9) { echo 'selected'; } ?>><?php echo $permissions[9]; ?></option>
                                                                                 </select>
                                                                                 <div class="mt-2 form-check d-flex justify-content-end text-muted">
@@ -317,7 +344,7 @@
 
                                                             <div class="mb-3">
                                                                 <p>
-                                                                    <?= sprintf(__("Callsign: %s"), $member->user_callsign); ?><br>
+                                                                    <?= sprintf(__("Callsign: %s"), str_replace('0', 'Ø', $member->user_callsign)); ?><br>
                                                                     <?= sprintf(__("Role: %s"), $permissions[$member->p_level]); ?>
                                                                 </p>
                                                             </div>
