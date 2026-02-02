@@ -105,6 +105,18 @@ class Debug extends CI_Controller
 			$data['userdata_status'] = $userdata_status;
 		}
 
+		// Cache Info
+		$cache_info = $this->debug_model->get_cache_info();
+		$data['cache_available_adapters'] = $cache_info['adapters'];
+		$data['cache_path'] = $cache_info['config']['cache_path'] ?: 'application/cache';
+		$data['cache_adapter'] = ucfirst($cache_info['config']['cache_adapter'] ?? 'file');
+		$data['cache_backup'] = ucfirst($cache_info['config']['cache_backup'] ?? 'file');
+		$data['cache_key_prefix'] = $cache_info['config']['cache_key_prefix'] ?: __("(empty)");
+		$data['active_adapter'] = ucfirst($cache_info['active']['adapter'] ?? ($cache_info['config']['cache_adapter'] ?? 'file'));
+		$data['using_backup'] = !empty($cache_info['active']['using_backup']);
+		$data['details_cache_size'] = $cache_info['details']['size'] ?? '0 B';
+		$data['details_cache_keys_count'] = $cache_info['details']['keys_count'] ?? 0;
+		
 		$data['dxcc_update'] = $this->cron_model->cron('update_dxcc')->row();
 		$data['dok_update'] = $this->cron_model->cron('update_update_dok')->row();
 		$data['lotw_user_update'] = $this->cron_model->cron('update_lotw_users')->row();
@@ -286,6 +298,22 @@ class Debug extends CI_Controller
 		}
 		header('Content-Type: application/json');
 		echo json_encode($commit_hash);
+	}
+
+	public function clear_cache() {
+		$this->load->model('user_model');
+		if ($this->user_model->authorize(2) == false) {
+			header('Content-Type: application/json');
+			echo json_encode(['status' => false, 'message' => __("You're not allowed to do that!")]);
+			return;
+		}
+
+		$this->load->model('Debug_model');
+		$status = $this->Debug_model->clear_cache();
+
+		header('Content-Type: application/json');
+		echo json_encode(['status' => (bool) $status]);
+		return;
 	}
 
 	public function migrate_userdata() {
