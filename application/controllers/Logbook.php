@@ -706,6 +706,13 @@ class Logbook extends CI_Controller {
 
 		$html = "";
 
+		// Load all satellites once for PHP-side join (much faster than SQL join)
+		$satellites = [];
+		$sat_query = $this->db->query('SELECT name, displayname FROM satellite');
+		foreach ($sat_query->result() as $sat) {
+			$satellites[$sat->name] = $sat->displayname;
+		}
+
 		if(!empty($logbooks_locations_array)) {
 			$station_ids = implode(',', array_map(function($id) { return (int)$id; }, $logbooks_locations_array));
 
