@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-15 11:32+0000\n"
+"POT-Creation-Date: 2026-02-15 18:21+0000\n"
 "PO-Revision-Date: 2026-02-11 19:47+0000\n"
 "Last-Translator: Viliam Petrik <tatralom@gmail.com>\n"
 "Language-Team: Slovak <https://translate.wavelog.org/projects/wavelog/main-"
@@ -86,8 +86,8 @@ msgstr ""
 #: application/controllers/Qso.php:22 application/controllers/Qso.php:288
 #: application/controllers/Qso.php:419 application/controllers/Qso.php:440
 #: application/controllers/Qso.php:463 application/controllers/Qso.php:763
-#: application/controllers/Radio.php:32 application/controllers/Radio.php:297
-#: application/controllers/Radio.php:323 application/controllers/Radio.php:339
+#: application/controllers/Radio.php:32 application/controllers/Radio.php:320
+#: application/controllers/Radio.php:346 application/controllers/Radio.php:362
 #: application/controllers/Reg1test.php:17
 #: application/controllers/Reg1test.php:60
 #: application/controllers/Reg1test.php:99
@@ -1454,7 +1454,7 @@ msgstr ""
 "Všetky vyhľadávania v callbooku zlyhali alebo neposkytli žiadne výsledky."
 
 #: application/controllers/Logbook.php:1454
-#: application/controllers/Radio.php:46
+#: application/controllers/Radio.php:49
 #: application/views/accumulate/index.php:31
 #: application/views/activated_gridmap/index.php:43
 #: application/views/adif/dcl_success.php:33
@@ -1869,7 +1869,7 @@ msgid "Band"
 msgstr "Pásmo"
 
 #: application/controllers/Logbook.php:1466
-#: application/controllers/Radio.php:45 application/views/bandmap/list.php:166
+#: application/controllers/Radio.php:48 application/views/bandmap/list.php:166
 #: application/views/bandmap/list.php:549
 #: application/views/bandmap/list.php:589
 #: application/views/contesting/index.php:148
@@ -1897,7 +1897,7 @@ msgid "Frequency"
 msgstr "Frekvencia"
 
 #: application/controllers/Logbook.php:1467
-#: application/controllers/Radio.php:43
+#: application/controllers/Radio.php:46
 #: application/views/dashboard/index.php:17
 #: application/views/logbookadvanced/edit.php:13
 #: application/views/logbookadvanced/index.php:478
@@ -2423,17 +2423,17 @@ msgstr "Nebola uvedená žiadna volacia značka."
 msgid "Hardware Interfaces"
 msgstr "Hardvérové rozhrania"
 
-#: application/controllers/Radio.php:41 application/views/bandmap/list.php:20
+#: application/controllers/Radio.php:44 application/views/bandmap/list.php:20
 #: application/views/contesting/index.php:157
 #: application/views/qso/index.php:411 application/views/view_log/qso.php:714
 msgid "Radio"
 msgstr "Rádio"
 
-#: application/controllers/Radio.php:47
+#: application/controllers/Radio.php:50
 msgid "Timestamp"
 msgstr "Časová značka"
 
-#: application/controllers/Radio.php:49
+#: application/controllers/Radio.php:52
 #: application/views/logbookadvanced/index.php:867
 #: application/views/lotw_views/index.php:40
 #: application/views/simplefle/index.php:20
@@ -2442,30 +2442,34 @@ msgstr "Časová značka"
 msgid "Options"
 msgstr "Možnosti"
 
-#: application/controllers/Radio.php:50 application/views/debug/index.php:321
+#: application/controllers/Radio.php:53 application/views/debug/index.php:321
 #: application/views/qso/index.php:841
 msgid "Settings"
 msgstr "Nastavenia"
 
-#: application/controllers/Radio.php:63
+#: application/controllers/Radio.php:59
+msgid "WebSocket"
+msgstr ""
+
+#: application/controllers/Radio.php:65 application/controllers/Radio.php:124
+msgid "Default (click to release)"
+msgstr "Predvolené (kliknutím zrušíte)"
+
+#: application/controllers/Radio.php:67 application/controllers/Radio.php:126
+msgid "Set as default radio"
+msgstr "Nastaviť ako predvolenú rádiostanicu"
+
+#: application/controllers/Radio.php:83
 msgid "UNKNOWN"
 msgstr "NEZNÁME"
 
-#: application/controllers/Radio.php:98 application/views/bandmap/list.php:242
+#: application/controllers/Radio.php:118 application/views/bandmap/list.php:242
 #: application/views/contesting/index.php:162
 #: application/views/qso/index.php:416
 msgid "last updated"
 msgstr "naposledy aktualizované"
 
-#: application/controllers/Radio.php:106 application/controllers/Radio.php:109
-msgid "Set as default radio"
-msgstr "Nastaviť ako predvolenú rádiostanicu"
-
-#: application/controllers/Radio.php:111
-msgid "Default (click to release)"
-msgstr "Predvolené (kliknutím zrušíte)"
-
-#: application/controllers/Radio.php:115
+#: application/controllers/Radio.php:128
 #: application/controllers/Stationsetup.php:402
 #: application/views/api/index.php:74 application/views/bands/bandedges.php:32
 #: application/views/club/permissions.php:274
@@ -2484,7 +2488,7 @@ msgstr "Predvolené (kliknutím zrušíte)"
 msgid "Edit"
 msgstr "Upraviť"
 
-#: application/controllers/Radio.php:116
+#: application/controllers/Radio.php:129
 #: application/controllers/Stationsetup.php:415
 #: application/views/api/index.php:81 application/views/bands/bandedges.php:33
 #: application/views/club/permissions.php:331
@@ -2513,13 +2517,29 @@ msgstr "Upraviť"
 msgid "Delete"
 msgstr "Vymazať"
 
-#: application/controllers/Radio.php:122
+#: application/controllers/Radio.php:136
+msgid "WebSocket is currently default (click to release)"
+msgstr ""
+
+#: application/controllers/Radio.php:138
+msgid "Set WebSocket as default radio"
+msgstr ""
+
+#: application/controllers/Radio.php:142
 msgid "No CAT interfaced radios found."
 msgstr "Nenašlo sa žiadne rádio s CAT rozhraním."
 
-#: application/controllers/Radio.php:137 application/views/radio/index.php:2
+#: application/controllers/Radio.php:143
+msgid "You can still set the WebSocket option as your default radio."
+msgstr ""
+
+#: application/controllers/Radio.php:160 application/views/radio/index.php:2
 msgid "Edit CAT Settings"
 msgstr "Upraviť nastavenia CAT"
+
+#: application/controllers/Radio.php:332
+msgid "Radio removed successfully"
+msgstr ""
 
 #: application/controllers/Reg1test.php:22
 msgid "Export EDI"
@@ -5217,7 +5237,7 @@ msgstr "URL API pre túto instanciu Wavelogu je"
 #: application/views/api/index.php:20 application/views/dxcalendar/index.php:15
 #: application/views/eqsl/export.php:33
 #: application/views/interface_assets/footer.php:39
-#: application/views/qso/index.php:45 application/views/radio/index.php:26
+#: application/views/qso/index.php:45 application/views/radio/index.php:30
 #: application/views/sattimers/index.php:67
 #: application/views/sattimers/index.php:69
 #: application/views/sattimers/index.php:71
@@ -16079,7 +16099,7 @@ msgstr "Aktívne rádiá"
 msgid "Below is a list of active radios that are connected to Wavelog."
 msgstr "Nižšie je zoznam aktívnych rádií, ktoré sú pripojené k Wavelogu."
 
-#: application/views/radio/index.php:24
+#: application/views/radio/index.php:23
 msgid ""
 "If you haven't connected any radios yet, see the API page to generate API "
 "keys."
@@ -16087,16 +16107,26 @@ msgstr ""
 "Ak si ešte nepripojil žiadne rádiá, pozri si stránku s API na generovanie "
 "API kľúčov."
 
-#: application/views/radio/index.php:26 application/views/search/filter.php:66
+#: application/views/radio/index.php:25
+msgid ""
+"As a clubstation operator, you can set a default radio which applies only to "
+"you. This allows you to have a default radio that is automatically selected "
+"when you log in, while still being able to use other radios if you want."
+msgstr ""
+
+#: application/views/radio/index.php:27
+msgid ""
+"As a normal user, you can set a default radio for yourself. This allows you "
+"to have a default radio that is automatically selected when you log in, "
+"while still being able to use other radios if you want."
+msgstr ""
+
+#: application/views/radio/index.php:30
 #, php-format
-msgid "You can find out how to use the %s in the wiki."
-msgstr "Cez wiki sa môžeš dozvedieť, ako používať %s."
+msgid "You can find out how to use the %sradio functions%s in the wiki."
+msgstr ""
 
-#: application/views/radio/index.php:26
-msgid "radio functions"
-msgstr "rádiové funkcie"
-
-#: application/views/radio/index.php:31
+#: application/views/radio/index.php:35
 msgid "Please wait..."
 msgstr "Prosím, počkajte..."
 
@@ -16559,6 +16589,11 @@ msgstr "Uložiť dotaz"
 #: application/views/search/filter.php:47
 msgid "Stored queries"
 msgstr "Uložené dotazy"
+
+#: application/views/search/filter.php:66
+#, php-format
+msgid "You can find out how to use the %s in the wiki."
+msgstr "Cez wiki sa môžeš dozvedieť, ako používať %s."
 
 #: application/views/search/filter.php:66
 msgid "search filter functions"
@@ -19289,6 +19324,9 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#~ msgid "radio functions"
+#~ msgstr "rádiové funkcie"
 
 #~ msgid "Incorrectly logged CQ zones"
 #~ msgstr "Nesprávne zaznamenané CQ zóny"

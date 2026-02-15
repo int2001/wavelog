@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-15 11:32+0000\n"
+"POT-Creation-Date: 2026-02-15 18:21+0000\n"
 "PO-Revision-Date: 2026-02-13 10:02+0000\n"
 "Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
@@ -86,8 +86,8 @@ msgstr ""
 #: application/controllers/Qso.php:22 application/controllers/Qso.php:288
 #: application/controllers/Qso.php:419 application/controllers/Qso.php:440
 #: application/controllers/Qso.php:463 application/controllers/Qso.php:763
-#: application/controllers/Radio.php:32 application/controllers/Radio.php:297
-#: application/controllers/Radio.php:323 application/controllers/Radio.php:339
+#: application/controllers/Radio.php:32 application/controllers/Radio.php:320
+#: application/controllers/Radio.php:346 application/controllers/Radio.php:362
 #: application/controllers/Reg1test.php:17
 #: application/controllers/Reg1test.php:60
 #: application/controllers/Reg1test.php:99
@@ -1456,7 +1456,7 @@ msgid "All callbook lookups failed or provided no results."
 msgstr "すべてのコールブック検索が失敗したか、結果が提供されませんでした。"
 
 #: application/controllers/Logbook.php:1454
-#: application/controllers/Radio.php:46
+#: application/controllers/Radio.php:49
 #: application/views/accumulate/index.php:31
 #: application/views/activated_gridmap/index.php:43
 #: application/views/adif/dcl_success.php:33
@@ -1871,7 +1871,7 @@ msgid "Band"
 msgstr "バンド"
 
 #: application/controllers/Logbook.php:1466
-#: application/controllers/Radio.php:45 application/views/bandmap/list.php:166
+#: application/controllers/Radio.php:48 application/views/bandmap/list.php:166
 #: application/views/bandmap/list.php:549
 #: application/views/bandmap/list.php:589
 #: application/views/contesting/index.php:148
@@ -1899,7 +1899,7 @@ msgid "Frequency"
 msgstr "周波数"
 
 #: application/controllers/Logbook.php:1467
-#: application/controllers/Radio.php:43
+#: application/controllers/Radio.php:46
 #: application/views/dashboard/index.php:17
 #: application/views/logbookadvanced/edit.php:13
 #: application/views/logbookadvanced/index.php:478
@@ -2419,17 +2419,17 @@ msgstr "コールサインが提供されていません。"
 msgid "Hardware Interfaces"
 msgstr "ハードウェアインターフェース"
 
-#: application/controllers/Radio.php:41 application/views/bandmap/list.php:20
+#: application/controllers/Radio.php:44 application/views/bandmap/list.php:20
 #: application/views/contesting/index.php:157
 #: application/views/qso/index.php:411 application/views/view_log/qso.php:714
 msgid "Radio"
 msgstr "無線"
 
-#: application/controllers/Radio.php:47
+#: application/controllers/Radio.php:50
 msgid "Timestamp"
 msgstr "タイムスタンプ"
 
-#: application/controllers/Radio.php:49
+#: application/controllers/Radio.php:52
 #: application/views/logbookadvanced/index.php:867
 #: application/views/lotw_views/index.php:40
 #: application/views/simplefle/index.php:20
@@ -2438,30 +2438,34 @@ msgstr "タイムスタンプ"
 msgid "Options"
 msgstr "オプション"
 
-#: application/controllers/Radio.php:50 application/views/debug/index.php:321
+#: application/controllers/Radio.php:53 application/views/debug/index.php:321
 #: application/views/qso/index.php:841
 msgid "Settings"
 msgstr "設定"
 
-#: application/controllers/Radio.php:63
+#: application/controllers/Radio.php:59
+msgid "WebSocket"
+msgstr ""
+
+#: application/controllers/Radio.php:65 application/controllers/Radio.php:124
+msgid "Default (click to release)"
+msgstr "デフォルト（クリックして解除）"
+
+#: application/controllers/Radio.php:67 application/controllers/Radio.php:126
+msgid "Set as default radio"
+msgstr "デフォルトの無線機として設定"
+
+#: application/controllers/Radio.php:83
 msgid "UNKNOWN"
 msgstr "不明"
 
-#: application/controllers/Radio.php:98 application/views/bandmap/list.php:242
+#: application/controllers/Radio.php:118 application/views/bandmap/list.php:242
 #: application/views/contesting/index.php:162
 #: application/views/qso/index.php:416
 msgid "last updated"
 msgstr "最終更新日"
 
-#: application/controllers/Radio.php:106 application/controllers/Radio.php:109
-msgid "Set as default radio"
-msgstr "デフォルトの無線機として設定"
-
-#: application/controllers/Radio.php:111
-msgid "Default (click to release)"
-msgstr "デフォルト（クリックして解除）"
-
-#: application/controllers/Radio.php:115
+#: application/controllers/Radio.php:128
 #: application/controllers/Stationsetup.php:402
 #: application/views/api/index.php:74 application/views/bands/bandedges.php:32
 #: application/views/club/permissions.php:274
@@ -2480,7 +2484,7 @@ msgstr "デフォルト（クリックして解除）"
 msgid "Edit"
 msgstr "編集"
 
-#: application/controllers/Radio.php:116
+#: application/controllers/Radio.php:129
 #: application/controllers/Stationsetup.php:415
 #: application/views/api/index.php:81 application/views/bands/bandedges.php:33
 #: application/views/club/permissions.php:331
@@ -2509,13 +2513,29 @@ msgstr "編集"
 msgid "Delete"
 msgstr "削除"
 
-#: application/controllers/Radio.php:122
+#: application/controllers/Radio.php:136
+msgid "WebSocket is currently default (click to release)"
+msgstr ""
+
+#: application/controllers/Radio.php:138
+msgid "Set WebSocket as default radio"
+msgstr ""
+
+#: application/controllers/Radio.php:142
 msgid "No CAT interfaced radios found."
 msgstr "CAT インターフェースの無線機が見つかりません。"
 
-#: application/controllers/Radio.php:137 application/views/radio/index.php:2
+#: application/controllers/Radio.php:143
+msgid "You can still set the WebSocket option as your default radio."
+msgstr ""
+
+#: application/controllers/Radio.php:160 application/views/radio/index.php:2
 msgid "Edit CAT Settings"
 msgstr "CAT設定の編集"
+
+#: application/controllers/Radio.php:332
+msgid "Radio removed successfully"
+msgstr ""
 
 #: application/controllers/Reg1test.php:22
 msgid "Export EDI"
@@ -5223,7 +5243,7 @@ msgstr "このWavelogインスタンスのAPI URLは"
 #: application/views/api/index.php:20 application/views/dxcalendar/index.php:15
 #: application/views/eqsl/export.php:33
 #: application/views/interface_assets/footer.php:39
-#: application/views/qso/index.php:45 application/views/radio/index.php:26
+#: application/views/qso/index.php:45 application/views/radio/index.php:30
 #: application/views/sattimers/index.php:67
 #: application/views/sattimers/index.php:69
 #: application/views/sattimers/index.php:71
@@ -16034,7 +16054,7 @@ msgstr "アクティブな無線機"
 msgid "Below is a list of active radios that are connected to Wavelog."
 msgstr "以下は、Wavelog に接続されているアクティブな無線機のリストです。"
 
-#: application/views/radio/index.php:24
+#: application/views/radio/index.php:23
 msgid ""
 "If you haven't connected any radios yet, see the API page to generate API "
 "keys."
@@ -16042,16 +16062,26 @@ msgstr ""
 "まだ無線を接続していない場合は、API ページを参照して API キーを生成してくださ"
 "い。"
 
-#: application/views/radio/index.php:26 application/views/search/filter.php:66
+#: application/views/radio/index.php:25
+msgid ""
+"As a clubstation operator, you can set a default radio which applies only to "
+"you. This allows you to have a default radio that is automatically selected "
+"when you log in, while still being able to use other radios if you want."
+msgstr ""
+
+#: application/views/radio/index.php:27
+msgid ""
+"As a normal user, you can set a default radio for yourself. This allows you "
+"to have a default radio that is automatically selected when you log in, "
+"while still being able to use other radios if you want."
+msgstr ""
+
+#: application/views/radio/index.php:30
 #, php-format
-msgid "You can find out how to use the %s in the wiki."
-msgstr "%s の使用方法については、ウィキでご確認いただけます。"
+msgid "You can find out how to use the %sradio functions%s in the wiki."
+msgstr ""
 
-#: application/views/radio/index.php:26
-msgid "radio functions"
-msgstr "無線機の機能"
-
-#: application/views/radio/index.php:31
+#: application/views/radio/index.php:35
 msgid "Please wait..."
 msgstr "お待ちください..."
 
@@ -16512,6 +16542,11 @@ msgstr "クエリを保存"
 #: application/views/search/filter.php:47
 msgid "Stored queries"
 msgstr "保存されたクエリ"
+
+#: application/views/search/filter.php:66
+#, php-format
+msgid "You can find out how to use the %s in the wiki."
+msgstr "%s の使用方法については、ウィキでご確認いただけます。"
 
 #: application/views/search/filter.php:66
 msgid "search filter functions"
@@ -19245,6 +19280,9 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#~ msgid "radio functions"
+#~ msgstr "無線機の機能"
 
 #~ msgid "Incorrectly logged CQ zones"
 #~ msgstr "誤って記録されたCQゾーン"
