@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-13 08:13+0000\n"
+"POT-Creation-Date: 2026-02-15 11:32+0000\n"
 "PO-Revision-Date: 2026-02-09 22:54+0000\n"
 "Last-Translator: \"Juuso W.\" <oh1jw@tuta.io>\n"
 "Language-Team: Finnish <https://translate.wavelog.org/projects/wavelog/main-"
@@ -1483,7 +1483,8 @@ msgstr ""
 #: application/views/awards/wpx/wpx_details.php:23
 #: application/views/bandmap/list.php:99 application/views/bandmap/list.php:167
 #: application/views/bandmap/list.php:301
-#: application/views/bandmap/list.php:568
+#: application/views/bandmap/list.php:550
+#: application/views/bandmap/list.php:590
 #: application/views/bands/bandedges.php:31
 #: application/views/callstats/index.php:49
 #: application/views/components/hamsat/table.php:30
@@ -1805,7 +1806,8 @@ msgstr "Etäisyys"
 #: application/views/awards/wwff/index.php:36
 #: application/views/bandmap/list.php:98 application/views/bandmap/list.php:168
 #: application/views/bandmap/list.php:363
-#: application/views/bandmap/list.php:566 application/views/bands/create.php:24
+#: application/views/bandmap/list.php:548
+#: application/views/bandmap/list.php:588 application/views/bands/create.php:24
 #: application/views/bands/edit.php:7 application/views/bands/index.php:47
 #: application/views/callstats/index.php:7
 #: application/views/contesting/index.php:131
@@ -1870,7 +1872,8 @@ msgstr "Bandi"
 
 #: application/controllers/Logbook.php:1466
 #: application/controllers/Radio.php:45 application/views/bandmap/list.php:166
-#: application/views/bandmap/list.php:567
+#: application/views/bandmap/list.php:549
+#: application/views/bandmap/list.php:589
 #: application/views/contesting/index.php:148
 #: application/views/dashboard/index.php:16
 #: application/views/logbookadvanced/index.php:918
@@ -2599,7 +2602,7 @@ msgstr "tänne"
 msgid "Satellite Timers"
 msgstr "Satelliittiajastimet"
 
-#: application/controllers/Search.php:15 application/views/bandmap/list.php:544
+#: application/controllers/Search.php:15 application/views/bandmap/list.php:566
 #: application/views/continents/index.php:49
 #: application/views/interface_assets/footer.php:42
 #: application/views/interface_assets/header.php:392
@@ -4421,6 +4424,7 @@ msgstr "Mitään ei löytynyt!"
 #: application/views/awards/wpx/wpx_details.php:20
 #: application/views/awards/wwff/index.php:35
 #: application/views/bandmap/list.php:27 application/views/bandmap/list.php:165
+#: application/views/bandmap/list.php:554
 #: application/views/cabrillo/index.php:31
 #: application/views/callstats/index.php:147
 #: application/views/calltester/comparison_result.php:60
@@ -5505,7 +5509,8 @@ msgstr "Yhteensä"
 
 #: application/views/awards/cq/index.php:3
 #: application/views/awards/cq/index.php:193
-#: application/views/bandmap/list.php:572 application/views/csv/index.php:80
+#: application/views/bandmap/list.php:556
+#: application/views/bandmap/list.php:594 application/views/csv/index.php:80
 #: application/views/dxatlas/index.php:80
 #: application/views/gridmap/index.php:236 application/views/kml/index.php:65
 #: application/views/logbookadvanced/checkresult.php:246
@@ -7086,7 +7091,8 @@ msgstr "Awardi - Worked All Continents (WAC)"
 
 #: application/views/awards/wac/index.php:152
 #: application/views/bandmap/list.php:100
-#: application/views/bandmap/list.php:571
+#: application/views/bandmap/list.php:555
+#: application/views/bandmap/list.php:593
 #: application/views/continents/index.php:62
 #: application/views/logbookadvanced/edit.php:23
 #: application/views/logbookadvanced/index.php:486
@@ -7754,7 +7760,7 @@ msgid "Worked on %s with %s"
 msgstr "Työskennelty %s %s kanssa"
 
 #: application/views/bandmap/list.php:102
-#: application/views/bandmap/list.php:575
+#: application/views/bandmap/list.php:597
 msgid "de"
 msgstr "de"
 
@@ -7871,6 +7877,8 @@ msgid "(requires CAT connection)"
 msgstr "(vaatii CAT-yhteyden)"
 
 #: application/views/bandmap/list.php:133
+#: application/views/bandmap/list.php:560
+#: application/views/bandmap/list.php:561
 msgid "Spotter"
 msgstr "Spottaaja"
 
@@ -7888,6 +7896,7 @@ msgid "Comment"
 msgstr "Kommentti"
 
 #: application/views/bandmap/list.php:135
+#: application/views/bandmap/list.php:547
 #: application/views/contesting/index.php:65
 msgid "Age"
 msgstr "Ikä"
@@ -8186,7 +8195,7 @@ msgid "Toggle DX Spot filter (spotted continent ≠ spotter continent)"
 msgstr "Vaihda DX Spot -suodatinta (spotattumaanosa ≠ spotterin maanosa)"
 
 #: application/views/bandmap/list.php:491
-#: application/views/bandmap/list.php:570
+#: application/views/bandmap/list.php:592
 msgid "DX"
 msgstr "DX"
 
@@ -8243,76 +8252,97 @@ msgid "DX Map"
 msgstr "DX-kartta"
 
 #: application/views/bandmap/list.php:544
-msgid "Search spots..."
-msgstr "Etsi spotteja..."
-
-#: application/views/bandmap/list.php:557
-msgid "Note: Map shows DXCC entity locations, not actual spot locations"
+msgid "Search Column"
 msgstr ""
-"Huomautus: Kartta näyttää DXCC-entiteettien sijainnit, ei varsinaisia "
-"spottauslokaatioita"
 
-#: application/views/bandmap/list.php:565
-msgid "Age in minutes"
-msgstr "Ikä minuutteina"
+#: application/views/bandmap/list.php:545
+msgid "All Columns"
+msgstr ""
 
-#: application/views/bandmap/list.php:567
-msgid "Freq"
-msgstr "Freq"
+#: application/views/bandmap/list.php:546
+msgid "Spot Info"
+msgstr ""
 
-#: application/views/bandmap/list.php:569
+#: application/views/bandmap/list.php:551
+#: application/views/bandmap/list.php:591
 #: application/views/eqsl/analysis.php:40
 #: application/views/eqsl/download.php:40 application/views/eqsl/result.php:37
 msgid "Submode"
 msgstr "Submode"
 
-#: application/views/bandmap/list.php:570
-msgid "Spotted Callsign"
-msgstr "Spotattu kutsu"
+#: application/views/bandmap/list.php:553
+msgid "DX Station"
+msgstr ""
 
-#: application/views/bandmap/list.php:573
-msgid "Flag"
-msgstr "Lippu"
-
-#: application/views/bandmap/list.php:574
-msgid "DXCC Entity"
-msgstr "DXCC Entity"
-
-#: application/views/bandmap/list.php:574
+#: application/views/bandmap/list.php:557
+#: application/views/bandmap/list.php:596
 msgid "Entity"
 msgstr "Entiteetti"
 
-#: application/views/bandmap/list.php:575
-msgid "Spotter Callsign"
-msgstr "Spotterin kutsumerkki"
-
-#: application/views/bandmap/list.php:576
-msgid "Spotter Continent"
-msgstr "Spotterin manner"
-
-#: application/views/bandmap/list.php:577
-msgid "Spotter CQ Zone"
-msgstr "Spotterin CQ-alue"
-
-#: application/views/bandmap/list.php:578
-msgid "Last QSO Date"
-msgstr "Viimeinen QSO-päivämäärä"
-
-#: application/views/bandmap/list.php:579
-msgid "Special"
-msgstr "Erityinen"
-
-#: application/views/bandmap/list.php:579
-msgid "Special Flags"
-msgstr "Erikoisliput"
-
-#: application/views/bandmap/list.php:580
+#: application/views/bandmap/list.php:558
+#: application/views/bandmap/list.php:602
 #: application/views/oqrs/notinlogform.php:28
 #: application/views/oqrs/request.php:54
 #: application/views/oqrs/request_grouped.php:57
 #: application/views/oqrs/status_info.php:5
 msgid "Message"
 msgstr "Viesti"
+
+#: application/views/bandmap/list.php:562
+#: application/views/bandmap/list.php:598
+msgid "Spotter Continent"
+msgstr "Spotterin manner"
+
+#: application/views/bandmap/list.php:563
+#: application/views/bandmap/list.php:599
+msgid "Spotter CQ Zone"
+msgstr "Spotterin CQ-alue"
+
+#: application/views/bandmap/list.php:566
+msgid "Search spots..."
+msgstr "Etsi spotteja..."
+
+#: application/views/bandmap/list.php:579
+msgid "Note: Map shows DXCC entity locations, not actual spot locations"
+msgstr ""
+"Huomautus: Kartta näyttää DXCC-entiteettien sijainnit, ei varsinaisia "
+"spottauslokaatioita"
+
+#: application/views/bandmap/list.php:587
+msgid "Age in minutes"
+msgstr "Ikä minuutteina"
+
+#: application/views/bandmap/list.php:589
+msgid "Freq"
+msgstr "Freq"
+
+#: application/views/bandmap/list.php:592
+msgid "Spotted Callsign"
+msgstr "Spotattu kutsu"
+
+#: application/views/bandmap/list.php:595
+msgid "Flag"
+msgstr "Lippu"
+
+#: application/views/bandmap/list.php:596
+msgid "DXCC Entity"
+msgstr "DXCC Entity"
+
+#: application/views/bandmap/list.php:597
+msgid "Spotter Callsign"
+msgstr "Spotterin kutsumerkki"
+
+#: application/views/bandmap/list.php:600
+msgid "Last QSO Date"
+msgstr "Viimeinen QSO-päivämäärä"
+
+#: application/views/bandmap/list.php:601
+msgid "Special"
+msgstr "Erityinen"
+
+#: application/views/bandmap/list.php:601
+msgid "Special Flags"
+msgstr "Erikoisliput"
 
 #: application/views/bands/bandedges.php:2
 msgid "Please enter valid numbers for frequency"

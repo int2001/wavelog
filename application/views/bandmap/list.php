@@ -540,7 +540,29 @@
 		</div>
 
 		<!-- Search Input - 30% -->
-		<div class="input-group input-group-sm" style="flex: 0 0 auto; min-width: 200px; max-width: 400px; position: relative;">
+		<div class="input-group input-group-sm" style="flex: 0 0 auto; min-width: 300px; max-width: 450px; position: relative;">
+			<select class="form-select" id="spotSearchColumn" style="max-width: 150px;" aria-label="<?= __("Search Column"); ?>">
+				<option value="all" selected><?= __("All Columns"); ?></option>
+				<optgroup label="<?= __("Spot Info"); ?>">
+					<option value="0"><?= __("Age"); ?></option>
+					<option value="1"><?= __("Band"); ?></option>
+					<option value="2"><?= __("Frequency"); ?></option>
+					<option value="3"><?= __("Mode"); ?></option>
+					<option value="4"><?= __("Submode"); ?></option>
+				</optgroup>
+				<optgroup label="<?= __("DX Station"); ?>">
+					<option value="5"><?= __("Callsign"); ?></option>
+					<option value="6"><?= __("Continent"); ?></option>
+					<option value="7"><?= __("CQ Zone"); ?></option>
+					<option value="9"><?= __("Entity"); ?></option>
+					<option value="15"><?= __("Message"); ?></option>
+				</optgroup>
+				<optgroup label="<?= __("Spotter"); ?>">
+					<option value="10"><?= __("Spotter"); ?></option>
+					<option value="11"><?= __("Spotter Continent"); ?></option>
+					<option value="12"><?= __("Spotter CQ Zone"); ?></option>
+				</optgroup>
+			</select>
 			<input type="text" class="form-control" id="spotSearchInput" placeholder="<?= __("Search spots..."); ?>" aria-label="<?= __("Search"); ?>">
 			<button class="btn btn-sm" id="clearSearchBtn" style="position: absolute; right: 40px; top: 50%; transform: translateY(-50%); z-index: 10; background: transparent; border: none; padding: 0 5px; display: none; cursor: pointer;">
 				<i class="fas fa-times" style="color: #6c757d;"></i>

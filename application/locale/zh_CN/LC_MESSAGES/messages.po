@@ -26,7 +26,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-13 08:13+0000\n"
+"POT-Creation-Date: 2026-02-15 11:32+0000\n"
 "PO-Revision-Date: 2026-02-09 22:54+0000\n"
 "Last-Translator: Jerry <jerry19980425@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
@@ -1488,7 +1488,8 @@ msgstr "所有呼号簿的查询均失败或没有结果。"
 #: application/views/awards/wpx/wpx_details.php:23
 #: application/views/bandmap/list.php:99 application/views/bandmap/list.php:167
 #: application/views/bandmap/list.php:301
-#: application/views/bandmap/list.php:568
+#: application/views/bandmap/list.php:550
+#: application/views/bandmap/list.php:590
 #: application/views/bands/bandedges.php:31
 #: application/views/callstats/index.php:49
 #: application/views/components/hamsat/table.php:30
@@ -1810,7 +1811,8 @@ msgstr "距离"
 #: application/views/awards/wwff/index.php:36
 #: application/views/bandmap/list.php:98 application/views/bandmap/list.php:168
 #: application/views/bandmap/list.php:363
-#: application/views/bandmap/list.php:566 application/views/bands/create.php:24
+#: application/views/bandmap/list.php:548
+#: application/views/bandmap/list.php:588 application/views/bands/create.php:24
 #: application/views/bands/edit.php:7 application/views/bands/index.php:47
 #: application/views/callstats/index.php:7
 #: application/views/contesting/index.php:131
@@ -1875,7 +1877,8 @@ msgstr "频段"
 
 #: application/controllers/Logbook.php:1466
 #: application/controllers/Radio.php:45 application/views/bandmap/list.php:166
-#: application/views/bandmap/list.php:567
+#: application/views/bandmap/list.php:549
+#: application/views/bandmap/list.php:589
 #: application/views/contesting/index.php:148
 #: application/views/dashboard/index.php:16
 #: application/views/logbookadvanced/index.php:918
@@ -2585,7 +2588,7 @@ msgstr "这里"
 msgid "Satellite Timers"
 msgstr "卫星时钟"
 
-#: application/controllers/Search.php:15 application/views/bandmap/list.php:544
+#: application/controllers/Search.php:15 application/views/bandmap/list.php:566
 #: application/views/continents/index.php:49
 #: application/views/interface_assets/footer.php:42
 #: application/views/interface_assets/header.php:392
@@ -4367,6 +4370,7 @@ msgstr "未找到！"
 #: application/views/awards/wpx/wpx_details.php:20
 #: application/views/awards/wwff/index.php:35
 #: application/views/bandmap/list.php:27 application/views/bandmap/list.php:165
+#: application/views/bandmap/list.php:554
 #: application/views/cabrillo/index.php:31
 #: application/views/callstats/index.php:147
 #: application/views/calltester/comparison_result.php:60
@@ -5407,7 +5411,8 @@ msgstr "总计"
 
 #: application/views/awards/cq/index.php:3
 #: application/views/awards/cq/index.php:193
-#: application/views/bandmap/list.php:572 application/views/csv/index.php:80
+#: application/views/bandmap/list.php:556
+#: application/views/bandmap/list.php:594 application/views/csv/index.php:80
 #: application/views/dxatlas/index.php:80
 #: application/views/gridmap/index.php:236 application/views/kml/index.php:65
 #: application/views/logbookadvanced/checkresult.php:246
@@ -6910,7 +6915,8 @@ msgstr "奖项 - 通联世界大洲奖（WAC）"
 
 #: application/views/awards/wac/index.php:152
 #: application/views/bandmap/list.php:100
-#: application/views/bandmap/list.php:571
+#: application/views/bandmap/list.php:555
+#: application/views/bandmap/list.php:593
 #: application/views/continents/index.php:62
 #: application/views/logbookadvanced/edit.php:23
 #: application/views/logbookadvanced/index.php:486
@@ -7538,7 +7544,7 @@ msgid "Worked on %s with %s"
 msgstr "通联于%s使用%s"
 
 #: application/views/bandmap/list.php:102
-#: application/views/bandmap/list.php:575
+#: application/views/bandmap/list.php:597
 msgid "de"
 msgstr "de"
 
@@ -7655,6 +7661,8 @@ msgid "(requires CAT connection)"
 msgstr "（需要 CAT 连接）"
 
 #: application/views/bandmap/list.php:133
+#: application/views/bandmap/list.php:560
+#: application/views/bandmap/list.php:561
 msgid "Spotter"
 msgstr "Spotter"
 
@@ -7672,6 +7680,7 @@ msgid "Comment"
 msgstr "备注"
 
 #: application/views/bandmap/list.php:135
+#: application/views/bandmap/list.php:547
 #: application/views/contesting/index.php:65
 msgid "Age"
 msgstr "年龄"
@@ -7969,7 +7978,7 @@ msgid "Toggle DX Spot filter (spotted continent ≠ spotter continent)"
 msgstr "切换 DX Spot 筛选器（spotted continent ≠ spotter continent）"
 
 #: application/views/bandmap/list.php:491
-#: application/views/bandmap/list.php:570
+#: application/views/bandmap/list.php:592
 msgid "DX"
 msgstr "DX"
 
@@ -8026,74 +8035,95 @@ msgid "DX Map"
 msgstr "DX 地图"
 
 #: application/views/bandmap/list.php:544
-msgid "Search spots..."
-msgstr "搜索 spot…"
+msgid "Search Column"
+msgstr ""
 
-#: application/views/bandmap/list.php:557
-msgid "Note: Map shows DXCC entity locations, not actual spot locations"
-msgstr "注意：地图显示的是 DXCC 实体位置，而不是实际位置"
+#: application/views/bandmap/list.php:545
+msgid "All Columns"
+msgstr ""
 
-#: application/views/bandmap/list.php:565
-msgid "Age in minutes"
-msgstr "时长（分钟）"
+#: application/views/bandmap/list.php:546
+msgid "Spot Info"
+msgstr ""
 
-#: application/views/bandmap/list.php:567
-msgid "Freq"
-msgstr "频率"
-
-#: application/views/bandmap/list.php:569
+#: application/views/bandmap/list.php:551
+#: application/views/bandmap/list.php:591
 #: application/views/eqsl/analysis.php:40
 #: application/views/eqsl/download.php:40 application/views/eqsl/result.php:37
 msgid "Submode"
 msgstr "子模式"
 
-#: application/views/bandmap/list.php:570
-msgid "Spotted Callsign"
-msgstr "已 spot 的呼号"
+#: application/views/bandmap/list.php:553
+msgid "DX Station"
+msgstr ""
 
-#: application/views/bandmap/list.php:573
-msgid "Flag"
-msgstr "标记"
-
-#: application/views/bandmap/list.php:574
-msgid "DXCC Entity"
-msgstr "EXCC 实体"
-
-#: application/views/bandmap/list.php:574
+#: application/views/bandmap/list.php:557
+#: application/views/bandmap/list.php:596
 msgid "Entity"
 msgstr "实体"
 
-#: application/views/bandmap/list.php:575
-msgid "Spotter Callsign"
-msgstr "spotter 呼号"
-
-#: application/views/bandmap/list.php:576
-msgid "Spotter Continent"
-msgstr "spotter 大洲"
-
-#: application/views/bandmap/list.php:577
-msgid "Spotter CQ Zone"
-msgstr "spotter CQ 区"
-
-#: application/views/bandmap/list.php:578
-msgid "Last QSO Date"
-msgstr "最后QSO日期"
-
-#: application/views/bandmap/list.php:579
-msgid "Special"
-msgstr "特别"
-
-#: application/views/bandmap/list.php:579
-msgid "Special Flags"
-msgstr "特别标记"
-
-#: application/views/bandmap/list.php:580
+#: application/views/bandmap/list.php:558
+#: application/views/bandmap/list.php:602
 #: application/views/oqrs/notinlogform.php:28
 #: application/views/oqrs/request.php:54
 #: application/views/oqrs/request_grouped.php:57
 #: application/views/oqrs/status_info.php:5
 msgid "Message"
 msgstr "消息"
+
+#: application/views/bandmap/list.php:562
+#: application/views/bandmap/list.php:598
+msgid "Spotter Continent"
+msgstr "spotter 大洲"
+
+#: application/views/bandmap/list.php:563
+#: application/views/bandmap/list.php:599
+msgid "Spotter CQ Zone"
+msgstr "spotter CQ 区"
+
+#: application/views/bandmap/list.php:566
+msgid "Search spots..."
+msgstr "搜索 spot…"
+
+#: application/views/bandmap/list.php:579
+msgid "Note: Map shows DXCC entity locations, not actual spot locations"
+msgstr "注意：地图显示的是 DXCC 实体位置，而不是实际位置"
+
+#: application/views/bandmap/list.php:587
+msgid "Age in minutes"
+msgstr "时长（分钟）"
+
+#: application/views/bandmap/list.php:589
+msgid "Freq"
+msgstr "频率"
+
+#: application/views/bandmap/list.php:592
+msgid "Spotted Callsign"
+msgstr "已 spot 的呼号"
+
+#: application/views/bandmap/list.php:595
+msgid "Flag"
+msgstr "标记"
+
+#: application/views/bandmap/list.php:596
+msgid "DXCC Entity"
+msgstr "EXCC 实体"
+
+#: application/views/bandmap/list.php:597
+msgid "Spotter Callsign"
+msgstr "spotter 呼号"
+
+#: application/views/bandmap/list.php:600
+msgid "Last QSO Date"
+msgstr "最后QSO日期"
+
+#: application/views/bandmap/list.php:601
+msgid "Special"
+msgstr "特别"
+
+#: application/views/bandmap/list.php:601
+msgid "Special Flags"
+msgstr "特别标记"
 
 #: application/views/bands/bandedges.php:2
 msgid "Please enter valid numbers for frequency"

@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-13 08:13+0000\n"
+"POT-Creation-Date: 2026-02-15 11:32+0000\n"
 "PO-Revision-Date: 2026-02-13 14:33+0000\n"
 "Last-Translator: JONCOUX Philippe <joncoux@free.fr>\n"
 "Language-Team: French <https://translate.wavelog.org/projects/wavelog/main-"
@@ -1497,7 +1497,8 @@ msgstr ""
 #: application/views/awards/wpx/wpx_details.php:23
 #: application/views/bandmap/list.php:99 application/views/bandmap/list.php:167
 #: application/views/bandmap/list.php:301
-#: application/views/bandmap/list.php:568
+#: application/views/bandmap/list.php:550
+#: application/views/bandmap/list.php:590
 #: application/views/bands/bandedges.php:31
 #: application/views/callstats/index.php:49
 #: application/views/components/hamsat/table.php:30
@@ -1819,7 +1820,8 @@ msgstr "Distance"
 #: application/views/awards/wwff/index.php:36
 #: application/views/bandmap/list.php:98 application/views/bandmap/list.php:168
 #: application/views/bandmap/list.php:363
-#: application/views/bandmap/list.php:566 application/views/bands/create.php:24
+#: application/views/bandmap/list.php:548
+#: application/views/bandmap/list.php:588 application/views/bands/create.php:24
 #: application/views/bands/edit.php:7 application/views/bands/index.php:47
 #: application/views/callstats/index.php:7
 #: application/views/contesting/index.php:131
@@ -1884,7 +1886,8 @@ msgstr "Bande"
 
 #: application/controllers/Logbook.php:1466
 #: application/controllers/Radio.php:45 application/views/bandmap/list.php:166
-#: application/views/bandmap/list.php:567
+#: application/views/bandmap/list.php:549
+#: application/views/bandmap/list.php:589
 #: application/views/contesting/index.php:148
 #: application/views/dashboard/index.php:16
 #: application/views/logbookadvanced/index.php:918
@@ -2614,7 +2617,7 @@ msgstr "ici"
 msgid "Satellite Timers"
 msgstr "Minuteries de satellite"
 
-#: application/controllers/Search.php:15 application/views/bandmap/list.php:544
+#: application/controllers/Search.php:15 application/views/bandmap/list.php:566
 #: application/views/continents/index.php:49
 #: application/views/interface_assets/footer.php:42
 #: application/views/interface_assets/header.php:392
@@ -4455,6 +4458,7 @@ msgstr "Rien trouvé !"
 #: application/views/awards/wpx/wpx_details.php:20
 #: application/views/awards/wwff/index.php:35
 #: application/views/bandmap/list.php:27 application/views/bandmap/list.php:165
+#: application/views/bandmap/list.php:554
 #: application/views/cabrillo/index.php:31
 #: application/views/callstats/index.php:147
 #: application/views/calltester/comparison_result.php:60
@@ -5556,7 +5560,8 @@ msgstr "Total"
 
 #: application/views/awards/cq/index.php:3
 #: application/views/awards/cq/index.php:193
-#: application/views/bandmap/list.php:572 application/views/csv/index.php:80
+#: application/views/bandmap/list.php:556
+#: application/views/bandmap/list.php:594 application/views/csv/index.php:80
 #: application/views/dxatlas/index.php:80
 #: application/views/gridmap/index.php:236 application/views/kml/index.php:65
 #: application/views/logbookadvanced/checkresult.php:246
@@ -7153,7 +7158,8 @@ msgstr "Diplome - Worked All Continents (WAC)"
 
 #: application/views/awards/wac/index.php:152
 #: application/views/bandmap/list.php:100
-#: application/views/bandmap/list.php:571
+#: application/views/bandmap/list.php:555
+#: application/views/bandmap/list.php:593
 #: application/views/continents/index.php:62
 #: application/views/logbookadvanced/edit.php:23
 #: application/views/logbookadvanced/index.php:486
@@ -7835,7 +7841,7 @@ msgid "Worked on %s with %s"
 msgstr "J'ai travaillé sur %s avec %s"
 
 #: application/views/bandmap/list.php:102
-#: application/views/bandmap/list.php:575
+#: application/views/bandmap/list.php:597
 msgid "de"
 msgstr "de"
 
@@ -7954,6 +7960,8 @@ msgid "(requires CAT connection)"
 msgstr "(nécessite une connexion CAT)"
 
 #: application/views/bandmap/list.php:133
+#: application/views/bandmap/list.php:560
+#: application/views/bandmap/list.php:561
 msgid "Spotter"
 msgstr "Spotter"
 
@@ -7971,6 +7979,7 @@ msgid "Comment"
 msgstr "Commentaire"
 
 #: application/views/bandmap/list.php:135
+#: application/views/bandmap/list.php:547
 #: application/views/contesting/index.php:65
 msgid "Age"
 msgstr "Âge"
@@ -8272,7 +8281,7 @@ msgstr ""
 "l'observateur)"
 
 #: application/views/bandmap/list.php:491
-#: application/views/bandmap/list.php:570
+#: application/views/bandmap/list.php:592
 msgid "DX"
 msgstr "DX"
 
@@ -8329,76 +8338,97 @@ msgid "DX Map"
 msgstr "Carte DX"
 
 #: application/views/bandmap/list.php:544
-msgid "Search spots..."
-msgstr "Recherchez des endroits..."
-
-#: application/views/bandmap/list.php:557
-msgid "Note: Map shows DXCC entity locations, not actual spot locations"
+msgid "Search Column"
 msgstr ""
-"Remarque : La carte indique l'emplacement des entités DXCC, et non "
-"l'emplacement précis des points d'intérêt"
 
-#: application/views/bandmap/list.php:565
-msgid "Age in minutes"
-msgstr "Age in minutes"
+#: application/views/bandmap/list.php:545
+msgid "All Columns"
+msgstr ""
 
-#: application/views/bandmap/list.php:567
-msgid "Freq"
-msgstr "Freq"
+#: application/views/bandmap/list.php:546
+msgid "Spot Info"
+msgstr ""
 
-#: application/views/bandmap/list.php:569
+#: application/views/bandmap/list.php:551
+#: application/views/bandmap/list.php:591
 #: application/views/eqsl/analysis.php:40
 #: application/views/eqsl/download.php:40 application/views/eqsl/result.php:37
 msgid "Submode"
 msgstr "Sous-mode"
 
-#: application/views/bandmap/list.php:570
-msgid "Spotted Callsign"
-msgstr "Spotted Callsign"
+#: application/views/bandmap/list.php:553
+msgid "DX Station"
+msgstr ""
 
-#: application/views/bandmap/list.php:573
-msgid "Flag"
-msgstr "Flag"
-
-#: application/views/bandmap/list.php:574
-msgid "DXCC Entity"
-msgstr "DXCC Entity"
-
-#: application/views/bandmap/list.php:574
+#: application/views/bandmap/list.php:557
+#: application/views/bandmap/list.php:596
 msgid "Entity"
 msgstr "Entity"
 
-#: application/views/bandmap/list.php:575
-msgid "Spotter Callsign"
-msgstr "Spotter Callsign"
-
-#: application/views/bandmap/list.php:576
-msgid "Spotter Continent"
-msgstr "Spotter Continent"
-
-#: application/views/bandmap/list.php:577
-msgid "Spotter CQ Zone"
-msgstr "Spotter CQ Zone"
-
-#: application/views/bandmap/list.php:578
-msgid "Last QSO Date"
-msgstr "Date du dernier QSO"
-
-#: application/views/bandmap/list.php:579
-msgid "Special"
-msgstr "Special"
-
-#: application/views/bandmap/list.php:579
-msgid "Special Flags"
-msgstr "Special Flags"
-
-#: application/views/bandmap/list.php:580
+#: application/views/bandmap/list.php:558
+#: application/views/bandmap/list.php:602
 #: application/views/oqrs/notinlogform.php:28
 #: application/views/oqrs/request.php:54
 #: application/views/oqrs/request_grouped.php:57
 #: application/views/oqrs/status_info.php:5
 msgid "Message"
 msgstr "Message"
+
+#: application/views/bandmap/list.php:562
+#: application/views/bandmap/list.php:598
+msgid "Spotter Continent"
+msgstr "Spotter Continent"
+
+#: application/views/bandmap/list.php:563
+#: application/views/bandmap/list.php:599
+msgid "Spotter CQ Zone"
+msgstr "Spotter CQ Zone"
+
+#: application/views/bandmap/list.php:566
+msgid "Search spots..."
+msgstr "Recherchez des endroits..."
+
+#: application/views/bandmap/list.php:579
+msgid "Note: Map shows DXCC entity locations, not actual spot locations"
+msgstr ""
+"Remarque : La carte indique l'emplacement des entités DXCC, et non "
+"l'emplacement précis des points d'intérêt"
+
+#: application/views/bandmap/list.php:587
+msgid "Age in minutes"
+msgstr "Age in minutes"
+
+#: application/views/bandmap/list.php:589
+msgid "Freq"
+msgstr "Freq"
+
+#: application/views/bandmap/list.php:592
+msgid "Spotted Callsign"
+msgstr "Spotted Callsign"
+
+#: application/views/bandmap/list.php:595
+msgid "Flag"
+msgstr "Flag"
+
+#: application/views/bandmap/list.php:596
+msgid "DXCC Entity"
+msgstr "DXCC Entity"
+
+#: application/views/bandmap/list.php:597
+msgid "Spotter Callsign"
+msgstr "Spotter Callsign"
+
+#: application/views/bandmap/list.php:600
+msgid "Last QSO Date"
+msgstr "Date du dernier QSO"
+
+#: application/views/bandmap/list.php:601
+msgid "Special"
+msgstr "Special"
+
+#: application/views/bandmap/list.php:601
+msgid "Special Flags"
+msgstr "Special Flags"
 
 #: application/views/bands/bandedges.php:2
 msgid "Please enter valid numbers for frequency"
