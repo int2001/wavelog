@@ -85,7 +85,7 @@ class Dxcalendar extends CI_Controller {
 
 
 		$footerData['scripts'] = [
-			'assets/js/sections/dxcalendar.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/dxcalendar.js"))
+			'assets/js/sections/dxcalendar.js'
 		];
 
 		$this->load->view('interface_assets/header', $data);

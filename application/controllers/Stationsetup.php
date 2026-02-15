@@ -32,7 +32,7 @@ class Stationsetup extends CI_Controller {
 		$footerData['scripts'] = [
 			'assets/js/moment.min.js',
 			'assets/js/datetime-moment.js',
-			'assets/js/sections/stationsetup.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/stationsetup.js")),
+			'assets/js/sections/stationsetup.js',
 		];
 
 				// Get Date format

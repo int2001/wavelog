@@ -32,4 +32,17 @@ class Paths
         }
         return $datadir . "/" . $path;
 	}
+
+    function cache_buster($filepath) {
+        // make sure $filepath starts with a slash
+        if (substr($filepath, 0, 1) !== '/') $filepath = '/' . $filepath;
+
+        $fullpath = $_SERVER['DOCUMENT_ROOT'] . $filepath;
+        if (file_exists($fullpath)) {
+            return base_url($filepath) . '?v=' . filemtime($fullpath);
+        } else {
+            log_message('error', 'CACHE BUSTER: File does not exist: ' . $fullpath);
+        }
+        return base_url($filepath);
+    }
 }

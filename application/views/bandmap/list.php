@@ -173,7 +173,7 @@
 	// Map configuration (matches QSO map settings)
 	var map_tile_server = '<?php echo $this->optionslib->get_option('option_map_tile_server');?>';
 	var map_tile_server_copyright = '<?php echo $this->optionslib->get_option('option_map_tile_server_copyright');?>';
-	var icon_dot_url = "<?php echo base_url();?>assets/images/dot.png";
+	var icon_dot_url = "<?php echo $this->paths->cache_buster('/assets/images/dot.png'); ?>";
 
 	// User gridsquare for home position marker
 	var user_gridsquare = '<?php
@@ -187,7 +187,7 @@
 	?>';
 </script>
 
-<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/bandmap_list.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $this->paths->cache_buster('/assets/css/bandmap_list.css'); ?>" />
 
 <div class="container-fluid" id="bandmapContainer">
 	<!-- Messages -->
@@ -198,7 +198,7 @@
 		<div class="card-header d-flex justify-content-between align-items-center">
 			<div class="d-flex align-items-center">
 				<a href="<?php echo base_url(); ?>" title="<?= __("Return to Home"); ?>">
-					<img class="headerLogo me-2 bandmap-logo-fullscreen" src="<?php echo base_url(); ?>assets/logo/<?php echo $this->optionslib->get_logo('header_logo'); ?>.png" alt="Logo" style="height: 32px; width: auto; cursor: pointer;" />
+					<img class="headerLogo me-2 bandmap-logo-fullscreen" src="<?php echo $this->paths->cache_buster('/assets/logo/' . $this->optionslib->get_logo('header_logo') . '.png'); ?>" alt="Logo" style="height: 32px; width: auto; cursor: pointer;" />
 				</a>
 				<h5 class="mb-0"><?= __("DX Cluster"); ?></h5>
 			</div>

@@ -18,7 +18,7 @@ class Radio extends CI_Controller {
 
 		$footerData = [];
 		$footerData['scripts'] = [
-			'assets/js/sections/radio.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/radio.js")),
+			'assets/js/sections/radio.js',
 		];
 
 		$this->load->view('interface_assets/header', $data);
