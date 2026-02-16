@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-16 07:40+0000\n"
-"PO-Revision-Date: 2026-02-13 10:02+0000\n"
+"POT-Creation-Date: 2026-02-16 07:52+0000\n"
+"PO-Revision-Date: 2026-02-15 23:10+0000\n"
 "Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ja/>\n"
@@ -649,8 +649,7 @@ msgstr "作成モード"
 msgid "Edit Band"
 msgstr "バンドを編集"
 
-#: application/controllers/Bandmap.php:28
-#: application/controllers/Bandmap.php:77
+#: application/controllers/Bandmap.php:56
 #: application/controllers/Options.php:144
 #: application/controllers/Options.php:155
 #: application/views/options/sidebar.php:7
@@ -2446,7 +2445,7 @@ msgstr "設定"
 
 #: application/controllers/Radio.php:59
 msgid "WebSocket"
-msgstr ""
+msgstr "WebSocket"
 
 #: application/controllers/Radio.php:65 application/controllers/Radio.php:124
 msgid "Default (click to release)"
@@ -2516,11 +2515,11 @@ msgstr "削除"
 
 #: application/controllers/Radio.php:136
 msgid "WebSocket is currently default (click to release)"
-msgstr ""
+msgstr "WebSocketは現在デフォルトです（クリックして解除）"
 
 #: application/controllers/Radio.php:138
 msgid "Set WebSocket as default radio"
-msgstr ""
+msgstr "WebSocketをデフォルトのラジオとして設定する"
 
 #: application/controllers/Radio.php:142
 msgid "No CAT interfaced radios found."
@@ -2528,7 +2527,7 @@ msgstr "CAT インターフェースの無線機が見つかりません。"
 
 #: application/controllers/Radio.php:143
 msgid "You can still set the WebSocket option as your default radio."
-msgstr ""
+msgstr "WebSocket オプションをデフォルトのラジオとして設定することもできます。"
 
 #: application/controllers/Radio.php:160 application/views/radio/index.php:2
 msgid "Edit CAT Settings"
@@ -2536,7 +2535,7 @@ msgstr "CAT設定の編集"
 
 #: application/controllers/Radio.php:332
 msgid "Radio removed successfully"
-msgstr ""
+msgstr "ラジオが正常に削除されました"
 
 #: application/controllers/Reg1test.php:22
 msgid "Export EDI"
@@ -8232,15 +8231,15 @@ msgstr "DXマップ"
 
 #: application/views/bandmap/list.php:545
 msgid "Search Column"
-msgstr ""
+msgstr "検索列"
 
 #: application/views/bandmap/list.php:546
 msgid "All Columns"
-msgstr ""
+msgstr "すべての列"
 
 #: application/views/bandmap/list.php:547
 msgid "Spot Info"
-msgstr ""
+msgstr "スポット情報"
 
 #: application/views/bandmap/list.php:552
 #: application/views/bandmap/list.php:592
@@ -8251,7 +8250,7 @@ msgstr "サブモード"
 
 #: application/views/bandmap/list.php:554
 msgid "DX Station"
-msgstr ""
+msgstr "DXステーション"
 
 #: application/views/bandmap/list.php:558
 #: application/views/bandmap/list.php:597
@@ -16069,6 +16068,9 @@ msgid ""
 "you. This allows you to have a default radio that is automatically selected "
 "when you log in, while still being able to use other radios if you want."
 msgstr ""
+"クラブステーションのオペレーターは、自分だけに適用されるデフォルトのラジオを"
+"設定できます。これにより、ログイン時に自動的に選択されるデフォルトのラジオを"
+"設定できますが、必要に応じて他のラジオも使用できます。"
 
 #: application/views/radio/index.php:27
 msgid ""
@@ -16076,11 +16078,14 @@ msgid ""
 "to have a default radio that is automatically selected when you log in, "
 "while still being able to use other radios if you want."
 msgstr ""
+"通常ユーザーは、デフォルトのラジオを設定できます。これにより、ログイン時に自"
+"動的に選択されるデフォルトのラジオを設定できますが、必要に応じて他のラジオも"
+"使用できます。"
 
 #: application/views/radio/index.php:30
 #, php-format
 msgid "You can find out how to use the %sradio functions%s in the wiki."
-msgstr ""
+msgstr "%sradio関数の%s使用方法についてはWikiでご確認ください。"
 
 #: application/views/radio/index.php:35
 msgid "Please wait..."

@@ -26,9 +26,9 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-16 07:40+0000\n"
-"PO-Revision-Date: 2026-02-13 15:34+0000\n"
-"Last-Translator: Florian Wolters <wavelog@df2et.de>\n"
+"POT-Creation-Date: 2026-02-16 07:52+0000\n"
+"PO-Revision-Date: 2026-02-15 23:10+0000\n"
+"Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
 "Language: de_DE\n"
@@ -667,8 +667,7 @@ msgstr "Erstelle Mode"
 msgid "Edit Band"
 msgstr "Bearbeite Band"
 
-#: application/controllers/Bandmap.php:28
-#: application/controllers/Bandmap.php:77
+#: application/controllers/Bandmap.php:56
 #: application/controllers/Options.php:144
 #: application/controllers/Options.php:155
 #: application/views/options/sidebar.php:7
@@ -2474,7 +2473,7 @@ msgstr "Einstellungen"
 
 #: application/controllers/Radio.php:59
 msgid "WebSocket"
-msgstr ""
+msgstr "WebSocket"
 
 #: application/controllers/Radio.php:65 application/controllers/Radio.php:124
 msgid "Default (click to release)"
@@ -2544,11 +2543,11 @@ msgstr "Löschen"
 
 #: application/controllers/Radio.php:136
 msgid "WebSocket is currently default (click to release)"
-msgstr ""
+msgstr "WebSocket ist derzeit das Standard-Funkgerät (klicken, um freizugeben)"
 
 #: application/controllers/Radio.php:138
 msgid "Set WebSocket as default radio"
-msgstr ""
+msgstr "WebSocket als Standard-Funkgerät festlegen"
 
 #: application/controllers/Radio.php:142
 msgid "No CAT interfaced radios found."
@@ -2557,6 +2556,8 @@ msgstr "Keine CAT-verbundenen Funkgeräte gefunden."
 #: application/controllers/Radio.php:143
 msgid "You can still set the WebSocket option as your default radio."
 msgstr ""
+"Du kannst trotzdem die WebSocket-Option als dein Standard-Funkgerät "
+"festlegen."
 
 #: application/controllers/Radio.php:160 application/views/radio/index.php:2
 msgid "Edit CAT Settings"
@@ -2564,7 +2565,7 @@ msgstr "CAT-Einstellungen bearbeiten"
 
 #: application/controllers/Radio.php:332
 msgid "Radio removed successfully"
-msgstr ""
+msgstr "Funkgerät erfolgreich entfernt"
 
 #: application/controllers/Reg1test.php:22
 msgid "Export EDI"
@@ -8336,15 +8337,15 @@ msgstr "DX-Karte"
 
 #: application/views/bandmap/list.php:545
 msgid "Search Column"
-msgstr ""
+msgstr "Suchspalte"
 
 #: application/views/bandmap/list.php:546
 msgid "All Columns"
-msgstr ""
+msgstr "Alle Spalten"
 
 #: application/views/bandmap/list.php:547
 msgid "Spot Info"
-msgstr ""
+msgstr "Spot-Info"
 
 #: application/views/bandmap/list.php:552
 #: application/views/bandmap/list.php:592
@@ -8355,7 +8356,7 @@ msgstr "Submode"
 
 #: application/views/bandmap/list.php:554
 msgid "DX Station"
-msgstr ""
+msgstr "DX-Station"
 
 #: application/views/bandmap/list.php:558
 #: application/views/bandmap/list.php:597
@@ -16267,6 +16268,9 @@ msgid ""
 "you. This allows you to have a default radio that is automatically selected "
 "when you log in, while still being able to use other radios if you want."
 msgstr ""
+"Als Club-Operator kannst du ein Standard-Funkgerät festlegen, welches nur "
+"für dich gilt. Dadurch hast du ein Funkgerät, das automatisch ausgewählt "
+"wird, wenn du dich einloggst. Andere Funkgeräte kannst du trotzdem benutzen."
 
 #: application/views/radio/index.php:27
 msgid ""
@@ -16274,11 +16278,16 @@ msgid ""
 "to have a default radio that is automatically selected when you log in, "
 "while still being able to use other radios if you want."
 msgstr ""
+"Als normaler Benutzer kannst du ein Standard-Funkgerät für dich festlegen. "
+"Dadurch hast du ein Standard-Funkgerät, welches automatisch ausgewählt wird, "
+"wenn du dich einloggst. Andere Funkgeräte kannst du trotzdem benutzen."
 
 #: application/views/radio/index.php:30
 #, php-format
 msgid "You can find out how to use the %sradio functions%s in the wiki."
 msgstr ""
+"Du kannst im Wiki herausfinden, wie du die %sFunktionen der Funkgeräte-"
+"Steuerung%s nutzen kannst."
 
 #: application/views/radio/index.php:35
 msgid "Please wait..."

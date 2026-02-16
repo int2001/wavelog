@@ -16,7 +16,7 @@
 
     <script src="<?php echo $this->paths->cache_buster('/assets/js/jquery-3.3.1.min.js'); ?>"></script>
     <script src="<?php echo $this->paths->cache_buster('/assets/js/jquery.fancybox.min.js'); ?>"></script>
-    <script src="<?php echo $this->paths->cache_buster('/assets/js/bootstrap.min.js'); ?>"></script>
+    <script src="<?php echo $this->paths->cache_buster('/assets/js/bootstrap.bundle.min.js'); ?>"></script>
 </head>
 
 <body class="container-fluid qso-edit-box">

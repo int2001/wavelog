@@ -10,27 +10,6 @@ class Bandmap extends CI_Controller {
 		$this->load->model('bands');
 	}
 
-	function index() {
-		$this->load->model('cat');
-		$this->load->model('bands');
-		$data['radios'] = $this->cat->radios(true);
-		$data['bands'] = $this->bands->get_user_bands_for_qso_entry();
-
-        $footerData = [];
-		$footerData['scripts'] = [
-			'assets/js/highcharts/highcharts.js',
-			'assets/js/highcharts/timeline.js',
-			'assets/js/highcharts/exporting.js',
-			'assets/js/highcharts/accessibility.js',
-			'assets/js/sections/bandmap.js',
-		];
-
-		$data['page_title'] = __("DXCluster");
-		$this->load->view('interface_assets/header', $data);
-		$this->load->view('bandmap/index');
-		$this->load->view('interface_assets/footer', $footerData);
-	}
-
 	function list() {
 		$this->load->model('cat');
 		$this->load->model('bands');

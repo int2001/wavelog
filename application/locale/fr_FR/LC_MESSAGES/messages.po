@@ -17,8 +17,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-16 07:40+0000\n"
-"PO-Revision-Date: 2026-02-13 14:33+0000\n"
+"POT-Creation-Date: 2026-02-16 07:52+0000\n"
+"PO-Revision-Date: 2026-02-15 23:10+0000\n"
 "Last-Translator: JONCOUX Philippe <joncoux@free.fr>\n"
 "Language-Team: French <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/fr/>\n"
@@ -658,8 +658,7 @@ msgstr "Créer un mode"
 msgid "Edit Band"
 msgstr "Modifier la bande"
 
-#: application/controllers/Bandmap.php:28
-#: application/controllers/Bandmap.php:77
+#: application/controllers/Bandmap.php:56
 #: application/controllers/Options.php:144
 #: application/controllers/Options.php:155
 #: application/views/options/sidebar.php:7
@@ -2468,7 +2467,7 @@ msgstr "Paramètres"
 
 #: application/controllers/Radio.php:59
 msgid "WebSocket"
-msgstr ""
+msgstr "WebSocket"
 
 #: application/controllers/Radio.php:65 application/controllers/Radio.php:124
 msgid "Default (click to release)"
@@ -2539,10 +2538,11 @@ msgstr "Supprimer"
 #: application/controllers/Radio.php:136
 msgid "WebSocket is currently default (click to release)"
 msgstr ""
+"WebSocket est actuellement le protocole par défaut (cliquez pour libérer)"
 
 #: application/controllers/Radio.php:138
 msgid "Set WebSocket as default radio"
-msgstr ""
+msgstr "Définir WebSocket comme option par défaut"
 
 #: application/controllers/Radio.php:142
 msgid "No CAT interfaced radios found."
@@ -2551,6 +2551,8 @@ msgstr "Aucune radio avec interface CAT trouvée."
 #: application/controllers/Radio.php:143
 msgid "You can still set the WebSocket option as your default radio."
 msgstr ""
+"Vous pouvez toujours définir l'option WebSocket comme option radio par "
+"défaut."
 
 #: application/controllers/Radio.php:160 application/views/radio/index.php:2
 msgid "Edit CAT Settings"
@@ -2558,7 +2560,7 @@ msgstr "Modifier les paramètres CAT"
 
 #: application/controllers/Radio.php:332
 msgid "Radio removed successfully"
-msgstr ""
+msgstr "Radio retirée avec succès"
 
 #: application/controllers/Reg1test.php:22
 msgid "Export EDI"
@@ -8360,15 +8362,15 @@ msgstr "Carte DX"
 
 #: application/views/bandmap/list.php:545
 msgid "Search Column"
-msgstr ""
+msgstr "Colonne de recherche"
 
 #: application/views/bandmap/list.php:546
 msgid "All Columns"
-msgstr ""
+msgstr "Toutes les colonnes"
 
 #: application/views/bandmap/list.php:547
 msgid "Spot Info"
-msgstr ""
+msgstr "Informations sur le spot"
 
 #: application/views/bandmap/list.php:552
 #: application/views/bandmap/list.php:592
@@ -8379,7 +8381,7 @@ msgstr "Sous-mode"
 
 #: application/views/bandmap/list.php:554
 msgid "DX Station"
-msgstr ""
+msgstr "Station DX"
 
 #: application/views/bandmap/list.php:558
 #: application/views/bandmap/list.php:597
@@ -16334,6 +16336,10 @@ msgid ""
 "you. This allows you to have a default radio that is automatically selected "
 "when you log in, while still being able to use other radios if you want."
 msgstr ""
+"En tant qu'opérateur de station de radio amateur, vous pouvez définir une "
+"radio par défaut qui vous est propre. Ainsi, une radio sera automatiquement "
+"sélectionnée lors de votre connexion, tout en vous permettant d'utiliser "
+"d'autres radios si vous le souhaitez."
 
 #: application/views/radio/index.php:27
 msgid ""
@@ -16341,11 +16347,16 @@ msgid ""
 "to have a default radio that is automatically selected when you log in, "
 "while still being able to use other radios if you want."
 msgstr ""
+"En tant qu'utilisateur normal, vous pouvez définir une radio par défaut. "
+"Ainsi, une radio sera automatiquement sélectionnée à votre connexion, tout "
+"en vous permettant d'utiliser d'autres radios si vous le souhaitez."
 
 #: application/views/radio/index.php:30
 #, php-format
 msgid "You can find out how to use the %sradio functions%s in the wiki."
 msgstr ""
+"Vous pouvez trouver des informations sur l'utilisation des fonctions "
+"%sradio%s dans le wiki."
 
 #: application/views/radio/index.php:35
 msgid "Please wait..."
