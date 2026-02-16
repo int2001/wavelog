@@ -60,17 +60,19 @@ class Bandmap extends CI_Controller {
 		}
 
 		switch ($pageData['custom_date_format']) {
-		case "d/m/y": $pageData['custom_date_format'] = 'DD/MM/YY'; break;
-		case "d/m/Y": $pageData['custom_date_format'] = 'DD/MM/YYYY'; break;
-		case "m/d/y": $pageData['custom_date_format'] = 'MM/DD/YY'; break;
-		case "m/d/Y": $pageData['custom_date_format'] = 'MM/DD/YYYY'; break;
-		case "d.m.Y": $pageData['custom_date_format'] = 'DD.MM.YYYY'; break;
-		case "y/m/d": $pageData['custom_date_format'] = 'YY/MM/DD'; break;
-		case "Y-m-d": $pageData['custom_date_format'] = 'YYYY-MM-DD'; break;
-		case "M d, Y": $pageData['custom_date_format'] = 'MMM DD, YYYY'; break;
-		case "M d, y": $pageData['custom_date_format'] = 'MMM DD, YY'; break;
-		default: $pageData['custom_date_format'] = 'DD/MM/YYYY';
+			case "d/m/y": $pageData['custom_date_format'] = 'DD/MM/YY'; break;
+			case "d/m/Y": $pageData['custom_date_format'] = 'DD/MM/YYYY'; break;
+			case "m/d/y": $pageData['custom_date_format'] = 'MM/DD/YY'; break;
+			case "m/d/Y": $pageData['custom_date_format'] = 'MM/DD/YYYY'; break;
+			case "d.m.Y": $pageData['custom_date_format'] = 'DD.MM.YYYY'; break;
+			case "y/m/d": $pageData['custom_date_format'] = 'YY/MM/DD'; break;
+			case "Y-m-d": $pageData['custom_date_format'] = 'YYYY-MM-DD'; break;
+			case "M d, Y": $pageData['custom_date_format'] = 'MMM DD, YYYY'; break;
+			case "M d, y": $pageData['custom_date_format'] = 'MMM DD, YY'; break;
+			default: $pageData['custom_date_format'] = 'DD/MM/YYYY';
 		}
+
+		$data['dxcluster_refresh_time'] = $this->config->item('dxcluster_refresh_time') ?? 30;
 
 		$data['page_title'] = __("DXCluster");
 		$this->load->view('interface_assets/header', $data);

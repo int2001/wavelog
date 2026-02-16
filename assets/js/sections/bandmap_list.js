@@ -15,7 +15,7 @@
 // CONFIGURATION & CONSTANTS
 // ========================================
 
-const SPOT_REFRESH_INTERVAL = 60;  // Auto-refresh interval in seconds
+const SPOT_REFRESH_INTERVAL = dxcluster_refresh_time;  // Auto-refresh interval in seconds, defined via config.php (default: 30s)
 const QSO_SEND_DEBOUNCE_MS = 3000;  // Debounce for sending callsign to QSO form (milliseconds)
 
 // Mode display capitalization lookup (API returns lowercase)
