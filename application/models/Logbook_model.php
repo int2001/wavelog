@@ -2163,13 +2163,19 @@ class Logbook_model extends CI_Model {
 			return array();
 		}
 
+		// Load all satellites once for PHP-side join (much faster than SQL COALESCE)
+		$satellites = [];
+		$sat_query = $this->db->select('name, displayname')->get('satellite');
+		foreach ($sat_query->result() as $sat) {
+			$satellites[$sat->name] = $sat->displayname;
+		}
+
 		$binding = array();
-		$sql = "SELECT qsos.*, station_profile.*, dxcc_entities.*, lotw_users.callsign, lotw_users.lastupload, satellite.displayname AS sat_displayname, satellite.name AS sat_name
+		$sql = "SELECT qsos.*, station_profile.*, dxcc_entities.*, lotw_users.callsign, lotw_users.lastupload
 			FROM ".$this->config->item('table_name')." qsos
 			JOIN `station_profile` ON `station_profile`.`station_id` = qsos.`station_id`
 			LEFT JOIN `dxcc_entities` ON qsos.`col_dxcc` = `dxcc_entities`.`adif`
 			LEFT OUTER JOIN `lotw_users` ON `lotw_users`.`callsign` = qsos.`col_call`
-			LEFT OUTER JOIN satellite ON qsos.col_prop_mode='SAT' and qsos.COL_SAT_NAME = COALESCE(NULLIF(satellite.name, ''), NULLIF(satellite.displayname, ''))
 			WHERE 1=1";
 		if ($band != '') {
 			if ($band == 'SAT') {
@@ -2178,9 +2184,6 @@ class Logbook_model extends CI_Model {
 				$sql .= " AND qsos.`col_prop_mode` != 'SAT' AND qsos.`col_band` = ?";
 				$binding[] = $band;
 			}
-		}
-		if ($map == true) {
-			$sql .= " AND ( qsos.`col_gridsquare` != '' OR qsos.`col_vucc_grids` != '')";
 		}
 		$sql .= " AND qsos.`station_id` IN ?
 			ORDER BY qsos.`COL_TIME_ON` DESC, qsos.`COL_PRIMARY_KEY` DESC";
@@ -2194,7 +2197,49 @@ class Logbook_model extends CI_Model {
 			$binding[] = (int) $offset;
 		}
 		$sql .= ";";
-		return $this->db->query($sql, $binding);
+		$query = $this->db->query($sql, $binding);
+
+		// Add satellite data via PHP-side join (much faster than SQL COALESCE join)
+		$results = $query->result();
+		foreach ($results as &$row) {
+			$row->sat_name = $row->COL_SAT_NAME ?? null;
+			$row->sat_displayname = null;
+			if (!empty($row->COL_SAT_NAME) && isset($satellites[$row->COL_SAT_NAME])) {
+				$row->sat_displayname = $satellites[$row->COL_SAT_NAME];
+			}
+		}
+		unset($row);
+
+		// Apply map filter in PHP to ensure pagination works correctly
+		// When $map is true, filter out QSOs without gridsquare data AFTER applying LIMIT/OFFSET
+		if ($map == true) {
+			$results = array_filter($results, function($row) {
+				return !empty($row->COL_GRIDSQUARE) || !empty($row->COL_VUCC_GRIDS);
+			});
+			// Re-index array after filtering
+			$results = array_values($results);
+		}
+
+		// Return a query-like object with result() method for compatibility
+		return new class($results) {
+			private $data;
+
+			public function __construct($data) {
+				$this->data = $data;
+			}
+
+			public function result() {
+				return $this->data;
+			}
+
+			public function num_rows() {
+				return count($this->data);
+			}
+
+			public function num_fields() {
+				return empty($this->data) ? 0 : count(get_object_vars($this->data[0]));
+			}
+		};
 	}
 
 	function get_qso($id, $trusted = false) {
@@ -2716,16 +2761,6 @@ class Logbook_model extends CI_Model {
 		// Load cache driver for file caching
 		$cache_enabled = $this->config->item('enable_dxcluster_file_cache_worked') === true;
 
-		// Gets already loaded in dxcluster controller
-		//
-		// if ($cache_enabled && !isset($this->cache)) {
-		// 	$this->load->driver('cache', [
-		// 		'adapter' => $this->config->item('cache_adapter') ?? 'file', 
-		// 		'backup' => $this->config->item('cache_backup') ?? 'file',
-		// 		'key_prefix' => $this->config->item('cache_key_prefix') ?? ''
-		// 	]);
-		// }
-
 		// Cache TTL in seconds (15 minutes = 900 seconds)
 		$cache_ttl = 900;
 
@@ -2781,7 +2816,7 @@ class Logbook_model extends CI_Model {
 			$cache_key = "{$logbook_ids_key}|call|{$callsign}";
 
 			// Check in-memory cache first
-			if (!isset($this->spot_status_cache[$cache_key])) {
+			if (!array_key_exists($cache_key, $this->spot_status_cache)) {
 				// Check file cache
 				if ($cache_enabled) {
 					$file_cache_key = $this->dxclustercache->get_worked_call_key($logbook_ids_key, $callsign);
@@ -2800,7 +2835,7 @@ class Logbook_model extends CI_Model {
 		foreach (array_keys($dxccs) as $dxcc) {
 			$cache_key = "{$logbook_ids_key}|dxcc|{$dxcc}";
 
-			if (!isset($this->spot_status_cache[$cache_key])) {
+			if (!array_key_exists($cache_key, $this->spot_status_cache)) {
 				if ($cache_enabled) {
 					$file_cache_key = $this->dxclustercache->get_worked_dxcc_key($logbook_ids_key, $dxcc);
 					$cached_data = $this->cache->get($file_cache_key);
@@ -2816,7 +2851,7 @@ class Logbook_model extends CI_Model {
 		foreach (array_keys($continents) as $cont) {
 			$cache_key = "{$logbook_ids_key}|cont|{$cont}";
 
-			if (!isset($this->spot_status_cache[$cache_key])) {
+			if (!array_key_exists($cache_key, $this->spot_status_cache)) {
 				if ($cache_enabled) {
 					$file_cache_key = $this->dxclustercache->get_worked_cont_key($logbook_ids_key, $cont);
 					$cached_data = $this->cache->get($file_cache_key);
@@ -2848,84 +2883,48 @@ class Logbook_model extends CI_Model {
 		$dxccs_array = array_keys($dxccs_to_query);
 		$continents_array = array_keys($continents_to_query);
 
-		// Split into two queries for performance: worked (faster) and confirmed (pre-filtered)
-		$worked_queries = [];
-		$confirmed_queries = [];
-		$worked_bind_params = [];
-		$confirmed_bind_params = [];
+		// OPTIMIZATION: Use ONE query instead of two (worked + confirmed)
+		$combined_queries = [];
+		$bind_params = [];
 
 		if (!empty($callsigns_array)) {
 			$callsigns_placeholders = implode(',', array_fill(0, count($callsigns_array), '?'));
-			// Query 1: Get all worked combinations
-			// Index: idx_HRD_COL_CALL_station_id (station_id, COL_CALL, COL_TIME_ON)
-			$worked_queries[] = "
-				SELECT 'call' as type, COL_CALL as identifier, COL_BAND as band, COL_MODE as mode
+			// Single query with conditional aggregation for worked AND confirmed
+			$combined_queries[] = "
+				SELECT 'call' as type, COL_CALL as identifier, COL_BAND as band, COL_MODE as mode, 1 as worked, MAX(CASE WHEN ({$qsl_where}) THEN 1 ELSE 0 END) as confirmed
 				FROM {$this->config->item('table_name')} FORCE INDEX (idx_HRD_COL_CALL_station_id)
 				WHERE station_id IN ({$station_ids_placeholders})
 				AND COL_CALL IN ({$callsigns_placeholders})
 				GROUP BY COL_CALL, COL_BAND, COL_MODE
 			";
-			$worked_bind_params = array_merge($worked_bind_params, $logbooks_locations_array, $callsigns_array);
-
-			// Query 2: Get only confirmed combinations (pre-filtered by QSL status)
-			$confirmed_queries[] = "
-				SELECT 'call' as type, COL_CALL as identifier, COL_BAND as band, COL_MODE as mode
-				FROM {$this->config->item('table_name')} FORCE INDEX (idx_HRD_COL_CALL_station_id)
-				WHERE station_id IN ({$station_ids_placeholders})
-				AND COL_CALL IN ({$callsigns_placeholders})
-				AND ({$qsl_where})
-				GROUP BY COL_CALL, COL_BAND, COL_MODE
-			";
-			$confirmed_bind_params = array_merge($confirmed_bind_params, $logbooks_locations_array, $callsigns_array);
+			$bind_params = array_merge($bind_params, $logbooks_locations_array, $callsigns_array);
 		}
 
 		if (!empty($dxccs_array)) {
 			$dxccs_placeholders = implode(',', array_fill(0, count($dxccs_array), '?'));
-			// Index: idx_HRD_COL_DXCC_station_id (station_id, COL_DXCC, COL_TIME_ON)
-			$worked_queries[] = "
-				SELECT 'dxcc' as type, COL_DXCC as identifier, COL_BAND as band, COL_MODE as mode
+			$combined_queries[] = "
+				SELECT 'dxcc' as type, COL_DXCC as identifier, COL_BAND as band, COL_MODE as mode, 1 as worked, MAX(CASE WHEN ({$qsl_where}) THEN 1 ELSE 0 END) as confirmed
 				FROM {$this->config->item('table_name')} FORCE INDEX (idx_HRD_COL_DXCC_station_id)
 				WHERE station_id IN ({$station_ids_placeholders})
 				AND COL_DXCC IN ({$dxccs_placeholders})
 				GROUP BY COL_DXCC, COL_BAND, COL_MODE
 			";
-			$worked_bind_params = array_merge($worked_bind_params, $logbooks_locations_array, $dxccs_array);
-
-			$confirmed_queries[] = "
-				SELECT 'dxcc' as type, COL_DXCC as identifier, COL_BAND as band, COL_MODE as mode
-				FROM {$this->config->item('table_name')} FORCE INDEX (idx_HRD_COL_DXCC_station_id)
-				WHERE station_id IN ({$station_ids_placeholders})
-				AND COL_DXCC IN ({$dxccs_placeholders})
-				AND ({$qsl_where})
-				GROUP BY COL_DXCC, COL_BAND, COL_MODE
-			";
-			$confirmed_bind_params = array_merge($confirmed_bind_params, $logbooks_locations_array, $dxccs_array);
+			$bind_params = array_merge($bind_params, $logbooks_locations_array, $dxccs_array);
 		}
 
 		if (!empty($continents_array)) {
 			$continents_placeholders = implode(',', array_fill(0, count($continents_array), '?'));
-			// No specific index for COL_CONT - let MySQL optimizer choose
-			$worked_queries[] = "
-				SELECT 'cont' as type, COL_CONT as identifier, COL_BAND as band, COL_MODE as mode
+			$combined_queries[] = "
+				SELECT 'cont' as type, COL_CONT as identifier, COL_BAND as band, COL_MODE as mode, 1 as worked, MAX(CASE WHEN ({$qsl_where}) THEN 1 ELSE 0 END) as confirmed
 				FROM {$this->config->item('table_name')} FORCE INDEX (idx_HRD_station_id)
 				WHERE station_id IN ({$station_ids_placeholders})
 				AND COL_CONT IN ({$continents_placeholders})
 				GROUP BY COL_CONT, COL_BAND, COL_MODE
 			";
-			$worked_bind_params = array_merge($worked_bind_params, $logbooks_locations_array, $continents_array);
-
-			$confirmed_queries[] = "
-				SELECT 'cont' as type, COL_CONT as identifier, COL_BAND as band, COL_MODE as mode
-				FROM {$this->config->item('table_name')} FORCE INDEX (idx_HRD_station_id)
-				WHERE station_id IN ({$station_ids_placeholders})
-				AND COL_CONT IN ({$continents_placeholders})
-				AND ({$qsl_where})
-				GROUP BY COL_CONT, COL_BAND, COL_MODE
-			";
-			$confirmed_bind_params = array_merge($confirmed_bind_params, $logbooks_locations_array, $continents_array);
+			$bind_params = array_merge($bind_params, $logbooks_locations_array, $continents_array);
 		}
 
-		if (empty($worked_queries)) {
+		if (empty($combined_queries)) {
 			// Nothing to query, use cached data
 			foreach ($spots_by_callsign as $callsign => $callsign_spots) {
 				foreach ($callsign_spots as $spot) {
@@ -2935,134 +2934,92 @@ class Logbook_model extends CI_Model {
 			return $statuses;
 		}
 
-		// Execute worked query (faster - no QSL filter)
-		$worked_sql = implode(' UNION ALL ', $worked_queries);
-		$worked_query = $this->db->query($worked_sql, $worked_bind_params);
-		$worked_results = $worked_query->result_array();
-
-		// Execute confirmed query (only scans confirmed QSOs)
-		$confirmed_sql = implode(' UNION ALL ', $confirmed_queries);
-		$confirmed_query = $this->db->query($confirmed_sql, $confirmed_bind_params);
-		$confirmed_results = $confirmed_query->result_array();
+		$combined_sql = implode(' UNION ALL ', $combined_queries);
+		$query = $this->db->query($combined_sql, $bind_params);
+		$results = $query->result_array();
 
 		// Build comprehensive cache structure: identifier => [band|mode => status]
-		// This allows reusing data for ALL spots with same callsign/dxcc/continent
-		$call_data = []; // callsign => [band|mode => ['worked' => bool, 'confirmed' => bool]]
-		$dxcc_data = []; // dxcc => [band|mode => ['worked' => bool, 'confirmed' => bool]]
-		$cont_data = []; // continent => [band|mode => ['worked' => bool, 'confirmed' => bool]]
+		// Pre-allocate arrays to avoid repeated checks
+		$call_data = [];
+		$dxcc_data = [];
+		$cont_data = [];
 
-		// Process worked results first (mark as worked, not confirmed)
-		foreach ($worked_results as $row) {
+		// Pre-build mode mapping lookup table to avoid repeated function calls
+		$mode_cache = [];
+
+		// Process ALL results in one pass (worked AND confirmed combined)
+		foreach ($results as $row) {
 			$identifier = $row['identifier'];
 			$band = $row['band'];
 			$logbook_mode = $row['mode'];
+			$worked = (bool)$row['worked'];
+			$confirmed = (bool)$row['confirmed'];
 
-			// Convert logbook mode to spot mode category (phone/cw/digi)
-			$qrgmode = @$this->Modes->get_qrgmode_from_mode($logbook_mode);
-			$qrgmode_lower = strtolower($qrgmode ?? '');
+			// Check mode cache first to avoid redundant conversions
+			if (!isset($mode_cache[$logbook_mode])) {
+				// Convert logbook mode to spot mode category (phone/cw/digi)
+				$qrgmode = @$this->Modes->get_qrgmode_from_mode($logbook_mode);
+				$qrgmode_lower = strtolower($qrgmode ?? '');
 
-			// Check if qrgmode is valid (phone/cw/data/digi), otherwise use fallback
-			if (!empty($qrgmode) && in_array($qrgmode_lower, ['phone', 'cw', 'data', 'digi'])) {
-				$mode_category = $qrgmode_lower;
-				if ($mode_category === 'data') {
-					$mode_category = 'digi';
-				}
-			} else {
-				// Fallback to hardcoded mapping
-				$logbook_mode_upper = strtoupper($logbook_mode ?? '');
-				if (in_array($logbook_mode_upper, ['SSB', 'FM', 'AM', 'PHONE'])) {
-					$mode_category = 'phone';
-				} elseif (in_array($logbook_mode_upper, ['CW'])) {
-					$mode_category = 'cw';
+				// Check if qrgmode is valid (phone/cw/data/digi), otherwise use fallback
+				if (!empty($qrgmode) && in_array($qrgmode_lower, ['phone', 'cw', 'data', 'digi'])) {
+					$mode_cache[$logbook_mode] = ($qrgmode_lower === 'data') ? 'digi' : $qrgmode_lower;
 				} else {
-					$mode_category = 'digi';
+					// Fallback to hardcoded mapping
+					$logbook_mode_upper = strtoupper($logbook_mode);
+					if (in_array($logbook_mode_upper, ['SSB', 'FM', 'AM', 'PHONE'])) {
+						$mode_cache[$logbook_mode] = 'phone';
+					} elseif ($logbook_mode_upper === 'CW') {
+						$mode_cache[$logbook_mode] = 'cw';
+					} else {
+						$mode_cache[$logbook_mode] = 'digi';
+					}
 				}
 			}
 
+			$mode_category = $mode_cache[$logbook_mode];
 			$band_mode_key = $band . '|' . $mode_category;
 
+			// Store in appropriate data structure
 			if ($row['type'] === 'call') {
 				if (!isset($call_data[$identifier])) {
 					$call_data[$identifier] = [];
 				}
 				$call_data[$identifier][$band_mode_key] = [
-					'worked' => true,
-					'confirmed' => false
+					'worked' => $worked,
+					'confirmed' => $confirmed
 				];
 			} elseif ($row['type'] === 'dxcc') {
 				if (!isset($dxcc_data[$identifier])) {
 					$dxcc_data[$identifier] = [];
 				}
 				$dxcc_data[$identifier][$band_mode_key] = [
-					'worked' => true,
-					'confirmed' => false
+					'worked' => $worked,
+					'confirmed' => $confirmed
 				];
 			} elseif ($row['type'] === 'cont') {
 				if (!isset($cont_data[$identifier])) {
 					$cont_data[$identifier] = [];
 				}
 				$cont_data[$identifier][$band_mode_key] = [
-					'worked' => true,
-					'confirmed' => false
+					'worked' => $worked,
+					'confirmed' => $confirmed
 				];
 			}
 		}
 
-		// Now overlay confirmed results (update confirmed flag to true)
-		foreach ($confirmed_results as $row) {
-			$identifier = $row['identifier'];
-			$band = $row['band'];
-			$logbook_mode = $row['mode'];
-
-			// Convert logbook mode to spot mode category (phone/cw/digi)
-			$qrgmode = @$this->Modes->get_qrgmode_from_mode($logbook_mode);
-			$qrgmode_lower = strtolower($qrgmode ?? '');
-
-			// Check if qrgmode is valid (phone/cw/data/digi), otherwise use fallback
-			if (!empty($qrgmode) && in_array($qrgmode_lower, ['phone', 'cw', 'data', 'digi'])) {
-				$mode_category = $qrgmode_lower;
-				if ($mode_category === 'data') {
-					$mode_category = 'digi';
-				}
-			} else {
-				// Fallback to hardcoded mapping
-				$logbook_mode_upper = strtoupper($logbook_mode ?? '');
-				if (in_array($logbook_mode_upper, ['SSB', 'FM', 'AM', 'PHONE'])) {
-					$mode_category = 'phone';
-				} elseif (in_array($logbook_mode_upper, ['CW'])) {
-					$mode_category = 'cw';
-				} else {
-					$mode_category = 'digi';
-				}
-			}
-
-			$band_mode_key = $band . '|' . $mode_category;
-
-			if ($row['type'] === 'call') {
-				if (isset($call_data[$identifier][$band_mode_key])) {
-					$call_data[$identifier][$band_mode_key]['confirmed'] = true;
-				}
-			} elseif ($row['type'] === 'dxcc') {
-				if (isset($dxcc_data[$identifier][$band_mode_key])) {
-					$dxcc_data[$identifier][$band_mode_key]['confirmed'] = true;
-				}
-			} elseif ($row['type'] === 'cont') {
-				if (isset($cont_data[$identifier][$band_mode_key])) {
-					$cont_data[$identifier][$band_mode_key]['confirmed'] = true;
-				}
-			}
-		}
-
 		// Cache the complete data for each callsign/dxcc/continent (both in-memory and file)
+		// OPTIMIZATION: Batch file cache writes if enabled to reduce I/O operations
+		$file_cache_batch = [];
+		
 		// Store worked items with their band/mode data
 		foreach ($call_data as $callsign => $data) {
 			$cache_key = "{$logbook_ids_key}|call|{$callsign}";
 			$this->spot_status_cache[$cache_key] = $data;
 
-			// Save to file cache for 15 minutes
 			if ($cache_enabled) {
 				$file_cache_key = $this->dxclustercache->get_worked_call_key($logbook_ids_key, $callsign);
-				$this->cache->save($file_cache_key, $data, $cache_ttl);
+				$file_cache_batch[$file_cache_key] = $data;
 			}
 		}
 		foreach ($dxcc_data as $dxcc => $data) {
@@ -3071,7 +3028,7 @@ class Logbook_model extends CI_Model {
 
 			if ($cache_enabled) {
 				$file_cache_key = $this->dxclustercache->get_worked_dxcc_key($logbook_ids_key, $dxcc);
-				$this->cache->save($file_cache_key, $data, $cache_ttl);
+				$file_cache_batch[$file_cache_key] = $data;
 			}
 		}
 		foreach ($cont_data as $cont => $data) {
@@ -3080,9 +3037,11 @@ class Logbook_model extends CI_Model {
 
 			if ($cache_enabled) {
 				$file_cache_key = $this->dxclustercache->get_worked_cont_key($logbook_ids_key, $cont);
-				$this->cache->save($file_cache_key, $data, $cache_ttl);
+				$file_cache_batch[$file_cache_key] = $data;
 			}
-		}		// Cache NOT WORKED items (negative results) - store empty arrays
+		}
+
+		// Cache NOT WORKED items (negative results) - store empty arrays
 		// This prevents redundant database queries for callsigns/dxccs/continents not in logbook
 		foreach ($callsigns_array as $callsign) {
 			if (!isset($call_data[$callsign])) {
@@ -3091,7 +3050,7 @@ class Logbook_model extends CI_Model {
 
 				if ($cache_enabled) {
 					$file_cache_key = $this->dxclustercache->get_worked_call_key($logbook_ids_key, $callsign);
-					$this->cache->save($file_cache_key, [], $cache_ttl);
+					$file_cache_batch[$file_cache_key] = [];
 				}
 			}
 		}
@@ -3102,7 +3061,7 @@ class Logbook_model extends CI_Model {
 
 				if ($cache_enabled) {
 					$file_cache_key = $this->dxclustercache->get_worked_dxcc_key($logbook_ids_key, $dxcc);
-					$this->cache->save($file_cache_key, [], $cache_ttl);
+					$file_cache_batch[$file_cache_key] = [];
 				}
 			}
 		}
@@ -3113,8 +3072,14 @@ class Logbook_model extends CI_Model {
 
 				if ($cache_enabled) {
 					$file_cache_key = $this->dxclustercache->get_worked_cont_key($logbook_ids_key, $cont);
-					$this->cache->save($file_cache_key, [], $cache_ttl);
+					$file_cache_batch[$file_cache_key] = [];
 				}
+			}
+		}
+
+		if ($cache_enabled && !empty($file_cache_batch)) {
+			foreach ($file_cache_batch as $key => $data) {
+				$this->cache->save($key, $data, $cache_ttl);
 			}
 		}		// Now map all spots to their status using cached data (query results + previously cached)
 		foreach ($spots_by_callsign as $callsign => $callsign_spots) {
@@ -5699,7 +5664,7 @@ class Logbook_model extends CI_Model {
 				$dcl_recvd='';
 				$dcl_qsl_status = '';
 				// Ref https://confluence.darc.de/pages/viewpage.action?pageId=21037270 for meaning of cmnoiwx
-				switch ($record['app_dcl_status']) {
+				switch ($record['app_dcl_status'] ?? '') {
 					case 'c':
 						$dcl_qsl_status = __("confirmed by LoTW/Clublog/eQSL/Contest");
 						$dcl_recvd='Y';

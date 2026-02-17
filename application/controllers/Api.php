@@ -1309,4 +1309,55 @@ class API extends CI_Controller {
 		return $url;
 	}
 
+	/* ** 
+	* List members of a clubstation
+	* API key needs to be of a club officer (permission level 9)
+	* returns array of club member details
+	*/
+	function list_clubmembers() {
+		header('Content-type: application/json');
+
+		$this->load->model('api_model');
+
+		// Decode JSON and store
+		$obj = json_decode(file_get_contents("php://input"), true);
+		if ($obj === NULL) {
+		    http_response_code(400);
+			echo json_encode(['status' => 'failed', 'reason' => "wrong JSON"]);
+			return;
+		}
+
+		if ($this->api_model->access($obj['key']) == "No Key Found" || $this->api_model->access($obj['key']) == "Key Disabled") {
+			http_response_code(401);
+			echo json_encode(['status' => 'error', 'message' => 'Auth Error, invalid key']);
+			return;
+		}
+
+		$this->load->model('club_model');
+		$userid = $this->api_model->key_userid($obj['key']);
+		$created_by = $this->api_model->key_created_by($obj['key']);
+		$club_perm = $this->club_model->get_permission_noui($userid,$created_by);
+		if (($userid == $created_by) || (($club_perm ?? 0) != 9)) { // not club officer
+			http_response_code(401);
+			echo json_encode(['status' => 'error', 'message' => 'Auth Error, not enough permissions for this operation']);
+			return;
+		}
+
+		$memberlist = $this->club_model->get_club_members($userid);
+		if (!empty($memberlist)) {
+			foreach($memberlist as $member) {
+				$members[] = [
+					'callsign' => $member->user_callsign,
+					'user_name' => $member->user_name,
+					'p_level' => $member->p_level
+				];
+			}
+			http_response_code(200);
+			echo json_encode(['status' => 'successful', 'members' => $members]);
+		} else {
+			http_response_code(204);
+			echo json_encode(['status' => 'failed', 'reason' => "No club members found", 'members' => '']);
+			return;
+		}
+	}
 }

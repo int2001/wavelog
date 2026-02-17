@@ -26,7 +26,7 @@ class Calltester extends CI_Controller {
 
 		$footerData = [];
 		$footerData['scripts'] = [
-			'assets/js/sections/calltester.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/calltester.js"))
+			'assets/js/sections/calltester.js',
 		];
 
 		$data['page_title'] = __("Call Tester");
