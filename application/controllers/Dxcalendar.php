@@ -39,7 +39,7 @@ class Dxcalendar extends CI_Controller {
 			$custom_date_format = $this->config->item('qso_date_format');
 		}
 
-		$dxccobj = new Dxcc(null);
+		$dxccobj = new Dxcc();
 		foreach ($rssdata->channel->item as $item) {
 			$dxped=(object)[];
 			$title = explode('--', $item->title);

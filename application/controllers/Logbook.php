@@ -1256,7 +1256,7 @@ class Logbook extends CI_Controller {
 		if ($date == ''){
 			$date = date("Y-m-d");
 		}
-		$dxccobj = new Dxcc($date);
+		$dxccobj = new Dxcc();
 
 		$ans = $dxccobj->dxcc_lookup($call, $date);
 		return $ans;

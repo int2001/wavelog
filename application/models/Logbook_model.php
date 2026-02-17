@@ -137,7 +137,7 @@ class Logbook_model extends CI_Model {
 								empty($qso_data['continent']);
 
 		if ($needs_dxcc_lookup) {
-			$dxccobj = new Dxcc(null);
+			$dxccobj = new Dxcc();
 			$dxcc = $dxccobj->dxcc_lookup(strtoupper(trim($callsign)), $datetime);
 		}
 
@@ -4951,14 +4951,14 @@ class Logbook_model extends CI_Model {
 						$dxcc = array($record['dxcc'] ?? '', $entity['name'] ?? '', $entity['cqz'] ?? '', $entity['cont'] ?? '');
 					} else {
 						if ($this->dxcc_object == null) {
-							$this->dxcc_object = new Dxcc(null);
+							$this->dxcc_object = new Dxcc();
 						}
 						$dxcclookupresult = $this->dxcc_object->dxcc_lookup($record['call'], date('Y-m-d', strtotime($record['qso_date'])));
 						$dxcc = array($dxcclookupresult['adif'], $dxcclookupresult['entity'], $dxcclookupresult['cqz'], $dxcclookupresult['cont']);
 					}
 				} else {
 					if ($this->dxcc_object == null) {
-						$this->dxcc_object = new Dxcc(null);
+						$this->dxcc_object = new Dxcc();
 					}
 					$dxcclookupresult = $this->dxcc_object->dxcc_lookup($record['call'], date('Y-m-d', strtotime($record['qso_date'])));
 					$dxcc = array($dxcclookupresult['adif'], $dxcclookupresult['entity'], $dxcclookupresult['cqz'], $dxcclookupresult['cont']);

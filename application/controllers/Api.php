@@ -962,7 +962,7 @@ class API extends CI_Controller {
 			];
 
 			$return['callsign'] = $lookup_callsign;
-			$dxccobj = new Dxcc(null);
+			$dxccobj = new Dxcc();
 			$callsign_dxcc_lookup = $dxccobj->dxcc_lookup($lookup_callsign, $date);
 
 			$last_slash_pos = strrpos($lookup_callsign, '/');
@@ -1122,7 +1122,7 @@ class API extends CI_Controller {
 			$return['callsign'] = $lookup_callsign;
 
 			// Use Wavelog\Dxcc\Dxcc for faster in-memory lookup
-			$dxccobj = new Dxcc($date);
+			$dxccobj = new Dxcc();
 			$callsign_dxcc_lookup = $dxccobj->dxcc_lookup($lookup_callsign, $date);
 
 			$return['dxcc_id'] = $callsign_dxcc_lookup['adif'] ?? '';
