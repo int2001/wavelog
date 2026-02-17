@@ -257,10 +257,6 @@ class Lotw extends CI_Controller {
 					echo $data['lotw_cert_info']->callsign.": QSO start date of LoTW certificate not reached yet!<br>";
 					continue;
 				}
-				if ($current_date > $data['lotw_cert_info']->qso_end_date) {
-					echo $data['lotw_cert_info']->callsign.": QSO end date of LoTW certificate exceeded!<br>";
-					continue;
-				}
 				if ($current_date < $data['lotw_cert_info']->date_created) {
 					echo $data['lotw_cert_info']->callsign.": LoTW certificate not valid yet!<br>";
 					continue;
