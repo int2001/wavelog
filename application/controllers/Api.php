@@ -1146,8 +1146,6 @@ class API extends CI_Controller {
 				$return['qsl_manager'] = $call_lookup_results->COL_QSL_VIA;
 				$return['state'] = $call_lookup_results->COL_STATE;
 				$return['us_county'] = $call_lookup_results->COL_CNTY;
-				$return['dxcc_id'] = $call_lookup_results->COL_DXCC;
-				$return['cont'] = $call_lookup_results->COL_CONT;
 				$return['workedBefore'] = true;
 
 				if ($return['gridsquare'] != "") {

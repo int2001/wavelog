@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-17 17:26+0000\n"
-"PO-Revision-Date: 2026-02-15 15:14+0000\n"
-"Last-Translator: Alexander <alexander@pa8s.nl>\n"
+"PO-Revision-Date: 2026-02-16 13:29+0000\n"
+"Last-Translator: PE1PQX <Andre@pe1pqx.eu>\n"
 "Language-Team: Dutch <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/nl/>\n"
 "Language: nl_NL\n"
@@ -2453,7 +2453,7 @@ msgstr "Instellingen"
 
 #: application/controllers/Radio.php:59
 msgid "WebSocket"
-msgstr ""
+msgstr "WebSocket"
 
 #: application/controllers/Radio.php:65 application/controllers/Radio.php:124
 msgid "Default (click to release)"
@@ -2523,11 +2523,11 @@ msgstr "Verwijderen"
 
 #: application/controllers/Radio.php:136
 msgid "WebSocket is currently default (click to release)"
-msgstr ""
+msgstr "WebSocket is nu standaard (klik om vrij te geven)"
 
 #: application/controllers/Radio.php:138
 msgid "Set WebSocket as default radio"
-msgstr ""
+msgstr "Zet WebSocket als standaard radio"
 
 #: application/controllers/Radio.php:142
 msgid "No CAT interfaced radios found."
@@ -2535,7 +2535,7 @@ msgstr "Geen CAT-gekoppelde radio's gevonden."
 
 #: application/controllers/Radio.php:143
 msgid "You can still set the WebSocket option as your default radio."
-msgstr ""
+msgstr "Je kun nog steeds de WebSocket als jouw standaard radio instellen."
 
 #: application/controllers/Radio.php:160 application/views/radio/index.php:2
 msgid "Edit CAT Settings"
@@ -2543,7 +2543,7 @@ msgstr "CAT-instellingen bewerken"
 
 #: application/controllers/Radio.php:332
 msgid "Radio removed successfully"
-msgstr ""
+msgstr "Radio succesvol verwijderd"
 
 #: application/controllers/Reg1test.php:22
 msgid "Export EDI"
@@ -16188,6 +16188,9 @@ msgid ""
 "you. This allows you to have a default radio that is automatically selected "
 "when you log in, while still being able to use other radios if you want."
 msgstr ""
+"Als club station operator kun je de standaard radio instellen die van "
+"toepassing is. Dit stelt je in staat een standaard radio te selecteren bij "
+"het inloggen, terwijl je naar wens ook de andere radio's kunt gebruiken."
 
 #: application/views/radio/index.php:27
 msgid ""
@@ -16195,11 +16198,14 @@ msgid ""
 "to have a default radio that is automatically selected when you log in, "
 "while still being able to use other radios if you want."
 msgstr ""
+"Als een normale gebruiker kun je een standaard radio instellen. Hierdoor heb "
+"je vaste radio ingeschakeld bij het inloggen, terwijl je nog steeds andere "
+"radio's kunt kiezen als je dat wilt."
 
 #: application/views/radio/index.php:30
 #, php-format
 msgid "You can find out how to use the %sradio functions%s in the wiki."
-msgstr ""
+msgstr "Je kunt in de wiki lezen hoe je de %sradio functions%s kunt gebruiken."
 
 #: application/views/radio/index.php:35
 msgid "Please wait..."
