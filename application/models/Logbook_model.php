@@ -777,7 +777,7 @@ class Logbook_model extends CI_Model {
 		return $this->db->get($this->config->item('table_name'));
 	}
 
-	public function get_dok($callsign) {
+	public function call_darc_dok($callsign) {
 		$this->load->model('logbooks_model');
 		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
 		$this->db->select('COL_DARC_DOK');
@@ -786,7 +786,13 @@ class Logbook_model extends CI_Model {
 		$this->db->order_by("COL_TIME_ON", "desc");
 		$this->db->limit(1);
 
-		return $this->db->get($this->config->item('table_name'));
+		$query = $this->db->get($this->config->item('table_name'));
+		if ($query->num_rows() > 0) {
+			$data = $query->row();
+			return $data->COL_DARC_DOK;
+		} else {
+			return NULL;
+		}
 	}
 
 	function add_qso($data, $skipexport = false, $batchmode = false) {

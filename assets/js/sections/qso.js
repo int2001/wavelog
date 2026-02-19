@@ -1482,7 +1482,8 @@ $("#callsign").on("focusout", function () {
 						lotw_days: result.lotw_days,
 						eqsl_member: result.eqsl_member,
 						qsl_manager: result.qsl_manager,
-						slot_confirmed: result.dxcc_confirmed_on_band_mode
+						slot_confirmed: result.dxcc_confirmed_on_band_mode,
+						darc_dok: result.callsign_darc_dok
 					};
 					window.broadcastLookupResult(broadcastData);
 				}
@@ -1580,12 +1581,12 @@ $("#callsign").on("focusout", function () {
 				var $dok_select = $('#darc_dok').selectize();
 				var dok_selectize = $dok_select[0].selectize;
 				if ((result.dxcc.adif == '230') && (($("#callsign").val().trim().length) > 0)) {
-					$.get(base_url + 'index.php/lookup/dok/' + $('#callsign').val().toUpperCase().replaceAll('Ø', '0').replaceAll('/','-'), function (result) {
-						if (result) {
-							dok_selectize.addOption({ name: result });
-							dok_selectize.setValue(result, false);
-						}
-					});
+					if (result.callsign_darc_dok != '') {
+						dok_selectize.addOption({ name: result.callsign_darc_dok });
+						dok_selectize.setValue(result.callsign_darc_dok, false);
+					} else {
+						dok_selectize.clear();
+					}
 				} else {
 					dok_selectize.clear();
 				}
