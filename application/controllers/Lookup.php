@@ -184,9 +184,9 @@ class Lookup extends CI_Controller {
 			$uppercase_callsign = strtoupper($call);
 			$this->load->model('Pota');
 			$query = $this->Pota->ham_of_note($uppercase_callsign);
-			if ($query->row()) {
+			if ($query->num_rows() > 0) {
 				header('Content-Type: application/json');
-				echo json_encode($query->row());
+				echo json_encode($query->result());
 			} else {
 				return null;
 			}
