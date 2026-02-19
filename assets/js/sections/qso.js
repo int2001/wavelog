@@ -1272,10 +1272,7 @@ function reset_fields() {
 	$('#continent').val("");
 	$('#email').val("");
 	$('#region').val("");
-	$('#ham_of_note_info').text("");
-	$('#ham_of_note_link').html("");
-	$('#ham_of_note_link').removeAttr('href');
-	$('#ham_of_note_line').hide();
+	$('#ham_of_note_line').empty().hide();
 	$('#lotw_info').text("");
 	$('#lotw_info').attr('data-bs-original-title', "");
 	$('#lotw_info').removeClass("lotw_info_red");
@@ -1506,10 +1503,7 @@ $("#callsign").on("focusout", function () {
 							$('#callsign').removeClass("confirmedGrid");
 							$('#callsign').removeClass("newGrid");
 							$('#callsign').attr('title', '');
-							$('#ham_of_note_info').text("");
-							$('#ham_of_note_link').html("");
-							$('#ham_of_note_link').removeAttr('href');
-							$('#ham_of_note_line').hide();
+							$('#ham_of_note_line').empty().hide();
 
 							if (result.confirmed) {
 								$('#callsign').addClass("confirmedGrid");
@@ -1530,10 +1524,7 @@ $("#callsign").on("focusout", function () {
 							$('#callsign').removeClass("workedGrid");
 							$('#callsign').removeClass("newGrid");
 							$('#callsign').attr('title', '');
-							$('#ham_of_note_info').text("");
-							$('#ham_of_note_link').html("");
-							$('#ham_of_note_link').removeAttr('href');
-							$('#ham_of_note_line').hide();
+							$('#ham_of_note_line').empty().hide();
 
 						if (result.confirmed) {
 							$('#callsign').addClass("confirmedGrid");
@@ -1600,15 +1591,18 @@ $("#callsign").on("focusout", function () {
 				}
 
 				$.getJSON(base_url + 'index.php/lookup/ham_of_note/' + $('#callsign').val().toUpperCase().replaceAll('Ø', '0').replaceAll('/','-'), function (result) {
-					if (result) {
-						$('#ham_of_note_info').html('<span class="minimize">'+result.description+'</span>');
-						if (result.link != null) {
-							$('#ham_of_note_link').html(" "+result.linkname);
-							$('#ham_of_note_link').attr('href', result.link);
-						}
-						$('#ham_of_note_line').show("slow");
+					if (result && result.length > 0) {
+						var html = '';
+						$.each(result, function(i, entry) {
+							var linkHtml = '';
+							if (entry.link != null) {
+								linkHtml = ' <a href="' + entry.link + '" target="_blank">' + entry.linkname + '</a>';
+							}
+							html += '<p class="mb-1"><small><span class="minimize">' + entry.description + '</span>' + linkHtml + '</small></p>';
+						});
+						$('#ham_of_note_line').html(html).show("slow");
 
-						var minimized_elements = $('span.minimize');
+						var minimized_elements = $('#ham_of_note_line span.minimize');
 						var maxlen = 50;
 
 						minimized_elements.each(function(){
