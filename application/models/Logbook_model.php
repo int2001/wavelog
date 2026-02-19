@@ -4703,12 +4703,15 @@ class Logbook_model extends CI_Model {
 	}
 
 	function lotw_last_qsl_date($user_id) {
-		$sql = "SELECT MAX(COALESCE(COL_LOTW_QSLRDATE, '1900-01-01 00:00:00')) MAXDATE
+		$sql = "SELECT MAX(COALESCE(COL_LOTW_QSLRDATE, '1900-01-01 00:00:00')) MAXDATE, COUNT(1) as QSOS
 		    FROM " . $this->config->item('table_name') . " INNER JOIN station_profile ON (" . $this->config->item('table_name') . ".station_id = station_profile.station_id)
-		    WHERE station_profile.user_id=" . $user_id . " and COL_LOTW_QSLRDATE is not null";
+		    WHERE station_profile.user_id=" . $user_id;
 		$query = $this->db->query($sql);
 		$row = $query->row();
 
+		if ($row->QSOS == 0) {
+			return '2100-01-01 00:00:00.000';	// No QSO in Log, set since to future, otherwise this user blocks download
+		}
 		if ($row->MAXDATE != null) {
 			return $row->MAXDATE;
 		}
