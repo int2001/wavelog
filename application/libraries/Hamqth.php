@@ -127,6 +127,7 @@ class Hamqth {
 
 			}
 		} finally {
+			$data['source'] = $this->sourcename();
 			return $data;
 		}
 	}

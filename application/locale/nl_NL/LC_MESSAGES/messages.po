@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-19 14:38+0000\n"
+"POT-Creation-Date: 2026-02-20 08:59+0000\n"
 "PO-Revision-Date: 2026-02-16 13:29+0000\n"
 "Last-Translator: PE1PQX <Andre@pe1pqx.eu>\n"
 "Language-Team: Dutch <https://translate.wavelog.org/projects/wavelog/main-"
@@ -3406,13 +3406,18 @@ msgstr "Meerdere gebruikers gevonden op basis van slug"
 msgid "Gridsquare Zone finder"
 msgstr "Locatorvak Zone zoeker"
 
-#: application/libraries/Callbook.php:139
+#: application/libraries/Callbook.php:60
+msgid "Lookup not configured. Please review configuration."
+msgstr ""
+
+#: application/libraries/Callbook.php:61
+#, php-format
+msgid "Error obtaining a session key for callbook. Error: %s"
+msgstr ""
+
+#: application/libraries/Callbook.php:200
 msgid "QRZCQ Error"
 msgstr "QRZCQ Fout"
-
-#: application/libraries/Callbook.php:179
-msgid "Error obtaining a session key for HamQTH query"
-msgstr "Fout bij het verkrijgen van een sessiesleutel voor HamQTH-query"
 
 #: application/libraries/Cbr_parser.php:111
 #: application/libraries/Cbr_parser.php:160
@@ -3687,7 +3692,7 @@ msgstr "QSO bijgewerkt"
 msgid "Bearing"
 msgstr "Koers"
 
-#: application/models/Logbookadvanced_model.php:1723
+#: application/models/Logbookadvanced_model.php:1727
 msgid "VuccGrids table is empty. Please import the VUCC grids data first."
 msgstr "VuccGrids-tabel is leeg. Importeer eerst de VUCC-gridsgegevens."
 
@@ -19467,6 +19472,9 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#~ msgid "Error obtaining a session key for HamQTH query"
+#~ msgstr "Fout bij het verkrijgen van een sessiesleutel voor HamQTH-query"
 
 #~ msgid "radio functions"
 #~ msgstr "radiofuncties"

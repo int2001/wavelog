@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-19 14:38+0000\n"
+"POT-Creation-Date: 2026-02-20 08:59+0000\n"
 "PO-Revision-Date: 2026-01-11 07:07+0000\n"
 "Last-Translator: marin <wavelog@marin.fyi>\n"
 "Language-Team: Croatian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -3337,12 +3337,17 @@ msgstr ""
 msgid "Gridsquare Zone finder"
 msgstr ""
 
-#: application/libraries/Callbook.php:139
-msgid "QRZCQ Error"
+#: application/libraries/Callbook.php:60
+msgid "Lookup not configured. Please review configuration."
 msgstr ""
 
-#: application/libraries/Callbook.php:179
-msgid "Error obtaining a session key for HamQTH query"
+#: application/libraries/Callbook.php:61
+#, php-format
+msgid "Error obtaining a session key for callbook. Error: %s"
+msgstr ""
+
+#: application/libraries/Callbook.php:200
+msgid "QRZCQ Error"
 msgstr ""
 
 #: application/libraries/Cbr_parser.php:111
@@ -3605,7 +3610,7 @@ msgstr ""
 msgid "Bearing"
 msgstr ""
 
-#: application/models/Logbookadvanced_model.php:1723
+#: application/models/Logbookadvanced_model.php:1727
 msgid "VuccGrids table is empty. Please import the VUCC grids data first."
 msgstr ""
 
