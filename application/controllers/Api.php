@@ -728,6 +728,74 @@ class API extends CI_Controller {
 
 	}
 
+	// API function to check if a grid is in the logbook already
+	function logbook_get_worked_grids() {
+		$arr = array();
+		header('Content-type: application/json');
+		$this->load->model('api_model');
+		$obj = json_decode(file_get_contents("php://input"), true);
+		if ($obj === NULL) {
+		    echo json_encode(['status' => 'failed', 'reason' => "wrong JSON"]);
+		    die();
+		}
+		// Check rate limit
+		$identifier = isset($obj['key']) ? $obj['key'] : null;
+		$this->check_rate_limit('logbook_get_worked_grids', $identifier);
+
+		if(!isset($obj['key']) || $this->api_model->authorize($obj['key']) == 0) {
+		   http_response_code(401);
+		   echo json_encode(['status' => 'failed', 'reason' => "missing api key"]);
+		   die();
+		}
+		if(!isset($obj['logbook_public_slug'])) {
+		   http_response_code(400);
+		   echo json_encode(['status' => 'failed', 'reason' => "missing fields"]);
+			return;
+		}
+		if($obj['logbook_public_slug'] != "") {
+			$logbook_slug = $obj['logbook_public_slug'];
+			if(isset($obj['band'])) {
+				$band = $obj['band'];
+			} else {
+				$band = null;
+			}
+			if(isset($obj['cnfm'])) {
+				$cnfm = $obj['cnfm'];
+			} else {
+				$cnfm = null;
+			}
+			$this->load->model('logbooks_model');
+			if($this->logbooks_model->public_slug_exists($logbook_slug)) {
+				$logbook_id = $this->logbooks_model->public_slug_exists_logbook_id($logbook_slug);
+				if($logbook_id != false)
+				{
+					$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($logbook_id);
+					if (!$logbooks_locations_array) {
+						http_response_code(404);
+						echo json_encode(['status' => 'failed', 'reason' => "Empty Logbook"]);
+						die();
+					}
+				} else {
+					http_response_code(404);
+					echo json_encode(['status' => 'failed', 'reason' => $logbook_slug." has no associated station locations"]);
+					die();
+				}
+				$this->load->model('logbook_model');
+
+				$arr = $this->api_model->get_grids_worked_in_logbook($logbooks_locations_array, $band, $cnfm);
+				http_response_code(201);
+				echo json_encode($arr);
+
+			} else {
+				http_response_code(404);
+				echo json_encode(['status' => 'failed', 'reason' => "logbook not found"]);
+				die();
+			}
+
+		}
+
+	}
+
 	/* ENDPOINT for Rig Control */
 
 	function radio() {
