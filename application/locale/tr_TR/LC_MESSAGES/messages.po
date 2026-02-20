@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-20 08:59+0000\n"
+"POT-Creation-Date: 2026-02-20 13:16+0000\n"
 "PO-Revision-Date: 2026-01-05 10:37+0000\n"
 "Last-Translator: Halil AYYILDIZ <ta2lghalil@gmail.com>\n"
 "Language-Team: Turkish <https://translate.wavelog.org/projects/wavelog/main-"
@@ -1625,7 +1625,7 @@ msgstr "RST (A)"
 #: application/views/qslcard/searchresult.php:79
 #: application/views/qso/components/previous_contacts.php:80
 #: application/views/search/search_result_ajax.php:7
-#: application/views/stationsetup/stationsetup.php:129
+#: application/views/stationsetup/stationsetup.php:131
 #: application/views/timeline/index.php:200 application/views/user/edit.php:247
 #: application/views/user/edit.php:270 application/views/user/edit.php:293
 #: application/views/user/edit.php:316 application/views/user/edit.php:340
@@ -1736,7 +1736,7 @@ msgstr "Eyalet"
 #: application/views/search/result.php:49
 #: application/views/search/search_result_ajax.php:13
 #: application/views/simplefle/index.php:161
-#: application/views/stationsetup/stationsetup.php:130
+#: application/views/stationsetup/stationsetup.php:132
 #: application/views/statistics/initialresult.php:20
 #: application/views/timeline/index.php:386 application/views/user/edit.php:144
 #: application/views/user/edit.php:253 application/views/user/edit.php:276
@@ -1944,7 +1944,7 @@ msgstr "Operatör"
 #: application/views/stationsetup/linkedlocations.php:17
 #: application/views/stationsetup/linkedlocations.php:45
 #: application/views/stationsetup/locationlist.php:67
-#: application/views/stationsetup/stationsetup.php:156
+#: application/views/stationsetup/stationsetup.php:158
 #: application/views/timeline/index.php:222
 #: application/views/timeplotter/index.php:33
 #: application/views/user/modals/first_login_wizard.php:52
@@ -2479,8 +2479,8 @@ msgstr "son kullanılan"
 #: application/views/mode/index.php:64 application/views/satellite/edit.php:56
 #: application/views/satellite/index.php:58
 #: application/views/search/stored_queries.php:21
-#: application/views/stationsetup/stationsetup.php:134
-#: application/views/stationsetup/stationsetup.php:172
+#: application/views/stationsetup/stationsetup.php:136
+#: application/views/stationsetup/stationsetup.php:174
 #: application/views/themes/index.php:104 application/views/user/index.php:97
 #: application/views/user/index.php:203
 msgid "Edit"
@@ -2507,9 +2507,9 @@ msgstr "Düzenle"
 #: application/views/satellite/edit.php:57
 #: application/views/satellite/index.php:59
 #: application/views/search/stored_queries.php:22
-#: application/views/stationsetup/stationsetup.php:36
-#: application/views/stationsetup/stationsetup.php:143
-#: application/views/stationsetup/stationsetup.php:199
+#: application/views/stationsetup/stationsetup.php:37
+#: application/views/stationsetup/stationsetup.php:145
+#: application/views/stationsetup/stationsetup.php:201
 #: application/views/themes/index.php:107 application/views/user/index.php:119
 #: application/views/user/index.php:228 application/views/view_log/qso.php:797
 msgid "Delete"
@@ -2763,7 +2763,7 @@ msgstr "Hata. Bağlantı zaten kullanılıyor!"
 #: application/views/station_profile/create.php:366
 #: application/views/station_profile/edit.php:335
 #: application/views/station_profile/edit.php:394
-#: application/views/stationsetup/stationsetup.php:79
+#: application/views/stationsetup/stationsetup.php:81
 #: application/views/user/edit.php:452 application/views/user/edit.php:503
 #: application/views/user/edit.php:512 application/views/user/edit.php:669
 #: application/views/user/edit.php:679
@@ -2771,19 +2771,19 @@ msgid "Disabled"
 msgstr "Deaktif"
 
 #: application/controllers/Stationsetup.php:287
-#: application/views/stationsetup/stationsetup.php:47
+#: application/views/stationsetup/stationsetup.php:49
 msgid "Set as Active Logbook"
 msgstr "Aktif Logbook Olarak Ayarla"
 
 #: application/controllers/Stationsetup.php:289
 #: application/views/interface_assets/header.php:606
-#: application/views/stationsetup/stationsetup.php:49
+#: application/views/stationsetup/stationsetup.php:51
 #: application/views/view_log/index.php:4
 msgid "Active Logbook"
 msgstr "Aktif Logbook"
 
 #: application/controllers/Stationsetup.php:296
-#: application/views/stationsetup/stationsetup.php:58
+#: application/views/stationsetup/stationsetup.php:60
 #, php-format
 msgid ""
 "Are you sure you want to delete the station logbook %s? You must re-link any "
@@ -2793,7 +2793,7 @@ msgstr ""
 "tüm konumları başka bir kayıt defterine yeniden bağlamanız gerekir."
 
 #: application/controllers/Stationsetup.php:306
-#: application/views/stationsetup/stationsetup.php:68
+#: application/views/stationsetup/stationsetup.php:70
 msgid "View Public Page for Logbook: "
 msgstr "Logbook Ziyaretçi Sayfasını Görüntüle: "
 
@@ -2802,7 +2802,7 @@ msgid "Are you sure you want to delete the public slug?"
 msgstr "Sayfayı silmek istediğinize emin misiniz?"
 
 #: application/controllers/Stationsetup.php:392
-#: application/views/stationsetup/stationsetup.php:161
+#: application/views/stationsetup/stationsetup.php:163
 #, php-format
 msgid ""
 "Are you sure you want to make the station profile %s the active station?"
@@ -2810,12 +2810,12 @@ msgstr ""
 "%s istasyon profilini etkin istasyon yapmak istediğinizden emin misiniz?"
 
 #: application/controllers/Stationsetup.php:392
-#: application/views/stationsetup/stationsetup.php:161
+#: application/views/stationsetup/stationsetup.php:163
 msgid "Set Active"
 msgstr "Aktif Et"
 
 #: application/controllers/Stationsetup.php:394
-#: application/views/stationsetup/stationsetup.php:163
+#: application/views/stationsetup/stationsetup.php:165
 msgid "Active Station"
 msgstr "Aktif İstasyon"
 
@@ -2823,32 +2823,32 @@ msgstr "Aktif İstasyon"
 #: application/views/interface_assets/header.php:131
 #: application/views/qso/edit_ajax.php:34 application/views/qso/index.php:93
 #: application/views/simplefle/index.php:28
-#: application/views/stationsetup/stationsetup.php:168
+#: application/views/stationsetup/stationsetup.php:170
 #: application/views/user/index.php:82 application/views/user/index.php:86
 #: application/views/user/index.php:193 application/views/user/index.php:195
 msgid "QSO"
 msgstr "QSO"
 
 #: application/controllers/Stationsetup.php:406
-#: application/views/stationsetup/stationsetup.php:192
+#: application/views/stationsetup/stationsetup.php:194
 msgid "Are you sure you want to delete all QSOs within this station profile?"
 msgstr ""
 "Bu istasyon profili içindeki tüm QSO'ları silmek istediğinizden emin misiniz?"
 
 #: application/controllers/Stationsetup.php:406
-#: application/views/stationsetup/stationsetup.php:142
-#: application/views/stationsetup/stationsetup.php:194
+#: application/views/stationsetup/stationsetup.php:144
+#: application/views/stationsetup/stationsetup.php:196
 msgid "Empty Log"
 msgstr "Logbook'u Sıfırla"
 
 #: application/controllers/Stationsetup.php:410
-#: application/views/stationsetup/stationsetup.php:135
-#: application/views/stationsetup/stationsetup.php:175
+#: application/views/stationsetup/stationsetup.php:137
+#: application/views/stationsetup/stationsetup.php:177
 msgid "Copy"
 msgstr "Kopyala"
 
 #: application/controllers/Stationsetup.php:415
-#: application/views/stationsetup/stationsetup.php:198
+#: application/views/stationsetup/stationsetup.php:200
 #, php-format
 msgid ""
 "Are you sure you want delete station profile '%s'? This will delete all QSOs "
@@ -2861,7 +2861,7 @@ msgstr ""
 #: application/views/qso/edit_ajax.php:236
 #: application/views/station_profile/create.php:84
 #: application/views/station_profile/edit.php:101
-#: application/views/stationsetup/stationsetup.php:156
+#: application/views/stationsetup/stationsetup.php:158
 #: application/views/user/modals/first_login_wizard.php:46
 msgid "Please select one"
 msgstr "Lütfen birini seçin"
@@ -3192,7 +3192,7 @@ msgstr "İstasyon Adı"
 #: application/views/station_profile/create.php:59
 #: application/views/station_profile/edit.php:76
 #: application/views/stationsetup/linkedlocations.php:32
-#: application/views/stationsetup/stationsetup.php:128
+#: application/views/stationsetup/stationsetup.php:130
 #: application/views/user/modals/first_login_wizard.php:34
 msgid "Station Callsign"
 msgstr "İstasyon Çağrı İşareti"
@@ -3349,7 +3349,7 @@ msgid "Satellite Gridsquare Map"
 msgstr "Uydu Gridsquare Haritası"
 
 #: application/controllers/Visitor.php:412
-#: application/views/stationsetup/stationsetup.php:38
+#: application/views/stationsetup/stationsetup.php:39
 msgid "Public Search"
 msgstr "Genel Arama"
 
@@ -4721,7 +4721,7 @@ msgstr "Maksimum dosya yükleme boyutu: "
 #: application/views/interface_assets/footer.php:37
 #: application/views/notes/add.php:23 application/views/notes/edit.php:29
 #: application/views/qrz/export.php:75 application/views/qrz/export.php:96
-#: application/views/stationsetup/stationsetup.php:116
+#: application/views/stationsetup/stationsetup.php:118
 #: application/views/view_log/qso.php:806
 #: application/views/webadif/export.php:34
 #: application/views/webadif/export.php:94
@@ -5173,7 +5173,7 @@ msgstr "ADIF dosyanızdaki POTA Referansı"
 #: application/views/oqrs/showrequests.php:97
 #: application/views/oqrs/status_info.php:4
 #: application/views/sattimers/index.php:39
-#: application/views/stationsetup/stationsetup.php:34
+#: application/views/stationsetup/stationsetup.php:35
 #: application/views/timeline/index.php:204
 #: application/views/usermode/index.php:41
 msgid "Status"
@@ -6500,7 +6500,7 @@ msgstr "IOTA Haritasını Göster"
 #: application/views/satellite/satinfo.php:6
 #: application/views/search/result.php:16
 #: application/views/search/search_result_ajax.php:19
-#: application/views/stationsetup/stationsetup.php:33
+#: application/views/stationsetup/stationsetup.php:34
 #: application/views/themes/index.php:82
 #: application/views/timeline/index.php:314 application/views/user/edit.php:256
 #: application/views/user/edit.php:279 application/views/user/edit.php:302
@@ -8927,7 +8927,7 @@ msgid "First QSO"
 msgstr "İlk QSO"
 
 #: application/views/callstats/index.php:150
-#: application/views/stationsetup/stationsetup.php:131
+#: application/views/stationsetup/stationsetup.php:133
 msgid "Last QSO"
 msgstr "Son QSO"
 
@@ -9909,7 +9909,7 @@ msgstr "Tanımlayıcı"
 #: application/views/options/appearance.php:84
 #: application/views/station_profile/create.php:311
 #: application/views/station_profile/edit.php:337
-#: application/views/stationsetup/stationsetup.php:76
+#: application/views/stationsetup/stationsetup.php:78
 #: application/views/user/edit.php:450 application/views/user/edit.php:451
 #: application/views/user/edit.php:504 application/views/user/edit.php:513
 #: application/views/user/edit.php:668 application/views/user/edit.php:678
@@ -10008,7 +10008,8 @@ msgid "Cron List"
 msgstr "Cron İşleri Listesi"
 
 #: application/views/cron/index.php:65
-#: application/views/stationsetup/stationsetup.php:126
+#: application/views/stationsetup/stationsetup.php:33
+#: application/views/stationsetup/stationsetup.php:128
 msgid "ID"
 msgstr "ID"
 
@@ -12408,7 +12409,7 @@ msgid "Satellite Pass"
 msgstr "Uydu Geçişi"
 
 #: application/views/interface_assets/header.php:321
-#: application/views/stationsetup/stationsetup.php:118
+#: application/views/stationsetup/stationsetup.php:120
 msgid "Admin"
 msgstr "Yönetici"
 
@@ -17470,7 +17471,7 @@ msgid "Link Location"
 msgstr "Konumla İlişkilendir"
 
 #: application/views/stationsetup/linkedlocations.php:31
-#: application/views/stationsetup/stationsetup.php:127
+#: application/views/stationsetup/stationsetup.php:129
 msgid "Profile Name"
 msgstr "Profil Adı"
 
@@ -17491,19 +17492,19 @@ msgstr ""
 "gösteriyorsanız ancak bunlar aynı DXCC veya VUCC Çemberinin parçasıysa çok "
 "kullanışlıdır."
 
-#: application/views/stationsetup/stationsetup.php:35
+#: application/views/stationsetup/stationsetup.php:36
 msgid "Edit Linked locations"
 msgstr "Bağlı Lokasyonları Düzenle"
 
-#: application/views/stationsetup/stationsetup.php:37
+#: application/views/stationsetup/stationsetup.php:38
 msgid "Visitor site"
 msgstr "Ziyaretçi Sitesi"
 
-#: application/views/stationsetup/stationsetup.php:94
+#: application/views/stationsetup/stationsetup.php:96
 msgid "Station Locations"
 msgstr "İstasyon Konumları"
 
-#: application/views/stationsetup/stationsetup.php:98
+#: application/views/stationsetup/stationsetup.php:100
 msgid ""
 "Station Locations define operating locations, such as your QTH, a friends "
 "QTH, or a portable station."
@@ -17511,13 +17512,13 @@ msgstr ""
 "İstasyon Konumları, çalışma konumlarını tanımlar; örneğin kendi QTH'niz, bir "
 "arkadaşınızın QTH'si veya taşınabilir bir istasyon."
 
-#: application/views/stationsetup/stationsetup.php:99
+#: application/views/stationsetup/stationsetup.php:101
 msgid "Similar to logbooks, a station profile keeps a set of QSOs together."
 msgstr ""
 "Log defterlerine benzer şekilde, bir istasyon profili bir dizi QSO'yu bir "
 "arada tutar."
 
-#: application/views/stationsetup/stationsetup.php:100
+#: application/views/stationsetup/stationsetup.php:102
 msgid ""
 "Only one station may be active at a time. In the table below this is shown "
 "with the -Active Station- badge."
@@ -17525,7 +17526,7 @@ msgstr ""
 "Sadece bir istasyon aynı anda aktif olabilir. Aşağıdaki tabloda bu durum, \"-"
 "Aktif İstasyon-\" rozetiyle gösterilmektedir."
 
-#: application/views/stationsetup/stationsetup.php:101
+#: application/views/stationsetup/stationsetup.php:103
 msgid ""
 "The 'Linked' column shows if the station location is linked with the Active "
 "Logbook selected above."
@@ -17533,23 +17534,23 @@ msgstr ""
 "\"Bağlı\" sütunu, istasyon konumunun yukarıda seçilen Aktif Log Defteri ile "
 "ilişkilendirilip ilişkilendirilmediğini gösterir."
 
-#: application/views/stationsetup/stationsetup.php:104
+#: application/views/stationsetup/stationsetup.php:106
 msgid "Create a Station Location"
 msgstr "Bir İstasyon Konumu Oluşturun"
 
-#: application/views/stationsetup/stationsetup.php:104
+#: application/views/stationsetup/stationsetup.php:106
 msgid "Show only locations from the active logbook"
 msgstr "Sadece aktif log defterindeki konumları göster"
 
-#: application/views/stationsetup/stationsetup.php:105
+#: application/views/stationsetup/stationsetup.php:107
 msgid "Show all locations"
 msgstr "Tüm konumları göster"
 
-#: application/views/stationsetup/stationsetup.php:106
+#: application/views/stationsetup/stationsetup.php:108
 msgid "Show a location list"
 msgstr "Bir konum listesi göster"
 
-#: application/views/stationsetup/stationsetup.php:110
+#: application/views/stationsetup/stationsetup.php:112
 msgid ""
 "Attention: You need to set an active station location. Go to Callsign-"
 ">Station Location to select one."
@@ -17557,7 +17558,7 @@ msgstr ""
 "Dikkat: Aktif bir istasyon konumu belirlemeniz gerekmektedir. Birini seçmek "
 "için Çağrı İşareti->İstasyon Konumu bölümüne gidin."
 
-#: application/views/stationsetup/stationsetup.php:116
+#: application/views/stationsetup/stationsetup.php:118
 msgid ""
 "Due to recent changes within Wavelog you need to reassign QSOs to your "
 "station profiles."
@@ -17565,23 +17566,23 @@ msgstr ""
 "Wavelog'daki son değişiklikler nedeniyle, QSOs'ları istasyon profillerinize "
 "yeniden atamanız gerekmektedir."
 
-#: application/views/stationsetup/stationsetup.php:118
+#: application/views/stationsetup/stationsetup.php:120
 msgid "Maintenance"
 msgstr "Bakım"
 
-#: application/views/stationsetup/stationsetup.php:118
+#: application/views/stationsetup/stationsetup.php:120
 msgid "Please reassign them at "
 msgstr "Lütfen bunları yeniden atayın. "
 
-#: application/views/stationsetup/stationsetup.php:133
+#: application/views/stationsetup/stationsetup.php:135
 msgid "Linked"
 msgstr "Bağlı"
 
-#: application/views/stationsetup/stationsetup.php:140
+#: application/views/stationsetup/stationsetup.php:142
 msgid "Favorite"
 msgstr "Favori"
 
-#: application/views/stationsetup/stationsetup.php:187
+#: application/views/stationsetup/stationsetup.php:189
 msgid "mark/unmark as favorite"
 msgstr "Favori olarak işaretle / Favori olmaktan çıkar"
 
