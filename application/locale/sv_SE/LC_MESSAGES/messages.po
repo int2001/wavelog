@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-20 08:59+0000\n"
-"PO-Revision-Date: 2026-02-16 01:36+0000\n"
+"PO-Revision-Date: 2026-02-20 07:13+0000\n"
 "Last-Translator: \"Jorgen Dahl, NU1T\" <sm6srw@arrl.net>\n"
 "Language-Team: Swedish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/sv/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16\n"
 
 #: application/controllers/Accumulated.php:12
 #: application/controllers/Activators.php:13
@@ -12174,7 +12174,7 @@ msgstr "Lokatorrutor"
 
 #: application/views/interface_assets/footer.php:1297
 msgid "Location Lookup failed. Please check browser console."
-msgstr ""
+msgstr "Platssökning misslyckades. Vänligen kontrollera webbläsarkonsolen."
 
 #: application/views/interface_assets/footer.php:1448
 #: application/views/interface_assets/footer.php:1452
@@ -19057,6 +19057,8 @@ msgid ""
 "A single gridsquare was entered into the VUCC gridsquares field which should "
 "contain two or four gridsquares instead of a single grid."
 msgstr ""
+"En enda lokator ruta angavs i VUCC-lokator fältet som borde innehålla två "
+"eller fyra lokator rutor istället för en enda lokator ruta."
 
 #: application/views/view_log/qso.php:335
 msgid "Antenna Azimuth"

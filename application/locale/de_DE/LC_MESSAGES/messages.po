@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-02-20 08:59+0000\n"
-"PO-Revision-Date: 2026-02-15 23:10+0000\n"
+"PO-Revision-Date: 2026-02-20 09:05+0000\n"
 "Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
@@ -36,7 +36,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16\n"
 
 #: application/controllers/Accumulated.php:12
 #: application/controllers/Activators.php:13
@@ -3435,12 +3435,12 @@ msgstr "Planquadrat-Zonen-Finder"
 
 #: application/libraries/Callbook.php:60
 msgid "Lookup not configured. Please review configuration."
-msgstr ""
+msgstr "Lookup nicht konfiguriert. Bitte Konfiguration überprüfen."
 
 #: application/libraries/Callbook.php:61
 #, php-format
 msgid "Error obtaining a session key for callbook. Error: %s"
-msgstr ""
+msgstr "Fehler beim Abrufen eines Sessionkeys für das Callbook. Fehler: %s"
 
 #: application/libraries/Callbook.php:200
 msgid "QRZCQ Error"
@@ -12296,6 +12296,7 @@ msgstr "Locator"
 #: application/views/interface_assets/footer.php:1297
 msgid "Location Lookup failed. Please check browser console."
 msgstr ""
+"Fehler beim Nachschlagen des Standortes. Bitte prüfe die Browserkonsole."
 
 #: application/views/interface_assets/footer.php:1448
 #: application/views/interface_assets/footer.php:1452
@@ -19262,6 +19263,9 @@ msgid ""
 "A single gridsquare was entered into the VUCC gridsquares field which should "
 "contain two or four gridsquares instead of a single grid."
 msgstr ""
+"Ein einzelnes Planquadrat wurde in das Feld für VUCC Planquadrate "
+"eingetragen, welches zwei oder vier Planquadrate statt eines einzelnen "
+"Planquadrats enthalten sollte."
 
 #: application/views/view_log/qso.php:335
 msgid "Antenna Azimuth"
