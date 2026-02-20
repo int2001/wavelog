@@ -254,6 +254,11 @@ function single_callbook_update() {
             fill_if_empty('#qsl-via', data.qsl_manager);
             fill_if_empty('select[name="input_state_edit"]', data.callsign_state);
             fill_if_empty('#stationCntyInputEdit', data.callsign_us_county);
+            if (data.callsign_darc_dok && $('#darc_dok_edit').val() == '') {
+                var dok_selectize = $('#darc_dok_edit')[0].selectize;
+                dok_selectize.addOption({ name: data.callsign_darc_dok });
+                dok_selectize.setValue(data.callsign_darc_dok, false);
+            }
 
             $('#update_from_callbook').prop("disabled", false).removeClass("running");
         },

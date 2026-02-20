@@ -947,6 +947,10 @@ class Logbookadvanced_model extends CI_Model {
 			$updatedData['COL_CQZ'] = $callbook['cqz'];
 			$updated = true;
 		}
+		if (!empty($callbook['darc_dok']) && empty($qso['COL_DARC_DOK'])) {
+			$updatedData['COL_DARC_DOK'] = strtoupper($callbook['darc_dok']);
+			$updated = true;
+		}
 		if (empty($qso['COL_CONT'])) {
 			$updatedData['COL_CONT'] = $this->logbook_model->getContinent($callbook['dxcc']);
 			$updated = true;
