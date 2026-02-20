@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-19 10:15+0000\n"
+"POT-Creation-Date: 2026-02-19 14:38+0000\n"
 "PO-Revision-Date: 2026-01-05 10:37+0000\n"
 "Last-Translator: Halil AYYILDIZ <ta2lghalil@gmail.com>\n"
 "Language-Team: Turkish <https://translate.wavelog.org/projects/wavelog/main-"
@@ -1660,7 +1660,7 @@ msgstr "Ülke"
 #: application/views/search/search_result_ajax.php:8
 #: application/views/station_profile/create.php:184
 #: application/views/station_profile/edit.php:209
-#: application/views/timeline/index.php:295 application/views/user/edit.php:248
+#: application/views/timeline/index.php:313 application/views/user/edit.php:248
 #: application/views/user/edit.php:271 application/views/user/edit.php:294
 #: application/views/user/edit.php:317 application/views/user/edit.php:341
 #: application/views/view_log/partial/log_ajax.php:8
@@ -1691,7 +1691,7 @@ msgstr "IOTA"
 #: application/views/qso/components/previous_contacts.php:85
 #: application/views/search/search_result_ajax.php:12
 #: application/views/statistics/initialresult.php:21
-#: application/views/timeline/index.php:265 application/views/user/edit.php:252
+#: application/views/timeline/index.php:277 application/views/user/edit.php:252
 #: application/views/user/edit.php:275 application/views/user/edit.php:298
 #: application/views/user/edit.php:321 application/views/user/edit.php:345
 #: application/views/view_log/partial/log_ajax.php:12
@@ -1738,7 +1738,7 @@ msgstr "Eyalet"
 #: application/views/simplefle/index.php:161
 #: application/views/stationsetup/stationsetup.php:130
 #: application/views/statistics/initialresult.php:20
-#: application/views/timeline/index.php:356 application/views/user/edit.php:144
+#: application/views/timeline/index.php:386 application/views/user/edit.php:144
 #: application/views/user/edit.php:253 application/views/user/edit.php:276
 #: application/views/user/edit.php:299 application/views/user/edit.php:322
 #: application/views/user/edit.php:346 application/views/user/profile.php:34
@@ -1945,7 +1945,7 @@ msgstr "Operatör"
 #: application/views/stationsetup/linkedlocations.php:45
 #: application/views/stationsetup/locationlist.php:67
 #: application/views/stationsetup/stationsetup.php:156
-#: application/views/timeline/index.php:216
+#: application/views/timeline/index.php:222
 #: application/views/timeplotter/index.php:33
 #: application/views/user/modals/first_login_wizard.php:52
 #: application/views/view_log/partial/log_ajax.php:31
@@ -4277,12 +4277,12 @@ msgstr "Troposfer Kanal İletişimi"
 #: application/views/statistics/antennaanalytics.php:110
 #: application/views/statistics/initials.php:30
 #: application/views/timeline/index.php:128
-#: application/views/timeline/index.php:219
-#: application/views/timeline/index.php:250
-#: application/views/timeline/index.php:278
-#: application/views/timeline/index.php:312
-#: application/views/timeline/index.php:340
+#: application/views/timeline/index.php:225
+#: application/views/timeline/index.php:262
+#: application/views/timeline/index.php:296
+#: application/views/timeline/index.php:336
 #: application/views/timeline/index.php:370
+#: application/views/timeline/index.php:406
 #: application/views/timeplotter/index.php:59
 msgid "Show"
 msgstr "Göster"
@@ -4311,6 +4311,12 @@ msgstr "Göster"
 #: application/views/satellite/skedtable.php:35
 #: application/views/sattimers/index.php:38
 #: application/views/statistics/index.php:27
+#: application/views/timeline/index.php:202
+#: application/views/timeline/index.php:245
+#: application/views/timeline/index.php:279
+#: application/views/timeline/index.php:317
+#: application/views/timeline/index.php:353
+#: application/views/timeline/index.php:388
 msgid "Satellite"
 msgstr "Uydu"
 
@@ -4499,12 +4505,12 @@ msgstr "Grid Sayısı"
 
 #: application/views/activators/index.php:101
 #: application/views/callstats/index.php:151
-#: application/views/timeline/index.php:203
-#: application/views/timeline/index.php:238
-#: application/views/timeline/index.php:266
-#: application/views/timeline/index.php:298
-#: application/views/timeline/index.php:328
-#: application/views/timeline/index.php:357
+#: application/views/timeline/index.php:206
+#: application/views/timeline/index.php:247
+#: application/views/timeline/index.php:281
+#: application/views/timeline/index.php:319
+#: application/views/timeline/index.php:355
+#: application/views/timeline/index.php:390
 msgid "Show QSOs"
 msgstr "QSO'ları göster"
 
@@ -4592,11 +4598,11 @@ msgstr ""
 #: application/views/simplefle/index.php:154
 #: application/views/statistics/initialresult.php:15
 #: application/views/timeline/index.php:198
-#: application/views/timeline/index.php:236
-#: application/views/timeline/index.php:264
-#: application/views/timeline/index.php:294
-#: application/views/timeline/index.php:326
-#: application/views/timeline/index.php:354
+#: application/views/timeline/index.php:242
+#: application/views/timeline/index.php:276
+#: application/views/timeline/index.php:312
+#: application/views/timeline/index.php:350
+#: application/views/timeline/index.php:384
 #: application/views/view_log/partial/log.php:4
 #: application/views/view_log/partial/log_ajax.php:196
 #: application/views/visitor/index.php:151
@@ -4630,7 +4636,7 @@ msgstr "Tarih"
 #: application/views/search/search_result_ajax.php:91
 #: application/views/simplefle/index.php:155
 #: application/views/statistics/initialresult.php:16
-#: application/views/timeline/index.php:355
+#: application/views/timeline/index.php:385
 #: application/views/timeplotter/index.php:5
 #: application/views/view_log/partial/log.php:6
 #: application/views/view_log/partial/log_ajax.php:198
@@ -5163,7 +5169,7 @@ msgstr "ADIF dosyanızdaki POTA Referansı"
 #: application/views/oqrs/status_info.php:4
 #: application/views/sattimers/index.php:39
 #: application/views/stationsetup/stationsetup.php:34
-#: application/views/timeline/index.php:201
+#: application/views/timeline/index.php:204
 #: application/views/usermode/index.php:41
 msgid "Status"
 msgstr "Durum"
@@ -5544,7 +5550,7 @@ msgstr "Toplam QSO"
 #: application/views/qso/edit_ajax.php:308 application/views/qso/index.php:513
 #: application/views/station_profile/create.php:128
 #: application/views/station_profile/edit.php:153
-#: application/views/timeline/index.php:327
+#: application/views/timeline/index.php:351
 #: application/views/timeplotter/index.php:44
 #: application/views/user/modals/first_login_wizard.php:74
 #: application/views/zonechecker/index.php:17
@@ -6209,7 +6215,7 @@ msgstr "DXCC Adı"
 #: application/views/awards/wae/index.php:163
 #: application/views/logbookadvanced/statecheckresult.php:10
 #: application/views/timeline/index.php:199
-#: application/views/timeline/index.php:297
+#: application/views/timeline/index.php:315
 msgid "Prefix"
 msgstr "Prefix"
 
@@ -6491,7 +6497,7 @@ msgstr "IOTA Haritasını Göster"
 #: application/views/search/search_result_ajax.php:19
 #: application/views/stationsetup/stationsetup.php:33
 #: application/views/themes/index.php:82
-#: application/views/timeline/index.php:296 application/views/user/edit.php:256
+#: application/views/timeline/index.php:314 application/views/user/edit.php:256
 #: application/views/user/edit.php:279 application/views/user/edit.php:302
 #: application/views/user/edit.php:325 application/views/user/edit.php:349
 #: application/views/view_log/partial/log_ajax.php:19
@@ -7201,7 +7207,7 @@ msgid "Show WAJA Map"
 msgstr "WAJA Haritasını Göster"
 
 #: application/views/awards/waja/index.php:158
-#: application/views/timeline/index.php:237
+#: application/views/timeline/index.php:243
 msgid "Prefecture"
 msgstr "Şehir"
 
@@ -10406,7 +10412,7 @@ msgstr "Başlangıç Tarihi"
 #: application/views/dayswithqso/index.php:160
 #: application/views/dayswithqso/index.php:182
 #: application/views/lotw/satupdate.php:7
-#: application/views/timeline/index.php:202
+#: application/views/timeline/index.php:205
 msgid "End Date"
 msgstr "Bitiş Tarihi"
 
