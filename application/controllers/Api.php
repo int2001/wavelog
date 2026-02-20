@@ -747,6 +747,7 @@ class API extends CI_Controller {
 		   echo json_encode(['status' => 'failed', 'reason' => "missing api key"]);
 		   die();
 		}
+		$api_user_id = $this->api_model->key_userid($obj['key']);
 		if(!isset($obj['logbook_public_slug'])) {
 		   http_response_code(400);
 		   echo json_encode(['status' => 'failed', 'reason' => "missing fields"]);
@@ -765,6 +766,11 @@ class API extends CI_Controller {
 				$cnfm = null;
 			}
 			$this->load->model('logbooks_model');
+			if(!$this->logbooks_model->public_slug_belongs_to_user($logbook_slug, $api_user_id)) {
+				http_response_code(403);
+				echo json_encode(['status' => 'failed', 'reason' => "logbook does not belong to this api key"]);
+				die();
+			}
 			if($this->logbooks_model->public_slug_exists($logbook_slug)) {
 				$logbook_id = $this->logbooks_model->public_slug_exists_logbook_id($logbook_slug);
 				if($logbook_id != false)
