@@ -824,7 +824,7 @@ class User extends CI_Controller {
 				}
 			}
 
-			if ($this->input->post('user_qso_show_map') !== false) {
+			if ($this->input->post('user_qso_show_map')) {
 				$data['user_qso_show_map'] = $this->input->post('user_qso_show_map', true);
 			} else {
 				$qkey_opt = $this->user_options_model->get_options('qso_tab', array('option_name' => 'map', 'option_key' => 'show'), $this->uri->segment(3))->result();
