@@ -534,6 +534,11 @@ class Logbookadvanced_model extends CI_Model {
 			$conditions[] = "coalesce(COL_DISTANCE, '') = ''";
 		}
 
+		if ($searchCriteria['duration'] !== '*' && $searchCriteria['duration'] !== '') {
+			$conditions[] = "TIMESTAMPDIFF(MINUTE, COL_TIME_ON, COL_TIME_OFF) >= ?";
+			$binding[] = $searchCriteria['duration'];
+        }
+
 		if (($searchCriteria['propmode'] ?? '') == 'None') {
 			$conditions[] = "(trim(COL_PROP_MODE) = '' OR COL_PROP_MODE is null)";
 		} elseif ($searchCriteria['propmode'] !== '') {

@@ -511,11 +511,11 @@
                                 </div>
                             <?php } else if ($active_adapter !== 'dummy') { ?>
                                 <div class="alert alert-danger mt-2 mb-0" role="alert">
-                                    <?= __("Cache is currently using the backup adapter because the primary is unavailable. Check your file permissions, php-extensions and/or if you are using redis/memcached your network connection to the services."); ?>
+                                    <?= __("Cache is currently using the backup adapter because the primary is unavailable. Check your file permissions, PHP extensions, and/or your network connection to the services (if using redis/memcached)."); ?>
                                 </div>
                             <?php } else { ?>
                                 <div class="alert alert-danger mt-2 mb-0" role="alert">
-                                    <?= __("Cache does not work! Currently the system is using a %s adapter. Check your file permissions, php-extensions and/or if you are using redis/memcached your network connection to the services. You can continue using Wavelog, but no values will be cached (which is bad).", "'dummy'"); ?>
+                                    <?= __("Cache does not work! Currently the system is using a %s adapter. Check your file permissions, PHP extensions and/or your network connection to the services (if using redis/memcached). You can continue using Wavelog, but no values will be cached (which is bad).", "'dummy'"); ?>
                                 </div>
                             <?php } ?>
                         </div>

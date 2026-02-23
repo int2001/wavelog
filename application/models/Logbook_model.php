@@ -5954,7 +5954,10 @@ class Logbook_model extends CI_Model {
 		$this->db->group_end();
 		// Only add check for unsupported modes if not empty. Otherwise SQL will fail
 		if (!empty($this->config->item('lotw_unsupported_prop_modes'))) {
-			$this->db->where_not_in('COL_PROP_MODE', $this->config->item('lotw_unsupported_prop_modes'));
+			$this->db->group_start();
+			$this->db->where('COL_PROP_MODE', null);
+			$this->db->or_where_not_in('COL_PROP_MODE', $this->config->item('lotw_unsupported_prop_modes'));
+			$this->db->group_end();
 		}
 		$this->db->where('COL_TIME_ON >=', $start_date);
 		$this->db->where('COL_TIME_ON <=', $end_date);
