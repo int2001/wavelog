@@ -433,7 +433,7 @@ $config['error_views_path'] = '';
 |
 */
 $config['cache_path'] = '';
-$config['cache_adapter'] = 'file';
+$config['cache_adapter'] = 'apcu';
 $config['cache_backup'] = 'file';
 $config['cache_key_prefix'] = '';
 
