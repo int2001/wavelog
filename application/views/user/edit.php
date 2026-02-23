@@ -692,8 +692,8 @@
 										<label for="qsoShowMap"><?= __("Show map at QSO-Window"); ?></label>
 										<?php if(!isset($user_qso_show_map)) { $user_qso_show_map = 1; } ?>
 										<select class="form-select" id="qsoShowMap" name="user_qso_show_map">
-											<option value="1" <?php if ($user_qso_show_map == 1) { echo 'selected="selected"'; } ?>><?= __("Show"); ?></option>
-											<option value="0" <?php if ($user_qso_show_map == 0) { echo 'selected="selected"'; } ?>><?= __("Don't show"); ?></option>
+											<option value="1" <?php if ($user_qso_show_map == 1) { echo 'selected="selected"'; } ?>><?= __("Yes"); ?></option>
+											<option value="0" <?php if ($user_qso_show_map == 0) { echo 'selected="selected"'; } ?>><?= __("No"); ?></option>
 										</select>
 									</div>
 									<div class="row">
