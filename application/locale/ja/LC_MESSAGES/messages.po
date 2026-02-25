@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-23 08:16+0000\n"
-"PO-Revision-Date: 2026-02-19 11:45+0000\n"
+"POT-Creation-Date: 2026-02-24 10:40+0000\n"
+"PO-Revision-Date: 2026-02-25 03:40+0000\n"
 "Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ja/>\n"
@@ -693,7 +693,7 @@ msgstr "コールテスター"
 #: application/controllers/Calltester.php:240
 #: application/controllers/Calltester.php:300
 msgid "CSV Call Tester"
-msgstr ""
+msgstr "CSV コールテスター"
 
 #: application/controllers/Calltester.php:917
 msgid "Callsign Tester"
@@ -3407,12 +3407,12 @@ msgstr "グリッドスクエアゾーンファインダー"
 
 #: application/libraries/Callbook.php:60
 msgid "Lookup not configured. Please review configuration."
-msgstr ""
+msgstr "ルックアップが設定されていません。設定を確認してください。"
 
 #: application/libraries/Callbook.php:61
 #, php-format
 msgid "Error obtaining a session key for callbook. Error: %s"
-msgstr ""
+msgstr "コールブックのセッションキーの取得中にエラーが発生しました。エラー: %s"
 
 #: application/libraries/Callbook.php:200
 msgid "QRZCQ Error"
@@ -10300,6 +10300,38 @@ msgstr "最終更新日時：%s。"
 msgid "Data provided by HAMqsl."
 msgstr "HAMqsl 提供のデータ。"
 
+#: application/views/dashboard/index.php:527
+msgid "K-index: Planetary geomagnetic activity (0-9)"
+msgstr "K指数：惑星の地磁気活動（0-9）"
+
+#: application/views/dashboard/index.php:528
+msgid "A-index: Daily geomagnetic activity index"
+msgstr "A指数: 日次地磁気活動指数"
+
+#: application/views/dashboard/index.php:529
+msgid "Solar Flux Index"
+msgstr "太陽フラックス指数"
+
+#: application/views/dashboard/index.php:530
+msgid "Solar Wind speed (km/s)"
+msgstr "太陽風速度（km/s）"
+
+#: application/views/dashboard/index.php:531
+msgid "Signal Noise ratio"
+msgstr "信号対雑音比"
+
+#: application/views/dashboard/index.php:532
+msgid "X-Ray solar flux level"
+msgstr "X線太陽フラックスレベル"
+
+#: application/views/dashboard/index.php:533
+msgid "Sunspot Number"
+msgstr "太陽黒点数"
+
+#: application/views/dashboard/index.php:534
+msgid "Aurora activity level (Kp borealis)"
+msgstr "オーロラ活動レベル（Kp borealis）"
+
 #: application/views/dayswithqso/index.php:3
 msgid "Number of QSOs for this day of the week"
 msgstr "この曜日のQSO数"
@@ -10861,6 +10893,9 @@ msgid ""
 "unavailable. Check your file permissions, PHP extensions, and/or your "
 "network connection to the services (if using redis/memcached)."
 msgstr ""
+"キャッシュは現在、プライマリが利用できないためバックアップアダプターを使用し"
+"ています。ファイルのアクセス権限、PHP拡張機能、およびサービスへのネットワーク"
+"接続（redis/memcachedを使用している場合）を確認してください。"
 
 #: application/views/debug/index.php:518
 #, php-format
@@ -10870,6 +10905,10 @@ msgid ""
 "services (if using redis/memcached). You can continue using Wavelog, but no "
 "values will be cached (which is bad)."
 msgstr ""
+"キャッシュが機能していません！現在システムは%sアダプターを使用しています。"
+"ファイルの権限、PHP拡張機能、およびサービスへのネットワーク接続（redis/"
+"memcachedを使用している場合）を確認してください。Wavelogは引き続き使用できま"
+"すが、値はキャッシュされません（これは問題です）。"
 
 #: application/views/debug/index.php:526
 msgid "Available Adapters"
@@ -12735,7 +12774,7 @@ msgstr "印刷"
 #: application/views/labels/index.php:4
 #: application/views/logbookadvanced/index.php:82
 msgid "Label Print Options"
-msgstr ""
+msgstr "ラベル印刷オプション"
 
 #: application/views/labels/index.php:34
 msgid "Create New Label Type"
@@ -12800,7 +12839,7 @@ msgstr "QSOを表示"
 #: application/views/labels/startatform.php:21
 #: application/views/logbookadvanced/startatform.php:20
 msgid "Include my call?"
-msgstr ""
+msgstr "私の通話を含めますか?"
 
 #: application/views/labels/startatform.php:33
 #: application/views/logbookadvanced/startatform.php:32
@@ -12834,7 +12873,7 @@ msgstr "印刷開始時刻は？"
 #: application/views/labels/startatform.php:100
 #: application/views/logbookadvanced/startatform.php:111
 msgid "Enter the starting position for label printing"
-msgstr ""
+msgstr "ラベル印刷の開始位置を入力してください"
 
 #: application/views/logbookadvanced/callbookdialog.php:5
 msgid ""
@@ -13784,7 +13823,7 @@ msgstr "間隔"
 msgid ""
 "Duration in minutes. Search will look for durations greater than or equal to "
 "this value."
-msgstr ""
+msgstr "分単位の時間指定。この値以上の時間を検索します。"
 
 #: application/views/logbookadvanced/index.php:523
 msgid "Sort column"
@@ -18331,7 +18370,7 @@ msgstr "QSOタブにフィールドを表示"
 
 #: application/views/user/edit.php:692
 msgid "Show map at QSO-Window"
-msgstr ""
+msgstr "QSOウィンドウで地図を表示"
 
 #: application/views/user/edit.php:701
 msgid ""
@@ -19369,6 +19408,30 @@ msgstr "CQz geojson"
 #~ msgstr ""
 #~ "プライマリ アダプターが使用できないため、キャッシュは現在バックアップ アダ"
 #~ "プターを使用しています。"
+
+#~ msgid "Don't show"
+#~ msgstr "表示しない"
+
+#~ msgid ""
+#~ "Cache is currently using the backup adapter because the primary is "
+#~ "unavailable. Check your file permissions, php-extensions and/or if you "
+#~ "are using redis/memcached your network connection to the services."
+#~ msgstr ""
+#~ "キャッシュは現在、プライマリが利用できないためバックアップアダプターを使用"
+#~ "しています。ファイルのアクセス権限、PHP拡張機能、およびRedis/Memcachedを使"
+#~ "用している場合はサービスへのネットワーク接続を確認してください。"
+
+#, php-format
+#~ msgid ""
+#~ "Cache does not work! Currently the system is using a %s adapter. Check "
+#~ "your file permissions, php-extensions and/or if you are using redis/"
+#~ "memcached your network connection to the services. You can continue using "
+#~ "Wavelog, but no values will be cached (which is bad)."
+#~ msgstr ""
+#~ "キャッシュが機能していません！現在システムは%sアダプターを使用しています。"
+#~ "ファイルの権限、PHP拡張機能、およびRedis/Memcachedを使用している場合はサー"
+#~ "ビスへのネットワーク接続を確認してください。Wavelogは引き続き使用できます"
+#~ "が、値はキャッシュされません（これは問題です）。"
 
 #~ msgid "Error obtaining a session key for HamQTH query"
 #~ msgstr "HamQTHクエリのセッションキーの取得エラー"

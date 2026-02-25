@@ -23,20 +23,21 @@
 # Jerry <jerry19980425@gmail.com>, 2025, 2026.
 # MCyiqiehuanying <me@sharedow.cn>, 2025.
 # FATDEER <fatdeer@yeah.net>, 2025.
+# 范明明 <mingming@live.com>, 2026.
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-23 08:16+0000\n"
-"PO-Revision-Date: 2026-02-09 22:54+0000\n"
-"Last-Translator: Jerry <jerry19980425@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
-"org/projects/wavelog/main-translation/zh_Hans/>\n"
+"POT-Creation-Date: 2026-02-24 10:40+0000\n"
+"PO-Revision-Date: 2026-02-25 03:40+0000\n"
+"Last-Translator: 范明明 <mingming@live.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translate.wavelog.org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16\n"
 
 #: application/controllers/Accumulated.php:12
 #: application/controllers/Activators.php:13
@@ -711,7 +712,7 @@ msgstr "通联记录检测器"
 #: application/controllers/Calltester.php:240
 #: application/controllers/Calltester.php:300
 msgid "CSV Call Tester"
-msgstr ""
+msgstr "CSV呼叫测试器"
 
 #: application/controllers/Calltester.php:917
 msgid "Callsign Tester"
@@ -2443,7 +2444,7 @@ msgstr "设置"
 
 #: application/controllers/Radio.php:59
 msgid "WebSocket"
-msgstr ""
+msgstr "WebSocket"
 
 #: application/controllers/Radio.php:65 application/controllers/Radio.php:124
 msgid "Default (click to release)"
@@ -2513,11 +2514,11 @@ msgstr "删除"
 
 #: application/controllers/Radio.php:136
 msgid "WebSocket is currently default (click to release)"
-msgstr ""
+msgstr "WebSocket 目前为默认状态（点击取消）"
 
 #: application/controllers/Radio.php:138
 msgid "Set WebSocket as default radio"
-msgstr ""
+msgstr "将 WebSocket 设为默认电台接口"
 
 #: application/controllers/Radio.php:142
 msgid "No CAT interfaced radios found."
@@ -2525,7 +2526,7 @@ msgstr "未检测到与 CAT 相连的电台设备。"
 
 #: application/controllers/Radio.php:143
 msgid "You can still set the WebSocket option as your default radio."
-msgstr ""
+msgstr "你仍可将 WebSocket 设为默认电台接口。"
 
 #: application/controllers/Radio.php:160 application/views/radio/index.php:2
 msgid "Edit CAT Settings"
@@ -2533,7 +2534,7 @@ msgstr "编辑 CAT 设置"
 
 #: application/controllers/Radio.php:332
 msgid "Radio removed successfully"
-msgstr ""
+msgstr "电台已成功移除"
 
 #: application/controllers/Reg1test.php:22
 msgid "Export EDI"
@@ -3368,12 +3369,12 @@ msgstr "网格区域查找器"
 
 #: application/libraries/Callbook.php:60
 msgid "Lookup not configured. Please review configuration."
-msgstr ""
+msgstr "查找功能未配置，请检查配置。"
 
 #: application/libraries/Callbook.php:61
 #, php-format
 msgid "Error obtaining a session key for callbook. Error: %s"
-msgstr ""
+msgstr "获取呼号簿会话密钥时出错：%s"
 
 #: application/libraries/Callbook.php:200
 msgid "QRZCQ Error"
@@ -8073,15 +8074,15 @@ msgstr "DX 地图"
 
 #: application/views/bandmap/list.php:545
 msgid "Search Column"
-msgstr ""
+msgstr "搜索列"
 
 #: application/views/bandmap/list.php:546
 msgid "All Columns"
-msgstr ""
+msgstr "全部列"
 
 #: application/views/bandmap/list.php:547
 msgid "Spot Info"
-msgstr ""
+msgstr "Spot 信息"
 
 #: application/views/bandmap/list.php:552
 #: application/views/bandmap/list.php:592
@@ -8092,7 +8093,7 @@ msgstr "子模式"
 
 #: application/views/bandmap/list.php:554
 msgid "DX Station"
-msgstr ""
+msgstr "DX 电台"
 
 #: application/views/bandmap/list.php:558
 #: application/views/bandmap/list.php:597
@@ -10067,6 +10068,38 @@ msgstr "上次更新时间：%s。"
 msgid "Data provided by HAMqsl."
 msgstr "数据由 HAMqsl 提供。"
 
+#: application/views/dashboard/index.php:527
+msgid "K-index: Planetary geomagnetic activity (0-9)"
+msgstr "K-index: 行星地磁活动指数 (0-9)"
+
+#: application/views/dashboard/index.php:528
+msgid "A-index: Daily geomagnetic activity index"
+msgstr "A-index: 日地磁活动指数"
+
+#: application/views/dashboard/index.php:529
+msgid "Solar Flux Index"
+msgstr "太阳通量指数"
+
+#: application/views/dashboard/index.php:530
+msgid "Solar Wind speed (km/s)"
+msgstr "太阳风速度 (km/s)"
+
+#: application/views/dashboard/index.php:531
+msgid "Signal Noise ratio"
+msgstr "信噪比"
+
+#: application/views/dashboard/index.php:532
+msgid "X-Ray solar flux level"
+msgstr "X射线太阳通量等级"
+
+#: application/views/dashboard/index.php:533
+msgid "Sunspot Number"
+msgstr "太阳黑子数"
+
+#: application/views/dashboard/index.php:534
+msgid "Aurora activity level (Kp borealis)"
+msgstr "极光活动等级(Kp 指数)"
+
 #: application/views/dayswithqso/index.php:3
 msgid "Number of QSOs for this day of the week"
 msgstr "一周内每日通联 QSO 数"
@@ -10590,7 +10623,7 @@ msgstr "连接器路径%s"
 #: application/views/debug/index.php:485
 msgctxt "Cache Key Prefix"
 msgid "Key Prefix"
-msgstr ""
+msgstr "键前缀"
 
 #: application/views/debug/index.php:491
 msgid "Cache Details"
@@ -10604,7 +10637,7 @@ msgstr "总容量"
 #: application/views/debug/index.php:500
 msgctxt "Cache Key"
 msgid "Number of Keys"
-msgstr ""
+msgstr "键数量"
 
 #: application/views/debug/index.php:510
 msgid "Cache is working properly. Everything okay!"
@@ -10616,6 +10649,8 @@ msgid ""
 "unavailable. Check your file permissions, PHP extensions, and/or your "
 "network connection to the services (if using redis/memcached)."
 msgstr ""
+"因主适配器不可用缓存启用备用适配器。请检查文件权限、PHP 扩展，以及 redis/"
+"memcached 服务的网络连接(如使用该缓存服务)。"
 
 #: application/views/debug/index.php:518
 #, php-format
@@ -10625,6 +10660,9 @@ msgid ""
 "services (if using redis/memcached). You can continue using Wavelog, but no "
 "values will be cached (which is bad)."
 msgstr ""
+"缓存失效！当前系统正在使用 %s 适配器。检查你的文件权限、PHP 扩展或者到网络连"
+"接(如使用 redis/memcached)。你可以继续使用 Wavelog，但不会缓存任何数据(这会有"
+"一些影响)。"
 
 #: application/views/debug/index.php:526
 msgid "Available Adapters"
@@ -11892,7 +11930,7 @@ msgstr "网格"
 
 #: application/views/interface_assets/footer.php:1297
 msgid "Location Lookup failed. Please check browser console."
-msgstr ""
+msgstr "位置查询失败，请检查浏览器控制台。"
 
 #: application/views/interface_assets/footer.php:1448
 #: application/views/interface_assets/footer.php:1452
@@ -12444,7 +12482,7 @@ msgstr "打印"
 #: application/views/labels/index.php:4
 #: application/views/logbookadvanced/index.php:82
 msgid "Label Print Options"
-msgstr ""
+msgstr "标签打印选项"
 
 #: application/views/labels/index.php:34
 msgid "Create New Label Type"
@@ -12509,7 +12547,7 @@ msgstr "查看 QSO"
 #: application/views/labels/startatform.php:21
 #: application/views/logbookadvanced/startatform.php:20
 msgid "Include my call?"
-msgstr ""
+msgstr "包含我的呼号？"
 
 #: application/views/labels/startatform.php:33
 #: application/views/logbookadvanced/startatform.php:32
@@ -12542,7 +12580,7 @@ msgstr "开始打印编号？"
 #: application/views/labels/startatform.php:100
 #: application/views/logbookadvanced/startatform.php:111
 msgid "Enter the starting position for label printing"
-msgstr ""
+msgstr "输入标签打印的起始位置"
 
 #: application/views/logbookadvanced/callbookdialog.php:5
 msgid ""
@@ -12772,7 +12810,7 @@ msgstr "数据修复工具"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:6
 msgid "Wiki Help"
-msgstr "Wiki帮助"
+msgstr "Wiki 帮助"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:8
 msgid ""
@@ -12784,7 +12822,7 @@ msgstr ""
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:19
 msgid "All Station Locations"
-msgstr ""
+msgstr "全部电台位置"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:33
 msgid "Check all QSOs in the logbook for incorrect CQ Zones"
@@ -13473,7 +13511,7 @@ msgstr "持续时间"
 msgid ""
 "Duration in minutes. Search will look for durations greater than or equal to "
 "this value."
-msgstr ""
+msgstr "时长(分钟)。搜索将查找大于或等于该值的时长。"
 
 #: application/views/logbookadvanced/index.php:523
 msgid "Sort column"
@@ -15755,6 +15793,8 @@ msgid ""
 "you. This allows you to have a default radio that is automatically selected "
 "when you log in, while still being able to use other radios if you want."
 msgstr ""
+"作为俱乐部台操作员，你可以为自己设置默认电台。登录时会自动选中该电台，同时也"
+"可按需使用其他电台。"
 
 #: application/views/radio/index.php:27
 msgid ""
@@ -15762,11 +15802,13 @@ msgid ""
 "to have a default radio that is automatically selected when you log in, "
 "while still being able to use other radios if you want."
 msgstr ""
+"作为普通用户，你可以为自己设置默认电台。登录时会自动选中该电台，同时也可按需"
+"使用其他电台。"
 
 #: application/views/radio/index.php:30
 #, php-format
 msgid "You can find out how to use the %sradio functions%s in the wiki."
-msgstr ""
+msgstr "你可在 Wiki 中了解如何使用%s电台功能%s。"
 
 #: application/views/radio/index.php:35
 msgid "Please wait..."
@@ -17855,7 +17897,7 @@ msgstr "在 QSO 选项卡上显示字段"
 
 #: application/views/user/edit.php:692
 msgid "Show map at QSO-Window"
-msgstr ""
+msgstr "在QSO窗口显示地图"
 
 #: application/views/user/edit.php:701
 msgid ""
@@ -18546,7 +18588,7 @@ msgstr "其他路径"
 msgid ""
 "A single gridsquare was entered into the VUCC gridsquares field which should "
 "contain two or four gridsquares instead of a single grid."
-msgstr ""
+msgstr "VUCC 网格字段仅输入了单个网格，该字段应输入两个或四个网格。"
 
 #: application/views/view_log/qso.php:335
 msgid "Antenna Azimuth"

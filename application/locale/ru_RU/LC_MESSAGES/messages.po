@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-23 08:16+0000\n"
-"PO-Revision-Date: 2026-02-17 12:41+0000\n"
+"POT-Creation-Date: 2026-02-24 10:40+0000\n"
+"PO-Revision-Date: 2026-02-24 10:41+0000\n"
 "Last-Translator: Michael Skolsky <r1blh@yandex.ru>\n"
 "Language-Team: Russian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ru/>\n"
@@ -3426,12 +3426,12 @@ msgstr "Поиск зоны по квадрату"
 
 #: application/libraries/Callbook.php:60
 msgid "Lookup not configured. Please review configuration."
-msgstr ""
+msgstr "Поиск не настроен. Пожалуйста, проверьте конфигурацию."
 
 #: application/libraries/Callbook.php:61
 #, php-format
 msgid "Error obtaining a session key for callbook. Error: %s"
-msgstr ""
+msgstr "Ошибка при получении ключа сеанса для колбука. Ошибка: %s"
 
 #: application/libraries/Callbook.php:200
 msgid "QRZCQ Error"
@@ -10405,6 +10405,38 @@ msgstr "Последнее обновление в %s."
 msgid "Data provided by HAMqsl."
 msgstr "Данные предоставлены HAMqsl."
 
+#: application/views/dashboard/index.php:527
+msgid "K-index: Planetary geomagnetic activity (0-9)"
+msgstr ""
+
+#: application/views/dashboard/index.php:528
+msgid "A-index: Daily geomagnetic activity index"
+msgstr ""
+
+#: application/views/dashboard/index.php:529
+msgid "Solar Flux Index"
+msgstr ""
+
+#: application/views/dashboard/index.php:530
+msgid "Solar Wind speed (km/s)"
+msgstr ""
+
+#: application/views/dashboard/index.php:531
+msgid "Signal Noise ratio"
+msgstr ""
+
+#: application/views/dashboard/index.php:532
+msgid "X-Ray solar flux level"
+msgstr ""
+
+#: application/views/dashboard/index.php:533
+msgid "Sunspot Number"
+msgstr ""
+
+#: application/views/dashboard/index.php:534
+msgid "Aurora activity level (Kp borealis)"
+msgstr ""
+
 #: application/views/dayswithqso/index.php:3
 msgid "Number of QSOs for this day of the week"
 msgstr "Количество QSO за этот день недели"
@@ -10974,6 +11006,9 @@ msgid ""
 "unavailable. Check your file permissions, PHP extensions, and/or your "
 "network connection to the services (if using redis/memcached)."
 msgstr ""
+"В данный момент кэш использует резервный адаптер, потому что основной "
+"недоступен. Проверьте разрешения на файлы, расширения PHP и/или ваше сетевое "
+"соединение с сервисами (если используется redis/memcached)."
 
 #: application/views/debug/index.php:518
 #, php-format
@@ -10983,6 +11018,10 @@ msgid ""
 "services (if using redis/memcached). You can continue using Wavelog, but no "
 "values will be cached (which is bad)."
 msgstr ""
+"Кэш не работает! В настоящее время система использует адаптер %s. Проверьте, "
+"как установлены права доступа к файлам, расширения PHP и/или соединение с "
+"сетью для сервисов (если используете redis/memcached). Вы можете продолжать "
+"использовать Wavelog, но значения не будут кэшироваться (что плохо)."
 
 #: application/views/debug/index.php:526
 msgid "Available Adapters"
@@ -12294,6 +12333,7 @@ msgstr "Квадраты"
 #: application/views/interface_assets/footer.php:1297
 msgid "Location Lookup failed. Please check browser console."
 msgstr ""
+"Поиск местоположения не удался. Пожалуйста, проверьте консоль браузера."
 
 #: application/views/interface_assets/footer.php:1448
 #: application/views/interface_assets/footer.php:1452
@@ -12853,7 +12893,7 @@ msgstr "Печать"
 #: application/views/labels/index.php:4
 #: application/views/logbookadvanced/index.php:82
 msgid "Label Print Options"
-msgstr ""
+msgstr "Параметры печати наклеек"
 
 #: application/views/labels/index.php:34
 msgid "Create New Label Type"
@@ -12918,7 +12958,7 @@ msgstr "Просмотр QSO"
 #: application/views/labels/startatform.php:21
 #: application/views/logbookadvanced/startatform.php:20
 msgid "Include my call?"
-msgstr ""
+msgstr "Включить мой позывной?"
 
 #: application/views/labels/startatform.php:33
 #: application/views/logbookadvanced/startatform.php:32
@@ -12952,7 +12992,7 @@ msgstr "С какой позиции на листе начать печать?"
 #: application/views/labels/startatform.php:100
 #: application/views/logbookadvanced/startatform.php:111
 msgid "Enter the starting position for label printing"
-msgstr ""
+msgstr "Введите начальную позицию для печати наклеек"
 
 #: application/views/logbookadvanced/callbookdialog.php:5
 msgid ""
@@ -13924,6 +13964,8 @@ msgid ""
 "Duration in minutes. Search will look for durations greater than or equal to "
 "this value."
 msgstr ""
+"Продолжительность в минутах. Поиск будет искать продолжительность, большую "
+"или равную этому значению."
 
 #: application/views/logbookadvanced/index.php:523
 msgid "Sort column"
@@ -18509,7 +18551,7 @@ msgstr "Показать поля на вкладке QSO"
 
 #: application/views/user/edit.php:692
 msgid "Show map at QSO-Window"
-msgstr ""
+msgstr "Отображение карты в окне QSO"
 
 #: application/views/user/edit.php:701
 msgid ""
@@ -19251,6 +19293,8 @@ msgid ""
 "A single gridsquare was entered into the VUCC gridsquares field which should "
 "contain two or four gridsquares instead of a single grid."
 msgstr ""
+"В поле VUCC gridsquares был введён один квадрат, должно быть введено два или "
+"четыре квадрата вместо одного."
 
 #: application/views/view_log/qso.php:335
 msgid "Antenna Azimuth"

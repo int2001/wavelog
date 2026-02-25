@@ -6,12 +6,13 @@
 # "Francisco (F4VSE)" <kikosgc@users.noreply.github.com>, 2024, 2025.
 # Fabian Berg <fabian.berg@hb9hil.org>, 2024.
 # "Erkin Mercan (TA4AQG-SP9AQG)" <ekomeko066@gmail.com>, 2025.
+# iv3cvn <ricentis@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-23 08:16+0000\n"
-"PO-Revision-Date: 2026-01-24 15:29+0000\n"
-"Last-Translator: Luca <lucabennati1996@gmail.com>\n"
+"POT-Creation-Date: 2026-02-24 10:40+0000\n"
+"PO-Revision-Date: 2026-02-22 03:17+0000\n"
+"Last-Translator: iv3cvn <ricentis@gmail.com>\n"
 "Language-Team: Italian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/it/>\n"
 "Language: it_IT\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16\n"
 
 #: application/controllers/Accumulated.php:12
 #: application/controllers/Activators.php:13
@@ -574,7 +575,7 @@ msgstr "Totale locatori collegati"
 
 #: application/controllers/Awards.php:1066
 msgid "Fred Fish Memorial Award (FFMA)"
-msgstr "Memoriale Fred Fish (FFMA)"
+msgstr "Fred Fish Memorial Award (FFMA)"
 
 #: application/controllers/Awards.php:1272
 #: application/views/interface_assets/header.php:196
@@ -689,7 +690,7 @@ msgstr " e satellite "
 
 #: application/controllers/Calltester.php:31
 msgid "Call Tester"
-msgstr ""
+msgstr "Call Tester"
 
 #: application/controllers/Calltester.php:240
 #: application/controllers/Calltester.php:300
@@ -969,7 +970,7 @@ msgstr "Chiave/i eliminata/e."
 
 #: application/controllers/Debug.php:114
 msgid "(empty)"
-msgstr ""
+msgstr "(vuoto)"
 
 #: application/controllers/Debug.php:132
 msgid "Debug"
@@ -1459,7 +1460,7 @@ msgstr "eQSL"
 
 #: application/controllers/Logbook.php:990
 msgid "All callbook lookups failed or provided no results."
-msgstr ""
+msgstr "Tutte le ricerche del nominativo non hanno prodotto alcun risultato."
 
 #: application/controllers/Logbook.php:1455
 #: application/controllers/Radio.php:49
@@ -1639,7 +1640,7 @@ msgstr "RST (R)"
 #: application/views/view_log/qso.php:705
 #: application/views/visitor/index.php:15
 msgid "Country"
-msgstr "Paese"
+msgstr "Country"
 
 #: application/controllers/Logbook.php:1459
 #: application/views/awards/iota/index.php:198
@@ -2459,7 +2460,7 @@ msgstr "Impostazioni"
 
 #: application/controllers/Radio.php:59
 msgid "WebSocket"
-msgstr ""
+msgstr "WebSocket"
 
 #: application/controllers/Radio.php:65 application/controllers/Radio.php:124
 msgid "Default (click to release)"
@@ -2533,7 +2534,7 @@ msgstr ""
 
 #: application/controllers/Radio.php:138
 msgid "Set WebSocket as default radio"
-msgstr ""
+msgstr "Imposta WebSocket come radio predefinita"
 
 #: application/controllers/Radio.php:142
 msgid "No CAT interfaced radios found."
@@ -2542,6 +2543,7 @@ msgstr "Nessuna radio interfacciata via CAT trovata."
 #: application/controllers/Radio.php:143
 msgid "You can still set the WebSocket option as your default radio."
 msgstr ""
+"Puoi comunque impostare l'opzione WebSocket come tua radio predefinita."
 
 #: application/controllers/Radio.php:160 application/views/radio/index.php:2
 msgid "Edit CAT Settings"
@@ -2549,7 +2551,7 @@ msgstr "Modifica impostazioni CAT"
 
 #: application/controllers/Radio.php:332
 msgid "Radio removed successfully"
-msgstr ""
+msgstr "Radio rimossa con successo"
 
 #: application/controllers/Reg1test.php:22
 msgid "Export EDI"
@@ -2667,7 +2669,7 @@ msgstr ""
 #: application/controllers/Simplefle.php:24
 #: application/views/interface_assets/header.php:137
 msgid "Simple Fast Log Entry"
-msgstr "Simple Fast Log Entry"
+msgstr "Inserimento veloce log"
 
 #: application/controllers/Staticmap.php:152
 #: application/controllers/Visitor.php:76
@@ -3420,7 +3422,7 @@ msgstr "Trova zona del locatore"
 
 #: application/libraries/Callbook.php:60
 msgid "Lookup not configured. Please review configuration."
-msgstr ""
+msgstr "Ricerca dei nominativi non configurata. Ricontrolla la configurazione."
 
 #: application/libraries/Callbook.php:61
 #, php-format
@@ -3583,7 +3585,7 @@ msgstr "HRDlog: nessun profilo di stazione con credenziali HRDlog trovate."
 
 #: application/models/Logbook_model.php:311
 msgid "Station not accessible"
-msgstr ""
+msgstr "Stazione non accessibile"
 
 #: application/models/Logbook_model.php:1299
 msgid "Station ID not allowed"
@@ -4524,7 +4526,7 @@ msgstr "Non ho trovato nulla!"
 #: application/views/view_log/qso.php:83 application/views/view_log/qso.php:684
 #: application/views/zonechecker/result.php:50
 msgid "Callsign"
-msgstr "Indicativo di chiamata"
+msgstr "Callsign"
 
 #: application/views/activators/index.php:99
 msgid "Count"
@@ -6234,7 +6236,7 @@ msgstr "(C)lublog"
 
 #: application/views/awards/dxcc/index.php:269
 msgid "(W)orked"
-msgstr "(W) Collegato"
+msgstr "(W) Lavorato"
 
 #: application/views/awards/dxcc/index.php:275
 msgid "DXCC Name"
@@ -8087,7 +8089,7 @@ msgstr "Nessuna"
 #: application/views/contesting/index.php:160
 #: application/views/qso/index.php:414
 msgid "Live - WebSocket"
-msgstr ""
+msgstr "Live - WebSocket"
 
 #: application/views/bandmap/list.php:243 application/views/qso/index.php:416
 msgid "Polling - "
@@ -8111,7 +8113,7 @@ msgstr "Attiva filtro continente Africa"
 
 #: application/views/bandmap/list.php:256
 msgid "Toggle Antarctica continent filter"
-msgstr "Attiva/disattiva il filtro del continente Antarctica"
+msgstr "Attiva/disattiva il filtro del continente Antartide"
 
 #: application/views/bandmap/list.php:257
 msgid "Toggle Asia continent filter"
@@ -8335,11 +8337,11 @@ msgstr ""
 
 #: application/views/bandmap/list.php:546
 msgid "All Columns"
-msgstr ""
+msgstr "Tutte le colonne"
 
 #: application/views/bandmap/list.php:547
 msgid "Spot Info"
-msgstr ""
+msgstr "Informazioni sullo Spot"
 
 #: application/views/bandmap/list.php:552
 #: application/views/bandmap/list.php:592
@@ -8350,7 +8352,7 @@ msgstr "Sottomodo"
 
 #: application/views/bandmap/list.php:554
 msgid "DX Station"
-msgstr ""
+msgstr "Stazione DX"
 
 #: application/views/bandmap/list.php:558
 #: application/views/bandmap/list.php:597
@@ -8400,7 +8402,7 @@ msgstr "Nominativo segnalato"
 
 #: application/views/bandmap/list.php:596
 msgid "Flag"
-msgstr ""
+msgstr "Bandiera"
 
 #: application/views/bandmap/list.php:597
 msgid "DXCC Entity"
@@ -9325,7 +9327,7 @@ msgstr ""
 
 #: application/views/club/permissions.php:294
 msgid "User Callsign"
-msgstr "Indicativo di chiamata dell'utente"
+msgstr "Callsign dell'utente"
 
 #: application/views/club/permissions.php:313
 msgid "Notify the user via email about the change"
@@ -9338,7 +9340,7 @@ msgstr "Sei sicuro di voler cancellare questo utente dal club/sezione?"
 #: application/views/club/permissions.php:347
 #, php-format
 msgid "Callsign: %s"
-msgstr "Indicativo di chiamata: %s"
+msgstr "Callsign: %s"
 
 #: application/views/club/permissions.php:348
 #, php-format
@@ -9395,7 +9397,7 @@ msgstr "Nome del profilo"
 #: application/views/oqrs/showrequests.php:91
 #: application/views/qrz/export.php:40 application/views/webadif/export.php:42
 msgid "Station callsign"
-msgstr "Indicativo di chiamata della stazione"
+msgstr "Callsign della stazione"
 
 #: application/views/clublog/export.php:36
 #: application/views/hrdlog/export.php:36 application/views/qrz/export.php:41
@@ -9817,7 +9819,7 @@ msgstr "Progressivo + Locatore + Exchange"
 #: application/views/operator/index.php:5
 #: application/views/qso/edit_ajax.php:678 application/views/qso/index.php:454
 msgid "Operator Callsign"
-msgstr "Indicativo di chiamata dell'operatore"
+msgstr "Callsign dell'operatore"
 
 #: application/views/contesting/index.php:50
 #: application/views/contesting/index.php:55
@@ -10390,6 +10392,38 @@ msgstr "Ultimo aggiornamento alle %s."
 msgid "Data provided by HAMqsl."
 msgstr "Dati forniti da HAMqsl."
 
+#: application/views/dashboard/index.php:527
+msgid "K-index: Planetary geomagnetic activity (0-9)"
+msgstr ""
+
+#: application/views/dashboard/index.php:528
+msgid "A-index: Daily geomagnetic activity index"
+msgstr ""
+
+#: application/views/dashboard/index.php:529
+msgid "Solar Flux Index"
+msgstr ""
+
+#: application/views/dashboard/index.php:530
+msgid "Solar Wind speed (km/s)"
+msgstr ""
+
+#: application/views/dashboard/index.php:531
+msgid "Signal Noise ratio"
+msgstr ""
+
+#: application/views/dashboard/index.php:532
+msgid "X-Ray solar flux level"
+msgstr ""
+
+#: application/views/dashboard/index.php:533
+msgid "Sunspot Number"
+msgstr ""
+
+#: application/views/dashboard/index.php:534
+msgid "Aurora activity level (Kp borealis)"
+msgstr ""
+
 #: application/views/dayswithqso/index.php:3
 msgid "Number of QSOs for this day of the week"
 msgstr "Numero di QSO per questo giorno della settimana"
@@ -10653,25 +10687,25 @@ msgstr "Carica File"
 
 #: application/views/debug/index.php:2
 msgid "Are you sure you want to clear the cache?"
-msgstr ""
+msgstr "Sei sicuro di voler svuotare la cache?"
 
 #: application/views/debug/index.php:3
 msgid "Failed to clear cache!"
-msgstr ""
+msgstr "Pulizia cache fallita!"
 
 #: application/views/debug/index.php:4
 #, php-format
 msgid "Last version check: %s"
-msgstr ""
+msgstr "Controllo ultima versione: %s"
 
 #: application/views/debug/index.php:5
 msgid "Wavelog is up to date!"
-msgstr ""
+msgstr "Wavelog è aggiornato!"
 
 #: application/views/debug/index.php:6
 #, php-format
 msgid "There is a newer version available: %s"
-msgstr ""
+msgstr "È disponibile una nuova versione: %s"
 
 #: application/views/debug/index.php:7
 msgid "The Remote Repository doesn't know your branch."
@@ -10903,27 +10937,27 @@ msgstr "Non installato"
 
 #: application/views/debug/index.php:452
 msgid "Cache Information"
-msgstr ""
+msgstr "Informazioni sulla cache"
 
 #: application/views/debug/index.php:456
 msgid "Current Configuration"
-msgstr ""
+msgstr "Configurazione attuale"
 
 #: application/views/debug/index.php:459
 msgctxt "Cache Adapter"
 msgid "Primary adapter"
-msgstr ""
+msgstr "Adattatore primario"
 
 #: application/views/debug/index.php:470
 msgctxt "Cache Backup Adapter (Fallback)"
 msgid "Backup adapter"
-msgstr ""
+msgstr "Adattatore secondario"
 
 #: application/views/debug/index.php:481
 #, php-format
 msgctxt "Cache Path"
 msgid "Path for %s adapter"
-msgstr ""
+msgstr "Percorso per l'adattatore %s"
 
 #: application/views/debug/index.php:485
 msgctxt "Cache Key Prefix"
@@ -10932,21 +10966,21 @@ msgstr ""
 
 #: application/views/debug/index.php:491
 msgid "Cache Details"
-msgstr ""
+msgstr "Dettagli cache"
 
 #: application/views/debug/index.php:494
 msgctxt "Cache Details"
 msgid "Total Size"
-msgstr ""
+msgstr "Dimensione totale"
 
 #: application/views/debug/index.php:500
 msgctxt "Cache Key"
 msgid "Number of Keys"
-msgstr ""
+msgstr "Numero di tasti"
 
 #: application/views/debug/index.php:510
 msgid "Cache is working properly. Everything okay!"
-msgstr ""
+msgstr "La cache sta lavorando correttamente. Tutto ok!"
 
 #: application/views/debug/index.php:514
 msgid ""
@@ -10966,11 +11000,11 @@ msgstr ""
 
 #: application/views/debug/index.php:526
 msgid "Available Adapters"
-msgstr ""
+msgstr "Adattatori disponibili"
 
 #: application/views/debug/index.php:543
 msgid "Clear Cache"
-msgstr ""
+msgstr "Svuota la cache"
 
 #: application/views/debug/index.php:590
 msgid "Git Information"
@@ -11659,7 +11693,7 @@ msgid ""
 "Use this if you have lots of QSOs to upload to eQSL it will save the server "
 "timing out."
 msgstr ""
-"Scegli questa opzione se hai manualmente caricato tutti i tuoi QSO su eQSL o "
+"Scegli questa opzione se hai caricato manualmente tutti i tuoi QSO su eQSL o "
 "se l'ultima richiesta è andata in timeout."
 
 #: application/views/eqslcard/index.php:10
@@ -12288,6 +12322,8 @@ msgstr "Locatori"
 #: application/views/interface_assets/footer.php:1297
 msgid "Location Lookup failed. Please check browser console."
 msgstr ""
+"Ricerca della posizione non riuscita. Si prega di controllare la console del "
+"browser."
 
 #: application/views/interface_assets/footer.php:1448
 #: application/views/interface_assets/footer.php:1452
@@ -13210,7 +13246,7 @@ msgstr ""
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:19
 msgid "All Station Locations"
-msgstr ""
+msgstr "Tutte le locations delle stazioni"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:33
 msgid "Check all QSOs in the logbook for incorrect CQ Zones"
@@ -16086,10 +16122,12 @@ msgid ""
 "You have already filled in a callsign. First finish this QSO before filling "
 "the last spot from DXcluster."
 msgstr ""
+"Hai già inserito un nominativo. Completa questo QSO prima di inserire "
+"l'ultimo spot dal DXcluster."
 
 #: application/views/qso/index.php:47
 msgid "No spots found in this frequency."
-msgstr ""
+msgstr "Nessuno spot trovato in questa frequenza."
 
 #: application/views/qso/index.php:93
 msgid "LIVE"
@@ -16297,6 +16335,10 @@ msgid ""
 "you. This allows you to have a default radio that is automatically selected "
 "when you log in, while still being able to use other radios if you want."
 msgstr ""
+"Come operatore di stazione del club, puoi impostare una radio predefinita "
+"che si applica solo a te. Questo ti consente di avere una radio predefinita "
+"che viene selezionata automaticamente quando accedi, pur potendo utilizzare "
+"altre radio se lo desideri."
 
 #: application/views/radio/index.php:27
 msgid ""
@@ -16304,11 +16346,15 @@ msgid ""
 "to have a default radio that is automatically selected when you log in, "
 "while still being able to use other radios if you want."
 msgstr ""
+"Come utente normale, puoi impostare una radio predefinita per te stesso. "
+"Questo ti permette di avere una radio predefinita che viene selezionata "
+"automaticamente quando effettui l'accesso, pur potendo utilizzare altre "
+"radio se lo desideri."
 
 #: application/views/radio/index.php:30
 #, php-format
 msgid "You can find out how to use the %sradio functions%s in the wiki."
-msgstr ""
+msgstr "Puoi scoprire come utilizzare le %sfunzioni radio%s nella wiki."
 
 #: application/views/radio/index.php:35
 msgid "Please wait..."
@@ -18354,7 +18400,7 @@ msgstr "DX Waterfall"
 
 #: application/views/user/edit.php:451
 msgid "squelched"
-msgstr ""
+msgstr "squelched"
 
 #: application/views/user/edit.php:454
 msgid "Show an interactive DX Cluster 'Waterfall' on the QSO logging page."
@@ -19545,11 +19591,11 @@ msgstr ""
 
 #: application/views/zonechecker/result.php:20
 msgid "Cache Misses"
-msgstr ""
+msgstr "Perdite della cache"
 
 #: application/views/zonechecker/result.php:21
 msgid "Hit Rate"
-msgstr ""
+msgstr "Tasso di successo"
 
 #: application/views/zonechecker/result.php:55
 msgid "ITUz"
@@ -19566,6 +19612,13 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#~ msgid ""
+#~ "Cache is currently using the backup adapter because the primary is "
+#~ "unavailable."
+#~ msgstr ""
+#~ "La cache sta utilizzando l'adattatore secondario perché il primario non è "
+#~ "disponibile."
 
 #~ msgid "Error obtaining a session key for HamQTH query"
 #~ msgstr "Errore nel ottenere una chiave di sessione per la query HamQTH"

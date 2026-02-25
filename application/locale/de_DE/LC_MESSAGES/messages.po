@@ -26,9 +26,9 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-23 08:16+0000\n"
-"PO-Revision-Date: 2026-02-20 09:05+0000\n"
-"Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
+"POT-Creation-Date: 2026-02-24 10:40+0000\n"
+"PO-Revision-Date: 2026-02-24 15:11+0000\n"
+"Last-Translator: Florian Wolters <wavelog@df2et.de>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
 "Language: de_DE\n"
@@ -711,7 +711,7 @@ msgstr "Rufzeichentester"
 #: application/controllers/Calltester.php:240
 #: application/controllers/Calltester.php:300
 msgid "CSV Call Tester"
-msgstr ""
+msgstr "CSV-Rufzeichentester"
 
 #: application/controllers/Calltester.php:917
 msgid "Callsign Tester"
@@ -10421,6 +10421,38 @@ msgstr "Letztes Update um %s."
 msgid "Data provided by HAMqsl."
 msgstr "Daten bereitgestellt von HAMqsl."
 
+#: application/views/dashboard/index.php:527
+msgid "K-index: Planetary geomagnetic activity (0-9)"
+msgstr "K-Index: Planetäre geomagnetische Aktivität (0-9)"
+
+#: application/views/dashboard/index.php:528
+msgid "A-index: Daily geomagnetic activity index"
+msgstr "A-Index: Täglicher geomagnetischer Aktivitätsindex"
+
+#: application/views/dashboard/index.php:529
+msgid "Solar Flux Index"
+msgstr "Index des solaren Flusses"
+
+#: application/views/dashboard/index.php:530
+msgid "Solar Wind speed (km/s)"
+msgstr "Solare Windgeschwindigkeit (km/s)"
+
+#: application/views/dashboard/index.php:531
+msgid "Signal Noise ratio"
+msgstr "Signal-Rausch Verhältnis"
+
+#: application/views/dashboard/index.php:532
+msgid "X-Ray solar flux level"
+msgstr "Höhe des Röntgen-Solar-Flusses"
+
+#: application/views/dashboard/index.php:533
+msgid "Sunspot Number"
+msgstr "Nummer des Sonnenfleckenzyklus"
+
+#: application/views/dashboard/index.php:534
+msgid "Aurora activity level (Kp borealis)"
+msgstr "Aurora Aktivitätslevel (Kp borealis)"
+
 #: application/views/dayswithqso/index.php:3
 msgid "Number of QSOs for this day of the week"
 msgstr "Anzahl QSOs für diesen Wochentag"
@@ -10988,6 +11020,10 @@ msgid ""
 "unavailable. Check your file permissions, PHP extensions, and/or your "
 "network connection to the services (if using redis/memcached)."
 msgstr ""
+"Der Cache verwendet derzeit den Backup-Adapter, da der primäre nicht "
+"verfügbar ist. Überprüf deine Dateiberechtigungen, PHP-Erweiterungen und/"
+"oder deine Netzwerkverbindung zu den Diensten (wenn du Redis/Memcached "
+"verwendest)."
 
 #: application/views/debug/index.php:518
 #, php-format
@@ -10997,6 +11033,11 @@ msgid ""
 "services (if using redis/memcached). You can continue using Wavelog, but no "
 "values will be cached (which is bad)."
 msgstr ""
+"Cache funktioniert nicht! Zurzeit verwendet das System einen %s Adapter. "
+"Überprüfe deine Datei-Berechtigungen, PHP-Erweiterungen und- wenn du Redis/"
+"Memcached verwendest - deine Netzwerkverbindung zu den Diensten. Du kannst "
+"Wavelog weiter nutzen, aber es werden keine Werte zwischengespeichert (was "
+"schlecht ist)."
 
 #: application/views/debug/index.php:526
 msgid "Available Adapters"
@@ -12879,7 +12920,7 @@ msgstr "Drucken"
 #: application/views/labels/index.php:4
 #: application/views/logbookadvanced/index.php:82
 msgid "Label Print Options"
-msgstr ""
+msgstr "Optionen für den Labeldruck"
 
 #: application/views/labels/index.php:34
 msgid "Create New Label Type"
@@ -12944,7 +12985,7 @@ msgstr "QSOs ansehen"
 #: application/views/labels/startatform.php:21
 #: application/views/logbookadvanced/startatform.php:20
 msgid "Include my call?"
-msgstr ""
+msgstr "Mein Rufzeichen drucken?"
 
 #: application/views/labels/startatform.php:33
 #: application/views/logbookadvanced/startatform.php:32
@@ -12979,7 +13020,7 @@ msgstr "Druck starten bei?"
 #: application/views/labels/startatform.php:100
 #: application/views/logbookadvanced/startatform.php:111
 msgid "Enter the starting position for label printing"
-msgstr ""
+msgstr "Gib die Startposition für den Labeldruck an"
 
 #: application/views/logbookadvanced/callbookdialog.php:5
 msgid ""
@@ -13951,6 +13992,8 @@ msgid ""
 "Duration in minutes. Search will look for durations greater than or equal to "
 "this value."
 msgstr ""
+"Dauer in Minuten. Die Suche zeigt Ergebnisse mit einer Dauer größer als oder "
+"gleich dieses Wertes."
 
 #: application/views/logbookadvanced/index.php:523
 msgid "Sort column"
@@ -18570,7 +18613,7 @@ msgstr "Zeige Felder auf QSO-Reiter"
 
 #: application/views/user/edit.php:692
 msgid "Show map at QSO-Window"
-msgstr ""
+msgstr "Zeige Karte bei der QSO-Eingabe"
 
 #: application/views/user/edit.php:701
 msgid ""
@@ -19623,6 +19666,32 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#~ msgid ""
+#~ "Cache is currently using the backup adapter because the primary is "
+#~ "unavailable. Check your file permissions, php-extensions and/or if you "
+#~ "are using redis/memcached your network connection to the services."
+#~ msgstr ""
+#~ "Der Cache verwendet derzeit den Backup-Adapter, weil der primäre nicht "
+#~ "verfügbar ist. Überprüfe Dateiberechtigungen, PHP-Erweiterungen und – "
+#~ "wenn du Redis/Memcached verwendest – die Netzwerkverbindung zu den "
+#~ "Diensten."
+
+#, php-format
+#~ msgid ""
+#~ "Cache does not work! Currently the system is using a %s adapter. Check "
+#~ "your file permissions, php-extensions and/or if you are using redis/"
+#~ "memcached your network connection to the services. You can continue using "
+#~ "Wavelog, but no values will be cached (which is bad)."
+#~ msgstr ""
+#~ "Cache funktioniert nicht! Zurzeit verwendet das System einen %s Adapter. "
+#~ "Überprüfe deine Datei-Berechtigungen, PHP-Erweiterungen und- wenn du "
+#~ "Redis/Memcached verwendest - deine Netzwerkverbindung zu den Diensten. Du "
+#~ "kannst Wavelog weiter nutzen, aber es werden keine Werte "
+#~ "zwischengespeichert (was schlecht ist)."
+
+#~ msgid "Don't show"
+#~ msgstr "Nicht anzeigen"
 
 #~ msgid ""
 #~ "Cache is currently using the backup adapter because the primary is "

@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-23 08:16+0000\n"
-"PO-Revision-Date: 2026-02-09 22:54+0000\n"
+"POT-Creation-Date: 2026-02-24 10:40+0000\n"
+"PO-Revision-Date: 2026-02-24 10:40+0000\n"
 "Last-Translator: \"Juuso W.\" <oh1jw@tuta.io>\n"
 "Language-Team: Finnish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/fi/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16\n"
 
 #: application/controllers/Accumulated.php:12
 #: application/controllers/Activators.php:13
@@ -693,7 +693,7 @@ msgstr "Kutsumerkkitestaaja"
 #: application/controllers/Calltester.php:240
 #: application/controllers/Calltester.php:300
 msgid "CSV Call Tester"
-msgstr ""
+msgstr "CSV Call testeri"
 
 #: application/controllers/Calltester.php:917
 msgid "Callsign Tester"
@@ -2457,7 +2457,7 @@ msgstr "Asetukset"
 
 #: application/controllers/Radio.php:59
 msgid "WebSocket"
-msgstr ""
+msgstr "WebSocket"
 
 #: application/controllers/Radio.php:65 application/controllers/Radio.php:124
 msgid "Default (click to release)"
@@ -2527,11 +2527,11 @@ msgstr "Poista"
 
 #: application/controllers/Radio.php:136
 msgid "WebSocket is currently default (click to release)"
-msgstr ""
+msgstr "WebSocket on tällä hetkellä oletuksena. (klikkaa vapauttaaksesi)"
 
 #: application/controllers/Radio.php:138
 msgid "Set WebSocket as default radio"
-msgstr ""
+msgstr "Aseta WebSocket oletusradiolle"
 
 #: application/controllers/Radio.php:142
 msgid "No CAT interfaced radios found."
@@ -2539,7 +2539,7 @@ msgstr "CAT-liitännäisiä radioita ei löytynyt."
 
 #: application/controllers/Radio.php:143
 msgid "You can still set the WebSocket option as your default radio."
-msgstr ""
+msgstr "Voit edelleen asettaa WebSocket-vaihtoehdon oletusradioksi."
 
 #: application/controllers/Radio.php:160 application/views/radio/index.php:2
 msgid "Edit CAT Settings"
@@ -2547,7 +2547,7 @@ msgstr "Muokkaa CAT-asetuksia"
 
 #: application/controllers/Radio.php:332
 msgid "Radio removed successfully"
-msgstr ""
+msgstr "Radio poistettu onnistuneesti"
 
 #: application/controllers/Reg1test.php:22
 msgid "Export EDI"
@@ -3411,12 +3411,13 @@ msgstr "Gridsquare Zone finder"
 
 #: application/libraries/Callbook.php:60
 msgid "Lookup not configured. Please review configuration."
-msgstr ""
+msgstr "Hakua ei ole määritetty. Tarkista määritykset."
 
 #: application/libraries/Callbook.php:61
 #, php-format
 msgid "Error obtaining a session key for callbook. Error: %s"
 msgstr ""
+"Kutsumerkkiluettelon istuntoavainta haettaessa tapahtui virhe. Virhe: %s"
 
 #: application/libraries/Callbook.php:200
 msgid "QRZCQ Error"
@@ -8290,15 +8291,15 @@ msgstr "DX-kartta"
 
 #: application/views/bandmap/list.php:545
 msgid "Search Column"
-msgstr ""
+msgstr "Hakusarake"
 
 #: application/views/bandmap/list.php:546
 msgid "All Columns"
-msgstr ""
+msgstr "Kaikki sarakkeet"
 
 #: application/views/bandmap/list.php:547
 msgid "Spot Info"
-msgstr ""
+msgstr "Spot info"
 
 #: application/views/bandmap/list.php:552
 #: application/views/bandmap/list.php:592
@@ -8309,7 +8310,7 @@ msgstr "Submode"
 
 #: application/views/bandmap/list.php:554
 msgid "DX Station"
-msgstr ""
+msgstr "DX -asema"
 
 #: application/views/bandmap/list.php:558
 #: application/views/bandmap/list.php:597
@@ -10336,6 +10337,38 @@ msgstr "Viimeisin päivitys %s."
 msgid "Data provided by HAMqsl."
 msgstr "Tiedot tarjoaa HAMqsl."
 
+#: application/views/dashboard/index.php:527
+msgid "K-index: Planetary geomagnetic activity (0-9)"
+msgstr ""
+
+#: application/views/dashboard/index.php:528
+msgid "A-index: Daily geomagnetic activity index"
+msgstr ""
+
+#: application/views/dashboard/index.php:529
+msgid "Solar Flux Index"
+msgstr ""
+
+#: application/views/dashboard/index.php:530
+msgid "Solar Wind speed (km/s)"
+msgstr ""
+
+#: application/views/dashboard/index.php:531
+msgid "Signal Noise ratio"
+msgstr ""
+
+#: application/views/dashboard/index.php:532
+msgid "X-Ray solar flux level"
+msgstr ""
+
+#: application/views/dashboard/index.php:533
+msgid "Sunspot Number"
+msgstr ""
+
+#: application/views/dashboard/index.php:534
+msgid "Aurora activity level (Kp borealis)"
+msgstr ""
+
 #: application/views/dayswithqso/index.php:3
 msgid "Number of QSOs for this day of the week"
 msgstr "Yhteyksien määrä tälle viikonpäivälle"
@@ -10903,6 +10936,9 @@ msgid ""
 "unavailable. Check your file permissions, PHP extensions, and/or your "
 "network connection to the services (if using redis/memcached)."
 msgstr ""
+"Välimuisti käyttää tällä hetkellä vara-adapteria, koska ensisijainen "
+"adapteri ei ole käytettävissä. Tarkista tiedosto-oikeudet, PHP-päätteet ja/"
+"tai verkkoyhteytesi palveluihin (jos käytössäsi on redis/memcached)."
 
 #: application/views/debug/index.php:518
 #, php-format
@@ -10912,6 +10948,10 @@ msgid ""
 "services (if using redis/memcached). You can continue using Wavelog, but no "
 "values will be cached (which is bad)."
 msgstr ""
+"Välimuisti ei toimi! Järjestelmä käyttää tällä hetkellä %s -sovitinta. "
+"Tarkista tiedosto-oikeudet, PHP-päätteet ja/tai verkkoyhteytesi palveluihin "
+"(jos käytät redis/memcached-palvelua). Voit jatkaa Wavelogin käyttöä, mutta "
+"välimuistiin ei tallenneta arvoja (mikä on huono asia)."
 
 #: application/views/debug/index.php:526
 msgid "Available Adapters"
@@ -12220,7 +12260,7 @@ msgstr "Lokaattoriruudut"
 
 #: application/views/interface_assets/footer.php:1297
 msgid "Location Lookup failed. Please check browser console."
-msgstr ""
+msgstr "Sijainnin haku epäonnistui. Tarkista selainkonsoli."
 
 #: application/views/interface_assets/footer.php:1448
 #: application/views/interface_assets/footer.php:1452
@@ -12778,7 +12818,7 @@ msgstr "Tulosta"
 #: application/views/labels/index.php:4
 #: application/views/logbookadvanced/index.php:82
 msgid "Label Print Options"
-msgstr ""
+msgstr "Tarran tulostusvaihtoehdot"
 
 #: application/views/labels/index.php:34
 msgid "Create New Label Type"
@@ -12843,7 +12883,7 @@ msgstr "Näytä QSQt"
 #: application/views/labels/startatform.php:21
 #: application/views/logbookadvanced/startatform.php:20
 msgid "Include my call?"
-msgstr ""
+msgstr "Sisällytä oma kutsu?"
 
 #: application/views/labels/startatform.php:33
 #: application/views/logbookadvanced/startatform.php:32
@@ -12878,7 +12918,7 @@ msgstr "Mistä tulostus aloitetaan?"
 #: application/views/labels/startatform.php:100
 #: application/views/logbookadvanced/startatform.php:111
 msgid "Enter the starting position for label printing"
-msgstr ""
+msgstr "Anna tarratulostuksen aloituskohta"
 
 #: application/views/logbookadvanced/callbookdialog.php:5
 msgid ""
@@ -13135,7 +13175,7 @@ msgstr ""
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:19
 msgid "All Station Locations"
-msgstr ""
+msgstr "Kaikki asemasijainnit"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:33
 msgid "Check all QSOs in the logbook for incorrect CQ Zones"
@@ -13839,6 +13879,8 @@ msgid ""
 "Duration in minutes. Search will look for durations greater than or equal to "
 "this value."
 msgstr ""
+"Kesto minuutteina. Haku etsii kestoja, jotka ovat suurempia tai yhtä suuria "
+"kuin tämä arvo."
 
 #: application/views/logbookadvanced/index.php:523
 msgid "Sort column"
@@ -16197,6 +16239,10 @@ msgid ""
 "you. This allows you to have a default radio that is automatically selected "
 "when you log in, while still being able to use other radios if you want."
 msgstr ""
+"Kerhoaseman ylläpitäjänä voit asettaa oletusradion, joka koskee vain sinua. "
+"Näin voit käyttää oletusradiota, joka valitaan automaattisesti "
+"sisäänkirjautumisen yhteydessä, mutta voit silti käyttää muita radioita, jos "
+"haluat."
 
 #: application/views/radio/index.php:27
 msgid ""
@@ -16204,11 +16250,14 @@ msgid ""
 "to have a default radio that is automatically selected when you log in, "
 "while still being able to use other radios if you want."
 msgstr ""
+"Normaalina käyttäjänä voit asettaa itsellesi oletusradion. Näin voit käyttää "
+"oletusradiota, joka valitaan automaattisesti sisäänkirjautumisen yhteydessä, "
+"mutta voit silti käyttää muita radioita, jos haluat."
 
 #: application/views/radio/index.php:30
 #, php-format
 msgid "You can find out how to use the %sradio functions%s in the wiki."
-msgstr ""
+msgstr "Voit selvittää, miten %sradio-funktioita%s käytetään wikissä."
 
 #: application/views/radio/index.php:35
 msgid "Please wait..."
@@ -18391,7 +18440,7 @@ msgstr "Näytä kentät QSO-välilehdellä"
 
 #: application/views/user/edit.php:692
 msgid "Show map at QSO-Window"
-msgstr ""
+msgstr "Näytä kartta QSO-ikkunassa"
 
 #: application/views/user/edit.php:701
 msgid ""
@@ -19117,6 +19166,8 @@ msgid ""
 "A single gridsquare was entered into the VUCC gridsquares field which should "
 "contain two or four gridsquares instead of a single grid."
 msgstr ""
+"VUCC:n lokaattoriruutukenttään syötettiin vain yksi ruutu, vaikka sen "
+"pitäisi sisältää kaksi tai neljä ruutua yhden sijaan."
 
 #: application/views/view_log/qso.php:335
 msgid "Antenna Azimuth"

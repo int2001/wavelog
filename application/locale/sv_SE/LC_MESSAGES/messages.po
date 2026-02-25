@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-23 08:16+0000\n"
-"PO-Revision-Date: 2026-02-20 07:13+0000\n"
+"POT-Creation-Date: 2026-02-24 10:40+0000\n"
+"PO-Revision-Date: 2026-02-24 15:05+0000\n"
 "Last-Translator: \"Jorgen Dahl, NU1T\" <sm6srw@arrl.net>\n"
 "Language-Team: Swedish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/sv/>\n"
@@ -199,7 +199,7 @@ msgstr "Totalt antal fält kontaktade"
 #: application/views/activators/index.php:5
 #: application/views/interface_assets/header.php:164
 msgid "Gridsquare Activators"
-msgstr "Lokatorruts aktiverare"
+msgstr "Aktivörer av lokatorrutor"
 
 #: application/controllers/Activatorsmap.php:17
 #: application/views/activators/index.php:2
@@ -694,7 +694,7 @@ msgstr "Anropssignals testare"
 #: application/controllers/Calltester.php:240
 #: application/controllers/Calltester.php:300
 msgid "CSV Call Tester"
-msgstr ""
+msgstr "CSV-anropssignalstestare"
 
 #: application/controllers/Calltester.php:917
 msgid "Callsign Tester"
@@ -3409,12 +3409,12 @@ msgstr "Locator Zon sökare"
 
 #: application/libraries/Callbook.php:60
 msgid "Lookup not configured. Please review configuration."
-msgstr ""
+msgstr "Uppslagning inte konfigurerad. Vänligen granska konfigurationen."
 
 #: application/libraries/Callbook.php:61
 #, php-format
 msgid "Error obtaining a session key for callbook. Error: %s"
-msgstr ""
+msgstr "Fel vid erhållande av sessionsnyckel för callbook. Fel: %s"
 
 #: application/libraries/Callbook.php:200
 msgid "QRZCQ Error"
@@ -7614,7 +7614,7 @@ msgstr "Filtret för Subtrafiksätt avaktiverat - visar alla"
 
 #: application/views/bandmap/list.php:51
 msgid "Required submodes"
-msgstr "Krävda subtrafiksätt"
+msgstr "Valda subtrafiksätt"
 
 #: application/views/bandmap/list.php:52
 msgid "Configure in User Settings - Modes"
@@ -10318,6 +10318,38 @@ msgstr "Senaste uppdateringen kl. %s."
 msgid "Data provided by HAMqsl."
 msgstr "Data tillhandahålls av HAMqsl."
 
+#: application/views/dashboard/index.php:527
+msgid "K-index: Planetary geomagnetic activity (0-9)"
+msgstr "K-index: Planetär geomagnetisk aktivitet (0-9)"
+
+#: application/views/dashboard/index.php:528
+msgid "A-index: Daily geomagnetic activity index"
+msgstr "A-index: Dagligt geomagnetiskt aktivitetsindex"
+
+#: application/views/dashboard/index.php:529
+msgid "Solar Flux Index"
+msgstr "Solflödesindex"
+
+#: application/views/dashboard/index.php:530
+msgid "Solar Wind speed (km/s)"
+msgstr "Solvindens hastighet (km/s)"
+
+#: application/views/dashboard/index.php:531
+msgid "Signal Noise ratio"
+msgstr "Signal-brusförhållande"
+
+#: application/views/dashboard/index.php:532
+msgid "X-Ray solar flux level"
+msgstr "Solröntgenflödenivå"
+
+#: application/views/dashboard/index.php:533
+msgid "Sunspot Number"
+msgstr "Solfläcksnummer"
+
+#: application/views/dashboard/index.php:534
+msgid "Aurora activity level (Kp borealis)"
+msgstr "Aurora-aktivitetens nivå (Kp borealis)"
+
 #: application/views/dayswithqso/index.php:3
 msgid "Number of QSOs for this day of the week"
 msgstr "Antal QSOs för denna veckodag"
@@ -10882,6 +10914,9 @@ msgid ""
 "unavailable. Check your file permissions, PHP extensions, and/or your "
 "network connection to the services (if using redis/memcached)."
 msgstr ""
+"Cachen använder för närvarande reservadaptern eftersom primäradaptern är "
+"otillgänglig. Kontrollera dina filrättigheter, PHP-tillägg och/eller din "
+"nätverksanslutning till tjänsterna (om du använder redis/memcached)."
 
 #: application/views/debug/index.php:518
 #, php-format
@@ -10891,6 +10926,10 @@ msgid ""
 "services (if using redis/memcached). You can continue using Wavelog, but no "
 "values will be cached (which is bad)."
 msgstr ""
+"Cachen fungerar inte! Just nu använder systemet en %s adapter. Kontrollera "
+"dina filbehörigheter, PHP-tillägg och/eller din nätverksanslutning till "
+"tjänsterna (om du använder redis/memcached). Du kan fortsätta använda "
+"Wavelog, men inga värden kommer att cachelagras (vilket är dåligt)."
 
 #: application/views/debug/index.php:526
 msgid "Available Adapters"
@@ -12756,7 +12795,7 @@ msgstr "Skriv ut"
 #: application/views/labels/index.php:4
 #: application/views/logbookadvanced/index.php:82
 msgid "Label Print Options"
-msgstr ""
+msgstr "Etikettutskriftsalternativ"
 
 #: application/views/labels/index.php:34
 msgid "Create New Label Type"
@@ -12821,7 +12860,7 @@ msgstr "Visa QSOs"
 #: application/views/labels/startatform.php:21
 #: application/views/logbookadvanced/startatform.php:20
 msgid "Include my call?"
-msgstr ""
+msgstr "Inkludera min anropssignal?"
 
 #: application/views/labels/startatform.php:33
 #: application/views/logbookadvanced/startatform.php:32
@@ -12856,7 +12895,7 @@ msgstr "Börja skriva ut vid?"
 #: application/views/labels/startatform.php:100
 #: application/views/logbookadvanced/startatform.php:111
 msgid "Enter the starting position for label printing"
-msgstr ""
+msgstr "Ange startposition för etikett utskrift"
 
 #: application/views/logbookadvanced/callbookdialog.php:5
 msgid ""
@@ -13817,6 +13856,8 @@ msgid ""
 "Duration in minutes. Search will look for durations greater than or equal to "
 "this value."
 msgstr ""
+"Varaktighet i minuter. Sökningen kommer att leta efter varaktigheter som är "
+"större än eller lika med detta värde."
 
 #: application/views/logbookadvanced/index.php:523
 msgid "Sort column"
@@ -18378,7 +18419,7 @@ msgstr "Visa fält på QSO-fliken"
 
 #: application/views/user/edit.php:692
 msgid "Show map at QSO-Window"
-msgstr ""
+msgstr "Visa karta vid QSO-fönster"
 
 #: application/views/user/edit.php:701
 msgid ""

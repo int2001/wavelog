@@ -16,9 +16,9 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-02-23 08:16+0000\n"
-"PO-Revision-Date: 2026-02-20 07:13+0000\n"
-"Last-Translator: David Quental <ct1drb72@gmail.com>\n"
+"POT-Creation-Date: 2026-02-24 10:40+0000\n"
+"PO-Revision-Date: 2026-02-20 14:54+0000\n"
+"Last-Translator: Juan Pablo Tamayo <hj3kos@gmail.com>\n"
 "Language-Team: Spanish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/es/>\n"
 "Language: es_ES\n"
@@ -1120,7 +1120,7 @@ msgstr "Imagen de eQSL no disponible"
 
 #: application/controllers/Eqsl.php:416
 msgid "Failed to download eQSL image"
-msgstr "Fallo la descarga de la imagen de eQSL"
+msgstr "Falló la descarga de la imagen de eQSL"
 
 #: application/controllers/Eqsl.php:441
 msgid "Failed to load cached eQSL image"
@@ -1178,7 +1178,7 @@ msgstr "Hamsat - Operación de satélites en movimiento"
 
 #: application/controllers/Hrdlog.php:70 application/controllers/Hrdlog.php:71
 msgid "HRD Log upload for this station is disabled."
-msgstr "La subida a HRD Log para esta estación está deshabilitada."
+msgstr "La carga a HRD Log para esta estación está deshabilitada."
 
 #: application/controllers/Hrdlog.php:93
 #, php-format
@@ -2543,7 +2543,7 @@ msgstr "WebSocket es actualmente predeterminado (haga clic para liberar)"
 
 #: application/controllers/Radio.php:138
 msgid "Set WebSocket as default radio"
-msgstr "Establecer WebSocket como radio predeterminada."
+msgstr "Establecer WebSocket como radio predeterminada"
 
 #: application/controllers/Radio.php:142
 msgid "No CAT interfaced radios found."
@@ -2560,7 +2560,7 @@ msgstr "Editar configuraciones de CAT"
 
 #: application/controllers/Radio.php:332
 msgid "Radio removed successfully"
-msgstr "Radio eliminado con éxito."
+msgstr "Radio eliminado con éxito"
 
 #: application/controllers/Reg1test.php:22
 msgid "Export EDI"
@@ -3430,16 +3430,18 @@ msgstr "Varios usuarios encontrados por slug"
 
 #: application/controllers/Zonechecker.php:26
 msgid "Gridsquare Zone finder"
-msgstr "Buscador de cuadrículas de localización."
+msgstr "Buscador de cuadrículas de localización"
 
 #: application/libraries/Callbook.php:60
 msgid "Lookup not configured. Please review configuration."
-msgstr ""
+msgstr "La búsqueda no está configurada. Por favor, revisa la configuración."
 
 #: application/libraries/Callbook.php:61
 #, php-format
 msgid "Error obtaining a session key for callbook. Error: %s"
 msgstr ""
+"Error al obtener una clave de sesión para el directorio de llamadas. Error: "
+"%s"
 
 #: application/libraries/Callbook.php:200
 msgid "QRZCQ Error"
@@ -7682,7 +7684,7 @@ msgstr ""
 
 #: application/views/bandmap/list.php:45
 msgid "Applied your favorite bands and modes"
-msgstr "Apliqué tus bandas y modos favoritos."
+msgstr "Apliqué tus bandas y modos favoritos"
 
 #: application/views/bandmap/list.php:48 application/views/bandmap/list.php:315
 #: application/views/bandmap/list.php:480
@@ -7709,18 +7711,18 @@ msgstr "Configurar en Configuración de usuario - Modos"
 msgid "No submodes configured - configure in User Settings - Modes"
 msgstr ""
 "No hay submodos configurados - configúralo en Configuración de Usuario - "
-"Modos."
+"Modos"
 
 #: application/views/bandmap/list.php:54
 msgid "No submodes enabled in settings - showing all spots"
 msgstr ""
-"No hay submodos habilitados en la configuración - mostrando todos los spots."
+"No hay submodos habilitados en la configuración - mostrando todos los spots"
 
 #: application/views/bandmap/list.php:55
 msgid "Disabled - no submodes enabled for this mode in User Settings"
 msgstr ""
 "Deshabilitado: no hay submodos habilitados para este modo en la "
-"configuración de usuario."
+"configuración de usuario"
 
 #: application/views/bandmap/list.php:56 application/views/bandmap/list.php:469
 #: application/views/components/dxwaterfall.php:32
@@ -7915,12 +7917,12 @@ msgstr "Trabajado en"
 
 #: application/views/bandmap/list.php:115
 msgid "Not worked on this band"
-msgstr "No trabajado en esta banda."
+msgstr "No trabajado en esta banda"
 
 #: application/views/bandmap/list.php:116
 #, php-format
 msgid "LoTW User. Last upload was %d days ago"
-msgstr "Usuario de LoTW. La última carga fue hace %d días."
+msgstr "Usuario de LoTW. La última carga fue hace %d días"
 
 #: application/views/bandmap/list.php:117
 msgid "Click to view on POTA.app"
@@ -7974,7 +7976,7 @@ msgid ""
 "Band filtering is controlled by your radio when CAT connection is enabled"
 msgstr ""
 "El filtrado de banda es controlado por tu radio cuando la conexión CAT está "
-"habilitada."
+"habilitada"
 
 #: application/views/bandmap/list.php:131
 msgid "Click to prepare logging"
@@ -8039,7 +8041,7 @@ msgstr "Por favor espera"
 msgid "Please wait %s seconds before sending another callsign to the QSO form"
 msgstr ""
 "Por favor, espera %s segundos antes de enviar otro indicativo al formulario "
-"de QSO."
+"de QSO"
 
 #: application/views/bandmap/list.php:149
 msgid "Loading spots..."
@@ -10431,6 +10433,38 @@ msgstr "Última actualización a las %s."
 #: application/views/dashboard/index.php:485
 msgid "Data provided by HAMqsl."
 msgstr "Datos proporcionados por HAMqsl."
+
+#: application/views/dashboard/index.php:527
+msgid "K-index: Planetary geomagnetic activity (0-9)"
+msgstr ""
+
+#: application/views/dashboard/index.php:528
+msgid "A-index: Daily geomagnetic activity index"
+msgstr ""
+
+#: application/views/dashboard/index.php:529
+msgid "Solar Flux Index"
+msgstr ""
+
+#: application/views/dashboard/index.php:530
+msgid "Solar Wind speed (km/s)"
+msgstr ""
+
+#: application/views/dashboard/index.php:531
+msgid "Signal Noise ratio"
+msgstr ""
+
+#: application/views/dashboard/index.php:532
+msgid "X-Ray solar flux level"
+msgstr ""
+
+#: application/views/dashboard/index.php:533
+msgid "Sunspot Number"
+msgstr ""
+
+#: application/views/dashboard/index.php:534
+msgid "Aurora activity level (Kp borealis)"
+msgstr ""
 
 #: application/views/dayswithqso/index.php:3
 msgid "Number of QSOs for this day of the week"
