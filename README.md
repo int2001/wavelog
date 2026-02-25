@@ -36,6 +36,8 @@ https://demo.wavelog.org
   Username: demo  
   Password: demo
 
+## Documentation
+The documentation for Wavelog can be found at https://docs.wavelog.org/.
 
 ## Requirements
 ### Recommended: Classic-LAMP-Stack:
@@ -45,14 +47,14 @@ https://demo.wavelog.org
 * MySQL or MariaDB (MySQL 8 or higher // MariaDB 10.2 or higher)
 
 ### Alternative - Easy start with prebuilt Docker-image:
-* [Docker Support](https://github.com/wavelog/wavelog/wiki/Installation-via-Docker)
+* [Docker Support](https://docs.wavelog.org/getting-started/installation/docker/)
 
 Notes
 * If you want to log microwave QSOs you will need to use a 64bit operating system.
 
 ## Setup
 
-Installation information can be found on the [wiki](https://github.com/wavelog/wavelog/wiki).
+Installation information can be found on the [documentation](https://docs.wavelog.org/getting-started/installation/).
 
 ## WavelogGate 
 
@@ -76,7 +78,7 @@ Translators:
 
 If you would like to contribute in any way to Wavelog, it is most appreciated. This has been developed in free time, help coding new features or writing documentation is always useful.  
 
-**For translations and language stuff you can refer to our [Wiki about Translations](https://github.com/wavelog/wavelog/wiki/Translations).**
+**For translations and language stuff you can refer to our [Wiki about Translations](https://docs.wavelog.org/developer/translations/).**
 
 Please note that Wavelog was built using [Codeigniter](https://www.codeigniter.com/userguide3/) version 3 and uses Bootstrap 5 for the user CSS framework documentation is available for this when building components.
 
