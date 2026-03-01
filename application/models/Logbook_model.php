@@ -624,8 +624,28 @@ class Logbook_model extends CI_Model {
 				$this->db->where('COL_DXCC', '339');
 				break;
 			case 'WAPC':
-				$this->db->where('COL_STATE', $searchphrase);
-				$this->db->where('COL_DXCC', '318');
+				if($searchphrase == 'HK'){
+					$this->db->where('COL_DXCC', '321');
+				}
+				else if($searchphrase == 'MO'){
+					$this->db->where('COL_DXCC', '152');
+				}
+				else if($searchphrase == 'TW'){
+					$this->db->where_in('COL_DXCC', ['386', '505']);
+				}
+				else if($searchphrase == 'HI'){
+					$this->db->group_start()
+						->group_start()
+							->where('COL_DXCC', '318')
+							->where('COL_STATE', 'HI')
+						->group_end()
+						->or_where('COL_DXCC', '506')
+					->group_end();
+				}
+				else{
+					$this->db->where('COL_STATE', $searchphrase);
+					$this->db->where('COL_DXCC', '318');
+				}
 				break;
 			case 'QSLRDATE':
 				$this->db->where('date(COL_QSLRDATE)=date(SYSDATE())');

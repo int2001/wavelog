@@ -200,6 +200,10 @@ class Awards extends CI_Controller {
 
 	public function wapc ()	{
 		$footerData = [];
+		$footerData['scripts'] = [
+			'assets/js/sections/wapcmap.js',
+			'assets/js/leaflet/L.Maidenhead.js',
+		];
 
 		$this->load->model('wapc');
 		$this->load->model('modes');
@@ -1696,6 +1700,58 @@ class Awards extends CI_Controller {
 
         header('Content-Type: application/json');
         echo json_encode($prefectures);
+    }
+
+    /*
+        function wapc_map
+    */
+    public function wapc_map() {
+        $this->load->model('wapc');
+        $this->load->model('bands');
+
+        $bands[] = $this->security->xss_clean($this->input->post('band'));
+
+        $postdata['qsl'] = $this->input->post('qsl') == 0 ? NULL: 1;
+        $postdata['lotw'] = $this->input->post('lotw') == 0 ? NULL: 1;
+        $postdata['eqsl'] = $this->input->post('eqsl') == 0 ? NULL: 1;
+        $postdata['qrz'] = $this->input->post('qrz') == 0 ? NULL: 1;
+        $postdata['worked'] = $this->input->post('worked') == 0 ? NULL: 1;
+        $postdata['clublog'] = $this->input->post('clublog') == 0 ? NULL: 1;
+        $postdata['confirmed'] = $this->input->post('confirmed')  == 0 ? NULL: 1;
+        $postdata['notworked'] = $this->input->post('notworked')  == 0 ? NULL: 1;
+        $postdata['band'] = $this->input->post('band', TRUE);
+        $postdata['mode'] = $this->input->post('mode', TRUE);
+
+        $wapc_array = $this->wapc->get_wapc_array($bands, $postdata);
+
+        $provinces = array();
+
+        $wapcArray = array_keys($this->wapc->cnProvinces);
+        foreach ($wapcArray as $state) {
+            $provinces[$state] = '-';
+        }
+
+        foreach ($wapc_array as $wapc => $value) {
+            foreach ($value  as $key) {
+                if($key != "") {
+                    if (strpos($key, '>W<') !== false) {
+                        $provinces[$wapc] = 'W';
+                        break;
+                    }
+                    if (strpos($key, '>C<') !== false) {
+                        $provinces[$wapc] = 'C';
+                        break;
+                    }
+                    if (strpos($key, '-') !== false) {
+                        $provinces[$wapc] = '-';
+                        break;
+                    }
+                }
+            }
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($provinces);
     }
 
     /*
