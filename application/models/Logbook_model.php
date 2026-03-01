@@ -1779,65 +1779,6 @@ class Logbook_model extends CI_Model {
 		return $data;
 	}
 
-	/* Callsign QRA */
-	function call_qra($callsign) {
-		$this->db->select('COL_CALL, COL_GRIDSQUARE, COL_TIME_ON');
-		$this->db->join('station_profile', 'station_profile.station_id = ' . $this->config->item('table_name') . '.station_id');
-		$this->db->where('COL_CALL', $callsign);
-		$this->db->where('station_profile.user_id', $this->session->userdata('user_id'));
-		$where = "COL_GRIDSQUARE != \"\"";
-
-		$this->db->where($where);
-
-		$this->db->order_by("COL_TIME_ON", "desc");
-		$this->db->limit(1);
-		$query = $this->db->get($this->config->item('table_name'));
-		$callsign = "";
-		if ($query->num_rows() > 0) {
-			$data = $query->row();
-			$callsign = strtoupper($data->COL_GRIDSQUARE);
-		}
-
-		return $callsign;
-	}
-
-	function call_name($callsign) {
-		$this->db->select('COL_CALL, COL_NAME, COL_TIME_ON');
-		$this->db->join('station_profile', 'station_profile.station_id = ' . $this->config->item('table_name') . '.station_id');
-		$this->db->where('COL_CALL', $callsign);
-		$this->db->where('station_profile.user_id', $this->session->userdata('user_id'));
-		$where = "COL_NAME != \"\"";
-
-		$this->db->where($where);
-
-		$this->db->order_by("COL_TIME_ON", "desc");
-		$this->db->limit(1);
-		$query = $this->db->get($this->config->item('table_name'));
-		$name = "";
-		if ($query->num_rows() > 0) {
-			$data = $query->row();
-			$name = $data->COL_NAME;
-		}
-
-		return $name;
-	}
-
-	function call_email($callsign) {
-		$this->db->select('COL_CALL, COL_EMAIL, COL_TIME_ON');
-		$this->db->join('station_profile', 'station_profile.station_id = ' . $this->config->item('table_name') . '.station_id');
-		$this->db->where('COL_CALL', $callsign);
-		$this->db->where('station_profile.user_id', $this->session->userdata('user_id'));
-		$this->db->order_by("COL_TIME_ON", "desc");
-		$this->db->limit(1);
-		$query = $this->db->get($this->config->item('table_name'));
-		$email = "";
-		if ($query->num_rows() > 0) {
-			$data = $query->row();
-			$email = $data->COL_EMAIL;
-		}
-
-		return $email;
-	}
 
 	function times_worked($callsign) {
 		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
@@ -1863,148 +1804,97 @@ class Logbook_model extends CI_Model {
 		return $times_worked;
 	}
 
-	function call_qslvia($callsign) {
-		$this->db->select('COL_CALL, COL_QSL_VIA, COL_TIME_ON');
-		$this->db->join('station_profile', 'station_profile.station_id = ' . $this->config->item('table_name') . '.station_id');
-		$this->db->where('COL_CALL', $callsign);
-		$this->db->where('station_profile.user_id', $this->session->userdata('user_id'));
-		$where = "COL_QSL_VIA != \"\"";
 
-		$this->db->where($where);
+	public function get_callsign_all_info($callsign) {
+		$table_name = $this->config->item('table_name');
+		$user_id = $this->session->userdata('user_id');
 
-		$this->db->order_by("COL_TIME_ON", "desc");
-		$this->db->limit(1);
-		$query = $this->db->get($this->config->item('table_name'));
-		$qsl_via = "";
+		$sql = "
+			SELECT
+				COL_NAME,
+				COL_GRIDSQUARE,
+				COL_QTH,
+				COL_IOTA,
+				COL_EMAIL,
+				COL_QSL_VIA,
+				COL_STATE,
+				COL_CNTY,
+				COL_ITUZ,
+				COL_CQZ
+			FROM {$table_name}
+			INNER JOIN station_profile ON station_profile.station_id = {$table_name}.station_id
+			WHERE COL_CALL = ?
+			AND station_profile.user_id = ?
+			ORDER BY COL_TIME_ON DESC
+			LIMIT 10
+		";
+
+		$query = $this->db->query($sql, array($callsign, $user_id));
+
+		$result = array(
+			'name' => '',
+			'qra' => '',
+			'qth' => '',
+			'iota' => '',
+			'email' => '',
+			'qslvia' => '',
+			'state' => '',
+			'us_county' => '',
+			'ituz' => '',
+			'cqz' => ''
+		);
+
 		if ($query->num_rows() > 0) {
-			$data = $query->row();
-			$qsl_via = $data->COL_QSL_VIA;
+			// Iterate through results to find first non-empty value for each field
+			foreach ($query->result() as $data) {
+				if (empty($result['name']) && !empty($data->COL_NAME)) {
+					$result['name'] = $data->COL_NAME;
+				}
+				if (empty($result['qra']) && !empty($data->COL_GRIDSQUARE)) {
+					$result['qra'] = strtoupper($data->COL_GRIDSQUARE);
+				}
+				if (empty($result['qth']) && !empty($data->COL_QTH)) {
+					$result['qth'] = $data->COL_QTH;
+				}
+				if (empty($result['iota']) && !empty($data->COL_IOTA)) {
+					$result['iota'] = $data->COL_IOTA;
+				}
+				if (empty($result['email']) && !empty($data->COL_EMAIL)) {
+					$result['email'] = $data->COL_EMAIL;
+				}
+				if (empty($result['qslvia']) && !empty($data->COL_QSL_VIA)) {
+					$result['qslvia'] = $data->COL_QSL_VIA;
+				}
+				if (empty($result['state']) && !empty($data->COL_STATE)) {
+					$result['state'] = $data->COL_STATE;
+				}
+				if (empty($result['us_county']) && !empty($data->COL_CNTY)) {
+					// Special case: extract county after comma
+					$cnty = $data->COL_CNTY;
+					if (strpos($cnty, ',') !== false) {
+						$result['us_county'] = substr($cnty, (strpos($cnty, ',') + 1));
+					} else {
+						$result['us_county'] = $cnty;
+					}
+				}
+				if (empty($result['ituz']) && !empty($data->COL_ITUZ)) {
+					$result['ituz'] = $data->COL_ITUZ;
+				}
+				if (empty($result['cqz']) && !empty($data->COL_CQZ)) {
+					$result['cqz'] = $data->COL_CQZ;
+				}
+
+				// Early exit if all fields are populated
+				if (!empty($result['name']) && !empty($result['qra']) && !empty($result['qth']) &&
+					!empty($result['iota']) && !empty($result['email']) && !empty($result['qslvia']) &&
+					!empty($result['state']) && !empty($result['us_county']) &&
+					!empty($result['ituz']) && !empty($result['cqz'])) {
+					break;
+				}
+			}
 		}
 
-		return $qsl_via;
-	}
-
-	function call_state($callsign) {
-		$this->db->select('COL_CALL, COL_STATE');
-		$this->db->join('station_profile', 'station_profile.station_id = ' . $this->config->item('table_name') . '.station_id');
-		$this->db->where('COL_CALL', $callsign);
-		$this->db->where('station_profile.user_id', $this->session->userdata('user_id'));
-		$where = "COL_STATE != \"\"";
-
-		$this->db->where($where);
-
-		$this->db->order_by("COL_TIME_ON", "desc");
-		$this->db->limit(1);
-		$query = $this->db->get($this->config->item('table_name'));
-		$qsl_state = "";
-		if ($query->num_rows() > 0) {
-			$data = $query->row();
-			$qsl_state = $data->COL_STATE;
-		}
-
-		return $qsl_state;
-	}
-
-	function call_us_county($callsign) {
-		$this->db->select('COL_CALL, COL_CNTY');
-		$this->db->join('station_profile', 'station_profile.station_id = ' . $this->config->item('table_name') . '.station_id');
-		$this->db->where('COL_CALL', $callsign);
-		$this->db->where('station_profile.user_id', $this->session->userdata('user_id'));
-		$where = "COL_CNTY != \"\"";
-
-		$this->db->where($where);
-
-		$this->db->order_by("COL_TIME_ON", "desc");
-		$this->db->limit(1);
-		$query = $this->db->get($this->config->item('table_name'));
-		if ($query->num_rows() > 0) {
-			$data = $query->row();
-			$qsl_county = $data->COL_CNTY;
-			$qsl_county = substr($qsl_county, (strpos($qsl_county, ',') + 1));
-			return $qsl_county;
-		} else {
-			return NULL;
-		}
-	}
-
-	function call_ituzone($callsign) {
-		$this->db->select('COL_CALL, COL_ITUZ');
-		$this->db->join('station_profile', 'station_profile.station_id = ' . $this->config->item('table_name') . '.station_id');
-		$this->db->where('COL_CALL', $callsign);
-		$this->db->where('station_profile.user_id', $this->session->userdata('user_id'));
-		$where = "COL_ITUZ != \"\"";
-
-		$this->db->where($where);
-
-		$this->db->order_by("COL_TIME_ON", "desc");
-		$this->db->limit(1);
-		$query = $this->db->get($this->config->item('table_name'));
-		if ($query->num_rows() > 0) {
-			$data = $query->row();
-			$qsl_ituz = $data->COL_ITUZ;
-			return $qsl_ituz;
-		} else {
-			return NULL;
-		}
-	}
-
-	function call_cqzone($callsign) {
-		$this->db->select('COL_CALL, COL_CQZ');
-		$this->db->join('station_profile', 'station_profile.station_id = ' . $this->config->item('table_name') . '.station_id');
-		$this->db->where('COL_CALL', $callsign);
-		$this->db->where('station_profile.user_id', $this->session->userdata('user_id'));
-		$where = "COL_CQZ != \"\"";
-
-		$this->db->where($where);
-
-		$this->db->order_by("COL_TIME_ON", "desc");
-		$this->db->limit(1);
-		$query = $this->db->get($this->config->item('table_name'));
-		if ($query->num_rows() > 0) {
-			$data = $query->row();
-			$qsl_cqz = $data->COL_CQZ;
-			return $qsl_cqz;
-		} else {
-			return NULL;
-		}
-	}
-
-	function call_qth($callsign) {
-		$this->db->select('COL_CALL, COL_QTH, COL_TIME_ON');
-		$this->db->join('station_profile', 'station_profile.station_id = ' . $this->config->item('table_name') . '.station_id');
-		$this->db->where('COL_CALL', $callsign);
-		$this->db->where('station_profile.user_id', $this->session->userdata('user_id'));
-		$where = "COL_QTH != \"\"";
-
-		$this->db->where($where);
-
-		$this->db->order_by("COL_TIME_ON", "desc");
-		$this->db->limit(1);
-		$query = $this->db->get($this->config->item('table_name'));
-		$name = "";
-		if ($query->num_rows() > 0) {
-			$data = $query->row();
-			$name = $data->COL_QTH;
-		}
-
-		return $name;
-	}
-
-	function call_iota($callsign) {
-		$this->db->select('COL_CALL, COL_IOTA, COL_TIME_ON');
-		$this->db->join('station_profile', 'station_profile.station_id = ' . $this->config->item('table_name') . '.station_id');
-		$this->db->where('COL_CALL', $callsign);
-		$this->db->where('station_profile.user_id', $this->session->userdata('user_id'));
-		$this->db->order_by("COL_TIME_ON", "desc");
-		$this->db->limit(1);
-		$query = $this->db->get($this->config->item('table_name'));
-		$name = "";
-		if ($query->num_rows() > 0) {
-			$data = $query->row();
-			$name = $data->COL_IOTA;
-		}
-
-		return $name;
+		return $result;
 	}
 
 	/* Return QSO Info */
