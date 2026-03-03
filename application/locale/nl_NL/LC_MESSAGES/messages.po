@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-01 08:21+0000\n"
-"PO-Revision-Date: 2026-02-22 03:17+0000\n"
+"PO-Revision-Date: 2026-03-01 08:22+0000\n"
 "Last-Translator: Alexander <alexander@pa8s.nl>\n"
 "Language-Team: Dutch <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/nl/>\n"
@@ -5949,7 +5949,7 @@ msgstr "Samenvatting"
 #: application/views/awards/cq/index.php:236
 #: application/views/awards/itu/index.php:227
 msgid "Total (ex SAT)"
-msgstr ""
+msgstr "Totaal (excl SAT)"
 
 #: application/views/awards/cq/index.php:245
 #: application/views/awards/dok/index.php:179
@@ -7340,7 +7340,7 @@ msgstr "Provincie"
 #: application/views/awards/wapc/index.php:3
 msgctxt "China Province"
 msgid "Province"
-msgstr ""
+msgstr "Provincie"
 
 #: application/views/awards/wapc/index.php:22
 msgid "WAPC - Worked All Provinces of China"
@@ -7379,7 +7379,7 @@ msgstr ""
 
 #: application/views/awards/wapc/index.php:122
 msgid "Show WAPC Map"
-msgstr ""
+msgstr "Toon WAPC-kaart"
 
 #: application/views/awards/was/index.php:3
 msgctxt "USA State"
@@ -10409,35 +10409,35 @@ msgstr "Gegevens verstrekt door HAMqsl."
 
 #: application/views/dashboard/index.php:527
 msgid "K-index: Planetary geomagnetic activity (0-9)"
-msgstr ""
+msgstr "K-index: Planetair geomagnetische activiteit (0-9)"
 
 #: application/views/dashboard/index.php:528
 msgid "A-index: Daily geomagnetic activity index"
-msgstr ""
+msgstr "A-index: Dagelijkse geomagnetische activiteitsindex"
 
 #: application/views/dashboard/index.php:529
 msgid "Solar Flux Index"
-msgstr ""
+msgstr "Zonnefluxindex"
 
 #: application/views/dashboard/index.php:530
 msgid "Solar Wind speed (km/s)"
-msgstr ""
+msgstr "Zonnewindsnelheid (km/s)"
 
 #: application/views/dashboard/index.php:531
 msgid "Signal Noise ratio"
-msgstr ""
+msgstr "Signaal-ruisverhouding"
 
 #: application/views/dashboard/index.php:532
 msgid "X-Ray solar flux level"
-msgstr ""
+msgstr "Röntgen zonnefluxniveau"
 
 #: application/views/dashboard/index.php:533
 msgid "Sunspot Number"
-msgstr ""
+msgstr "Zonnevlekgetal"
 
 #: application/views/dashboard/index.php:534
 msgid "Aurora activity level (Kp borealis)"
-msgstr ""
+msgstr "Aurora-activiteitsniveau (Kp borealis)"
 
 #: application/views/dayswithqso/index.php:3
 msgid "Number of QSOs for this day of the week"
@@ -11004,6 +11004,9 @@ msgid ""
 "unavailable. Check your file permissions, PHP extensions, and/or your "
 "network connection to the services (if using redis/memcached)."
 msgstr ""
+"Cache gebruikt momenteel de reserve-adapter omdat de primaire niet "
+"beschikbaar is. Controleer je bestandsrechten, PHP-extensies en/of je "
+"netwerkverbinding met de diensten (als je redis/memcached gebruikt)."
 
 #: application/views/debug/index.php:518
 #, php-format
@@ -11013,6 +11016,10 @@ msgid ""
 "services (if using redis/memcached). You can continue using Wavelog, but no "
 "values will be cached (which is bad)."
 msgstr ""
+"Cache werkt niet! Momenteel gebruikt het systeem een %s adapter. Controleer "
+"je bestandsrechten, PHP-extensies en/of je netwerkverbinding met de services "
+"(als je redis/memcached gebruikt). Je kunt Wavelog blijven gebruiken, maar "
+"er zullen geen waarden worden gecachet (wat slecht is)."
 
 #: application/views/debug/index.php:526
 msgid "Available Adapters"
@@ -12881,7 +12888,7 @@ msgstr "Afdrukken"
 #: application/views/labels/index.php:4
 #: application/views/logbookadvanced/index.php:82
 msgid "Label Print Options"
-msgstr ""
+msgstr "Opties voor labelafdrukken"
 
 #: application/views/labels/index.php:34
 msgid "Create New Label Type"
@@ -12946,7 +12953,7 @@ msgstr "Bekijk QSOs"
 #: application/views/labels/startatform.php:21
 #: application/views/logbookadvanced/startatform.php:20
 msgid "Include my call?"
-msgstr ""
+msgstr "Voeg mijn roepnaam toe?"
 
 #: application/views/labels/startatform.php:33
 #: application/views/logbookadvanced/startatform.php:32
@@ -12981,7 +12988,7 @@ msgstr "Begin met afdrukken om?"
 #: application/views/labels/startatform.php:100
 #: application/views/logbookadvanced/startatform.php:111
 msgid "Enter the starting position for label printing"
-msgstr ""
+msgstr "Voer de startpositie in voor het etiketteren"
 
 #: application/views/logbookadvanced/callbookdialog.php:5
 msgid ""
@@ -13944,6 +13951,8 @@ msgid ""
 "Duration in minutes. Search will look for durations greater than or equal to "
 "this value."
 msgstr ""
+"Duur in minuten. De zoekopdracht zoekt naar duur die groter zijn dan of "
+"gelijk aan deze waarde."
 
 #: application/views/logbookadvanced/index.php:523
 msgid "Sort column"
@@ -18551,7 +18560,7 @@ msgstr "Velden tonen op QSO-tabblad"
 
 #: application/views/user/edit.php:692
 msgid "Show map at QSO-Window"
-msgstr ""
+msgstr "Toon kaart in QSO-venster"
 
 #: application/views/user/edit.php:701
 msgid ""
