@@ -31,201 +31,372 @@ class DXCC extends CI_Model {
 		return $this->db->get('dxcc_entities');
 	}
 
-	function get_dxcc_array($dxccArray, $bands, $postdata) {
-		$this->load->model('logbooks_model');
-		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
-
-		if (!$logbooks_locations_array) {
-			return null;
-		}
-
-		$location_list = "'".implode("','",$logbooks_locations_array)."'";
-
+	function get_dxcc_array($dxccArray, $bands, $postdata, $location_list, $map = false) {
 		$qsl = $this->genfunctions->gen_qsl_from_postdata($postdata);
 
-		foreach ($bands as $band) {             	// Looping through bands and entities to generate the array needed for display
+		// Initialize matrix with all DXCC entities
+		foreach ($dxccArray as $dxcc) {
+			$adif = $dxcc->adif ?? '0';
+			$name = $dxcc->name ?? '';
+			$prefix = $dxcc->prefix ?? '';
+			$enddate = $dxcc->end ?? null;
+
+			if ($adif == '0') {
+				$dxccMatrix[$adif]['name'] = $name;
+			} else {
+				$dxccMatrix[$adif]['name'] = ucwords(strtolower($name), "- (/");
+			}
+			$dxccMatrix[$adif]['prefix'] = $prefix;
+			if ($postdata['includedeleted']) {
+				$dxccMatrix[$adif]['Deleted'] = isset($enddate) ? 1 : 0;
+			}
+
+			// Initialize all bands to dash
+			foreach ($bands as $band) {
+				if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
+					continue;
+				}
+				$dxccMatrix[$adif][$band] = '-';
+			}
+		}
+
+		// Initialize summary counters only for the bands passed in
+		foreach ($bands as $band) {
 			if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
 				continue;
 			}
-			foreach ($dxccArray as $dxcc) {
-				if ($dxcc->adif == '0') {
-					$dxccMatrix[$dxcc->adif]['name'] = $dxcc->name;
+			$summary['worked'][$band] = 0;
+			$summary['confirmed'][$band] = 0;
+		}
+		$summary['worked']['Total'] = 0;
+		$summary['confirmed']['Total'] = 0;
+
+		// Track unique DXCC/band combinations for totals
+		$workedDxccs = [];  // [band][dxcc] => true
+		$confirmedDxccs = []; // [band][dxcc] => true
+
+		// Track worked status for each DXCC
+		$dxccWorkedStatus = []; // [dxcc] => count
+
+		// Create a lookup array for valid bands
+		$validBands = array_flip($bands);
+
+		// Get all DXCC data in efficient queries
+		$dxccData = $this->getDxccData($location_list, $postdata);
+
+		$dxccDataSat = $this->getDxccDataSat($location_list, $postdata);
+
+		foreach ($dxccData as $dxcc) {
+			// Skip if this band is not in our requested bands list
+			if (!isset($validBands[$dxcc->col_band])) {
+				continue;
+			}
+
+			// Track worked status for this DXCC
+			if (!isset($dxccWorkedStatus[$dxcc->dxcc])) {
+				$dxccWorkedStatus[$dxcc->dxcc] = 0;
+			}
+			$dxccWorkedStatus[$dxcc->dxcc]++;
+
+			// Check if confirmed based on the confirmation types selected in postdata
+			$isConfirmed = false;
+			$confirmationLetters = '';
+			if (isset($postdata['qsl']) && $postdata['qsl'] == 1 && $dxcc->qsl > 0) {
+				$isConfirmed = true;
+				$confirmationLetters .= 'Q';
+			}
+			if (isset($postdata['lotw']) && $postdata['lotw'] == 1 && $dxcc->lotw > 0) {
+				$isConfirmed = true;
+				$confirmationLetters .= 'L';
+			}
+			if (isset($postdata['eqsl']) && $postdata['eqsl'] == 1 && $dxcc->eqsl > 0) {
+				$isConfirmed = true;
+				$confirmationLetters .= 'E';
+			}
+			if (isset($postdata['qrz']) && $postdata['qrz'] == 1 && $dxcc->qrz > 0) {
+				$isConfirmed = true;
+				$confirmationLetters .= 'Z';
+			}
+			if (isset($postdata['clublog']) && $postdata['clublog'] == 1 && $dxcc->clublog > 0) {
+				$isConfirmed = true;
+				$confirmationLetters .= 'C';
+			}
+
+			if ($isConfirmed) {
+				$dxccMatrix[$dxcc->dxcc][$dxcc->col_band] = '<div class="bg-success awardsBgSuccess" additional_successinfo=">C<"><a href=\'javascript:displayContacts("'.$dxcc->dxcc.'","'. $dxcc->col_band . '","'. $postdata['sat'] . '","'. $postdata['orbit'] . '","' . $postdata['mode'] . '","DXCC2","'.$qsl.'","'.$postdata['dateFrom'].'","'.$postdata['dateTo'].'")\'>'.$confirmationLetters.'</a></div>';
+				// Track confirmed DXCCs for summary
+				if (!isset($confirmedDxccs[$dxcc->col_band][$dxcc->dxcc])) {
+					$confirmedDxccs[$dxcc->col_band][$dxcc->dxcc] = true;
+					$summary['confirmed'][$dxcc->col_band]++;
+				}
+			} else {
+				if ($postdata['worked'] != NULL) {
+					$dxccMatrix[$dxcc->dxcc][$dxcc->col_band] = '<div class="bg-danger awardsBgWarning" ><a href=\'javascript:displayContacts("'.$dxcc->dxcc.'","'. $dxcc->col_band . '","'. $postdata['sat'] . '","' . $postdata['orbit'] . '","'. $postdata['mode'] . '","DXCC2", "", "'.$postdata['dateFrom'].'", "'.$postdata['dateTo'].'")\'>W</a></div>';
+				}
+			}
+
+			// Track worked DXCCs for summary
+			if (!isset($workedDxccs[$dxcc->col_band][$dxcc->dxcc])) {
+				$workedDxccs[$dxcc->col_band][$dxcc->dxcc] = true;
+				$summary['worked'][$dxcc->col_band]++;
+			}
+		}
+
+		if ($postdata['band'] == 'SAT') {
+			foreach ($dxccDataSat as $dxcc) {
+				if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
+					continue;
+				}
+				// Skip if this band is not in our requested bands list
+				if (!isset($validBands[$dxcc->col_band])) {
+					continue;
+				}
+
+				// Ensure string key for consistency
+				$dxccKey = (string)$dxcc->dxcc;
+
+				// Track worked status for this DXCC
+				if (!isset($dxccWorkedStatus[$dxccKey])) {
+					$dxccWorkedStatus[$dxccKey] = 0;
+				}
+				$dxccWorkedStatus[$dxccKey]++;
+
+				// Check if confirmed based on the confirmation types selected in postdata
+				$isConfirmed = false;
+				$confirmationLetters = '';
+				if (isset($postdata['qsl']) && $postdata['qsl'] == 1 && $dxcc->qsl > 0) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'Q';
+				}
+				if (isset($postdata['lotw']) && $postdata['lotw'] == 1 && $dxcc->lotw > 0) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'L';
+				}
+				if (isset($postdata['eqsl']) && $postdata['eqsl'] == 1 && $dxcc->eqsl > 0) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'E';
+				}
+				if (isset($postdata['qrz']) && $postdata['qrz'] == 1 && $dxcc->qrz > 0) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'Z';
+				}
+				if (isset($postdata['clublog']) && $postdata['clublog'] == 1 && $dxcc->clublog > 0) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'C';
+				}
+
+				if ($isConfirmed) {
+					$dxccMatrix[$dxccKey][$dxcc->col_band] = '<div class="bg-success awardsBgSuccess" additional_successinfo=">C<"><a href=\'javascript:displayContacts("'.$dxcc->dxcc.'","'. $dxcc->col_band . '","'. $postdata['sat'] . '","'. $postdata['orbit'] . '","' . $postdata['mode'] . '","DXCC2","'.$qsl.'","'.$postdata['dateFrom'].'","'.$postdata['dateTo'].'")\'>'.$confirmationLetters.'</a></div>';
+					// Track confirmed DXCCs for summary
+					if (!isset($confirmedDxccs[$dxcc->col_band][$dxccKey])) {
+						$confirmedDxccs[$dxcc->col_band][$dxccKey] = true;
+						$summary['confirmed'][$dxcc->col_band]++;
+					}
 				} else {
-					$dxccMatrix[$dxcc->adif]['name'] = ucwords(strtolower($dxcc->name), "- (/");
+					if ($postdata['worked'] != NULL) {
+						$dxccMatrix[$dxccKey][$dxcc->col_band] = '<div class="bg-danger awardsBgWarning" ><a href=\'javascript:displayContacts("'.$dxcc->dxcc.'","'. $dxcc->col_band . '","'. $postdata['sat'] . '","' . $postdata['orbit'] . '","'. $postdata['mode'] . '","DXCC2", "", "'.$postdata['dateFrom'].'", "'.$postdata['dateTo'].'")\'>W</a></div>';
+					}
 				}
-				$dxccMatrix[$dxcc->adif]['Dxccprefix'] = $dxcc->prefix;
-				if ($postdata['includedeleted'])
-					$dxccMatrix[$dxcc->adif]['Deleted'] = isset($dxcc->Enddate) ? 1 : 0;
-				$dxccMatrix[$dxcc->adif][$band] = '-';
-			}
 
-			// If worked is checked, we add worked entities to the array
-			if ($postdata['worked'] != NULL) {
-				$workedDXCC = $this->getDxccBandWorked($location_list, $band, $postdata);
-				foreach ($workedDXCC as $wdxcc) {
-					$dxccMatrix[$wdxcc->dxcc][$band] = '<div class="bg-danger awardsBgWarning" ><a href=\'javascript:displayContacts("'.$wdxcc->dxcc.'","'. $band . '","'. $postdata['sat'] . '","' . $postdata['orbit'] . '","'. $postdata['mode'] . '","DXCC2", "", "'.$postdata['dateFrom'].'", "'.$postdata['dateTo'].'")\'>W</a></div>';
-				}
-			}
-
-			// If confirmed is checked, we add confirmed entities to the array
-			if ($postdata['confirmed'] != NULL) {
-				$confirmedDXCC = $this->getDxccBandConfirmed($location_list, $band, $postdata);
-				foreach ($confirmedDXCC as $cdxcc) {
-					$dxccMatrix[$cdxcc->dxcc][$band] = '<div class="bg-success awardsBgSuccess" additional_successinfo=">C<"><a href=\'javascript:displayContacts("'.$cdxcc->dxcc.'","'. $band . '","'. $postdata['sat'] . '","'. $postdata['orbit'] . '","' . $postdata['mode'] . '","DXCC2","'.$qsl.'","'.$postdata['dateFrom'].'","'.$postdata['dateTo'].'")\'>'.$this->cf_type($postdata, $cdxcc->qsl,$cdxcc->lotw, $cdxcc->eqsl, $cdxcc->qrz, $cdxcc->clublog).'</a></div>';
+				// Track worked DXCCs for summary
+				if (!isset($workedDxccs[$dxcc->col_band][$dxccKey])) {
+					$workedDxccs[$dxcc->col_band][$dxccKey] = true;
+					$summary['worked'][$dxcc->col_band]++;
 				}
 			}
 		}
 
-		// We want to remove the worked dxcc's in the list, since we do not want to display them
-		if ($postdata['worked'] == NULL) {
-			$workedDxcc = $this->getDxccWorked($location_list, $postdata);
-			foreach ($workedDxcc as $wdxcc) {
-				if (array_key_exists($wdxcc->dxcc, $dxccMatrix)) {
-					unset($dxccMatrix[$wdxcc->dxcc]);
+		// Calculate totals across all bands (excluding SAT)
+		$totalWorkedDxccs = [];
+		$totalConfirmedDxccs = [];
+		foreach ($workedDxccs as $band => $dxccs) {
+			foreach ($dxccs as $dxcc => $true) {
+				if (!isset($totalWorkedDxccs[$dxcc])) {
+					$totalWorkedDxccs[$dxcc] = true;
+					if ($band === 'SAT') {
+						continue;
+					}
+					$totalWorkedDxccsExSat[$dxcc] = true;
+					$summary['worked']['Total']++;
+				}
+			}
+		}
+		foreach ($confirmedDxccs as $band => $dxccs) {
+			foreach ($dxccs as $dxcc => $true) {
+				if (!isset($totalConfirmedDxccs[$dxcc])) {
+					$totalConfirmedDxccs[$dxcc] = true;
+					if ($band === 'SAT') {
+						continue;
+					}
+					$totalConfirmedDxccsExSat[$dxcc] = true; // For calculating total worked excluding SAT
+					$summary['confirmed']['Total']++;
 				}
 			}
 		}
 
-		// We want to remove the confirmed dxcc's in the list, since we do not want to display them
-		if ($postdata['confirmed'] == NULL) {
-			$confirmedDxcc = $this->getDxccConfirmed($location_list, $postdata);
-			foreach ($confirmedDxcc as $cdxcc) {
-				if (array_key_exists($cdxcc->dxcc, $dxccMatrix)) {
-					unset($dxccMatrix[$cdxcc->dxcc]);
+		// Remove DXCCs based on postdata filters
+		foreach ($dxccMatrix as $dxcc => $data) {
+			// Remove not-worked DXCCs if filter is disabled
+			if ($postdata['notworked'] == NULL && !isset($dxccWorkedStatus[$dxcc])) {
+				unset($dxccMatrix[$dxcc]);
+				continue;
+			}
+
+			// Remove worked-only DXCCs if filter is disabled
+			if ($postdata['worked'] == NULL && isset($dxccWorkedStatus[$dxcc]) && !isset($totalConfirmedDxccs[$dxcc])) {
+				unset($dxccMatrix[$dxcc]);
+				continue;
+			}
+
+			// Remove confirmed DXCCs if filter is disabled
+			if ($postdata['confirmed'] == NULL && isset($totalConfirmedDxccs[$dxcc])) {
+				unset($dxccMatrix[$dxcc]);
+				continue;
+			}
+		}
+
+		// If this is for the map, return simplified format
+		if ($map) {
+			$mapDxccs = [];
+			if ($bands[0] == 'SAT') {
+				foreach ($dxccMatrix as $dxcc => $data) {
+					if (isset($confirmedDxccs['SAT'][$dxcc])) {
+						$mapDxccs[$dxcc] = 'C';  // Confirmed
+					} elseif (isset($workedDxccs['SAT'][$dxcc])) {
+						$mapDxccs[$dxcc] = 'W';  // Worked but not confirmed
+					} else {
+						$mapDxccs[$dxcc] = '-';  // Not worked
+					}
+				}
+			} else {
+				foreach ($dxccMatrix as $dxcc => $data) {
+					if (isset($totalConfirmedDxccsExSat[$dxcc])) {
+						$mapDxccs[$dxcc] = 'C';  // Confirmed
+					} elseif (isset($totalWorkedDxccsExSat[$dxcc])) {
+						$mapDxccs[$dxcc] = 'W';  // Worked but not confirmed
+					} else {
+						$mapDxccs[$dxcc] = '-';  // Not worked
+					}
 				}
 			}
+			return $mapDxccs;
 		}
 
 		if (isset($dxccMatrix)) {
-			return $dxccMatrix;
+			// Return both the matrix data and summary
+			return ['matrix' => $dxccMatrix, 'summary' => $summary];
 		} else {
 			return 0;
 		}
 	}
 
-	private function cf_type($postdata,$qsl,$lotw,$eqsl,$qrz,$clublog) {
-		$string='';
-		if ((($qsl ?? 0)>0) && (($postdata['qsl'] ?? '') != '')) { $string.='Q'; }
-		if ((($lotw ?? 0)>0) && (($postdata['lotw'] ?? '') != '')) { $string.='L'; }
-		if ((($eqsl ?? 0)>0) && (($postdata['eqsl'] ?? '') != '')) { $string.='E'; }
-		if ((($qrz ?? 0)>0) && (($postdata['qrz'] ?? '') != '')) { $string.='Z'; }
-		if ((($clublog ?? 0)>0) && (($postdata['clublog'] ?? '') != '')) { $string.='C'; }
-		if ($string == '') { $string='C'; }
-		return $string;
-	}
+	/*
+	 * Gets all DXCC data with confirmation status in efficient query using MAX aggregation
+	 */
+	function getDxccData($location_list, $postdata) {
+		$bindings = [];
+		$sql = "SELECT thcv.col_dxcc as dxcc, thcv.col_band,
+			MAX(case when thcv.col_lotw_qsl_rcvd ='Y' then 1 else 0 end) as lotw,
+			MAX(case when thcv.col_qsl_rcvd = 'Y' then 1 else 0 end) as qsl,
+			MAX(case when thcv.col_eqsl_qsl_rcvd = 'Y' then 1 else 0 end) as eqsl,
+			MAX(case when thcv.COL_QRZCOM_QSO_DOWNLOAD_STATUS= 'Y' then 1 else 0 end) as qrz,
+			MAX(case when thcv.COL_CLUBLOG_QSO_DOWNLOAD_STATUS = 'Y' then 1 else 0 end) as clublog
+		FROM " . $this->config->item('table_name') . " thcv
+		join dxcc_entities on thcv.col_dxcc = dxcc_entities.adif
+		WHERE station_id IN (" . $location_list . ") AND thcv.col_dxcc > 0";
 
-	function getDxccBandConfirmed($location_list, $band, $postdata) {
-		$bindings=[];
-		$sql = "select adif as dxcc, name, lotw, qsl, eqsl, qrz, clublog from dxcc_entities
-				join (
-					select col_dxcc, sum(case when thcv.col_lotw_qsl_rcvd ='Y' then 1 else 0 end) as lotw,sum(case when thcv.col_qsl_rcvd = 'Y' then 1 else 0 end) as qsl,sum(case when thcv.col_eqsl_qsl_rcvd = 'Y' then 1 else 0 end) as eqsl,sum(case when thcv.COL_QRZCOM_QSO_DOWNLOAD_STATUS= 'Y' then 1 else 0 end) as qrz,sum(case when thcv.COL_CLUBLOG_QSO_DOWNLOAD_STATUS = 'Y' then 1 else 0 end) as clublog from ".$this->config->item('table_name')." thcv
-					LEFT JOIN satellite on thcv.COL_SAT_NAME = satellite.name
-					where station_id in (" . $location_list .
-				  ") and col_dxcc > 0";
-
-		$sql .= $this->genfunctions->addBandToQuery($band,$bindings);
-		if ($band == 'SAT') {
-			$sql .= " and col_prop_mode='SAT'";
-			if ($postdata['sat'] != 'All') {
-				$sql .= " and col_sat_name = ?";
-				$bindings[]=$postdata['sat'];
-			}
-		} else {
-			$sql.=" and (col_prop_mode!='SAT' or col_prop_mode is null)";
-		}
-
+		// Mode filter
 		if ($postdata['mode'] != 'All') {
-			$sql .= " and (col_mode = ? or col_submode = ?)";
-			$bindings[]=$postdata['mode'];
-			$bindings[]=$postdata['mode'];
+			$sql .= " AND (thcv.col_mode = ? OR thcv.col_submode = ?)";
+			$bindings[] = $postdata['mode'];
+			$bindings[] = $postdata['mode'];
 		}
 
-		$sql .= $this->addOrbitToQuery($postdata,$bindings);
-
-		$sql .= $this->genfunctions->addQslToQuery($postdata);
-
+		// Date filters
 		if ($postdata['dateFrom'] != NULL) {
-			$sql .= " and col_time_on >= ?";
-			$bindings[]=$postdata['dateFrom'] . ' 00:00:00';
+			$sql .= " AND thcv.col_time_on >= ?";
+			$bindings[] = $postdata['dateFrom'] . ' 00:00:00';
 		}
 
 		if ($postdata['dateTo'] != NULL) {
-			$sql .= " and col_time_on <= ?";
-			$bindings[]=$postdata['dateTo'] . ' 23:59:59';
+			$sql .= " AND thcv.col_time_on <= ?";
+			$bindings[] = $postdata['dateTo'] . ' 23:59:59';
 		}
 
-		$sql .= " group by col_dxcc
-				) x on dxcc_entities.adif = x.col_dxcc";
+		$sql .= " and thcv.col_prop_mode != 'SAT'";
 
-		if ($postdata['includedeleted'] == NULL) {
-			$sql .= " and dxcc_entities.end is null";
-		}
-
+		// Continent filters
 		$sql .= $this->addContinentsToQuery($postdata);
 
-		$query = $this->db->query($sql,$bindings);
+		// Deleted DXCC filter
+		if ($postdata['includedeleted'] == NULL) {
+			$sql .= " AND (SELECT end FROM dxcc_entities d WHERE d.adif = thcv.col_dxcc) IS NULL";
+		}
 
+		$sql .= " GROUP BY thcv.col_dxcc, thcv.col_band";
+
+		$query = $this->db->query($sql, $bindings);
 		return $query->result();
 	}
 
-	function getDxccBandWorked($location_list, $band, $postdata) {
-		$bindings=[];
-		$sql = "select adif as dxcc, name from dxcc_entities
-				join (
-					select col_dxcc from ".$this->config->item('table_name')." thcv
-					LEFT JOIN satellite on thcv.COL_SAT_NAME = satellite.name
-					where station_id in (" . $location_list .
-					") and col_dxcc > 0";
-		$sql .= $this->genfunctions->addBandToQuery($band,$bindings);
-		if ($band == 'SAT') {
-			$sql .= " and col_prop_mode ='SAT'";
-			if ($postdata['sat'] != 'All') {
-				$sql .= " and col_sat_name = ?";
-				$bindings[]=$postdata['sat'];
-			}
-		} else {
-			$sql.=" and (col_prop_mode != 'SAT' or col_prop_mode is null)";
-		}
+	function getDxccDataSat($location_list, $postdata) {
+		$bindings = [];
+		$sql = "SELECT thcv.col_dxcc as dxcc, 'SAT' as col_band,
+			MAX(case when thcv.col_lotw_qsl_rcvd ='Y' then 1 else 0 end) as lotw,
+			MAX(case when thcv.col_qsl_rcvd = 'Y' then 1 else 0 end) as qsl,
+			MAX(case when thcv.col_eqsl_qsl_rcvd = 'Y' then 1 else 0 end) as eqsl,
+			MAX(case when thcv.COL_QRZCOM_QSO_DOWNLOAD_STATUS= 'Y' then 1 else 0 end) as qrz,
+			MAX(case when thcv.COL_CLUBLOG_QSO_DOWNLOAD_STATUS = 'Y' then 1 else 0 end) as clublog
+		FROM " . $this->config->item('table_name') . " thcv
+		join dxcc_entities on thcv.col_dxcc = dxcc_entities.adif
+		LEFT JOIN satellite on thcv.COL_SAT_NAME = satellite.name
+		WHERE station_id IN (" . $location_list . ") AND thcv.col_dxcc > 0";
 
+		// Mode filter
 		if ($postdata['mode'] != 'All') {
-			$sql .= " and (col_mode = ? or col_submode = ?)";
-			$bindings[]=$postdata['mode'];
-			$bindings[]=$postdata['mode'];
+			$sql .= " AND (thcv.col_mode = ? OR thcv.col_submode = ?)";
+			$bindings[] = $postdata['mode'];
+			$bindings[] = $postdata['mode'];
 		}
 
+		// Date filters
 		if ($postdata['dateFrom'] != NULL) {
-			$sql .= " and col_time_on >= ?";
-			$bindings[]=$postdata['dateFrom'] . ' 00:00:00';
+			$sql .= " AND thcv.col_time_on >= ?";
+			$bindings[] = $postdata['dateFrom'] . ' 00:00:00';
 		}
 
 		if ($postdata['dateTo'] != NULL) {
-			$sql .= " and col_time_on <= ?";
-			$bindings[]=$postdata['dateTo'] . ' 23:59:59';
+			$sql .= " AND thcv.col_time_on <= ?";
+			$bindings[] = $postdata['dateTo'] . ' 23:59:59';
 		}
 
-		$sql .= $this->addOrbitToQuery($postdata,$bindings);
-
-		$sql .= " group by col_dxcc
-				) x on dxcc_entities.adif = x.col_dxcc";;
-		if ($postdata['includedeleted'] == NULL) {
-			$sql .= " and dxcc_entities.end is null";
+		// Satellite filter
+		if ($postdata['sat'] != 'All') {
+			$sql .= " AND thcv.col_sat_name = ?";
+			$bindings[] = $postdata['sat'];
 		}
+
+		// Orbit filter
+		$sql .= $this->addOrbitToQuery($postdata, $bindings);
+
+		// Continent filters
 		$sql .= $this->addContinentsToQuery($postdata);
 
-		$query = $this->db->query($sql,$bindings);
+		// Deleted DXCC filter
+		if ($postdata['includedeleted'] == NULL) {
+			$sql .= " AND (SELECT end FROM dxcc_entities d WHERE d.adif = thcv.col_dxcc) IS NULL";
+		}
+
+		$sql .= " and col_prop_mode = 'SAT'";
+
+		$sql .= " GROUP BY thcv.col_dxcc";
+
+		$query = $this->db->query($sql, $bindings);
 		return $query->result();
 	}
 
-	function fetchDxcc($postdata) {
+	function fetchDxcc($postdata, $location_list) {
 		$bindings=[];
-		$this->load->model('logbooks_model');
-		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
-
-		if (!$logbooks_locations_array) {
-			return null;
-		}
-
-		$location_list = "'".implode("','",$logbooks_locations_array)."'";
 
 		$sql = "select adif, prefix, name, date(end) Enddate, date(start) Startdate, lat, `long`
 			from dxcc_entities";
@@ -287,146 +458,6 @@ class DXCC extends CI_Model {
 		return $query->result();
 	}
 
-	function getDxccWorked($location_list, $postdata) {
-		$bindings=[];
-		$sql = "SELECT adif as dxcc FROM dxcc_entities
-			join (
-				select col_dxcc
-				from ".$this->config->item('table_name')." thcv
-				LEFT JOIN satellite on thcv.COL_SAT_NAME = satellite.name
-				where station_id in (" . $location_list .
-				") and col_dxcc > 0";
-		$sql .= $this->genfunctions->addBandToQuery($postdata['band'],$bindings);
-		if ($postdata['band'] == 'SAT') {
-			$sql .= " and col_prop_mode = 'SAT'";
-			if ($postdata['sat'] != 'All') {
-				$sql .= " and col_sat_name = ?";
-				$bindings[]=$postdata['sat'];
-			}
-			$sql .= $this->addOrbitToQuery($postdata,$bindings);
-		} else {
-			$sql.=" and (col_prop_mode != 'SAT' or col_prop_mode is null)";
-		}
-
-
-		if ($postdata['mode'] != 'All') {
-			$sql .= " and (col_mode = ? or col_submode = ?)";
-			$bindings[]=$postdata['mode'];
-			$bindings[]=$postdata['mode'];
-		}
-
-		if ($postdata['dateFrom'] != NULL) {
-			$sql .= " and col_time_on >= ?";
-			$bindings[]=$postdata['dateFrom'] . ' 00:00:00';
-		}
-
-		if ($postdata['dateTo'] != NULL) {
-			$sql .= " and col_time_on <= ?";
-			$bindings[]=$postdata['dateTo'] . ' 23:59:59';
-		}
-
-		$sql .= " and not exists (select 1 from ".$this->config->item('table_name')." where station_id in (". $location_list .") and col_dxcc = thcv.col_dxcc and col_dxcc > 0";
-		$sql .= $this->genfunctions->addBandToQuery($postdata['band'],$bindings);
-		if ($postdata['band'] == 'SAT') {
-			$sql .= " and col_prop_mode = 'SAT'";
-			if ($postdata['sat'] != 'All') {
-				$sql .= " and col_sat_name = ?";
-				$bindings[]=$postdata['sat'];
-			}
-			$sql .= $this->addOrbitToQuery($postdata,$bindings);
-		} else {
-			$sql.=" and (col_prop_mode != 'SAT' or col_prop_mode is null)";
-		}
-
-		if ($postdata['dateFrom'] != NULL) {
-			$sql .= " and col_time_on >= ?";
-			$bindings[]=$postdata['dateFrom'] . ' 00:00:00';
-		}
-
-		if ($postdata['dateTo'] != NULL) {
-			$sql .= " and col_time_on <= ?";
-			$bindings[]=$postdata['dateTo'] . ' 23:59:59';
-		}
-
-
-		if ($postdata['mode'] != 'All') {
-			$sql .= " and (col_mode = ? or col_submode = ?)";
-			$bindings[]=$postdata['mode'];
-			$bindings[]=$postdata['mode'];
-		}
-
-		$sql .= $this->genfunctions->addQslToQuery($postdata);
-		$sql .= ')';
-		$sql .= " group by col_dxcc
-	    ) ll on dxcc_entities.adif = ll.col_dxcc
-	    where 1=1";
-
-		if ($postdata['includedeleted'] == NULL) {
-			$sql .= " and dxcc_entities.end is null";
-		}
-
-		$sql .= $this->addContinentsToQuery($postdata);
-		$query = $this->db->query($sql,$bindings);
-		return $query->result();
-	}
-
-	function getDxccConfirmed($location_list, $postdata) {
-		$bindings=[];
-		$sql = "SELECT adif as dxcc, lotw, qsl, eqsl, qrz, clublog FROM dxcc_entities
-	    join (
-		select col_dxcc, sum(case when thcv.col_lotw_qsl_rcvd ='Y' then 1 else 0 end) as lotw,sum(case when thcv.col_qsl_rcvd = 'Y' then 1 else 0 end) as qsl,sum(case when thcv.col_eqsl_qsl_rcvd = 'Y' then 1 else 0 end) as eqsl,sum(case when thcv.COL_QRZCOM_QSO_DOWNLOAD_STATUS= 'Y' then 1 else 0 end) as qrz,sum(case when thcv.COL_CLUBLOG_QSO_DOWNLOAD_STATUS = 'Y' then 1 else 0 end) as clublog
-		from ".$this->config->item('table_name')." thcv
-		LEFT JOIN satellite on thcv.COL_SAT_NAME = satellite.name
-		where station_id in (". $location_list .
-		    ") and col_dxcc > 0";
-
-		if ($postdata['dateFrom'] != NULL) {
-			$sql .= " and col_time_on >= ?";
-			$bindings[]=$postdata['dateFrom'] . ' 00:00:00';
-		}
-
-		if ($postdata['dateTo'] != NULL) {
-			$sql .= " and col_time_on <= ?";
-			$bindings[]=$postdata['dateTo'] . ' 23:59:59';
-		}
-
-		$sql .= $this->genfunctions->addBandToQuery($postdata['band'],$bindings);
-		if ($postdata['band'] == 'SAT') {
-			$sql .= " and col_prop_mode = 'SAT'";
-			if ($postdata['sat'] != 'All') {
-				$sql .= " and col_sat_name = ?";
-				$bindings[]=$postdata['sat'];
-			}
-		} else {
-			$sql.=" and (col_prop_mode != 'SAT' or col_prop_mode is null)";
-		}
-
-		if ($postdata['mode'] != 'All') {
-			$sql .= " and (col_mode = ? or col_submode = ?)";
-			$bindings[]=$postdata['mode'];
-			$bindings[]=$postdata['mode'];
-		}
-
-		$sql .= $this->addOrbitToQuery($postdata,$bindings);
-
-		$sql .= $this->genfunctions->addQslToQuery($postdata);
-
-		$sql .= " group by col_dxcc
-	    ) ll on dxcc_entities.adif = ll.col_dxcc
-	    where 1=1";
-
-		if ($postdata['includedeleted'] == NULL) {
-			$sql .= " and dxcc_entities.end is null";
-		}
-
-		$sql .= $this->addContinentsToQuery($postdata);
-
-
-		$query = $this->db->query($sql,$bindings);
-
-		return $query->result();
-	}
-
 	// Made function instead of repeating this several times
 	function addContinentsToQuery($postdata) {
 		$sql = '';
@@ -460,95 +491,6 @@ class DXCC extends CI_Model {
 		return $sql;
 	}
 
-	/*
-     * Function gets worked and confirmed summary on each band on the active stationprofile
-     */
-	function get_dxcc_summary($bands, $postdata) {
-		$this->load->model('logbooks_model');
-		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
-
-		if (!$logbooks_locations_array) {
-			return null;
-		}
-
-		$location_list = "'".implode("','",$logbooks_locations_array)."'";
-
-		foreach ($bands as $band) {
-			$worked = $this->getSummaryByBand($band, $postdata, $location_list);
-			$confirmed = $this->getSummaryByBandConfirmed($band, $postdata, $location_list);
-			$dxccSummary['worked'][$band] = $worked[0]->count;
-			$dxccSummary['confirmed'][$band] = $confirmed[0]->count;
-			$dxccSummary['confirmed_lotw'][$band] = $confirmed[0]->lotw;
-			$dxccSummary['confirmed_qsl'][$band] = $confirmed[0]->qsl;
-		}
-
-		$workedTotal = $this->getSummaryByBand($postdata['band'], $postdata, $location_list);
-		$confirmedTotal = $this->getSummaryByBandConfirmed($postdata['band'], $postdata, $location_list);
-
-		$dxccSummary['worked']['Total'] = $workedTotal[0]->count;
-		$dxccSummary['confirmed']['Total'] = $confirmedTotal[0]->count;
-
-		return $dxccSummary;
-	}
-
-	function getSummaryByBand($band, $postdata, $location_list) {
-		$bindings=[];
-		$sql = "SELECT count(distinct thcv.col_dxcc) as count FROM " . $this->config->item('table_name') . " thcv";
-		$sql .= " LEFT JOIN satellite on thcv.COL_SAT_NAME = satellite.name";
-		$sql .= " join dxcc_entities d on thcv.col_dxcc = d.adif";
-
-		$sql .= " where station_id in (" . $location_list . ") and col_dxcc > 0";
-
-		if ($band == 'SAT') {
-			$sql .= " and thcv.col_prop_mode ='" . $band . "'";
-			if ($band != 'All' && $postdata['sat'] != 'All') {
-				$sql .= " and col_sat_name = ?";
-				$bindings[]=$postdata['sat'];
-			}
-		} else if ($band == 'All') {
-			$this->load->model('bands');
-
-			$bandslots = $this->bands->get_worked_bands('dxcc');
-
-			$bandslots_list = "'".implode("','",$bandslots)."'";
-
-			$sql .= " and thcv.col_band in (" . $bandslots_list . ")" .
-				" and thcv.col_prop_mode !='SAT'";
-		} else {
-			$sql .= " and thcv.col_prop_mode !='SAT'";
-			$sql .= " and thcv.col_band = ?";
-			$bindings[]=$band;
-		}
-
-		if ($postdata['dateFrom'] != NULL) {
-			$sql .= " and col_time_on >= ?";
-			$bindings[]=$postdata['dateFrom'] . ' 00:00:00';
-		}
-
-		if ($postdata['dateTo'] != NULL) {
-			$sql .= " and col_time_on <= ?";
-			$bindings[]=$postdata['dateTo'] . ' 23:59:59';
-		}
-
-		if ($postdata['mode'] != 'All') {
-			$sql .= " and (col_mode = ? or col_submode = ?)";
-			$bindings[]=$postdata['mode'];
-			$bindings[]=$postdata['mode'];
-		}
-
-		if ($postdata['includedeleted'] == NULL) {
-			$sql .= " and d.end is null";
-		}
-
-		$sql .= $this->addContinentsToQuery($postdata);
-
-		$sql .= $this->addOrbitToQuery($postdata,$bindings);
-
-		$query = $this->db->query($sql,$bindings);
-
-		return $query->result();
-	}
-
 	// Adds orbit type to query
 	function addOrbitToQuery($postdata,&$binding) {
 		$sql = '';
@@ -558,68 +500,6 @@ class DXCC extends CI_Model {
 		}
 
 		return $sql;
-	}
-
-	function getSummaryByBandConfirmed($band, $postdata, $location_list) {
-		$bindings=[];
-		$sql = "SELECT count(distinct thcv.col_dxcc) as count, sum(case when thcv.col_lotw_qsl_rcvd ='Y' then 1 else 0 end) as lotw,sum(case when thcv.col_qsl_rcvd = 'Y' then 1 else 0 end) as qsl,sum(case when thcv.col_eqsl_qsl_rcvd = 'Y'     then 1 else 0 end) as eqsl,sum(case when thcv.COL_QRZCOM_QSO_DOWNLOAD_STATUS= 'Y' then 1 else 0 end) as qrz,sum(case when thcv.COL_CLUBLOG_QSO_DOWNLOAD_STATUS = 'Y' then 1 else 0 end) as clublog FROM " . $this->config->item('table_name') . " thcv";
-		$sql .= " LEFT JOIN satellite on thcv.COL_SAT_NAME = satellite.name";
-		$sql .= " join dxcc_entities d on thcv.col_dxcc = d.adif";
-
-		$sql .= " where station_id in (" . $location_list . ") and col_dxcc > 0";
-
-		if ($band == 'SAT') {
-			$sql .= " and thcv.col_prop_mode = ?";
-			$bindings[]=$band;
-			if ($postdata['sat'] != 'All') {
-				$sql .= " and col_sat_name = ?";
-				$bindings[]=$postdata['sat'];
-			}
-		} else if ($band == 'All') {
-			$this->load->model('bands');
-
-			$bandslots = $this->bands->get_worked_bands('dxcc');
-
-			$bandslots_list = "'".implode("','",$bandslots)."'";
-
-			$sql .= " and thcv.col_band in (" . $bandslots_list . ")" .
-				" and thcv.col_prop_mode !='SAT'";
-		} else {
-			$sql .= " and thcv.col_prop_mode !='SAT'";
-			$sql .= " and thcv.col_band = ?";
-			$bindings[]=$band;
-		}
-
-		if ($postdata['dateFrom'] != NULL) {
-			$sql .= " and col_time_on >= ?";
-			$bindings[]=$postdata['dateFrom'] . ' 00:00:00';
-		}
-
-		if ($postdata['dateTo'] != NULL) {
-			$sql .= " and col_time_on <= ?";
-			$bindings[]=$postdata['dateTo'] . ' 23:59:59';
-		}
-
-		if ($postdata['mode'] != 'All') {
-			$sql .= " and (col_mode = ? or col_submode = ?)";
-			$bindings[]=$postdata['mode'];
-			$bindings[]=$postdata['mode'];
-		}
-
-		$sql .= $this->genfunctions->addQslToQuery($postdata);
-
-		$sql .= $this->addOrbitToQuery($postdata,$bindings);
-
-
-		if ($postdata['includedeleted'] == NULL) {
-			$sql .= " and d.end is null";
-		}
-
-		$sql .= $this->addContinentsToQuery($postdata);
-
-		$query = $this->db->query($sql,$bindings);
-
-		return $query->result();
 	}
 
 	/*
@@ -943,10 +823,8 @@ class DXCC extends CI_Model {
 
 			// query the table, removing a character from the right until a match
 			for ($i = $len; $i > 0; $i--) {
-				//printf("searching for %s\n", substr($call, 0, $i));
 				if (array_key_exists(substr($call, 0, $i), $dxcc_array)) {
 					$row = $dxcc_array[substr($call, 0, $i)];
-					// $row = $dxcc_result->row_array();
 					return $row;
 				}
 			}

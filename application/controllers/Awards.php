@@ -110,6 +110,9 @@ class Awards extends CI_Controller {
 		$this->load->model('dxcc');
 		$this->load->model('modes');
 		$this->load->model('bands');
+		$this->load->model('logbooks_model');
+
+		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
 
 		$data['orbits'] = $this->bands->get_worked_orbits();
 		$data['sats_available'] = $this->bands->get_worked_sats();
@@ -183,12 +186,21 @@ class Awards extends CI_Controller {
 			$postdata['dateTo'] = null;
 		}
 
-		$dxcclist = $this->dxcc->fetchdxcc($postdata);
-		if ($dxcclist && $dxcclist[0]->adif == "0") {
-			unset($dxcclist[0]);
-		}
-		$data['dxcc_array'] = $this->dxcc->get_dxcc_array($dxcclist, $bands, $postdata);
-		$data['dxcc_summary'] = $this->dxcc->get_dxcc_summary($bands, $postdata);
+		if ($logbooks_locations_array) {
+			$location_list = "'".implode("','",$logbooks_locations_array)."'";
+			$dxcclist = $this->dxcc->fetchdxcc($postdata, $location_list);
+			if ($dxcclist && $dxcclist[0]->adif == "0") {
+				unset($dxcclist[0]);
+			}
+            $dxcc_result = $this->dxcc->get_dxcc_array($dxcclist, $bands, $postdata, $location_list);
+            // Extract bands data and summary from the result
+            $data['dxcc_array'] = ($dxcc_result && isset($dxcc_result['matrix'])) ? $dxcc_result['matrix'] : null;
+            $data['dxcc_summary'] = ($dxcc_result && isset($dxcc_result['summary'])) ? $dxcc_result['summary'] : null;
+		} else {
+            $location_list = null;
+            $data['dxcc_array'] = null;
+            $data['dxcc_summary'] = null;
+        }
 
 		// Render Page
 		$data['page_title'] = sprintf(__("Awards - %s"), __("DXCC"));
@@ -562,7 +574,8 @@ class Awards extends CI_Controller {
 
 		// Render Page
 		$data['page_title'] = __("Log View")." - " . $type;
-		$data['filter'] = (($type != $band) ? $type : '')." ".$searchphrase.__(" and band ").$band;
+		$data['filter'] = (($type != $band) ? $type : '')." ".$searchphrase." ".__("and")." ";
+		$data['filter'] .= ($band == 'All' ? lcfirst(__("Every band (w/o SAT)")) : __("band")." ".$band);
 		if ($band == 'SAT') {
 			if ($sat != 'All' && $sat != null) {
 				$data['filter'] .= __(" and satellite ").$sat;
@@ -1759,59 +1772,77 @@ class Awards extends CI_Controller {
         This displays the DXCC map
     */
     public function dxcc_map() {
-	    $this->load->model('dxcc');
-	    $this->load->model('bands');
+		$this->load->model('dxcc');
+		$this->load->model('bands');
 
-	    $bands[] = $this->security->xss_clean($this->input->post('band'));
+		$data['worked_bands'] = $this->bands->get_worked_bands('dxcc');
 
-	    $postdata['qsl'] = ($this->input->post('qsl',true) ?? 0) == 0 ? NULL: 1;
-	    $postdata['lotw'] = ($this->input->post('lotw',true) ?? 0) == 0 ? NULL: 1;
-	    $postdata['eqsl'] = ($this->input->post('eqsl',true) ?? 0) == 0 ? NULL: 1;
-	    $postdata['qrz'] = ($this->input->post('qrz',true) ?? 0) == 0 ? NULL: 1;
-	    $postdata['clublog'] = ($this->input->post('clublog',true) ?? 0) == 0 ? NULL: 1;
-	    $postdata['worked'] = ($this->input->post('worked',true) ?? 0) == 0 ? NULL: 1;
-	    $postdata['confirmed'] = ($this->input->post('confirmed',true) ?? 0)  == 0 ? NULL: 1;
-	    $postdata['notworked'] = ($this->input->post('notworked',true) ?? 0)  == 0 ? NULL: 1;
+		if ($this->input->post('band') == 'All') {
+			$bands = $data['worked_bands'];
+		}
+		else {
+			$bands[] = $this->input->post('band');
+		}
 
-	    $postdata['includedeleted'] = ($this->input->post('includedeleted',true) ?? 0) == 0 ? NULL: 1;
-	    $postdata['Africa'] = ($this->input->post('Africa',true) ?? 0) == 0 ? NULL: 1;
-	    $postdata['Asia'] = ($this->input->post('Asia',true) ?? 0) == 0 ? NULL: 1;
-	    $postdata['Europe'] = ($this->input->post('Europe',true) ?? 0) == 0 ? NULL: 1;
-	    $postdata['NorthAmerica'] = ($this->input->post('NorthAmerica',true) ?? 0) == 0 ? NULL: 1;
-	    $postdata['SouthAmerica'] = ($this->input->post('SouthAmerica',true) ?? 0) == 0 ? NULL: 1;
-	    $postdata['Oceania'] = ($this->input->post('Oceania',true) ?? 0) == 0 ? NULL: 1;
-	    $postdata['Antarctica'] = ($this->input->post('Antarctica',true) ?? 0) == 0 ? NULL: 1;
-	    $postdata['band'] = $this->security->xss_clean($this->input->post('band'));
-	    $postdata['mode'] = $this->security->xss_clean($this->input->post('mode'));
-	    $postdata['sat'] = $this->security->xss_clean($this->input->post('sat'));
-	    $postdata['orbit'] = $this->security->xss_clean($this->input->post('orbit'));
+		$bands[] = $this->security->xss_clean($this->input->post('band'));
+
+		$postdata['qsl'] = ($this->input->post('qsl',true) ?? 0) == 0 ? NULL: 1;
+		$postdata['lotw'] = ($this->input->post('lotw',true) ?? 0) == 0 ? NULL: 1;
+		$postdata['eqsl'] = ($this->input->post('eqsl',true) ?? 0) == 0 ? NULL: 1;
+		$postdata['qrz'] = ($this->input->post('qrz',true) ?? 0) == 0 ? NULL: 1;
+		$postdata['clublog'] = ($this->input->post('clublog',true) ?? 0) == 0 ? NULL: 1;
+		$postdata['worked'] = ($this->input->post('worked',true) ?? 0) == 0 ? NULL: 1;
+		$postdata['confirmed'] = ($this->input->post('confirmed',true) ?? 0)  == 0 ? NULL: 1;
+		$postdata['notworked'] = ($this->input->post('notworked',true) ?? 0)  == 0 ? NULL: 1;
+
+		$postdata['includedeleted'] = ($this->input->post('includedeleted',true) ?? 0) == 0 ? NULL: 1;
+		$postdata['Africa'] = ($this->input->post('Africa',true) ?? 0) == 0 ? NULL: 1;
+		$postdata['Asia'] = ($this->input->post('Asia',true) ?? 0) == 0 ? NULL: 1;
+		$postdata['Europe'] = ($this->input->post('Europe',true) ?? 0) == 0 ? NULL: 1;
+		$postdata['NorthAmerica'] = ($this->input->post('NorthAmerica',true) ?? 0) == 0 ? NULL: 1;
+		$postdata['SouthAmerica'] = ($this->input->post('SouthAmerica',true) ?? 0) == 0 ? NULL: 1;
+		$postdata['Oceania'] = ($this->input->post('Oceania',true) ?? 0) == 0 ? NULL: 1;
+		$postdata['Antarctica'] = ($this->input->post('Antarctica',true) ?? 0) == 0 ? NULL: 1;
+		$postdata['band'] = $this->security->xss_clean($this->input->post('band'));
+		$postdata['mode'] = $this->security->xss_clean($this->input->post('mode'));
+		$postdata['sat'] = $this->security->xss_clean($this->input->post('sat'));
+		$postdata['orbit'] = $this->security->xss_clean($this->input->post('orbit'));
 
 		$postdata['dateFrom'] = $this->security->xss_clean($this->input->post('dateFrom'));
 		$postdata['dateTo'] = $this->security->xss_clean($this->input->post('dateTo'));
 
-	    $dxcclist = $this->dxcc->fetchdxcc($postdata);
-	    if ($dxcclist[0]->adif == "0") {
-		    unset($dxcclist[0]);
-	    }
+		$this->load->model('logbooks_model');
+		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
 
-	    $dxcc_array = $this->dxcc->get_dxcc_array($dxcclist, $bands, $postdata);
+		if ($logbooks_locations_array) {
+			$location_list = "'".implode("','",$logbooks_locations_array)."'";
+			$dxcclist = $this->dxcc->fetchdxcc($postdata, $location_list);
+			if ($dxcclist[0]->adif == "0") {
+				unset($dxcclist[0]);
+			}
+			$dxcc_array = $this->dxcc->get_dxcc_array($dxcclist, $bands, $postdata, $location_list, true);
+		} else {
+			$location_list = null;
+			$dxcc_array = array();
+		}
 
-	    $i = 0;
+		$i = 0;
 
-	    foreach ($dxcclist as $dxcc) {
-		    $newdxcc[$i]['adif'] = $dxcc->adif;
-		    $newdxcc[$i]['prefix'] = $dxcc->prefix;
-		    $newdxcc[$i]['name'] = ucwords(strtolower($dxcc->name), "- (/");
-		    if ($dxcc->Enddate!=null) {
-			    $newdxcc[$i]['name'] .= ' (deleted)';
-		    }
-		    $newdxcc[$i]['lat'] = $dxcc->lat;
-		    $newdxcc[$i]['long'] = $dxcc->long;
-		    $newdxcc[$i++]['status'] = isset($dxcc_array[$dxcc->adif]) ? $this->returnStatus($dxcc_array[$dxcc->adif]) : 'x';
-	    }
+		foreach ($dxcclist as $dxcc) {
+			$newdxcc[$i]['adif'] = $dxcc->adif;
+			$newdxcc[$i]['prefix'] = $dxcc->prefix;
+			$newdxcc[$i]['name'] = ucwords(strtolower($dxcc->name), "- (/");
+			if ($dxcc->Enddate!=null) {
+				$newdxcc[$i]['name'] .= ' (deleted)';
+			}
+			$newdxcc[$i]['lat'] = $dxcc->lat;
+			$newdxcc[$i]['long'] = $dxcc->long;
+			$newdxcc[$i++]['status'] = isset($dxcc_array[$dxcc->adif]) ? $dxcc_array[$dxcc->adif] : 'x';
+		}
 
-	    header('Content-Type: application/json');
-	    echo json_encode($newdxcc);
+
+		header('Content-Type: application/json');
+		echo json_encode($newdxcc);
     }
 
     /*

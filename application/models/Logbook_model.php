@@ -487,6 +487,8 @@ class Logbook_model extends CI_Model {
 					if ($orbit != 'All' && $orbit != null) {
 						$this->db->where("satellite.orbit", $orbit);
 					}
+				} else {
+					$this->db->where("COL_PROP_MODE !=", "SAT");
 				}
 				break;
 			case 'IOTA':
