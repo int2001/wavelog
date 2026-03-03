@@ -80,7 +80,9 @@ class CQ extends CI_Model{
 					$summary['confirmed'][$cq->col_band]++;
 				}
 			} else {
-				$bandCq[$cq->col_cqz][$cq->col_band] = '<div class="bg-danger awardsBgWarning"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $cq->col_cqz) . '","' . $cq->col_band . '","All", "All","'. $postdata['mode'] . '","CQZone","")\'>W</a></div>';
+				if ($postdata['worked'] != NULL) {
+					$bandCq[$cq->col_cqz][$cq->col_band] = '<div class="bg-danger awardsBgWarning"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $cq->col_cqz) . '","' . $cq->col_band . '","All", "All","'. $postdata['mode'] . '","CQZone","")\'>W</a></div>';
+				}
 			}
 
 			// Track worked zones for summary
@@ -130,7 +132,9 @@ class CQ extends CI_Model{
 					$summary['confirmed'][$cq->col_band]++;
 				}
 			} else {
-				$bandCq[$cq->col_cqz][$cq->col_band] = '<div class="bg-danger awardsBgWarning"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $cq->col_cqz) . '","' . $cq->col_band . '","All", "All","'. $postdata['mode'] . '","CQZone","")\'>W</a></div>';
+				if ($postdata['worked'] != NULL) {
+					$bandCq[$cq->col_cqz][$cq->col_band] = '<div class="bg-danger awardsBgWarning"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $cq->col_cqz) . '","' . $cq->col_band . '","All", "All","'. $postdata['mode'] . '","CQZone","")\'>W</a></div>';
+				}
 			}
 
 			// Track worked zones for summary
