@@ -1426,9 +1426,12 @@ class QSO
 		}
 
 		if ($this->frequencyRX && $this->frequency) {
-			$converted_rx = $this->CI->frequency->qrg_conversion($this->frequencyRX);
-			if ($converted_rx) {
-				$label .= "/" . $converted_rx;
+			// Only show RX frequency if it's different from TX
+			if (!$this->CI->frequency->frequencies_are_equal($this->frequency, $this->frequencyRX)) {
+				$converted_rx = $this->CI->frequency->qrg_conversion($this->frequencyRX);
+				if ($converted_rx) {
+					$label .= "/" . $converted_rx;
+				}
 			}
 		}
 
