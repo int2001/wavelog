@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-03-05 08:23+0000\n"
+"POT-Creation-Date: 2026-03-05 11:41+0000\n"
 "PO-Revision-Date: 2024-12-10 11:09+0000\n"
 "Last-Translator: Dragan Đorđević <4o4a.dragan@gmail.com>\n"
 "Language-Team: Serbian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -87,8 +87,8 @@ msgstr ""
 #: application/controllers/Qso.php:22 application/controllers/Qso.php:295
 #: application/controllers/Qso.php:426 application/controllers/Qso.php:447
 #: application/controllers/Qso.php:470 application/controllers/Qso.php:770
-#: application/controllers/Radio.php:32 application/controllers/Radio.php:320
-#: application/controllers/Radio.php:346 application/controllers/Radio.php:362
+#: application/controllers/Radio.php:32 application/controllers/Radio.php:322
+#: application/controllers/Radio.php:348 application/controllers/Radio.php:364
 #: application/controllers/Reg1test.php:17
 #: application/controllers/Reg1test.php:60
 #: application/controllers/Reg1test.php:99
@@ -1422,8 +1422,8 @@ msgstr "QSL"
 #: application/views/oqrs/qsolist.php:17 application/views/oqrs/qsolist.php:160
 #: application/views/oqrs/qsolist.php:175
 #: application/views/qslprint/qsolist.php:23
-#: application/views/qslprint/qsolist.php:171
-#: application/views/qslprint/qsolist.php:186
+#: application/views/qslprint/qsolist.php:187
+#: application/views/qslprint/qsolist.php:202
 #: application/views/qso/edit_ajax.php:426
 #: application/views/satellite/index.php:56
 #: application/views/satellite/satinfo.php:13
@@ -1460,8 +1460,8 @@ msgstr "LoTW"
 #: application/views/oqrs/qsolist.php:14 application/views/oqrs/qsolist.php:131
 #: application/views/oqrs/qsolist.php:144
 #: application/views/qslprint/qsolist.php:20
-#: application/views/qslprint/qsolist.php:142
-#: application/views/qslprint/qsolist.php:155
+#: application/views/qslprint/qsolist.php:158
+#: application/views/qslprint/qsolist.php:171
 #: application/views/qso/edit_ajax.php:423
 #: application/views/search/search_result_ajax.php:263
 #: application/views/search/search_result_ajax.php:276
@@ -2462,11 +2462,11 @@ msgstr "Podešavanja"
 msgid "WebSocket"
 msgstr ""
 
-#: application/controllers/Radio.php:65 application/controllers/Radio.php:124
+#: application/controllers/Radio.php:65 application/controllers/Radio.php:126
 msgid "Default (click to release)"
 msgstr "Podrazumevano (kliknite za objavu)"
 
-#: application/controllers/Radio.php:67 application/controllers/Radio.php:126
+#: application/controllers/Radio.php:67 application/controllers/Radio.php:128
 msgid "Set as default radio"
 msgstr "Postavite podrazumevani radio"
 
@@ -2474,13 +2474,13 @@ msgstr "Postavite podrazumevani radio"
 msgid "UNKNOWN"
 msgstr ""
 
-#: application/controllers/Radio.php:118 application/views/bandmap/list.php:243
+#: application/controllers/Radio.php:120 application/views/bandmap/list.php:243
 #: application/views/contesting/index.php:162
 #: application/views/qso/index.php:416
 msgid "last updated"
 msgstr "posljednje ažuriranje"
 
-#: application/controllers/Radio.php:128
+#: application/controllers/Radio.php:130
 #: application/controllers/Stationsetup.php:402
 #: application/views/api/index.php:74 application/views/bands/bandedges.php:32
 #: application/views/club/permissions.php:274
@@ -2499,7 +2499,7 @@ msgstr "posljednje ažuriranje"
 msgid "Edit"
 msgstr "Uredite"
 
-#: application/controllers/Radio.php:129
+#: application/controllers/Radio.php:131
 #: application/controllers/Stationsetup.php:415
 #: application/views/api/index.php:81 application/views/bands/bandedges.php:33
 #: application/views/club/permissions.php:331
@@ -2528,27 +2528,27 @@ msgstr "Uredite"
 msgid "Delete"
 msgstr "Obrišite"
 
-#: application/controllers/Radio.php:136
+#: application/controllers/Radio.php:138
 msgid "WebSocket is currently default (click to release)"
 msgstr ""
 
-#: application/controllers/Radio.php:138
+#: application/controllers/Radio.php:140
 msgid "Set WebSocket as default radio"
 msgstr ""
 
-#: application/controllers/Radio.php:142
+#: application/controllers/Radio.php:144
 msgid "No CAT interfaced radios found."
 msgstr "Nisu pronađeni radio uređaji sa CAT interfejsom."
 
-#: application/controllers/Radio.php:143
+#: application/controllers/Radio.php:145
 msgid "You can still set the WebSocket option as your default radio."
 msgstr ""
 
-#: application/controllers/Radio.php:160 application/views/radio/index.php:2
+#: application/controllers/Radio.php:162 application/views/radio/index.php:2
 msgid "Edit CAT Settings"
 msgstr "Uredi CAT podešavanja"
 
-#: application/controllers/Radio.php:332
+#: application/controllers/Radio.php:334
 msgid "Radio removed successfully"
 msgstr ""
 
@@ -6578,8 +6578,10 @@ msgstr "Grad"
 #: application/views/distances/index.php:23
 #: application/views/qslprint/qslprint.php:57
 #: application/views/qslprint/qslprint.php:58
-#: application/views/qslprint/qsolist.php:44
-#: application/views/qslprint/qsolist.php:45
+#: application/views/qslprint/qsolist.php:48
+#: application/views/qslprint/qsolist.php:50
+#: application/views/qslprint/qsolist.php:57
+#: application/views/qslprint/qsolist.php:59
 msgid "SAT"
 msgstr "SAT"
 
@@ -10052,9 +10054,9 @@ msgstr "Potrebno"
 #: application/views/dashboard/index.php:433
 #: application/views/oqrs/qsolist.php:51 application/views/oqrs/qsolist.php:131
 #: application/views/oqrs/qsolist.php:160
-#: application/views/qslprint/qsolist.php:62
-#: application/views/qslprint/qsolist.php:142
-#: application/views/qslprint/qsolist.php:171
+#: application/views/qslprint/qsolist.php:78
+#: application/views/qslprint/qsolist.php:158
+#: application/views/qslprint/qsolist.php:187
 #: application/views/qso/edit_ajax.php:441
 #: application/views/qso/edit_ajax.php:502
 #: application/views/qso/edit_ajax.php:547
@@ -10089,9 +10091,9 @@ msgstr "Poslato"
 #: application/views/dashboard/index.php:439
 #: application/views/oqrs/qsolist.php:93 application/views/oqrs/qsolist.php:144
 #: application/views/oqrs/qsolist.php:175
-#: application/views/qslprint/qsolist.php:104
-#: application/views/qslprint/qsolist.php:155
-#: application/views/qslprint/qsolist.php:186
+#: application/views/qslprint/qsolist.php:120
+#: application/views/qslprint/qsolist.php:171
+#: application/views/qslprint/qsolist.php:202
 #: application/views/qso/edit_ajax.php:474
 #: application/views/qso/edit_ajax.php:515
 #: application/views/qso/edit_ajax.php:560
@@ -10132,8 +10134,8 @@ msgstr "Primljeno"
 #: application/views/logbookadvanced/index.php:655
 #: application/views/logbookadvanced/index.php:666
 #: application/views/oqrs/qsolist.php:57 application/views/oqrs/qsolist.php:99
-#: application/views/qslprint/qsolist.php:68
-#: application/views/qslprint/qsolist.php:110
+#: application/views/qslprint/qsolist.php:84
+#: application/views/qslprint/qsolist.php:126
 #: application/views/qso/edit_ajax.php:446
 #: application/views/qso/edit_ajax.php:479
 #: application/views/qso/edit_ajax.php:507
@@ -13198,9 +13200,9 @@ msgstr "Verifikovano"
 #: application/views/oqrs/qsolist.php:73 application/views/oqrs/qsolist.php:115
 #: application/views/oqrs/showrequests.php:8
 #: application/views/qslprint/qslprint.php:7
-#: application/views/qslprint/qsolist.php:84
-#: application/views/qslprint/qsolist.php:126
-#: application/views/qslprint/qsolist.php:215
+#: application/views/qslprint/qsolist.php:100
+#: application/views/qslprint/qsolist.php:142
+#: application/views/qslprint/qsolist.php:231
 #: application/views/qso/edit_ajax.php:458
 #: application/views/qso/edit_ajax.php:491 application/views/qso/index.php:735
 #: application/views/search/search_result_ajax.php:205
@@ -13219,9 +13221,9 @@ msgstr "Direktno"
 #: application/views/oqrs/request_grouped.php:48
 #: application/views/oqrs/showrequests.php:7
 #: application/views/qslprint/qslprint.php:6
-#: application/views/qslprint/qsolist.php:81
-#: application/views/qslprint/qsolist.php:123
-#: application/views/qslprint/qsolist.php:214
+#: application/views/qslprint/qsolist.php:97
+#: application/views/qslprint/qsolist.php:139
+#: application/views/qslprint/qsolist.php:230
 #: application/views/qso/edit_ajax.php:459
 #: application/views/qso/edit_ajax.php:492 application/views/qso/index.php:736
 #: application/views/search/search_result_ajax.php:202
@@ -13238,9 +13240,9 @@ msgstr "Biro"
 #: application/views/oqrs/qsolist.php:79 application/views/oqrs/qsolist.php:121
 #: application/views/oqrs/showrequests.php:9
 #: application/views/qslprint/qslprint.php:8
-#: application/views/qslprint/qsolist.php:90
-#: application/views/qslprint/qsolist.php:132
-#: application/views/qslprint/qsolist.php:216
+#: application/views/qslprint/qsolist.php:106
+#: application/views/qslprint/qsolist.php:148
+#: application/views/qslprint/qsolist.php:232
 #: application/views/qso/edit_ajax.php:460
 #: application/views/qso/edit_ajax.php:493 application/views/qso/index.php:737
 #: application/views/search/search_result_ajax.php:211
@@ -13255,7 +13257,7 @@ msgstr "Elektronski"
 #: application/views/logbookadvanced/index.php:587
 #: application/views/logbookadvanced/index.php:597
 #: application/views/oqrs/qsolist.php:118
-#: application/views/qslprint/qsolist.php:129
+#: application/views/qslprint/qsolist.php:145
 #: application/views/qso/edit_ajax.php:461
 #: application/views/qso/edit_ajax.php:494 application/views/qso/index.php:738
 #: application/views/search/search_result_ajax.php:250
@@ -13676,8 +13678,8 @@ msgstr "QSL poslata"
 #: application/views/logbookadvanced/index.php:632
 #: application/views/logbookadvanced/index.php:656
 #: application/views/oqrs/qsolist.php:54 application/views/oqrs/qsolist.php:96
-#: application/views/qslprint/qsolist.php:65
-#: application/views/qslprint/qsolist.php:107
+#: application/views/qslprint/qsolist.php:81
+#: application/views/qslprint/qsolist.php:123
 #: application/views/qso/edit_ajax.php:447
 #: application/views/qso/edit_ajax.php:508
 #: application/views/qso/edit_ajax.php:553
@@ -13716,10 +13718,10 @@ msgstr "U nizu"
 #: application/views/oqrs/qsolist.php:60 application/views/oqrs/qsolist.php:102
 #: application/views/oqrs/qsolist.php:167
 #: application/views/oqrs/qsolist.php:182
-#: application/views/qslprint/qsolist.php:71
-#: application/views/qslprint/qsolist.php:113
-#: application/views/qslprint/qsolist.php:178
-#: application/views/qslprint/qsolist.php:193
+#: application/views/qslprint/qsolist.php:87
+#: application/views/qslprint/qsolist.php:129
+#: application/views/qslprint/qsolist.php:194
+#: application/views/qslprint/qsolist.php:209
 #: application/views/qso/edit_ajax.php:448
 #: application/views/qso/edit_ajax.php:480
 #: application/views/qso/edit_ajax.php:509
@@ -14999,7 +15001,7 @@ msgstr "Pošaljite zahtev za proveru veze u logu"
 #: application/views/oqrs/qsolist.php:76
 #: application/views/qslprint/qslprint.php:30
 #: application/views/qslprint/qsolist.php:16
-#: application/views/qslprint/qsolist.php:87
+#: application/views/qslprint/qsolist.php:103
 #: application/views/qso/index.php:744
 #: application/views/search/search_result_ajax.php:208
 #: application/views/view_log/partial/log_ajax.php:310
@@ -15013,7 +15015,7 @@ msgstr ""
 
 #: application/views/oqrs/qsolist.php:203
 #: application/views/oqrs/showrequests.php:72
-#: application/views/qslprint/qsolist.php:200
+#: application/views/qslprint/qsolist.php:216
 msgid "Add to print queue"
 msgstr "Dodajte u niz za štampu"
 
@@ -15417,7 +15419,7 @@ msgstr "Označi zahtevane QSL kao poslate"
 msgid "No QSLs to print were found!"
 msgstr "Nisu pronađene QSL za štampu!"
 
-#: application/views/qslprint/qsolist.php:209
+#: application/views/qslprint/qsolist.php:225
 msgid ""
 "No additional QSOs were found. That means they are probably already in the "
 "queue."
