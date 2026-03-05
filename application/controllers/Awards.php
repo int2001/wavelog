@@ -36,7 +36,6 @@ class Awards extends CI_Controller {
 
 	public function dok ()
 	{
-
 		$this->load->model('logbooks_model');
 		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
 		$data['user_map_custom'] = $this->optionslib->get_map_custom();
@@ -204,7 +203,7 @@ class Awards extends CI_Controller {
 
 		// Render Page
 		$data['page_title'] = sprintf(__("Awards - %s"), __("DXCC"));
-		$data['posted_band']=$postdata['band'];
+		$data['posted_band'] = $postdata['band'];
 		$this->load->view('interface_assets/header', $data);
 		$this->load->view('awards/dxcc/index');
 		$this->load->view('interface_assets/footer');
@@ -2289,17 +2288,14 @@ class Awards extends CI_Controller {
 			$postdata['notworked'] = $this->input->post('notworked')  == 0 ? NULL: 1;
 
 			$postdata['includedeleted'] = $this->security->xss_clean($this->input->post('includedeleted'));
-			$postdata['Africa'] = $this->security->xss_clean($this->input->post('Africa'));
-			$postdata['Asia'] = $this->security->xss_clean($this->input->post('Asia'));
-			$postdata['Europe'] = $this->security->xss_clean($this->input->post('Europe'));
-			$postdata['NorthAmerica'] = $this->security->xss_clean($this->input->post('NorthAmerica'));
-			$postdata['SouthAmerica'] = $this->security->xss_clean($this->input->post('SouthAmerica'));
-			$postdata['Oceania'] = $this->security->xss_clean($this->input->post('Oceania'));
-			$postdata['Antarctica'] = $this->security->xss_clean($this->input->post('Antarctica'));
 			$postdata['band'] = $this->security->xss_clean($this->input->post('band'));
 			$postdata['mode'] = $this->security->xss_clean($this->input->post('mode'));
 			$postdata['sat'] = $this->security->xss_clean($this->input->post('sats'));
 			$postdata['orbit'] = $this->security->xss_clean($this->input->post('orbits'));
+
+			$postdata['dateFrom'] = $this->security->xss_clean($this->input->post('dateFrom'));
+			$postdata['dateTo'] = $this->security->xss_clean($this->input->post('dateTo'));
+
 		} else { // Setting default values at first load of page
 			$postdata['qsl'] = 1;
 			$postdata['lotw'] = 1;
@@ -2309,21 +2305,19 @@ class Awards extends CI_Controller {
 			$postdata['confirmed'] = 1;
 			$postdata['notworked'] = 1;
 			$postdata['includedeleted'] = 0;
-			$postdata['Africa'] = 1;
-			$postdata['Asia'] = 1;
-			$postdata['Europe'] = 1;
-			$postdata['NorthAmerica'] = 1;
-			$postdata['SouthAmerica'] = 1;
-			$postdata['Oceania'] = 1;
-			$postdata['Antarctica'] = 1;
 			$postdata['band'] = 'All';
 			$postdata['mode'] = 'All';
 			$postdata['sat'] = 'All';
 			$postdata['orbit'] = 'All';
+
+			$postdata['dateFrom'] = null;
+			$postdata['dateTo'] = null;
 		}
 
-		$data['wae_array'] = $this->wae->get_wae_array($bands, $postdata);
-		$data['wae_summary'] = $this->wae->get_wae_summary($bands, $postdata);
+		$result = $this->wae->get_wae_array($bands, $postdata);
+		$data['wae_array'] = $result['matrix'] ?? null;
+		$data['wae_summary'] = $result['summary'] ?? null;
+		$data['posted_band'] = $postdata['band'];
 
 		// Render Page
 		$data['page_title'] = sprintf(__("Awards - %s"), __("WAE"));
