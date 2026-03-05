@@ -543,9 +543,29 @@ class Logbook_model extends CI_Model {
 				break;
 			case 'CQZone':
 				$this->db->where('COL_CQZ', $searchphrase);
+				if ($band == 'SAT' && $type == 'CQZone') {
+					if ($sat != 'All' && $sat != null) {
+						$this->db->where("COL_SAT_NAME", $sat);
+					}
+					if ($orbit != 'All' && $orbit != null) {
+						$this->db->where("satellite.orbit", $orbit);
+					}
+				} else {
+					$this->db->where("COL_PROP_MODE !=", "SAT");
+				}
 				break;
 			case 'ITU':
 				$this->db->where('COL_ITUZ', $searchphrase);
+				if ($band == 'SAT' && $type == 'ITU') {
+					if ($sat != 'All' && $sat != null) {
+						$this->db->where("COL_SAT_NAME", $sat);
+					}
+					if ($orbit != 'All' && $orbit != null) {
+						$this->db->where("satellite.orbit", $orbit);
+					}
+				} else {
+					$this->db->where("COL_PROP_MODE !=", "SAT");
+				}
 				break;
 			case 'WAS':
 				$this->db->where('COL_STATE', $searchphrase);
@@ -2929,7 +2949,7 @@ class Logbook_model extends CI_Model {
 		// Cache the complete data for each callsign/dxcc/continent (both in-memory and file)
 		// OPTIMIZATION: Batch file cache writes if enabled to reduce I/O operations
 		$file_cache_batch = [];
-		
+
 		// Store worked items with their band/mode data
 		foreach ($call_data as $callsign => $data) {
 			$cache_key = "{$logbook_ids_key}|call|{$callsign}";

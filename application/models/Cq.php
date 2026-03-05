@@ -17,6 +17,9 @@ class CQ extends CI_Model{
 
 		// Initialize all bands to dash
 		foreach ($bands as $band) {
+			if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
+				continue;
+			}
 			for ($i = 1; $i <= 40; $i++) {
 				$bandCq[$i][$band] = '-';                  // Sets all to dash to indicate no result
 			}
@@ -24,6 +27,9 @@ class CQ extends CI_Model{
 
 		// Initialize summary counters only for the bands passed in
 		foreach ($bands as $band) {
+			if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
+				continue;
+			}
 			$summary['worked'][$band] = 0;
 			$summary['confirmed'][$band] = 0;
 		}
@@ -92,55 +98,60 @@ class CQ extends CI_Model{
 			}
 		}
 
-		foreach ($cqdata_sat as $cq) {
-			// Skip if this band is not in our requested bands list
-			if (!isset($validBands[$cq->col_band])) {
-				continue;
-			}
-
-			$cqZ[$cq->col_cqz]['count']++; // Count each cq zone
-
-			// Check if confirmed based on the confirmation types selected in postdata
-			$isConfirmed = false;
-			$confirmationLetters = '';
-			if (isset($postdata['qsl']) && $postdata['qsl'] == 1 && $cq->qsl == 1) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'Q';
-			}
-			if (isset($postdata['lotw']) && $postdata['lotw'] == 1 && $cq->lotw == 1) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'L';
-			}
-			if (isset($postdata['eqsl']) && $postdata['eqsl'] == 1 && $cq->eqsl == 1) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'E';
-			}
-			if (isset($postdata['qrz']) && $postdata['qrz'] == 1 && $cq->qrz == 1) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'Z';
-			}
-			if (isset($postdata['clublog']) && $postdata['clublog'] == 1 && $cq->clublog == 1) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'C';
-			}
-
-			if ($isConfirmed) {
-				$bandCq[$cq->col_cqz][$cq->col_band] = '<div class="bg-success awardsBgSuccess"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $cq->col_cqz) . '","' . $cq->col_band . '","All", "All","'. $postdata['mode'] . '","CQZone","'.$qsl.'")\'>' . $confirmationLetters . '</a></div>';
-				// Track confirmed zones for summary
-				if (!isset($confirmedZones[$cq->col_band][$cq->col_cqz])) {
-					$confirmedZones[$cq->col_band][$cq->col_cqz] = true;
-					$summary['confirmed'][$cq->col_band]++;
+		if ($postdata['band'] == 'SAT') {
+			foreach ($cqdata_sat as $cq) {
+				if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
+					continue;
 				}
-			} else {
-				if ($postdata['worked'] != NULL) {
-					$bandCq[$cq->col_cqz][$cq->col_band] = '<div class="bg-danger awardsBgWarning"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $cq->col_cqz) . '","' . $cq->col_band . '","All", "All","'. $postdata['mode'] . '","CQZone","")\'>W</a></div>';
+				// Skip if this band is not in our requested bands list
+				if (!isset($validBands[$cq->col_band])) {
+					continue;
 				}
-			}
 
-			// Track worked zones for summary
-			if (!isset($workedZones[$cq->col_band][$cq->col_cqz])) {
-				$workedZones[$cq->col_band][$cq->col_cqz] = true;
-				$summary['worked'][$cq->col_band]++;
+				$cqZ[$cq->col_cqz]['count']++; // Count each cq zone
+
+				// Check if confirmed based on the confirmation types selected in postdata
+				$isConfirmed = false;
+				$confirmationLetters = '';
+				if (isset($postdata['qsl']) && $postdata['qsl'] == 1 && $cq->qsl == 1) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'Q';
+				}
+				if (isset($postdata['lotw']) && $postdata['lotw'] == 1 && $cq->lotw == 1) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'L';
+				}
+				if (isset($postdata['eqsl']) && $postdata['eqsl'] == 1 && $cq->eqsl == 1) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'E';
+				}
+				if (isset($postdata['qrz']) && $postdata['qrz'] == 1 && $cq->qrz == 1) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'Z';
+				}
+				if (isset($postdata['clublog']) && $postdata['clublog'] == 1 && $cq->clublog == 1) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'C';
+				}
+
+				if ($isConfirmed) {
+					$bandCq[$cq->col_cqz][$cq->col_band] = '<div class="bg-success awardsBgSuccess"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $cq->col_cqz) . '","' . $cq->col_band . '","All", "All","'. $postdata['mode'] . '","CQZone","'.$qsl.'")\'>' . $confirmationLetters . '</a></div>';
+					// Track confirmed zones for summary
+					if (!isset($confirmedZones[$cq->col_band][$cq->col_cqz])) {
+						$confirmedZones[$cq->col_band][$cq->col_cqz] = true;
+						$summary['confirmed'][$cq->col_band]++;
+					}
+				} else {
+					if ($postdata['worked'] != NULL) {
+						$bandCq[$cq->col_cqz][$cq->col_band] = '<div class="bg-danger awardsBgWarning"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $cq->col_cqz) . '","' . $cq->col_band . '","All", "All","'. $postdata['mode'] . '","CQZone","")\'>W</a></div>';
+					}
+				}
+
+				// Track worked zones for summary
+				if (!isset($workedZones[$cq->col_band][$cq->col_cqz])) {
+					$workedZones[$cq->col_band][$cq->col_cqz] = true;
+					$summary['worked'][$cq->col_band]++;
+				}
 			}
 		}
 

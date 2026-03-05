@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-03-03 13:55+0000\n"
+"POT-Creation-Date: 2026-03-05 07:40+0000\n"
 "PO-Revision-Date: 2024-11-16 17:03+0000\n"
 "Last-Translator: Samir <DL4DCO@users.noreply.translate.wavelog.org>\n"
 "Language-Team: Bosnian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -417,9 +417,11 @@ msgid "and"
 msgstr ""
 
 #: application/controllers/Awards.php:578
+#: application/views/awards/cq/index.php:135
 #: application/views/awards/dxcc/index.php:32
 #: application/views/awards/dxcc/index.php:176
 #: application/views/awards/iota/index.php:123
+#: application/views/awards/itu/index.php:137
 #: application/views/awards/wpx/index.php:81
 msgid "Every band (w/o SAT)"
 msgstr ""
@@ -605,7 +607,7 @@ msgid "WAP"
 msgstr ""
 
 #: application/controllers/Awards.php:2131
-#: application/views/awards/itu/index.php:23
+#: application/views/awards/itu/index.php:34
 msgid "ITU Zones"
 msgstr ""
 
@@ -796,7 +798,7 @@ msgstr ""
 #: application/views/awards/dok/index.php:72
 #: application/views/awards/dxcc/index.php:133
 #: application/views/awards/iota/index.php:80
-#: application/views/awards/itu/index.php:117
+#: application/views/awards/itu/index.php:128
 #: application/views/awards/jcc/index.php:70
 #: application/views/awards/pl_polska/index.php:84
 #: application/views/awards/wab/index.php:106
@@ -1382,7 +1384,7 @@ msgstr ""
 #: application/views/awards/dxcc/index.php:121
 #: application/views/awards/helvetia/index.php:63
 #: application/views/awards/iota/index.php:68
-#: application/views/awards/itu/index.php:105
+#: application/views/awards/itu/index.php:116
 #: application/views/awards/jcc/index.php:58
 #: application/views/awards/pl_polska/index.php:72
 #: application/views/awards/rac/index.php:54
@@ -1424,7 +1426,7 @@ msgstr ""
 #: application/views/awards/dxcc/index.php:125
 #: application/views/awards/helvetia/index.php:67
 #: application/views/awards/iota/index.php:72
-#: application/views/awards/itu/index.php:109
+#: application/views/awards/itu/index.php:120
 #: application/views/awards/jcc/index.php:62
 #: application/views/awards/pl_polska/index.php:76
 #: application/views/awards/rac/index.php:58
@@ -1470,7 +1472,7 @@ msgstr ""
 #: application/views/awards/dxcc/index.php:219
 #: application/views/awards/helvetia/index.php:91
 #: application/views/awards/iota/index.php:134
-#: application/views/awards/itu/index.php:136
+#: application/views/awards/itu/index.php:147
 #: application/views/awards/jcc/index.php:90
 #: application/views/awards/rac/index.php:82
 #: application/views/awards/sig/qso_list.php:12
@@ -1791,7 +1793,7 @@ msgstr ""
 #: application/views/awards/dxcc/index.php:173
 #: application/views/awards/helvetia/index.php:77
 #: application/views/awards/iota/index.php:120
-#: application/views/awards/itu/index.php:123
+#: application/views/awards/itu/index.php:134
 #: application/views/awards/jcc/index.php:76
 #: application/views/awards/pota/index.php:36
 #: application/views/awards/rac/index.php:68
@@ -3517,105 +3519,105 @@ msgstr ""
 msgid "Station not accessible"
 msgstr ""
 
-#: application/models/Logbook_model.php:1321
+#: application/models/Logbook_model.php:1341
 msgid "Station ID not allowed"
 msgstr ""
 
-#: application/models/Logbook_model.php:1326
+#: application/models/Logbook_model.php:1346
 msgid "No Call given"
 msgstr ""
 
-#: application/models/Logbook_model.php:1396
-#: application/models/Logbook_model.php:1600
+#: application/models/Logbook_model.php:1416
+#: application/models/Logbook_model.php:1620
 msgid "DXCC has to be Numeric"
 msgstr ""
 
-#: application/models/Logbook_model.php:4727
+#: application/models/Logbook_model.php:4747
 #, php-format
 msgid "Wrong station callsign %s while importing QSO with %s for %s: SKIPPED"
 msgstr ""
 
-#: application/models/Logbook_model.php:4741
+#: application/models/Logbook_model.php:4761
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
 msgstr ""
 
-#: application/models/Logbook_model.php:4750
+#: application/models/Logbook_model.php:4770
 msgid "QSO on"
 msgstr ""
 
-#: application/models/Logbook_model.php:4750
+#: application/models/Logbook_model.php:4770
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
 msgstr ""
 
-#: application/models/Logbook_model.php:4799
+#: application/models/Logbook_model.php:4819
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
 "imported. It's invalid"
 msgstr ""
 
-#: application/models/Logbook_model.php:5072
+#: application/models/Logbook_model.php:5092
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr ""
 
-#: application/models/Logbook_model.php:5083
+#: application/models/Logbook_model.php:5103
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr ""
 
-#: application/models/Logbook_model.php:5144
+#: application/models/Logbook_model.php:5164
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr ""
 
-#: application/models/Logbook_model.php:5517
+#: application/models/Logbook_model.php:5537
 #: application/views/simplefle/index.php:41
 msgid "Duplicate for"
 msgstr ""
 
-#: application/models/Logbook_model.php:5582
-#: application/models/Logbook_model.php:5677
+#: application/models/Logbook_model.php:5602
+#: application/models/Logbook_model.php:5697
 msgid "QSO could not be matched"
 msgstr ""
 
-#: application/models/Logbook_model.php:5590
+#: application/models/Logbook_model.php:5610
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr ""
 
-#: application/models/Logbook_model.php:5596
+#: application/models/Logbook_model.php:5616
 msgid "confirmed by award manager"
 msgstr ""
 
-#: application/models/Logbook_model.php:5600
+#: application/models/Logbook_model.php:5620
 msgid "confirmed by cross-check of DCL data"
 msgstr ""
 
-#: application/models/Logbook_model.php:5604
+#: application/models/Logbook_model.php:5624
 msgid "confirmation pending"
 msgstr ""
 
-#: application/models/Logbook_model.php:5607
+#: application/models/Logbook_model.php:5627
 msgid "unconfirmed"
 msgstr ""
 
-#: application/models/Logbook_model.php:5610
+#: application/models/Logbook_model.php:5630
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 #: application/views/view_log/qso.php:305
 msgid "unknown"
 msgstr ""
 
-#: application/models/Logbook_model.php:5680
+#: application/models/Logbook_model.php:5700
 msgid "POTA reference already in log"
 msgstr ""
 
-#: application/models/Logbook_model.php:5683
+#: application/models/Logbook_model.php:5703
 msgid "QSO updated"
 msgstr ""
 
-#: application/models/Logbook_model.php:6080
+#: application/models/Logbook_model.php:6100
 #: application/views/activated_gridmap/index.php:114
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:58
@@ -3767,7 +3769,6 @@ msgstr ""
 #: application/views/activated_gridmap/index.php:45
 #: application/views/activators/index.php:13
 #: application/views/adif/import.php:262
-#: application/views/awards/cq/index.php:135
 #: application/views/awards/cq/index.php:148
 #: application/views/awards/dok/index.php:95
 #: application/views/awards/dxcc/index.php:190
@@ -3775,8 +3776,7 @@ msgstr ""
 #: application/views/awards/dxcc/index.php:222
 #: application/views/awards/helvetia/index.php:94
 #: application/views/awards/iota/index.php:137
-#: application/views/awards/itu/index.php:126
-#: application/views/awards/itu/index.php:139
+#: application/views/awards/itu/index.php:150
 #: application/views/awards/jcc/index.php:93
 #: application/views/awards/rac/index.php:85
 #: application/views/awards/wab/index.php:26
@@ -4207,7 +4207,7 @@ msgstr ""
 #: application/views/awards/dxcc/index.php:43
 #: application/views/awards/helvetia/index.php:116
 #: application/views/awards/iota/index.php:159
-#: application/views/awards/itu/index.php:37
+#: application/views/awards/itu/index.php:48
 #: application/views/awards/jcc/index.php:115
 #: application/views/awards/pl_polska/index.php:93
 #: application/views/awards/rac/index.php:107
@@ -4302,7 +4302,7 @@ msgstr ""
 #: application/views/awards/dxcc/index.php:129
 #: application/views/awards/helvetia/index.php:71
 #: application/views/awards/iota/index.php:76
-#: application/views/awards/itu/index.php:113
+#: application/views/awards/itu/index.php:124
 #: application/views/awards/jcc/index.php:66
 #: application/views/awards/pl_polska/index.php:80
 #: application/views/awards/rac/index.php:62
@@ -4360,11 +4360,11 @@ msgstr ""
 #: application/views/awards/73on73/index.php:66
 #: application/views/awards/counties/details.php:27
 #: application/views/awards/counties/index.php:47
-#: application/views/awards/cq/index.php:286
+#: application/views/awards/cq/index.php:272
 #: application/views/awards/dok/index.php:197
 #: application/views/awards/helvetia/index.php:204
 #: application/views/awards/iota/index.php:302
-#: application/views/awards/itu/index.php:277
+#: application/views/awards/itu/index.php:274
 #: application/views/awards/jcc/index.php:238
 #: application/views/awards/pl_polska/index.php:377
 #: application/views/awards/pota/index.php:68
@@ -5244,8 +5244,8 @@ msgstr ""
 #: application/views/awards/helvetia/index.php:30
 #: application/views/awards/iota/index.php:17
 #: application/views/awards/iota/index.php:25
-#: application/views/awards/itu/index.php:22
-#: application/views/awards/itu/index.php:30
+#: application/views/awards/itu/index.php:33
+#: application/views/awards/itu/index.php:41
 #: application/views/awards/jcc/index.php:16
 #: application/views/awards/jcc/index.php:24
 #: application/views/awards/pl_polska/index.php:36
@@ -5460,7 +5460,7 @@ msgstr ""
 
 #: application/views/awards/cq/index.php:45
 #: application/views/awards/dxcc/index.php:42
-#: application/views/awards/itu/index.php:36
+#: application/views/awards/itu/index.php:47
 #: application/views/awards/wpx/index.php:13
 #: application/views/gridmap/index.php:19
 #: application/views/logbookadvanced/index.php:294
@@ -5474,7 +5474,7 @@ msgstr ""
 
 #: application/views/awards/cq/index.php:55
 #: application/views/awards/dxcc/index.php:52
-#: application/views/awards/itu/index.php:46
+#: application/views/awards/itu/index.php:57
 #: application/views/gridmap/index.php:28
 #: application/views/logbookadvanced/index.php:300
 #: application/views/statistics/index.php:54
@@ -5483,7 +5483,7 @@ msgstr ""
 
 #: application/views/awards/cq/index.php:57
 #: application/views/awards/dxcc/index.php:54
-#: application/views/awards/itu/index.php:48
+#: application/views/awards/itu/index.php:59
 #: application/views/contestcalendar/index.php:45
 #: application/views/dashboard/index.php:360
 #: application/views/dashboard/index.php:387
@@ -5497,7 +5497,7 @@ msgstr ""
 
 #: application/views/awards/cq/index.php:58
 #: application/views/awards/dxcc/index.php:55
-#: application/views/awards/itu/index.php:49
+#: application/views/awards/itu/index.php:60
 #: application/views/gridmap/index.php:32
 #: application/views/logbookadvanced/index.php:303
 #: application/views/statistics/index.php:57
@@ -5506,7 +5506,7 @@ msgstr ""
 
 #: application/views/awards/cq/index.php:59
 #: application/views/awards/dxcc/index.php:56
-#: application/views/awards/itu/index.php:50
+#: application/views/awards/itu/index.php:61
 #: application/views/gridmap/index.php:33
 #: application/views/logbookadvanced/index.php:304
 #: application/views/statistics/index.php:58
@@ -5515,7 +5515,7 @@ msgstr ""
 
 #: application/views/awards/cq/index.php:60
 #: application/views/awards/dxcc/index.php:57
-#: application/views/awards/itu/index.php:51
+#: application/views/awards/itu/index.php:62
 #: application/views/gridmap/index.php:34
 #: application/views/logbookadvanced/index.php:305
 #: application/views/statistics/index.php:59
@@ -5524,7 +5524,7 @@ msgstr ""
 
 #: application/views/awards/cq/index.php:61
 #: application/views/awards/dxcc/index.php:58
-#: application/views/awards/itu/index.php:52
+#: application/views/awards/itu/index.php:63
 #: application/views/gridmap/index.php:35
 #: application/views/logbookadvanced/index.php:306
 #: application/views/statistics/index.php:60
@@ -5533,7 +5533,7 @@ msgstr ""
 
 #: application/views/awards/cq/index.php:62
 #: application/views/awards/dxcc/index.php:59
-#: application/views/awards/itu/index.php:53
+#: application/views/awards/itu/index.php:64
 #: application/views/gridmap/index.php:36
 #: application/views/logbookadvanced/index.php:307
 #: application/views/statistics/index.php:61
@@ -5542,7 +5542,7 @@ msgstr ""
 
 #: application/views/awards/cq/index.php:63
 #: application/views/awards/dxcc/index.php:60
-#: application/views/awards/itu/index.php:54
+#: application/views/awards/itu/index.php:65
 #: application/views/gridmap/index.php:37
 #: application/views/logbookadvanced/index.php:308
 #: application/views/statistics/index.php:62
@@ -5551,7 +5551,7 @@ msgstr ""
 
 #: application/views/awards/cq/index.php:64
 #: application/views/awards/dxcc/index.php:61
-#: application/views/awards/itu/index.php:55
+#: application/views/awards/itu/index.php:66
 #: application/views/logbookadvanced/index.php:309
 #: application/views/statistics/index.php:63
 msgid "Last Year"
@@ -5559,7 +5559,7 @@ msgstr ""
 
 #: application/views/awards/cq/index.php:65
 #: application/views/awards/dxcc/index.php:62
-#: application/views/awards/itu/index.php:56
+#: application/views/awards/itu/index.php:67
 #: application/views/gridmap/index.php:38
 #: application/views/interface_assets/footer.php:52
 #: application/views/logbookadvanced/index.php:310
@@ -5569,7 +5569,7 @@ msgstr ""
 
 #: application/views/awards/cq/index.php:70
 #: application/views/awards/dxcc/index.php:67
-#: application/views/awards/itu/index.php:61
+#: application/views/awards/itu/index.php:72
 #: application/views/dxcalendar/index.php:9
 #: application/views/gridmap/index.php:44
 #: application/views/statistics/index.php:68
@@ -5578,7 +5578,7 @@ msgstr ""
 
 #: application/views/awards/cq/index.php:78
 #: application/views/awards/dxcc/index.php:75
-#: application/views/awards/itu/index.php:69
+#: application/views/awards/itu/index.php:80
 #: application/views/dxcalendar/index.php:10
 #: application/views/gridmap/index.php:48
 #: application/views/statistics/index.php:72
@@ -5586,7 +5586,7 @@ msgid "Date to"
 msgstr ""
 
 #: application/views/awards/cq/index.php:88
-#: application/views/awards/itu/index.php:79
+#: application/views/awards/itu/index.php:90
 #: application/views/awards/wab/list.php:6
 #: application/views/awards/wac/index.php:23
 #: application/views/awards/wpx/wpx_details.php:24
@@ -5600,7 +5600,7 @@ msgid "Confirmed"
 msgstr ""
 
 #: application/views/awards/cq/index.php:88
-#: application/views/awards/itu/index.php:79
+#: application/views/awards/itu/index.php:90
 #: application/views/awards/wac/index.php:23
 #: application/views/bandmap/list.php:87 application/views/bandmap/list.php:298
 #: application/views/dashboard/index.php:338
@@ -5615,7 +5615,7 @@ msgstr ""
 #: application/views/awards/dxcc/index.php:99
 #: application/views/awards/helvetia/index.php:41
 #: application/views/awards/iota/index.php:46
-#: application/views/awards/itu/index.php:83
+#: application/views/awards/itu/index.php:94
 #: application/views/awards/jcc/index.php:36
 #: application/views/awards/rac/index.php:32
 #: application/views/awards/wac/index.php:27
@@ -5632,7 +5632,7 @@ msgstr ""
 #: application/views/awards/dxcc/index.php:103
 #: application/views/awards/helvetia/index.php:45
 #: application/views/awards/iota/index.php:50
-#: application/views/awards/itu/index.php:87
+#: application/views/awards/itu/index.php:98
 #: application/views/awards/jcc/index.php:40
 #: application/views/awards/rac/index.php:36
 #: application/views/awards/wac/index.php:31
@@ -5648,7 +5648,7 @@ msgstr ""
 #: application/views/awards/dxcc/index.php:107
 #: application/views/awards/helvetia/index.php:49
 #: application/views/awards/iota/index.php:54
-#: application/views/awards/itu/index.php:91
+#: application/views/awards/itu/index.php:102
 #: application/views/awards/jcc/index.php:44
 #: application/views/awards/rac/index.php:40
 #: application/views/awards/wac/index.php:35
@@ -5665,7 +5665,7 @@ msgstr ""
 #: application/views/awards/dxcc/index.php:113
 #: application/views/awards/helvetia/index.php:55
 #: application/views/awards/iota/index.php:60
-#: application/views/awards/itu/index.php:97
+#: application/views/awards/itu/index.php:108
 #: application/views/awards/jcc/index.php:50
 #: application/views/awards/rac/index.php:46
 #: application/views/awards/wac/index.php:41
@@ -5680,7 +5680,7 @@ msgstr ""
 
 #: application/views/awards/cq/index.php:110
 #: application/views/awards/iota/index.php:64
-#: application/views/awards/itu/index.php:101
+#: application/views/awards/itu/index.php:112
 #: application/views/awards/wac/index.php:45
 #: application/views/interface_assets/footer.php:2375
 #: application/views/logbookadvanced/index.php:54
@@ -5693,7 +5693,7 @@ msgstr ""
 #: application/views/awards/dxcc/index.php:244
 #: application/views/awards/helvetia/index.php:128
 #: application/views/awards/iota/index.php:171
-#: application/views/awards/itu/index.php:162
+#: application/views/awards/itu/index.php:173
 #: application/views/awards/rac/index.php:119
 #: application/views/awards/waja/index.php:132
 #: application/views/awards/wap/index.php:126
@@ -5707,7 +5707,7 @@ msgstr ""
 #: application/views/awards/dxcc/index.php:247
 #: application/views/awards/helvetia/index.php:131
 #: application/views/awards/iota/index.php:174
-#: application/views/awards/itu/index.php:165
+#: application/views/awards/itu/index.php:176
 #: application/views/awards/jcc/index.php:131
 #: application/views/awards/pl_polska/index.php:188
 #: application/views/awards/rac/index.php:122
@@ -5724,52 +5724,52 @@ msgstr ""
 
 #: application/views/awards/cq/index.php:192
 #: application/views/awards/dxcc/index.php:264
-#: application/views/awards/itu/index.php:183
+#: application/views/awards/itu/index.php:194
 msgid "Legend:"
 msgstr ""
 
 #: application/views/awards/cq/index.php:193
 #: application/views/awards/dxcc/index.php:265
-#: application/views/awards/itu/index.php:184
+#: application/views/awards/itu/index.php:195
 msgid "(Q)SL-Paper-Card"
 msgstr ""
 
 #: application/views/awards/cq/index.php:194
 #: application/views/awards/dxcc/index.php:266
-#: application/views/awards/itu/index.php:185
+#: application/views/awards/itu/index.php:196
 msgid "(L)oTW"
 msgstr ""
 
 #: application/views/awards/cq/index.php:195
 #: application/views/awards/dxcc/index.php:267
-#: application/views/awards/itu/index.php:186
+#: application/views/awards/itu/index.php:197
 msgid "(e)QSL"
 msgstr ""
 
 #: application/views/awards/cq/index.php:196
 #: application/views/awards/dxcc/index.php:268
-#: application/views/awards/itu/index.php:187
+#: application/views/awards/itu/index.php:198
 msgid "QR(Z)-\"confirmation\""
 msgstr ""
 
 #: application/views/awards/cq/index.php:197
 #: application/views/awards/dxcc/index.php:269
-#: application/views/awards/itu/index.php:188
+#: application/views/awards/itu/index.php:199
 msgid "(C)lublog"
 msgstr ""
 
 #: application/views/awards/cq/index.php:198
 #: application/views/awards/dxcc/index.php:270
-#: application/views/awards/itu/index.php:189
+#: application/views/awards/itu/index.php:200
 msgid "(W)orked"
 msgstr ""
 
-#: application/views/awards/cq/index.php:221
+#: application/views/awards/cq/index.php:224
 #: application/views/awards/dok/index.php:166
 #: application/views/awards/dxcc/index.php:302
 #: application/views/awards/helvetia/index.php:174
 #: application/views/awards/iota/index.php:224
-#: application/views/awards/itu/index.php:212
+#: application/views/awards/itu/index.php:226
 #: application/views/awards/jcc/index.php:170
 #: application/views/awards/rac/index.php:165
 #: application/views/awards/wac/index.php:169
@@ -5782,18 +5782,18 @@ msgstr ""
 msgid "Summary"
 msgstr ""
 
-#: application/views/awards/cq/index.php:236
+#: application/views/awards/cq/index.php:237
 #: application/views/awards/dxcc/index.php:315
-#: application/views/awards/itu/index.php:227
+#: application/views/awards/itu/index.php:239
 msgid "Total (ex SAT)"
 msgstr ""
 
-#: application/views/awards/cq/index.php:245
+#: application/views/awards/cq/index.php:242
 #: application/views/awards/dok/index.php:179
 #: application/views/awards/dxcc/index.php:322
 #: application/views/awards/helvetia/index.php:187
 #: application/views/awards/iota/index.php:245
-#: application/views/awards/itu/index.php:236
+#: application/views/awards/itu/index.php:244
 #: application/views/awards/jcc/index.php:197
 #: application/views/awards/rac/index.php:178
 #: application/views/awards/wac/index.php:182
@@ -5806,12 +5806,12 @@ msgstr ""
 msgid "Total worked"
 msgstr ""
 
-#: application/views/awards/cq/index.php:263
+#: application/views/awards/cq/index.php:255
 #: application/views/awards/dok/index.php:186
 #: application/views/awards/dxcc/index.php:343
 #: application/views/awards/helvetia/index.php:194
 #: application/views/awards/iota/index.php:271
-#: application/views/awards/itu/index.php:254
+#: application/views/awards/itu/index.php:257
 #: application/views/awards/jcc/index.php:216
 #: application/views/awards/rac/index.php:185
 #: application/views/awards/wac/index.php:189
@@ -6315,7 +6315,7 @@ msgid "Deleted"
 msgstr ""
 
 #: application/views/awards/itu/index.php:3
-#: application/views/awards/itu/index.php:195
+#: application/views/awards/itu/index.php:206
 #: application/views/gridmap/index.php:238
 #: application/views/logbookadvanced/checkresult.php:322
 #: application/views/logbookadvanced/edit.php:29
@@ -6332,7 +6332,7 @@ msgstr ""
 msgid "ITU Zone"
 msgstr ""
 
-#: application/views/awards/itu/index.php:24
+#: application/views/awards/itu/index.php:35
 msgid ""
 "The Classic Worked ITU Zones award may be claimed by producing evidence of "
 "having contacted land based amateur radio stations in at least 70 of the 75 "
@@ -6340,21 +6340,21 @@ msgid ""
 "(ITU)."
 msgstr ""
 
-#: application/views/awards/itu/index.php:25
+#: application/views/awards/itu/index.php:36
 #, php-format
 msgctxt "uses 'RSGB'"
 msgid "You can find more information on the website of %s."
 msgstr ""
 
-#: application/views/awards/itu/index.php:27
+#: application/views/awards/itu/index.php:38
 msgid "Fields taken for this Award: ITU-Zone (ADIF: ITUZ)"
 msgstr ""
 
-#: application/views/awards/itu/index.php:29
+#: application/views/awards/itu/index.php:40
 msgid "Awards - ITU Zones"
 msgstr ""
 
-#: application/views/awards/itu/index.php:39
+#: application/views/awards/itu/index.php:50
 msgid "Show ITU Zone Map"
 msgstr ""
 

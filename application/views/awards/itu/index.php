@@ -11,6 +11,17 @@
 	height: calc(100vh - 480px) !important;
 	max-height: 900px !important;
 }
+
+    .dropdown-filters-responsive {
+        width: 800px;
+    }
+
+    @media (max-width: 900px) {
+        .dropdown-filters-responsive {
+            width: 90vw;
+            max-width: none;
+        }
+    }
 </style>
 
 <div class="container">
@@ -123,7 +134,7 @@
 					<label class="col-md-2 control-label" for="band2"><?= __("Band"); ?></label>
 					<div class="col-md-3">
 						<select id="band2" name="band" class="form-select form-select-sm">
-							<option value="All" <?php if ($this->input->post('band', TRUE) == "All" || $this->input->method() !== 'post') echo ' selected'; ?> ><?= __("All"); ?></option>
+							<option value="All" <?php if ($this->input->post('band', TRUE) == "All" || $this->input->method() !== 'post') echo ' selected'; ?> ><?= __("Every band (w/o SAT)"); ?></option>
 							<?php foreach($worked_bands as $band) {
 								echo '<option value="' . $band . '"';
 								if ($this->input->post('band', TRUE) == $band) echo ' selected';
@@ -194,6 +205,9 @@
             <td>#</td>
             <td>" . __("ITU Zone") . "</td>";
         foreach($bands as $band) {
+			if (($posted_band != 'SAT') && ($band == 'SAT')) {
+				continue;
+			}
             echo '<td>' . $band . '</td>';
             }
             echo '</tr>
@@ -215,59 +229,42 @@
         <thead>
         <tr><td></td>";
 
-			$addsat='';
 			foreach($bands as $band) {
-				if ($band != 'SAT') {
-					echo '<td>' . $band . '</td>';
-				} else {
-					$addsat='<td>' . $band . '</td>';
+				if (($posted_band != 'SAT') && ($band == 'SAT')) {
+					continue;
 				}
+				echo '<td>' . $band . '</td>';
 			}
 			if ($posted_band != 'SAT') {
 				echo '<td><b>' . __("Total (ex SAT)") . '</b></td>';
 			}
-			if (count($bands) > 1) {
-				echo '<td class="spacingcell"></td>';
-			}
-			echo $addsat;
         echo "</thead>
         <tbody>
 
         <tr><td>" . __("Total worked") . "</td>";
-		$sat_value = '';
         foreach ($itu_summary['worked'] as $ituz => $value) {
 			if ($posted_band == 'SAT' && $ituz == 'Total') {
 				continue;
 			}
 			if ($ituz == 'SAT') {
-				$sat_value = '<td style="text-align: center"' . ($ituz === 'Total' ? " class='fw-bold'" : '') . '>' . $value . '</td>';
+				echo '<td style="text-align: center"' . ($ituz === 'Total' ? " class='fw-bold'" : '') . '>' . $value . '</td>';
 			} else {
 				echo '<td style="text-align: center"' . ($ituz === 'Total' ? " class='fw-bold'" : '') . '>' . $value . '</td>';
 			}
         }
-		if (count($bands) > 1) {
-			echo '<td class="spacingcell"></td>';
-		}
-		echo $sat_value;
 
         echo "</tr><tr>
         <td>" . __("Total confirmed") . "</td>";
-		$sat_value = '';
         foreach ($itu_summary['confirmed'] as $ituz => $value) {
 			if ($posted_band == 'SAT' && $ituz == 'Total') {
 				continue;
 			}
 			if ($ituz == 'SAT') {
-				$sat_value = '<td style="text-align: center"' . ($ituz === 'Total' ? " class='fw-bold'" : '') . '>' . $value . '</td>';
+				echo '<td style="text-align: center"' . ($ituz === 'Total' ? " class='fw-bold'" : '') . '>' . $value . '</td>';
 			} else {
 				echo '<td style="text-align: center"' . ($ituz === 'Total' ? " class='fw-bold'" : '') . '>' . $value . '</td>';
 			}
         }
-		if (count($bands) > 1) {
-			echo '<td class="spacingcell"></td>';
-		}
-		echo $sat_value;
-
         echo '</tr>
         </table>
         </div>';

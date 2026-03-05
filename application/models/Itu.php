@@ -17,6 +17,9 @@ class ITU extends CI_Model{
 
 		// Initialize all bands to dash
 		foreach ($bands as $band) {
+			if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
+				continue;
+			}
 			for ($i = 1; $i <= 90; $i++) {
 				$bandItu[$i][$band] = '-';                  // Sets all to dash to indicate no result
 			}
@@ -24,6 +27,9 @@ class ITU extends CI_Model{
 
 		// Initialize summary counters only for the bands passed in
 		foreach ($bands as $band) {
+			if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
+				continue;
+			}
 			$summary['worked'][$band] = 0;
 			$summary['confirmed'][$band] = 0;
 		}
@@ -80,7 +86,9 @@ class ITU extends CI_Model{
 					$summary['confirmed'][$itu->col_band]++;
 				}
 			} else {
-				$bandItu[$itu->col_ituz][$itu->col_band] = '<div class="bg-danger awardsBgWarning"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $itu->col_ituz) . '","' . $itu->col_band . '","All", "All","'. $postdata['mode'] . '","ITUZone","")\'>W</a></div>';
+				if ($postdata['worked'] != NULL) {
+					$bandItu[$itu->col_ituz][$itu->col_band] = '<div class="bg-danger awardsBgWarning"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $itu->col_ituz) . '","' . $itu->col_band . '","All", "All","'. $postdata['mode'] . '","ITUZone","")\'>W</a></div>';
+				}
 			}
 
 			// Track worked zones for summary
@@ -90,53 +98,60 @@ class ITU extends CI_Model{
 			}
 		}
 
-		foreach ($itudata_sat as $itu) {
-			// Skip if this band is not in our requested bands list
-			if (!isset($validBands[$itu->col_band])) {
-				continue;
-			}
-
-			$ituZ[$itu->col_ituz]['count']++; // Count each itu zone
-
-			// Check if confirmed based on the confirmation types selected in postdata
-			$isConfirmed = false;
-			$confirmationLetters = '';
-			if (isset($postdata['qsl']) && $postdata['qsl'] == 1 && $itu->qsl == 1) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'Q';
-			}
-			if (isset($postdata['lotw']) && $postdata['lotw'] == 1 && $itu->lotw == 1) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'L';
-			}
-			if (isset($postdata['eqsl']) && $postdata['eqsl'] == 1 && $itu->eqsl == 1) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'E';
-			}
-			if (isset($postdata['qrz']) && $postdata['qrz'] == 1 && $itu->qrz == 1) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'Z';
-			}
-			if (isset($postdata['clublog']) && $postdata['clublog'] == 1 && $itu->clublog == 1) {
-				$isConfirmed = true;
-				$confirmationLetters .= 'C';
-			}
-
-			if ($isConfirmed) {
-				$bandItu[$itu->col_ituz][$itu->col_band] = '<div class="bg-success awardsBgSuccess"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $itu->col_ituz) . '","' . $itu->col_band . '","All", "All","'. $postdata['mode'] . '","ITUZone","'.$qsl.'")\'>' . $confirmationLetters . '</a></div>';
-				// Track confirmed zones for summary
-				if (!isset($confirmedZones[$itu->col_band][$itu->col_ituz])) {
-					$confirmedZones[$itu->col_band][$itu->col_ituz] = true;
-					$summary['confirmed'][$itu->col_band]++;
+		if ($postdata['band'] == 'SAT') {
+			foreach ($itudata_sat as $itu) {
+				if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
+					continue;
 				}
-			} else {
-				$bandItu[$itu->col_ituz][$itu->col_band] = '<div class="bg-danger awardsBgWarning"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $itu->col_ituz) . '","' . $itu->col_band . '","All", "All","'. $postdata['mode'] . '","ITUZone","")\'>W</a></div>';
-			}
+				// Skip if this band is not in our requested bands list
+				if (!isset($validBands[$itu->col_band])) {
+					continue;
+				}
 
-			// Track worked zones for summary
-			if (!isset($workedZones[$itu->col_band][$itu->col_ituz])) {
-				$workedZones[$itu->col_band][$itu->col_ituz] = true;
-				$summary['worked'][$itu->col_band]++;
+				$ituZ[$itu->col_ituz]['count']++; // Count each itu zone
+
+				// Check if confirmed based on the confirmation types selected in postdata
+				$isConfirmed = false;
+				$confirmationLetters = '';
+				if (isset($postdata['qsl']) && $postdata['qsl'] == 1 && $itu->qsl == 1) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'Q';
+				}
+				if (isset($postdata['lotw']) && $postdata['lotw'] == 1 && $itu->lotw == 1) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'L';
+				}
+				if (isset($postdata['eqsl']) && $postdata['eqsl'] == 1 && $itu->eqsl == 1) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'E';
+				}
+				if (isset($postdata['qrz']) && $postdata['qrz'] == 1 && $itu->qrz == 1) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'Z';
+				}
+				if (isset($postdata['clublog']) && $postdata['clublog'] == 1 && $itu->clublog == 1) {
+					$isConfirmed = true;
+					$confirmationLetters .= 'C';
+				}
+
+				if ($isConfirmed) {
+					$bandItu[$itu->col_ituz][$itu->col_band] = '<div class="bg-success awardsBgSuccess"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $itu->col_ituz) . '","' . $itu->col_band . '","All", "All","'. $postdata['mode'] . '","ITUZone","'.$qsl.'")\'>' . $confirmationLetters . '</a></div>';
+					// Track confirmed zones for summary
+					if (!isset($confirmedZones[$itu->col_band][$itu->col_ituz])) {
+						$confirmedZones[$itu->col_band][$itu->col_ituz] = true;
+						$summary['confirmed'][$itu->col_band]++;
+					}
+				} else {
+					if ($postdata['worked'] != NULL) {
+						$bandItu[$itu->col_ituz][$itu->col_band] = '<div class="bg-danger awardsBgWarning"><a href=\'javascript:displayContacts("' . str_replace("&", "%26", $itu->col_ituz) . '","' . $itu->col_band . '","All", "All","'. $postdata['mode'] . '","ITUZone","")\'>W</a></div>';
+					}
+				}
+
+				// Track worked zones for summary
+				if (!isset($workedZones[$itu->col_band][$itu->col_ituz])) {
+					$workedZones[$itu->col_band][$itu->col_ituz] = true;
+					$summary['worked'][$itu->col_band]++;
+				}
 			}
 		}
 
@@ -144,25 +159,25 @@ class ITU extends CI_Model{
 		$totalWorkedZones = [];
 		$totalConfirmedZones = [];
 		foreach ($workedZones as $band => $zones) {
-			// Skip SAT for totals
-			if ($band === 'SAT') {
-				continue;
-			}
 			foreach ($zones as $zone => $true) {
 				if (!isset($totalWorkedZones[$zone])) {
 					$totalWorkedZones[$zone] = true;
+					if ($band === 'SAT') {
+						continue;
+					}
+					$totalWorkedZonesExSat[$zone] = true; // For calculating total worked excluding SAT
 					$summary['worked']['Total']++;
 				}
 			}
 		}
 		foreach ($confirmedZones as $band => $zones) {
-			// Skip SAT for totals
-			if ($band === 'SAT') {
-				continue;
-			}
 			foreach ($zones as $zone => $true) {
 				if (!isset($totalConfirmedZones[$zone])) {
 					$totalConfirmedZones[$zone] = true;
+					if ($band === 'SAT') {
+						continue;
+					}
+					$totalConfirmedZonesExSat[$zone] = true; // For calculating total worked excluding SAT
 					$summary['confirmed']['Total']++;
 				}
 			}
@@ -204,9 +219,9 @@ class ITU extends CI_Model{
 				}
 			} else {
 				for ($i = 1; $i <= 90; $i++) {
-					if (isset($totalConfirmedZones[$i])) {
+					if (isset($totalConfirmedZonesExSat[$i])) {
 						$mapZones[$i-1] = 'C';  // Confirmed
-					} else if (isset($totalWorkedZones[$i])) {
+					} else if (isset($totalWorkedZonesExSat[$i])) {
 						$mapZones[$i-1] = 'W';  // Worked but not confirmed
 					} else {
 						$mapZones[$i-1] = '-';  // Not worked
