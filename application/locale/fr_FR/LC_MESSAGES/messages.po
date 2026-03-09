@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-05 15:20+0000\n"
-"PO-Revision-Date: 2026-03-01 08:22+0000\n"
+"PO-Revision-Date: 2026-03-07 12:48+0000\n"
 "Last-Translator: JONCOUX Philippe <joncoux@free.fr>\n"
 "Language-Team: French <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/fr/>\n"
@@ -424,7 +424,7 @@ msgstr "Vue du journal"
 
 #: application/controllers/Awards.php:576
 msgid "and"
-msgstr ""
+msgstr "et"
 
 #: application/controllers/Awards.php:577
 #: application/views/awards/cq/index.php:135
@@ -439,7 +439,7 @@ msgstr "Toutes les bandes (sans SAT)"
 
 #: application/controllers/Awards.php:577
 msgid "band"
-msgstr ""
+msgstr "bande"
 
 #: application/controllers/Awards.php:580
 msgid " and satellite "
@@ -851,7 +851,7 @@ msgstr "Le calendrier des concours n'est pas accessible. Réessayez plus tard"
 #: application/controllers/Contesting.php:57
 #: application/views/contesting/index.php:12
 msgid "Contest Logging"
-msgstr "Concours - enregistrement des QSO"
+msgstr "Journalisation des compétitions"
 
 #: application/controllers/Contesting.php:128
 #: application/views/interface_assets/header.php:330
@@ -2704,7 +2704,7 @@ msgstr ""
 #: application/controllers/Simplefle.php:24
 #: application/views/interface_assets/header.php:137
 msgid "Simple Fast Log Entry"
-msgstr "SFLE (entrée rapide du journal)"
+msgstr "Saisie de journal simple et rapide"
 
 #: application/controllers/Staticmap.php:152
 #: application/controllers/Visitor.php:76
@@ -3001,15 +3001,15 @@ msgstr "Mise à jour..."
 
 #: application/controllers/Update.php:329
 msgid "Dxcc Entities:"
-msgstr "Entités DXCC :"
+msgstr "Entités Dxcc :"
 
 #: application/controllers/Update.php:330
 msgid "Dxcc Exceptions:"
-msgstr "Exceptions DXCC :"
+msgstr "Exceptions Dxcc :"
 
 #: application/controllers/Update.php:331
 msgid "Dxcc Prefixes:"
-msgstr "Préfixes DXCC :"
+msgstr "Préfixes Dxcc :"
 
 #: application/controllers/Update.php:362
 msgid "SCP Update complete. Result: "
@@ -3267,7 +3267,7 @@ msgstr "Zone ITU de la station"
 #: application/controllers/User.php:1319
 #: application/views/user/modals/first_login_wizard.php:91
 msgid "Station Locator"
-msgstr "QTH Locator de station"
+msgstr "Localisateur de stations"
 
 #: application/controllers/User.php:1340
 #, php-format
@@ -4737,7 +4737,7 @@ msgstr "Heure"
 #: application/views/visitor/index.php:156
 #: application/views/widgets/qsos.php:17
 msgid "Call"
-msgstr "QRZ"
+msgstr "Appel"
 
 #: application/views/adif/dcl_success.php:34
 msgid "DOK in Log"
@@ -9862,18 +9862,16 @@ msgstr "DANGER !"
 
 #: application/views/contesting/add.php:55
 msgid "Warning! Are you sure you want to delete the following contest: "
-msgstr ""
-"ATTENTION ! Etes vous certain de vouloir <b><u>supprimer</u></b> le "
-"concours : "
+msgstr "Attention ! Êtes-vous sûr de vouloir supprimer le concours suivant : "
 
 #: application/views/contesting/add.php:56
 msgid "Warning! Are you sure you want to activate all contests?"
-msgstr "ATTENTION ! Etes vous certain de vouloir activer tous les concours ?"
+msgstr "Attention ! Etes vous certain de vouloir activer tous les concours ?"
 
 #: application/views/contesting/add.php:57
 msgid "Warning! Are you sure you want to deactivate all contests?"
 msgstr ""
-"ATTENTION ! Etes vous certain de vouloir désactiver tous les concours ?"
+"Attention ! Etes vous certain de vouloir désactiver tous les concours ?"
 
 #: application/views/contesting/add.php:73
 #: application/views/contesting/add.php:76
@@ -9936,15 +9934,15 @@ msgstr "Echange"
 
 #: application/views/contesting/index.php:27
 msgid "Serial"
-msgstr "N° QSO"
+msgstr "En série"
 
 #: application/views/contesting/index.php:28
 msgid "Serial + Exchange"
-msgstr "N° QSO + Echange"
+msgstr "Série + Échange"
 
 #: application/views/contesting/index.php:29
 msgid "Serial + Gridsquare"
-msgstr "N° QSO + Locator"
+msgstr "Série + Grille"
 
 #: application/views/contesting/index.php:30
 msgid "Serial + Gridsquare + Exchange"
@@ -10031,7 +10029,7 @@ msgstr "Série"
 #: application/views/contesting/index.php:270
 #: application/views/qso/edit_ajax.php:703
 msgid "Serial (S)"
-msgstr "N° QSO (S)"
+msgstr "Série (S)"
 
 #: application/views/contesting/index.php:192
 msgid "Gridsquare (S)"
@@ -10046,7 +10044,7 @@ msgstr "Ech (S)"
 #: application/views/contesting/index.php:271
 #: application/views/qso/edit_ajax.php:698
 msgid "Serial (R)"
-msgstr "N° QSO (R)"
+msgstr "Série (R)"
 
 #: application/views/contesting/index.php:216
 msgid "Gridsquare (R)"
@@ -10341,7 +10339,7 @@ msgstr ""
 
 #: application/views/dashboard/index.php:193
 msgid "Attention: you need to set an active station location."
-msgstr "ATTENTION : vous devez activer le profil d'une station."
+msgstr "Attention : vous devez définir un emplacement de station actif."
 
 #: application/views/dashboard/index.php:200
 msgid ""
@@ -10783,7 +10781,7 @@ msgstr ""
 #: application/views/lotw_views/upload_cert.php:8
 #: application/views/lotw_views/upload_cert.php:34
 msgid "Upload Logbook of the World .p12 Certificate"
-msgstr "Envoyer certificat .p12 de LoTW"
+msgstr "Certificat de téléchargement du Journal de bord du monde .p12"
 
 #: application/views/dcl_views/upload_cert.php:19
 #: application/views/lotw_views/upload_cert.php:19
@@ -11122,7 +11120,7 @@ msgstr "Nombre de clés"
 
 #: application/views/debug/index.php:510
 msgid "Cache is working properly. Everything okay!"
-msgstr "Le cache fonctionne correctement. Tout est OK !"
+msgstr "Le cache fonctionne correctement. Tout est ok !"
 
 #: application/views/debug/index.php:514
 msgid ""
@@ -17448,8 +17446,8 @@ msgid ""
 "Here, the first qso uses the set serial 1, and the second will use 2 as the "
 "serial. If you want to wipe your sent exchange, use ',-':"
 msgstr ""
-"Ici, le premier QSO utilise le numéro progressif 1, et le second le numéro "
-"2. Pour effacer vos échanges, utilisez « ,- » :"
+"Ici, le premier QSO utilise le numéro de série 1, et le second utilisera le "
+"numéro 2. Si vous souhaitez effacer vos échanges envoyés, utilisez «,-» :"
 
 #: application/views/simplefle/syntax_help.php:59
 msgid ""
@@ -18037,7 +18035,7 @@ msgstr "Elévation"
 #: application/views/statistics/index.php:14
 #: application/views/statistics/index.php:96
 msgid "Years"
-msgstr "Nb QSOs /An"
+msgstr "Années"
 
 #: application/views/statistics/index.php:15
 #: application/views/statistics/index.php:99
@@ -19184,7 +19182,7 @@ msgstr "Bienvenue dans la démo de Wavelog"
 
 #: application/views/user/login.php:57
 msgid "This demo will be reset every night at 0200z."
-msgstr "Cette démo sera réinitialisée chaque nuit à 02h00 UTC."
+msgstr "Cette démo sera réinitialisée chaque nuit à 02h00 Z."
 
 #: application/views/user/login.php:60
 #, php-format

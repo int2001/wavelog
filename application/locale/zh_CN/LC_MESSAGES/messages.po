@@ -12,7 +12,7 @@
 # YuanRetro <lijiaxuan1811@163.com>, 2025, 2026.
 # 李宇翔 <lyx8851@qq.com>, 2025.
 # Tao Xu <angelxutao@gmail.com>, 2025.
-# BH3HNI <mmf@live.com>, 2025.
+# BH3HNI <mmf@live.com>, 2025, 2026.
 # Lu Chang <chinaluchang@live.com>, 2025, 2026.
 # BG8LNG <qrz@bg8lng.com>, 2025.
 # FengziLeo <fengzileo@vip.qq.com>, 2025.
@@ -24,14 +24,15 @@
 # MCyiqiehuanying <me@sharedow.cn>, 2025.
 # FATDEER <fatdeer@yeah.net>, 2025.
 # 范明明 <mingming@live.com>, 2026.
+# "Xu, Zefan (BI1GHZ)" <ceba_robot@outlook.com>, 2026.
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-05 15:20+0000\n"
-"PO-Revision-Date: 2026-02-25 03:40+0000\n"
-"Last-Translator: 范明明 <mingming@live.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
-"org/projects/wavelog/main-translation/zh_Hans/>\n"
+"PO-Revision-Date: 2026-03-09 02:52+0000\n"
+"Last-Translator: BH3HNI <mmf@live.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translate.wavelog.org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -433,7 +434,7 @@ msgstr "日志视图"
 
 #: application/controllers/Awards.php:576
 msgid "and"
-msgstr ""
+msgstr "和"
 
 #: application/controllers/Awards.php:577
 #: application/views/awards/cq/index.php:135
@@ -448,7 +449,7 @@ msgstr "所有频段 (不含卫星)"
 
 #: application/controllers/Awards.php:577
 msgid "band"
-msgstr ""
+msgstr "频段"
 
 #: application/controllers/Awards.php:580
 msgid " and satellite "
@@ -457,22 +458,22 @@ msgstr " 和卫星 "
 #: application/controllers/Awards.php:583
 #: application/controllers/Callstats.php:107
 msgid " and orbit type "
-msgstr " 并且轨道类型 "
+msgstr " 和轨道类型 "
 
 #: application/controllers/Awards.php:587
 #: application/controllers/Callstats.php:111
 msgid " and propagation "
-msgstr " 并且传播方式 "
+msgstr " 和传播方式 "
 
 #: application/controllers/Awards.php:590
 #: application/controllers/Callstats.php:114
 msgid " and mode "
-msgstr " 并且模式 "
+msgstr " 和模式 "
 
 #: application/controllers/Awards.php:593
 #: application/controllers/Callstats.php:117
 msgid " and "
-msgstr " 并且 "
+msgstr " 和 "
 
 #: application/controllers/Awards.php:611
 #: application/controllers/Logbook.php:1463
@@ -549,7 +550,7 @@ msgstr "POTA"
 
 #: application/controllers/Awards.php:729
 msgid "CQ WAZ (Worked All Zones)"
-msgstr "CQ WAZ(通联所有分区)"
+msgstr "CQ WAZ(通联全部分区)"
 
 #: application/controllers/Awards.php:791
 #: application/views/accumulate/index.php:54
@@ -5878,7 +5879,7 @@ msgstr "概览"
 #: application/views/awards/itu/index.php:239
 #: application/views/awards/wae/index.php:240
 msgid "Total (ex SAT)"
-msgstr ""
+msgstr "合计（除卫星）"
 
 #: application/views/awards/cq/index.php:242
 #: application/views/awards/dok/index.php:179
@@ -6491,7 +6492,7 @@ msgstr "显示 ITU 分区地图"
 
 #: application/views/awards/jcc/index.php:17
 msgid "JCC - Japan Century Cities Award"
-msgstr "JCC - 日本世纪城市奖"
+msgstr "JCC - 日本百市奖"
 
 #: application/views/awards/jcc/index.php:18
 msgid ""
@@ -7166,7 +7167,7 @@ msgstr "省份"
 #: application/views/awards/wapc/index.php:3
 msgctxt "China Province"
 msgid "Province"
-msgstr ""
+msgstr "省份"
 
 #: application/views/awards/wapc/index.php:22
 msgid "WAPC - Worked All Provinces of China"
@@ -7199,7 +7200,7 @@ msgstr ""
 
 #: application/views/awards/wapc/index.php:122
 msgid "Show WAPC Map"
-msgstr ""
+msgstr "显示 WAPC 地图"
 
 #: application/views/awards/was/index.php:3
 msgctxt "USA State"
@@ -10122,7 +10123,7 @@ msgstr "已（被）请求"
 #: application/views/dashboard/index.php:386
 msgctxt "Probably no translation needed as this is a name."
 msgid "Logbook of the World"
-msgstr "Logbook of the World(LoTW)"
+msgstr "Logbook of the World (LoTW)"
 
 #: application/views/dashboard/index.php:449
 msgid "VUCC-Grids"

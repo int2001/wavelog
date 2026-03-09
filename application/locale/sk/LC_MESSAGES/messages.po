@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-03-05 15:20+0000\n"
-"PO-Revision-Date: 2026-02-11 19:47+0000\n"
+"PO-Revision-Date: 2026-03-03 16:07+0000\n"
 "Last-Translator: Viliam Petrik <tatralom@gmail.com>\n"
 "Language-Team: Slovak <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/sk/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16\n"
 
 #: application/controllers/Accumulated.php:12
 #: application/controllers/Activators.php:13
@@ -414,7 +414,7 @@ msgstr "Zobrazenie denníka"
 
 #: application/controllers/Awards.php:576
 msgid "and"
-msgstr ""
+msgstr "a"
 
 #: application/controllers/Awards.php:577
 #: application/views/awards/cq/index.php:135
@@ -429,7 +429,7 @@ msgstr "Každé pásmo (bez SAT)"
 
 #: application/controllers/Awards.php:577
 msgid "band"
-msgstr ""
+msgstr "pásmo"
 
 #: application/controllers/Awards.php:580
 msgid " and satellite "
@@ -711,7 +711,7 @@ msgstr "Overovanie značky"
 #: application/controllers/Calltester.php:240
 #: application/controllers/Calltester.php:300
 msgid "CSV Call Tester"
-msgstr ""
+msgstr "CSV tester značiek"
 
 #: application/controllers/Calltester.php:917
 msgid "Callsign Tester"
@@ -2474,7 +2474,7 @@ msgstr "Nastavenia"
 
 #: application/controllers/Radio.php:59
 msgid "WebSocket"
-msgstr ""
+msgstr "WebSocket"
 
 #: application/controllers/Radio.php:65 application/controllers/Radio.php:126
 msgid "Default (click to release)"
@@ -2544,11 +2544,11 @@ msgstr "Vymazať"
 
 #: application/controllers/Radio.php:138
 msgid "WebSocket is currently default (click to release)"
-msgstr ""
+msgstr "WebSocket je momentálne predvolený (kliknutím uvoľniť)"
 
 #: application/controllers/Radio.php:140
 msgid "Set WebSocket as default radio"
-msgstr ""
+msgstr "Nastav WebSocket ako predvolené rádio"
 
 #: application/controllers/Radio.php:144
 msgid "No CAT interfaced radios found."
@@ -2556,7 +2556,7 @@ msgstr "Nenašlo sa žiadne rádio s CAT rozhraním."
 
 #: application/controllers/Radio.php:145
 msgid "You can still set the WebSocket option as your default radio."
-msgstr ""
+msgstr "WebSocket môžete stále nastaviť ako svoje predvolené rádio."
 
 #: application/controllers/Radio.php:162 application/views/radio/index.php:2
 msgid "Edit CAT Settings"
@@ -2564,7 +2564,7 @@ msgstr "Upraviť nastavenia CAT"
 
 #: application/controllers/Radio.php:334
 msgid "Radio removed successfully"
-msgstr ""
+msgstr "Rádio bolo úspešne odstránené"
 
 #: application/controllers/Reg1test.php:22
 msgid "Export EDI"
@@ -3425,12 +3425,12 @@ msgstr "Vyhľadávač lokátorových zón"
 
 #: application/libraries/Callbook.php:60
 msgid "Lookup not configured. Please review configuration."
-msgstr ""
+msgstr "Náhľad nie je nakonfigurovaný. Skontroluj konfiguráciu."
 
 #: application/libraries/Callbook.php:61
 #, php-format
 msgid "Error obtaining a session key for callbook. Error: %s"
-msgstr ""
+msgstr "Chyba pri získavaní kľúča relácie pre callbook. Chyba: %s"
 
 #: application/libraries/Callbook.php:200
 msgid "QRZCQ Error"
@@ -5962,7 +5962,7 @@ msgstr "Zhrnutie"
 #: application/views/awards/itu/index.php:239
 #: application/views/awards/wae/index.php:240
 msgid "Total (ex SAT)"
-msgstr ""
+msgstr "Spolu (bez SAT)"
 
 #: application/views/awards/cq/index.php:242
 #: application/views/awards/dok/index.php:179
@@ -7342,7 +7342,7 @@ msgstr "Provincia"
 #: application/views/awards/wapc/index.php:3
 msgctxt "China Province"
 msgid "Province"
-msgstr ""
+msgstr "Provincia"
 
 #: application/views/awards/wapc/index.php:22
 msgid "WAPC - Worked All Provinces of China"
@@ -7380,7 +7380,7 @@ msgstr ""
 
 #: application/views/awards/wapc/index.php:122
 msgid "Show WAPC Map"
-msgstr ""
+msgstr "Zobraziť mapu WAPC"
 
 #: application/views/awards/was/index.php:3
 msgctxt "USA State"
@@ -8348,15 +8348,15 @@ msgstr "DX mapa"
 
 #: application/views/bandmap/list.php:545
 msgid "Search Column"
-msgstr ""
+msgstr "Vyhľadávací stĺpec"
 
 #: application/views/bandmap/list.php:546
 msgid "All Columns"
-msgstr ""
+msgstr "Všetky stĺpce"
 
 #: application/views/bandmap/list.php:547
 msgid "Spot Info"
-msgstr ""
+msgstr "Spot Info"
 
 #: application/views/bandmap/list.php:552
 #: application/views/bandmap/list.php:592
@@ -8367,7 +8367,7 @@ msgstr "Submód"
 
 #: application/views/bandmap/list.php:554
 msgid "DX Station"
-msgstr ""
+msgstr "DX stanica"
 
 #: application/views/bandmap/list.php:558
 #: application/views/bandmap/list.php:597
@@ -10399,35 +10399,35 @@ msgstr "Údaje poskytuje HAMqsl."
 
 #: application/views/dashboard/index.php:527
 msgid "K-index: Planetary geomagnetic activity (0-9)"
-msgstr ""
+msgstr "K-index: Planetárna geomagnetická aktivita (0-9)"
 
 #: application/views/dashboard/index.php:528
 msgid "A-index: Daily geomagnetic activity index"
-msgstr ""
+msgstr "Index A: Denný index geomagnetickej aktivity"
 
 #: application/views/dashboard/index.php:529
 msgid "Solar Flux Index"
-msgstr ""
+msgstr "Index slnečného toku"
 
 #: application/views/dashboard/index.php:530
 msgid "Solar Wind speed (km/s)"
-msgstr ""
+msgstr "Rýchlosť slnečného vetra (km/s)"
 
 #: application/views/dashboard/index.php:531
 msgid "Signal Noise ratio"
-msgstr ""
+msgstr "Pomer signálu k šumu"
 
 #: application/views/dashboard/index.php:532
 msgid "X-Ray solar flux level"
-msgstr ""
+msgstr "Úroveň toku röntgenového slnečného žiarenia"
 
 #: application/views/dashboard/index.php:533
 msgid "Sunspot Number"
-msgstr ""
+msgstr "Počet slnečných škvŕn"
 
 #: application/views/dashboard/index.php:534
 msgid "Aurora activity level (Kp borealis)"
-msgstr ""
+msgstr "Úroveň aktivity polárnej žiary (Kp borealis)"
 
 #: application/views/dayswithqso/index.php:3
 msgid "Number of QSOs for this day of the week"
@@ -10994,6 +10994,9 @@ msgid ""
 "unavailable. Check your file permissions, PHP extensions, and/or your "
 "network connection to the services (if using redis/memcached)."
 msgstr ""
+"Cache momentálne používa záložný adaptér, pretože primárny nie je dostupný. "
+"Skontrolujte oprávnenia súborov, PHP rozšírenia a/alebo vaše sieťové "
+"pripojenie k službám (ak používate redis/memcached)."
 
 #: application/views/debug/index.php:518
 #, php-format
@@ -11003,6 +11006,10 @@ msgid ""
 "services (if using redis/memcached). You can continue using Wavelog, but no "
 "values will be cached (which is bad)."
 msgstr ""
+"Cache nefunguje! Systém momentálne používa adaptér %s. Skontroluj si "
+"oprávnenia k súborom, PHP rozšírenia a/alebo tvoje sieťové pripojenie k "
+"službám (ak používaš redis/memcached). Môžeš pokračovať v používaní Wavelog, "
+"ale žiadne hodnoty nebudú uložené do cache (čo je zlé)."
 
 #: application/views/debug/index.php:526
 msgid "Available Adapters"
@@ -12302,7 +12309,7 @@ msgstr "Lokátorové štvorce"
 
 #: application/views/interface_assets/footer.php:1301
 msgid "Location Lookup failed. Please check browser console."
-msgstr ""
+msgstr "Vyhľadávanie polohy zlyhalo. Skontrolujte konzolu prehliadača."
 
 #: application/views/interface_assets/footer.php:1452
 #: application/views/interface_assets/footer.php:1456
@@ -12861,7 +12868,7 @@ msgstr "Tlačiť"
 #: application/views/labels/index.php:4
 #: application/views/logbookadvanced/index.php:82
 msgid "Label Print Options"
-msgstr ""
+msgstr "Možnosti tlače štítkov"
 
 #: application/views/labels/index.php:34
 msgid "Create New Label Type"
@@ -12926,7 +12933,7 @@ msgstr "Zobraziť spojenia"
 #: application/views/labels/startatform.php:21
 #: application/views/logbookadvanced/startatform.php:20
 msgid "Include my call?"
-msgstr ""
+msgstr "Zahrnúť môj volací znak?"
 
 #: application/views/labels/startatform.php:33
 #: application/views/logbookadvanced/startatform.php:32
@@ -12960,7 +12967,7 @@ msgstr "Začať tlačiť v?"
 #: application/views/labels/startatform.php:100
 #: application/views/logbookadvanced/startatform.php:111
 msgid "Enter the starting position for label printing"
-msgstr ""
+msgstr "Zadaj počiatočnú pozíciu pre tlač štítkov"
 
 #: application/views/logbookadvanced/callbookdialog.php:5
 msgid ""
@@ -13220,7 +13227,7 @@ msgstr ""
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:19
 msgid "All Station Locations"
-msgstr ""
+msgstr "Všetky miesta staníc"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:33
 msgid "Check all QSOs in the logbook for incorrect CQ Zones"
@@ -13922,6 +13929,8 @@ msgid ""
 "Duration in minutes. Search will look for durations greater than or equal to "
 "this value."
 msgstr ""
+"Trvanie v minútach. Vyhľadávanie bude hľadať trvania väčšie alebo rovné "
+"tejto hodnote."
 
 #: application/views/logbookadvanced/index.php:523
 msgid "Sort column"
@@ -16288,6 +16297,10 @@ msgid ""
 "you. This allows you to have a default radio that is automatically selected "
 "when you log in, while still being able to use other radios if you want."
 msgstr ""
+"Ako operátor klubovej stanice si môžeš nastaviť predvolenú vysielačku, ktorá "
+"platí len pre teba. To ti umožňuje mať predvolenú vysielačku, ktorá sa "
+"automaticky vyberie pri prihlásení, ale stále môžeš používať aj iné "
+"vysielačky, ak chceš."
 
 #: application/views/radio/index.php:27
 msgid ""
@@ -16295,11 +16308,14 @@ msgid ""
 "to have a default radio that is automatically selected when you log in, "
 "while still being able to use other radios if you want."
 msgstr ""
+"Ako bežný používateľ si môžeš nastaviť východiskové rádio pre seba. To ti "
+"umožní mať automaticky vybrané východiskové rádio pri prihlásení, pričom "
+"stále môžeš používať aj iné rádiá, ak chceš."
 
 #: application/views/radio/index.php:30
 #, php-format
 msgid "You can find out how to use the %sradio functions%s in the wiki."
-msgstr ""
+msgstr "Na wiki si môžete zistiť, ako používať funkcie %srádia%s."
 
 #: application/views/radio/index.php:35
 msgid "Please wait..."
@@ -18466,7 +18482,7 @@ msgstr "Zobraziť lokátor na karte QSO"
 
 #: application/views/user/edit.php:692
 msgid "Show map at QSO-Window"
-msgstr ""
+msgstr "Zobraz mapu v okne QSO"
 
 #: application/views/user/edit.php:701
 msgid ""
