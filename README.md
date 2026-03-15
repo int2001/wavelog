@@ -54,7 +54,7 @@ Notes
 
 ## Setup
 
-Installation information can be found on the [documentation](https://docs.wavelog.org/getting-started/installation/).
+Installation information can be found in the [documentation](https://docs.wavelog.org/).
 
 ## WavelogGate 
 
