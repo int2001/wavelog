@@ -4,6 +4,93 @@
 	<div class="card-header">
 		<?= __("QSL Statistics"); ?>
 	</div>
+	<?php
+	if ($qsoarray) {
+		$modeTotals = [];
+		foreach ($qsoarray as $mode => $bandData) {
+			foreach ($bandData as $band => $stats) {
+				if (!isset($modeTotals[$mode])) {
+					$modeTotals[$mode] = ['qso'=>0,'qsl'=>0,'lotw'=>0,'eqsl'=>0,'qrz'=>0,'clublog'=>0];
+				}
+				$modeTotals[$mode]['qso']     += $stats['qso']     ?? 0;
+				$modeTotals[$mode]['qsl']     += $stats['qsl']     ?? 0;
+				$modeTotals[$mode]['lotw']    += $stats['lotw']    ?? 0;
+				$modeTotals[$mode]['eqsl']    += $stats['eqsl']    ?? 0;
+				$modeTotals[$mode]['qrz']     += $stats['qrz']     ?? 0;
+				$modeTotals[$mode]['clublog'] += $stats['clublog'] ?? 0;
+			}
+		}
+		if ($qsosatarray) {
+			foreach ($qsosatarray as $mode => $satData) {
+				foreach ($satData as $sat => $stats) {
+					if (!isset($modeTotals[$mode])) {
+						$modeTotals[$mode] = ['qso'=>0,'qsl'=>0,'lotw'=>0,'eqsl'=>0,'qrz'=>0,'clublog'=>0];
+					}
+					$modeTotals[$mode]['qso']     += $stats['qso']     ?? 0;
+					$modeTotals[$mode]['qsl']     += $stats['qsl']     ?? 0;
+					$modeTotals[$mode]['lotw']    += $stats['lotw']    ?? 0;
+					$modeTotals[$mode]['eqsl']    += $stats['eqsl']    ?? 0;
+					$modeTotals[$mode]['qrz']     += $stats['qrz']     ?? 0;
+					$modeTotals[$mode]['clublog'] += $stats['clublog'] ?? 0;
+				}
+			}
+		}
+
+		$grandQso = $grandQsl = $grandLotw = $grandEqsl = $grandQrz = $grandClublog = 0;
+
+		echo '
+		<div class="mx-2"><div class="table-wrapper" style="width:100%">
+			<table style="width: 100%" class="flex-wrap table-sm table table-bordered table-hover table-striped table-condensed text-center">
+				<thead>
+					<tr><th colspan="7">' . __("Overall Stats by Mode") . '</th></tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th></th>
+						<th>QSO</th>
+						<th>QSL</th>
+						<th>LoTW</th>
+						<th>eQSL</th>
+						<th>QRZ</th>
+						<th>Clublog</th>
+					</tr>';
+
+		foreach ($modeTotals as $mode => $totals) {
+			if (($totals['qso'] + $totals['qsl'] + $totals['lotw'] + $totals['eqsl'] + $totals['qrz'] + $totals['clublog']) > 0) {
+				$grandQso     += $totals['qso'];
+				$grandQsl     += $totals['qsl'];
+				$grandLotw    += $totals['lotw'];
+				$grandEqsl    += $totals['eqsl'];
+				$grandQrz     += $totals['qrz'];
+				$grandClublog += $totals['clublog'];
+				echo '<tr>
+					<th>' . $mode . '</th>
+					<td>' . $totals['qso']     . '</td>
+					<td>' . $totals['qsl']     . '</td>
+					<td>' . $totals['lotw']    . '</td>
+					<td>' . $totals['eqsl']    . '</td>
+					<td>' . $totals['qrz']     . '</td>
+					<td>' . $totals['clublog'] . '</td>
+				</tr>';
+			}
+		}
+
+		echo '</tbody>
+			<tfoot>
+				<tr>
+					<th>' . __("Total") . '</th>
+					<th>' . $grandQso     . '</th>
+					<th>' . $grandQsl     . '</th>
+					<th>' . $grandLotw    . '</th>
+					<th>' . $grandEqsl    . '</th>
+					<th>' . $grandQrz     . '</th>
+					<th>' . $grandClublog . '</th>
+				</tr>
+			</tfoot>
+		</table>
+		</div></div>';
+	}
+	?>
 	<div class="tables-container mx-2">
 	<?php
 	if ($qsoarray) {
