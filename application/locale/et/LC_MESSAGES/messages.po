@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-03-13 15:53+0000\n"
+"POT-Creation-Date: 2026-03-15 17:34+0000\n"
 "PO-Revision-Date: 2025-02-11 12:33+0000\n"
 "Last-Translator: tviitkar <tambet@viitkar.ee>\n"
 "Language-Team: Estonian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -5375,8 +5375,9 @@ msgstr ""
 #: application/views/awards/wpx/index.php:172
 #: application/views/dashboard/index.php:315
 #: application/views/simplefle/index.php:27
-#: application/views/statistics/qsltable.php:54
-#: application/views/statistics/qsltable.php:109
+#: application/views/statistics/qsltable.php:81
+#: application/views/statistics/qsltable.php:141
+#: application/views/statistics/qsltable.php:196
 #: application/views/statistics/qsotable.php:10
 #: application/views/statistics/qsotable.php:23
 #: application/views/statistics/satqsotable.php:10
@@ -17014,6 +17015,10 @@ msgstr ""
 #: application/views/statistics/initialresult.php:44
 #: application/views/statistics/initials.php:36
 msgid "No EME QSOs were found."
+msgstr ""
+
+#: application/views/statistics/qsltable.php:45
+msgid "Overall Stats by Mode"
 msgstr ""
 
 #: application/views/themes/add.php:4 application/views/themes/edit.php:4
