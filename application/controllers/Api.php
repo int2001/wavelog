@@ -74,9 +74,9 @@ class API extends CI_Controller {
 		} else {
 			// Success!
 
-			$this->api_model->update_key_description($this->input->post('api_key'), $this->input->post('api_desc'));
+			$this->api_model->update_key_description($this->input->post('api_key', true), $this->input->post('api_desc', true));
 
-			$this->session->set_flashdata('notice', sprintf(__("API Key %s description has been updated."), "<b>".$this->input->post('api_key')."</b>"));
+			$this->session->set_flashdata('notice', sprintf(__("API Key %s description has been updated."), "<b>" . htmlspecialchars($this->input->post('api_key', true), ENT_QUOTES, 'UTF-8') . "</b>"));
 
 			redirect('api');
 		}
@@ -118,7 +118,7 @@ class API extends CI_Controller {
 
 		$this->api_model->delete_key($key);
 
-		$this->session->set_flashdata('notice', sprintf(__("API Key %s has been deleted"), "<b>".$key."</b>" ));
+		$this->session->set_flashdata('notice', sprintf(__("API Key %s has been deleted"), "<b>" . htmlspecialchars($key, ENT_QUOTES, 'UTF-8') . "</b>" ));
 
 		redirect('api');
 	}

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-03-15 19:19+0000\n"
+"POT-Creation-Date: 2026-03-16 08:00+0000\n"
 "PO-Revision-Date: 2024-11-19 01:22+0000\n"
 "Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: Lithuanian <https://translate.wavelog.org/projects/wavelog/"
@@ -85,7 +85,7 @@ msgstr ""
 #: application/controllers/Qslprint.php:159 application/controllers/Qso.php:8
 #: application/controllers/Qso.php:22 application/controllers/Qso.php:295
 #: application/controllers/Qso.php:426 application/controllers/Qso.php:447
-#: application/controllers/Qso.php:470 application/controllers/Qso.php:770
+#: application/controllers/Qso.php:470 application/controllers/Qso.php:765
 #: application/controllers/Radio.php:32 application/controllers/Radio.php:322
 #: application/controllers/Radio.php:348 application/controllers/Radio.php:364
 #: application/controllers/Reg1test.php:17
@@ -648,7 +648,7 @@ msgstr ""
 msgid "Notes - Backup"
 msgstr ""
 
-#: application/controllers/Band.php:25 application/controllers/Band.php:43
+#: application/controllers/Band.php:26 application/controllers/Band.php:41
 #: application/views/bands/index.php:30 application/views/bands/index.php:34
 #: application/views/interface_assets/header.php:443
 #: application/views/statistics/index.php:17
@@ -656,11 +656,11 @@ msgstr ""
 msgid "Bands"
 msgstr ""
 
-#: application/controllers/Band.php:74 application/controllers/Mode.php:41
+#: application/controllers/Band.php:67 application/controllers/Mode.php:41
 msgid "Create Mode"
 msgstr ""
 
-#: application/controllers/Band.php:99 application/views/bands/index.php:158
+#: application/controllers/Band.php:89 application/views/bands/index.php:158
 msgid "Edit Band"
 msgstr ""
 
@@ -2397,15 +2397,15 @@ msgstr ""
 msgid "Add QSO"
 msgstr ""
 
-#: application/controllers/Qso.php:831
+#: application/controllers/Qso.php:826
 msgid "You have to be logged in to access this URL."
 msgstr ""
 
-#: application/controllers/Qso.php:837
+#: application/controllers/Qso.php:832
 msgid "Call Transfer"
 msgstr ""
 
-#: application/controllers/Qso.php:844
+#: application/controllers/Qso.php:839
 msgid "No callsign provided."
 msgstr ""
 
