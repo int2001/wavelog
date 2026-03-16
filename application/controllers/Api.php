@@ -83,14 +83,23 @@ class API extends CI_Controller {
 
 	}
 
-	function generate($rights) {
+	function generate() {
+		// CSRF mitigation: reject non-POST requests
+		if ($this->input->method() !== 'post') {
+			$this->session->set_flashdata('error', __("Invalid request method"));
+			redirect('api');
+			return;
+		}
+
 		$this->load->model('user_model');
 		if(!$this->user_model->authorize(3)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
+
+		$rights = $this->input->post('rights', TRUE);
 
 		if ($rights !== "r" && $rights !== "rw") {
 			$this->session->set_flashdata('error', __("Invalid API rights"));
 			redirect('api');
-			exit;
+			return;
 		}
 
 		$this->load->model('api_model');
@@ -109,10 +118,23 @@ class API extends CI_Controller {
 		redirect('api');
 	}
 
-	function delete($key) {
+	function delete() {
+		// CSRF mitigation: reject non-POST requests
+		if ($this->input->method() !== 'post') {
+			$this->session->set_flashdata('error', __("Invalid request method"));
+			redirect('api');
+			return;
+		}
+
 		$this->load->model('user_model');
 		if(!$this->user_model->authorize(3)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
+		$key = $this->input->post('key', TRUE);
+		if (empty($key)) {
+			$this->session->set_flashdata('error', __("Invalid API Key"));
+			redirect('api');
+			return;
+		}
 
 		$this->load->model('api_model');
 
