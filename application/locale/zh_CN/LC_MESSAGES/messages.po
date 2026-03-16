@@ -28,9 +28,9 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-03-15 17:34+0000\n"
-"PO-Revision-Date: 2026-03-09 02:52+0000\n"
-"Last-Translator: BH3HNI <mmf@live.com>\n"
+"POT-Creation-Date: 2026-03-15 19:19+0000\n"
+"PO-Revision-Date: 2026-03-15 02:06+0000\n"
+"Last-Translator: \"Xu, Zefan (BI1GHZ)\" <ceba_robot@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
 "org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -38,7 +38,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: application/controllers/Accumulated.php:12
 #: application/controllers/Activators.php:13
@@ -719,11 +719,11 @@ msgstr "呼号统计"
 
 #: application/controllers/Callstats.php:101
 msgid " and band "
-msgstr " 并且频段为 "
+msgstr " 和频段 "
 
 #: application/controllers/Callstats.php:104
 msgid " and sat "
-msgstr " 并且卫星 "
+msgstr " 和卫星 "
 
 #: application/controllers/Calltester.php:31
 msgid "Call Tester"
@@ -5446,9 +5446,9 @@ msgstr "已确认的县"
 #: application/views/awards/wpx/index.php:172
 #: application/views/dashboard/index.php:315
 #: application/views/simplefle/index.php:27
-#: application/views/statistics/qsltable.php:81
-#: application/views/statistics/qsltable.php:141
-#: application/views/statistics/qsltable.php:196
+#: application/views/statistics/qsltable.php:87
+#: application/views/statistics/qsltable.php:149
+#: application/views/statistics/qsltable.php:206
 #: application/views/statistics/qsotable.php:10
 #: application/views/statistics/qsotable.php:23
 #: application/views/statistics/satqsotable.php:10
@@ -6500,7 +6500,8 @@ msgstr "JCC - 日本百市奖"
 msgid ""
 "May be claimed for having contacted (heard) and received a QSL card from an "
 "amateur station located in each of at least 100 different cities of Japan."
-msgstr "通联（收听）并收到日本 100 个不同城市的电台卡片，即可申请。"
+msgstr ""
+"申请条件：通联（或收听）日本 100 个不同城市的电台，并收到他们的 QSL 卡片。"
 
 #: application/views/awards/jcc/index.php:19
 msgid ""
@@ -7035,7 +7036,7 @@ msgstr "大陆"
 
 #: application/views/awards/wac/index.php:227
 msgid "No QSOS found matching the criteria for this award!"
-msgstr ""
+msgstr "未找到符合该奖状申请条件的QSO通联记录！"
 
 #: application/views/awards/wae/index.php:18
 msgid "WAE Award"
@@ -7095,8 +7096,8 @@ msgid ""
 "QSL cards should be arranged in order of WAJA (HAJA) reference number, "
 "however names of prefectures may be omitted."
 msgstr ""
-"也许可以通过展示出已经通联（或收听）过来自日本47个都道府县的电台发来的QSL卡"
-"片，并按照WAJA(HAJA)的顺序进行排列，都道府县的名称可以忽略。"
+"申请条件：与日本 47 个都道府县的电台完成通联，并收到他们的 QSL 卡片。QSL 卡片"
+"列表应按照 WAJA(HAJA) 参考序号排列，可以不写出都道府县的名称。"
 
 #: application/views/awards/waja/index.php:26
 msgid ""
@@ -7186,7 +7187,7 @@ msgid ""
 "municipalities, autonomous regions, and special administrative regions of "
 "China, fostering a deeper understanding of China."
 msgstr ""
-"由木兰 DX 俱乐部颁发的 WAPC 奖旨在鼓励国内外业余无线电爱好者与中国各省、直辖"
+"WAPC 奖由木兰 DX 俱乐部颁发，旨在鼓励国内外业余无线电爱好者与中国各省、直辖"
 "市、自治区、特别行政区爱好者通联，了解中国。"
 
 #: application/views/awards/wapc/index.php:24
@@ -13123,7 +13124,7 @@ msgid "Band RX"
 msgstr "接收频段"
 
 #: application/views/logbookadvanced/edit.php:171
-#: application/views/logbookadvanced/edit.php:178
+#: application/views/logbookadvanced/edit.php:179
 #: application/views/logbookadvanced/edit.php:185
 #: application/views/logbookadvanced/edit.php:191
 #: application/views/logbookadvanced/edit.php:197
@@ -13133,7 +13134,37 @@ msgstr "接收频段"
 msgid "Invalid"
 msgstr "无效"
 
-#: application/views/logbookadvanced/edit.php:179
+#: application/views/logbookadvanced/edit.php:178
+#: application/views/logbookadvanced/index.php:565
+#: application/views/logbookadvanced/index.php:609
+#: application/views/logbookadvanced/index.php:632
+#: application/views/logbookadvanced/index.php:656
+#: application/views/oqrs/qsolist.php:54 application/views/oqrs/qsolist.php:96
+#: application/views/qslprint/qsolist.php:81
+#: application/views/qslprint/qsolist.php:123
+#: application/views/qso/edit_ajax.php:447
+#: application/views/qso/edit_ajax.php:508
+#: application/views/qso/edit_ajax.php:553
+#: application/views/qso/edit_ajax.php:582
+#: application/views/qso/edit_ajax.php:610
+#: application/views/qso/edit_ajax.php:636 application/views/qso/index.php:724
+#: application/views/search/search_result_ajax.php:186
+#: application/views/search/search_result_ajax.php:228
+#: application/views/view_log/partial/log_ajax.php:285
+#: application/views/view_log/partial/log_ajax.php:323
+#: application/views/view_log/partial/log_ajax.php:381
+#: application/views/view_log/partial/log_ajax.php:448
+#: application/views/view_log/partial/log_ajax.php:505
+#: application/views/view_log/partial/log_ajax.php:562
+#: application/views/view_log/partial/log_ajax.php:608
+#: application/views/view_log/partial/log_ajax.php:631
+#: src/QSLManager/QSO.php:423 src/QSLManager/QSO.php:468
+#: src/QSLManager/QSO.php:529 src/QSLManager/QSO.php:592
+#: src/QSLManager/QSO.php:667 src/QSLManager/QSO.php:694
+#: src/QSLManager/QSO.php:738 src/QSLManager/QSO.php:818
+msgid "Queued"
+msgstr "已排队"
+
 #: application/views/logbookadvanced/edit.php:205
 #: application/views/logbookadvanced/index.php:577
 #: application/views/logbookadvanced/index.php:621
@@ -13630,36 +13661,6 @@ msgstr "筛选 QSL"
 #: application/views/logbookadvanced/index.php:559
 msgid "QSL sent"
 msgstr "QSL 已发送"
-
-#: application/views/logbookadvanced/index.php:565
-#: application/views/logbookadvanced/index.php:609
-#: application/views/logbookadvanced/index.php:632
-#: application/views/logbookadvanced/index.php:656
-#: application/views/oqrs/qsolist.php:54 application/views/oqrs/qsolist.php:96
-#: application/views/qslprint/qsolist.php:81
-#: application/views/qslprint/qsolist.php:123
-#: application/views/qso/edit_ajax.php:447
-#: application/views/qso/edit_ajax.php:508
-#: application/views/qso/edit_ajax.php:553
-#: application/views/qso/edit_ajax.php:582
-#: application/views/qso/edit_ajax.php:610
-#: application/views/qso/edit_ajax.php:636 application/views/qso/index.php:724
-#: application/views/search/search_result_ajax.php:186
-#: application/views/search/search_result_ajax.php:228
-#: application/views/view_log/partial/log_ajax.php:285
-#: application/views/view_log/partial/log_ajax.php:323
-#: application/views/view_log/partial/log_ajax.php:381
-#: application/views/view_log/partial/log_ajax.php:448
-#: application/views/view_log/partial/log_ajax.php:505
-#: application/views/view_log/partial/log_ajax.php:562
-#: application/views/view_log/partial/log_ajax.php:608
-#: application/views/view_log/partial/log_ajax.php:631
-#: src/QSLManager/QSO.php:423 src/QSLManager/QSO.php:468
-#: src/QSLManager/QSO.php:529 src/QSLManager/QSO.php:592
-#: src/QSLManager/QSO.php:667 src/QSLManager/QSO.php:694
-#: src/QSLManager/QSO.php:738 src/QSLManager/QSO.php:818
-msgid "Queued"
-msgstr "已排队"
 
 #: application/views/logbookadvanced/index.php:566
 #: application/views/logbookadvanced/index.php:576
@@ -17374,7 +17375,15 @@ msgstr "唯一网格"
 msgid "No EME QSOs were found."
 msgstr "未找到 EME 通联记录。"
 
-#: application/views/statistics/qsltable.php:45
+#: application/views/statistics/qsltable.php:7
+msgid "Absolute"
+msgstr ""
+
+#: application/views/statistics/qsltable.php:8
+msgid "Percent"
+msgstr ""
+
+#: application/views/statistics/qsltable.php:49
 msgid "Overall Stats by Mode"
 msgstr ""
 
