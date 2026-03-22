@@ -443,7 +443,28 @@ function getDistance($distance) {
 		</table>
 		<?php } ?>
 
-		<?php if((($this->config->item('use_auth') && ($this->session->userdata('user_type') >= 2)) || $this->config->item('use_auth') === FALSE)) { ?>
+		<?php if((($this->config->item('use_auth') && ($this->session->userdata('user_type') >= 2)) || $this->config->item('use_auth') === false) && ($total_clublog_sent != 0 || $total_clublog_rcvd != 0)) { ?>
+	<table class="table table-striped border-top">
+		<tr class="titles">
+			<td colspan="2"><i class="fas fa-list"></i> Club Log</td>
+			<td colspan="1"><?= __("Today"); ?></td>
+		</tr>
+
+		<tr>
+			<td width="50%"><?= __("Sent"); ?></td>
+			<td width="25%"><?php echo $total_clublog_sent; ?></td>
+			<td width="25%"><?php echo $clublog_sent_today != 0 ? "<a href=\"javascript:displayContacts('','all','all','All','All','CLUBLOGSDATE','');\">".$clublog_sent_today."</a>" : "0"; ?></td>
+		</tr>
+
+		<tr>
+			<td width="50%"><?= __("Received"); ?></td>
+			<td width="25%"><?php echo $total_clublog_rcvd; ?></td>
+			<td width="25%"><?php echo $clublog_rcvd_today != 0 ? "<a href=\"javascript:displayContacts('','all','all','All','All','CLUBLOGRDATE','');\">".$clublog_rcvd_today."</a>" : "0"; ?></td>
+		</tr>
+	</table>
+	<?php } ?>
+
+	<?php if((($this->config->item('use_auth') && ($this->session->userdata('user_type') >= 2)) || $this->config->item('use_auth') === FALSE)) { ?>
     	 <table class="table table-striped border-top">
         <tr class="titles">
             <td colspan="2"><i class="fas fa-globe-europe"></i> <?= __("VUCC-Grids"); ?></td>
@@ -493,6 +514,13 @@ function getDistance($distance) {
 				</td>
 			<tr>
 				<td colspan="10">
+					<?php
+					function bandcondition_dot($condition) {
+						$colors = ['Good' => 'text-success', 'Fair' => 'text-warning', 'Poor' => 'text-danger', 'n/a' => 'text-secondary'];
+						$color = $colors[$condition] ?? '';
+						return $condition ? '<span class="' . $color . '">&#9679;</span> ' . $condition : ($condition ?? '');
+					}
+					?>
 					<table class="table table-sm small text-center table-striped">
 						<tr>
 							<th width="20%">&nbsp;</th>
@@ -503,17 +531,17 @@ function getDistance($distance) {
 						</tr>
 						<tr>
 							<td>Day</td>
-							<td><?= $solar_bandconditions['80m-40m']['day'] ?></td>
-							<td><?= $solar_bandconditions['30m-20m']['day'] ?></td>
-							<td><?= $solar_bandconditions['17m-15m']['day'] ?></td>
-							<td><?= $solar_bandconditions['12m-10m']['day'] ?></td>
+							<td><?= bandcondition_dot($solar_bandconditions['80m-40m']['day'] ?: 'n/a') ?></td>
+							<td><?= bandcondition_dot($solar_bandconditions['30m-20m']['day'] ?: 'n/a') ?></td>
+							<td><?= bandcondition_dot($solar_bandconditions['17m-15m']['day'] ?: 'n/a') ?></td>
+							<td><?= bandcondition_dot($solar_bandconditions['12m-10m']['day'] ?: 'n/a') ?></td>
 						</tr>
 						<tr>
 							<td>Night</td>
-							<td><?= $solar_bandconditions['80m-40m']['night'] ?></td>
-							<td><?= $solar_bandconditions['30m-20m']['night'] ?></td>
-							<td><?= $solar_bandconditions['17m-15m']['night'] ?></td>
-							<td><?= $solar_bandconditions['12m-10m']['night'] ?></td>
+							<td><?= bandcondition_dot($solar_bandconditions['80m-40m']['night'] ?: 'n/a') ?></td>
+							<td><?= bandcondition_dot($solar_bandconditions['30m-20m']['night'] ?: 'n/a') ?></td>
+							<td><?= bandcondition_dot($solar_bandconditions['17m-15m']['night'] ?: 'n/a') ?></td>
+							<td><?= bandcondition_dot($solar_bandconditions['12m-10m']['night'] ?: 'n/a') ?></td>
 						</tr>
 					</table>
 				</td>
@@ -522,14 +550,14 @@ function getDistance($distance) {
 				<td colspan="10">
 					<table class="table table-sm small text-center table-striped">
 						<tr>
-							<th width="5%">Kp</th>
-							<th width="5%">A</th>
-							<th width="15%">SFI</th>
-							<th width="15%">SW</th>
-							<th width="15%">SS</th>
-							<th width="15%">X</th>
-							<th width="20%">Noise</th>
-							<th width="20%">Aurora</th>
+							<th width="5%" data-bs-toggle="tooltip" title="<?= __("K-index: Planetary geomagnetic activity (0-9)") ?>">Kp</th>
+							<th width="5%" data-bs-toggle="tooltip" title="<?= __("A-index: Daily geomagnetic activity index") ?>">A</th>
+							<th width="15%" data-bs-toggle="tooltip" title="<?= __("Solar Flux Index") ?>">SFI</th>
+							<th width="15%" data-bs-toggle="tooltip" title="<?= __("Solar Wind speed (km/s)") ?>">SW</th>
+							<th width="15%" data-bs-toggle="tooltip" title="<?= __("Signal Noise ratio") ?>">SS</th>
+							<th width="15%" data-bs-toggle="tooltip" title="<?= __("X-Ray solar flux level") ?>">X</th>
+							<th width="20%" data-bs-toggle="tooltip" title="<?= __("Sunspot Number") ?>">SSN</th>
+							<th width="20%" data-bs-toggle="tooltip" title="<?= __("Aurora activity level (Kp borealis)") ?>">Aurora</th>
 						</tr>
 						<tr>
 							<td><?= $solar_solardata['kindex'] ?></td>

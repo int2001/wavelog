@@ -166,18 +166,22 @@ class Logbook extends CI_Controller {
 		// Get user's lookup priority preference
 		$lookup_priority = $this->get_lookup_priority();
 
-		$return['callsign_name'] 		= $this->nval($this->logbook_model->call_name($callsign), $callbook['name'] ?? '', $lookup_priority);
-		$return['callsign_qra'] 		= $this->nval($this->logbook_model->call_qra($callsign), $callbook['gridsquare'] ?? '', $lookup_priority);
+		// Consolidated callsign lookup - reduces queries from 11 to 2
+		$callsign_info = $this->logbook_model->get_callsign_all_info($callsign);
+		$return['callsign_name'] 		= $this->nval($callsign_info['name'], $callbook['name'] ?? '', $lookup_priority);
+		$return['callsign_qra'] 		= $this->nval($callsign_info['qra'], $callbook['gridsquare'] ?? '', $lookup_priority);
 		$return['callsign_geoloc'] 		= $callbook['geoloc'] ?? '';
 		$return['callsign_distance'] 	= $this->distance($return['callsign_qra'], $station_id);
-		$return['callsign_qth'] 		= $this->nval($this->logbook_model->call_qth($callsign), $callbook['city'] ?? '', $lookup_priority);
-		$return['callsign_iota'] 		= $this->nval($this->logbook_model->call_iota($callsign), $callbook['iota'] ?? '', $lookup_priority);
-		$return['callsign_email'] 		= $this->nval($this->logbook_model->call_email($callsign), $callbook['email'] ?? '', $lookup_priority);
-		$return['qsl_manager'] 			= $this->nval($this->logbook_model->call_qslvia($callsign), $callbook['qslmgr'] ?? '', $lookup_priority);
-		$return['callsign_state'] 		= $this->nval($this->logbook_model->call_state($callsign), $callbook['state'] ?? '', $lookup_priority);
-		$return['callsign_us_county'] 	= $this->nval($this->logbook_model->call_us_county($callsign), $callbook['us_county'] ?? '', $lookup_priority);
-		$return['callsign_ituz'] 	= $this->nval($this->logbook_model->call_ituzone($callsign), $callbook['ituz'] ?? '', $lookup_priority);
-		$return['callsign_cqz'] 	= $this->nval($this->logbook_model->call_cqzone($callsign), $callbook['cqz'] ?? '', $lookup_priority);
+		$return['callsign_qth'] 		= $this->nval($callsign_info['qth'], $callbook['city'] ?? '', $lookup_priority);
+		$return['callsign_iota'] 		= $this->nval($callsign_info['iota'], $callbook['iota'] ?? '', $lookup_priority);
+		$return['callsign_email'] 		= $this->nval($callsign_info['email'], $callbook['email'] ?? '', $lookup_priority);
+		$return['qsl_manager'] 			= $this->nval($callsign_info['qslvia'], $callbook['qslmgr'] ?? '', $lookup_priority);
+		$return['callsign_state'] 		= $this->nval($callsign_info['state'], $callbook['state'] ?? '', $lookup_priority);
+		$return['callsign_us_county'] 	= $this->nval($callsign_info['us_county'], $callbook['us_county'] ?? '', $lookup_priority);
+		$return['callsign_ituz'] 	= $this->nval($callsign_info['ituz'], $callbook['ituz'] ?? '', $lookup_priority);
+		$return['callsign_cqz'] 	= $this->nval($callsign_info['cqz'], $callbook['cqz'] ?? '', $lookup_priority);
+		// call_darc_dok remains separate due to different query pattern (uses logbooks_relationships)
+		$return['callsign_darc_dok'] 		= $this->nval($this->logbook_model->call_darc_dok($callsign), $callbook['darc_dok'] ?? '', $lookup_priority);
 		$return['workedBefore'] 		= $this->worked_grid_before($return['callsign_qra'], $band, $mode);
 		$return['confirmed'] 			= $this->confirmed_grid_before($return['callsign_qra'], $band, $mode);
 		$return['timesWorked'] 			= $this->logbook_model->times_worked($lookupcall);
@@ -258,7 +262,7 @@ class Logbook extends CI_Controller {
 		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
 		$user_default_confirmation = $this->session->userdata('user_default_confirmation');
 
-		if(!empty($logbooks_locations_array)) {
+		if($logbooks_locations_array[0] !== -1) {
 			$extrawhere='';
 			if (isset($user_default_confirmation) && strpos($user_default_confirmation, 'Q') !== false) {
 				$extrawhere="COL_QSL_RCVD='Y'";
@@ -333,7 +337,7 @@ class Logbook extends CI_Controller {
 		$this->load->model('logbooks_model');
 		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
 
-		if(!empty($logbooks_locations_array)) {
+		if($logbooks_locations_array[0] !== -1) {
 			if($band == "SAT") {
 				$this->db->where('COL_PROP_MODE', 'SAT');
 			} else {
@@ -471,7 +475,7 @@ class Logbook extends CI_Controller {
 		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
 		$this->load->model('logbook_model');
 
-		if(!empty($logbooks_locations_array)) {
+		if($logbooks_locations_array[0] !== -1) {
 			if($type == "SAT") {
 				$this->db->where('COL_PROP_MODE', 'SAT');
 			} else {
@@ -575,7 +579,7 @@ class Logbook extends CI_Controller {
 		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
 		$this->load->model('logbook_model');
 
-		if(!empty($logbooks_locations_array)) {
+		if($logbooks_locations_array[0] !== -1) {
 			if($type == "SAT") {
 				$this->db->where('COL_PROP_MODE', 'SAT');
 			} else {
@@ -713,7 +717,7 @@ class Logbook extends CI_Controller {
 			$satellites[$sat->name] = $sat->displayname;
 		}
 
-		if(!empty($logbooks_locations_array)) {
+		if($logbooks_locations_array[0] !== -1) {
 			$station_ids = implode(',', array_map(function($id) { return (int)$id; }, $logbooks_locations_array));
 
 			$bindings = [

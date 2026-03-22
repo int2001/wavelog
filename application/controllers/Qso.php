@@ -99,6 +99,13 @@ class QSO extends CI_Controller {
 			$data['user_station_to_qso_tab'] = 0;
 		}
 
+		$qkey_opt = $this->user_options_model->get_options('qso_tab', array('option_name' => 'map', 'option_key' => 'show'))->result();
+		if (count($qkey_opt) > 0) {
+			$data['user_qso_show_map'] = $qkey_opt[0]->option_value;
+		} else {
+			$data['user_qso_show_map'] = 1; // default: show map
+		}
+
 		// Get status of DX Waterfall enable option
 		$qkey_opt=$this->user_options_model->get_options('dxwaterfall',array('option_name'=>'enable','option_key'=>'boolean'))->result();
 		if (count($qkey_opt)>0) {
@@ -210,6 +217,14 @@ class QSO extends CI_Controller {
 	 * Returns JSON
 	 */
 	public function saveqso() {
+		// CSRF mitigation: this endpoint is AJAX-only; reject plain form submissions
+		if ($this->input->server('HTTP_X_REQUESTED_WITH') !== 'XMLHttpRequest') {
+			$this->output->set_status_header(403)
+			             ->set_content_type('application/json')
+			             ->set_output(json_encode(['error' => 'Forbidden']));
+			return;
+		}
+
 		$this->load->model('logbook_model');
 
 		$qso_data = [
@@ -556,7 +571,20 @@ class QSO extends CI_Controller {
 	}
 
 	/* Delete QSO */
-	function delete($id) {
+	function delete() {
+		// CSRF mitigation: reject non-POST requests
+		if ($this->input->method() !== 'post') {
+			$this->session->set_flashdata('error', __("Invalid request method"));
+			redirect('dashboard');
+			return;
+		}
+
+		$id = $this->input->post('id', TRUE);
+		if (empty($id)) {
+			redirect('dashboard');
+			return;
+		}
+
 		$this->load->model('logbook_model');
 
 		if ($this->logbook_model->check_qso_is_accessible($id)) {
@@ -565,11 +593,6 @@ class QSO extends CI_Controller {
 			$data['message_title'] = "Deleted";
 			$data['message_contents'] = "QSO Deleted Successfully";
 			$this->load->view('messages/message', $data);
-		}
-
-		// If deletes from /logbook dropdown redirect
-		if (strpos($_SERVER['HTTP_REFERER'], '/logbook') !== false) {
-			redirect($_SERVER['HTTP_REFERER']);
 		}
 	}
 

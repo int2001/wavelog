@@ -54,6 +54,7 @@ if ($dxcc_list->result() > 0) {
 	?>
 		<form method="post" action="<?php echo site_url('station/edit/'); ?><?php echo $my_station_profile->station_id; ?>" name="create_profile">
 			<input type="hidden" name="station_id" value="<?php echo $my_station_profile->station_id; ?>">
+			<input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
 
 	<?php } else {
 		$form_action = __("Create");
@@ -297,7 +298,7 @@ if ($dxcc_list->result() > 0) {
 		<!-- eQSL -->
 		<div class="col-md">
 			<div class="card">
-				<h5 class="card-header"><?= __("eQSL"); ?> <span class="badge text-bg-warning"><?= sprintf(__("Trouble? Check the %swiki%s."), '<a href="https://github.com/wavelog/wavelog/wiki/eQSL#read-common-pitfalls-with-eqsl" target="_blank">', '</a>'); ?></span></h5>
+				<h5 class="card-header"><?= __("eQSL"); ?> <span class="badge text-bg-warning"><?= sprintf(__("Trouble? Check the %swiki%s."), '<a href="https://docs.wavelog.org/user-guide/qsl/eqsl/" target="_blank">', '</a>'); ?></span></h5>
 				<div class="card-body">
 					<div class="mb-3">
 						<label for="eqslNickname"><?php echo _pgettext("Probably no translation needed","eQSL QTH Nickname"); ?></label> <!-- This does not need Multilanguage Support -->

@@ -26,8 +26,27 @@ class Logbookadvanced_model extends CI_Model {
 			$conditions[] = "COL_PROP_MODE = 'SAT' and COL_SAT_NAME <> '' and COL_SAT_NAME is not null";
 		}
 
-		$id_sql .= " from " . $this->config->item('table_name') . "
-			join station_profile on " . $this->config->item('table_name') . ".station_id = station_profile.station_id where station_profile.user_id = ?";
+		if (isset($searchCriteria['de']) && $searchCriteria['de'] == '') {
+			$stationids = 'null';
+		} else {
+			// Sanitize station IDs to prevent SQL injection
+			$de_array = is_array($searchCriteria['de']) ? $searchCriteria['de'] : [$searchCriteria['de']];
+			$sanitized_ids = array_map('intval', $de_array);
+			$sanitized_ids = array_filter($sanitized_ids, function($id) {
+				return $id > 0;
+			});
+			if (!empty($sanitized_ids)) {
+				$stationids = implode(',', $sanitized_ids);
+			} else {
+				$stationids = 'null';
+			}
+		}
+		$conditions[] = "qsos.station_id in (".$stationids.")";
+		$dupeWhere = " and qsos.station_id in (".$stationids.") ";
+
+		$id_sql .= " from " . $this->config->item('table_name') . " qsos
+			join station_profile on qsos.station_id = station_profile.station_id where station_profile.user_id = ?";
+		$id_sql .= $dupeWhere;
 
 		$id_sql .= "group by COL_CALL, station_callsign";
 		$id_sql .= $group_by_append;
@@ -534,6 +553,11 @@ class Logbookadvanced_model extends CI_Model {
 			$conditions[] = "coalesce(COL_DISTANCE, '') = ''";
 		}
 
+		if ($searchCriteria['duration'] !== '*' && $searchCriteria['duration'] !== '') {
+			$conditions[] = "TIMESTAMPDIFF(MINUTE, COL_TIME_ON, COL_TIME_OFF) >= ?";
+			$binding[] = $searchCriteria['duration'];
+        }
+
 		if (($searchCriteria['propmode'] ?? '') == 'None') {
 			$conditions[] = "(trim(COL_PROP_MODE) = '' OR COL_PROP_MODE is null)";
 		} elseif ($searchCriteria['propmode'] !== '') {
@@ -947,6 +971,10 @@ class Logbookadvanced_model extends CI_Model {
 			$updatedData['COL_CQZ'] = $callbook['cqz'];
 			$updated = true;
 		}
+		if (!empty($callbook['darc_dok']) && empty($qso['COL_DARC_DOK'])) {
+			$updatedData['COL_DARC_DOK'] = strtoupper($callbook['darc_dok']);
+			$updated = true;
+		}
 		if (empty($qso['COL_CONT'])) {
 			$updatedData['COL_CONT'] = $this->logbook_model->getContinent($callbook['dxcc']);
 			$updated = true;
@@ -974,12 +1002,10 @@ class Logbookadvanced_model extends CI_Model {
 
 		$modes = array();
 
-		$this->db->select('distinct col_mode, coalesce(col_submode, "") col_submode', FALSE);
-		$this->db->join('station_profile', 'station_profile.station_id = '.$this->config->item('table_name').'.station_id');
-		$this->db->where('station_profile.user_id', $this->session->userdata('user_id'));
-		$this->db->order_by('col_mode, col_submode', 'ASC');
+		$sql = "SELECT distinct col_mode, col_submode FROM " . $this->config->item('table_name') . " thcv
+		JOIN station_profile on thcv.station_id = station_profile.station_id WHERE station_profile.user_id = ? ORDER BY col_mode, col_submode";
 
-		$query = $this->db->get($this->config->item('table_name'));
+		$query = $this->db->query($sql, array($this->session->userdata('user_id')));
 
 		foreach($query->result() as $mode){
 			if ($mode->col_submode == null || $mode->col_submode == "") {
@@ -994,23 +1020,23 @@ class Logbookadvanced_model extends CI_Model {
 
 	function get_worked_bands() {
 		// get all worked slots from database
-		$sql = "SELECT distinct LOWER(`COL_BAND`) as `COL_BAND` FROM `".$this->config->item('table_name')."` thcv
+		$sql = "SELECT distinct `COL_BAND` as `COL_BAND` FROM `".$this->config->item('table_name')."` thcv
 			JOIN station_profile on thcv.station_id = station_profile.station_id WHERE station_profile.user_id = ? AND COL_PROP_MODE != \"SAT\" ORDER BY col_band";
 
 		$data = $this->db->query($sql, array($this->session->userdata('user_id')));
 
 		$worked_slots = array();
 		foreach($data->result() as $row){
-			array_push($worked_slots, $row->COL_BAND);
+			array_push($worked_slots, strtolower($row->COL_BAND));
 		}
 
-		$sql = "SELECT distinct LOWER(`COL_PROP_MODE`) as `COL_PROP_MODE` FROM `".$this->config->item('table_name')."` thcv
+		$sql = "SELECT count(*) as count FROM `".$this->config->item('table_name')."` thcv
 			JOIN station_profile on thcv.station_id = station_profile.station_id WHERE station_profile.user_id = ? AND COL_PROP_MODE = \"SAT\"";
 
 		$SAT_data = $this->db->query($sql, array($this->session->userdata('user_id')));
 
 		foreach($SAT_data->result() as $row){
-			array_push($worked_slots, strtoupper($row->COL_PROP_MODE));
+			array_push($worked_slots, 'SAT');
 		}
 
 		usort(
@@ -1031,7 +1057,7 @@ class Logbookadvanced_model extends CI_Model {
 	function get_worked_sats() {
 		// get all worked sats from database
 		$sql = "SELECT distinct col_sat_name FROM ".$this->config->item('table_name')." thcv
-		JOIN station_profile on thcv.station_id = station_profile.station_id WHERE station_profile.user_id = ? and coalesce(col_sat_name, '') <> '' ORDER BY col_sat_name";
+		JOIN station_profile on thcv.station_id = station_profile.station_id WHERE station_profile.user_id = ? AND col_sat_name IS NOT NULL AND col_sat_name != '' ORDER BY col_sat_name";
 
 		$data = $this->db->query($sql, array($this->session->userdata('user_id')));
 
@@ -1100,6 +1126,7 @@ class Logbookadvanced_model extends CI_Model {
 			case "rsts": $column = 'COL_RST_SENT'; break;
 			case "qslsentmethod": $column = 'COL_QSL_SENT_VIA'; break;
 			case "qslreceivedmethod": $column = 'COL_QSL_RCVD_VIA'; break;
+			case "frequency": $column = 'COL_FREQUENCY'; break;
 			default: return;
 		}
 
@@ -1121,19 +1148,29 @@ class Logbookadvanced_model extends CI_Model {
 			$potaRef = $station_profile->station_pota ?? '';
 			$sig     = $station_profile->station_sig ?? '';
 			$sigInfo = $station_profile->station_sig_info ?? '';
+			$gridsquare = '';
+			$vuccGrids = '';
+
+			if (strpos($station_profile->station_gridsquare, ',') !== false) {
+				$vuccGrids = $station_profile->station_gridsquare ?? '';
+			} else {
+				$gridsquare = $station_profile->station_gridsquare ?? '';
+			}
 
 			$sql = "UPDATE ".$this->config->item('table_name')." JOIN station_profile ON ". $this->config->item('table_name').".station_id = station_profile.station_id" .
 			" SET " . $this->config->item('table_name').".STATION_ID = ?" .
-			", " . $this->config->item('table_name').".COL_MY_IOTA = ?" .
-			", " . $this->config->item('table_name').".COL_MY_SOTA_REF = ?" .
-			", " . $this->config->item('table_name').".COL_MY_WWFF_REF = ?" .
-			", " . $this->config->item('table_name').".COL_MY_POTA_REF = ?" .
-			", " . $this->config->item('table_name').".COL_MY_SIG = ?" .
-			", " . $this->config->item('table_name').".COL_MY_SIG_INFO = ?" .
-			", " . $this->config->item('table_name').".COL_STATION_CALLSIGN = ?" .
+			", " . $this->config->item('table_name') . ".COL_MY_IOTA = ?" .
+			", " . $this->config->item('table_name') . ".COL_MY_SOTA_REF = ?" .
+			", " . $this->config->item('table_name') . ".COL_MY_WWFF_REF = ?" .
+			", " . $this->config->item('table_name') . ".COL_MY_POTA_REF = ?" .
+			", " . $this->config->item('table_name') . ".COL_MY_SIG = ?" .
+			", " . $this->config->item('table_name') . ".COL_MY_SIG_INFO = ?" .
+			", " . $this->config->item('table_name') . ".COL_STATION_CALLSIGN = ?" .
+			", " . $this->config->item('table_name') . ".COL_MY_GRIDSQUARE = ?" .
+			", " . $this->config->item('table_name') . ".COL_MY_VUCC_GRIDS = ?" .
 			" WHERE " . $this->config->item('table_name').".col_primary_key in ? and station_profile.user_id = ?";
 
-			$query = $this->db->query($sql, array($stationid, $iotaRef, $sotaRef, $wwffRef, $potaRef, $sig, $sigInfo, $stationCallsign, json_decode($ids, true), $this->session->userdata('user_id')));
+			$query = $this->db->query($sql, array($stationid, $iotaRef, $sotaRef, $wwffRef, $potaRef, $sig, $sigInfo, $stationCallsign, $gridsquare, $vuccGrids, json_decode($ids, true), $this->session->userdata('user_id')));
 		} else if ($column == 'COL_BAND') {
 
 			if ($value == '') return;
@@ -1150,14 +1187,31 @@ class Logbookadvanced_model extends CI_Model {
 			$frequencyBandRx = $bandrx == '' ? null : $this->frequency->defaultFrequencies[$bandrx]['CW'];
 
 			$query = $this->db->query($sql, array($value, $value2, $frequencyBand, $frequencyBandRx, json_decode($ids, true), $this->session->userdata('user_id')));
+		}  else if ($column == 'COL_FREQUENCY') {
+
+			if ($value == '') return;
+
+			if (trim($value2 ?? '') == '') { $value2=null; }
+
+			$sql = "UPDATE ".$this->config->item('table_name')." JOIN station_profile ON ". $this->config->item('table_name').".station_id = station_profile.station_id" .
+			" SET " . $this->config->item('table_name').".COL_FREQ = ?" .
+			", " . $this->config->item('table_name').".COL_FREQ_RX = ?" .
+			", " . $this->config->item('table_name').".COL_BAND = ?" .
+			", " . $this->config->item('table_name').".COL_BAND_RX = ?" .
+			" WHERE " . $this->config->item('table_name').".col_primary_key in ? and station_profile.user_id = ?";
+
+			$band = $this->frequency->GetBand($value);
+			$bandRx = $value2 == null ? null : $this->frequency->GetBand($value2);
+
+			$query = $this->db->query($sql, array($value, $value2, $band, $bandRx, json_decode($ids, true), $this->session->userdata('user_id')));
 		} else if ($column == 'COL_GRIDSQUARE') {
 			if ($value == '') {
 				$grid_value = null;
 				$vucc_value = null;
 			} else {
 				if(!$this->load->is_loaded('Qra')) {
-					 $this->load->library('Qra');
-				 }
+					$this->load->library('Qra');
+				}
 				$latlng=$this->qra->qra2latlong(trim(xss_clean($value) ?? ''));
 				if ($latlng[1] ?? '--' != '--') {
 					if (strpos(trim(xss_clean($value) ?? ''), ',') !== false) {

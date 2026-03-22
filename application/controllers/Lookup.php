@@ -158,24 +158,6 @@ class Lookup extends CI_Controller {
 		}
 	}
 
-	public function dok($call) {
-		session_write_close();
-
-		if($call) {
-			$call = str_replace("-","/",$call);
-			$uppercase_callsign = strtoupper($call);
-		}
-
-		// DOK results from logbook
-		$this->load->model('logbook_model');
-
-		$query = $this->logbook_model->get_dok($uppercase_callsign);
-
-		if ($query->row()) {
-			echo $query->row()->COL_DARC_DOK;
-		}
-	}
-
 	public function ham_of_note($call = '') {
 		session_write_close();
 

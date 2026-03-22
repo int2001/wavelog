@@ -180,32 +180,27 @@
 <!-- DATATABLES LANGUAGE -->
 <?php
 $local_code = $language['locale'];
-$lang_code = $language['code'];
-$file_path = $this->paths->cache_buster('/assets/json/datatables_languages/' . $local_code . '.json');
+$lang_code  = $language['code'];
 
-// Check if the file exists
-if ($lang_code != 'en' && !file_exists(FCPATH . "assets/json/datatables_languages/" . $local_code . ".json")) {
-    $datatables_language_url = '';
-} else {
-    $datatables_language_url = $file_path;
+$datatables_language_url = '';
+if ($lang_code !== 'en' && file_exists(FCPATH . "assets/json/datatables_languages/" . $local_code . ".json")) {
+    $datatables_language_url = $this->paths->cache_buster('/assets/json/datatables_languages/' . $local_code . '.json');
 }
 ?>
 
-<script type="text/javascript">
+<script>
     function getDataTablesLanguageUrl() {
-        locale = "<?php echo $local_code ?>";
-        lang_code = "<?php echo $lang_code; ?>";
-        datatables_language_url = "<?php echo $datatables_language_url; ?>";
+        const datatables_language_url = "<?php echo $datatables_language_url; ?>";
 
-        // if language is set to english we don't need to load any language files
-        if (lang_code != 'en') {
-            if (datatables_language_url !== '') {
-                return datatables_language_url;
-            } else {
-                console.error("Datatables language file does not exist for locale: " + locale);
-                return null;
-            }
+        if (datatables_language_url !== '') {
+            return datatables_language_url;
         }
+
+        <?php if ($lang_code !== 'en'): ?>
+        console.warn("Datatables language file does not exist for locale: <?php echo $local_code; ?>; Using english instead.");
+        <?php endif; ?>
+
+        return null;
     }
 </script>
 <!-- DATATABLES LANGUAGE END -->
@@ -338,6 +333,10 @@ function stopImpersonate_modal() {
 
 <?php if ($this->uri->segment(1) == "awards" && ($this->uri->segment(2) == "dxcc") ) { ?>
     <script id="dxccmapjs" type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/sections/dxccmap.js'); ?>" tileUrl="<?php echo $this->optionslib->get_option('option_map_tile_server');?>"></script>
+<?php } ?>
+
+<?php if ($this->uri->segment(1) == "awards" && ($this->uri->segment(2) == "wae") ) { ?>
+    <script id="waejs" type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/sections/wae.js'); ?>"></script>
 <?php } ?>
 
 <?php if ($this->uri->segment(1) == "statistics" && $this->uri->segment(2) == "") { ?>
@@ -1270,67 +1269,37 @@ mymap.on('mousemove', onQsoMapMove);
 <?php if ($this->session->userdata('user_qth_lookup') == 1) { ?>
     $('#qth').focusout(function() {
     	if ($('#locator').val() === '') {
-			var lat = 0;
-			var lon = 0;
 			$.ajax({
-				async: false,
 				type: 'GET',
 				dataType: "json",
 				url: "https://nominatim.openstreetmap.org/?city=" + $(this).val() + "&format=json&addressdetails=1&limit=1",
-				data: {},
-				success: function (data) {
-					if (typeof data[0].lat !== 'undefined') {
-						lat = parseFloat(data[0].lat);
-					}
-					if (typeof data[0].lon !== 'undefined') {
-						lon = parseFloat(data[0].lon);
-					}
+				timeout: 5000,
+                data: {},
+				success: function (result) {
+                    var data = Array.isArray(result) && result.length > 0 ? result[0] : null;
+                    if (!data) {
+                        return;
+                    }
+
+                    var lat = parseFloat(data.lat);
+                    var lon = parseFloat(data.lon);
+                    if (isNaN(lat) || isNaN(lon)) {
+                        return;
+                    }
+
+                    var qthloc = LatLng2Loc(lat, lon, 10);
+                    if (qthloc.length > 0) {
+                        $('#locator').val(qthloc.substr(0, 6)).trigger('input');
+                    }
 				},
+                error: function() {
+                    showToast('Error', '<?= __("Location Lookup failed. Please check browser console."); ?>', 'bg-danger text-white', 5000);
+
+                },
 			});
-			if (lat !== 0 && lon !== 0) {
-				var qthloc = LatLng2Loc(lat, lon, 10);
-				if (qthloc.length > 0) {
-					$('#locator').val(qthloc.substr(0, 6)).trigger('focusout');
-				}
-			}
 		}
 	});
-
-	LatLng2Loc = function(y, x, num) {
-		if (x < -180) {
-			x = x + 360;
-		}
-		if (x > 180) {
-			x = x - 360;
-		}
-		var yqth, yi, yk, ydiv, yres, ylp, y;
-		var ycalc = new Array(0, 0, 0);
-		var yn = new Array(0, 0, 0, 0, 0, 0, 0);
-
-		var ydiv_arr = new Array(10, 1, 1 / 24, 1 / 240, 1 / 240 / 24);
-		ycalc[0] = (x + 180) / 2;
-		ycalc[1] = y + 90;
-
-		for (yi = 0; yi < 2; yi++) {
-			for (yk = 0; yk < 5; yk++) {
-				ydiv = ydiv_arr[yk];
-				yres = ycalc[yi] / ydiv;
-				ycalc[yi] = yres;
-				if (ycalc[yi] > 0) ylp = Math.floor(yres); else ylp = Math.ceil(yres);
-				ycalc[yi] = (ycalc[yi] - ylp) * ydiv;
-				yn[2 * yk + yi] = ylp;
-			}
-		}
-
-		var qthloc = "";
-		if (num >= 2) qthloc += String.fromCharCode(yn[0] + 0x41) + String.fromCharCode(yn[1] + 0x41);
-		if (num >= 4) qthloc += String.fromCharCode(yn[2] + 0x30) + String.fromCharCode(yn[3] + 0x30);
-		if (num >= 6) qthloc += String.fromCharCode(yn[4] + 0x41) + String.fromCharCode(yn[5] + 0x41);
-		if (num >= 8) qthloc += ' ' + String.fromCharCode(yn[6] + 0x30) + String.fromCharCode(yn[7] + 0x30);
-		if (num >= 10) qthloc += String.fromCharCode(yn[8] + 0x61) + String.fromCharCode(yn[9] + 0x61);
-		return qthloc;
-	}
-	<?php } ?>
+<?php } ?>
 
   </script>
 
@@ -2185,13 +2154,17 @@ $('#sats').change(function(){
 
 
 <script>
-    var reload_after_qso_safe = false;
+	let reload_qso_line = false;
+    let reload_after_qso_safe = false;
     <?php if (
 	$this->uri->segment(1) != "search" &&
 	$this->uri->segment(2) != "filter" &&
 	$this->uri->segment(1) != "qso" &&
 	$this->uri->segment(1) != "logbookadvanced") { ?>
 		reload_after_qso_safe = true;
+	<?php }
+	if ($this->uri->segment(1) == "logbookadvanced") { ?>
+		reload_qso_line = true;
 	<?php } ?>
 </script>
 

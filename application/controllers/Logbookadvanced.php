@@ -161,7 +161,8 @@ class Logbookadvanced extends CI_Controller {
 			'qrzReceived' => xss_clean($this->input->post('qrzReceived')),
 			'distance' => xss_clean($this->input->post('distance')),
 			'sortcolumn' => xss_clean($this->input->post('sortcolumn')),
-			'sortdirection' => xss_clean($this->input->post('sortdirection'))
+			'sortdirection' => xss_clean($this->input->post('sortdirection')),
+			'duration' => xss_clean($this->input->post('duration'))
 		);
 	}
 
@@ -394,7 +395,8 @@ class Logbookadvanced extends CI_Controller {
 			'ids' => json_decode(xss_clean($this->input->post('ids'))),
 			'qsoids' => xss_clean($this->input->post('qsoids')),
 			'sortcolumn' => 'qsotime',
-			'sortdirection' => 'desc'
+			'sortdirection' => 'desc',
+			'duration' => '*'
 		);
 
 		$result = $this->logbookadvanced_model->getSearchResultArray($searchCriteria);
@@ -622,6 +624,7 @@ class Logbookadvanced extends CI_Controller {
 		$json_string['frequency']['show'] = $this->def_boolean($this->input->post('frequency'));
 		$json_string['dcl']['show'] = $this->def_boolean($this->input->post('dcl'));
 		$json_string['last_modification']['show'] = $this->def_boolean($this->input->post('last_modification'));
+		$json_string['duration']['show'] = $this->def_boolean($this->input->post('duration'));
 
 		$obj['column_settings']= json_encode($json_string);
 
@@ -949,6 +952,28 @@ class Logbookadvanced extends CI_Controller {
 
 		header("Content-Type: application/json");
 		print json_encode($data);
+	}
+
+	function getQsos() {
+		if(!clubaccess_check(9)) return;
+
+		$qsoID[] = $this->input->post('id', true);
+
+		$this->load->model('logbookadvanced_model');
+		$qso = $this->logbookadvanced_model->getQsosForAdif(json_encode($qsoID), $this->session->userdata('user_id'))->row_array();
+
+		$qsoObj = new QSO($qso);		// Redirection via Object to clean/convert QSO (get rid of cols)
+		$cleaned_qso = $qsoObj->toArray();	// And back to Array for the JSON
+
+		$flag = $this->dxccflag->get($qsoObj->getDXCCId());
+		if ($flag != null) {
+			$cleaned_qso['flag'] = ' ' . $flag;
+		} else {
+			$cleaned_qso['flag'] = '';
+		}
+
+		header("Content-Type: application/json");
+		echo json_encode($cleaned_qso);
 	}
 
 }
