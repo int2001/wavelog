@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-03-21 22:04+0000\n"
+"POT-Creation-Date: 2026-03-22 14:55+0000\n"
 "PO-Revision-Date: 2026-03-21 13:06+0000\n"
 "Last-Translator: Michael Skolsky <r1blh@yandex.ru>\n"
 "Language-Team: Russian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -949,7 +949,7 @@ msgstr "Не работает"
 msgid "SOTA CSV Export"
 msgstr "Экспорт SOTA в CSV"
 
-#: application/controllers/Dashboard.php:156
+#: application/controllers/Dashboard.php:161
 #: application/controllers/Visitor.php:134
 msgid "Dashboard"
 msgstr "Панель управления"
@@ -3664,25 +3664,25 @@ msgstr "HRDlog: не найдены профили QTH с данными вхо�
 msgid "Station not accessible"
 msgstr "Станция недоступна"
 
-#: application/models/Logbook_model.php:1359
+#: application/models/Logbook_model.php:1365
 msgid "Station ID not allowed"
 msgstr "Недопустимый ID станции"
 
-#: application/models/Logbook_model.php:1364
+#: application/models/Logbook_model.php:1370
 msgid "No Call given"
 msgstr "Не указан позывной"
 
-#: application/models/Logbook_model.php:1434
-#: application/models/Logbook_model.php:1638
+#: application/models/Logbook_model.php:1440
+#: application/models/Logbook_model.php:1644
 msgid "DXCC has to be Numeric"
 msgstr "DXCC должен быть цифровым"
 
-#: application/models/Logbook_model.php:4765
+#: application/models/Logbook_model.php:4779
 #, php-format
 msgid "Wrong station callsign %s while importing QSO with %s for %s: SKIPPED"
 msgstr "Неправильный позывной %s при импорте QSO с %s для %s: ПРОПУЩЕНО"
 
-#: application/models/Logbook_model.php:4779
+#: application/models/Logbook_model.php:4793
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
@@ -3690,11 +3690,11 @@ msgstr ""
 "Вы пытались импортировать QSO без действительной даты. Это QSO не "
 "действительно и не было импортировано"
 
-#: application/models/Logbook_model.php:4788
+#: application/models/Logbook_model.php:4802
 msgid "QSO on"
 msgstr "начало QSO"
 
-#: application/models/Logbook_model.php:4788
+#: application/models/Logbook_model.php:4802
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
@@ -3702,7 +3702,7 @@ msgstr ""
 "Вы пытались импортировать QSO без указанного позывного. Это QSO не было "
 "импортировано. Оно недействительно"
 
-#: application/models/Logbook_model.php:4837
+#: application/models/Logbook_model.php:4851
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
@@ -3711,64 +3711,64 @@ msgstr ""
 "QSO в %s: Вы пыталсь импортировать QSO без информации о диапазоне. Это QSO "
 "некорректно, импорт отклонён.imported. It's invalid"
 
-#: application/models/Logbook_model.php:5110
+#: application/models/Logbook_model.php:5124
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "дата получения QSL недействительна (ГГГГММДД)"
 
-#: application/models/Logbook_model.php:5121
+#: application/models/Logbook_model.php:5135
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "дата отправки QSL недействительна (ГГГГММДД)"
 
-#: application/models/Logbook_model.php:5182
+#: application/models/Logbook_model.php:5196
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "дата загрузки QSO в Clublog недействительна (ГГГГММДД)"
 
-#: application/models/Logbook_model.php:5555
+#: application/models/Logbook_model.php:5569
 #: application/views/simplefle/index.php:41
 msgid "Duplicate for"
 msgstr "Дубликат для"
 
-#: application/models/Logbook_model.php:5620
-#: application/models/Logbook_model.php:5715
+#: application/models/Logbook_model.php:5634
+#: application/models/Logbook_model.php:5729
 msgid "QSO could not be matched"
 msgstr "QSO не может быть сопоставлено"
 
-#: application/models/Logbook_model.php:5628
+#: application/models/Logbook_model.php:5642
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "подтверждено LoTW/Clublog/eQSL/Contest"
 
-#: application/models/Logbook_model.php:5634
+#: application/models/Logbook_model.php:5648
 msgid "confirmed by award manager"
 msgstr "подтверждено менеджером диплома"
 
-#: application/models/Logbook_model.php:5638
+#: application/models/Logbook_model.php:5652
 msgid "confirmed by cross-check of DCL data"
 msgstr "подтверждено кросс-проверкой с данными DCL"
 
-#: application/models/Logbook_model.php:5642
+#: application/models/Logbook_model.php:5656
 msgid "confirmation pending"
 msgstr "подтверждение ожидается"
 
-#: application/models/Logbook_model.php:5645
+#: application/models/Logbook_model.php:5659
 msgid "unconfirmed"
 msgstr "не подтверждено"
 
-#: application/models/Logbook_model.php:5648
+#: application/models/Logbook_model.php:5662
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 #: application/views/view_log/qso.php:305
 msgid "unknown"
 msgstr "неизвестно"
 
-#: application/models/Logbook_model.php:5718
+#: application/models/Logbook_model.php:5732
 msgid "POTA reference already in log"
 msgstr "Ренференция POTA уже в журнале"
 
-#: application/models/Logbook_model.php:5721
+#: application/models/Logbook_model.php:5735
 msgid "QSO updated"
 msgstr "QSO обновлено"
 
-#: application/models/Logbook_model.php:6118
+#: application/models/Logbook_model.php:6132
 #: application/views/activated_gridmap/index.php:114
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:58
@@ -5734,6 +5734,7 @@ msgstr "Предустановки даты"
 #: application/views/dashboard/index.php:387
 #: application/views/dashboard/index.php:408
 #: application/views/dashboard/index.php:429
+#: application/views/dashboard/index.php:450
 #: application/views/gridmap/index.php:31
 #: application/views/logbookadvanced/index.php:314
 #: application/views/statistics/index.php:56
@@ -5846,7 +5847,7 @@ msgstr "Дата до"
 #: application/views/awards/wpx/wpx_details.php:24
 #: application/views/bandmap/list.php:88 application/views/bandmap/list.php:299
 #: application/views/dashboard/index.php:342
-#: application/views/dashboard/index.php:460
+#: application/views/dashboard/index.php:481
 #: application/views/interface_assets/footer.php:45
 #: application/views/search/result.php:32
 #: application/views/visitor/index.php:270
@@ -5857,7 +5858,7 @@ msgstr "Подтверждено"
 #: application/views/awards/itu/index.php:90
 #: application/views/bandmap/list.php:87 application/views/bandmap/list.php:298
 #: application/views/dashboard/index.php:338
-#: application/views/dashboard/index.php:454
+#: application/views/dashboard/index.php:475
 #: application/views/search/result.php:35
 #: application/views/visitor/index.php:266
 msgid "Worked"
@@ -6769,7 +6770,7 @@ msgid "City"
 msgstr "Город"
 
 #: application/views/awards/jcc/index.php:189
-#: application/views/dashboard/index.php:450
+#: application/views/dashboard/index.php:471
 #: application/views/distances/index.php:23
 #: application/views/qslprint/qslprint.php:57
 #: application/views/qslprint/qslprint.php:58
@@ -10398,6 +10399,7 @@ msgstr "Необходимо"
 #: application/views/dashboard/index.php:391
 #: application/views/dashboard/index.php:412
 #: application/views/dashboard/index.php:433
+#: application/views/dashboard/index.php:454
 #: application/views/oqrs/qsolist.php:51 application/views/oqrs/qsolist.php:131
 #: application/views/oqrs/qsolist.php:160
 #: application/views/qslprint/qsolist.php:78
@@ -10435,6 +10437,7 @@ msgstr "Отправлено"
 #: application/views/dashboard/index.php:397
 #: application/views/dashboard/index.php:418
 #: application/views/dashboard/index.php:439
+#: application/views/dashboard/index.php:460
 #: application/views/oqrs/qsolist.php:93 application/views/oqrs/qsolist.php:144
 #: application/views/oqrs/qsolist.php:175
 #: application/views/qslprint/qsolist.php:120
@@ -10517,52 +10520,52 @@ msgctxt "Probably no translation needed as this is a name."
 msgid "Logbook of the World"
 msgstr "Logbook of the World"
 
-#: application/views/dashboard/index.php:449
+#: application/views/dashboard/index.php:470
 msgid "VUCC-Grids"
 msgstr "Квадраты VUCC"
 
-#: application/views/dashboard/index.php:474
+#: application/views/dashboard/index.php:495
 msgid "Solar Data & Propagation"
 msgstr "Солнечная активность и похождение"
 
-#: application/views/dashboard/index.php:476
+#: application/views/dashboard/index.php:497
 #, php-format
 msgid "Last update at %s."
 msgstr "Последнее обновление в %s."
 
-#: application/views/dashboard/index.php:485
+#: application/views/dashboard/index.php:506
 msgid "Data provided by HAMqsl."
 msgstr "Данные предоставлены HAMqsl."
 
-#: application/views/dashboard/index.php:527
+#: application/views/dashboard/index.php:548
 msgid "K-index: Planetary geomagnetic activity (0-9)"
 msgstr "К-индекс: Показатель геомагнитной активности (0-9)"
 
-#: application/views/dashboard/index.php:528
+#: application/views/dashboard/index.php:549
 msgid "A-index: Daily geomagnetic activity index"
 msgstr "A-индекс: Показатель среднесуточного уровня геомагнитной активности"
 
-#: application/views/dashboard/index.php:529
+#: application/views/dashboard/index.php:550
 msgid "Solar Flux Index"
 msgstr "Показатель солнечной активности"
 
-#: application/views/dashboard/index.php:530
+#: application/views/dashboard/index.php:551
 msgid "Solar Wind speed (km/s)"
 msgstr "Скорость солнечного ветра (км/с)"
 
-#: application/views/dashboard/index.php:531
+#: application/views/dashboard/index.php:552
 msgid "Signal Noise ratio"
 msgstr "Отношение сигнал/шум"
 
-#: application/views/dashboard/index.php:532
+#: application/views/dashboard/index.php:553
 msgid "X-Ray solar flux level"
 msgstr "Уровень солнечного излучения в рентгеновском диапазоне"
 
-#: application/views/dashboard/index.php:533
+#: application/views/dashboard/index.php:554
 msgid "Sunspot Number"
 msgstr "Число солнечных пятен"
 
-#: application/views/dashboard/index.php:534
+#: application/views/dashboard/index.php:555
 msgid "Aurora activity level (Kp borealis)"
 msgstr "Kp-индекс: Показатель активности Авроры"
 
