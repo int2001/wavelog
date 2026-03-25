@@ -20,9 +20,9 @@
     "buttons": {
         "copy": "Copiar",
         "colvis": "Visibilidad",
-        "collection": "Colección",
+        "collection": "Colección<span class=\"ui-button-icon-primary ui-icon ui-icon-triangle-1-s\"></span>",
         "colvisRestore": "Restaurar visibilidad",
-        "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br /> <br /> Para cancelar, haga clic en este mensaje o presione escape.",
+        "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br /><br />Para cancelar, haga clic en este mensaje o presione escape.",
         "copySuccess": {
             "1": "Copiada 1 fila al portapapeles",
             "_": "Copiadas %ds fila al portapapeles"
@@ -126,7 +126,7 @@
         "count": "{total}",
         "countFiltered": "{shown} ({total})",
         "emptyPanes": "Sin paneles de búsqueda",
-        "loadMessage": "Cargando paneles de búsqueda",
+        "loadMessage": "Cargando paneles de búsqueda...",
         "title": "Filtros Activos - %d",
         "showMessage": "Mostrar Todo",
         "collapseMessage": "Colapsar Todo"
@@ -239,7 +239,7 @@
         "renameTitle": "Cambiar Nombre Estado",
         "emptyError": "El nombre no puede estar vacío.",
         "removeConfirm": "¿Seguro que quiere eliminar %s?",
-        "removeError": "Error al eliminar el estado",
+        "removeError": "Error al eliminar el estado.",
         "renameLabel": "Nuevo nombre para %s:"
     },
     "infoThousands": "."

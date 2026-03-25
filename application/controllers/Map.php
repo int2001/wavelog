@@ -22,6 +22,12 @@ class Map extends CI_Controller {
 	 * QSO Map with country selection and OpenStreetMap
 	 */
 	public function qso_map() {
+		$this->load->model('user_model');
+		if (!$this->user_model->authorize(99)) {
+			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
+			redirect('dashboard');
+		}
+
 		$this->load->library('Geojson');
 		$this->load->model('Map_model');
 		$this->load->model('stations');
@@ -45,9 +51,9 @@ class Map extends CI_Controller {
 		$footerData['scripts'] = [
 			'assets/js/leaflet/geocoding.js',
 			'assets/js/leaflet/L.Maidenhead.js',
-			'assets/js/sections/qso_map.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/qso_map.js")),
-			'assets/js/sections/itumap_geojson.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/itumap_geojson.js")),
-			'assets/js/sections/cqmap_geojson.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/cqmap_geojson.js")),
+			'assets/js/sections/qso_map.js',
+			'assets/js/sections/itumap_geojson.js',
+			'assets/js/sections/cqmap_geojson.js',
 		];
 
 		$this->load->view('interface_assets/header', $data);

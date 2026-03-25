@@ -31,8 +31,8 @@ class cron extends CI_Controller {
 
 		$footerData = [];
 		$footerData['scripts'] = [
-			'assets/js/cronstrue.min.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/cronstrue.min.js")),
-			'assets/js/sections/cron.js?' . filemtime(realpath(__DIR__ . "/../../assets/js/sections/cron.js"))
+			'assets/js/cronstrue.min.js',
+			'assets/js/sections/cron.js'
 		];
 
 		$data['page_title'] = __("Cron Manager");
@@ -116,7 +116,6 @@ class cron extends CI_Controller {
 							curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 						}
 						$crun = curl_exec($ch);
-						curl_close($ch);
 
 						if ($crun !== false) {
 							echo "CRON: " . $cron->id . " -> CURL Result: " . $crun . "\n";

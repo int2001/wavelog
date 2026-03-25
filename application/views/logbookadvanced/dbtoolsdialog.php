@@ -2,10 +2,31 @@
     <div class="row">
         <div class="col-md-5">
             <h5><?= __("Data Repair Tools") ?>
-			<a href="https://github.com/wavelog/wavelog/wiki/Advanced-Logbook#database-tools-dbtools" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-info me-1 ld-ext-right">
+			<a href="https://docs.wavelog.org/user-guide/logbook/advanced-logbook/#database-tools-dbtools" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-info me-1 ld-ext-right">
 				<?= __("Wiki Help") ?></a>
 			</h5>
-			<p class="mb-1 alert-danger"><?= __("Warning. This tool can be dangerous to your data, and should only be used if you know what you are doing.") ?></p>
+			<p class="mb-3 alert-danger"><?= __("Warning. This tool can be dangerous to your data, and should only be used if you know what you are doing.") ?></p>
+
+			<!-- Station Location Selector -->
+			<div class="card mb-3 border-success">
+				<div class="card-body bg-light">
+					<div class="d-flex align-items-center">
+						<div class="flex-grow-1">
+							<label for="station_id" class="form-label fw-bold text-success mb-1">
+								<i class="fas fa-broadcast-tower"></i> <?= __("Station Location") ?>
+							</label>
+							<select id="dbtools_station_id" name="station_profile" class="form-select">
+								<option value="All"><?= __("All Station Locations") ?></option>
+								<?php foreach ($station_profile->result() as $station) { ?>
+								<option value="<?php echo $station->station_id; ?>">
+									<?= __("Callsign"); ?>: <?php echo $station->station_callsign; ?> (<?php echo $station->station_profile_name; ?>)
+								</option>
+								<?php } ?>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
             <div class="list-group">
 				<div class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
@@ -98,6 +119,17 @@
                     </div>
                 </div>
 				<?php endif; ?>
+				<div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-1"><?= __("Check IOTA against DXCC") ?></h6>
+                        <p class="mb-1 small text-muted"><?= __("Use Wavelog to check IOTA against DXCC") ?></p>
+                    </div>
+                    <div class="d-flex nowrap">
+						<button type="button" class="btn btn-sm btn-success me-1 ld-ext-right" id="checkIotaBtn" onclick="checkIota()">
+                            <?= __("Check") ?><div class="ld ld-ring ld-spin"></div>
+                        </button>
+                    </div>
+                </div>
 
             </div>
         </div>
