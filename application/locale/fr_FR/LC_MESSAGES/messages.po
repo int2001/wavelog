@@ -18,8 +18,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-03-24 11:57+0000\n"
-"PO-Revision-Date: 2026-03-22 09:55+0000\n"
+"POT-Creation-Date: 2026-03-30 16:14+0000\n"
+"PO-Revision-Date: 2026-03-25 09:06+0000\n"
 "Last-Translator: JONCOUX Philippe <joncoux@free.fr>\n"
 "Language-Team: French <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/fr/>\n"
@@ -139,12 +139,12 @@ msgstr ""
 #: application/controllers/Zonechecker.php:17
 #: application/models/Club_model.php:52
 msgid "You're not allowed to do that!"
-msgstr "Vous n'avez pas le droit de faire ça !"
+msgstr "Vous n'êtes pas autorisé à faire cela !"
 
 #: application/controllers/Accumulated.php:19
 #: application/views/interface_assets/header.php:174
 msgid "Accumulated Statistics"
-msgstr "Statistiques accumulées"
+msgstr "Statistiques cumulées"
 
 #: application/controllers/Activated_gridmap.php:10
 #: application/views/activated_gridmap/index.php:9
@@ -183,25 +183,25 @@ msgstr "Total des Locators activés"
 #: application/controllers/Gridmap.php:37
 #: application/controllers/Visitor.php:390
 msgid "Fields"
-msgstr "Champs"
+msgstr "Carré"
 
 #: application/controllers/Activated_gridmap.php:37
 #: application/controllers/Gridmap.php:38
 #: application/controllers/Visitor.php:391
 msgid "Fields confirmed"
-msgstr "Champs confirmés"
+msgstr "Carrés Locator confirmés"
 
 #: application/controllers/Activated_gridmap.php:38
 #: application/controllers/Gridmap.php:39
 #: application/controllers/Visitor.php:392
 msgid "Fields not confirmed"
-msgstr "Champs non confirmés"
+msgstr "Carrés Locator non confirmés"
 
 #: application/controllers/Activated_gridmap.php:39
 #: application/controllers/Gridmap.php:40
 #: application/controllers/Visitor.php:393
 msgid "Total fields worked"
-msgstr "Nombre total de champs travaillés"
+msgstr "Nombre total de carrés locator travaillés"
 
 #: application/controllers/Activators.php:20
 #: application/views/activators/index.php:5
@@ -630,7 +630,7 @@ msgstr "WAP"
 #: application/controllers/Awards.php:1495
 #: application/views/interface_assets/header.php:254
 msgid "WAIP"
-msgstr ""
+msgstr "WAIP"
 
 #: application/controllers/Awards.php:2209
 #: application/views/awards/itu/index.php:34
@@ -3832,6 +3832,8 @@ msgid ""
 "Invalid primary QSO ID, or you do not have permission to access one of the "
 "QSOs"
 msgstr ""
+"Identifiant QSO principal invalide, ou vous n'êtes pas autorisé à accéder à "
+"l'un des QSO"
 
 #: application/models/Logbookadvanced_model.php:2412
 #: application/views/view_log/qso.php:945
@@ -3841,10 +3843,11 @@ msgstr "QSO introuvable"
 #: application/models/Logbookadvanced_model.php:2498
 msgid "No fields selected for merge or no differences between QSOs"
 msgstr ""
+"Aucun champ sélectionné pour la fusion ou aucune différence entre les QSO"
 
 #: application/models/Logbookadvanced_model.php:2511
 msgid "QSOs merged successfully"
-msgstr ""
+msgstr "Les QSO ont été fusionnés avec succès"
 
 #: application/models/Note.php:7
 msgid "Contacts"
@@ -6137,7 +6140,7 @@ msgstr "Total (hors SAT)"
 
 #: application/views/awards/cq/index.php:242
 #: application/views/awards/dok/index.php:179
-#: application/views/awards/dxcc/index.php:322
+#: application/views/awards/dxcc/index.php:325
 #: application/views/awards/helvetia/index.php:187
 #: application/views/awards/iota/index.php:245
 #: application/views/awards/itu/index.php:244
@@ -6155,7 +6158,7 @@ msgstr "Total 'réalisés'"
 
 #: application/views/awards/cq/index.php:255
 #: application/views/awards/dok/index.php:186
-#: application/views/awards/dxcc/index.php:343
+#: application/views/awards/dxcc/index.php:350
 #: application/views/awards/helvetia/index.php:194
 #: application/views/awards/iota/index.php:271
 #: application/views/awards/itu/index.php:257
@@ -6450,7 +6453,11 @@ msgstr "Nom DXCC"
 msgid "Prefix"
 msgstr "Préfix"
 
-#: application/views/awards/dxcc/index.php:369
+#: application/views/awards/dxcc/index.php:318
+msgid "Slots"
+msgstr ""
+
+#: application/views/awards/dxcc/index.php:380
 msgid "No results found for your search criteria. Please try again."
 msgstr ""
 "Aucun résultat ne correspond à vos critères de recherche. Veuillez réessayer."
@@ -7423,7 +7430,7 @@ msgstr "Nom WAE"
 
 #: application/views/awards/waip/index.php:8
 msgid "WAIP Award"
-msgstr ""
+msgstr "Prix WAIP"
 
 #: application/views/awards/waip/index.php:9
 msgid ""
@@ -7431,6 +7438,9 @@ msgid ""
 "stations operating from Italian provinces. Italy has over 100 provinces, "
 "making this a challenging and prestigious award."
 msgstr ""
+"Le prix WAIP (Worked All Italian Provinces) récompense les contacts avec des "
+"stations opérant depuis les provinces italiennes. L'Italie comptant plus de "
+"100 provinces, ce prix est à la fois prestigieux et difficile à décerner."
 
 #: application/views/awards/waip/index.php:10
 msgid ""
@@ -7439,21 +7449,29 @@ msgid ""
 "Requirements: COL_STATE (2-letter province code), COL_DXCC=248 (Italy) or "
 "225 (Sardinia), QSL card confirmation only. No satellite contacts allowed."
 msgstr ""
+"Catégories de récompenses : TÉLÉPHONE (BLU/AM/FM/SSTV), CW, NUMÉRIQUE (RTTY/"
+"PSK/FT8/etc.) et bandes individuelles. Toutes les provinces doivent être "
+"confirmées par carte QSL. Exigences : COL_STATE (code province à 2 lettres), "
+"COL_DXCC = 248 (Italie) ou 225 (Sardaigne), confirmation par carte QSL "
+"uniquement. Les contacts par satellite ne sont pas autorisés."
 
 #: application/views/awards/waip/index.php:11
 msgid ""
 "Province codes are 2-letter abbreviations (e.g., RM=Roma, MI=Milano, "
 "NA=Napoli). See Italian provincial award references for complete list."
 msgstr ""
+"Les codes de province sont des abréviations à deux lettres (par exemple, RM "
+"= Rome, MI = Milan, NA = Naples). Consultez les références relatives aux "
+"récompenses provinciales italiennes pour obtenir la liste complète."
 
 #: application/views/awards/waip/index.php:12
 #, php-format
 msgid "For more information about the WAIP award, visit: %s"
-msgstr ""
+msgstr "Pour plus d'informations sur le prix WAIP, veuillez consulter : %s"
 
 #: application/views/awards/waip/index.php:12
 msgid "WAIP Award Information"
-msgstr ""
+msgstr "Informations sur le prix WAIP"
 
 #: application/views/awards/waip/index.php:23
 msgid ""
@@ -7461,19 +7479,24 @@ msgid ""
 "QSL card confirmations are accepted. Green = Confirmed, Orange = Worked but "
 "not confirmed."
 msgstr ""
+"Ce système de suivi des contacts établis et confirmés pour les provinces "
+"italiennes est pris en compte. Seules les confirmations par carte QSL sont "
+"acceptées. Vert = Confirmé, Orange = Établi mais non confirmé."
 
 #: application/views/awards/waip/index.php:32
 msgid "Award Progress"
-msgstr ""
+msgstr "Progrès de l'attribution"
 
 #: application/views/awards/waip/index.php:34
 msgid "Progress toward working all Italian provinces:"
 msgstr ""
+"Progrès accomplis dans le cadre du travail sur toutes les provinces "
+"italiennes :"
 
 #: application/views/awards/waip/index.php:40
 #: application/views/awards/waip/index.php:92
 msgid "By Mode Category"
-msgstr ""
+msgstr "Par catégorie de mode"
 
 #: application/views/awards/waip/index.php:42
 #: application/views/notes/add.php:47 application/views/notes/edit.php:42
@@ -7484,12 +7507,12 @@ msgstr "Catégorie"
 #: application/views/awards/waip/index.php:42
 #: application/views/awards/waip/index.php:64
 msgid "Progress"
-msgstr ""
+msgstr "progresser"
 
 #: application/views/awards/waip/index.php:62
 #: application/views/awards/waip/index.php:97
 msgid "By Band"
-msgstr ""
+msgstr "Par Groupe"
 
 #: application/views/awards/waip/index.php:111
 #: application/views/awards/waip/index.php:169
@@ -7500,7 +7523,7 @@ msgstr "Province"
 
 #: application/views/awards/waip/index.php:233
 msgid "No QSOs found matching the criteria for the WAIP award!"
-msgstr ""
+msgstr "Aucun QSO correspondant aux critères du prix WAIP n'a été trouvé !"
 
 #: application/views/awards/waja/index.php:3
 msgctxt "Japan Prefecture"
@@ -11057,7 +11080,7 @@ msgstr "Derniére version"
 
 #: application/views/debug/index.php:50
 msgid "ADIF Version"
-msgstr ""
+msgstr "Version ADIF"
 
 #: application/views/debug/index.php:55
 msgid "Language"
@@ -12841,7 +12864,7 @@ msgstr "WAB"
 
 #: application/views/interface_assets/header.php:252
 msgid "Italy"
-msgstr ""
+msgstr "Italie"
 
 #: application/views/interface_assets/header.php:258
 msgid "Japan"
@@ -14334,38 +14357,40 @@ msgstr "Grille non DXCC correspondante"
 
 #: application/views/logbookadvanced/index.php:84
 msgid "You need to select exactly 2 QSOs to merge!"
-msgstr ""
+msgstr "Vous devez sélectionner exactement 2 QSO à fusionner !"
 
 #: application/views/logbookadvanced/index.php:85
 #: application/views/logbookadvanced/index.php:852
 msgid "Merge QSOs"
-msgstr ""
+msgstr "Fusionner les QSO"
 
 #: application/views/logbookadvanced/index.php:86
 msgid ""
 "Are you really sure you want to merge these QSOs? This operation CAN\\'T be "
 "undone!"
 msgstr ""
+"Êtes-vous vraiment sûr de vouloir fusionner ces QSO ? Cette opération est "
+"irréversible !"
 
 #: application/views/logbookadvanced/index.php:87
 msgid "Danger"
-msgstr ""
+msgstr "Danger"
 
 #: application/views/logbookadvanced/index.php:89
 msgid "Yes, Merge QSOs"
-msgstr ""
+msgstr "Oui, fusionner les QSO"
 
 #: application/views/logbookadvanced/index.php:90
 msgid "QSOs merged successfully!"
-msgstr ""
+msgstr "Les QSO ont été fusionnés avec succès !"
 
 #: application/views/logbookadvanced/index.php:91
 msgid "Error merging QSOs"
-msgstr ""
+msgstr "Erreur lors de la fusion des QSO"
 
 #: application/views/logbookadvanced/index.php:92
 msgid "Error loading merge dialog"
-msgstr ""
+msgstr "Erreur lors du chargement de la boîte de dialogue de fusion"
 
 #: application/views/logbookadvanced/index.php:338
 msgid "From"
@@ -14777,31 +14802,34 @@ msgstr "Puissance de la station"
 
 #: application/views/logbookadvanced/mergedialog.php:8
 msgid "Which QSO should be kept?"
-msgstr ""
+msgstr "Quel QSO faut-il conserver ?"
 
 #: application/views/logbookadvanced/mergedialog.php:9
 msgid ""
 "Select which QSO will remain after the merge. The other will be deleted."
 msgstr ""
+"Sélectionnez le QSO qui sera conservé après la fusion. L'autre sera supprimé."
 
 #: application/views/logbookadvanced/mergedialog.php:22
 #: application/views/logbookadvanced/mergedialog.php:45
 msgid "Keep this QSO"
-msgstr ""
+msgstr "Conservez ce QSO"
 
 #: application/views/logbookadvanced/mergedialog.php:62
 msgid "Select which fields to keep from each QSO:"
-msgstr ""
+msgstr "Sélectionnez les champs à conserver pour chaque QSO :"
 
 #: application/views/logbookadvanced/mergedialog.php:63
 msgid ""
 "The selected fields will be merged into the primary QSO. You can select "
 "different fields from each QSO."
 msgstr ""
+"Les champs sélectionnés seront fusionnés dans le QSO principal. Vous pouvez "
+"sélectionner des champs différents pour chaque QSO."
 
 #: application/views/logbookadvanced/mergedialog.php:71
 msgid "Field"
-msgstr ""
+msgstr "Champ"
 
 #: application/views/logbookadvanced/qslcarousel.php:59
 #: application/views/qslcard/qslcarousel.php:25
