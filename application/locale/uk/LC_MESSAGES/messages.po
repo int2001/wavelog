@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-03-31 13:02+0000\n"
+"POT-Creation-Date: 2026-04-01 14:13+0000\n"
 "PO-Revision-Date: 2026-03-17 23:37+0000\n"
 "Last-Translator: Dariusz Koryto <dariusz@koryto.eu>\n"
 "Language-Team: Ukrainian <https://translate.wavelog.org/projects/wavelog/"
@@ -382,7 +382,7 @@ msgstr ""
 #: application/views/search/result.php:27
 #: application/views/stationsetup/linkedlocations.php:17
 #: application/views/stationsetup/linkedlocations.php:33
-#: application/views/timeplotter/index.php:24
+#: application/views/timeplotter/index.php:17
 msgid "DXCC"
 msgstr "DXCC"
 
@@ -1028,9 +1028,9 @@ msgstr ""
 
 #: application/controllers/Debug.php:317
 msgid ""
-"File Migration was successfull, but please check also manually. If "
-"everything seems right you can delete the folders 'assets/qslcard' and "
-"'images/eqsl_card_images'."
+"File Migration was successful, but please check also manually. If everything "
+"seems right you can delete the folders 'assets/qslcard' and 'images/"
+"eqsl_card_images'."
 msgstr ""
 
 #: application/controllers/Debug.php:320
@@ -1600,10 +1600,11 @@ msgstr ""
 #: application/views/statistics/index.php:102
 #: application/views/statistics/initialresult.php:19
 #: application/views/statistics/initials.php:17
-#: application/views/timeline/index.php:19 application/views/user/edit.php:293
-#: application/views/user/edit.php:316 application/views/user/edit.php:339
-#: application/views/user/edit.php:362 application/views/user/edit.php:386
-#: application/views/usermode/index.php:38
+#: application/views/timeline/index.php:19
+#: application/views/timeplotter/index.php:57
+#: application/views/user/edit.php:293 application/views/user/edit.php:316
+#: application/views/user/edit.php:339 application/views/user/edit.php:362
+#: application/views/user/edit.php:386 application/views/usermode/index.php:38
 #: application/views/view_log/partial/log.php:9
 #: application/views/view_log/partial/log_ajax.php:4
 #: application/views/view_log/qso.php:114 application/views/visitor/index.php:6
@@ -1919,7 +1920,7 @@ msgstr ""
 #: application/views/statistics/initialresult.php:18
 #: application/views/statistics/initials.php:8
 #: application/views/timeline/index.php:7
-#: application/views/timeplotter/index.php:14
+#: application/views/timeplotter/index.php:47
 #: application/views/user/edit.php:291 application/views/user/edit.php:314
 #: application/views/user/edit.php:337 application/views/user/edit.php:360
 #: application/views/user/edit.php:384
@@ -2004,7 +2005,7 @@ msgstr ""
 #: application/views/stationsetup/locationlist.php:75
 #: application/views/stationsetup/stationsetup.php:158
 #: application/views/timeline/index.php:222
-#: application/views/timeplotter/index.php:33
+#: application/views/timeplotter/index.php:25
 #: application/views/user/modals/first_login_wizard.php:52
 #: application/views/view_log/partial/log_ajax.php:31
 #: application/views/view_log/qso.php:353
@@ -2970,7 +2971,7 @@ msgstr ""
 
 #: application/controllers/Timeplotter.php:17
 #: application/views/interface_assets/header.php:176
-#: application/views/timeplotter/index.php:9
+#: application/views/timeplotter/index.php:10
 msgid "Timeplotter"
 msgstr ""
 
@@ -3580,113 +3581,113 @@ msgstr ""
 msgid "Station not accessible"
 msgstr ""
 
-#: application/models/Logbook_model.php:1398
+#: application/models/Logbook_model.php:1412
 msgid "Station ID not allowed"
 msgstr ""
 
-#: application/models/Logbook_model.php:1403
+#: application/models/Logbook_model.php:1417
 msgid "No Call given"
 msgstr ""
 
-#: application/models/Logbook_model.php:1473
-#: application/models/Logbook_model.php:1677
+#: application/models/Logbook_model.php:1487
+#: application/models/Logbook_model.php:1691
 msgid "DXCC has to be Numeric"
 msgstr ""
 
-#: application/models/Logbook_model.php:4882
+#: application/models/Logbook_model.php:4896
 #, php-format
 msgid ""
 "Differing station callsign %s while importing QSO with %s for %s: SKIPPED"
 msgstr ""
 
-#: application/models/Logbook_model.php:4889
+#: application/models/Logbook_model.php:4903
 #, php-format
 msgid ""
 "Differing locator %s while importing QSO with %s for station locator %s: "
 "SKIPPED"
 msgstr ""
 
-#: application/models/Logbook_model.php:4904
+#: application/models/Logbook_model.php:4918
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
 msgstr ""
 
-#: application/models/Logbook_model.php:4913
+#: application/models/Logbook_model.php:4927
 msgid "QSO on"
 msgstr ""
 
-#: application/models/Logbook_model.php:4913
+#: application/models/Logbook_model.php:4927
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
 msgstr ""
 
-#: application/models/Logbook_model.php:4962
+#: application/models/Logbook_model.php:4976
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
 "imported. It's invalid"
 msgstr ""
 
-#: application/models/Logbook_model.php:5235
+#: application/models/Logbook_model.php:5249
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr ""
 
-#: application/models/Logbook_model.php:5246
+#: application/models/Logbook_model.php:5260
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr ""
 
-#: application/models/Logbook_model.php:5307
+#: application/models/Logbook_model.php:5321
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr ""
 
-#: application/models/Logbook_model.php:5680
+#: application/models/Logbook_model.php:5694
 #: application/views/simplefle/index.php:41
 msgid "Duplicate for"
 msgstr ""
 
-#: application/models/Logbook_model.php:5745
-#: application/models/Logbook_model.php:5840
+#: application/models/Logbook_model.php:5759
+#: application/models/Logbook_model.php:5854
 msgid "QSO could not be matched"
 msgstr ""
 
-#: application/models/Logbook_model.php:5753
+#: application/models/Logbook_model.php:5767
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr ""
 
-#: application/models/Logbook_model.php:5759
+#: application/models/Logbook_model.php:5773
 msgid "confirmed by award manager"
 msgstr ""
 
-#: application/models/Logbook_model.php:5763
+#: application/models/Logbook_model.php:5777
 msgid "confirmed by cross-check of DCL data"
 msgstr ""
 
-#: application/models/Logbook_model.php:5767
+#: application/models/Logbook_model.php:5781
 msgid "confirmation pending"
 msgstr ""
 
-#: application/models/Logbook_model.php:5770
+#: application/models/Logbook_model.php:5784
 msgid "unconfirmed"
 msgstr ""
 
-#: application/models/Logbook_model.php:5773
+#: application/models/Logbook_model.php:5787
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 #: application/views/view_log/qso.php:305
 msgid "unknown"
 msgstr ""
 
-#: application/models/Logbook_model.php:5843
+#: application/models/Logbook_model.php:5857
 msgid "POTA reference already in log"
 msgstr ""
 
-#: application/models/Logbook_model.php:5846
+#: application/models/Logbook_model.php:5860
 msgid "QSO updated"
 msgstr ""
 
-#: application/models/Logbook_model.php:6243
+#: application/models/Logbook_model.php:6257
 #: application/views/activated_gridmap/index.php:114
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:58
@@ -3962,9 +3963,10 @@ msgstr ""
 #: application/views/timeline/index.php:10
 #: application/views/timeline/index.php:22
 #: application/views/timeline/index.php:82
-#: application/views/timeplotter/index.php:17
-#: application/views/timeplotter/index.php:27
-#: application/views/timeplotter/index.php:47
+#: application/views/timeplotter/index.php:19
+#: application/views/timeplotter/index.php:37
+#: application/views/timeplotter/index.php:49
+#: application/views/timeplotter/index.php:59
 #: application/views/user/edit.php:863
 #: application/views/visitor/layout/footer.php:168
 msgid "All"
@@ -4320,7 +4322,7 @@ msgstr ""
 #: application/views/timeline/index.php:336
 #: application/views/timeline/index.php:370
 #: application/views/timeline/index.php:406
-#: application/views/timeplotter/index.php:59
+#: application/views/timeplotter/index.php:71
 msgid "Show"
 msgstr ""
 
@@ -5513,7 +5515,7 @@ msgstr ""
 #: application/views/station_profile/create.php:129
 #: application/views/station_profile/edit.php:154
 #: application/views/timeline/index.php:351
-#: application/views/timeplotter/index.php:44
+#: application/views/timeplotter/index.php:35
 #: application/views/user/modals/first_login_wizard.php:74
 #: application/views/zonechecker/index.php:17
 msgid "CQ Zone"
@@ -10236,10 +10238,12 @@ msgid "QSOs per Year"
 msgstr ""
 
 #: application/views/dayswithqso/index.php:95
+#: application/views/timeplotter/index.php:140
 msgid "Less"
 msgstr ""
 
 #: application/views/dayswithqso/index.php:100
+#: application/views/timeplotter/index.php:146
 msgid "More"
 msgstr ""
 
@@ -17509,10 +17513,32 @@ msgstr ""
 msgid "Callsign(s) worked (max 5)"
 msgstr ""
 
-#: application/views/timeplotter/index.php:10
-msgid ""
-"The Timeplotter is used to analyze your logbook and find out at what times "
-"you worked certain CQ zones or DXCC countries on a selected band."
+#: application/views/timeplotter/index.php:81
+msgid "Best Time Window"
+msgstr ""
+
+#: application/views/timeplotter/index.php:90
+msgid "Best Band"
+msgstr ""
+
+#: application/views/timeplotter/index.php:99
+msgid "Best Mode"
+msgstr ""
+
+#: application/views/timeplotter/index.php:108
+msgid "Total QSOs plotted"
+msgstr ""
+
+#: application/views/timeplotter/index.php:120
+msgid "Heatmap"
+msgstr ""
+
+#: application/views/timeplotter/index.php:125
+msgid "Chart"
+msgstr ""
+
+#: application/views/timeplotter/index.php:136
+msgid "Activity by Time of Day (UTC)"
 msgstr ""
 
 #: application/views/update/hamsofnote.php:7

@@ -5,12 +5,14 @@
 # Fabian Berg <fabian.berg@hb9hil.org>, 2025.
 # "S.NAKAO" <hlx.nakao@gmail.com>, 2025.
 # "S.NAKAO(JG3HLX)" <hlx.nakao@gmail.com>, 2025, 2026.
+# "Xu, Zefan (BI1GHZ)" <ceba_robot@outlook.com>, 2026.
+# Florian Wolters <wavelog@df2et.de>, 2026.
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-03-31 13:02+0000\n"
-"PO-Revision-Date: 2026-03-25 09:06+0000\n"
-"Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
+"POT-Creation-Date: 2026-04-01 14:13+0000\n"
+"PO-Revision-Date: 2026-04-01 10:59+0000\n"
+"Last-Translator: Florian Wolters <wavelog@df2et.de>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ja/>\n"
 "Language: ja\n"
@@ -382,7 +384,7 @@ msgstr "DOK"
 #: application/views/search/result.php:27
 #: application/views/stationsetup/linkedlocations.php:17
 #: application/views/stationsetup/linkedlocations.php:33
-#: application/views/timeplotter/index.php:24
+#: application/views/timeplotter/index.php:17
 msgid "DXCC"
 msgstr "DXCC"
 
@@ -620,7 +622,7 @@ msgstr "WAP"
 #: application/controllers/Awards.php:1488
 #: application/views/interface_assets/header.php:254
 msgid "WAIP"
-msgstr "待機中"
+msgstr "WAIP"
 
 #: application/controllers/Awards.php:2195
 #: application/views/awards/itu/index.php:34
@@ -1036,9 +1038,9 @@ msgstr "Selfupdate() が利用できません。エラーログを確認して�
 
 #: application/controllers/Debug.php:317
 msgid ""
-"File Migration was successfull, but please check also manually. If "
-"everything seems right you can delete the folders 'assets/qslcard' and "
-"'images/eqsl_card_images'."
+"File Migration was successful, but please check also manually. If everything "
+"seems right you can delete the folders 'assets/qslcard' and 'images/"
+"eqsl_card_images'."
 msgstr ""
 "ファイルの移行は成功しましたが、手動でもご確認ください。問題がなければ、"
 "「assets/qslcard」と「images/eqsl_card_images」フォルダを削除してください。"
@@ -1623,10 +1625,11 @@ msgstr "すべてのコールブック検索が失敗したか、結果が提供
 #: application/views/statistics/index.php:102
 #: application/views/statistics/initialresult.php:19
 #: application/views/statistics/initials.php:17
-#: application/views/timeline/index.php:19 application/views/user/edit.php:293
-#: application/views/user/edit.php:316 application/views/user/edit.php:339
-#: application/views/user/edit.php:362 application/views/user/edit.php:386
-#: application/views/usermode/index.php:38
+#: application/views/timeline/index.php:19
+#: application/views/timeplotter/index.php:57
+#: application/views/user/edit.php:293 application/views/user/edit.php:316
+#: application/views/user/edit.php:339 application/views/user/edit.php:362
+#: application/views/user/edit.php:386 application/views/usermode/index.php:38
 #: application/views/view_log/partial/log.php:9
 #: application/views/view_log/partial/log_ajax.php:4
 #: application/views/view_log/qso.php:114 application/views/visitor/index.php:6
@@ -1942,7 +1945,7 @@ msgstr "距離"
 #: application/views/statistics/initialresult.php:18
 #: application/views/statistics/initials.php:8
 #: application/views/timeline/index.php:7
-#: application/views/timeplotter/index.php:14
+#: application/views/timeplotter/index.php:47
 #: application/views/user/edit.php:291 application/views/user/edit.php:314
 #: application/views/user/edit.php:337 application/views/user/edit.php:360
 #: application/views/user/edit.php:384
@@ -2027,7 +2030,7 @@ msgstr "オペレーター"
 #: application/views/stationsetup/locationlist.php:75
 #: application/views/stationsetup/stationsetup.php:158
 #: application/views/timeline/index.php:222
-#: application/views/timeplotter/index.php:33
+#: application/views/timeplotter/index.php:25
 #: application/views/user/modals/first_login_wizard.php:52
 #: application/views/view_log/partial/log_ajax.php:31
 #: application/views/view_log/qso.php:353
@@ -3013,7 +3016,7 @@ msgstr "タイムライン"
 
 #: application/controllers/Timeplotter.php:17
 #: application/views/interface_assets/header.php:176
-#: application/views/timeplotter/index.php:9
+#: application/views/timeplotter/index.php:10
 msgid "Timeplotter"
 msgstr "タイムプロッター"
 
@@ -3574,7 +3577,7 @@ msgstr "米国の州"
 #: application/libraries/Subdivisions.php:66
 msgctxt "Division Name (States in various countries)."
 msgid "Prefecture"
-msgstr "県"
+msgstr "都道府県"
 
 #: application/libraries/Subdivisions.php:68
 msgctxt "Division Name (States in various countries)."
@@ -3658,33 +3661,37 @@ msgstr ""
 msgid "Station not accessible"
 msgstr "ステーションは利用できません"
 
-#: application/models/Logbook_model.php:1398
+#: application/models/Logbook_model.php:1412
 msgid "Station ID not allowed"
 msgstr "ステーションIDは許可されていません"
 
-#: application/models/Logbook_model.php:1403
+#: application/models/Logbook_model.php:1417
 msgid "No Call given"
 msgstr "コールなし"
 
-#: application/models/Logbook_model.php:1473
-#: application/models/Logbook_model.php:1677
+#: application/models/Logbook_model.php:1487
+#: application/models/Logbook_model.php:1691
 msgid "DXCC has to be Numeric"
 msgstr "DXCCは数値でなければなりません"
 
-#: application/models/Logbook_model.php:4882
+#: application/models/Logbook_model.php:4896
 #, php-format
 msgid ""
 "Differing station callsign %s while importing QSO with %s for %s: SKIPPED"
 msgstr ""
+"%s との QSO をインポート中に、%s のコールサインが %s と異なるため：スキップさ"
+"れました"
 
-#: application/models/Logbook_model.php:4889
+#: application/models/Logbook_model.php:4903
 #, php-format
 msgid ""
 "Differing locator %s while importing QSO with %s for station locator %s: "
 "SKIPPED"
 msgstr ""
+"局位置 %s を持つ %s の QSO をインポート中に、異なる局位置 %s が検出されまし"
+"た：スキップしました"
 
-#: application/models/Logbook_model.php:4904
+#: application/models/Logbook_model.php:4918
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
@@ -3692,11 +3699,11 @@ msgstr ""
 "有効な日付のないQSOをインポートしようとしました。このQSOはインポートされませ"
 "んでした。無効です"
 
-#: application/models/Logbook_model.php:4913
+#: application/models/Logbook_model.php:4927
 msgid "QSO on"
 msgstr "QSOオン"
 
-#: application/models/Logbook_model.php:4913
+#: application/models/Logbook_model.php:4927
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
@@ -3704,7 +3711,7 @@ msgstr ""
 "コールが指定されていないQSOをインポートしようとしました。このQSOはインポート"
 "されませんでした。無効です"
 
-#: application/models/Logbook_model.php:4962
+#: application/models/Logbook_model.php:4976
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
@@ -3713,64 +3720,64 @@ msgstr ""
 "%s でのQSO: バンドが指定されていないQSOをインポートしようとしました。このQSO"
 "はインポートされませんでした。無効です"
 
-#: application/models/Logbook_model.php:5235
+#: application/models/Logbook_model.php:5249
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "qslrdate が無効です (YYYYMMDD)"
 
-#: application/models/Logbook_model.php:5246
+#: application/models/Logbook_model.php:5260
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "qslsdate が無効です (YYYYMMDD)"
 
-#: application/models/Logbook_model.php:5307
+#: application/models/Logbook_model.php:5321
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "clublog_qso_upload_date が無効です (YYYYMMDD)"
 
-#: application/models/Logbook_model.php:5680
+#: application/models/Logbook_model.php:5694
 #: application/views/simplefle/index.php:41
 msgid "Duplicate for"
 msgstr "複製用"
 
-#: application/models/Logbook_model.php:5745
-#: application/models/Logbook_model.php:5840
+#: application/models/Logbook_model.php:5759
+#: application/models/Logbook_model.php:5854
 msgid "QSO could not be matched"
 msgstr "QSOが一致しませんでした"
 
-#: application/models/Logbook_model.php:5753
+#: application/models/Logbook_model.php:5767
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "LoTW/Clublog/eQSL/コンテストで確認済み"
 
-#: application/models/Logbook_model.php:5759
+#: application/models/Logbook_model.php:5773
 msgid "confirmed by award manager"
 msgstr "賞の管理者によって確認された"
 
-#: application/models/Logbook_model.php:5763
+#: application/models/Logbook_model.php:5777
 msgid "confirmed by cross-check of DCL data"
 msgstr "DCLデータのクロスチェックによって確認された"
 
-#: application/models/Logbook_model.php:5767
+#: application/models/Logbook_model.php:5781
 msgid "confirmation pending"
 msgstr "確認中"
 
-#: application/models/Logbook_model.php:5770
+#: application/models/Logbook_model.php:5784
 msgid "unconfirmed"
 msgstr "未確認"
 
-#: application/models/Logbook_model.php:5773
+#: application/models/Logbook_model.php:5787
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 #: application/views/view_log/qso.php:305
 msgid "unknown"
 msgstr "不明"
 
-#: application/models/Logbook_model.php:5843
+#: application/models/Logbook_model.php:5857
 msgid "POTA reference already in log"
 msgstr "POTA 参照。既にログに存在します"
 
-#: application/models/Logbook_model.php:5846
+#: application/models/Logbook_model.php:5860
 msgid "QSO updated"
 msgstr "QSOが更新されました"
 
-#: application/models/Logbook_model.php:6243
+#: application/models/Logbook_model.php:6257
 #: application/views/activated_gridmap/index.php:114
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:58
@@ -4046,9 +4053,10 @@ msgstr "違い"
 #: application/views/timeline/index.php:10
 #: application/views/timeline/index.php:22
 #: application/views/timeline/index.php:82
-#: application/views/timeplotter/index.php:17
-#: application/views/timeplotter/index.php:27
-#: application/views/timeplotter/index.php:47
+#: application/views/timeplotter/index.php:19
+#: application/views/timeplotter/index.php:37
+#: application/views/timeplotter/index.php:49
+#: application/views/timeplotter/index.php:59
 #: application/views/user/edit.php:863
 #: application/views/visitor/layout/footer.php:168
 msgid "All"
@@ -4404,7 +4412,7 @@ msgstr "対流圏ダクト"
 #: application/views/timeline/index.php:336
 #: application/views/timeline/index.php:370
 #: application/views/timeline/index.php:406
-#: application/views/timeplotter/index.php:59
+#: application/views/timeplotter/index.php:71
 msgid "Show"
 msgstr "表示"
 
@@ -4908,7 +4916,7 @@ msgstr "危険"
 
 #: application/views/adif/import.php:162
 msgid "Ignore Station callsign on import"
-msgstr "インポート時にステーションのコールサインを無視する"
+msgstr "インポート時に本局のコールサインを無視する"
 
 #: application/views/adif/import.php:164
 #, php-format
@@ -4921,13 +4929,16 @@ msgstr ""
 
 #: application/views/adif/import.php:169
 msgid "Ignore grid check on import"
-msgstr ""
+msgstr "インポート時に本局のグリッドを無視する"
 
 #: application/views/adif/import.php:171
 msgid ""
 "If selected, Wavelog will try to import QSOs even if the MY_GRIDSQUARE field "
 "in ADIF records does not match the locator of the chosen station-location."
 msgstr ""
+"このオプションを選択した場合、Wavelogは、ADIFレコードのMY_GRIDSQUAREフィール"
+"ドが選択した局の位置のロケーターと一致しない場合でも、QSOをインポートしようと"
+"します。"
 
 #: application/views/adif/import.php:181
 msgid ""
@@ -5672,7 +5683,7 @@ msgstr "合計"
 #: application/views/station_profile/create.php:129
 #: application/views/station_profile/edit.php:154
 #: application/views/timeline/index.php:351
-#: application/views/timeplotter/index.php:44
+#: application/views/timeplotter/index.php:35
 #: application/views/user/modals/first_login_wizard.php:74
 #: application/views/zonechecker/index.php:17
 msgid "CQ Zone"
@@ -6393,7 +6404,7 @@ msgstr "Prefix"
 
 #: application/views/awards/dxcc/index.php:318
 msgid "Slots"
-msgstr ""
+msgstr "スロット"
 
 #: application/views/awards/dxcc/index.php:380
 msgid "No results found for your search criteria. Please try again."
@@ -6762,7 +6773,7 @@ msgstr ""
 
 #: application/views/awards/jcc/index.php:76
 msgid "Deleted cities"
-msgstr ""
+msgstr "削除された都市"
 
 #: application/views/awards/jcc/index.php:127
 msgid "Show JCC Map"
@@ -6770,7 +6781,7 @@ msgstr "JCCマップを表示"
 
 #: application/views/awards/jcc/index.php:128
 msgid "Export confirmed QSOs"
-msgstr ""
+msgstr "確認済みQSOをエクスポートする"
 
 #: application/views/awards/jcc/index.php:138
 #: application/views/public_search/empty.php:2
@@ -7434,7 +7445,7 @@ msgstr "WAIPアワードの基準に合致する交信は見つかりません�
 #: application/views/awards/waja/index.php:3
 msgctxt "Japan Prefecture"
 msgid "Prefecture"
-msgstr "県"
+msgstr "都道府県"
 
 #: application/views/awards/waja/index.php:4
 msgid "Hover over a prefecture"
@@ -7478,7 +7489,7 @@ msgstr "WAJAマップを表示"
 #: application/views/awards/waja/index.php:158
 #: application/views/timeline/index.php:243
 msgid "Prefecture"
-msgstr "県"
+msgstr "都道府県"
 
 #: application/views/awards/wap/index.php:4
 msgctxt "The Netherlands Province"
@@ -10237,7 +10248,7 @@ msgstr ""
 
 #: application/views/cron/index.php:29
 msgid "All times are shown in UTC."
-msgstr ""
+msgstr "時刻はすべてUTCで表示されています。"
 
 #: application/views/cron/index.php:33
 msgid ""
@@ -10680,10 +10691,12 @@ msgid "QSOs per Year"
 msgstr "年間QSO数"
 
 #: application/views/dayswithqso/index.php:95
+#: application/views/timeplotter/index.php:140
 msgid "Less"
 msgstr "少ない"
 
 #: application/views/dayswithqso/index.php:100
+#: application/views/timeplotter/index.php:146
 msgid "More"
 msgstr "もっと"
 
@@ -14612,7 +14625,7 @@ msgstr ""
 
 #: application/views/logbookadvanced/mergedialog.php:71
 msgid "Field"
-msgstr "分野"
+msgstr "フィールド"
 
 #: application/views/logbookadvanced/qslcarousel.php:59
 #: application/views/qslcard/qslcarousel.php:25
@@ -18342,13 +18355,33 @@ msgstr "時間配分"
 msgid "Callsign(s) worked (max 5)"
 msgstr "有効なコールサイン（最大5つ）"
 
-#: application/views/timeplotter/index.php:10
-msgid ""
-"The Timeplotter is used to analyze your logbook and find out at what times "
-"you worked certain CQ zones or DXCC countries on a selected band."
+#: application/views/timeplotter/index.php:81
+msgid "Best Time Window"
 msgstr ""
-"タイムプロッターは、ログブックを分析し、選択したバンドで特定の CQ ゾーンまた"
-"は DXCC 国と交信した時間を確認するために使用されます。"
+
+#: application/views/timeplotter/index.php:90
+msgid "Best Band"
+msgstr ""
+
+#: application/views/timeplotter/index.php:99
+msgid "Best Mode"
+msgstr ""
+
+#: application/views/timeplotter/index.php:108
+msgid "Total QSOs plotted"
+msgstr ""
+
+#: application/views/timeplotter/index.php:120
+msgid "Heatmap"
+msgstr ""
+
+#: application/views/timeplotter/index.php:125
+msgid "Chart"
+msgstr ""
+
+#: application/views/timeplotter/index.php:136
+msgid "Activity by Time of Day (UTC)"
+msgstr ""
 
 #: application/views/update/hamsofnote.php:7
 msgid "Name / Description"
@@ -19803,12 +19836,43 @@ msgstr "CQz"
 msgid "CQz geojson"
 msgstr "CQz geojson"
 
+#~ msgid ""
+#~ "The Timeplotter is used to analyze your logbook and find out at what "
+#~ "times you worked certain CQ zones or DXCC countries on a selected band."
+#~ msgstr ""
+#~ "タイムプロッターは、ログブックを分析し、選択したバンドで特定の CQ ゾーンま"
+#~ "たは DXCC 国と交信した時間を確認するために使用されます。"
+
+#~ msgid ""
+#~ "File Migration was successfull, but please check also manually. If "
+#~ "everything seems right you can delete the folders 'assets/qslcard' and "
+#~ "'images/eqsl_card_images'."
+#~ msgstr ""
+#~ "ファイルの移行は成功しましたが、手動でもご確認ください。問題がなければ、"
+#~ "「assets/qslcard」と「images/eqsl_card_images」フォルダを削除してくださ"
+#~ "い。"
+
 #, php-format
 #~ msgid ""
 #~ "Wrong station callsign %s while importing QSO with %s for %s: SKIPPED"
 #~ msgstr ""
 #~ "%s との QSO を %s でインポート中に、誤ったステーションコールサイン %s が検"
 #~ "出されました: スキップされました"
+
+#, php-format
+#~ msgid ""
+#~ "Wrong locator %s while importing QSO with %s for station locator %s: "
+#~ "SKIPPED"
+#~ msgstr ""
+#~ "局位置 %s を持つ %s との QSO をインポート中に、位置情報 %s が不正です：ス"
+#~ "キップしました"
+
+#~ msgid ""
+#~ "If selected, Wavelog will try to import QSOs even when their "
+#~ "my_gridsquare does not match the chosen station-location locator."
+#~ msgstr ""
+#~ "このオプションを選択すると、Wavelogはmy_gridsquareが選択された局位置ロケー"
+#~ "ターと一致しない場合でも、QSOをインポートしようとします。"
 
 #~ msgid "Email settings not configured."
 #~ msgstr "電子メール設定が構成されていません。"

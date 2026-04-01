@@ -7,12 +7,13 @@
 # Fabian Berg <fabian.berg@hb9hil.org>, 2024, 2026.
 # "Erkin Mercan (TA4AQG-SP9AQG)" <ekomeko066@gmail.com>, 2025.
 # iv3cvn <ricentis@gmail.com>, 2026.
+# Florian Wolters <wavelog@df2et.de>, 2026.
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-03-31 13:02+0000\n"
-"PO-Revision-Date: 2026-03-24 10:41+0000\n"
-"Last-Translator: iv3cvn <ricentis@gmail.com>\n"
+"POT-Creation-Date: 2026-04-01 14:13+0000\n"
+"PO-Revision-Date: 2026-04-01 10:59+0000\n"
+"Last-Translator: Florian Wolters <wavelog@df2et.de>\n"
 "Language-Team: Italian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/it/>\n"
 "Language: it_IT\n"
@@ -384,7 +385,7 @@ msgstr "DOK"
 #: application/views/search/result.php:27
 #: application/views/stationsetup/linkedlocations.php:17
 #: application/views/stationsetup/linkedlocations.php:33
-#: application/views/timeplotter/index.php:24
+#: application/views/timeplotter/index.php:17
 msgid "DXCC"
 msgstr "DXCC"
 
@@ -1038,9 +1039,9 @@ msgstr "Selfupdate() non disponibile. Controllare il log errori."
 
 #: application/controllers/Debug.php:317
 msgid ""
-"File Migration was successfull, but please check also manually. If "
-"everything seems right you can delete the folders 'assets/qslcard' and "
-"'images/eqsl_card_images'."
+"File Migration was successful, but please check also manually. If everything "
+"seems right you can delete the folders 'assets/qslcard' and 'images/"
+"eqsl_card_images'."
 msgstr ""
 "La migrazione dei file è stata completata con successo, ma ti preghiamo di "
 "controllare anche manualmente. Se tutto sembra a posto, puoi eliminare le "
@@ -1626,10 +1627,11 @@ msgstr "Tutte le ricerche del nominativo non hanno prodotto alcun risultato."
 #: application/views/statistics/index.php:102
 #: application/views/statistics/initialresult.php:19
 #: application/views/statistics/initials.php:17
-#: application/views/timeline/index.php:19 application/views/user/edit.php:293
-#: application/views/user/edit.php:316 application/views/user/edit.php:339
-#: application/views/user/edit.php:362 application/views/user/edit.php:386
-#: application/views/usermode/index.php:38
+#: application/views/timeline/index.php:19
+#: application/views/timeplotter/index.php:57
+#: application/views/user/edit.php:293 application/views/user/edit.php:316
+#: application/views/user/edit.php:339 application/views/user/edit.php:362
+#: application/views/user/edit.php:386 application/views/usermode/index.php:38
 #: application/views/view_log/partial/log.php:9
 #: application/views/view_log/partial/log_ajax.php:4
 #: application/views/view_log/qso.php:114 application/views/visitor/index.php:6
@@ -1945,7 +1947,7 @@ msgstr "Distanza"
 #: application/views/statistics/initialresult.php:18
 #: application/views/statistics/initials.php:8
 #: application/views/timeline/index.php:7
-#: application/views/timeplotter/index.php:14
+#: application/views/timeplotter/index.php:47
 #: application/views/user/edit.php:291 application/views/user/edit.php:314
 #: application/views/user/edit.php:337 application/views/user/edit.php:360
 #: application/views/user/edit.php:384
@@ -2030,7 +2032,7 @@ msgstr "Operatore"
 #: application/views/stationsetup/locationlist.php:75
 #: application/views/stationsetup/stationsetup.php:158
 #: application/views/timeline/index.php:222
-#: application/views/timeplotter/index.php:33
+#: application/views/timeplotter/index.php:25
 #: application/views/user/modals/first_login_wizard.php:52
 #: application/views/view_log/partial/log_ajax.php:31
 #: application/views/view_log/qso.php:353
@@ -3026,7 +3028,7 @@ msgstr "Linea temporale"
 
 #: application/controllers/Timeplotter.php:17
 #: application/views/interface_assets/header.php:176
-#: application/views/timeplotter/index.php:9
+#: application/views/timeplotter/index.php:10
 msgid "Timeplotter"
 msgstr "Timeplotter"
 
@@ -3677,33 +3679,33 @@ msgstr "HRDlog: nessun profilo di stazione con credenziali HRDlog trovate."
 msgid "Station not accessible"
 msgstr "Stazione non accessibile"
 
-#: application/models/Logbook_model.php:1398
+#: application/models/Logbook_model.php:1412
 msgid "Station ID not allowed"
 msgstr "ID stazione non consentito"
 
-#: application/models/Logbook_model.php:1403
+#: application/models/Logbook_model.php:1417
 msgid "No Call given"
 msgstr "Nessun nominatio fornito"
 
-#: application/models/Logbook_model.php:1473
-#: application/models/Logbook_model.php:1677
+#: application/models/Logbook_model.php:1487
+#: application/models/Logbook_model.php:1691
 msgid "DXCC has to be Numeric"
 msgstr "DXCC deve essere numerico"
 
-#: application/models/Logbook_model.php:4882
+#: application/models/Logbook_model.php:4896
 #, php-format
 msgid ""
 "Differing station callsign %s while importing QSO with %s for %s: SKIPPED"
 msgstr ""
 
-#: application/models/Logbook_model.php:4889
+#: application/models/Logbook_model.php:4903
 #, php-format
 msgid ""
 "Differing locator %s while importing QSO with %s for station locator %s: "
 "SKIPPED"
 msgstr ""
 
-#: application/models/Logbook_model.php:4904
+#: application/models/Logbook_model.php:4918
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
@@ -3711,11 +3713,11 @@ msgstr ""
 "Hai cercato di importare un QSO senza una data valida. Questo QSO non è "
 "stato importato. Non è valido"
 
-#: application/models/Logbook_model.php:4913
+#: application/models/Logbook_model.php:4927
 msgid "QSO on"
 msgstr "QSO alle"
 
-#: application/models/Logbook_model.php:4913
+#: application/models/Logbook_model.php:4927
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
@@ -3723,7 +3725,7 @@ msgstr ""
 "Hai tentato di importare un QSO senza alcun nominativo di chiamata. Questo "
 "QSO non è stato importato perchè non valido"
 
-#: application/models/Logbook_model.php:4962
+#: application/models/Logbook_model.php:4976
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
@@ -3732,64 +3734,64 @@ msgstr ""
 "QSO su %s: Hai provato a importare un QSO senza una banda specificata. "
 "Questo QSO non è stato importato. È non valido"
 
-#: application/models/Logbook_model.php:5235
+#: application/models/Logbook_model.php:5249
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "La data di ricezione QSL non è valida (AAAAMMGG)"
 
-#: application/models/Logbook_model.php:5246
+#: application/models/Logbook_model.php:5260
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "La data di invio QSL non è valida (AAAAMMGG)"
 
-#: application/models/Logbook_model.php:5307
+#: application/models/Logbook_model.php:5321
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "La data di upload Clublog non è valida (AAAAMMGG)"
 
-#: application/models/Logbook_model.php:5680
+#: application/models/Logbook_model.php:5694
 #: application/views/simplefle/index.php:41
 msgid "Duplicate for"
 msgstr "Duplicata"
 
-#: application/models/Logbook_model.php:5745
-#: application/models/Logbook_model.php:5840
+#: application/models/Logbook_model.php:5759
+#: application/models/Logbook_model.php:5854
 msgid "QSO could not be matched"
 msgstr "Impossibile abbinare QSO"
 
-#: application/models/Logbook_model.php:5753
+#: application/models/Logbook_model.php:5767
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "confermato da LoTW/Clublog/eQSL/Contest"
 
-#: application/models/Logbook_model.php:5759
+#: application/models/Logbook_model.php:5773
 msgid "confirmed by award manager"
 msgstr "confermato dal responsabile del premio"
 
-#: application/models/Logbook_model.php:5763
+#: application/models/Logbook_model.php:5777
 msgid "confirmed by cross-check of DCL data"
 msgstr "confermato dal controllo incrociato dei dati DCL"
 
-#: application/models/Logbook_model.php:5767
+#: application/models/Logbook_model.php:5781
 msgid "confirmation pending"
 msgstr "Conferma in sospeso"
 
-#: application/models/Logbook_model.php:5770
+#: application/models/Logbook_model.php:5784
 msgid "unconfirmed"
 msgstr "Non confermato"
 
-#: application/models/Logbook_model.php:5773
+#: application/models/Logbook_model.php:5787
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 #: application/views/view_log/qso.php:305
 msgid "unknown"
 msgstr "sconosciuto"
 
-#: application/models/Logbook_model.php:5843
+#: application/models/Logbook_model.php:5857
 msgid "POTA reference already in log"
 msgstr "Riferimento POTA già presente nel registro di stazione"
 
-#: application/models/Logbook_model.php:5846
+#: application/models/Logbook_model.php:5860
 msgid "QSO updated"
 msgstr "QSO aggiornato"
 
-#: application/models/Logbook_model.php:6243
+#: application/models/Logbook_model.php:6257
 #: application/views/activated_gridmap/index.php:114
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:58
@@ -3814,6 +3816,8 @@ msgid ""
 "Invalid primary QSO ID, or you do not have permission to access one of the "
 "QSOs"
 msgstr ""
+"ID QSO primario non valido, oppure non hai il permesso di accedere a uno dei "
+"QSO"
 
 #: application/models/Logbookadvanced_model.php:2412
 #: application/views/view_log/qso.php:945
@@ -3822,11 +3826,11 @@ msgstr "QSO non trovato"
 
 #: application/models/Logbookadvanced_model.php:2498
 msgid "No fields selected for merge or no differences between QSOs"
-msgstr ""
+msgstr "Nessun campo selezionato per l'unione o nessuna differenza tra i QSO"
 
 #: application/models/Logbookadvanced_model.php:2511
 msgid "QSOs merged successfully"
-msgstr ""
+msgstr "QSOs uniti con successo"
 
 #: application/models/Note.php:7
 msgid "Contacts"
@@ -4067,9 +4071,10 @@ msgstr "Differenza"
 #: application/views/timeline/index.php:10
 #: application/views/timeline/index.php:22
 #: application/views/timeline/index.php:82
-#: application/views/timeplotter/index.php:17
-#: application/views/timeplotter/index.php:27
-#: application/views/timeplotter/index.php:47
+#: application/views/timeplotter/index.php:19
+#: application/views/timeplotter/index.php:37
+#: application/views/timeplotter/index.php:49
+#: application/views/timeplotter/index.php:59
 #: application/views/user/edit.php:863
 #: application/views/visitor/layout/footer.php:168
 msgid "All"
@@ -4425,7 +4430,7 @@ msgstr "Canalizzazioni troposferiche"
 #: application/views/timeline/index.php:336
 #: application/views/timeline/index.php:370
 #: application/views/timeline/index.php:406
-#: application/views/timeplotter/index.php:59
+#: application/views/timeplotter/index.php:71
 msgid "Show"
 msgstr "Mostra"
 
@@ -5702,7 +5707,7 @@ msgstr "Totale"
 #: application/views/station_profile/create.php:129
 #: application/views/station_profile/edit.php:154
 #: application/views/timeline/index.php:351
-#: application/views/timeplotter/index.php:44
+#: application/views/timeplotter/index.php:35
 #: application/views/user/modals/first_login_wizard.php:74
 #: application/views/zonechecker/index.php:17
 msgid "CQ Zone"
@@ -6429,7 +6434,7 @@ msgstr "Prefisso"
 
 #: application/views/awards/dxcc/index.php:318
 msgid "Slots"
-msgstr ""
+msgstr "Slots"
 
 #: application/views/awards/dxcc/index.php:380
 msgid "No results found for your search criteria. Please try again."
@@ -10780,10 +10785,12 @@ msgid "QSOs per Year"
 msgstr "QSO per anno"
 
 #: application/views/dayswithqso/index.php:95
+#: application/views/timeplotter/index.php:140
 msgid "Less"
 msgstr "Di meno"
 
 #: application/views/dayswithqso/index.php:100
+#: application/views/timeplotter/index.php:146
 msgid "More"
 msgstr "Di più"
 
@@ -14288,38 +14295,40 @@ msgstr "Locatori non corrispondenti al DXCC"
 
 #: application/views/logbookadvanced/index.php:84
 msgid "You need to select exactly 2 QSOs to merge!"
-msgstr ""
+msgstr "Devi selezionare esattamente 2 QSO da unire!"
 
 #: application/views/logbookadvanced/index.php:85
 #: application/views/logbookadvanced/index.php:852
 msgid "Merge QSOs"
-msgstr ""
+msgstr "Unione QSO"
 
 #: application/views/logbookadvanced/index.php:86
 msgid ""
 "Are you really sure you want to merge these QSOs? This operation CAN\\'T be "
 "undone!"
 msgstr ""
+"Sei davvero sicuro di voler unire questi QSO? Questa operazione NON può "
+"essere annullata!"
 
 #: application/views/logbookadvanced/index.php:87
 msgid "Danger"
-msgstr ""
+msgstr "Pericolo"
 
 #: application/views/logbookadvanced/index.php:89
 msgid "Yes, Merge QSOs"
-msgstr ""
+msgstr "Sì, unisci i QSO"
 
 #: application/views/logbookadvanced/index.php:90
 msgid "QSOs merged successfully!"
-msgstr ""
+msgstr "QSO uniti con correttamente!"
 
 #: application/views/logbookadvanced/index.php:91
 msgid "Error merging QSOs"
-msgstr ""
+msgstr "Errore nell'unione dei QSO"
 
 #: application/views/logbookadvanced/index.php:92
 msgid "Error loading merge dialog"
-msgstr ""
+msgstr "Errore nel caricamento della finestra di dialogo di unione QSO"
 
 #: application/views/logbookadvanced/index.php:338
 msgid "From"
@@ -14729,31 +14738,33 @@ msgstr "Potenza di trasmissione"
 
 #: application/views/logbookadvanced/mergedialog.php:8
 msgid "Which QSO should be kept?"
-msgstr ""
+msgstr "Quale QSO deve essere mantenuto?"
 
 #: application/views/logbookadvanced/mergedialog.php:9
 msgid ""
 "Select which QSO will remain after the merge. The other will be deleted."
-msgstr ""
+msgstr "Seleziona quale QSO rimarrà dopo la fusione. L'altro verrà eliminato."
 
 #: application/views/logbookadvanced/mergedialog.php:22
 #: application/views/logbookadvanced/mergedialog.php:45
 msgid "Keep this QSO"
-msgstr ""
+msgstr "Mantieni questo QSO"
 
 #: application/views/logbookadvanced/mergedialog.php:62
 msgid "Select which fields to keep from each QSO:"
-msgstr ""
+msgstr "Seleziona quali campi mantenere da ciascun QSO:"
 
 #: application/views/logbookadvanced/mergedialog.php:63
 msgid ""
 "The selected fields will be merged into the primary QSO. You can select "
 "different fields from each QSO."
 msgstr ""
+"I campi selezionati verranno uniti nel QSO principale. Puoi selezionare "
+"campi diversi da ciascun QSO."
 
 #: application/views/logbookadvanced/mergedialog.php:71
 msgid "Field"
-msgstr ""
+msgstr "Campo"
 
 #: application/views/logbookadvanced/qslcarousel.php:59
 #: application/views/qslcard/qslcarousel.php:25
@@ -18545,14 +18556,33 @@ msgstr "Distribuzione del Tempo"
 msgid "Callsign(s) worked (max 5)"
 msgstr "Callsign utilizzati (max 5)"
 
-#: application/views/timeplotter/index.php:10
-msgid ""
-"The Timeplotter is used to analyze your logbook and find out at what times "
-"you worked certain CQ zones or DXCC countries on a selected band."
+#: application/views/timeplotter/index.php:81
+msgid "Best Time Window"
 msgstr ""
-"Il Timeplotter è utilizzato per analizzare il tuo diario di lavoro e "
-"scoprire a quali orari hai collegato in determinate zone CQ o in paesi DXCC "
-"su una banda selezionata."
+
+#: application/views/timeplotter/index.php:90
+msgid "Best Band"
+msgstr ""
+
+#: application/views/timeplotter/index.php:99
+msgid "Best Mode"
+msgstr ""
+
+#: application/views/timeplotter/index.php:108
+msgid "Total QSOs plotted"
+msgstr ""
+
+#: application/views/timeplotter/index.php:120
+msgid "Heatmap"
+msgstr ""
+
+#: application/views/timeplotter/index.php:125
+msgid "Chart"
+msgstr ""
+
+#: application/views/timeplotter/index.php:136
+msgid "Activity by Time of Day (UTC)"
+msgstr ""
 
 #: application/views/update/hamsofnote.php:7
 msgid "Name / Description"
@@ -20032,6 +20062,23 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#~ msgid ""
+#~ "The Timeplotter is used to analyze your logbook and find out at what "
+#~ "times you worked certain CQ zones or DXCC countries on a selected band."
+#~ msgstr ""
+#~ "Il Timeplotter è utilizzato per analizzare il tuo diario di lavoro e "
+#~ "scoprire a quali orari hai collegato in determinate zone CQ o in paesi "
+#~ "DXCC su una banda selezionata."
+
+#~ msgid ""
+#~ "File Migration was successfull, but please check also manually. If "
+#~ "everything seems right you can delete the folders 'assets/qslcard' and "
+#~ "'images/eqsl_card_images'."
+#~ msgstr ""
+#~ "La migrazione dei file è stata completata con successo, ma ti preghiamo "
+#~ "di controllare anche manualmente. Se tutto sembra a posto, puoi eliminare "
+#~ "le cartelle “assets/qslcard” e “images/eqsl_card_images”."
 
 #, php-format
 #~ msgid ""

@@ -6,12 +6,13 @@
 # "Jorgen Dahl, NU1T" <sm6srw@arrl.net>, 2025, 2026.
 # "Erkin Mercan (TA4AQG-SP9AQG)" <ekomeko066@gmail.com>, 2025.
 # "Juuso W." <oh1jw@tuta.io>, 2026.
+# Florian Wolters <wavelog@df2et.de>, 2026.
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-03-31 13:02+0000\n"
-"PO-Revision-Date: 2026-03-25 09:06+0000\n"
-"Last-Translator: \"Jorgen Dahl, NU1T\" <sm6srw@arrl.net>\n"
+"POT-Creation-Date: 2026-04-01 14:13+0000\n"
+"PO-Revision-Date: 2026-04-01 10:59+0000\n"
+"Last-Translator: Florian Wolters <wavelog@df2et.de>\n"
 "Language-Team: Swedish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/sv/>\n"
 "Language: sv_SE\n"
@@ -383,7 +384,7 @@ msgstr "DOK"
 #: application/views/search/result.php:27
 #: application/views/stationsetup/linkedlocations.php:17
 #: application/views/stationsetup/linkedlocations.php:33
-#: application/views/timeplotter/index.php:24
+#: application/views/timeplotter/index.php:17
 msgid "DXCC"
 msgstr "DXCC"
 
@@ -1035,9 +1036,9 @@ msgstr "Selfupdate() är inte tillgänglig. Kontrollera felloggen."
 
 #: application/controllers/Debug.php:317
 msgid ""
-"File Migration was successfull, but please check also manually. If "
-"everything seems right you can delete the folders 'assets/qslcard' and "
-"'images/eqsl_card_images'."
+"File Migration was successful, but please check also manually. If everything "
+"seems right you can delete the folders 'assets/qslcard' and 'images/"
+"eqsl_card_images'."
 msgstr ""
 "Filöverföringen var framgångsrik, men kontrollera också manuellt. Om allt "
 "verkar rätt kan du ta bort mapparna 'assets/qslcard' och 'images/"
@@ -1620,10 +1621,11 @@ msgstr "Alla callbook-sökningar misslyckades eller gav inga resultat."
 #: application/views/statistics/index.php:102
 #: application/views/statistics/initialresult.php:19
 #: application/views/statistics/initials.php:17
-#: application/views/timeline/index.php:19 application/views/user/edit.php:293
-#: application/views/user/edit.php:316 application/views/user/edit.php:339
-#: application/views/user/edit.php:362 application/views/user/edit.php:386
-#: application/views/usermode/index.php:38
+#: application/views/timeline/index.php:19
+#: application/views/timeplotter/index.php:57
+#: application/views/user/edit.php:293 application/views/user/edit.php:316
+#: application/views/user/edit.php:339 application/views/user/edit.php:362
+#: application/views/user/edit.php:386 application/views/usermode/index.php:38
 #: application/views/view_log/partial/log.php:9
 #: application/views/view_log/partial/log_ajax.php:4
 #: application/views/view_log/qso.php:114 application/views/visitor/index.php:6
@@ -1939,7 +1941,7 @@ msgstr "Avstånd"
 #: application/views/statistics/initialresult.php:18
 #: application/views/statistics/initials.php:8
 #: application/views/timeline/index.php:7
-#: application/views/timeplotter/index.php:14
+#: application/views/timeplotter/index.php:47
 #: application/views/user/edit.php:291 application/views/user/edit.php:314
 #: application/views/user/edit.php:337 application/views/user/edit.php:360
 #: application/views/user/edit.php:384
@@ -2024,7 +2026,7 @@ msgstr "Operatör"
 #: application/views/stationsetup/locationlist.php:75
 #: application/views/stationsetup/stationsetup.php:158
 #: application/views/timeline/index.php:222
-#: application/views/timeplotter/index.php:33
+#: application/views/timeplotter/index.php:25
 #: application/views/user/modals/first_login_wizard.php:52
 #: application/views/view_log/partial/log_ajax.php:31
 #: application/views/view_log/qso.php:353
@@ -3017,7 +3019,7 @@ msgstr "Tidslinje"
 
 #: application/controllers/Timeplotter.php:17
 #: application/views/interface_assets/header.php:176
-#: application/views/timeplotter/index.php:9
+#: application/views/timeplotter/index.php:10
 msgid "Timeplotter"
 msgstr "Tidplotter"
 
@@ -3131,7 +3133,7 @@ msgstr "Uppdatering av Hams of Note"
 
 #: application/controllers/Update.php:707
 msgid "VUCC Grid file update complete. Result: "
-msgstr "VUCC-locatorfiluppdatering slutförd. Resultat: "
+msgstr "VUCC-lokatorfiluppdatering slutförd. Resultat: "
 
 #: application/controllers/Update.php:709
 msgid "VUCC Grid file update failed. Result: "
@@ -3491,7 +3493,7 @@ msgstr "Flera användare hittades med slug"
 
 #: application/controllers/Zonechecker.php:26
 msgid "Gridsquare Zone finder"
-msgstr "Locator Zon sökare"
+msgstr "Lokator Zon sökare"
 
 #: application/libraries/Callbook.php:60
 msgid "Lookup not configured. Please review configuration."
@@ -3657,33 +3659,34 @@ msgstr "HRDlog: Inga stationsprofiler med HRDlog-uppgifter hittades."
 msgid "Station not accessible"
 msgstr "Stationen är inte tillgänglig"
 
-#: application/models/Logbook_model.php:1398
+#: application/models/Logbook_model.php:1412
 msgid "Station ID not allowed"
 msgstr "Stations-ID inte tillåtet"
 
-#: application/models/Logbook_model.php:1403
+#: application/models/Logbook_model.php:1417
 msgid "No Call given"
 msgstr "Ingen anropssignal angiven"
 
-#: application/models/Logbook_model.php:1473
-#: application/models/Logbook_model.php:1677
+#: application/models/Logbook_model.php:1487
+#: application/models/Logbook_model.php:1691
 msgid "DXCC has to be Numeric"
 msgstr "DXCC måste vara numerisk"
 
-#: application/models/Logbook_model.php:4882
+#: application/models/Logbook_model.php:4896
 #, php-format
 msgid ""
 "Differing station callsign %s while importing QSO with %s for %s: SKIPPED"
-msgstr ""
+msgstr "Fel anropssignal %s vid import av QSO med %s för %s: HOPPADES ÖVER"
 
-#: application/models/Logbook_model.php:4889
+#: application/models/Logbook_model.php:4903
 #, php-format
 msgid ""
 "Differing locator %s while importing QSO with %s for station locator %s: "
 "SKIPPED"
 msgstr ""
+"Fel lokator %s vid import av QSO med %s för stationslokator %s: HOPPADES ÖVER"
 
-#: application/models/Logbook_model.php:4904
+#: application/models/Logbook_model.php:4918
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
@@ -3691,11 +3694,11 @@ msgstr ""
 "Du försökte importera ett QSO utan giltigt datum. Detta QSO importerades "
 "inte. Det är ogiltigt"
 
-#: application/models/Logbook_model.php:4913
+#: application/models/Logbook_model.php:4927
 msgid "QSO on"
 msgstr "QSO kl"
 
-#: application/models/Logbook_model.php:4913
+#: application/models/Logbook_model.php:4927
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
@@ -3703,7 +3706,7 @@ msgstr ""
 "Du försökte importera ett QSO utan angivet CALL. Detta QSO importerades "
 "inte. Det är ogiltigt"
 
-#: application/models/Logbook_model.php:4962
+#: application/models/Logbook_model.php:4976
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
@@ -3712,64 +3715,64 @@ msgstr ""
 "QSO på %s: Du försökte importera ett QSO utan angivet band. Detta QSO "
 "importerades inte. Det är ogiltigt"
 
-#: application/models/Logbook_model.php:5235
+#: application/models/Logbook_model.php:5249
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "qslrdate är ogiltigt (ÅÅÅÅMMDD)"
 
-#: application/models/Logbook_model.php:5246
+#: application/models/Logbook_model.php:5260
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "qslsdate är ogiltigt (ÅÅÅÅMMDD)"
 
-#: application/models/Logbook_model.php:5307
+#: application/models/Logbook_model.php:5321
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "clublog_qso_upload_date är ogiltigt (ÅÅÅÅMMDD)"
 
-#: application/models/Logbook_model.php:5680
+#: application/models/Logbook_model.php:5694
 #: application/views/simplefle/index.php:41
 msgid "Duplicate for"
 msgstr "Dubblett för"
 
-#: application/models/Logbook_model.php:5745
-#: application/models/Logbook_model.php:5840
+#: application/models/Logbook_model.php:5759
+#: application/models/Logbook_model.php:5854
 msgid "QSO could not be matched"
 msgstr "QSO kunde inte matchas"
 
-#: application/models/Logbook_model.php:5753
+#: application/models/Logbook_model.php:5767
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "bekräftad av LoTW/Clublog/eQSL/Tävling"
 
-#: application/models/Logbook_model.php:5759
+#: application/models/Logbook_model.php:5773
 msgid "confirmed by award manager"
 msgstr "bekräftad av diplomansvarig"
 
-#: application/models/Logbook_model.php:5763
+#: application/models/Logbook_model.php:5777
 msgid "confirmed by cross-check of DCL data"
 msgstr "bekräftat genom korskontroll av DCL-data"
 
-#: application/models/Logbook_model.php:5767
+#: application/models/Logbook_model.php:5781
 msgid "confirmation pending"
 msgstr "bekräftelse väntar"
 
-#: application/models/Logbook_model.php:5770
+#: application/models/Logbook_model.php:5784
 msgid "unconfirmed"
 msgstr "obekräftad"
 
-#: application/models/Logbook_model.php:5773
+#: application/models/Logbook_model.php:5787
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 #: application/views/view_log/qso.php:305
 msgid "unknown"
 msgstr "Okänd"
 
-#: application/models/Logbook_model.php:5843
+#: application/models/Logbook_model.php:5857
 msgid "POTA reference already in log"
 msgstr "POTA-referens redan i loggen"
 
-#: application/models/Logbook_model.php:5846
+#: application/models/Logbook_model.php:5860
 msgid "QSO updated"
 msgstr "QSO uppdaterad"
 
-#: application/models/Logbook_model.php:6243
+#: application/models/Logbook_model.php:6257
 #: application/views/activated_gridmap/index.php:114
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:58
@@ -4047,9 +4050,10 @@ msgstr "Skillnad"
 #: application/views/timeline/index.php:10
 #: application/views/timeline/index.php:22
 #: application/views/timeline/index.php:82
-#: application/views/timeplotter/index.php:17
-#: application/views/timeplotter/index.php:27
-#: application/views/timeplotter/index.php:47
+#: application/views/timeplotter/index.php:19
+#: application/views/timeplotter/index.php:37
+#: application/views/timeplotter/index.php:49
+#: application/views/timeplotter/index.php:59
 #: application/views/user/edit.php:863
 #: application/views/visitor/layout/footer.php:168
 msgid "All"
@@ -4405,7 +4409,7 @@ msgstr "Troposfärisk ducting"
 #: application/views/timeline/index.php:336
 #: application/views/timeline/index.php:370
 #: application/views/timeline/index.php:406
-#: application/views/timeplotter/index.php:59
+#: application/views/timeplotter/index.php:71
 msgid "Show"
 msgstr "Visa"
 
@@ -4922,13 +4926,16 @@ msgstr ""
 
 #: application/views/adif/import.php:169
 msgid "Ignore grid check on import"
-msgstr ""
+msgstr "Ignorera lokatorkontroll vid import"
 
 #: application/views/adif/import.php:171
 msgid ""
 "If selected, Wavelog will try to import QSOs even if the MY_GRIDSQUARE field "
 "in ADIF records does not match the locator of the chosen station-location."
 msgstr ""
+"Om denna väljs kommer Wavelog att försöka importera QSOs där fältet "
+"MY_GRIDSQUARE i ADIF-posten inte matchar lokatorn för den valda "
+"stationsplatsen."
 
 #: application/views/adif/import.php:181
 msgid ""
@@ -5676,7 +5683,7 @@ msgstr "Totalt"
 #: application/views/station_profile/create.php:129
 #: application/views/station_profile/edit.php:154
 #: application/views/timeline/index.php:351
-#: application/views/timeplotter/index.php:44
+#: application/views/timeplotter/index.php:35
 #: application/views/user/modals/first_login_wizard.php:74
 #: application/views/zonechecker/index.php:17
 msgid "CQ Zone"
@@ -6400,7 +6407,7 @@ msgstr "Prefix"
 
 #: application/views/awards/dxcc/index.php:318
 msgid "Slots"
-msgstr ""
+msgstr "Slots"
 
 #: application/views/awards/dxcc/index.php:380
 msgid "No results found for your search criteria. Please try again."
@@ -6773,7 +6780,7 @@ msgstr ""
 
 #: application/views/awards/jcc/index.php:76
 msgid "Deleted cities"
-msgstr ""
+msgstr "Raderade städer"
 
 #: application/views/awards/jcc/index.php:127
 msgid "Show JCC Map"
@@ -6781,7 +6788,7 @@ msgstr "Visa JCC-karta"
 
 #: application/views/awards/jcc/index.php:128
 msgid "Export confirmed QSOs"
-msgstr ""
+msgstr "Exportera bekräftade QSOs"
 
 #: application/views/awards/jcc/index.php:138
 #: application/views/public_search/empty.php:2
@@ -10038,7 +10045,7 @@ msgstr "Serienummer + Utbyte"
 
 #: application/views/contesting/index.php:29
 msgid "Serial + Gridsquare"
-msgstr "Serienummer + Locatorruta"
+msgstr "Serienummer + Lokatorruta"
 
 #: application/views/contesting/index.php:30
 msgid "Serial + Gridsquare + Exchange"
@@ -10263,7 +10270,7 @@ msgstr ""
 
 #: application/views/cron/index.php:29
 msgid "All times are shown in UTC."
-msgstr ""
+msgstr "Alla tider visas i UTC."
 
 #: application/views/cron/index.php:33
 msgid ""
@@ -10702,10 +10709,12 @@ msgid "QSOs per Year"
 msgstr "QSOs per år"
 
 #: application/views/dayswithqso/index.php:95
+#: application/views/timeplotter/index.php:140
 msgid "Less"
 msgstr "Mindre"
 
 #: application/views/dayswithqso/index.php:100
+#: application/views/timeplotter/index.php:146
 msgid "More"
 msgstr "Mer"
 
@@ -12114,7 +12123,7 @@ msgstr "Beräkna QRB och QTF"
 
 #: application/views/interface_assets/footer.php:56
 msgid "Error in locators. Please check."
-msgstr "Fel i lokalisatorer. Vänligen kontrollera."
+msgstr "Fel i lokator. Vänligen kontrollera."
 
 #: application/views/interface_assets/footer.php:57
 #: application/views/user/index.php:20 application/views/user/index.php:144
@@ -12255,7 +12264,7 @@ msgstr ""
 
 #: application/views/interface_assets/footer.php:90
 msgid "DXCC was already worked in the past on this band and mode!"
-msgstr "DXCC hade redan kontaktats tidigare på detta band och trafiksätt!"
+msgstr "DXCC har redan tidigare kontaktats på detta band och trafiksätt!"
 
 #: application/views/interface_assets/footer.php:91
 msgid "New DXCC, not worked on this band and mode!"
@@ -12335,7 +12344,7 @@ msgstr "Technician"
 #: application/views/interface_assets/footer.php:111
 #: application/views/interface_assets/header.php:117
 msgid "Advanced"
-msgstr "Advanced"
+msgstr "Avancerad"
 
 #: application/views/interface_assets/footer.php:112
 msgid "Extra"
@@ -12889,7 +12898,7 @@ msgstr "GeoJSON QSO-karta"
 
 #: application/views/interface_assets/header.php:547
 msgid "Gridsquare Zone checker"
-msgstr "Locator Zon kontrollerare"
+msgstr "Lokator Zon kontrollerare"
 
 #: application/views/interface_assets/header.php:554
 #: application/views/logbookadvanced/index.php:913
@@ -13301,7 +13310,7 @@ msgstr ""
 #: application/views/logbookadvanced/checkresult.php:74
 #: application/views/logbookadvanced/checkresult.php:146
 msgid "Gridsquare Check Results"
-msgstr "Locator-kontrollresultat"
+msgstr "Lokator-kontrollresultat"
 
 #: application/views/logbookadvanced/checkresult.php:83
 msgid "DXCC Check Results"
@@ -13554,7 +13563,7 @@ msgstr "Använd Wavelog för att bestämma DXCC för alla QSOs."
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:111
 msgid "Lookup QSOs with missing grid in callbook"
-msgstr "Leta efter QSOs med saknad locator i callboken"
+msgstr "Leta efter QSOs med saknad lokator i callboken"
 
 #: application/views/logbookadvanced/dbtoolsdialog.php:112
 msgid "Use callbook lookup to set gridsquare"
@@ -15860,11 +15869,11 @@ msgstr "Söker efter"
 
 #: application/views/qrbcalc/index.php:3
 msgid "Locator 1"
-msgstr "Locator 1"
+msgstr "Lokator 1"
 
 #: application/views/qrbcalc/index.php:10
 msgid "Locator 2"
-msgstr "Locator 2"
+msgstr "Lokator 2"
 
 #: application/views/qrbcalc/index.php:20
 msgid "Calculate"
@@ -18402,13 +18411,33 @@ msgstr "Tidsfördelning"
 msgid "Callsign(s) worked (max 5)"
 msgstr "Anropssignal(er) kontaktade (max 5)"
 
-#: application/views/timeplotter/index.php:10
-msgid ""
-"The Timeplotter is used to analyze your logbook and find out at what times "
-"you worked certain CQ zones or DXCC countries on a selected band."
+#: application/views/timeplotter/index.php:81
+msgid "Best Time Window"
 msgstr ""
-"Timeplotter används för att analysera din loggbok och ta reda på vid vilka "
-"tider du kontaktade vissa CQ-zoner eller DXCC-länder på ett valt band."
+
+#: application/views/timeplotter/index.php:90
+msgid "Best Band"
+msgstr ""
+
+#: application/views/timeplotter/index.php:99
+msgid "Best Mode"
+msgstr ""
+
+#: application/views/timeplotter/index.php:108
+msgid "Total QSOs plotted"
+msgstr ""
+
+#: application/views/timeplotter/index.php:120
+msgid "Heatmap"
+msgstr ""
+
+#: application/views/timeplotter/index.php:125
+msgid "Chart"
+msgstr ""
+
+#: application/views/timeplotter/index.php:136
+msgid "Activity by Time of Day (UTC)"
+msgstr ""
 
 #: application/views/update/hamsofnote.php:7
 msgid "Name / Description"
@@ -19867,10 +19896,42 @@ msgstr "CQz"
 msgid "CQz geojson"
 msgstr "CQz geojson"
 
+#~ msgid ""
+#~ "The Timeplotter is used to analyze your logbook and find out at what "
+#~ "times you worked certain CQ zones or DXCC countries on a selected band."
+#~ msgstr ""
+#~ "Timeplotter används för att analysera din loggbok och ta reda på vid "
+#~ "vilka tider du kontaktade vissa CQ-zoner eller DXCC-länder på ett valt "
+#~ "band."
+
+#~ msgid ""
+#~ "File Migration was successfull, but please check also manually. If "
+#~ "everything seems right you can delete the folders 'assets/qslcard' and "
+#~ "'images/eqsl_card_images'."
+#~ msgstr ""
+#~ "Filöverföringen var framgångsrik, men kontrollera också manuellt. Om allt "
+#~ "verkar rätt kan du ta bort mapparna 'assets/qslcard' och 'images/"
+#~ "eqsl_card_images'."
+
 #, php-format
 #~ msgid ""
 #~ "Wrong station callsign %s while importing QSO with %s for %s: SKIPPED"
 #~ msgstr "Fel anropssignal %s vid import av QSO med %s för %s: HOPPADES ÖVER"
+
+#, php-format
+#~ msgid ""
+#~ "Wrong locator %s while importing QSO with %s for station locator %s: "
+#~ "SKIPPED"
+#~ msgstr ""
+#~ "Fel lokator %s vid import av QSO med %s för stationslokator %s: HOPPADES "
+#~ "ÖVER"
+
+#~ msgid ""
+#~ "If selected, Wavelog will try to import QSOs even when their "
+#~ "my_gridsquare does not match the chosen station-location locator."
+#~ msgstr ""
+#~ "Om denna väljs kommer Wavelog försöka importera QSOs även när deras "
+#~ "my_gridsquare inte stämmer överens med den valda stationsplatsens lokator."
 
 #~ msgid "Email settings not configured."
 #~ msgstr "E-postinställningar inte konfigurerade."
