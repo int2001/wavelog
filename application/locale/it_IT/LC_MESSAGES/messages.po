@@ -11,9 +11,9 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-04-16 18:32+0000\n"
-"PO-Revision-Date: 2026-04-09 10:17+0000\n"
-"Last-Translator: iv3cvn <ricentis@gmail.com>\n"
+"POT-Creation-Date: 2026-04-17 08:17+0000\n"
+"PO-Revision-Date: 2026-04-16 22:17+0000\n"
+"Last-Translator: Luca <lucabennati1996@gmail.com>\n"
 "Language-Team: Italian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/it/>\n"
 "Language: it_IT\n"
@@ -1214,7 +1214,7 @@ msgstr "L'autenticazione SSO è disabilitata. Controlla la tua configurazione."
 
 #: application/controllers/Header_auth.php:89
 msgid "Sorry. This instance is currently in maintenance mode."
-msgstr ""
+msgstr "Spiacente. Questa istanza al momento è in modalità di manutenzione."
 
 #: application/controllers/Header_auth.php:96
 msgid "User not found."
@@ -1274,59 +1274,59 @@ msgstr "Etichette QSL"
 msgid "Create Label Type"
 msgstr "Definisci tipologia di etichetta"
 
-#: application/controllers/Labels.php:78 application/controllers/Labels.php:423
+#: application/controllers/Labels.php:78 application/controllers/Labels.php:426
 #: application/views/labels/create.php:22 application/views/labels/edit.php:22
 msgid "Label Name"
 msgstr "Nome etichetta"
 
-#: application/controllers/Labels.php:79 application/controllers/Labels.php:424
+#: application/controllers/Labels.php:79 application/controllers/Labels.php:427
 #: application/views/labels/create.php:28 application/views/labels/edit.php:28
 #: application/views/labels/index.php:77
 msgid "Paper Type"
 msgstr "Tipologia di carta"
 
-#: application/controllers/Labels.php:80 application/controllers/Labels.php:425
+#: application/controllers/Labels.php:80 application/controllers/Labels.php:428
 #: application/views/labels/index.php:43 application/views/labels/index.php:78
 msgid "Measurement"
 msgstr "Misura"
 
-#: application/controllers/Labels.php:81 application/controllers/Labels.php:426
+#: application/controllers/Labels.php:81 application/controllers/Labels.php:429
 msgid "Top Margin"
 msgstr "Margine Superiore"
 
-#: application/controllers/Labels.php:82 application/controllers/Labels.php:427
+#: application/controllers/Labels.php:82 application/controllers/Labels.php:430
 msgid "Left Margin"
 msgstr "Margine Sinistro"
 
-#: application/controllers/Labels.php:83 application/controllers/Labels.php:428
+#: application/controllers/Labels.php:83 application/controllers/Labels.php:431
 msgid "QSLs Horizontally"
 msgstr "QSL orizzontali"
 
-#: application/controllers/Labels.php:84 application/controllers/Labels.php:429
+#: application/controllers/Labels.php:84 application/controllers/Labels.php:432
 msgid "QSLs Vertically"
 msgstr "QSL verticali"
 
-#: application/controllers/Labels.php:85 application/controllers/Labels.php:430
+#: application/controllers/Labels.php:85 application/controllers/Labels.php:433
 msgid "Horizontal Space"
 msgstr "Spaziatura orizzontale"
 
-#: application/controllers/Labels.php:86 application/controllers/Labels.php:431
+#: application/controllers/Labels.php:86 application/controllers/Labels.php:434
 msgid "Vertical Space"
 msgstr "Spaziatura verticale"
 
-#: application/controllers/Labels.php:87 application/controllers/Labels.php:432
+#: application/controllers/Labels.php:87 application/controllers/Labels.php:435
 msgid "Label width"
 msgstr "Larghezza etichetta"
 
-#: application/controllers/Labels.php:88 application/controllers/Labels.php:433
+#: application/controllers/Labels.php:88 application/controllers/Labels.php:436
 msgid "Label height"
 msgstr "Altezza etichetta"
 
-#: application/controllers/Labels.php:89 application/controllers/Labels.php:434
+#: application/controllers/Labels.php:89 application/controllers/Labels.php:437
 msgid "Size of Font"
 msgstr "Dimensione dei caratteri"
 
-#: application/controllers/Labels.php:90 application/controllers/Labels.php:435
+#: application/controllers/Labels.php:90 application/controllers/Labels.php:438
 msgid "Number of QSOs on label"
 msgstr "Numero di QSO per etichetta"
 
@@ -1335,22 +1335,22 @@ msgid "Create Paper Type"
 msgstr "Crea tipologia di foglio"
 
 #: application/controllers/Labels.php:119
-#: application/controllers/Labels.php:482
+#: application/controllers/Labels.php:485
 msgid "Paper Name"
 msgstr "Nome foglio"
 
 #: application/controllers/Labels.php:120
-#: application/controllers/Labels.php:483
+#: application/controllers/Labels.php:486
 msgid "Paper Width"
 msgstr "Larghezza foglio"
 
 #: application/controllers/Labels.php:121
-#: application/controllers/Labels.php:484
+#: application/controllers/Labels.php:487
 msgid "Paper Height"
 msgstr "Altezza foglio"
 
 #: application/controllers/Labels.php:132
-#: application/controllers/Labels.php:492
+#: application/controllers/Labels.php:495
 msgid ""
 "Your paper could not be saved. Remember that it can't have the same name as "
 "existing paper types."
@@ -1358,19 +1358,19 @@ msgstr ""
 "Il foglio non è stato salvato. Ricorda che non può avere lo stesso nome di "
 "altri tipi di foglio già esistenti."
 
-#: application/controllers/Labels.php:210
-#: application/controllers/Labels.php:213
+#: application/controllers/Labels.php:212
+#: application/controllers/Labels.php:215
 msgid "You need to assign a paperType to the label before printing"
 msgstr ""
 "È necessario assegnare un tipo di foglio all'etichetta prima della stampa"
 
-#: application/controllers/Labels.php:220
-#: application/controllers/Labels.php:223
+#: application/controllers/Labels.php:222
+#: application/controllers/Labels.php:225
 msgid "You need to create a label and set it to be used for print."
 msgstr "È necessario creare un'etichetta e impostarla per la stampa."
 
-#: application/controllers/Labels.php:230
-#: application/controllers/Labels.php:233
+#: application/controllers/Labels.php:232
+#: application/controllers/Labels.php:235
 msgid ""
 "Something went wrong! The label could not be generated. Check label size and "
 "font size."
@@ -1378,31 +1378,31 @@ msgstr ""
 "Qualcosa è andato storto! Non è stato possibile generare l'etichetta. "
 "Controllare le dimensioni dell'etichetta e del carattere."
 
-#: application/controllers/Labels.php:256
+#: application/controllers/Labels.php:258
 msgid "0 QSOs found for print!"
 msgstr "0 QSO da stampare!"
 
-#: application/controllers/Labels.php:412
+#: application/controllers/Labels.php:415
 msgid "Edit Label"
 msgstr "Modifica etichetta"
 
-#: application/controllers/Labels.php:441
+#: application/controllers/Labels.php:444
 msgid "Label was saved."
 msgstr "Etichetta salvata."
 
-#: application/controllers/Labels.php:449
+#: application/controllers/Labels.php:452
 msgid "Label was deleted."
 msgstr "Etichetta cancellata."
 
-#: application/controllers/Labels.php:471
+#: application/controllers/Labels.php:474
 msgid "Edit Paper"
 msgstr "Modifica foglio"
 
-#: application/controllers/Labels.php:496
+#: application/controllers/Labels.php:499
 msgid "Paper was saved."
 msgstr "Foglio salvato."
 
-#: application/controllers/Labels.php:509
+#: application/controllers/Labels.php:512
 msgid "Paper was deleted."
 msgstr "Foglio cancellato."
 
@@ -9502,6 +9502,11 @@ msgid ""
 "                    There may be users not listed who have permissions for "
 "this club/special callsign."
 msgstr ""
+"Questo nominativo speciale/club è gestito da un fornitore di identità/single "
+"sign on. I permessi possono essere aumentati qui, ma l'accesso potrebbe "
+"essere automaticamente rimosso o concesso dal fornitore di identità quando "
+"gli utenti effettuano il login. Potrebbero esserci utenti non elencati che "
+"hanno permessi per questo nominativo speciale/club."
 
 #: application/views/club/permissions.php:19
 msgid ""
@@ -9509,6 +9514,9 @@ msgid ""
 "provider group, then add the user to the table below with increased "
 "permissions."
 msgstr ""
+"Per concedere autorizzazioni oltre il livello di membro: aggiungi l'utente "
+"al gruppo del provider di identità, quindi aggiungi l'utente alla tabella "
+"qui sotto con autorizzazioni aumentate."
 
 #: application/views/club/permissions.php:22
 msgid ""
@@ -13271,7 +13279,7 @@ msgstr ""
 "di significativo, magari lo stile dell'etichetta."
 
 #: application/views/labels/index.php:2
-#: application/views/logbookadvanced/startatform.php:92
+#: application/views/logbookadvanced/startatform.php:104
 msgid "Mark QSL as printed"
 msgstr "Segna QSL come stampata"
 
@@ -13351,36 +13359,41 @@ msgstr "Includere il mio call?"
 
 #: application/views/labels/startatform.php:33
 #: application/views/logbookadvanced/startatform.php:32
-msgid "Include Grid?"
-msgstr "Includere il locatore?"
+msgid "Include OP-Call? (if filled)"
+msgstr ""
 
 #: application/views/labels/startatform.php:45
 #: application/views/logbookadvanced/startatform.php:44
+msgid "Include Grid?"
+msgstr "Includere il locatore?"
+
+#: application/views/labels/startatform.php:57
+#: application/views/logbookadvanced/startatform.php:56
 msgid ""
 "Include reference? (SIG, SOTA, POTA, IOTA, WWFF; If available in location)"
 msgstr ""
 "Includere riferimento? (SIG, SOTA, POTA, IOTA, WWFF; se disponibile nella "
 "posizione)"
 
-#: application/views/labels/startatform.php:57
+#: application/views/labels/startatform.php:69
 msgid "Include Via (if filled)?"
 msgstr "Includere Via (se compilato)?"
 
-#: application/views/labels/startatform.php:69
+#: application/views/labels/startatform.php:81
 msgid "Include QSLMSG (if filled)?"
 msgstr "Includere QSLMSG (se compilato)?"
 
-#: application/views/labels/startatform.php:81
+#: application/views/labels/startatform.php:93
 msgid "Include TNX message?"
 msgstr "Includere il messaggio TNX?"
 
-#: application/views/labels/startatform.php:94
-#: application/views/logbookadvanced/startatform.php:105
+#: application/views/labels/startatform.php:106
+#: application/views/logbookadvanced/startatform.php:117
 msgid "Start printing at?"
 msgstr "Iniziare a stampare a?"
 
-#: application/views/labels/startatform.php:100
-#: application/views/logbookadvanced/startatform.php:111
+#: application/views/labels/startatform.php:112
+#: application/views/logbookadvanced/startatform.php:123
 msgid "Enter the starting position for label printing"
 msgstr "Inserisci la posizione della prima etichetta da stampare"
 
@@ -14378,7 +14391,7 @@ msgstr "Errore nell'unione dei QSO"
 
 #: application/views/logbookadvanced/index.php:92
 msgid "Error loading merge dialog"
-msgstr "Errore nel caricamento della finestra di dialogo di unione QSO"
+msgstr "Errore nel caricamento della finestra di unione dei collegamenti"
 
 #: application/views/logbookadvanced/index.php:338
 msgid "From"
@@ -14892,15 +14905,15 @@ msgstr "Risultati per l'aggiornamento del locatore:"
 msgid "The number of QSOs updated for gridsquare is"
 msgstr "Il numero di QSO aggiornati per il quadrato di griglia è"
 
-#: application/views/logbookadvanced/startatform.php:56
+#: application/views/logbookadvanced/startatform.php:68
 msgid "Include Via"
 msgstr "Includere Via"
 
-#: application/views/logbookadvanced/startatform.php:68
+#: application/views/logbookadvanced/startatform.php:80
 msgid "Include QSLMSG"
 msgstr "Includi QSLMSG"
 
-#: application/views/logbookadvanced/startatform.php:80
+#: application/views/logbookadvanced/startatform.php:92
 msgid "Include TNX message"
 msgstr "Includi il messaggio TNX"
 
@@ -17384,21 +17397,21 @@ msgstr "Segna QSL Ricevuta (Diretta)"
 #: application/views/view_log/partial/log_ajax.php:679
 #: application/views/view_log/qso.php:846
 msgid "Mark QSL Card Requested (Bureau)"
-msgstr "Segna QSL come richiesto (Bureau)"
+msgstr "Segna QSL come richiesta (Bureau)"
 
 #: application/views/search/search_result_ajax.php:474
 #: application/views/view_log/partial/log.php:153
 #: application/views/view_log/partial/log_ajax.php:680
 #: application/views/view_log/qso.php:848
 msgid "Mark QSL Card Requested (Direct)"
-msgstr "Segna QSL come richiesto (Diretta)"
+msgstr "Segna QSL come richiesta (Diretta)"
 
 #: application/views/search/search_result_ajax.php:475
 #: application/views/view_log/partial/log.php:154
 #: application/views/view_log/partial/log_ajax.php:681
 #: application/views/view_log/qso.php:850
 msgid "Mark QSL Card Not Required"
-msgstr "Segna QSL non come richiesto"
+msgstr "Segna QSL non come richiesta"
 
 #: application/views/search/search_result_ajax.php:482
 #: application/views/view_log/partial/log_ajax.php:696
@@ -18607,7 +18620,7 @@ msgstr "Callsign utilizzati (max 5)"
 
 #: application/views/timeplotter/index.php:81
 msgid "Best Time Window"
-msgstr ""
+msgstr "Miglior momento"
 
 #: application/views/timeplotter/index.php:90
 msgid "Best Band"
@@ -18623,7 +18636,7 @@ msgstr "QSOs totali tracciati"
 
 #: application/views/timeplotter/index.php:120
 msgid "Heatmap"
-msgstr ""
+msgstr "Mappa di calore"
 
 #: application/views/timeplotter/index.php:125
 msgid "Chart"
@@ -19150,25 +19163,27 @@ msgstr ""
 
 #: application/views/user/edit.php:837
 msgid "QSL delivery methods offered via OQRS"
-msgstr ""
+msgstr "Metodi di consegna QSL offerti tramite OQRS"
 
 #: application/views/user/edit.php:839
 msgid "Bureau and Direct"
-msgstr ""
+msgstr "Bureau e Diretto"
 
 #: application/views/user/edit.php:840
 msgid "Bureau only"
-msgstr ""
+msgstr "Solo Bureau"
 
 #: application/views/user/edit.php:841
 msgid "Direct only"
-msgstr ""
+msgstr "Solo diretto"
 
 #: application/views/user/edit.php:843
 msgid ""
 "Restrict which QSL delivery methods requesters can choose on your public "
 "OQRS page."
 msgstr ""
+"Limita i metodi di invio QSL che i corrispondenti possono scegliere sulla "
+"tua pagina pubblica OQRS."
 
 #: application/views/user/edit.php:859
 msgid "Default Values"
