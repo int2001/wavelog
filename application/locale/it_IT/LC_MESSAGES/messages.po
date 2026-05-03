@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-04-30 06:22+0000\n"
-"PO-Revision-Date: 2026-04-16 22:17+0000\n"
-"Last-Translator: Luca <lucabennati1996@gmail.com>\n"
+"PO-Revision-Date: 2026-04-29 20:28+0000\n"
+"Last-Translator: iv3cvn <ricentis@gmail.com>\n"
 "Language-Team: Italian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/it/>\n"
 "Language: it_IT\n"
@@ -12598,7 +12598,7 @@ msgid ""
 "Location could not be determined as gridsquare is empty and DXCC is -NONE-"
 msgstr ""
 "La posizione non può essere determinata poiché il locatore è vuoto e il DXCC "
-"è -NONE-"
+"è -NESSUNO-"
 
 #: application/views/interface_assets/footer.php:138
 msgid "Working without CAT connection"
@@ -13367,7 +13367,7 @@ msgstr "Includere il mio call?"
 #: application/views/labels/startatform.php:33
 #: application/views/logbookadvanced/startatform.php:32
 msgid "Include OP-Call? (if filled)"
-msgstr ""
+msgstr "Includere callsign operatore? (se compilato)"
 
 #: application/views/labels/startatform.php:45
 #: application/views/logbookadvanced/startatform.php:44
@@ -13802,7 +13802,7 @@ msgstr "Regione"
 
 #: application/views/logbookadvanced/edit.php:35
 msgid "SIG / SIG_INFO"
-msgstr ""
+msgstr "SIG / SIG_INFO"
 
 #: application/views/logbookadvanced/edit.php:39
 msgid "QSL / LoTW / Clublog / eQSL / QRZ / DCL"
@@ -14021,7 +14021,7 @@ msgstr "Manager"
 #: application/views/logbookadvanced/edit.php:237
 #: application/views/qso/edit_ajax.php:331 application/views/qso/index.php:500
 msgid "NONE"
-msgstr "NESSUNI"
+msgstr "NESSUNO"
 
 #: application/views/logbookadvanced/edit.php:238
 #: application/views/qso/edit_ajax.php:332 application/views/qso/index.php:501
@@ -14073,7 +14073,7 @@ msgstr ""
 
 #: application/views/logbookadvanced/edit.php:255
 msgid "SIG_INFO"
-msgstr ""
+msgstr "SIG_INFO"
 
 #: application/views/logbookadvanced/help.php:2
 msgid "In the text input searches, you can search in the following way:"
