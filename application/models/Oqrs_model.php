@@ -423,7 +423,7 @@ class Oqrs_model extends CI_Model {
 
 		$sql = 'select * from ' . $this->config->item('table_name') . ' thcv
 			join station_profile on station_profile.station_id = thcv.station_id
-			join oqrs on oqrs.qsoid = thcv.COL_PRIMARY_KEY
+			left join oqrs on oqrs.qsoid = thcv.COL_PRIMARY_KEY
 			where station_profile.oqrs = \'1\'
 			and station_profile.user_id = ?
 			and thcv.COL_CALL like ?
