@@ -18,3 +18,10 @@ $hook['pre_controller'][] = array(
 	'filename' => 'Gettext.php',
 	'filepath' => 'hooks/gettext',
 );
+
+$hook['pre_controller'][] = array(
+	'class'    => 'Error_collector',
+	'function' => 'register',
+	'filename' => 'Error_collector.php',
+	'filepath' => 'hooks/errorcollector',
+);
