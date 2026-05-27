@@ -70,9 +70,14 @@ class Hrdlog_model extends CI_Model {
 					$i++;
 					$result['status'] = 'OK';
 				} elseif ((substr($result['status'], 0, 11)  == 'auth_error')) {
-					log_message('error', 'hrdlog upload failed for qso: Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON);
-					log_message('error', 'hrdlog upload failed with the following message: ' . $result['message']);
-					log_message('error', 'hrdlog upload stopped and disabled for Station_ID: ' . $station_id);
+					if (!$this->load->is_loaded('Stations')) {
+						$this->load->model('Stations');
+					}
+					$hrd_user = $this->Stations->get_user_from_station($station_id);
+					$hrd_uid = $hrd_user ? (int)$hrd_user->user_id : null;
+					log_user_message('error', 'hrdlog upload failed for qso: Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON, $hrd_uid, 'cron');
+					log_user_message('error', 'hrdlog upload failed with the following message: ' . $result['message'], $hrd_uid, 'cron');
+					log_user_message('error', 'hrdlog upload stopped and disabled for Station_ID: ' . $station_id, $hrd_uid, 'cron');
 					$errormessages[] = $result['message'] . 'Invalid HRDLog-Code, stopped at Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
 					$this->disable_hrdlog_station($station_id);
 					$result['status'] = 'Error';

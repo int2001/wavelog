@@ -31,7 +31,6 @@ class Error_collector {
 			E_USER_ERROR        => 'error',
 			E_USER_WARNING      => 'warning',
 			E_USER_NOTICE       => 'notice',
-			E_STRICT            => 'notice',
 			E_RECOVERABLE_ERROR => 'error',
 			E_DEPRECATED        => 'notice',
 			E_USER_DEPRECATED   => 'notice',

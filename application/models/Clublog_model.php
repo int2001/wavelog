@@ -451,7 +451,8 @@ class Clublog_model extends CI_Model
 		} elseif (preg_match('/\bUpdated QSO\b/', $response)) {
 			$returner['status'] = 'OK';
 		} elseif ($httpcode == 403) { 	// New Message from clublog. HTTP 403 response check.
-			log_message('Error',"Clublog returned HTML error page for " . $station_callsign . " (access denied)");
+			$cl_user = $this->Stations->get_user_from_station($station_id);
+			log_user_message('error', "Clublog returned HTML error page for " . $station_callsign . " (access denied)", $cl_user ? (int)$cl_user->user_id : null, 'cron');
 			$this->disable_sync4call($station_callsign, $station_id);
 			$returner['status'] = $response;
 		} elseif (substr($response,0,14) == 'Login rejected') {	// Deactivate Upload for Station if Clublog rejects it due to wrong credentials (prevent being blacklisted at Clublog)

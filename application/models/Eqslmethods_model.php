@@ -53,14 +53,14 @@ class Eqslmethods_model extends CI_Model {
 			$status = $this->uploadQso($adif, $qsl);
 
 			if ($status == 'Error') {
-				log_message('error', 'eQSL Error for '.$data['user_eqsl_name']);
+				log_user_message('error', 'eQSL Error for '.$data['user_eqsl_name'], $userid, 'cron');
 				break;
 			} elseif ($status == 'Nick Error') {
-				log_message('error', 'eQSL error for user '.$data['user_eqsl_name'].' with QTH Nickname '.($qsl['eqslqthnickname'] ?? '').' at station_profile '.($qsl['eqsl_station_id'] ?? '').'. eQSL QTH Nickname will be removed from station location!');
+				log_user_message('error', 'eQSL error for user '.$data['user_eqsl_name'].' with QTH Nickname '.($qsl['eqslqthnickname'] ?? '').' at station_profile '.($qsl['eqsl_station_id'] ?? '').'. eQSL QTH Nickname will be removed from station location!', $userid, 'cron');
 				$this->disable_eqsl_station_id($userid,$qsl['eqsl_station_id']);
 				break;
 			} elseif ($status == 'Login Error') {
-				log_message('error', 'eQSL credentials error (user, pass or QTH Nickname) for '.$data['user_eqsl_name'].'. Login will be disabled!');
+				log_user_message('error', 'eQSL credentials error (user, pass or QTH Nickname) for '.$data['user_eqsl_name'].'. Login will be disabled!', $userid, 'cron');
 				$this->disable_eqsl_uid($userid);
 				break;
 			}

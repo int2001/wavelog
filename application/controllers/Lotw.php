@@ -771,26 +771,26 @@ class Lotw extends CI_Controller {
 						continue;
 					} else if ($http_code !== 200) {
 						$result = "LoTW download failed for user ".$user->user_lotw_name.": unexpected HTTP status ".$http_code.".";
-						log_message('error', 'LoTW download failed for user '.$user->user_name.': unexpected HTTP status '.$http_code);
+						log_user_message('error', 'LoTW download failed for user '.$user->user_name.': unexpected HTTP status '.$http_code, $user->user_id, 'cron');
 						continue;
 					} else if(str_contains(substr($content,0 , 2000),"Username/password incorrect</I>")) {
 						$result = "LoTW download failed for user ".$user->user_lotw_name.": Username/password incorrect";
-						log_message('error', 'LoTW download failed for user '.$user->user_name.': Username/password incorrect');
+						log_user_message('error', 'LoTW download failed for user '.$user->user_name.': Username/password incorrect', $user->user_id, 'cron');
 						if ($this->Lotw_model->remove_lotw_credentials($user->user_id)) {
-							log_message('error', 'LoTW credentials deleted for user '.$user->user_name);
+							log_user_message('error', 'LoTW credentials deleted for user '.$user->user_name, $user->user_id, 'cron');
 						} else {
-							log_message('error', 'Deleting LoTW credentials for user '.$user->user_name.' failed');
+							log_user_message('error', 'Deleting LoTW credentials for user '.$user->user_name.' failed', $user->user_id, 'cron');
 						}
 						continue;
 					} else if (str_contains(substr($content, 0, 2000),"Page Request Limit!</B>")) {
 						$result = "LoTW download hit a rate limit for user ".$user->user_lotw_name;
-						log_message('error', 'LoTW download hit a rate limit for user '.$user->user_name);
+						log_user_message('error', 'LoTW download hit a rate limit for user '.$user->user_name, $user->user_id, 'cron');
 						continue;
 					}
 					file_put_contents($file, $content);
 					if (file_get_contents($file, false, null, 0, 39) != "ARRL Logbook of the World Status Report") {
 						$result = "Downloaded LoTW report for user ".$user->user_lotw_name." is invalid. Check your credentials.";
-						log_message('error', 'Downloaded LoTW report is invalid for user '.$user->user_name);
+						log_user_message('error', 'Downloaded LoTW report is invalid for user '.$user->user_name, $user->user_id, 'cron');
 						continue;
 					}
 
@@ -876,7 +876,7 @@ class Lotw extends CI_Controller {
 					$errno = curl_errno($ch);
 					log_message('debug', 'LoTW parallel download finished for UID '.$user->user_id.' ('.$user->user_lotw_name.')'.($errno ? ' with error: '.curl_strerror($errno) : ''));
 					if ($errno) {
-						log_message('error', 'LoTW download failed for user '.$user->user_name.': '.curl_strerror($errno));
+						log_user_message('error', 'LoTW download failed for user '.$user->user_name.': '.curl_strerror($errno), $user->user_id, 'cron');
 						curl_multi_remove_handle($mh, $ch);
 					} else {
 						$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -884,20 +884,20 @@ class Lotw extends CI_Controller {
 						curl_multi_remove_handle($mh, $ch);
 
 						if ($http_code !== 200) {
-							log_message('error', 'LoTW download failed for user '.$user->user_name.': unexpected HTTP status '.$http_code);
+							log_user_message('error', 'LoTW download failed for user '.$user->user_name.': unexpected HTTP status '.$http_code, $user->user_id, 'cron');
 						} else if (str_contains(substr($content, 0, 2000), "Username/password incorrect</I>")) {
-							log_message('error', 'LoTW download failed for user '.$user->user_name.': Username/password incorrect');
+							log_user_message('error', 'LoTW download failed for user '.$user->user_name.': Username/password incorrect', $user->user_id, 'cron');
 							if ($this->Lotw_model->remove_lotw_credentials($user->user_id)) {
-								log_message('error', 'LoTW credentials deleted for user '.$user->user_name);
+								log_user_message('error', 'LoTW credentials deleted for user '.$user->user_name, $user->user_id, 'cron');
 							} else {
-								log_message('error', 'Deleting LoTW credentials for user '.$user->user_name.' failed');
+								log_user_message('error', 'Deleting LoTW credentials for user '.$user->user_name.' failed', $user->user_id, 'cron');
 							}
 						} else if (str_contains(substr($content, 0, 2000), "Page Request Limit!</B>")) {
-							log_message('error', 'LoTW download hit a rate limit for user '.$user->user_name);
+							log_user_message('error', 'LoTW download hit a rate limit for user '.$user->user_name, $user->user_id, 'cron');
 						} else {
 							file_put_contents($file, $content);
 							if (file_get_contents($file, false, null, 0, 39) != "ARRL Logbook of the World Status Report") {
-								log_message('error', 'Downloaded LoTW report is invalid for user '.$user->user_name);
+								log_user_message('error', 'Downloaded LoTW report is invalid for user '.$user->user_name, $user->user_id, 'cron');
 							} else {
 								ini_set('memory_limit', '-1');
 								log_message('debug', 'LoTW parallel download passing to loadFromFile for UID '.$user->user_id.' ('.$user->user_lotw_name.')');
