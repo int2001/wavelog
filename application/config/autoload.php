@@ -64,7 +64,7 @@ $autoload['libraries'] = array('database', 'session', 'curl', 'OptionsLib', 'Pat
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'security', 'language', 'club');
+$autoload['helper'] = array('url', 'security', 'language', 'club', 'error_log');
 
 
 /*

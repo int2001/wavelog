@@ -99,6 +99,7 @@ class Error_collector {
 			$data = array(
 				'timestamp'   => date('Y-m-d H:i:s'),
 				'level'       => $level,
+				'source'      => 'php',
 				'message'     => $message,
 				'file'        => $file,
 				'line'        => $line,

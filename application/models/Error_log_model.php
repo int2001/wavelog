@@ -6,10 +6,11 @@ class Error_log_model extends CI_Model {
 
 	public function log_error($data) {
 		try {
-			$sql = "INSERT INTO php_error_log (timestamp, level, message, file, line, user_id, request_url, backtrace) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+			$sql = "INSERT INTO php_error_log (timestamp, level, source, message, file, line, user_id, request_url, backtrace) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			return $this->db->query($sql, array(
 				$data['timestamp'],
 				$data['level'],
+				$data['source'],
 				$data['message'],
 				$data['file'],
 				$data['line'],
@@ -35,6 +36,10 @@ class Error_log_model extends CI_Model {
 			if (!empty($filters['level'])) {
 				$where .= " AND level = ?";
 				$binds[] = $filters['level'];
+			}
+			if (!empty($filters['source'])) {
+				$where .= " AND source = ?";
+				$binds[] = $filters['source'];
 			}
 			if (!empty($filters['date_from'])) {
 				$where .= " AND timestamp >= ?";

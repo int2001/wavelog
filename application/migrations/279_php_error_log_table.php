@@ -22,6 +22,12 @@ class Migration_php_error_log_table extends CI_Migration {
 					'constraint' => 20,
 					'null' => FALSE,
 				),
+				'source' => array(
+					'type' => 'VARCHAR',
+					'constraint' => 20,
+					'null' => FALSE,
+					'default' => 'php',
+				),
 				'message' => array(
 					'type' => 'TEXT',
 					'null' => FALSE,
@@ -61,6 +67,7 @@ class Migration_php_error_log_table extends CI_Migration {
 			$this->dbtry("ALTER TABLE {$table} ADD INDEX " . $this->db->escape_identifiers('idx_user_id') . " (" . $this->db->escape_identifiers('user_id') . ")");
 			$this->dbtry("ALTER TABLE {$table} ADD INDEX " . $this->db->escape_identifiers('idx_timestamp') . " (" . $this->db->escape_identifiers('timestamp') . ")");
 			$this->dbtry("ALTER TABLE {$table} ADD INDEX " . $this->db->escape_identifiers('idx_level') . " (" . $this->db->escape_identifiers('level') . ")");
+			$this->dbtry("ALTER TABLE {$table} ADD INDEX " . $this->db->escape_identifiers('idx_source') . " (" . $this->db->escape_identifiers('source') . ")");
 		}
 	}
 
