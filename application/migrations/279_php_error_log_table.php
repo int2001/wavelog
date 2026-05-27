@@ -69,9 +69,12 @@ class Migration_php_error_log_table extends CI_Migration {
 			$this->dbtry("ALTER TABLE {$table} ADD INDEX " . $this->db->escape_identifiers('idx_level') . " (" . $this->db->escape_identifiers('level') . ")");
 			$this->dbtry("ALTER TABLE {$table} ADD INDEX " . $this->db->escape_identifiers('idx_source') . " (" . $this->db->escape_identifiers('source') . ")");
 		}
+
+		$this->db->query("INSERT INTO cron (id, enabled, status, description, function, expression, last_run, next_run) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", array('cleanup_error_log', 1, 'pending', 'Cleanup php_error_log entries older than 30 days', 'index.php/cron/cleanup_error_log', '0 3 * * *', null, null));
 	}
 
 	public function down() {
+		$this->db->query("DELETE FROM cron WHERE id = ?", array('cleanup_error_log'));
 		$this->dbforge->drop_table('php_error_log');
 	}
 

@@ -73,4 +73,15 @@ class Error_log_model extends CI_Model {
 			return false;
 		}
 	}
+
+	public function purge_old_errors($days = 30) {
+		try {
+			$sql = "DELETE FROM php_error_log WHERE timestamp < ?";
+			$this->db->query($sql, array(date('Y-m-d H:i:s', strtotime("-{$days} days"))));
+			return $this->db->affected_rows();
+		} catch (Exception $e) {
+			log_message("error", "Error_log_model::purge_old_errors failed: " . $e->getMessage());
+			return false;
+		}
+	}
 }
