@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-06-01 08:37+0000\n"
-"PO-Revision-Date: 2026-05-25 10:35+0000\n"
+"PO-Revision-Date: 2026-06-02 11:16+0000\n"
 "Last-Translator: \"Shen RuiQin(BH4FJN)\" <jerry19980425@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
 "org/projects/wavelog/main-translation/zh_Hans/>\n"
@@ -6414,7 +6414,7 @@ msgstr "奖状进展"
 
 #: application/views/awards/dxcc/index.php:273
 msgid "Progress towards working all DXCC entities:"
-msgstr ""
+msgstr "通联全部 DXCC 实体进展："
 
 #: application/views/awards/dxcc/index.php:277
 #: application/views/awards/waip/index.php:62
@@ -7421,7 +7421,7 @@ msgstr ""
 
 #: application/views/awards/waip/index.php:34
 msgid "Progress towards working all Italian provinces:"
-msgstr ""
+msgstr "通联全部意大利省份进展："
 
 #: application/views/awards/waip/index.php:40
 #: application/views/awards/waip/index.php:92
@@ -10397,17 +10397,17 @@ msgstr "你至少一张证书即将过期"
 
 #: application/views/dashboard/index.php:234
 msgid "Total QSOs"
-msgstr ""
+msgstr "总计 QSO"
 
 #: application/views/dashboard/index.php:274
 msgid "Current Streak"
-msgstr ""
+msgstr "单日记录"
 
 #: application/views/dashboard/index.php:277
 #, php-format
 msgid "%d Day"
 msgid_plural "%d Days"
-msgstr[0] ""
+msgstr[0] "%d 天"
 
 #: application/views/dashboard/index.php:284
 #: application/views/statistics/index.php:114
@@ -10417,7 +10417,7 @@ msgstr "唯一呼号"
 
 #: application/views/dashboard/index.php:318
 msgid "Recent QSOs"
-msgstr ""
+msgstr "最近QSO"
 
 #: application/views/dashboard/index.php:370
 #: application/views/qso/index.php:914
@@ -10580,11 +10580,11 @@ msgstr "数据由 HAMqsl 提供。"
 
 #: application/views/dashboard/index.php:630
 msgid "Day"
-msgstr ""
+msgstr "天"
 
 #: application/views/dashboard/index.php:637
 msgid "Night"
-msgstr ""
+msgstr "夜间"
 
 #: application/views/dashboard/index.php:647
 msgid "Solar Flux Index"
@@ -15673,7 +15673,7 @@ msgstr "警告！你确定要删除 OQRS 匹配吗？"
 
 #: application/views/oqrs/showrequests.php:29
 msgid "Manage OQRS Requests"
-msgstr ""
+msgstr "管理 OQRS 请求"
 
 #: application/views/oqrs/showrequests.php:47
 #: application/views/oqrs/showrequests.php:95
@@ -15911,17 +15911,17 @@ msgstr "QSO 列表"
 #: application/views/qslprint/qslprint.php:67
 #: application/views/qslprint/qsolist.php:70
 msgid "Previous QSL sent (same band/mode)"
-msgstr ""
+msgstr "此前已发送的 QSL 卡片（同一频段、模式）"
 
 #: application/views/qslprint/qslprint.php:68
 #: application/views/qslprint/qsolist.php:71
 msgid "QSL sent to callsign (total)"
-msgstr ""
+msgstr "发送给此呼号的 QSL（总计）"
 
 #: application/views/qslprint/qslprint.php:69
 #: application/views/qslprint/qsolist.php:72
 msgid "QSL received from callsign (total)"
-msgstr ""
+msgstr "从此呼号收到的 QSL（总计）"
 
 #: application/views/qslprint/qslprint.php:83
 msgid "Mark QSOs for a certain QSL Method:"
@@ -17811,7 +17811,7 @@ msgstr "取消链接的台站位置"
 
 #: application/views/stationsetup/stationsetup.php:3
 msgid "Invalid characters entered in link! Enter only the slug."
-msgstr ""
+msgstr "链接中存在无效字符！请仅输入标识符（slug）。"
 
 #: application/views/stationsetup/stationsetup.php:25
 msgid ""
@@ -18018,6 +18018,7 @@ msgid ""
 "This page allows you to view the initials of all EME QSOs you have worked. "
 "You can select a band and mode to filter the results."
 msgstr ""
+"此页面展示您的与其他 EME 台站的首次通联 QSO。可以通过频段和模式来筛选结果。"
 
 #: application/views/statistics/qsltable.php:7
 msgid "Absolute"

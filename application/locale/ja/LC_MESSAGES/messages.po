@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-06-01 08:37+0000\n"
-"PO-Revision-Date: 2026-05-28 08:16+0000\n"
+"PO-Revision-Date: 2026-06-02 11:16+0000\n"
 "Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ja/>\n"
@@ -10635,17 +10635,17 @@ msgstr "少なくとも1つの証明書が期限切れになります"
 
 #: application/views/dashboard/index.php:234
 msgid "Total QSOs"
-msgstr ""
+msgstr "総交信数"
 
 #: application/views/dashboard/index.php:274
 msgid "Current Streak"
-msgstr ""
+msgstr "現在の連勝記録"
 
 #: application/views/dashboard/index.php:277
 #, php-format
 msgid "%d Day"
 msgid_plural "%d Days"
-msgstr[0] ""
+msgstr[0] "%d 日"
 
 #: application/views/dashboard/index.php:284
 #: application/views/statistics/index.php:114
@@ -10655,7 +10655,7 @@ msgstr "ユニークなコールサイン"
 
 #: application/views/dashboard/index.php:318
 msgid "Recent QSOs"
-msgstr ""
+msgstr "最近の交信"
 
 #: application/views/dashboard/index.php:370
 #: application/views/qso/index.php:914
@@ -10818,11 +10818,11 @@ msgstr "HAMqsl 提供のデータ。"
 
 #: application/views/dashboard/index.php:630
 msgid "Day"
-msgstr ""
+msgstr "日"
 
 #: application/views/dashboard/index.php:637
 msgid "Night"
-msgstr ""
+msgstr "夜"
 
 #: application/views/dashboard/index.php:647
 msgid "Solar Flux Index"
@@ -16055,7 +16055,7 @@ msgstr "警告! QSO マッチを削除してもよろしいですか?"
 
 #: application/views/oqrs/showrequests.php:29
 msgid "Manage OQRS Requests"
-msgstr ""
+msgstr "OQRSリクエストの管理"
 
 #: application/views/oqrs/showrequests.php:47
 #: application/views/oqrs/showrequests.php:95
@@ -18245,7 +18245,7 @@ msgstr "局の所在地のリンクを解除"
 
 #: application/views/stationsetup/stationsetup.php:3
 msgid "Invalid characters entered in link! Enter only the slug."
-msgstr ""
+msgstr "リンクに無効な文字が入力されました！スラッグのみを入力してください。"
 
 #: application/views/stationsetup/stationsetup.php:25
 msgid ""
@@ -18462,6 +18462,8 @@ msgid ""
 "This page allows you to view the initials of all EME QSOs you have worked. "
 "You can select a band and mode to filter the results."
 msgstr ""
+"このページでは、過去に交信したすべてのEME交信相手のイニシャルを表示できます。"
+"バンドとモードを選択して結果を絞り込むことも可能です。"
 
 #: application/views/statistics/qsltable.php:7
 msgid "Absolute"
