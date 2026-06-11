@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-06-11 08:18+0000\n"
-"PO-Revision-Date: 2026-06-01 08:37+0000\n"
+"POT-Creation-Date: 2026-06-11 10:04+0000\n"
+"PO-Revision-Date: 2026-06-09 07:01+0000\n"
 "Last-Translator: iv3cvn <ricentis@gmail.com>\n"
 "Language-Team: Italian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/it/>\n"
@@ -1304,15 +1304,15 @@ msgstr "Tutte le eQSL contrassegnate come caricate"
 
 #: application/controllers/Errors.php:22
 msgid "Page Not Found"
-msgstr ""
+msgstr "Pagina non trovata"
 
 #: application/controllers/Errors.php:23
 msgid "QRZ? ... no reply."
-msgstr ""
+msgstr "QRZ? ... nessuna risposta."
 
 #: application/controllers/Errors.php:24
 msgid "Nobody is transmitting on this frequency."
-msgstr ""
+msgstr "Nessuno sta trasmettendo su questa frequenza."
 
 #: application/controllers/Generic_qsl.php:18
 #: application/views/awards/amsat_rover/index.php:43
@@ -4767,6 +4767,7 @@ msgstr "Importazione CBR"
 
 #: application/views/adif/import.php:93 application/views/adif/import.php:400
 #: application/views/adif/import.php:423 application/views/api/index.php:22
+#: application/views/cron/index.php:18
 #: application/views/dashboard/index.php:181
 #: application/views/dashboard/index.php:214
 #: application/views/eqsl/import.php:46 application/views/lotw/import.php:25
@@ -9481,7 +9482,7 @@ msgstr "Non sono stati trovati contest nel tuo registro."
 
 #: application/views/callstats/index.php:5
 msgid "View statistics for worked callsigns"
-msgstr ""
+msgstr "Visualizza le statistiche per i nominativi lavorati"
 
 #: application/views/callstats/index.php:75
 #: application/views/gridmap/index.php:96
@@ -10494,7 +10495,7 @@ msgstr "Locatore VUCC"
 
 #: application/views/continents/index.php:14
 msgid "View continent statistics"
-msgstr ""
+msgstr "Visualizza le statistiche del continente"
 
 #: application/views/continents/index.php:68
 #: application/views/statistics/index.php:23
@@ -10575,8 +10576,8 @@ msgstr "Come funziona"
 
 #: application/views/cron/index.php:21
 #, php-format
-msgid "For more information or help, take a look in the %s."
-msgstr "Per ulteriori informazioni o aiuto, dai un'occhiata nella %s."
+msgid "For more information or help, take a look in the %sWiki%s."
+msgstr ""
 
 #: application/views/cron/index.php:28
 msgid ""
@@ -10787,7 +10788,7 @@ msgstr "Almeno uno dei tuoi certificati sta per scadere"
 
 #: application/views/dashboard/index.php:234
 msgid "Total QSOs"
-msgstr ""
+msgstr "QSO totali"
 
 #: application/views/dashboard/index.php:244
 msgid "QSOs this year"
@@ -10803,14 +10804,14 @@ msgstr ""
 
 #: application/views/dashboard/index.php:274
 msgid "Current Streak"
-msgstr ""
+msgstr "Serie attuale"
 
 #: application/views/dashboard/index.php:277
 #, php-format
 msgid "%d Day"
 msgid_plural "%d Days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d giorno"
+msgstr[1] "%d giorni"
 
 #: application/views/dashboard/index.php:284
 #: application/views/statistics/index.php:119
@@ -10821,7 +10822,7 @@ msgstr "Chiamate uniche"
 #: application/views/dashboard/index.php:328
 #: application/views/view_log/index.php:26
 msgid "Recent QSOs"
-msgstr ""
+msgstr "QSO recenti"
 
 #: application/views/dashboard/index.php:380
 #: application/views/qso/index.php:914
@@ -10834,16 +10835,16 @@ msgstr[1] "Vengono mostrati fino a %d contatti precedenti"
 #: application/views/dashboard/index.php:403
 #: application/views/user/edit.php:734
 msgid "Active Expeditions"
-msgstr ""
+msgstr "Spedizioni attive"
 
 #: application/views/dashboard/index.php:411
 msgid "Dates"
-msgstr ""
+msgstr "Date"
 
 #: application/views/dashboard/index.php:449
 #: application/views/user/edit.php:741
 msgid "Active Contests"
-msgstr ""
+msgstr "Contest attivi"
 
 #: application/views/dashboard/index.php:465
 #: application/views/view_log/qso.php:621
@@ -11004,11 +11005,11 @@ msgstr "Dati forniti da HAMqsl."
 
 #: application/views/dashboard/index.php:715
 msgid "Day"
-msgstr ""
+msgstr "Giorno"
 
 #: application/views/dashboard/index.php:722
 msgid "Night"
-msgstr ""
+msgstr "Notte"
 
 #: application/views/dashboard/index.php:732
 msgid "Solar Flux Index"
@@ -11925,7 +11926,7 @@ msgstr "Locatore DX"
 
 #: application/views/distancerecords/index.php:56
 msgid "No QSOs found matching the criteria for this page!"
-msgstr ""
+msgstr "Nessun QSO trovato che corrisponda ai criteri per questa pagina!"
 
 #: application/views/distances/index.php:5
 #: application/views/interface_assets/footer.php:31
@@ -12370,11 +12371,11 @@ msgstr "Vista"
 
 #: application/views/errors/html/error_404.php:82
 msgid "Go Back to Dashboard"
-msgstr ""
+msgstr "Torna al cruscotto"
 
 #: application/views/gridmap/index.php:27
 msgid "View a map of worked / confirmed gridsquares"
-msgstr ""
+msgstr "Visualizza una mappa dei locatori lavorati / confermati"
 
 #: application/views/gridmap/index.php:73
 #: application/views/logbookadvanced/index.php:352
@@ -12398,7 +12399,7 @@ msgstr "Vuoto"
 
 #: application/views/hamsat/index.php:10
 msgid "Satellite Rovers"
-msgstr ""
+msgstr "Satellite Rovers"
 
 #: application/views/hamsat/index.php:27
 #, php-format
@@ -16489,7 +16490,7 @@ msgstr ""
 
 #: application/views/qslcard/confirmations.php:7
 msgid "View QSO Confirmations"
-msgstr ""
+msgstr "Visualizza conferme QSO"
 
 #: application/views/qslcard/confirmations.php:14
 msgid "Confirmation type"
@@ -17467,7 +17468,7 @@ msgstr "Aggiungi la modalità satellite"
 
 #: application/views/satellite/flightpath.php:38
 msgid "View a map with satellite flightpaths"
-msgstr ""
+msgstr "Visualizza una mappa con le rotte di volo dei satelliti"
 
 #: application/views/satellite/flightpath.php:54
 msgid ""
@@ -17522,7 +17523,7 @@ msgstr "Partner di sked"
 
 #: application/views/satellite/pass.php:123
 msgid "Only satellites with TLE data are shown here!"
-msgstr ""
+msgstr "Sono mostrati solo i satelliti con i dati TLE!"
 
 #: application/views/satellite/pass.php:136
 msgid "Min. time"
@@ -17542,7 +17543,7 @@ msgstr "Salva le impostazioni attuali"
 
 #: application/views/satellite/pass.php:165
 msgid "Pass Predictions"
-msgstr ""
+msgstr "Previsioni di passaggio"
 
 #: application/views/satellite/pass.php:175
 msgid "Save Settings"
@@ -18702,7 +18703,7 @@ msgstr "Visita la pagina pubblica"
 
 #: application/views/statistics/antennaanalytics.php:5
 msgid "View azimuth and elevation data"
-msgstr ""
+msgstr "Visualizza i dati di azimut ed elevazione"
 
 #: application/views/statistics/antennaanalytics.php:15
 msgid "Elevation"
@@ -18996,7 +18997,7 @@ msgstr "Aggiungi un tema"
 
 #: application/views/timeline/index.php:6
 msgid "View timeline statistics"
-msgstr ""
+msgstr "Visualizza le statistiche della timeline"
 
 #: application/views/timeline/index.php:102
 msgid "All Years"
@@ -19020,7 +19021,7 @@ msgstr "Callsign utilizzati (max 5)"
 
 #: application/views/timeplotter/index.php:14
 msgid "View a heatmap or a chart of QSOs"
-msgstr ""
+msgstr "Visualizza una heatmap o un grafico dei QSO"
 
 #: application/views/timeplotter/index.php:85
 msgid "Best Time Window"
@@ -19036,7 +19037,7 @@ msgstr "Miglior Modo"
 
 #: application/views/timeplotter/index.php:118
 msgid "Total QSOs Plotted"
-msgstr ""
+msgstr "Totale QSO tracciati"
 
 #: application/views/timeplotter/index.php:132
 msgid "Heatmap"
@@ -19449,11 +19450,11 @@ msgstr "Mostra la mappa del cruscotto"
 
 #: application/views/user/edit.php:706
 msgid "Map on top"
-msgstr ""
+msgstr "Mappa in alto"
 
 #: application/views/user/edit.php:707
 msgid "Map at left"
-msgstr ""
+msgstr "Mappa a sinistra"
 
 #: application/views/user/edit.php:708
 msgid "Map at right"
@@ -20569,6 +20570,10 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#, php-format
+#~ msgid "For more information or help, take a look in the %s."
+#~ msgstr "Per ulteriori informazioni o aiuto, dai un'occhiata nella %s."
 
 #~ msgid "Add sked partner"
 #~ msgstr "Aggiungi partner sked"

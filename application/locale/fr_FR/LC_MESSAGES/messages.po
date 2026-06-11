@@ -19,8 +19,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-06-11 08:18+0000\n"
-"PO-Revision-Date: 2026-06-04 22:43+0000\n"
+"POT-Creation-Date: 2026-06-11 10:04+0000\n"
+"PO-Revision-Date: 2026-06-09 21:07+0000\n"
 "Last-Translator: JONCOUX Philippe <joncoux@free.fr>\n"
 "Language-Team: French <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/fr/>\n"
@@ -1316,15 +1316,15 @@ msgstr "Toutes les eQSL marquées comme téléchargées"
 
 #: application/controllers/Errors.php:22
 msgid "Page Not Found"
-msgstr ""
+msgstr "Page introuvable"
 
 #: application/controllers/Errors.php:23
 msgid "QRZ? ... no reply."
-msgstr ""
+msgstr "QRZ ? … pas de réponse."
 
 #: application/controllers/Errors.php:24
 msgid "Nobody is transmitting on this frequency."
-msgstr ""
+msgstr "Personne n'émet sur cette fréquence."
 
 #: application/controllers/Generic_qsl.php:18
 #: application/views/awards/amsat_rover/index.php:43
@@ -4794,6 +4794,7 @@ msgstr "Importation CBR"
 
 #: application/views/adif/import.php:93 application/views/adif/import.php:400
 #: application/views/adif/import.php:423 application/views/api/index.php:22
+#: application/views/cron/index.php:18
 #: application/views/dashboard/index.php:181
 #: application/views/dashboard/index.php:214
 #: application/views/eqsl/import.php:46 application/views/lotw/import.php:25
@@ -10640,8 +10641,8 @@ msgstr "Comment ça fonctionne"
 
 #: application/views/cron/index.php:21
 #, php-format
-msgid "For more information or help, take a look in the %s."
-msgstr "Pour plus d'informations ou d'aide, jetez un coup d'œil au %s."
+msgid "For more information or help, take a look in the %sWiki%s."
+msgstr ""
 
 #: application/views/cron/index.php:28
 msgid ""
@@ -10905,16 +10906,16 @@ msgstr[1] "Max. %d contacts précédents sont affichés"
 #: application/views/dashboard/index.php:403
 #: application/views/user/edit.php:734
 msgid "Active Expeditions"
-msgstr ""
+msgstr "Expéditions actives"
 
 #: application/views/dashboard/index.php:411
 msgid "Dates"
-msgstr ""
+msgstr "Dates"
 
 #: application/views/dashboard/index.php:449
 #: application/views/user/edit.php:741
 msgid "Active Contests"
-msgstr ""
+msgstr "Concours en cours"
 
 #: application/views/dashboard/index.php:465
 #: application/views/view_log/qso.php:621
@@ -12450,7 +12451,7 @@ msgstr "Voir"
 
 #: application/views/errors/html/error_404.php:82
 msgid "Go Back to Dashboard"
-msgstr ""
+msgstr "Retour au tableau de bord"
 
 #: application/views/gridmap/index.php:27
 msgid "View a map of worked / confirmed gridsquares"
@@ -17637,7 +17638,7 @@ msgstr "Partenaire de Sked"
 
 #: application/views/satellite/pass.php:123
 msgid "Only satellites with TLE data are shown here!"
-msgstr ""
+msgstr "Seuls les satellites disposant de données TLE sont affichés ici !"
 
 #: application/views/satellite/pass.php:136
 msgid "Min. time"
@@ -17657,7 +17658,7 @@ msgstr "Enregistrer les paramètres actuels"
 
 #: application/views/satellite/pass.php:165
 msgid "Pass Predictions"
-msgstr ""
+msgstr "Prédictions de passes"
 
 #: application/views/satellite/pass.php:175
 msgid "Save Settings"
@@ -20706,6 +20707,10 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#, php-format
+#~ msgid "For more information or help, take a look in the %s."
+#~ msgstr "Pour plus d'informations ou d'aide, jetez un coup d'œil au %s."
 
 #~ msgid "Look for satellite passes"
 #~ msgstr "Recherchez les passages des satellites"

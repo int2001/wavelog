@@ -26,8 +26,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-06-11 08:18+0000\n"
-"PO-Revision-Date: 2026-06-06 12:54+0000\n"
+"POT-Creation-Date: 2026-06-11 10:04+0000\n"
+"PO-Revision-Date: 2026-06-11 09:58+0000\n"
 "Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
@@ -4789,6 +4789,7 @@ msgstr "CBR Import"
 
 #: application/views/adif/import.php:93 application/views/adif/import.php:400
 #: application/views/adif/import.php:423 application/views/api/index.php:22
+#: application/views/cron/index.php:18
 #: application/views/dashboard/index.php:181
 #: application/views/dashboard/index.php:214
 #: application/views/eqsl/import.php:46 application/views/lotw/import.php:25
@@ -10604,8 +10605,8 @@ msgstr "Wie es funktioniert"
 
 #: application/views/cron/index.php:21
 #, php-format
-msgid "For more information or help, take a look in the %s."
-msgstr "Weitere Informationen findest Du unter %s."
+msgid "For more information or help, take a look in the %sWiki%s."
+msgstr ""
 
 #: application/views/cron/index.php:28
 msgid ""
@@ -10824,15 +10825,15 @@ msgstr "Gesamt QSOs"
 
 #: application/views/dashboard/index.php:244
 msgid "QSOs this year"
-msgstr ""
+msgstr "QSOs dieses Jahr"
 
 #: application/views/dashboard/index.php:254
 msgid "QSOs this month"
-msgstr ""
+msgstr "QSOs diesen Monat"
 
 #: application/views/dashboard/index.php:264
 msgid "QSOs today"
-msgstr ""
+msgstr "QSOs heute"
 
 #: application/views/dashboard/index.php:274
 msgid "Current Streak"
@@ -10867,16 +10868,16 @@ msgstr[1] "Max. %d vorherige Kontakte werden angezeigt"
 #: application/views/dashboard/index.php:403
 #: application/views/user/edit.php:734
 msgid "Active Expeditions"
-msgstr ""
+msgstr "Aktive Expeditionen"
 
 #: application/views/dashboard/index.php:411
 msgid "Dates"
-msgstr ""
+msgstr "Daten"
 
 #: application/views/dashboard/index.php:449
 #: application/views/user/edit.php:741
 msgid "Active Contests"
-msgstr ""
+msgstr "Aktive Wettbewerbe"
 
 #: application/views/dashboard/index.php:465
 #: application/views/view_log/qso.php:621
@@ -20615,6 +20616,10 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#, php-format
+#~ msgid "For more information or help, take a look in the %s."
+#~ msgstr "Weitere Informationen findest Du unter %s."
 
 #~ msgid "Look for satellite passes"
 #~ msgstr "Schaue nach Satellitenüberflügen"
