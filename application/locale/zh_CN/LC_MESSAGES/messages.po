@@ -32,8 +32,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-06-16 11:01+0000\n"
-"PO-Revision-Date: 2026-06-15 11:37+0000\n"
-"Last-Translator: \"Shen RuiQin(BH4FJN)\" <jerry19980425@gmail.com>\n"
+"PO-Revision-Date: 2026-06-16 14:03+0000\n"
+"Last-Translator: \"Xu, Zefan (BI1GHZ)\" <ceba_robot@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
 "org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -2746,7 +2746,7 @@ msgstr "QSL 明信片设计器"
 
 #: application/controllers/Qslpostcard.php:62
 msgid "Not enough free disk space to store the QSL Background."
-msgstr ""
+msgstr "磁盘空间不足，无法存储QSL卡。"
 
 #: application/controllers/Qslpostcard.php:184
 #: application/controllers/Qslpostcard.php:245
@@ -15273,11 +15273,11 @@ msgstr "剥离 QSO 时出错"
 
 #: application/views/logbookadvanced/index.php:105
 msgid "You need to select at least 1 row to print a QSL card!"
-msgstr ""
+msgstr "要打印 QSL 卡，您需要选择至少 1 行！"
 
 #: application/views/logbookadvanced/index.php:106
 msgid "QSL Card print options"
-msgstr ""
+msgstr "QSL 卡打印选项"
 
 #: application/views/logbookadvanced/index.php:357
 msgid "From"
@@ -15609,7 +15609,7 @@ msgstr "QSL 展示窗"
 
 #: application/views/logbookadvanced/index.php:857
 msgid "Print QSL Card"
-msgstr ""
+msgstr "打印 QSL 卡"
 
 #: application/views/logbookadvanced/index.php:859
 msgid "Attach to Contest"
@@ -17021,7 +17021,7 @@ msgstr "我的参考信息"
 
 #: application/views/qslpostcard/designer.php:10
 msgid "Markers"
-msgstr ""
+msgstr "标签"
 
 #: application/views/qslpostcard/designer.php:11
 #: application/views/qso/edit_ajax.php:210 application/views/qso/index.php:550
@@ -17141,7 +17141,7 @@ msgstr "提示：打印测试后，你可以调整全局偏移，而无需分别
 
 #: application/views/qslpostcard/designer.php:112
 msgid "Print offset"
-msgstr ""
+msgstr "打印偏移"
 
 #: application/views/qslpostcard/designer.php:141
 msgid "Search fields…"
@@ -17161,7 +17161,7 @@ msgstr "明信片画布"
 
 #: application/views/qslpostcard/designer.php:169
 msgid "drag fields onto the postcard"
-msgstr ""
+msgstr "将字段拖放到明信片上"
 
 #: application/views/qslpostcard/designer.php:190
 msgid "Template Options"
@@ -17173,7 +17173,7 @@ msgstr "每张 QSL 卡的 QSO 数量"
 
 #: application/views/qslpostcard/designer.php:198
 msgid "Row spacing"
-msgstr ""
+msgstr "行距"
 
 #: application/views/qslpostcard/designer.php:203
 msgid "Print background image (uncheck for pre-printed cards)"
@@ -17201,11 +17201,11 @@ msgstr "文本"
 
 #: application/views/qslpostcard/designer.php:237
 msgid "X"
-msgstr ""
+msgstr "X"
 
 #: application/views/qslpostcard/designer.php:241
 msgid "Y"
-msgstr ""
+msgstr "Y"
 
 #: application/views/qslpostcard/designer.php:247
 msgid "Font"
@@ -17221,7 +17221,7 @@ msgstr "颜色"
 
 #: application/views/qslpostcard/designer.php:274
 msgid "Wrap width"
-msgstr ""
+msgstr "列宽"
 
 #: application/views/qslpostcard/designer.php:279
 msgid "Print this field once per QSO when a card holds multiple QSOs"

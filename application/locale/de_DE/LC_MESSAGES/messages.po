@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-06-16 11:01+0000\n"
-"PO-Revision-Date: 2026-06-15 11:37+0000\n"
+"PO-Revision-Date: 2026-06-16 16:42+0000\n"
 "Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
@@ -2796,6 +2796,8 @@ msgstr "QSL-Postkarten-Designer"
 #: application/controllers/Qslpostcard.php:62
 msgid "Not enough free disk space to store the QSL Background."
 msgstr ""
+"Nicht genügend Speicherplatz vorhanden, um den Kartenhintergrund zu "
+"speichern."
 
 #: application/controllers/Qslpostcard.php:184
 #: application/controllers/Qslpostcard.php:245
@@ -15826,10 +15828,11 @@ msgstr "Fehler beim Loslösen von QSOs"
 #: application/views/logbookadvanced/index.php:105
 msgid "You need to select at least 1 row to print a QSL card!"
 msgstr ""
+"Du musst mindestens eine Zeile auswählen, um eine QSL-Karte zu drucken!"
 
 #: application/views/logbookadvanced/index.php:106
 msgid "QSL Card print options"
-msgstr ""
+msgstr "Druckoptionen für QSL-Karten"
 
 #: application/views/logbookadvanced/index.php:357
 msgid "From"
@@ -16165,7 +16168,7 @@ msgstr "QSL-Präsentation"
 
 #: application/views/logbookadvanced/index.php:857
 msgid "Print QSL Card"
-msgstr ""
+msgstr "QSL-Karte drucken"
 
 #: application/views/logbookadvanced/index.php:859
 msgid "Attach to Contest"
@@ -17673,7 +17676,7 @@ msgstr "Meine Referenzen"
 
 #: application/views/qslpostcard/designer.php:10
 msgid "Markers"
-msgstr ""
+msgstr "Markierungen"
 
 #: application/views/qslpostcard/designer.php:11
 #: application/views/qso/edit_ajax.php:210 application/views/qso/index.php:550
@@ -17797,7 +17800,7 @@ msgstr ""
 
 #: application/views/qslpostcard/designer.php:112
 msgid "Print offset"
-msgstr ""
+msgstr "Druck-Offset"
 
 #: application/views/qslpostcard/designer.php:141
 msgid "Search fields…"
@@ -17817,7 +17820,7 @@ msgstr "Kartenansicht"
 
 #: application/views/qslpostcard/designer.php:169
 msgid "drag fields onto the postcard"
-msgstr ""
+msgstr "Ziehe Felder auf die Karte"
 
 #: application/views/qslpostcard/designer.php:190
 msgid "Template Options"
@@ -17829,7 +17832,7 @@ msgstr "Anzahl der QSOs je QSL-Karte"
 
 #: application/views/qslpostcard/designer.php:198
 msgid "Row spacing"
-msgstr ""
+msgstr "Zeilenabstand"
 
 #: application/views/qslpostcard/designer.php:203
 msgid "Print background image (uncheck for pre-printed cards)"
@@ -17858,11 +17861,11 @@ msgstr "Text"
 
 #: application/views/qslpostcard/designer.php:237
 msgid "X"
-msgstr ""
+msgstr "X"
 
 #: application/views/qslpostcard/designer.php:241
 msgid "Y"
-msgstr ""
+msgstr "Y"
 
 #: application/views/qslpostcard/designer.php:247
 msgid "Font"
@@ -17878,7 +17881,7 @@ msgstr "Farbe"
 
 #: application/views/qslpostcard/designer.php:274
 msgid "Wrap width"
-msgstr ""
+msgstr "Umbruch"
 
 #: application/views/qslpostcard/designer.php:279
 msgid "Print this field once per QSO when a card holds multiple QSOs"
