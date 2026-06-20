@@ -26,8 +26,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-06-20 10:42+0000\n"
-"PO-Revision-Date: 2026-06-18 13:38+0000\n"
+"POT-Creation-Date: 2026-06-20 11:13+0000\n"
+"PO-Revision-Date: 2026-06-20 11:19+0000\n"
 "Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
@@ -1075,15 +1075,15 @@ msgstr ""
 
 #: application/controllers/Contesting.php:955
 msgid "Operator switching is disabled."
-msgstr ""
+msgstr "Das Wechseln des Operators ist deaktiviert."
 
 #: application/controllers/Contesting.php:975
 msgid "Operator switching is only available in club stations."
-msgstr ""
+msgstr "Das Umschalten des Operators ist nur in Clubstationen verfügbar."
 
 #: application/controllers/Contesting.php:985
 msgid "Access denied"
-msgstr ""
+msgstr "Zugriff verweigert"
 
 #: application/controllers/Contesting.php:993
 #: application/controllers/User.php:1370
@@ -1092,7 +1092,7 @@ msgstr "Falscher Benutzername oder Passwort!"
 
 #: application/controllers/Contesting.php:1002
 msgid "A club account cannot be used as an operator."
-msgstr ""
+msgstr "Ein Clubkonto kann nicht als Operator verwendet werden."
 
 #: application/controllers/Contesting_import.php:15
 msgid "This feature is disabled."
@@ -2991,10 +2991,10 @@ msgstr "Bearbeiten"
 #: application/views/contesting/logger/components/qso-form.php:39
 #: application/views/contesting/manager/index.php:78
 #: application/views/interface_assets/footer.php:65
-#: application/views/interface_assets/footer.php:2647
-#: application/views/interface_assets/footer.php:2665
-#: application/views/interface_assets/footer.php:2684
-#: application/views/interface_assets/footer.php:2702
+#: application/views/interface_assets/footer.php:2649
+#: application/views/interface_assets/footer.php:2667
+#: application/views/interface_assets/footer.php:2686
+#: application/views/interface_assets/footer.php:2704
 #: application/views/labels/index.php:49 application/views/labels/index.php:85
 #: application/views/logbookadvanced/index.php:913
 #: application/views/lotw_views/index.php:143
@@ -4467,8 +4467,8 @@ msgstr "Differenz"
 #: application/views/gridmap/index.php:141
 #: application/views/gridmap/index.php:155
 #: application/views/interface_assets/footer.php:48
-#: application/views/interface_assets/footer.php:1525
-#: application/views/interface_assets/footer.php:1664
+#: application/views/interface_assets/footer.php:1527
+#: application/views/interface_assets/footer.php:1666
 #: application/views/kml/index.php:21 application/views/kml/index.php:33
 #: application/views/kml/index.php:49 application/views/kml/index.php:67
 #: application/views/kml/index.php:79
@@ -5135,7 +5135,7 @@ msgstr ""
 #: application/views/adif/import.php:162 application/views/adif/import.php:169
 #: application/views/interface_assets/footer.php:34
 #: application/views/interface_assets/footer.php:646
-#: application/views/interface_assets/footer.php:2404
+#: application/views/interface_assets/footer.php:2406
 msgid "DANGER"
 msgstr "GEFAHR"
 
@@ -5824,7 +5824,7 @@ msgstr ""
 
 #: application/views/awards/73on73/index.php:19
 msgid "73 on 73 QSO List"
-msgstr ""
+msgstr "73 on 73 QSO Liste"
 
 #: application/views/awards/73on73/index.php:37
 #: application/views/awards/jcc/index.php:163
@@ -6498,7 +6498,7 @@ msgstr "QSO mit QSL-Typ anzeigen"
 #: application/views/awards/iota/index.php:90
 #: application/views/awards/itu/index.php:117
 #: application/views/awards/wac/index.php:31
-#: application/views/interface_assets/footer.php:2383
+#: application/views/interface_assets/footer.php:2385
 #: application/views/logbookadvanced/index.php:54
 #: application/views/qso/edit_ajax.php:405
 #: application/views/view_log/qso.php:25
@@ -6677,7 +6677,7 @@ msgstr "Für diesen Award berücksichtigte Felder: DOK (ADIF: DARC_DOK)"
 
 #: application/views/awards/dok/index.php:26
 msgid "View progress of DOK awards"
-msgstr ""
+msgstr "Fortschritt der DOK-Diplome anzeigen"
 
 #: application/views/awards/dok/index.php:51
 msgid "DOK / SDOK"
@@ -7654,7 +7654,7 @@ msgstr ""
 
 #: application/views/awards/pota/index.php:19
 msgid "POTA QSO List"
-msgstr ""
+msgstr "POTA QSO-Liste"
 
 #: application/views/awards/pota/index.php:37
 #: application/views/qso/index.php:333 application/views/qso/index.php:615
@@ -7810,10 +7810,12 @@ msgstr ""
 #: application/views/awards/sota/index.php:10
 msgid "Fields taken for this Award: SOTA Reference (ADIF: SOTA_REF)"
 msgstr ""
+"Felder, die für diese Auszeichnung herangezogen wurden: SOTA-Referenz (ADIF: "
+"SOTA_REF)"
 
 #: application/views/awards/sota/index.php:19
 msgid "SOTA QSO List"
-msgstr ""
+msgstr "SOTA QSO-Liste"
 
 #: application/views/awards/vucc/band.php:7
 msgid "Gridsquare list"
@@ -10790,20 +10792,24 @@ msgstr "Erfolgreich"
 msgid ""
 "The worker backend is not reachable. Please check your network connection."
 msgstr ""
+"Das Worker-Backend ist nicht erreichbar. Bitte überprüfe deine "
+"Netzwerkverbindung."
 
 #: application/views/contesting/logger/index.php:62
 msgid "Connection lost. Trying to reconnect…"
-msgstr ""
+msgstr "Verbindung verloren. Versuche, erneut zu verbinden…"
 
 #: application/views/contesting/logger/index.php:63
 msgid "Reconnected to the worker backend."
-msgstr ""
+msgstr "Wieder mit dem Worker-Backend verbunden."
 
 #: application/views/contesting/logger/index.php:64
 msgid ""
 "Could not reconnect to the worker backend. Please check your network "
 "connection."
 msgstr ""
+"Es konnte keine erneute Verbindung zum Worker-Backend hergestellt werden. "
+"Bitte überprüfe deine Netzwerkverbindung."
 
 #: application/views/contesting/logger/index.php:65
 msgid ""
@@ -10823,17 +10829,19 @@ msgstr "Jetzt neu laden"
 #: application/views/contesting/logger/index.php:190
 #: application/views/interface_assets/header.php:574
 msgid "Switch Operator"
-msgstr ""
+msgstr "Operator wechseln"
 
 #: application/views/contesting/logger/index.php:69
 msgid ""
 "There are still unsynced QSOs. Please wait until they are saved before "
 "switching operator."
 msgstr ""
+"Es gibt immer noch nicht synchronisierte QSOs. Bitte warten, bis sie "
+"gespeichert sind, bevor du den Operator wechselst."
 
 #: application/views/contesting/logger/index.php:70
 msgid "Operator switch failed. Please try again."
-msgstr ""
+msgstr "Wechseln des Operator fehlgeschlagen. Bitte versuche es erneut."
 
 #: application/views/contesting/logger/index.php:78
 msgid "Loading Contest Engine"
@@ -10889,13 +10897,15 @@ msgstr "Unten"
 
 #: application/views/contesting/logger/index.php:168
 msgid "Current Operator:"
-msgstr ""
+msgstr "Aktueller Operator:"
 
 #: application/views/contesting/logger/index.php:170
 msgid ""
 "Log in with another operator's account to continue this contest session "
 "under their callsign."
 msgstr ""
+"Mit dem Account eines anderen Operator einloggen um diese Contest Session "
+"unter dessen Rufzeichen weiterzuführen."
 
 #: application/views/contesting/logger/index.php:176
 #: application/views/user/edit.php:92 application/views/user/login.php:59
@@ -13552,10 +13562,10 @@ msgid "QSL Date"
 msgstr "QSL-Datum"
 
 #: application/views/eqslcard/index.php:68
-#: application/views/interface_assets/footer.php:2648
-#: application/views/interface_assets/footer.php:2666
-#: application/views/interface_assets/footer.php:2685
-#: application/views/interface_assets/footer.php:2703
+#: application/views/interface_assets/footer.php:2650
+#: application/views/interface_assets/footer.php:2668
+#: application/views/interface_assets/footer.php:2687
+#: application/views/interface_assets/footer.php:2705
 #: application/views/qslcard/index.php:81
 #: application/views/view_log/qso.php:739
 msgid "View"
@@ -14051,6 +14061,7 @@ msgstr ""
 #: application/views/interface_assets/footer.php:136
 msgid "Error saving operator callsign. Please try again."
 msgstr ""
+"Fehler beim Speichern des Operator-Rufzeichens. Bitte versuch es nochmal."
 
 #: application/views/interface_assets/footer.php:139
 msgid "Working without CAT connection"
@@ -14176,7 +14187,7 @@ msgstr "Anzahl: "
 msgid "Grids: "
 msgstr "Locator: "
 
-#: application/views/interface_assets/footer.php:1107
+#: application/views/interface_assets/footer.php:1109
 #: application/views/logbookadvanced/index.php:13
 #: application/views/map/qso_map.php:7
 #: application/views/satellite/flightpath.php:11
@@ -14184,71 +14195,71 @@ msgctxt "Map Options"
 msgid "Gridsquares"
 msgstr "Locator"
 
-#: application/views/interface_assets/footer.php:1301
+#: application/views/interface_assets/footer.php:1303
 msgid "Location Lookup failed. Please check browser console."
 msgstr ""
 "Fehler beim Nachschlagen des Standortes. Bitte prüfe die Browserkonsole."
 
-#: application/views/interface_assets/footer.php:1452
-#: application/views/interface_assets/footer.php:1456
-#: application/views/interface_assets/footer.php:1459
-#: application/views/interface_assets/footer.php:1596
-#: application/views/interface_assets/footer.php:1600
-#: application/views/interface_assets/footer.php:1603
+#: application/views/interface_assets/footer.php:1454
+#: application/views/interface_assets/footer.php:1458
+#: application/views/interface_assets/footer.php:1461
+#: application/views/interface_assets/footer.php:1598
+#: application/views/interface_assets/footer.php:1602
+#: application/views/interface_assets/footer.php:1605
 msgid "grid square"
 msgstr "Locator"
 
-#: application/views/interface_assets/footer.php:1459
-#: application/views/interface_assets/footer.php:1603
+#: application/views/interface_assets/footer.php:1461
+#: application/views/interface_assets/footer.php:1605
 msgid "Total count"
 msgstr "Summe"
 
-#: application/views/interface_assets/footer.php:2385
+#: application/views/interface_assets/footer.php:2387
 msgid "QSL Card for "
 msgstr "QSL-Karte für "
 
-#: application/views/interface_assets/footer.php:2405
+#: application/views/interface_assets/footer.php:2407
 msgid "Warning! Are you sure you want to delete this QSL card?"
 msgstr "Warnung! Bist du sicher, dass du diese QSL-Karte löschen möchtest?"
 
-#: application/views/interface_assets/footer.php:2445
+#: application/views/interface_assets/footer.php:2447
 #: application/views/view_log/qso.php:43
 msgid "eQSL Card"
 msgstr "eQSL-Karte"
 
-#: application/views/interface_assets/footer.php:2447
+#: application/views/interface_assets/footer.php:2449
 msgid "eQSL Card for "
 msgstr "eQSL-Karte für "
 
-#: application/views/interface_assets/footer.php:2659
-#: application/views/interface_assets/footer.php:2696
+#: application/views/interface_assets/footer.php:2661
+#: application/views/interface_assets/footer.php:2698
 #: application/views/view_log/qso.php:729
 msgid "QSL image file"
 msgstr "QSL-Bilddatei"
 
-#: application/views/interface_assets/footer.php:2678
+#: application/views/interface_assets/footer.php:2680
 msgid "Front QSL Card"
 msgstr "Vorderseite der QSL-Karte"
 
-#: application/views/interface_assets/footer.php:2714
+#: application/views/interface_assets/footer.php:2716
 msgid "Back QSL Card"
 msgstr "Rückseite QSL-Karte"
 
-#: application/views/interface_assets/footer.php:2718
+#: application/views/interface_assets/footer.php:2720
 msgid "The QSL card upload could not be completed."
 msgstr "Der Upload der QSL-Karte konnte nicht abgeschlossen werden."
 
-#: application/views/interface_assets/footer.php:2718
+#: application/views/interface_assets/footer.php:2720
 #: application/views/qslpostcard/designer.php:31
 msgid "Upload failed"
 msgstr "Upload fehlgeschlagen"
 
-#: application/views/interface_assets/footer.php:2726
-#: application/views/interface_assets/footer.php:2751
+#: application/views/interface_assets/footer.php:2728
+#: application/views/interface_assets/footer.php:2753
 msgid "Add additional QSOs to a QSL Card"
 msgstr "Weitere QSOs zu einer QSL-Karte hinzufügen"
 
-#: application/views/interface_assets/footer.php:2762
+#: application/views/interface_assets/footer.php:2764
 msgid "Something went wrong. Please try again!"
 msgstr "Etwas ist schiefgelaufen. Bitte versuche es erneut!"
 
@@ -16994,7 +17005,7 @@ msgstr "Du musst dein persönliches Rufzeichen angeben."
 
 #: application/views/operator/index.php:22
 msgid "No pre-/suffix allowed."
-msgstr ""
+msgstr "Es sind keine Pre- / Suffix erlaubt."
 
 #: application/views/options/appearance.php:12
 #: application/views/user/edit.php:220
