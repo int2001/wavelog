@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-06-23 14:26+0000\n"
-"PO-Revision-Date: 2026-06-18 04:37+0000\n"
+"POT-Creation-Date: 2026-06-23 15:39+0000\n"
+"PO-Revision-Date: 2026-06-20 17:33+0000\n"
 "Last-Translator: marin <wavelog@marin.fyi>\n"
 "Language-Team: Croatian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/hr/>\n"
@@ -207,8 +207,8 @@ msgstr ""
 #: application/controllers/Satellite.php:118
 #: application/controllers/Satellite.php:132
 #: application/controllers/Satellite.php:150
-#: application/controllers/Satellite.php:666
-#: application/controllers/Satellite.php:675
+#: application/controllers/Satellite.php:693
+#: application/controllers/Satellite.php:702
 #: application/controllers/Sattimers.php:9
 #: application/controllers/Search.php:10
 #: application/controllers/Simplefle.php:7
@@ -833,16 +833,16 @@ msgstr " i satelit "
 
 #: application/controllers/Calltester.php:31
 msgid "Call Tester"
-msgstr ""
+msgstr "Provjeravanje pozivnog snaka"
 
 #: application/controllers/Calltester.php:240
 #: application/controllers/Calltester.php:300
 msgid "CSV Call Tester"
-msgstr ""
+msgstr "CSV provjeravanje pozivnog znaka"
 
 #: application/controllers/Calltester.php:917
 msgid "Callsign Tester"
-msgstr ""
+msgstr "Provjeravanje pozivnog snaka"
 
 #: application/controllers/Club.php:23
 msgid "Club Officer"
@@ -876,52 +876,52 @@ msgstr "Dozvole kluba"
 #: application/models/Club_model.php:102 application/models/Club_model.php:176
 #: application/models/Club_model.php:218
 msgid "Invalid Club ID!"
-msgstr ""
+msgstr "Nevaljan ID kluba!"
 
 #: application/controllers/Club.php:144
 msgid "User could not be notified. Please check your email settings."
-msgstr ""
+msgstr "Nije moguće obavijestiti korisnika. Provjeri postavke e-pošte."
 
 #: application/controllers/Club.php:148
 msgid "Club member permissions have been updated."
-msgstr ""
+msgstr "Dopuštenja člana kluba su ažurirana."
 
 #: application/controllers/Club.php:170
 msgid "User removed from club."
-msgstr ""
+msgstr "Korisnik je uklonjen iz kluba."
 
 #: application/controllers/Club.php:172
 msgid "User could not be removed from club."
-msgstr ""
+msgstr "Nije moguće ukloniti korisnika iz kluba."
 
 #: application/controllers/Club.php:215
 msgid "Invalid message type."
-msgstr ""
+msgstr "Nevaljana vrsta poruke."
 
 #: application/controllers/Club.php:231
 msgid "Email can't be initialized. Check the email settings."
-msgstr ""
+msgstr "Nije moguće inicijalizirati e-poštu. Provjeri postavke e-pošte."
 
 #: application/controllers/Club.php:238 application/views/api/index.php:68
 #: application/views/contesting/logger/components/qso-form.php:35
 #: application/views/satellite/index.php:94
 #: application/views/satellite/satinfo.php:51
 msgid "Unknown"
-msgstr ""
+msgstr "Nepoznato"
 
 #: application/controllers/Clublog.php:15 application/controllers/Cron.php:12
 #: application/controllers/Dcl.php:13 application/controllers/Eqsl.php:13
 #: application/controllers/Hrdlog.php:19 application/controllers/Lotw.php:27
 #: application/controllers/Qrz.php:14 application/controllers/Update.php:15
 msgid "Maintenance Mode is active. Try again later."
-msgstr ""
+msgstr "Održavanje je u tijeku. Pokušajte ponovno kasnije."
 
 #: application/controllers/Clublog.php:44
 #: application/controllers/Clublog.php:70
 #: application/controllers/Clublog.php:123
 #: application/controllers/Clublog.php:160
 msgid "No user has configured Clublog."
-msgstr ""
+msgstr "Nema korisnika s konfiguriranim Clublogom."
 
 #: application/controllers/Clublog.php:86
 #: application/controllers/Logbook.php:798
@@ -954,15 +954,15 @@ msgstr ""
 
 #: application/controllers/Clublog.php:142
 msgid "Clublog QSL Import"
-msgstr ""
+msgstr "Uvoz Clublog QSL"
 
 #: application/controllers/Contest_admin.php:43
 msgid "Contests Administration"
-msgstr ""
+msgstr "Administracija contesta"
 
 #: application/controllers/Contest_admin.php:57
 msgid "Update Contest"
-msgstr ""
+msgstr "Ažuriraj contest"
 
 #: application/controllers/Contestcalendar.php:12
 #: application/views/interface_assets/header.php:317
@@ -971,7 +971,7 @@ msgstr ""
 
 #: application/controllers/Contestcalendar.php:37
 msgid "Contestcalendar not reachable. Try again later"
-msgstr ""
+msgstr "Contestcalendar nije dostupan. Pokušajte kasnije"
 
 #: application/controllers/Contesting.php:66
 #: application/views/contesting/manager/export_cbr.php:15
@@ -1005,24 +1005,25 @@ msgstr ""
 #: application/controllers/Contesting.php:174
 #, php-format
 msgid "Export: %s"
-msgstr ""
+msgstr "Izvoz: %s"
 
 #: application/controllers/Contesting.php:453
 msgid "Invalid logging token."
-msgstr ""
+msgstr "Nevažeći logging token."
 
 #: application/controllers/Contesting.php:460
 #: application/controllers/Contesting.php:465
 msgid "You are not authorized to access this contest session."
-msgstr ""
+msgstr "Niste autorizirani da pristupite ovoj sesiji contesta."
 
 #: application/controllers/Contesting.php:648
 msgid "Contest session created successfully."
-msgstr ""
+msgstr "Contest sesija uspješno kreirana."
 
 #: application/controllers/Contesting.php:650
 msgid "There was an error creating the contest session. Please try again."
 msgstr ""
+"Dogodila se pogreška u kreiranju contest sesije. Pokušajte ponovno kasnije."
 
 #: application/controllers/Contesting.php:656
 #: application/controllers/Contesting.php:712
@@ -1040,36 +1041,36 @@ msgstr ""
 
 #: application/controllers/Contesting.php:751
 msgid "Contest session deleted successfully."
-msgstr ""
+msgstr "Contest sesija uspješno obrisana."
 
 #: application/controllers/Contesting.php:753
 msgid "There was an error deleting the contest session. Please try again."
-msgstr ""
+msgstr "Dogodila se pogreška u brisanju contest sesije. Probajte ponovno."
 
 #: application/controllers/Contesting.php:963
 msgid "Operator switching is disabled."
-msgstr ""
+msgstr "Mijenjanje operatora je ugašeno."
 
 #: application/controllers/Contesting.php:983
 msgid "Operator switching is only available in club stations."
-msgstr ""
+msgstr "Mijenjanje operatora dostupno je samo klupskim postajama."
 
 #: application/controllers/Contesting.php:993
 msgid "Access denied"
-msgstr ""
+msgstr "Pristup zabranjen"
 
 #: application/controllers/Contesting.php:1001
 #: application/controllers/User.php:1379
 msgid "Incorrect username or password!"
-msgstr ""
+msgstr "Neispravno korisničko ime ili lozinka!"
 
 #: application/controllers/Contesting.php:1010
 msgid "A club account cannot be used as an operator."
-msgstr ""
+msgstr "Klupski račun ne može es koristiti kao operator."
 
 #: application/controllers/Contesting_import.php:15
 msgid "This feature is disabled."
-msgstr ""
+msgstr "Ova značajka je onemogućena"
 
 #: application/controllers/Contesting_import.php:37
 #: application/controllers/Contesting_import.php:105
@@ -1096,7 +1097,7 @@ msgstr ""
 #: application/views/awards/wpx/index.php:55
 #: application/views/interface_assets/header.php:181
 msgid "Continents"
-msgstr ""
+msgstr "Kontinenti"
 
 #: application/controllers/Cron.php:38
 #: application/views/interface_assets/header.php:350
@@ -1105,7 +1106,7 @@ msgstr ""
 
 #: application/controllers/Cron.php:190 application/views/cron/edit.php:5
 msgid "Edit Cronjob"
-msgstr ""
+msgstr "Uredi Cronjob"
 
 #: application/controllers/Cron.php:264 application/controllers/Cron.php:265
 #: application/views/cron/index.php:97 application/views/cron/index.php:99
@@ -1116,27 +1117,27 @@ msgstr ""
 #: application/views/debug/index.php:735 application/views/debug/index.php:741
 #: application/views/debug/index.php:747 application/views/debug/index.php:753
 msgid "never"
-msgstr ""
+msgstr "nikada"
 
 #: application/controllers/Cron.php:265
 msgid "calculating..."
-msgstr ""
+msgstr "računam..."
 
 #: application/controllers/Cron.php:276 application/views/cron/index.php:84
 msgid "healthy"
-msgstr ""
+msgstr "zdravo"
 
 #: application/controllers/Cron.php:278 application/views/cron/index.php:86
 msgid "failed"
-msgstr ""
+msgstr "neuspješno"
 
 #: application/controllers/Cron.php:280 application/views/cron/index.php:88
 msgid "pending"
-msgstr ""
+msgstr "na čekanju"
 
 #: application/controllers/Cron.php:285 application/views/cron/index.php:93
 msgid "disabled"
-msgstr ""
+msgstr "onemogućeno"
 
 #: application/controllers/Cron.php:324
 #: application/views/interface_assets/footer.php:41
@@ -1170,14 +1171,14 @@ msgstr ""
 #: application/controllers/Dashboard.php:169
 #: application/controllers/Visitor.php:138
 msgid "Dashboard"
-msgstr ""
+msgstr "Upravljačka ploča"
 
 #: application/controllers/Dayswithqso.php:17
 #: application/views/dayswithqso/index.php:2
 #: application/views/dayswithqso/index.php:12
 #: application/views/interface_assets/header.php:173
 msgid "Days with QSOs"
-msgstr ""
+msgstr "Dana s QSO-ima"
 
 #: application/controllers/Dcl.php:33
 #: application/views/dcl_views/key_import.php:3
@@ -1199,7 +1200,7 @@ msgstr ""
 
 #: application/controllers/Dcl.php:139
 msgid "No QSOs to upload."
-msgstr ""
+msgstr "Nema QSO-a za uvoz."
 
 #: application/controllers/Dcl.php:186 application/controllers/Dcl.php:198
 msgid "Upload Failed"
@@ -1211,7 +1212,7 @@ msgstr ""
 
 #: application/controllers/Dcl.php:201
 msgid "Upload Successful"
-msgstr ""
+msgstr "Uspješan uvoz"
 
 #: application/controllers/Dcl.php:211
 msgid "No Station Profiles found to upload to DCL"
@@ -1223,7 +1224,7 @@ msgstr ""
 
 #: application/controllers/Debug.php:114
 msgid "(empty)"
-msgstr ""
+msgstr "(prazno)"
 
 #: application/controllers/Debug.php:132
 msgid "Debug"
@@ -1231,15 +1232,15 @@ msgstr ""
 
 #: application/controllers/Debug.php:171
 msgid "Migrate data now"
-msgstr ""
+msgstr "Migrirajte podatke sada"
 
 #: application/controllers/Debug.php:174
 msgid "Migration already done. Run again?"
-msgstr ""
+msgstr "Migracija je već završila. Želite li ju pokrenuti ponovno?"
 
 #: application/controllers/Debug.php:178
 msgid "No data to migrate"
-msgstr ""
+msgstr "Nema podataka za migraciju"
 
 #: application/controllers/Debug.php:182 application/controllers/Debug.php:187
 msgid "No migration possible"
@@ -1247,7 +1248,7 @@ msgstr ""
 
 #: application/controllers/Debug.php:252
 msgid "Wavelog was updated successfully!"
-msgstr ""
+msgstr "Wavelog je uspješno ažuriran!"
 
 #: application/controllers/Debug.php:270
 msgid "Selfupdate() not available. Check the Error Log."
@@ -1282,15 +1283,15 @@ msgstr ""
 #: application/controllers/Distances.php:85
 #: application/views/distances/index.php:13
 msgid "QSOs with"
-msgstr ""
+msgstr "QSO-ovi s"
 
 #: application/controllers/Distances.php:85
 msgid "and band"
-msgstr ""
+msgstr "i opseg"
 
 #: application/controllers/Distances.php:85
 msgid "and propagation"
-msgstr ""
+msgstr "i propagacija"
 
 #: application/controllers/Dxatlas.php:19
 #: application/views/interface_assets/header.php:493
@@ -1301,7 +1302,7 @@ msgstr ""
 #: application/views/dxcalendar/index.php:7
 #: application/views/interface_assets/header.php:315
 msgid "DX Calendar"
-msgstr ""
+msgstr "DX Kalendar"
 
 #: application/controllers/Eqsl.php:46
 #: application/views/dashboard/index.php:566
@@ -1313,7 +1314,7 @@ msgstr ""
 #: application/controllers/Eqsl.php:56
 #, php-format
 msgid "Showing %d to %d of %d entries"
-msgstr ""
+msgstr "Prikazanih je od %d do %d od %d postojećih"
 
 #: application/controllers/Eqsl.php:83 application/controllers/Eqsl.php:173
 msgid "eQSL Nicknames in Station Profiles aren't defined!"
@@ -1325,7 +1326,7 @@ msgstr ""
 
 #: application/controllers/Eqsl.php:146
 msgid "eQSL Import"
-msgstr ""
+msgstr "Uvoz eQSL"
 
 #: application/controllers/Eqsl.php:156
 msgid "eQSL Import Information"
@@ -1350,7 +1351,7 @@ msgstr ""
 
 #: application/controllers/Eqsl.php:353
 msgid "User not found"
-msgstr ""
+msgstr "Korisnik nije pronađen"
 
 #: application/controllers/Eqsl.php:362
 msgid "eQSL password not configured for this user"
@@ -1370,7 +1371,7 @@ msgstr ""
 
 #: application/controllers/Eqsl.php:426 application/controllers/Eqsl.php:585
 msgid "Not enough free disk space to store the eQSL card"
-msgstr ""
+msgstr "Nema dovoljno slobodnog prostora na disku za spremanje eQSL karte"
 
 #: application/controllers/Eqsl.php:450
 msgid "Failed to load cached eQSL image"
@@ -1406,7 +1407,7 @@ msgstr ""
 
 #: application/controllers/Errors.php:22
 msgid "Page Not Found"
-msgstr ""
+msgstr "Stranica nije pronađena"
 
 #: application/controllers/Errors.php:23
 msgid "QRZ? ... no reply."
@@ -1445,28 +1446,31 @@ msgstr ""
 
 #: application/controllers/Header_auth.php:89
 msgid "Sorry. This instance is currently in maintenance mode."
-msgstr ""
+msgstr "Oprostite. Ova instanca je trenutno u održavanju."
 
 #: application/controllers/Header_auth.php:96
 msgid "User not found."
-msgstr ""
+msgstr "Korisnik nije pronađen."
 
 #: application/controllers/Header_auth.php:111
 #: application/controllers/User.php:1369
 msgid ""
 "You can't login to a clubstation directly. Use your personal account instead."
 msgstr ""
+"Ne možete se prijaviti direktno u klupski račun. Koristite svoj osobni račun."
 
 #: application/controllers/Header_auth.php:116
 msgid ""
 "Sorry. This instance is currently in maintenance mode. Only administrators "
 "are currently allowed to log in."
 msgstr ""
+"Oprostite. Ova instanca je u procesu održavanja. Samo se administratori mogu "
+"prijaviti."
 
 #: application/controllers/Header_auth.php:356
 #: application/controllers/Header_auth.php:360
 msgid "Something went terribly wrong. Check the error log."
-msgstr ""
+msgstr "Dogodila se kritična pogreška. Provjerite dnevnik pogrešaka."
 
 #: application/controllers/Header_auth.php:436
 msgid "SSO Config Error. Check error log."
@@ -1511,7 +1515,7 @@ msgstr ""
 #: application/views/labels/create.php:28 application/views/labels/edit.php:28
 #: application/views/labels/index.php:77
 msgid "Paper Type"
-msgstr ""
+msgstr "Vrsta papira"
 
 #: application/controllers/Labels.php:80 application/controllers/Labels.php:428
 #: application/views/labels/index.php:43 application/views/labels/index.php:78
@@ -1645,7 +1649,7 @@ msgstr ""
 #: application/views/logbookadvanced/useroptions.php:4
 #: application/views/view_log/index.php:2
 msgid "Logbook"
-msgstr ""
+msgstr "Dnevnik"
 
 #: application/controllers/Logbook.php:786
 #: application/controllers/Logbook.php:801
@@ -1678,7 +1682,7 @@ msgstr ""
 #: application/views/timeline/index.php:62 application/views/user/edit.php:709
 #: application/views/user/edit.php:963 application/views/visitor/mini.php:187
 msgid "QSL"
-msgstr ""
+msgstr "QSL"
 
 #: application/controllers/Logbook.php:789
 #: application/views/activated_gridmap/index.php:69
@@ -1896,7 +1900,7 @@ msgstr ""
 #: application/views/view_log/partial/log_ajax.php:6
 #: application/views/view_log/qso.php:119 application/views/visitor/index.php:9
 msgid "RST (S)"
-msgstr ""
+msgstr "RST (TX)"
 
 #: application/controllers/Logbook.php:1466
 #: application/views/awards/73on73/index.php:42
@@ -1924,7 +1928,7 @@ msgstr ""
 #: application/views/view_log/qso.php:124
 #: application/views/visitor/index.php:12
 msgid "RST (R)"
-msgstr ""
+msgstr "RST (RX)"
 
 #: application/controllers/Logbook.php:1467
 #: application/views/contesting/manager/export_cbr.php:282
@@ -1946,7 +1950,7 @@ msgstr ""
 #: application/views/view_log/qso.php:646
 #: application/views/visitor/index.php:15
 msgid "Country"
-msgstr ""
+msgstr "Država"
 
 #: application/controllers/Logbook.php:1468
 #: application/views/awards/iota/index.php:208
@@ -1977,7 +1981,7 @@ msgstr ""
 #: application/views/view_log/partial/log_ajax.php:9
 #: application/views/visitor/index.php:18
 msgid "IOTA"
-msgstr ""
+msgstr "IOTA"
 
 #: application/controllers/Logbook.php:1472
 #: application/views/awards/counties/details.php:12
@@ -2189,7 +2193,7 @@ msgstr ""
 #: application/views/view_log/qso.php:94 application/views/visitor/index.php:33
 #: application/views/visitor/mini.php:184 application/views/widgets/qsos.php:21
 msgid "Band"
-msgstr ""
+msgstr "Opseg"
 
 #: application/controllers/Logbook.php:1476
 #: application/controllers/Radio.php:48 application/views/bandmap/list.php:171
@@ -2244,7 +2248,7 @@ msgstr "Frekvencija"
 #: application/views/view_log/qso.php:653
 #: application/views/visitor/index.php:39
 msgid "Operator"
-msgstr ""
+msgstr "Operator"
 
 #: application/controllers/Logbook.php:1498
 #: application/controllers/Stationsetup.php:424
@@ -2273,11 +2277,11 @@ msgstr ""
 #: application/views/view_log/qso.php:294
 #: application/views/view_log/qso.php:647
 msgid "Deleted DXCC"
-msgstr ""
+msgstr "Izbrisane DXCC"
 
 #: application/controllers/Logbookadvanced.php:34
 msgid "Advanced logbook"
-msgstr ""
+msgstr "Napredni dnevnik"
 
 #: application/controllers/Logbookadvanced.php:998
 #, php-format
@@ -2291,7 +2295,7 @@ msgstr ""
 
 #: application/controllers/Lookup.php:22
 msgid "Quick Lookup"
-msgstr ""
+msgstr "Brza pretraga"
 
 #: application/controllers/Lotw.php:64 application/controllers/Lotw.php:96
 #: application/controllers/Lotw.php:136
@@ -2986,35 +2990,35 @@ msgstr ""
 msgid "Satellite Flightpath"
 msgstr ""
 
-#: application/controllers/Satellite.php:253
+#: application/controllers/Satellite.php:266
 msgid "Satellite pass"
 msgstr ""
 
-#: application/controllers/Satellite.php:310
+#: application/controllers/Satellite.php:323
 msgid "Failed to save pass settings!"
 msgstr ""
 
-#: application/controllers/Satellite.php:313
+#: application/controllers/Satellite.php:326
 msgid "Pass settings saved!"
 msgstr ""
 
-#: application/controllers/Satellite.php:326
+#: application/controllers/Satellite.php:339
 msgid "No settings found!"
 msgstr ""
 
-#: application/controllers/Satellite.php:340
+#: application/controllers/Satellite.php:353
 msgid "Failed to delete pass settings!"
 msgstr ""
 
-#: application/controllers/Satellite.php:342
+#: application/controllers/Satellite.php:355
 msgid "Pass settings deleted!"
 msgstr ""
 
-#: application/controllers/Satellite.php:352
+#: application/controllers/Satellite.php:365
 msgid "Saved Pass Settings"
 msgstr ""
 
-#: application/controllers/Satellite.php:369
+#: application/controllers/Satellite.php:382
 msgid "No presets available"
 msgstr ""
 
@@ -4153,16 +4157,16 @@ msgstr ""
 msgid "You are running the latest version."
 msgstr ""
 
-#: application/models/Update_model.php:439
+#: application/models/Update_model.php:492
 msgid "cURL error:"
 msgstr ""
 
-#: application/models/Update_model.php:473
+#: application/models/Update_model.php:526
 msgid "SAT already existing. LoTW status updated."
 msgstr ""
 
-#: application/models/Update_model.php:476
-#: application/models/Update_model.php:505
+#: application/models/Update_model.php:529
+#: application/models/Update_model.php:558
 #, php-format
 msgid "LoTW status for %d QSO updated"
 msgid_plural "LoTW status for %d QSOs updated"
@@ -4170,27 +4174,27 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: application/models/Update_model.php:479
+#: application/models/Update_model.php:532
 msgid "SAT already existing. Updating LoTW status failed."
 msgstr ""
 
-#: application/models/Update_model.php:482
+#: application/models/Update_model.php:535
 msgid "SAT already existing. Ignored."
 msgstr ""
 
-#: application/models/Update_model.php:489
+#: application/models/Update_model.php:542
 msgid "SAT already existing. Display name updated."
 msgstr ""
 
-#: application/models/Update_model.php:491
+#: application/models/Update_model.php:544
 msgid "SAT already existing. Updating display name failed."
 msgstr ""
 
-#: application/models/Update_model.php:501
+#: application/models/Update_model.php:554
 msgid "New SAT. Inserted."
 msgstr ""
 
-#: application/models/Update_model.php:509
+#: application/models/Update_model.php:562
 msgid "New SAT. Insert failed."
 msgstr ""
 
@@ -10669,7 +10673,6 @@ msgstr ""
 #: application/views/satellite/edit.php:31
 #: application/views/satellite/edit.php:34
 #: application/views/satellite/index.php:88
-#: application/views/satellite/index.php:101
 #: application/views/satellite/satinfo.php:45
 #: application/views/search/result.php:82
 #: application/views/station_profile/create.php:329
@@ -10731,7 +10734,7 @@ msgstr ""
 #: application/views/satellite/edit.php:32
 #: application/views/satellite/edit.php:35
 #: application/views/satellite/index.php:91
-#: application/views/satellite/index.php:103
+#: application/views/satellite/index.php:104
 #: application/views/satellite/satinfo.php:48
 #: application/views/search/result.php:84
 #: application/views/station_profile/create.php:330
@@ -17865,7 +17868,12 @@ msgid "Update Satellite TLE"
 msgstr ""
 
 #: application/views/satellite/index.php:57
+#: application/views/satellite/index.php:101
 msgid "TLE"
+msgstr ""
+
+#: application/views/satellite/index.php:101
+msgid "OMM"
 msgstr ""
 
 #: application/views/satellite/pass.php:21
@@ -17999,16 +18007,16 @@ msgstr ""
 msgid "TLE information for %s (last updated: %s)"
 msgstr ""
 
-#: application/views/satellite/tleinfo.php:8
+#: application/views/satellite/tleinfo.php:16
 msgid "Delete TLE"
 msgstr ""
 
-#: application/views/satellite/tleinfo.php:10
+#: application/views/satellite/tleinfo.php:18
 #, php-format
 msgid "No TLE information found for %s"
 msgstr ""
 
-#: application/views/satellite/tleinfo.php:11
+#: application/views/satellite/tleinfo.php:19
 msgid "Add TLE"
 msgstr ""
 

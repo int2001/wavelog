@@ -16,8 +16,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-06-23 14:26+0000\n"
-"PO-Revision-Date: 2026-06-15 18:21+0000\n"
+"POT-Creation-Date: 2026-06-23 15:39+0000\n"
+"PO-Revision-Date: 2026-06-20 17:33+0000\n"
 "Last-Translator: David Quental <ct1drb72@gmail.com>\n"
 "Language-Team: Spanish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/es/>\n"
@@ -214,8 +214,8 @@ msgstr "Ducting troposférico"
 #: application/controllers/Satellite.php:118
 #: application/controllers/Satellite.php:132
 #: application/controllers/Satellite.php:150
-#: application/controllers/Satellite.php:666
-#: application/controllers/Satellite.php:675
+#: application/controllers/Satellite.php:693
+#: application/controllers/Satellite.php:702
 #: application/controllers/Sattimers.php:9
 #: application/controllers/Search.php:10
 #: application/controllers/Simplefle.php:7
@@ -1025,7 +1025,7 @@ msgstr "Token de registro inválido."
 #: application/controllers/Contesting.php:460
 #: application/controllers/Contesting.php:465
 msgid "You are not authorized to access this contest session."
-msgstr ""
+msgstr "No estás autorizado para acceder a esta sesión del concurso."
 
 #: application/controllers/Contesting.php:648
 msgid "Contest session created successfully."
@@ -1062,15 +1062,15 @@ msgstr ""
 
 #: application/controllers/Contesting.php:963
 msgid "Operator switching is disabled."
-msgstr ""
+msgstr "El cambio de operador está desactivado."
 
 #: application/controllers/Contesting.php:983
 msgid "Operator switching is only available in club stations."
-msgstr ""
+msgstr "El cambio de operador solo está disponible en estaciones de club."
 
 #: application/controllers/Contesting.php:993
 msgid "Access denied"
-msgstr ""
+msgstr "Acceso denegado"
 
 #: application/controllers/Contesting.php:1001
 #: application/controllers/User.php:1379
@@ -1079,7 +1079,7 @@ msgstr "¡Nombre de usuario o contraseña incorrectos!"
 
 #: application/controllers/Contesting.php:1010
 msgid "A club account cannot be used as an operator."
-msgstr ""
+msgstr "Una cuenta de club no puede usarse como operador."
 
 #: application/controllers/Contesting_import.php:15
 msgid "This feature is disabled."
@@ -2816,6 +2816,8 @@ msgstr "Diseñador de postales QSL"
 #: application/controllers/Qslpostcard.php:62
 msgid "Not enough free disk space to store the QSL Background."
 msgstr ""
+"No hay suficiente espacio libre en el disco para almacenar el fondo de la "
+"QSL."
 
 #: application/controllers/Qslpostcard.php:184
 #: application/controllers/Qslpostcard.php:245
@@ -3047,35 +3049,35 @@ msgstr "Editar satélite"
 msgid "Satellite Flightpath"
 msgstr "Trayectoria de vuelo del satélite"
 
-#: application/controllers/Satellite.php:253
+#: application/controllers/Satellite.php:266
 msgid "Satellite pass"
 msgstr "Paso de satélite"
 
-#: application/controllers/Satellite.php:310
+#: application/controllers/Satellite.php:323
 msgid "Failed to save pass settings!"
 msgstr "¡Error al guardar la configuración de la contraseña!"
 
-#: application/controllers/Satellite.php:313
+#: application/controllers/Satellite.php:326
 msgid "Pass settings saved!"
 msgstr "¡Configuraciones de contraseña guardadas!"
 
-#: application/controllers/Satellite.php:326
+#: application/controllers/Satellite.php:339
 msgid "No settings found!"
 msgstr "¡No se encontraron configuraciones!"
 
-#: application/controllers/Satellite.php:340
+#: application/controllers/Satellite.php:353
 msgid "Failed to delete pass settings!"
 msgstr "¡Error al eliminar la configuración de la contraseña!"
 
-#: application/controllers/Satellite.php:342
+#: application/controllers/Satellite.php:355
 msgid "Pass settings deleted!"
 msgstr "¡Configuraciones de la contraseña eliminadas!"
 
-#: application/controllers/Satellite.php:352
+#: application/controllers/Satellite.php:365
 msgid "Saved Pass Settings"
 msgstr "Configuraciones de la contraseña guardadas"
 
-#: application/controllers/Satellite.php:369
+#: application/controllers/Satellite.php:382
 msgid "No presets available"
 msgstr "No hay preajustes disponibles"
 
@@ -4288,43 +4290,43 @@ msgstr "Nueva versión disponible:"
 msgid "You are running the latest version."
 msgstr "Estás ejecutando la última versión."
 
-#: application/models/Update_model.php:439
+#: application/models/Update_model.php:492
 msgid "cURL error:"
 msgstr "Error de cURL:"
 
-#: application/models/Update_model.php:473
+#: application/models/Update_model.php:526
 msgid "SAT already existing. LoTW status updated."
 msgstr "SAT ya existente. Estado de LoTW actualizado."
 
-#: application/models/Update_model.php:476
-#: application/models/Update_model.php:505
+#: application/models/Update_model.php:529
+#: application/models/Update_model.php:558
 #, php-format
 msgid "LoTW status for %d QSO updated"
 msgid_plural "LoTW status for %d QSOs updated"
 msgstr[0] "Estado de LoTW para QSO %d actualizado"
 msgstr[1] "Estado de LoTW para QSOs %d actualizado"
 
-#: application/models/Update_model.php:479
+#: application/models/Update_model.php:532
 msgid "SAT already existing. Updating LoTW status failed."
 msgstr "SAT ya existe. La actualización del estado de LoTW falló."
 
-#: application/models/Update_model.php:482
+#: application/models/Update_model.php:535
 msgid "SAT already existing. Ignored."
 msgstr "SAT ya existente. Ignorado."
 
-#: application/models/Update_model.php:489
+#: application/models/Update_model.php:542
 msgid "SAT already existing. Display name updated."
 msgstr "SAT ya existente. Nombre de usuario actualizado."
 
-#: application/models/Update_model.php:491
+#: application/models/Update_model.php:544
 msgid "SAT already existing. Updating display name failed."
 msgstr "SAT ya existe. La actualización del nombre para mostrar falló."
 
-#: application/models/Update_model.php:501
+#: application/models/Update_model.php:554
 msgid "New SAT. Inserted."
 msgstr "Nuevo SAT. Insertado."
 
-#: application/models/Update_model.php:509
+#: application/models/Update_model.php:562
 msgid "New SAT. Insert failed."
 msgstr "Nuevo SAT. Inserción fallida."
 
@@ -5814,7 +5816,7 @@ msgstr ""
 
 #: application/views/awards/73on73/index.php:19
 msgid "73 on 73 QSO List"
-msgstr ""
+msgstr "\"73on73\" es el nombre del diploma"
 
 #: application/views/awards/73on73/index.php:37
 #: application/views/awards/jcc/index.php:163
@@ -6667,7 +6669,7 @@ msgstr "Campos tomados para este premio: DOK (ADIF: DARC_DOK)"
 
 #: application/views/awards/dok/index.php:26
 msgid "View progress of DOK awards"
-msgstr ""
+msgstr "Ver el progreso de los premios DOK"
 
 #: application/views/awards/dok/index.php:51
 msgid "DOK / SDOK"
@@ -7647,7 +7649,7 @@ msgstr ""
 
 #: application/views/awards/pota/index.php:19
 msgid "POTA QSO List"
-msgstr ""
+msgstr "Lista de QSOs POTA"
 
 #: application/views/awards/pota/index.php:37
 #: application/views/qso/index.php:335 application/views/qso/index.php:619
@@ -7711,7 +7713,7 @@ msgstr ""
 
 #: application/views/awards/sig/index.php:18
 msgid "View progress of SIG awards"
-msgstr ""
+msgstr "Ver el progreso de los premios SIG"
 
 #: application/views/awards/sig/index.php:25
 #: application/views/station_profile/create.php:255
@@ -7801,15 +7803,15 @@ msgstr ""
 
 #: application/views/awards/sota/index.php:10
 msgid "Fields taken for this Award: SOTA Reference (ADIF: SOTA_REF)"
-msgstr ""
+msgstr "Campos tomados para este premio: Referencia SOTA (ADIF: SOTA_REF)"
 
 #: application/views/awards/sota/index.php:19
 msgid "SOTA QSO List"
-msgstr ""
+msgstr "Lista de QSOs SOTA"
 
 #: application/views/awards/vucc/band.php:7
 msgid "Gridsquare list"
-msgstr ""
+msgstr "Lista de cuadrículas"
 
 #: application/views/awards/vucc/index.php:6
 msgid "VUCC - VHF/UHF Century Club Award"
@@ -7845,7 +7847,7 @@ msgstr ""
 
 #: application/views/awards/vucc/index.php:19
 msgid "VUCC Gridsquares by Band"
-msgstr ""
+msgstr "Cuadrículas VUCC por banda"
 
 #: application/views/awards/vucc/index.php:27
 msgid "Grids Worked"
@@ -7918,7 +7920,7 @@ msgstr "Premios - Trabajado Todos los Continentes (WAC)"
 
 #: application/views/awards/wac/index.php:20
 msgid "View progress of WAC awards"
-msgstr ""
+msgstr "Ver el progreso de los premios WAC"
 
 #: application/views/awards/wac/index.php:232
 msgid "No QSOS found matching the criteria for this award!"
@@ -7955,7 +7957,7 @@ msgstr "Campos tomados para este premio: Región, DXCC"
 
 #: application/views/awards/wae/index.php:37
 msgid "View progress of WAE awards"
-msgstr ""
+msgstr "Ver el progreso de los premios WAC"
 
 #: application/views/awards/wae/index.php:215
 msgid "WAE Name"
@@ -8266,7 +8268,7 @@ msgstr "Mostrar mapa WAS"
 
 #: application/views/awards/wpx/index.php:10
 msgid "View progress of WPX awards"
-msgstr ""
+msgstr "Ver el progreso de los premios WPX"
 
 #: application/views/awards/wpx/index.php:80
 msgid "Band / Satellite / Orbit"
@@ -8316,7 +8318,7 @@ msgstr "Campos tomados para este premio: WWFF (ADIF: WWFF_REF)"
 
 #: application/views/awards/wwff/index.php:19
 msgid "WWFF QSO List"
-msgstr ""
+msgstr "Lista de QSOs WWFF"
 
 #: application/views/awards/wwff/index.php:37
 #: application/views/qso/index.php:323 application/views/qso/index.php:606
@@ -10792,20 +10794,24 @@ msgstr "Éxito"
 msgid ""
 "The worker backend is not reachable. Please check your network connection."
 msgstr ""
+"El backend del trabajo no es accesible. Por favor, comprueba tu conexión de "
+"red."
 
 #: application/views/contesting/logger/index.php:62
 msgid "Connection lost. Trying to reconnect…"
-msgstr ""
+msgstr "Conexión perdida. Intentando reconectar…"
 
 #: application/views/contesting/logger/index.php:63
 msgid "Reconnected to the worker backend."
-msgstr ""
+msgstr "Reconectado al backend del trabajo."
 
 #: application/views/contesting/logger/index.php:64
 msgid ""
 "Could not reconnect to the worker backend. Please check your network "
 "connection."
 msgstr ""
+"No se pudo reconectar al backend del trabajo. Por favor, verifica tu "
+"conexión de red."
 
 #: application/views/contesting/logger/index.php:65
 msgid ""
@@ -10825,17 +10831,19 @@ msgstr "Recargar ahora"
 #: application/views/contesting/logger/index.php:190
 #: application/views/interface_assets/header.php:574
 msgid "Switch Operator"
-msgstr ""
+msgstr "Cambiar operador"
 
 #: application/views/contesting/logger/index.php:69
 msgid ""
 "There are still unsynced QSOs. Please wait until they are saved before "
 "switching operator."
 msgstr ""
+"Todavía hay QSOs no sincronizados. Por favor, espera hasta que se guarden "
+"antes de cambiar de operador."
 
 #: application/views/contesting/logger/index.php:70
 msgid "Operator switch failed. Please try again."
-msgstr ""
+msgstr "Error en el cambio de operador. Por favor, inténtalo de nuevo."
 
 #: application/views/contesting/logger/index.php:78
 msgid "Loading Contest Engine"
@@ -10891,13 +10899,15 @@ msgstr "Abajo"
 
 #: application/views/contesting/logger/index.php:168
 msgid "Current Operator:"
-msgstr ""
+msgstr "Operador actual:"
 
 #: application/views/contesting/logger/index.php:170
 msgid ""
 "Log in with another operator's account to continue this contest session "
 "under their callsign."
 msgstr ""
+"Inicia sesión con la cuenta de otro operador para continuar esta sesión del "
+"concurso bajo su indicativo."
 
 #: application/views/contesting/logger/index.php:176
 #: application/views/user/edit.php:92 application/views/user/login.php:59
@@ -11282,7 +11292,6 @@ msgstr ""
 #: application/views/satellite/edit.php:31
 #: application/views/satellite/edit.php:34
 #: application/views/satellite/index.php:88
-#: application/views/satellite/index.php:101
 #: application/views/satellite/satinfo.php:45
 #: application/views/search/result.php:82
 #: application/views/station_profile/create.php:329
@@ -11344,7 +11353,7 @@ msgstr "Sí"
 #: application/views/satellite/edit.php:32
 #: application/views/satellite/edit.php:35
 #: application/views/satellite/index.php:91
-#: application/views/satellite/index.php:103
+#: application/views/satellite/index.php:104
 #: application/views/satellite/satinfo.php:48
 #: application/views/search/result.php:84
 #: application/views/station_profile/create.php:330
@@ -14066,6 +14075,7 @@ msgstr ""
 #: application/views/interface_assets/footer.php:136
 msgid "Error saving operator callsign. Please try again."
 msgstr ""
+"Error al guardar el indicativo del operador. Por favor, inténtalo de nuevo."
 
 #: application/views/interface_assets/footer.php:139
 msgid "Working without CAT connection"
@@ -15986,11 +15996,11 @@ msgstr ""
 
 #: application/views/logbookadvanced/index.php:108
 msgid "You need to select at least 1 row to print a QSL card!"
-msgstr ""
+msgstr "¡Necesitas seleccionar al menos 1 fila para imprimir una tarjeta QSL!"
 
 #: application/views/logbookadvanced/index.php:109
 msgid "QSL Card print options"
-msgstr ""
+msgstr "Opciones de impresión de tarjetas QSL"
 
 #: application/views/logbookadvanced/index.php:360
 msgid "From"
@@ -16326,7 +16336,7 @@ msgstr "Presentación QSL"
 
 #: application/views/logbookadvanced/index.php:860
 msgid "Print QSL Card"
-msgstr ""
+msgstr "Imprimir tarjeta QSL"
 
 #: application/views/logbookadvanced/index.php:862
 msgid "Attach to Contest"
@@ -17019,7 +17029,7 @@ msgstr "Tienes que proporcionar tu indicativo personal."
 
 #: application/views/operator/index.php:22
 msgid "No pre-/suffix allowed."
-msgstr ""
+msgstr "No se permiten prefijos ni sufijos."
 
 #: application/views/options/appearance.php:12
 #: application/views/user/edit.php:220
@@ -17830,7 +17840,7 @@ msgstr "Mis referencias"
 
 #: application/views/qslpostcard/designer.php:10
 msgid "Markers"
-msgstr ""
+msgstr "Marcadores"
 
 #: application/views/qslpostcard/designer.php:11
 #: application/views/qso/edit_ajax.php:210 application/views/qso/index.php:554
@@ -17954,7 +17964,7 @@ msgstr ""
 
 #: application/views/qslpostcard/designer.php:112
 msgid "Print offset"
-msgstr ""
+msgstr "Imprimir desplazamiento"
 
 #: application/views/qslpostcard/designer.php:141
 msgid "Search fields…"
@@ -17974,7 +17984,7 @@ msgstr "Lienzo de tarjeta postal"
 
 #: application/views/qslpostcard/designer.php:169
 msgid "drag fields onto the postcard"
-msgstr ""
+msgstr "arrastra los campos a la postal"
 
 #: application/views/qslpostcard/designer.php:190
 msgid "Template Options"
@@ -17986,7 +17996,7 @@ msgstr "Número de QSOs por tarjeta QSL"
 
 #: application/views/qslpostcard/designer.php:198
 msgid "Row spacing"
-msgstr ""
+msgstr "Espaciado entre filas"
 
 #: application/views/qslpostcard/designer.php:203
 msgid "Print background image (uncheck for pre-printed cards)"
@@ -18015,11 +18025,11 @@ msgstr "Texto"
 
 #: application/views/qslpostcard/designer.php:237
 msgid "X"
-msgstr ""
+msgstr "X"
 
 #: application/views/qslpostcard/designer.php:241
 msgid "Y"
-msgstr ""
+msgstr "Y"
 
 #: application/views/qslpostcard/designer.php:247
 msgid "Font"
@@ -18035,7 +18045,7 @@ msgstr "Color"
 
 #: application/views/qslpostcard/designer.php:274
 msgid "Wrap width"
-msgstr ""
+msgstr "Ancho de ajuste"
 
 #: application/views/qslpostcard/designer.php:279
 msgid "Print this field once per QSO when a card holds multiple QSOs"
@@ -18900,8 +18910,13 @@ msgid "Update Satellite TLE"
 msgstr "Actualizar TLE del satélite"
 
 #: application/views/satellite/index.php:57
+#: application/views/satellite/index.php:101
 msgid "TLE"
 msgstr "TLE"
+
+#: application/views/satellite/index.php:101
+msgid "OMM"
+msgstr ""
 
 #: application/views/satellite/pass.php:21
 msgid "Satellite passes"
@@ -19037,16 +19052,16 @@ msgstr ""
 msgid "TLE information for %s (last updated: %s)"
 msgstr "Información TLE para %s (última actualización: %s)"
 
-#: application/views/satellite/tleinfo.php:8
+#: application/views/satellite/tleinfo.php:16
 msgid "Delete TLE"
 msgstr "Eliminar TLE"
 
-#: application/views/satellite/tleinfo.php:10
+#: application/views/satellite/tleinfo.php:18
 #, php-format
 msgid "No TLE information found for %s"
 msgstr "No se encontró información TLE para %s"
 
-#: application/views/satellite/tleinfo.php:11
+#: application/views/satellite/tleinfo.php:19
 msgid "Add TLE"
 msgstr "Agregar TLE"
 
