@@ -300,7 +300,7 @@ $(document).ready(function(){
  * Hides non-matching cards, auto-expands any section that still has a hit,
  * shows a result count, and restores the exact section open/close state when
  * cleared. Runs only when `.accordion.user_edit` is present.
- * The search-box UI strings (placeholder, clear, jump, no-results) are the
+ * The search-box UI strings (placeholder, clear, no-results) are the
  * lang_account_search_* globals defined in edit.php via __()/gettext.
  */
 (function () {
@@ -332,7 +332,6 @@ $(document).ready(function(){
         var T = {
             ph:    lang_account_search_placeholder,
             clear: lang_account_search_clear,
-            jump:  lang_account_search_jump,
             none:  lang_account_search_none
         };
 
@@ -371,8 +370,6 @@ $(document).ready(function(){
                 '.wl-search-field.input-group{flex:1 1 auto;}',
                 '.wl-search-field.input-group>.form-control{min-width:0;}',
                 '.wl-search-count{min-width:1.7em;}',
-                '.wl-search-jump{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem;margin-top:.45rem;}',
-                '.wl-search-jump .wl-jump-label{color:var(--bs-body-color,inherit);font-weight:500;}',
                 '.wl-search-none{margin-top:.4rem;color:var(--bs-body-color,inherit);}',
                 '.accordion.user_edit .accordion-item{scroll-margin-top:1rem;}',
                 '.accordion.user_edit .accordion-item.wl-hit>.accordion-header .accordion-button{box-shadow:inset 3px 0 0 var(--bs-primary,#0d6efd);}',
@@ -393,35 +390,13 @@ $(document).ready(function(){
                 '</div>' +
                 '<span class="badge bg-secondary wl-search-count" hidden></span>' +
             '</div>' +
-            '<div class="wl-search-jump">' +
-                '<span class="small wl-jump-label me-1">' + T.jump + '</span>' +
-            '</div>' +
             '<div class="wl-search-none small" hidden>' + T.none + '</div>';
 
         var input = bar.querySelector('input[type=text]');
         var btn = bar.querySelector('.wl-search-btn');
         var btnIcon = btn.querySelector('i');
         var countEl = bar.querySelector('.wl-search-count');
-        var jumpRow = bar.querySelector('.wl-search-jump');
         var noneEl = bar.querySelector('.wl-search-none');
-
-        // Jump-to chips (one per section, labelled in the user's language)
-        sections.forEach(function (s) {
-            var label = s.button ? s.button.textContent.trim() : '';
-            if (!label) return;
-            var chip = document.createElement('button');
-            chip.type = 'button';
-            chip.className = 'btn btn-sm btn-outline-primary py-0';
-            chip.textContent = label;
-            chip.addEventListener('click', function () {
-                input.value = '';
-                restore();
-                expand(s);
-                s.item.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                input.focus();
-            });
-            jumpRow.appendChild(chip);
-        });
 
         form.parentNode.insertBefore(bar, form);
 
@@ -463,7 +438,6 @@ $(document).ready(function(){
             countEl.textContent = String(visible);
             countEl.hidden = false;
             noneEl.hidden = visible !== 0;
-            jumpRow.hidden = true;
 
             if (firstMatch && firstMatch !== lastFirst) {
                 lastFirst = firstMatch;
@@ -484,7 +458,6 @@ $(document).ready(function(){
             btn.title = T.ph;
             countEl.hidden = true;
             noneEl.hidden = true;
-            jumpRow.hidden = false;
         }
 
         function expand(s) {

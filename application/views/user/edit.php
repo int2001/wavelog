@@ -1324,6 +1324,5 @@
 	// Search-box UI strings for assets/js/sections/user.js, localized via __()/gettext.
 	var lang_account_search_placeholder = "<?= __("Search settings"); ?>";
 	var lang_account_search_clear       = "<?= __("Clear"); ?>";
-	var lang_account_search_jump        = "<?= __("Jump to:"); ?>";
 	var lang_account_search_none        = "<?= __("No settings match your search."); ?>";
 </script>
