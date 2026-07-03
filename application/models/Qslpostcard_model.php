@@ -570,7 +570,10 @@ class Qslpostcard_model extends CI_Model {
         }
         // QSO fields (adjust keys to match your DB)
         if ($field === 'qso.call') return strtoupper($qso['COL_CALL'] ?? $qso['call'] ?? '');
-        if ($field === 'qso.qso_date') return $qso['COL_QSO_DATE'] ?? $qso['qso_date'] ?? '';
+        if ($field === 'qso.qso_date') {
+            $dt = $this->normalize_qso_datetime($qso);
+            return $dt ? $dt->format('Y-m-d') : '';
+        }
         if ($field === 'qso.time_on') return $qso['COL_TIME_ON'] ?? $qso['time_on'] ?? '';
         if ($field === 'qso.band') return $this->resolve_band($qso);
         if ($field === 'qso.mode') return $this->resolve_mode($qso);
@@ -675,7 +678,8 @@ class Qslpostcard_model extends CI_Model {
 
         if ($field === 'qso.summary') {
             $c = strtoupper($qso['COL_CALL'] ?? $qso['call'] ?? '');
-            $d = $qso['COL_QSO_DATE'] ?? $qso['qso_date'] ?? '';
+            $dt = $this->normalize_qso_datetime($qso);
+            $d = $dt ? $dt->format('Y-m-d') : '';
             $t = $qso['COL_TIME_ON'] ?? $qso['time_on'] ?? '';
             $b = $this->resolve_band($qso);
             $m = $this->resolve_mode($qso);
