@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-02 13:31+0000\n"
-"PO-Revision-Date: 2026-06-28 14:44+0000\n"
-"Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
+"PO-Revision-Date: 2026-07-02 21:25+0000\n"
+"Last-Translator: Jörg Dorgeist <wavelog@dj7nt.de>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
 "Language: de_DE\n"
@@ -6161,33 +6161,33 @@ msgstr ""
 
 #: application/views/awards/counties/index.php:18
 msgid "Counties Progress"
-msgstr ""
+msgstr "Fortschritt Bezirke"
 
 #: application/views/awards/counties/index.php:45
 msgid "Worked Counties"
-msgstr ""
+msgstr "Gearbeitete Bezirke"
 
 #: application/views/awards/counties/index.php:47
 #, php-format
 msgid "of %s known counties"
-msgstr ""
+msgstr "von %s bekannten Bezirken"
 
 #: application/views/awards/counties/index.php:52
 msgid "Confirmed Counties"
-msgstr ""
+msgstr "Bestätigte Bezirke"
 
 #: application/views/awards/counties/index.php:54
 #, php-format
 msgid "%s%% of worked"
-msgstr ""
+msgstr "%s%% von gearbeiteten"
 
 #: application/views/awards/counties/index.php:59
 msgid "Remaining Counties"
-msgstr ""
+msgstr "Verbleibende Bezirke"
 
 #: application/views/awards/counties/index.php:61
 msgid "Based on current worked count"
-msgstr ""
+msgstr "Basierend auf dem derzeitigen Stand der gearbeiteten"
 
 #: application/views/awards/counties/index.php:66
 #: application/views/awards/dxcc/index.php:41
@@ -6199,7 +6199,7 @@ msgstr "Fortschritt"
 #: application/views/awards/counties/index.php:68
 #, php-format
 msgid "%s%% confirmed overall"
-msgstr ""
+msgstr "%s%% insgesamt bestätigt"
 
 #: application/views/awards/counties/index.php:77
 #: application/views/awards/cq/index.php:93
@@ -6236,7 +6236,7 @@ msgstr "Bestätigt"
 
 #: application/views/awards/counties/index.php:80
 msgid "Remaining"
-msgstr ""
+msgstr "Verbleibend"
 
 #: application/views/awards/counties/index.php:81
 #: application/views/awards/dxcc/index.php:287
@@ -6289,11 +6289,11 @@ msgstr "Gesamt"
 
 #: application/views/awards/counties/state_ajax.php:8
 msgid "QSOs Worked"
-msgstr ""
+msgstr "Gearbeitete QSOs"
 
 #: application/views/awards/counties/state_ajax.php:9
 msgid "QSOs Confirmed"
-msgstr ""
+msgstr "Bestätigte QSOs"
 
 #: application/views/awards/cq/index.php:3
 #: application/views/awards/cq/index.php:205
@@ -11951,15 +11951,15 @@ msgstr "Aus"
 
 #: application/views/dashboard/_options_menu.php:10
 msgid "Dashboard options"
-msgstr ""
+msgstr "Dashboardoptionen"
 
 #: application/views/dashboard/_options_menu.php:12
 msgid "KPI statistics"
-msgstr ""
+msgstr "Statistikkacheln"
 
 #: application/views/dashboard/_options_menu.php:15
 msgid "Solar data"
-msgstr ""
+msgstr "Funkwetter"
 
 #: application/views/dashboard/index.php:6
 msgid "RSTS"
@@ -12075,7 +12075,7 @@ msgstr "Mindestens eines deiner Zertifikate läuft bald ab"
 #: application/views/dashboard/index.php:230
 #: application/views/dashboard/solar_data.php:2
 msgid "Right-click for options"
-msgstr ""
+msgstr "Rechtsclick für Optionen"
 
 #: application/views/dashboard/index.php:245
 msgid "QSOs this year"
@@ -14386,15 +14386,15 @@ msgstr "Etwas ist schiefgelaufen. Bitte versuche es erneut!"
 
 #: application/views/interface_assets/footer.php:2837
 msgid "US Counties for state"
-msgstr ""
+msgstr "US Bezirk für Bundesstaat"
 
 #: application/views/interface_assets/footer.php:2890
 msgid "Confirmed counties for state:"
-msgstr ""
+msgstr "Bestätigte Bezirke für Bundesstaat:"
 
 #: application/views/interface_assets/footer.php:2890
 msgid "Worked counties for state:"
-msgstr ""
+msgstr "Gearbeitete Bezirke für Bundesstaat:"
 
 #: application/views/interface_assets/header.php:100
 msgid "Developer Mode"
@@ -16614,7 +16614,7 @@ msgstr "PDF der Postkarte erstellen"
 #: application/views/qslpostcard/printqueue.php:26
 #: application/views/qslpostcard/printqueue_selected.php:34
 msgid "Save PDF"
-msgstr ""
+msgstr "Speichere PDF"
 
 #: application/views/logbookadvanced/printQsl.php:41
 #: application/views/qslpostcard/printqueue.php:33
@@ -18470,15 +18470,15 @@ msgstr "Zusammenfassung wird nur für US-Bundesstaaten angezeigt."
 
 #: application/views/qso/components/fav_modal.php:5
 msgid "Save Favourite"
-msgstr ""
+msgstr "Speichere Favorit"
 
 #: application/views/qso/components/fav_modal.php:9
 msgid "e.g. 20m SSB, SO-50, portable setup"
-msgstr ""
+msgstr "z.B. 20m SSB, SO-50, Portables Equipment"
 
 #: application/views/qso/components/fav_modal.php:10
 msgid "Please enter a name."
-msgstr ""
+msgstr "Bitte gib einen Namen ein."
 
 #: application/views/qso/components/share_modal.php:3
 msgid "Post on X"
@@ -18735,7 +18735,7 @@ msgstr "Sat"
 
 #: application/views/qso/index.php:121
 msgid "Add to Favs"
-msgstr ""
+msgstr "Zu Favoriten hinzufügen"
 
 #: application/views/qso/index.php:161
 msgid "Time on"
@@ -19242,6 +19242,8 @@ msgstr "QSOs nicht bestätigt auf LoTW"
 #: application/views/search/filter.php:31 application/views/search/main.php:23
 msgid "Search is limited to station locations linked to active logbook"
 msgstr ""
+"Die Suche beschränkt sich auf die Stationsstandorte die im aktiven Logbuch "
+"verlinkt sind"
 
 #: application/views/search/filter.php:40
 msgid "Save query"
@@ -20140,7 +20142,7 @@ msgstr "Entferne Verknüpfung"
 
 #: application/views/stationsetup/locationlist.php:3
 msgid "Limited to station locations linked to active logbook"
-msgstr ""
+msgstr "Beschränkt auf die Standorte, die zum aktiven Logbuch gehören"
 
 #: application/views/stationsetup/locationlist.php:11
 msgid "QSO Count"
@@ -21029,11 +21031,11 @@ msgstr "Zeigt die aktuelle UTC-Zeit im Menü"
 
 #: application/views/user/edit.php:611
 msgid "Quick Theme Switcher"
-msgstr ""
+msgstr "Schnell-Motiv-Umschalter"
 
 #: application/views/user/edit.php:612
 msgid "Show the quick theme switcher in the header menu."
-msgstr ""
+msgstr "Zeige den Schnell-Motiv-Umschalter im Hauptmenü."
 
 #: application/views/user/edit.php:624
 msgid "Map Settings"
@@ -21077,16 +21079,18 @@ msgstr "Zeige Locator"
 
 #: application/views/user/edit.php:705
 msgid "Map Tile Style"
-msgstr ""
+msgstr "Kartenstil"
 
 #: application/views/user/edit.php:709
 msgid "Null"
-msgstr ""
+msgstr "Nichts"
 
 #: application/views/user/edit.php:712
 msgid ""
 "Choose the map tile rendering method; this will override the theme settings."
 msgstr ""
+"Wähle die Art der Karte. Hiermit übersteuerst Du die globale Farbauswahl für "
+"die Karte."
 
 #: application/views/user/edit.php:724
 msgid "Previous QSL Type"
@@ -21142,6 +21146,8 @@ msgid ""
 "expeditions cards (Top), at the bottom of the dashboard (Bottom), or hide it "
 "(Off)."
 msgstr ""
+"Zeige Funkwetter und Ausbreitungsbedingungen auf dem Dashboard über den "
+"DXpeditionen (oben), am unteren Ende (Unten), oder gar nicht (Aus)."
 
 #: application/views/user/edit.php:792
 msgid "Dashboard Notification Banner"
@@ -21155,13 +21161,15 @@ msgstr ""
 
 #: application/views/user/edit.php:824
 msgid "Dashboard KPI statistics"
-msgstr ""
+msgstr "Statistikkacheln"
 
 #: application/views/user/edit.php:825
 msgid ""
 "This switches the display of the KPI statistics (Total QSOs, QSOs this year/"
 "month/today, Current Streak, Unique callsigns) on the dashboard."
 msgstr ""
+"Hier wird die Anzeige der Statistikkacheln (Alle QSOs, QSO-Anzahl pro Jahr/"
+"Monat/Tag, aktuelle Serie, Eindeutige Calls) ein und ausgeschaltet."
 
 #: application/views/user/edit.php:834
 msgid "Show Fields on QSO Tab"

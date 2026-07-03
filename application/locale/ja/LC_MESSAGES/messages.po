@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-02 13:31+0000\n"
-"PO-Revision-Date: 2026-06-26 13:21+0000\n"
+"PO-Revision-Date: 2026-07-02 21:25+0000\n"
 "Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ja/>\n"
@@ -6079,33 +6079,33 @@ msgstr ""
 
 #: application/views/awards/counties/index.php:18
 msgid "Counties Progress"
-msgstr ""
+msgstr "Counties Progress"
 
 #: application/views/awards/counties/index.php:45
 msgid "Worked Counties"
-msgstr ""
+msgstr "Worked Counties"
 
 #: application/views/awards/counties/index.php:47
 #, php-format
 msgid "of %s known counties"
-msgstr ""
+msgstr "of %s known counties"
 
 #: application/views/awards/counties/index.php:52
 msgid "Confirmed Counties"
-msgstr ""
+msgstr "確認済みの郡"
 
 #: application/views/awards/counties/index.php:54
 #, php-format
 msgid "%s%% of worked"
-msgstr ""
+msgstr "%s 割合 働いた人の"
 
 #: application/views/awards/counties/index.php:59
 msgid "Remaining Counties"
-msgstr ""
+msgstr "残りの郡"
 
 #: application/views/awards/counties/index.php:61
 msgid "Based on current worked count"
-msgstr ""
+msgstr "現在の作業件数に基づく"
 
 #: application/views/awards/counties/index.php:66
 #: application/views/awards/dxcc/index.php:41
@@ -6117,7 +6117,7 @@ msgstr "進捗"
 #: application/views/awards/counties/index.php:68
 #, php-format
 msgid "%s%% confirmed overall"
-msgstr ""
+msgstr "%s %%が 全体で確認済み"
 
 #: application/views/awards/counties/index.php:77
 #: application/views/awards/cq/index.php:93
@@ -6154,7 +6154,7 @@ msgstr "確認済み"
 
 #: application/views/awards/counties/index.php:80
 msgid "Remaining"
-msgstr ""
+msgstr "残り"
 
 #: application/views/awards/counties/index.php:81
 #: application/views/awards/dxcc/index.php:287
@@ -6207,11 +6207,11 @@ msgstr "合計"
 
 #: application/views/awards/counties/state_ajax.php:8
 msgid "QSOs Worked"
-msgstr ""
+msgstr "交信はうまくいった"
 
 #: application/views/awards/counties/state_ajax.php:9
 msgid "QSOs Confirmed"
-msgstr ""
+msgstr "交信確認済み"
 
 #: application/views/awards/cq/index.php:3
 #: application/views/awards/cq/index.php:205
@@ -11802,15 +11802,15 @@ msgstr "オフ"
 
 #: application/views/dashboard/_options_menu.php:10
 msgid "Dashboard options"
-msgstr ""
+msgstr "ダッシュボードオプション"
 
 #: application/views/dashboard/_options_menu.php:12
 msgid "KPI statistics"
-msgstr ""
+msgstr "KPI統計"
 
 #: application/views/dashboard/_options_menu.php:15
 msgid "Solar data"
-msgstr ""
+msgstr "太陽光データ"
 
 #: application/views/dashboard/index.php:6
 msgid "RSTS"
@@ -11925,7 +11925,7 @@ msgstr "少なくとも1つの証明書が期限切れになります"
 #: application/views/dashboard/index.php:230
 #: application/views/dashboard/solar_data.php:2
 msgid "Right-click for options"
-msgstr ""
+msgstr "右クリックしてオプションを表示"
 
 #: application/views/dashboard/index.php:245
 msgid "QSOs this year"
@@ -14203,15 +14203,15 @@ msgstr "問題が発生しました。もう一度お試しください!"
 
 #: application/views/interface_assets/footer.php:2837
 msgid "US Counties for state"
-msgstr ""
+msgstr "米国の州別郡"
 
 #: application/views/interface_assets/footer.php:2890
 msgid "Confirmed counties for state:"
-msgstr ""
+msgstr "州として確認された郡："
 
 #: application/views/interface_assets/footer.php:2890
 msgid "Worked counties for state:"
-msgstr ""
+msgstr "州のために郡レベルで働いた経験："
 
 #: application/views/interface_assets/header.php:100
 msgid "Developer Mode"
@@ -16407,7 +16407,7 @@ msgstr "ポストカードのPDFを生成する"
 #: application/views/qslpostcard/printqueue.php:26
 #: application/views/qslpostcard/printqueue_selected.php:34
 msgid "Save PDF"
-msgstr ""
+msgstr "PDFで保存"
 
 #: application/views/logbookadvanced/printQsl.php:41
 #: application/views/qslpostcard/printqueue.php:33
@@ -18226,15 +18226,15 @@ msgstr "概要は米国の州についてのみ表示されます。"
 
 #: application/views/qso/components/fav_modal.php:5
 msgid "Save Favourite"
-msgstr ""
+msgstr "お気に入りに保存"
 
 #: application/views/qso/components/fav_modal.php:9
 msgid "e.g. 20m SSB, SO-50, portable setup"
-msgstr ""
+msgstr "例：20m SSB、SO-50、ポータブルセットアップ"
 
 #: application/views/qso/components/fav_modal.php:10
 msgid "Please enter a name."
-msgstr ""
+msgstr "名前を入力してください。"
 
 #: application/views/qso/components/share_modal.php:3
 msgid "Post on X"
@@ -18491,7 +18491,7 @@ msgstr "衛星"
 
 #: application/views/qso/index.php:121
 msgid "Add to Favs"
-msgstr ""
+msgstr "お気に入りに追加"
 
 #: application/views/qso/index.php:161
 msgid "Time on"
@@ -18989,6 +18989,7 @@ msgstr "LoTWでのQSOは未確認"
 #: application/views/search/filter.php:31 application/views/search/main.php:23
 msgid "Search is limited to station locations linked to active logbook"
 msgstr ""
+"検索対象は、アクティブなログブックにリンクされたシャックの場所に限定されます"
 
 #: application/views/search/filter.php:40
 msgid "Save query"
@@ -19862,7 +19863,7 @@ msgstr "局の所在地のリンクを解除"
 
 #: application/views/stationsetup/locationlist.php:3
 msgid "Limited to station locations linked to active logbook"
-msgstr ""
+msgstr "アクティブなログブックにリンクされたシャックの場所に限定されます"
 
 #: application/views/stationsetup/locationlist.php:11
 msgid "QSO Count"
@@ -20741,11 +20742,11 @@ msgstr "メニューに現在のUTC時間を表示する"
 
 #: application/views/user/edit.php:611
 msgid "Quick Theme Switcher"
-msgstr ""
+msgstr "クイックテーマスイッチャー"
 
 #: application/views/user/edit.php:612
 msgid "Show the quick theme switcher in the header menu."
-msgstr ""
+msgstr "ヘッダーメニューにクイックテーマ切り替え機能を表示する。"
 
 #: application/views/user/edit.php:624
 msgid "Map Settings"
@@ -20789,16 +20790,18 @@ msgstr "ロケーターを表示"
 
 #: application/views/user/edit.php:705
 msgid "Map Tile Style"
-msgstr ""
+msgstr "マップタイルスタイル"
 
 #: application/views/user/edit.php:709
 msgid "Null"
-msgstr ""
+msgstr "Null"
 
 #: application/views/user/edit.php:712
 msgid ""
 "Choose the map tile rendering method; this will override the theme settings."
 msgstr ""
+"マップタイルのレンダリング方法を選択してください。これにより、テーマ設定が上"
+"書きされます。"
 
 #: application/views/user/edit.php:724
 msgid "Previous QSL Type"
@@ -20850,6 +20853,8 @@ msgid ""
 "expeditions cards (Top), at the bottom of the dashboard (Bottom), or hide it "
 "(Off)."
 msgstr ""
+"アクティブな探査カードの上（上）、ダッシュボードの下部（下）に太陽光と伝搬"
+"データを表示するか、非表示にする（オフ）かを選択します。"
 
 #: application/views/user/edit.php:792
 msgid "Dashboard Notification Banner"
@@ -20863,13 +20868,15 @@ msgstr ""
 
 #: application/views/user/edit.php:824
 msgid "Dashboard KPI statistics"
-msgstr ""
+msgstr "ダッシュボードのKPI統計"
 
 #: application/views/user/edit.php:825
 msgid ""
 "This switches the display of the KPI statistics (Total QSOs, QSOs this year/"
 "month/today, Current Streak, Unique callsigns) on the dashboard."
 msgstr ""
+"これにより、ダッシュボードに表示されるKPI統計情報（総交信数、今年/今月/今日の"
+"交信数、連続交信記録、ユニークコールサイン）が切り替わります。"
 
 #: application/views/user/edit.php:834
 msgid "Show Fields on QSO Tab"
@@ -21922,18 +21929,18 @@ msgstr "CQz"
 msgid "CQz geojson"
 msgstr "CQz geojson"
 
+#~ msgid "Counties Worked"
+#~ msgstr "交信した郡"
+
+#~ msgid "Counties Confirmed"
+#~ msgstr "確認された郡"
+
 #~ msgid ""
 #~ "This switches the display of the solar and propagation data on the "
 #~ "dashboard."
 #~ msgstr ""
 #~ "これにより、ダッシュボード上の太陽活動データと伝播データの表示が切り替わり"
 #~ "ます。"
-
-#~ msgid "Counties Worked"
-#~ msgstr "交信した郡"
-
-#~ msgid "Counties Confirmed"
-#~ msgstr "確認された郡"
 
 #~ msgid "Add Band/Mode to Favs"
 #~ msgstr "バンド/モードをお気に入りに追加"
