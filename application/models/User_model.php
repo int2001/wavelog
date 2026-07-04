@@ -330,10 +330,6 @@ class User_Model extends CI_Model {
 			$this->db->query("insert into bandxuser (bandid, userid) select bands.id, ? from bands;", [$insert_id]);
 			$this->db->query("insert into paper_types (user_id,paper_name,metric,width,orientation,height) SELECT ?, paper_name, metric, width, orientation,height FROM paper_types where user_id = 0;", [$insert_id]);
 
-			// Default user_options rows — [option_type, option_name, option_key, option_value]
-			// Note: map_custom defaults are intentionally omitted; all read paths self-heal
-			// (controller else-branch in User.php, view ?? guards, map_style_class() fallback)
-			// and saves use INSERT ... ON DUPLICATE KEY UPDATE, so rows appear on first edit.
 			$user_options = [
 				['hamsat',     'hamsat_key',              'api',                           $user_hamsat_key],
 				['hamsat',     'hamsat_key',              'workable',                      $user_hamsat_workable_only],
