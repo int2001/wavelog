@@ -213,7 +213,7 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
               <!-- Callsign Input -->
               <div class="row">
                 <div class="mb-3 col-md-12">
-                  <label for="callsign"><?= __("Callsign"); ?></label>&nbsp;<button type="button" id="check_cluster" class="btn btn-link p-0 align-baseline" data-bs-toggle="tooltip" title="<?= __("Search DXCluster for latest Spot"); ?>" aria-label="<?= __("Search DXCluster for latest Spot"); ?>"><i class="fas fa-search" aria-hidden="true"></i></button><i id="fetch_status" class="fas fa-spinner fa-spin ms-1" aria-hidden="true" style="display: none;"></i>
+                  <label for="callsign"><?= __("Callsign"); ?></label>&nbsp;<button type="button" id="check_cluster" class="btn btn-link text-decoration-none p-0 align-baseline" data-bs-toggle="tooltip" title="<?= __("Search DXCluster for latest Spot"); ?>" aria-label="<?= __("Search DXCluster for latest Spot"); ?>"><i class="fas fa-search" aria-hidden="true"></i></button><i id="fetch_status" class="fas fa-spinner fa-spin ms-1" aria-hidden="true" style="display: none;"></i>
                   <div class="input-group">
                     <input tabindex="7" type="text" class="form-control uppercase" id="callsign" name="callsign" autocomplete="off" required>
                     <span id="qrz_info" class="input-group-text btn-included-on-field d-none py-0"></span>
@@ -737,7 +737,7 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
             </div>
 
            <div class="mb-3">
-            <label for="qslmsg"><?= __("QSL MSG"); ?> <button type="button" class="btn btn-link p-0 align-baseline qso_eqsl_qslmsg_update" title="<?= __("Get the default message for eQSL, for this station."); ?>" aria-label="<?= __("Get the default message for eQSL, for this station."); ?>"><i class="fas fa-redo-alt" aria-hidden="true"></i></button></label>
+            <label for="qslmsg"><?= __("QSL MSG"); ?> <button type="button" class="btn btn-link text-decoration-none p-0 align-baseline qso_eqsl_qslmsg_update" title="<?= __("Get the default message for eQSL, for this station."); ?>" aria-label="<?= __("Get the default message for eQSL, for this station."); ?>"><i class="fas fa-redo-alt" aria-hidden="true"></i></button></label>
 						<span class="position-absolute end-0 mb-2 me-3" id="charsLeft" aria-live="polite"> </span>
             <textarea  type="text" class="form-control" id="qslmsg" name="qslmsg" rows="5" maxlength="240"><?php echo $qslmsg; ?></textarea>
             <div class="small form-text text-muted"><?= __("Note: Gets exported to third-party services.") ?></div>

@@ -113,10 +113,10 @@ function echoQrbCalcLink($mygrid, $grid, $vucc, $isVisitor = false) {
 	$echo = "";
 	if (!empty($grid)) {
 		$echo = $grid;
-		$echo .= (!$isVisitor) ? (' <button type="button" class="btn btn-link p-0 align-baseline" onclick="spawnQrbCalculator(\'' . $mygrid . '\',\'' . $grid . '\')" aria-label="' . __("Calculate distance/bearing") . '"><i class="fas fa-globe" aria-hidden="true"></i></button>') : '';
+		$echo .= (!$isVisitor) ? (' <button type="button" class="btn btn-link text-decoration-none p-0 align-baseline" onclick="spawnQrbCalculator(\'' . $mygrid . '\',\'' . $grid . '\')" aria-label="' . __("Calculate distance/bearing") . '"><i class="fas fa-globe" aria-hidden="true"></i></button>') : '';
 	} else if (!empty($vucc)) {
 		$echo = $vucc;
-		$echo .= (!$isVisitor) ? (' <button type="button" class="btn btn-link p-0 align-baseline" onclick="spawnQrbCalculator(\'' . $mygrid . '\',\'' . $vucc . '\')" aria-label="' . __("Calculate distance/bearing") . '"><i class="fas fa-globe" aria-hidden="true"></i></button>') : '';
+		$echo .= (!$isVisitor) ? (' <button type="button" class="btn btn-link text-decoration-none p-0 align-baseline" onclick="spawnQrbCalculator(\'' . $mygrid . '\',\'' . $vucc . '\')" aria-label="' . __("Calculate distance/bearing") . '"><i class="fas fa-globe" aria-hidden="true"></i></button>') : '';
 	}
 	return $echo;
 }
@@ -133,15 +133,11 @@ function echoQrbCalcLink($mygrid, $grid, $vucc, $isVisitor = false) {
 ?>
 
 <div class="table-responsive">
-    <table style="width:100%" id="<?= $tableid ?>" class="table <?= $tableid ?> table-striped table-hover">
-        <?php
-        $result_count = $results->num_rows();
-        if ($result_count > 1) {
-            echo '<caption class="visually-hidden">'.$result_count.' '.__("Results").'</caption>';
-        } elseif ($result_count == 1) {
-            echo '<caption class="visually-hidden">'.$result_count.' '.__("Result").'</caption>';
-        }
-        ?>
+    <?php
+    $result_count = $results->num_rows();
+    $table_aria_label = $result_count > 1 ? $result_count.' '.__("Results") : ($result_count == 1 ? $result_count.' '.__("Result") : '');
+    ?>
+    <table style="width:100%" id="<?= $tableid ?>" class="table <?= $tableid ?> table-striped table-hover"<?php if ($table_aria_label != '') { echo ' aria-label="'.htmlspecialchars($table_aria_label).'"'; } ?>>
         <thead>
             <tr class="titles">
                 <th scope="col"><?= __("Date"); ?></th>
@@ -200,7 +196,7 @@ function echoQrbCalcLink($mygrid, $grid, $vucc, $isVisitor = false) {
                 <td><?php $timestamp = strtotime($row->COL_TIME_ON ?? '1970-01-01 00:00:00'); echo date('H:i', $timestamp); ?></td>
             <?php } ?>
             <td>
-                <button type="button" class="btn btn-link p-0" id="edit_qso" onclick="displayQso(<?php echo $row->COL_PRIMARY_KEY; ?>)"><?php echo str_replace("0","&Oslash;",strtoupper($row->COL_CALL)); ?></button>
+                <button type="button" class="btn btn-link text-decoration-none p-0" id="edit_qso" onclick="displayQso(<?php echo $row->COL_PRIMARY_KEY; ?>)"><?php echo str_replace("0","&Oslash;",strtoupper($row->COL_CALL)); ?></button>
                 <?php
                    if (isset($row->lastupload) && ($row->lastupload)) {
                        $lotw_hint = '';

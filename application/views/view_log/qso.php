@@ -54,8 +54,7 @@
         <div class="row">
             <div class="col-md">
 
-                <table width="100%">
-                    <caption class="visually-hidden"><?= __("QSO Details"); ?></caption>
+                <table width="100%" aria-label="<?= __("QSO Details"); ?>">
                     <tr>
                         <?php
 
@@ -129,7 +128,7 @@
                     <?php if($row->COL_GRIDSQUARE != null) { ?>
                     <tr>
                         <th scope="row"><?= __("Gridsquare"); ?>:</th>
-                        <td><?php echo $row->COL_GRIDSQUARE; ?> <button type="button" class="btn btn-link p-0 align-baseline" onclick="spawnQrbCalculator('<?php echo $row->station_gridsquare . '\',\'' . $row->COL_GRIDSQUARE; ?>')" aria-label="<?= __("Calculate distance/bearing"); ?>"><i class="fas fa-globe" aria-hidden="true"></i></button></td>
+                        <td><?php echo $row->COL_GRIDSQUARE; ?> <button type="button" class="btn btn-link text-decoration-none p-0 align-baseline" onclick="spawnQrbCalculator('<?php echo $row->station_gridsquare . '\',\'' . $row->COL_GRIDSQUARE; ?>')" aria-label="<?= __("Calculate distance/bearing"); ?>"><i class="fas fa-globe" aria-hidden="true"></i></button></td>
                     </tr>
                     <?php } ?>
 
@@ -191,7 +190,7 @@
                               echo " <i class='fa fa-question-circle' aria-hidden='true' data-bs-toggle='tooltip' title='".__("A single gridsquare was entered into the VUCC gridsquares field which should contain two or four gridsquares instead of a single grid.")."'></i>";
                               echo "</span>";
                            }
-                           echo " <button type='button' class='btn btn-link p-0 align-baseline' onclick='spawnQrbCalculator('".$row->station_gridsquare."\',\'".$row->COL_VUCC_GRIDS.")' aria-label='".__("Calculate distance/bearing")."'><i class='fas fa-globe' aria-hidden='true'></i></button>";
+                           echo " <button type='button' class='btn btn-link text-decoration-none p-0 align-baseline' onclick='spawnQrbCalculator('".$row->station_gridsquare."\',\'".$row->COL_VUCC_GRIDS.")' aria-label='".__("Calculate distance/bearing")."'><i class='fas fa-globe' aria-hidden='true'></i></button>";
                         ?>
                         </td>
                             <?php
@@ -621,8 +620,7 @@
         <div class="tab-pane fade" id="stationdetails" role="tabpanel" aria-labelledby="station-tab">
             <h3><?= __("Station") . ' ' . __("Details"); ?></h3>
 
-            <table width="100%">
-                    <caption class="visually-hidden"><?= __("Station") . ' ' . __("Details"); ?></caption>
+            <table width="100%" aria-label="<?= __("Station") . ' ' . __("Details"); ?>">
                     <tr>
                         <th scope="row"><?= __("Station") . ' ' . __("Callsign"); ?></th>
                         <td><?php echo str_replace("0","&Oslash;",strtoupper($row->station_callsign)); ?></td>
@@ -725,8 +723,7 @@
             <?php
 	    if (!($this->config->item('disable_qsl') ?? false)) {
             if (count($qslimages) > 0) {
-            echo '<table style="width:100%" class="qsltable table table-sm table-bordered table-hover table-striped table-condensed">
-                <caption class="visually-hidden">' . __("QSL images") . '</caption>
+            echo '<table style="width:100%" class="qsltable table table-sm table-bordered table-hover table-striped table-condensed" aria-label="' . __("QSL images") . '">
                 <thead>
                 <tr>
                     <th scope="col" style=\'text-align: center\'>' . __("QSL image file") . '</th>
