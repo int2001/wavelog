@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-02 13:31+0000\n"
-"PO-Revision-Date: 2026-07-03 14:26+0000\n"
+"PO-Revision-Date: 2026-07-04 18:16+0000\n"
 "Last-Translator: \"Shen RuiQin(BH4FJN)\" <jerry19980425@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translate.wavelog.org/projects/wavelog/main-translation/zh_Hans/>\n"
@@ -6004,7 +6004,7 @@ msgstr ""
 
 #: application/views/awards/counties/index.php:45
 msgid "Worked Counties"
-msgstr ""
+msgstr "通联的（郡）县"
 
 #: application/views/awards/counties/index.php:47
 #, php-format
@@ -6013,7 +6013,7 @@ msgstr ""
 
 #: application/views/awards/counties/index.php:52
 msgid "Confirmed Counties"
-msgstr ""
+msgstr "确认的（郡）县"
 
 #: application/views/awards/counties/index.php:54
 #, php-format
@@ -21415,6 +21415,11 @@ msgid ""
 "only your own call, and logging sends your report instead of a TU. Alt+Enter "
 "logs without sending."
 msgstr ""
+"启用此功能后，Enter 键将控制 QSO 流程：输入为空时发送 CQ；呼号不完整（含“?”）"
+"时请求对方重发；输入完整呼号但未包含交换信息时发送信号报告；输入完整 QSO 信息"
+"后则发送 TU 并记录日志。在 S&P 模式下，首次按下 Enter 键仅发送本方呼号，而记"
+"录日志时发送的是信号报告而非 TU。使用 Alt+Enter 组合键可在不发送信息的情况下"
+"记录日志。"
 
 #: application/views/qso/components/winkeysettings.php:55
 msgid "Unclear call (?)"
