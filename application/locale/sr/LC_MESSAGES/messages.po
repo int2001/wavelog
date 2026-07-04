@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-02 13:31+0000\n"
+"POT-Creation-Date: 2026-07-03 14:26+0000\n"
 "PO-Revision-Date: 2026-03-21 17:42+0000\n"
 "Last-Translator: Dariusz Koryto <dariusz@koryto.eu>\n"
 "Language-Team: Serbian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -143,7 +143,7 @@ msgstr "Tropospheric ducting"
 #: application/controllers/Contest_admin.php:14
 #: application/controllers/Contestcalendar.php:8
 #: application/controllers/Contesting.php:39
-#: application/controllers/Contesting.php:1021
+#: application/controllers/Contesting.php:1024
 #: application/controllers/Contesting_import.php:11
 #: application/controllers/Contesting_import.php:27
 #: application/controllers/Contesting_import.php:57
@@ -194,8 +194,8 @@ msgstr "Tropospheric ducting"
 #: application/controllers/Qslprint.php:24
 #: application/controllers/Qslprint.php:159 application/controllers/Qso.php:8
 #: application/controllers/Qso.php:22 application/controllers/Qso.php:308
-#: application/controllers/Qso.php:440 application/controllers/Qso.php:463
-#: application/controllers/Qso.php:486 application/controllers/Qso.php:794
+#: application/controllers/Qso.php:475 application/controllers/Qso.php:498
+#: application/controllers/Qso.php:521 application/controllers/Qso.php:829
 #: application/controllers/Radio.php:32 application/controllers/Radio.php:322
 #: application/controllers/Radio.php:348 application/controllers/Radio.php:364
 #: application/controllers/Satellite.php:13
@@ -393,7 +393,7 @@ msgid "API Key %s description has been updated."
 msgstr "Opis API ključa %s je ažuriran."
 
 #: application/controllers/Api.php:111 application/controllers/Api.php:146
-#: application/controllers/Qso.php:585
+#: application/controllers/Qso.php:620
 msgid "Invalid request method"
 msgstr "Неважећа метода захтева"
 
@@ -986,7 +986,7 @@ msgid "Contest Management"
 msgstr ""
 
 #: application/controllers/Contesting.php:93
-#: application/controllers/Contesting.php:631
+#: application/controllers/Contesting.php:634
 msgid "Officers must set up contests."
 msgstr ""
 
@@ -998,8 +998,8 @@ msgstr ""
 #: application/controllers/Contesting.php:126
 #: application/controllers/Contesting.php:160
 #: application/controllers/Contesting.php:486
-#: application/controllers/Contesting.php:673
-#: application/controllers/Contesting.php:729
+#: application/controllers/Contesting.php:676
+#: application/controllers/Contesting.php:732
 msgid "Contest session not found."
 msgstr ""
 
@@ -1022,54 +1022,54 @@ msgstr ""
 msgid "You are not authorized to access this contest session."
 msgstr ""
 
-#: application/controllers/Contesting.php:648
+#: application/controllers/Contesting.php:651
 msgid "Contest session created successfully."
 msgstr ""
 
-#: application/controllers/Contesting.php:650
+#: application/controllers/Contesting.php:653
 msgid "There was an error creating the contest session. Please try again."
 msgstr ""
 
-#: application/controllers/Contesting.php:656
-#: application/controllers/Contesting.php:712
-#: application/controllers/Contesting.php:759
+#: application/controllers/Contesting.php:659
+#: application/controllers/Contesting.php:715
+#: application/controllers/Contesting.php:762
 msgid "Invalid request method."
 msgstr ""
 
-#: application/controllers/Contesting.php:704
+#: application/controllers/Contesting.php:707
 msgid "Contest session updated successfully."
 msgstr ""
 
-#: application/controllers/Contesting.php:706
+#: application/controllers/Contesting.php:709
 msgid "There was an error updating the contest session. Please try again."
 msgstr ""
 
-#: application/controllers/Contesting.php:751
+#: application/controllers/Contesting.php:754
 msgid "Contest session deleted successfully."
 msgstr ""
 
-#: application/controllers/Contesting.php:753
+#: application/controllers/Contesting.php:756
 msgid "There was an error deleting the contest session. Please try again."
 msgstr ""
 
-#: application/controllers/Contesting.php:963
+#: application/controllers/Contesting.php:966
 msgid "Operator switching is disabled."
 msgstr ""
 
-#: application/controllers/Contesting.php:983
+#: application/controllers/Contesting.php:986
 msgid "Operator switching is only available in club stations."
 msgstr ""
 
-#: application/controllers/Contesting.php:993
+#: application/controllers/Contesting.php:996
 msgid "Access denied"
 msgstr ""
 
-#: application/controllers/Contesting.php:1001
+#: application/controllers/Contesting.php:1004
 #: application/controllers/User.php:1444
 msgid "Incorrect username or password!"
 msgstr "Неисправно корисничко име или лозинка!"
 
-#: application/controllers/Contesting.php:1010
+#: application/controllers/Contesting.php:1013
 msgid "A club account cannot be used as an operator."
 msgstr ""
 
@@ -2842,15 +2842,15 @@ msgstr "Štampanje zahtevanih QSL karata"
 msgid "Add QSO"
 msgstr "Dodaj QSO"
 
-#: application/controllers/Qso.php:855
+#: application/controllers/Qso.php:890
 msgid "You have to be logged in to access this URL."
 msgstr "Morate biti prijavljeni da biste pristupili ovom URL."
 
-#: application/controllers/Qso.php:861
+#: application/controllers/Qso.php:896
 msgid "Call Transfer"
 msgstr "Transfer pozivnog znaka"
 
-#: application/controllers/Qso.php:868
+#: application/controllers/Qso.php:903
 msgid "No callsign provided."
 msgstr "Nije dostavljen pozivni znak."
 
@@ -2880,7 +2880,7 @@ msgid "Options"
 msgstr "Opcije"
 
 #: application/controllers/Radio.php:53
-#: application/views/contesting/logger/components/winkeyer.php:50
+#: application/views/contesting/logger/components/winkeyer.php:52
 #: application/views/contesting/logger/index.php:128
 #: application/views/debug/index.php:379 application/views/qso/index.php:830
 #: application/views/satellite/pass.php:116
@@ -10337,37 +10337,55 @@ msgstr ""
 msgid "Winkeyer"
 msgstr "Winkeyer"
 
-#: application/views/contesting/logger/components/winkeyer.php:49
+#: application/views/contesting/logger/components/winkeyer.php:23
+#: application/views/contesting/logger/components/winkeyer.php:53
+#: application/views/qso/components/winkeysettings.php:54
+msgctxt "ESM mode"
+msgid "Run"
+msgstr ""
+
+#: application/views/contesting/logger/components/winkeyer.php:24
+#: application/views/qso/components/winkeysettings.php:58
+#: application/views/qso/components/winkeysettings.php:59
+msgctxt "ESM mode"
+msgid "S&P"
+msgstr ""
+
+#: application/views/contesting/logger/components/winkeyer.php:51
 #: application/views/qso/index.php:828
 msgid "Connect"
 msgstr "Povežite"
 
-#: application/views/contesting/logger/components/winkeyer.php:70
+#: application/views/contesting/logger/components/winkeyer.php:53
+msgid "Toggle Run / Search & Pounce for ESM"
+msgstr ""
+
+#: application/views/contesting/logger/components/winkeyer.php:73
 #: application/views/qso/index.php:856
 msgid "CW Speed"
 msgstr "Brzina CW"
 
-#: application/views/contesting/logger/components/winkeyer.php:72
+#: application/views/contesting/logger/components/winkeyer.php:75
 #: application/views/qso/index.php:858
 msgid "Stop"
 msgstr "Stop"
 
-#: application/views/contesting/logger/components/winkeyer.php:73
+#: application/views/contesting/logger/components/winkeyer.php:76
 #: application/views/qso/index.php:859
 msgid "Tune"
 msgstr "Podešavanje"
 
-#: application/views/contesting/logger/components/winkeyer.php:74
+#: application/views/contesting/logger/components/winkeyer.php:77
 #: application/views/qso/index.php:860
 msgid "Stop Tune"
 msgstr "Zaustavi podešavanje"
 
-#: application/views/contesting/logger/components/winkeyer.php:79
+#: application/views/contesting/logger/components/winkeyer.php:82
 #: application/views/qso/index.php:865
 msgid "Enter text..."
 msgstr "Унесите текст..."
 
-#: application/views/contesting/logger/components/winkeyer.php:80
+#: application/views/contesting/logger/components/winkeyer.php:83
 #: application/views/qso/index.php:866
 msgid "Send"
 msgstr "Pošalji"
@@ -17910,6 +17928,63 @@ msgstr ""
 
 #: application/views/qso/components/winkeysettings.php:39
 msgid "Tokens"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:46
+msgid "ESM (Enter Sends Message)"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:49
+msgid ""
+"When enabled, the Enter key drives the QSO: empty call sends CQ, an unclear "
+"call (with \"?\") asks again, a full call without exchange sends the report, "
+"and a complete QSO is logged with a TU. In S&P mode the first Enter sends "
+"only your own call, and logging sends your report instead of a TU. Alt+Enter "
+"logs without sending."
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:55
+msgid "Unclear call (?)"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:56
+msgid "Exchange / Report"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:57
+msgid "Log QSO / TU"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:58
+msgid "own call"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:59
+msgid "exchange on log"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:78
+msgid "Keyboard shortcuts"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:82
+msgid "Send the corresponding CW macro"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:83
+msgid "ESM on: drive the QSO (CQ / report / log); ESM off: log the QSO"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:84
+msgid "Log the QSO without sending anything"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:85
+msgid "Clear the entry form"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:86
+msgid "In the callsign field: jump to the next empty field"
 msgstr ""
 
 #: application/views/qso/edit_ajax.php:35
