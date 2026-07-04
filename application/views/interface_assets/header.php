@@ -93,9 +93,10 @@
 </head>
 
 <body dir="<?php echo $language['direction']; ?>">
+	<a class="visually-hidden-focusable" href="#main-content"><?= __("Skip to content"); ?></a>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light main-nav" id="header-menu">
 		<div class="container">
-			<a class="navbar-brand" href="<?php echo site_url(); ?>"><img class="headerLogo" src="<?php echo $this->paths->cache_buster('/assets/logo/'. $this->optionslib->get_logo('header_logo').'.png'); ?>" alt="Logo" /></a>
+			<a class="navbar-brand" href="<?php echo site_url(); ?>"><img class="headerLogo" src="<?php echo $this->paths->cache_buster('/assets/logo/'. $this->optionslib->get_logo('header_logo').'.png'); ?>" alt="<?= __("Wavelog home"); ?>" /></a>
 			<?php if (ENVIRONMENT == "development") { ?>
 				<span class="badge text-bg-danger me-1"><?= __("Developer Mode"); ?></span>
 			<?php } ?>
@@ -329,7 +330,7 @@
 					<?php } ?>
 					<?php if (($this->config->item('use_auth')) && ($this->session->userdata('user_type') == 99)) { ?> <!-- ADMIN -->
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" title="<?= __("Admin"); ?>"><i class="fas fa-users-cog"></i></a>
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" title="<?= __("Admin"); ?>" aria-label="<?= __("Admin"); ?>" aria-haspopup="true"><i class="fas fa-users-cog" aria-hidden="true"></i></a>
 
 							<div class="dropdown-menu header-dropdown">
 								<a class="dropdown-item" href="<?php echo site_url('user'); ?>" title="Manage user accounts"><i class="fas fa-user"></i> <?= __("User Accounts"); ?></a>
@@ -438,7 +439,7 @@
 							?>
 							<!-- Quick Theme Switcher -->
 							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" title="<?= __("Themes"); ?>"><i class="fas fa-palette"></i></a>
+								<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" title="<?= __("Themes"); ?>" aria-label="<?= __("Themes"); ?>" aria-haspopup="true"><i class="fas fa-palette" aria-hidden="true"></i></a>
 								<ul class="dropdown-menu dropdown-menu-right header-dropdown">
 									<li><span class="dropdown-item-text fw-bold"><?= __("Themes"); ?></span></li>
 									<div class="dropdown-divider"></div>
@@ -614,7 +615,7 @@
 						<?php
 						if (($quickswitch_enabled ?? '') == 'true') { ?>
 							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><i class="fas fa-map-marker-alt"></i> | <i class="fas fa-book"></i></a>
+								<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" aria-label="<?= __("Station locations and logbooks"); ?>" aria-haspopup="true"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> | <i class="fas fa-book" aria-hidden="true"></i></a>
 								<ul class="dropdown-menu dropdown-menu-right header-dropdown">
 									<li><a class="dropdown-item disabled"><?= __("Select a Location"); ?>:</a></li>
 									<?php

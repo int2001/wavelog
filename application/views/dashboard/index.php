@@ -2,22 +2,22 @@
 <?php
 function echo_table_header_col($name) {
 	switch($name) {
-		case 'Mode': echo '<th>'.__("Mode").'</th>'; break;
-		case 'RSTS': echo '<th class="d-none d-sm-table-cell">'.__("RSTS").'</th>'; break;
-		case 'RSTR': echo '<th class="d-none d-sm-table-cell">'.__("RSTR").'</th>'; break;
-		case 'Country': echo '<th>'.__("Country").'</th>'; break;
-		case 'IOTA': echo '<th>'.__("IOTA").'</th>'; break;
-		case 'SOTA': echo '<th>'.__("SOTA").'</th>'; break;
-		case 'WWFF': echo '<th>'.__("WWFF").'</th>'; break;
-		case 'POTA': echo '<th>'.__("POTA").'</th>'; break;
-		case 'State': echo '<th>'.__("State").'</th>'; break;
-		case 'Grid': echo '<th>'.__("Gridsquare").'</th>'; break;
-		case 'Distance': echo '<th>'.__("Distance").'</th>'; break;
-		case 'Band': echo '<th>'.__("Band").'</th>'; break;
-		case 'Frequency': echo '<th>'.__("Frequency").'</th>'; break;
-		case 'Operator': echo '<th>'.__("Operator").'</th>'; break;
-		case 'Name': echo '<th>'.__("Name").'</th>'; break;
-		case 'Bearing': echo '<th>'.__("Bearing").'</th>'; break;
+		case 'Mode': echo '<th scope="col">'.__("Mode").'</th>'; break;
+		case 'RSTS': echo '<th scope="col" class="d-none d-sm-table-cell">'.__("RSTS").'</th>'; break;
+		case 'RSTR': echo '<th scope="col" class="d-none d-sm-table-cell">'.__("RSTR").'</th>'; break;
+		case 'Country': echo '<th scope="col">'.__("Country").'</th>'; break;
+		case 'IOTA': echo '<th scope="col">'.__("IOTA").'</th>'; break;
+		case 'SOTA': echo '<th scope="col">'.__("SOTA").'</th>'; break;
+		case 'WWFF': echo '<th scope="col">'.__("WWFF").'</th>'; break;
+		case 'POTA': echo '<th scope="col">'.__("POTA").'</th>'; break;
+		case 'State': echo '<th scope="col">'.__("State").'</th>'; break;
+		case 'Grid': echo '<th scope="col">'.__("Gridsquare").'</th>'; break;
+		case 'Distance': echo '<th scope="col">'.__("Distance").'</th>'; break;
+		case 'Band': echo '<th scope="col">'.__("Band").'</th>'; break;
+		case 'Frequency': echo '<th scope="col">'.__("Frequency").'</th>'; break;
+		case 'Operator': echo '<th scope="col">'.__("Operator").'</th>'; break;
+		case 'Name': echo '<th scope="col">'.__("Name").'</th>'; break;
+		case 'Bearing': echo '<th scope="col">'.__("Bearing").'</th>'; break;
 	}
 }
 
@@ -104,7 +104,7 @@ function echo_table_header_col($name) {
 	let user_map_custom = JSON.parse('<?php echo $user_map_custom; ?>');
 </script>
 
-<div class="container dashboard px-3 px-lg-4 mt-3 mb-3">
+<div class="container dashboard px-3 px-lg-4 mt-3 mb-3" id="main-content">
 <?php if(($this->config->item('use_auth') && ($this->session->userdata('user_type') >= 2)) || $this->config->item('use_auth') === FALSE) { ?>
 
 	<?php if (version_compare(PHP_VERSION, '8.0.0') <= 0) { ?>
@@ -272,7 +272,7 @@ function echo_table_header_col($name) {
 		<div class="col-6 col-md-4 col-lg-2">
 			<div class="card h-100">
 				<div class="card-header py-2">
-					<h6 class="mb-0"><i class="fas fa-fire"></i> <?= __("Current Streak"); ?> <a href="<?php echo site_url('dayswithqso'); ?>#streaks"><i class="fa-solid fa-up-right-from-square"></i></a></h6>
+					<h6 class="mb-0"><i class="fas fa-fire"></i> <?= __("Current Streak"); ?> <a href="<?php echo site_url('dayswithqso'); ?>#streaks" aria-label="<?= __("Current Streak"); ?>"><i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i></a></h6>
 				</div>
 				<div class="card-body p-0">
 					<h4 class="fw-bold mb-0 px-3 py-2"><?= sprintf(_ngettext("%d Day", "%d Days", (int) $current_streak), (int) $current_streak) ?></h4>
@@ -282,7 +282,7 @@ function echo_table_header_col($name) {
 		<div class="col-6 col-md-4 col-lg-2">
 			<div class="card h-100">
 				<div class="card-header py-2">
-					<h6 class="mb-0"><i class="fas fa-users"></i> <?= __("Unique callsigns"); ?> <a href="<?php echo site_url('statistics'); ?>#uniquetab"><i class="fa-solid fa-up-right-from-square"></i></a></h6>
+					<h6 class="mb-0"><i class="fas fa-users"></i> <?= __("Unique callsigns"); ?> <a href="<?php echo site_url('statistics'); ?>#uniquetab" aria-label="<?= __("Unique callsigns"); ?>"><i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i></a></h6>
 				</div>
 				<div class="card-body p-0">
 					<h4 class="fw-bold mb-0 px-3 py-2"><?php echo $unique_callsigns; ?></h4>
@@ -333,13 +333,14 @@ function echo_table_header_col($name) {
 			<div class="card-body p-0">
 				<div class="table-responsive">
 					<table class="table table-striped table-hover mb-0">
+						<caption class="visually-hidden"><?= __("Recent QSOs"); ?></caption>
 						<thead>
 							<tr>
-								<th><?= __("Date"); ?></th>
+								<th scope="col"><?= __("Date"); ?></th>
 								<?php if(($this->config->item('use_auth') && ($this->session->userdata('user_type') >= 2)) || $this->config->item('use_auth') === FALSE || ($this->config->item('show_time'))) { ?>
-								<th><?= __("Time"); ?></th>
+								<th scope="col"><?= __("Time"); ?></th>
 								<?php } ?>
-								<th><?= __("Callsign"); ?></th>
+								<th scope="col"><?= __("Callsign"); ?></th>
 								<?php
 								echo_table_header_col($this->session->userdata('user_column1')==""?'Mode':$this->session->userdata('user_column1'));
 								echo_table_header_col($this->session->userdata('user_column2')==""?'RSTS':$this->session->userdata('user_column2'));
@@ -365,7 +366,7 @@ function echo_table_header_col($name) {
 								<td><?php $timestamp = strtotime($row->COL_TIME_ON ?? '1970-01-01 00:00:00'); echo date('H:i', $timestamp); ?></td>
 								<?php } ?>
 								<td>
-									<a id="edit_qso" href="javascript:displayQso(<?php echo $row->COL_PRIMARY_KEY; ?>)"><?php echo str_replace("0","&Oslash;",strtoupper($row->COL_CALL)); ?></a>
+									<button type="button" class="btn btn-link p-0" onclick="displayQso(<?php echo $row->COL_PRIMARY_KEY; ?>)" aria-label="<?= __("View QSO"); ?> <?php echo $row->COL_CALL; ?>"><?php echo str_replace("0","&Oslash;",strtoupper($row->COL_CALL)); ?></button>
 								</td>
 								<?php
 									echo_table_col($row, $this->session->userdata('user_column1')==""?'Mode':$this->session->userdata('user_column1'));
@@ -404,18 +405,19 @@ function echo_table_header_col($name) {
 			<?php if (!empty($active_dxpeditions) && $active_dxpeditions !== false) { ?>
 			<div class="card mb-3">
 				<div class="card-header py-2">
-					<h6 class="mb-0"><i class="fas fa-broadcast-tower"></i> <?= __("Active Expeditions"); ?> <a href="<?php echo site_url('dxcalendar'); ?>"><i class="fa-solid fa-up-right-from-square"></i></a></h6>
+					<h6 class="mb-0"><i class="fas fa-broadcast-tower"></i> <?= __("Active Expeditions"); ?> <a href="<?php echo site_url('dxcalendar'); ?>" aria-label="<?= __("Active Expeditions"); ?>"><i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i></a></h6>
 				</div>
 				<div class="card-body p-0">
-					<table class="table table-striped table-hover mb-0">
-						<thead>
-							<tr>
-								<th><?= __("Call"); ?></th>
-								<th><?= __("DXCC"); ?></th>
-								<th><?= __("Dates"); ?></th>
-								<th><?= __("QSL"); ?></th>
-							</tr>
-						</thead>
+				<table class="table table-striped table-hover mb-0">
+					<caption class="visually-hidden"><?= __("Active Expeditions"); ?></caption>
+					<thead>
+						<tr>
+							<th scope="col"><?= __("Call"); ?></th>
+							<th scope="col"><?= __("DXCC"); ?></th>
+							<th scope="col"><?= __("Dates"); ?></th>
+							<th scope="col"><?= __("QSL"); ?></th>
+						</tr>
+					</thead>
 						<tbody>
 							<?php foreach ($active_dxpeditions as $dxped) { ?>
 							<tr>
@@ -423,19 +425,19 @@ function echo_table_header_col($name) {
 									<?php if ($dxped->link) { ?>
 										<a href="<?= $dxped->link; ?>" target="_blank">
 									<?php } ?>
-									<span class="badge <?= $dxped->call_cnfmd ? 'bg-success' : ($dxped->call_wked ? 'bg-warning' : 'bg-danger'); ?>">
-										<?= $dxped->call; ?>
-									</span>
+								<span class="badge <?= $dxped->call_cnfmd ? 'bg-success' : ($dxped->call_wked ? 'bg-warning' : 'bg-danger'); ?>">
+									<?= $dxped->call; ?><span class="visually-hidden"> (<?= $dxped->call_cnfmd ? __("Confirmed") : ($dxped->call_wked ? __("Worked") : __("Not worked")); ?>)</span>
+								</span>
 									<?php if ($dxped->link) { echo '</a>'; } ?>
 								</td>
 								<td>
 									<?php if ($dxped->dxcc_adif >= 1) { ?>
-										<a href="javascript:spawnLookupModal('<?= $dxped->dxcc_adif; ?>','dxcc')">
+										<button type="button" class="btn btn-link p-0 align-baseline" onclick="spawnLookupModal('<?= $dxped->dxcc_adif; ?>','dxcc')" aria-label="<?= __("Lookup DXCC"); ?> <?= $dxped->dxcc; ?>">
 									<?php } ?>
-									<span class="badge <?= $dxped->dxcc_cnfmd ? 'bg-success' : ($dxped->dxcc_wked ? 'bg-warning' : ($dxped->no_dxcc ? '' : 'bg-danger')); ?>">
-										<?= $dxped->dxcc; ?>
-									</span>
-									<?php if ($dxped->dxcc_adif >= 1) { echo '</a>'; } ?>
+								<span class="badge <?= $dxped->dxcc_cnfmd ? 'bg-success' : ($dxped->dxcc_wked ? 'bg-warning' : ($dxped->no_dxcc ? '' : 'bg-danger')); ?>">
+									<?= $dxped->dxcc; ?><span class="visually-hidden"> (<?= $dxped->dxcc_cnfmd ? __("Confirmed") : ($dxped->dxcc_wked ? __("Worked") : __("Not worked")); ?>)</span>
+								</span>
+									<?php if ($dxped->dxcc_adif >= 1) { echo '</button>'; } ?>
 								</td>
 								<td><small><?= ($dxped->dates[0] ?? '') . ' - ' . ($dxped->dates[1] ?? ''); ?></small></td>
 								<td><small><?= $dxped->qslinfo; ?></small></td>
@@ -450,7 +452,7 @@ function echo_table_header_col($name) {
 			<?php if (!empty($active_contests) && $active_contests !== false) { ?>
 			<div class="card mb-3">
 				<div class="card-header py-2">
-					<h6 class="mb-0"><i class="fas fa-trophy"></i> <?= __("Active Contests"); ?> <a href="<?php echo site_url('contestcalendar'); ?>"><i class="fa-solid fa-up-right-from-square"></i></a></h6>
+					<h6 class="mb-0"><i class="fas fa-trophy"></i> <?= __("Active Contests"); ?> <a href="<?php echo site_url('contestcalendar'); ?>" aria-label="<?= __("Active Contests"); ?>"><i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i></a></h6>
 				</div>
 				<div class="card-body p-0">
 					<table class="table table-striped table-hover mb-0">
@@ -477,24 +479,25 @@ function echo_table_header_col($name) {
 			<?php } ?>
 		<div class="card mb-3">
 			<div class="card-header py-2">
-				<h6 class="mb-0"><i class="fas fa-globe-europe"></i> <?= __("DXCCs Breakdown"); ?> <a href="<?php echo site_url('awards/dxcc'); ?>"><i class="fa-solid fa-up-right-from-square"></i></a></h6>
+				<h6 class="mb-0"><i class="fas fa-globe-europe"></i> <?= __("DXCCs Breakdown"); ?> <a href="<?php echo site_url('awards/dxcc'); ?>" aria-label="<?= __("DXCCs Breakdown"); ?>"><i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i></a></h6>
 			</div>
 			<div class="card-body p-0">
 				<table class="table table-striped mb-0">
+				<caption class="visually-hidden"><?= __("DXCCs Breakdown"); ?></caption>
 					<tr>
-						<td width="50%"><?= __("Worked"); ?></td>
+						<th scope="row" width="50%"><?= __("Worked"); ?></th>
 						<td width="50%"><?php echo $total_countries; ?></td>
 					</tr>
 					<tr>
-						<td width="50%"><?= __("Confirmed"); ?></td>
+						<th scope="row" width="50%"><?= __("Confirmed"); ?></th>
 						<td width="50%">
-							<span title="<?= __("QSL Cards"); ?>" data-bs-toggle="tooltip"><?php echo $total_countries_confirmed_paper; ?></span> /
-							<span title="<?= __("LoTW"); ?>" data-bs-toggle="tooltip"><?php echo $total_countries_confirmed_lotw; ?></span> /
-							<span title="<?= __("eQSL"); ?>" data-bs-toggle="tooltip"><?php echo $total_countries_confirmed_eqsl; ?></span>
+							<span title="<?= __("QSL Cards"); ?>" aria-label="<?= __("QSL Cards"); ?>: <?php echo $total_countries_confirmed_paper; ?>" data-bs-toggle="tooltip"><?php echo $total_countries_confirmed_paper; ?></span> /
+							<span title="<?= __("LoTW"); ?>" aria-label="<?= __("LoTW"); ?>: <?php echo $total_countries_confirmed_lotw; ?>" data-bs-toggle="tooltip"><?php echo $total_countries_confirmed_lotw; ?></span> /
+							<span title="<?= __("eQSL"); ?>" aria-label="<?= __("eQSL"); ?>: <?php echo $total_countries_confirmed_eqsl; ?>" data-bs-toggle="tooltip"><?php echo $total_countries_confirmed_eqsl; ?></span>
 						</td>
 					</tr>
 					<tr>
-						<td width="50%"><?= __("Needed"); ?></td>
+						<th scope="row" width="50%"><?= __("Needed"); ?></th>
 						<td width="50%"><?php echo $total_countries_needed; ?></td>
 					</tr>
 				</table>
@@ -508,25 +511,26 @@ function echo_table_header_col($name) {
 			</div>
 			<div class="card-body p-0">
 				<table class="table table-striped mb-0">
+					<caption class="visually-hidden"><?= __("QSL Cards"); ?></caption>
 					<thead>
 						<tr>
-							<th width="50%"></th>
-							<th width="25%"><?= __("Total"); ?></th>
-							<th width="25%"><?= __("Today"); ?></th>
+							<th scope="col" width="50%"><span class="visually-hidden"><?= __("Status"); ?></span></th>
+							<th scope="col" width="25%"><?= __("Total"); ?></th>
+							<th scope="col" width="25%"><?= __("Today"); ?></th>
 						</tr>
 					</thead>
 					<tr>
-						<td width="50%"><?= __("Sent"); ?></td>
+						<th scope="row" width="50%"><?= __("Sent"); ?></th>
 						<td width="25%"><?php echo $total_qsl_sent; ?></td>
-						<td width="25%"><?php echo $qsl_sent_today != 0 ? "<a href=\"javascript:displayContacts('','All','All','All','All','QSLSDATE','');\">".$qsl_sent_today."</a>" : "0"; ?></td>
+						<td width="25%"><?php echo $qsl_sent_today != 0 ? "<button type=\"button\" class=\"btn btn-link p-0\" onclick=\"displayContacts('','All','All','All','All','QSLSDATE','');\">".$qsl_sent_today."</button>" : "0"; ?></td>
 					</tr>
 					<tr>
-						<td width="50%"><a href="<?php echo site_url('generic_qsl/confirmations/qsl'); ?>"><?= __("Received"); ?></a></td>
+						<th scope="row" width="50%"><a href="<?php echo site_url('generic_qsl/confirmations/qsl'); ?>"><?= __("Received"); ?></a></th>
 						<td width="25%"><?php echo $total_qsl_rcvd; ?></td>
-						<td width="25%"><?php echo $qsl_rcvd_today != 0 ? "<a href=\"javascript:displayContacts('','All','All','All','All','QSLRDATE','');\">".$qsl_rcvd_today."</a>" : "0"; ?></td>
+						<td width="25%"><?php echo $qsl_rcvd_today != 0 ? "<button type=\"button\" class=\"btn btn-link p-0\" onclick=\"displayContacts('','All','All','All','All','QSLRDATE','');\">".$qsl_rcvd_today."</button>" : "0"; ?></td>
 					</tr>
 					<tr>
-						<td width="50%"><?= __("Requested"); ?></td>
+						<th scope="row" width="50%"><?= __("Requested"); ?></th>
 						<td width="25%"><?php echo $total_qsl_requested; ?></td>
 						<td width="25%"><?php echo $qsl_requested_today; ?></td>
 					</tr>
@@ -542,22 +546,23 @@ function echo_table_header_col($name) {
 			</div>
 			<div class="card-body p-0">
 				<table class="table table-striped mb-0">
+					<caption class="visually-hidden"><?= _pgettext("Probably no translation needed as this is a name.","Logbook of the World"); ?></caption>
 					<thead>
 						<tr>
-							<th width="50%"></th>
-							<th width="25%"><?= __("Total"); ?></th>
-							<th width="25%"><?= __("Today"); ?></th>
+							<th scope="col" width="50%"><span class="visually-hidden"><?= __("Status"); ?></span></th>
+							<th scope="col" width="25%"><?= __("Total"); ?></th>
+							<th scope="col" width="25%"><?= __("Today"); ?></th>
 						</tr>
 					</thead>
 					<tr>
-						<td width="50%"><?= __("Sent"); ?></td>
+						<th scope="row" width="50%"><?= __("Sent"); ?></th>
 						<td width="25%"><?php echo $total_lotw_sent; ?></td>
-						<td width="25%"><?php echo $lotw_sent_today != 0 ? "<a href=\"javascript:displayContacts('','all','all','All','All','LOTWSDATE','');\">".$lotw_sent_today."</a>" : "0"; ?></td>
+						<td width="25%"><?php echo $lotw_sent_today != 0 ? "<button type=\"button\" class=\"btn btn-link p-0\" onclick=\"displayContacts('','all','all','All','All','LOTWSDATE','');\">".$lotw_sent_today."</button>" : "0"; ?></td>
 					</tr>
 					<tr>
-						<td width="50%"><a href="<?php echo site_url('generic_qsl/confirmations/lotw'); ?>"><?= __("Received"); ?></a></td>
+						<th scope="row" width="50%"><a href="<?php echo site_url('generic_qsl/confirmations/lotw'); ?>"><?= __("Received"); ?></a></th>
 						<td width="25%"><?php echo $total_lotw_rcvd; ?></td>
-						<td width="25%"><?php echo $lotw_rcvd_today != 0 ? "<a href=\"javascript:displayContacts('','all','all','All','All','LOTWRDATE','');\">".$lotw_rcvd_today."</a>" : "0"; ?></td>
+						<td width="25%"><?php echo $lotw_rcvd_today != 0 ? "<button type=\"button\" class=\"btn btn-link p-0\" onclick=\"displayContacts('','all','all','All','All','LOTWRDATE','');\">".$lotw_rcvd_today."</button>" : "0"; ?></td>
 					</tr>
 				</table>
 			</div>
@@ -571,22 +576,23 @@ function echo_table_header_col($name) {
 			</div>
 			<div class="card-body p-0">
 				<table class="table table-striped mb-0">
+					<caption class="visually-hidden"><?= __("eQSL Cards"); ?></caption>
 					<thead>
 						<tr>
-							<th width="50%"></th>
-							<th width="25%"><?= __("Total"); ?></th>
-							<th width="25%"><?= __("Today"); ?></th>
+							<th scope="col" width="50%"><span class="visually-hidden"><?= __("Status"); ?></span></th>
+							<th scope="col" width="25%"><?= __("Total"); ?></th>
+							<th scope="col" width="25%"><?= __("Today"); ?></th>
 						</tr>
 					</thead>
 					<tr>
-						<td width="50%"><?= __("Sent"); ?></td>
+						<th scope="row" width="50%"><?= __("Sent"); ?></th>
 						<td width="25%"><?php echo $total_eqsl_sent; ?></td>
-						<td width="25%"><?php echo $eqsl_sent_today != 0 ? "<a href=\"javascript:displayContacts('','All','All','All','All','EQSLSDATE','');\">".$eqsl_sent_today."</a>" : "0"; ?></td>
+						<td width="25%"><?php echo $eqsl_sent_today != 0 ? "<button type=\"button\" class=\"btn btn-link p-0\" onclick=\"displayContacts('','All','All','All','All','EQSLSDATE','');\">".$eqsl_sent_today."</button>" : "0"; ?></td>
 					</tr>
 					<tr>
-						<td width="50%"><a href="<?php echo site_url('generic_qsl/confirmations/eqsl'); ?>"><?= __("Received"); ?></a></td>
+						<th scope="row" width="50%"><a href="<?php echo site_url('generic_qsl/confirmations/eqsl'); ?>"><?= __("Received"); ?></a></th>
 						<td width="25%"><?php echo $total_eqsl_rcvd; ?></td>
-						<td width="25%"><?php echo $eqsl_rcvd_today != 0 ? "<a href=\"javascript:displayContacts('','All','All','All','All','EQSLRDATE','');\">".$eqsl_rcvd_today."</a>" : "0"; ?></td>
+						<td width="25%"><?php echo $eqsl_rcvd_today != 0 ? "<button type=\"button\" class=\"btn btn-link p-0\" onclick=\"displayContacts('','All','All','All','All','EQSLRDATE','');\">".$eqsl_rcvd_today."</button>" : "0"; ?></td>
 					</tr>
 				</table>
 			</div>
@@ -600,22 +606,23 @@ function echo_table_header_col($name) {
 			</div>
 			<div class="card-body p-0">
 				<table class="table table-striped mb-0">
+					<caption class="visually-hidden">QRZ.com</caption>
 					<thead>
 						<tr>
-							<th width="50%"></th>
-							<th width="25%"><?= __("Total"); ?></th>
-							<th width="25%"><?= __("Today"); ?></th>
+							<th scope="col" width="50%"><span class="visually-hidden"><?= __("Status"); ?></span></th>
+							<th scope="col" width="25%"><?= __("Total"); ?></th>
+							<th scope="col" width="25%"><?= __("Today"); ?></th>
 						</tr>
 					</thead>
 					<tr>
-						<td width="50%"><?= __("Sent"); ?></td>
+						<th scope="row" width="50%"><?= __("Sent"); ?></th>
 						<td width="25%"><?php echo $total_qrz_sent; ?></td>
-						<td width="25%"><?php echo $qrz_sent_today != 0 ? "<a href=\"javascript:displayContacts('','all','all','All','All','QRZSDATE','');\">".$qrz_sent_today."</a>" : "0"; ?></td>
+						<td width="25%"><?php echo $qrz_sent_today != 0 ? "<button type=\"button\" class=\"btn btn-link p-0\" onclick=\"displayContacts('','all','all','All','All','QRZSDATE','');\">".$qrz_sent_today."</button>" : "0"; ?></td>
 					</tr>
 					<tr>
-						<td width="50%"><a href="<?php echo site_url('generic_qsl/confirmations/qrz'); ?>"><?= __("Received"); ?></a></td>
+						<th scope="row" width="50%"><a href="<?php echo site_url('generic_qsl/confirmations/qrz'); ?>"><?= __("Received"); ?></a></th>
 						<td width="25%"><?php echo $total_qrz_rcvd; ?></td>
-						<td width="25%"><?php echo $qrz_rcvd_today != 0 ? "<a href=\"javascript:displayContacts('','all','all','All','All','QRZRDATE','');\">".$qrz_rcvd_today."</a>" : "0"; ?></td>
+						<td width="25%"><?php echo $qrz_rcvd_today != 0 ? "<button type=\"button\" class=\"btn btn-link p-0\" onclick=\"displayContacts('','all','all','All','All','QRZRDATE','');\">".$qrz_rcvd_today."</button>" : "0"; ?></td>
 					</tr>
 				</table>
 			</div>
@@ -629,22 +636,23 @@ function echo_table_header_col($name) {
 			</div>
 			<div class="card-body p-0">
 				<table class="table table-striped mb-0">
+					<caption class="visually-hidden"><?= __("Club Log"); ?></caption>
 					<thead>
 						<tr>
-							<th width="50%"></th>
-							<th width="25%"><?= __("Total"); ?></th>
-							<th width="25%"><?= __("Today"); ?></th>
+							<th scope="col" width="50%"><span class="visually-hidden"><?= __("Status"); ?></span></th>
+							<th scope="col" width="25%"><?= __("Total"); ?></th>
+							<th scope="col" width="25%"><?= __("Today"); ?></th>
 						</tr>
 					</thead>
 					<tr>
-						<td width="50%"><?= __("Sent"); ?></td>
+						<th scope="row" width="50%"><?= __("Sent"); ?></th>
 						<td width="25%"><?php echo $total_clublog_sent; ?></td>
-						<td width="25%"><?php echo $clublog_sent_today != 0 ? "<a href=\"javascript:displayContacts('','all','all','All','All','CLUBLOGSDATE','');\">".$clublog_sent_today."</a>" : "0"; ?></td>
+						<td width="25%"><?php echo $clublog_sent_today != 0 ? "<button type=\"button\" class=\"btn btn-link p-0\" onclick=\"displayContacts('','all','all','All','All','CLUBLOGSDATE','');\">".$clublog_sent_today."</button>" : "0"; ?></td>
 					</tr>
 					<tr>
-						<td width="50%"><a href="<?php echo site_url('generic_qsl/confirmations/clublog'); ?>"><?= __("Received"); ?></a></td>
+						<th scope="row" width="50%"><a href="<?php echo site_url('generic_qsl/confirmations/clublog'); ?>"><?= __("Received"); ?></a></th>
 						<td width="25%"><?php echo $total_clublog_rcvd; ?></td>
-						<td width="25%"><?php echo $clublog_rcvd_today != 0 ? "<a href=\"javascript:displayContacts('','all','all','All','All','CLUBLOGRDATE','');\">".$clublog_rcvd_today."</a>" : "0"; ?></td>
+						<td width="25%"><?php echo $clublog_rcvd_today != 0 ? "<button type=\"button\" class=\"btn btn-link p-0\" onclick=\"displayContacts('','all','all','All','All','CLUBLOGRDATE','');\">".$clublog_rcvd_today."</button>" : "0"; ?></td>
 					</tr>
 				</table>
 			</div>
@@ -654,24 +662,25 @@ function echo_table_header_col($name) {
 		<?php if((($this->config->item('use_auth') && ($this->session->userdata('user_type') >= 2)) || $this->config->item('use_auth') === FALSE)) { ?>
 		<div class="card mb-3">
 			<div class="card-header py-2">
-				<h6 class="mb-0"><i class="fas fa-globe-europe"></i> <?= __("VUCC-Grids"); ?> <a href="<?php echo site_url('awards/vucc'); ?>"><i class="fa-solid fa-up-right-from-square"></i></a></h6>
+				<h6 class="mb-0"><i class="fas fa-globe-europe"></i> <?= __("VUCC-Grids"); ?> <a href="<?php echo site_url('awards/vucc'); ?>" aria-label="<?= __("VUCC-Grids"); ?>"><i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i></a></h6>
 			</div>
 			<div class="card-body p-0">
 				<table class="table table-striped mb-0">
+					<caption class="visually-hidden"><?= __("VUCC-Grids"); ?></caption>
 					<thead>
 						<tr>
-							<th width="50%"></th>
-							<th width="25%"><?= __("All"); ?></th>
-							<th width="25%"><?= __("SAT"); ?></th>
+							<th scope="col" width="50%"><span class="visually-hidden"><?= __("Status"); ?></span></th>
+							<th scope="col" width="25%"><?= __("All"); ?></th>
+							<th scope="col" width="25%"><?= __("SAT"); ?></th>
 						</tr>
 					</thead>
 					<tr>
-						<td width="50%"><?= __("Worked"); ?></td>
+						<th scope="row" width="50%"><?= __("Worked"); ?></th>
 						<td width="25%"><?php echo $vucc['All']['worked']; ?></td>
 						<td width="25%"><?php echo $vuccSAT['SAT']['worked'] ?? '0'; ?></td>
 					</tr>
 					<tr>
-						<td width="50%"><?= __("Confirmed"); ?></td>
+						<th scope="row" width="50%"><?= __("Confirmed"); ?></th>
 						<td width="25%"><?php echo $vucc['All']['confirmed']; ?></td>
 						<td width="25%"><?php echo $vuccSAT['SAT']['confirmed'] ?? '0'; ?></td>
 					</tr>
