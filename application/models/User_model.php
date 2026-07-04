@@ -331,12 +331,10 @@ class User_Model extends CI_Model {
 			$this->db->query("insert into paper_types (user_id,paper_name,metric,width,orientation,height) SELECT ?, paper_name, metric, width, orientation,height FROM paper_types where user_id = 0;", [$insert_id]);
 
 			// Default user_options rows — [option_type, option_name, option_key, option_value]
+			// Note: map_custom defaults are intentionally omitted; all read paths self-heal
+			// (controller else-branch in User.php, view ?? guards, map_style_class() fallback)
+			// and saves use INSERT ... ON DUPLICATE KEY UPDATE, so rows appear on first edit.
 			$user_options = [
-				['map_custom', 'icon',                    'qso',                           '{"icon":"fas fa-dot-circle","color":"#ff0000"}'],
-				['map_custom', 'icon',                    'qsoconfirm',                    '{"icon":"fas fa-dot-circle","color":"#00ff00"}'],
-				['map_custom', 'icon',                    'station',                       '{"icon":"fas fa-broadcast-tower","color":"#0000ff"}'],
-				['map_custom', 'gridsquare',              'show',                          '0'],
-				['map_custom', 'tile',           	      'style',                         'map-follow'],
 				['hamsat',     'hamsat_key',              'api',                           $user_hamsat_key],
 				['hamsat',     'hamsat_key',              'workable',                      $user_hamsat_workable_only],
 				['qso_tab',    'iota',                    'show',                          (($user_iota_to_qso_tab    ?? 'off') == "on" ? 1 : 0)],
