@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-03 14:26+0000\n"
+"POT-Creation-Date: 2026-07-05 18:55+0000\n"
 "PO-Revision-Date: 2026-07-04 18:16+0000\n"
 "Last-Translator: iv3cvn <ricentis@gmail.com>\n"
 "Language-Team: Italian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -145,7 +145,7 @@ msgstr "Canalizzazioni troposferiche"
 #: application/controllers/Contest_admin.php:14
 #: application/controllers/Contestcalendar.php:8
 #: application/controllers/Contesting.php:39
-#: application/controllers/Contesting.php:1024
+#: application/controllers/Contesting.php:1028
 #: application/controllers/Contesting_import.php:11
 #: application/controllers/Contesting_import.php:27
 #: application/controllers/Contesting_import.php:57
@@ -236,7 +236,6 @@ msgstr "Canalizzazioni troposferiche"
 #: application/controllers/Webadif.php:101
 #: application/controllers/Zonechecker.php:17
 #: application/models/Club_model.php:52
-#: application/controllers/Contesting.php:1028
 msgid "You're not allowed to do that!"
 msgstr "Non ti è permesso farlo!"
 
@@ -1063,28 +1062,23 @@ msgstr ""
 "Si è verificato un errore durante l'eliminazione della sessione del contest. "
 "Per favore, riprova."
 
-#: application/controllers/Contesting.php:966
 #: application/controllers/Contesting.php:970
 msgid "Operator switching is disabled."
 msgstr "Il cambio operatore è disabilitato."
 
-#: application/controllers/Contesting.php:986
 #: application/controllers/Contesting.php:990
 msgid "Operator switching is only available in club stations."
 msgstr "Il cambio operatore è disponibile solo nelle stazioni di club."
 
-#: application/controllers/Contesting.php:996
 #: application/controllers/Contesting.php:1000
 msgid "Access denied"
 msgstr "Accesso negato"
 
-#: application/controllers/Contesting.php:1004
-#: application/controllers/User.php:1444
 #: application/controllers/Contesting.php:1008
+#: application/controllers/User.php:1444
 msgid "Incorrect username or password!"
 msgstr "Username o password non validi!"
 
-#: application/controllers/Contesting.php:1013
 #: application/controllers/Contesting.php:1017
 msgid "A club account cannot be used as an operator."
 msgstr "Un account di club non può essere utilizzato come operatore."
@@ -2809,8 +2803,8 @@ msgid ""
 "Please compare your current config.php with the latest config.sample.php and "
 "update accordingly."
 msgstr ""
-"Per favore, confronta il tuo attuale config.php con l'ultimo "
-"config.sample.php e aggiornalo di conseguenza."
+"Per favore, confronta il tuo attuale config.php con l'ultimo config.sample."
+"php e aggiornalo di conseguenza."
 
 #: application/controllers/Qslpostcard.php:35
 #: application/views/interface_assets/header.php:560
@@ -20622,9 +20616,8 @@ msgid ""
 "Create a new folder in 'assets/css/' and upload a 'bootstrap.min.css' file "
 "which contains basic styling rules. We use the themes from %s"
 msgstr ""
-"Crea una nuova cartella in 'assets/css/' e carica un file "
-"'bootstrap.min.css' che contiene regole di stile di base. Utilizziamo i temi "
-"di %s"
+"Crea una nuova cartella in 'assets/css/' e carica un file 'bootstrap.min."
+"css' che contiene regole di stile di base. Utilizziamo i temi di %s"
 
 #: application/views/themes/index.php:50
 msgid "2. Step"

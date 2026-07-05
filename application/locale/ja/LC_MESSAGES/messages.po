@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-03 14:26+0000\n"
+"POT-Creation-Date: 2026-07-05 18:55+0000\n"
 "PO-Revision-Date: 2026-07-04 18:16+0000\n"
 "Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
@@ -145,7 +145,7 @@ msgstr "対流圏ダクト"
 #: application/controllers/Contest_admin.php:14
 #: application/controllers/Contestcalendar.php:8
 #: application/controllers/Contesting.php:39
-#: application/controllers/Contesting.php:1024
+#: application/controllers/Contesting.php:1028
 #: application/controllers/Contesting_import.php:11
 #: application/controllers/Contesting_import.php:27
 #: application/controllers/Contesting_import.php:57
@@ -236,7 +236,6 @@ msgstr "対流圏ダクト"
 #: application/controllers/Webadif.php:101
 #: application/controllers/Zonechecker.php:17
 #: application/models/Club_model.php:52
-#: application/controllers/Contesting.php:1028
 msgid "You're not allowed to do that!"
 msgstr "それは禁止です！"
 
@@ -1060,28 +1059,23 @@ msgid "There was an error deleting the contest session. Please try again."
 msgstr ""
 "コンテストセッションの削除中にエラーが発生しました。もう一度お試しください。"
 
-#: application/controllers/Contesting.php:966
 #: application/controllers/Contesting.php:970
 msgid "Operator switching is disabled."
 msgstr "オペレーターの切り替えは無効になっています。"
 
-#: application/controllers/Contesting.php:986
 #: application/controllers/Contesting.php:990
 msgid "Operator switching is only available in club stations."
 msgstr "オペレーターの切り替えは、クラブシャック でのみ利用可能です。"
 
-#: application/controllers/Contesting.php:996
 #: application/controllers/Contesting.php:1000
 msgid "Access denied"
 msgstr "アクセスが拒否されました"
 
-#: application/controllers/Contesting.php:1004
-#: application/controllers/User.php:1444
 #: application/controllers/Contesting.php:1008
+#: application/controllers/User.php:1444
 msgid "Incorrect username or password!"
 msgstr "ユーザー名またはパスワードが間違っています!"
 
-#: application/controllers/Contesting.php:1013
 #: application/controllers/Contesting.php:1017
 msgid "A club account cannot be used as an operator."
 msgstr "クラブアカウントはオペレーターとして使用できません。"
@@ -3728,8 +3722,8 @@ msgid ""
 "Station created successfully! Welcome to Wavelog! To complete your station "
 "setup, click %shere%s."
 msgstr ""
-"無線局が正常に作成されました！Wavelogへようこそ！無線局の設定を完了するには、"
-"%shere%sをクリックしてください。"
+"無線局が正常に作成されました！Wavelogへようこそ！無線局の設定を完了するに"
+"は、%shere%sをクリックしてください。"
 
 #: application/controllers/User.php:1522
 msgid "Station setup failed! Please set up your station manually."
@@ -22589,9 +22583,9 @@ msgstr "CQz geojson"
 #~ "processed. %s Please make sure you export the LoTW certificate from tqsl "
 #~ "application without password! %s"
 #~ msgstr ""
-#~ "ファイル %s 内の証明書にはパスワードが含まれており、処理できません。"
-#~ "%stqsl アプリケーションから LoTW 証明書をエクスポートする際は、パスワード"
-#~ "なしで実行してください！%s"
+#~ "ファイル %s 内の証明書にはパスワードが含まれており、処理できませ"
+#~ "ん。%stqsl アプリケーションから LoTW 証明書をエクスポートする際は、パス"
+#~ "ワードなしで実行してください！%s"
 
 #~ msgid "Column"
 #~ msgstr "カラム"
@@ -22925,8 +22919,8 @@ msgstr "CQz geojson"
 #~ "Your active Station Location isn't linked to your Logbook. Click %shere%s "
 #~ "to do it."
 #~ msgstr ""
-#~ "現在のステーション位置がログブックとリンクされていません。リンクするには、"
-#~ "%shere%s をクリックしてください。"
+#~ "現在のステーション位置がログブックとリンクされていません。リンクするに"
+#~ "は、%shere%s をクリックしてください。"
 
 #, php-format
 #~ msgctxt "Dashboard Warning"
