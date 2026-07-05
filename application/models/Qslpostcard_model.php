@@ -325,10 +325,16 @@ class Qslpostcard_model extends CI_Model {
 				$addr = null;
 			} else {
 				$addr = $call ? $this->resolve_address($call) : null;
-				// Skip if no usable mailing address
+				// No usable mailing address: still print the card, but mark the
+				// address as not found instead of silently dropping the whole card
+				// (which produced an empty PDF when no callsign resolved to a
+				// mailable address).
 				if (!$this->is_mailable_address($addr)) {
-					log_message('debug', 'QSLPOSTCARD skipping ' . $call . ' because no usable address was found');
-					continue;
+					log_message('debug', 'QSLPOSTCARD no usable address for ' . $call . ', printing placeholder');
+					$addr = [
+						'name'  => $call,
+						'addr1' => _pgettext("QSL Card Designer; No mailable address found", "!!! NO MAILABLE ADDRESS FOUND !!!"),
+					];
 				}
 			}
 
