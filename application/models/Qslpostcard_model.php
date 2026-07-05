@@ -303,6 +303,24 @@ class Qslpostcard_model extends CI_Model {
             }
         }
 
+        // Only resolve addresses when the template actually prints one: without
+        // any addr.* element the callbook lookups would be pointless work (and
+        // remote API calls). Same addr.* predicate as in the element loop below.
+        // Only needs to be done if $noaddress is not already true.
+        if (!$noaddress) {
+            $hasAddrElement = false;
+            foreach (($layout['elements'] ?? []) as $el) {
+                if (($el['type'] ?? 'field') !== 'text' && str_starts_with($el['field'] ?? '', 'addr.')) {
+                    $hasAddrElement = true;
+                    break;
+                }
+            }
+            if (!$hasAddrElement) {
+                log_message('debug', 'QSLPOSTCARD template has no addr.* elements, skipping address resolution');
+                $noaddress = true;
+            }
+        }
+
         // A QSL card is addressed to a single station, so QSOs are ALWAYS grouped
         // by callsign — a card never mixes contacts with different callsigns. Each
         // group is then split into cards of $perCard QSOs, spilling onto further
