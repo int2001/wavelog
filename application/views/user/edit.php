@@ -1,18 +1,22 @@
 <div class="container">
 	<br>
-	<h3>
-	  <?php if (isset($user_add)) {
-		if ($clubstation) {
-			echo __("Create Clubstation Account");
-		} else {
-			echo __("Create User Account");
-		}
-	  } else {
-		echo __("Edit Account")." <small class=\"text-muted\">".$user_name."</small>";
-	  }
-	  ?>
+	<div class="d-flex justify-content-between align-items-center flex-wrap">
+		<h3>
+		  <?php if (isset($user_add)) {
+			if ($clubstation) {
+				echo __("Create Clubstation Account");
+			} else {
+				echo __("Create User Account");
+			}
+		  } else {
+			echo __("Edit Account")." <small class=\"text-muted\">".$user_name."</small>";
+		  }
+		  ?>
 
-	</h3>
+		</h3>
+		<!-- Settings search box gets injected here by assets/js/sections/user.js -->
+		<div id="wl-settings-search-slot"></div>
+	</div>
 
 	<?php if($this->session->flashdata('success')) { ?>
 		<!-- Display Success Message -->

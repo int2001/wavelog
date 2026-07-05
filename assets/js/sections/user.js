@@ -362,7 +362,7 @@ $(document).ready(function(){
             var style = document.createElement('style');
             style.id = 'wl-settings-search-style';
             style.textContent = [
-                '.wl-settings-search{margin:0 0 .75rem;}',
+                '.wl-settings-search{margin:0;}',
                 '.wl-search-row{display:flex;align-items:center;gap:.5rem;max-width:24rem;}',
                 /* input-group mirroring the top navbar search (form-control border +
                    btn-outline-success border). Bootstrap + the active theme style both
@@ -400,7 +400,14 @@ $(document).ready(function(){
         var countEl = bar.querySelector('.wl-search-count');
         var noneEl = bar.querySelector('.wl-search-none');
 
-        form.parentNode.insertBefore(bar, form);
+        // Place the bar in the header slot next to the page title; fall back
+        // to just above the form if the slot is missing.
+        var slot = document.getElementById('wl-settings-search-slot');
+        if (slot) {
+            slot.appendChild(bar);
+        } else {
+            form.parentNode.insertBefore(bar, form);
+        }
 
         var lastFirst = null;
 
