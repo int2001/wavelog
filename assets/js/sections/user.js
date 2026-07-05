@@ -373,6 +373,8 @@ $(document).ready(function(){
                 '.wl-search-none{margin-top:.4rem;color:var(--bs-body-color,inherit);}',
                 '.accordion.user_edit .accordion-item{scroll-margin-top:1rem;}',
                 '.accordion.user_edit .accordion-item.wl-hit>.accordion-header .accordion-button{box-shadow:inset 3px 0 0 var(--bs-primary,#0d6efd);}',
+                /* Inline hit highlight; padding 0 so wrapping text nodes never shifts layout */
+                'mark.wl-search-mark{background-color:var(--bs-warning,#ffc107);color:#000;padding:0;border-radius:2px;}',
                 '.wl-settings-search [hidden]{display:none!important;}'
             ].join('');
             document.head.appendChild(style);
@@ -402,6 +404,49 @@ $(document).ready(function(){
 
         var lastFirst = null;
 
+        // --- Inline hit highlighting -----------------------------------
+        // Wrap matches inside el's text nodes in <mark>. norm() keeps the
+        // string length for precomposed chars (ü→u), so normalized indexes
+        // map 1:1 onto the original text; the rare node where lengths differ
+        // is simply left unmarked (the card itself is still shown).
+        function highlight(el, q) {
+            var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+            var nodes = [];
+            while (walker.nextNode()) {
+                if (!/^(SCRIPT|STYLE|TEXTAREA|SELECT|OPTION|MARK)$/.test(walker.currentNode.parentNode.nodeName)) {
+                    nodes.push(walker.currentNode); // collect first: wrapping mutates the tree
+                }
+            }
+            nodes.forEach(function (node) {
+                var text = node.nodeValue;
+                var low = norm(text);
+                var idx = low.indexOf(q);
+                if (idx === -1 || low.length !== text.length) return;
+                var frag = document.createDocumentFragment();
+                var pos = 0;
+                while (idx !== -1) {
+                    frag.appendChild(document.createTextNode(text.slice(pos, idx)));
+                    var mark = document.createElement('mark');
+                    mark.className = 'wl-search-mark';
+                    mark.textContent = text.slice(idx, idx + q.length);
+                    frag.appendChild(mark);
+                    pos = idx + q.length;
+                    idx = low.indexOf(q, pos);
+                }
+                frag.appendChild(document.createTextNode(text.slice(pos)));
+                node.parentNode.replaceChild(frag, node);
+            });
+        }
+
+        // Unwrap all marks and merge the text nodes back together.
+        function clearMarks(root) {
+            root.querySelectorAll('mark.wl-search-mark').forEach(function (m) {
+                var parent = m.parentNode;
+                parent.replaceChild(document.createTextNode(m.textContent), m);
+                parent.normalize();
+            });
+        }
+
         function filter() {
             var q = norm(input.value).trim().replace(/\s+/g, ' ');
             // Trailing button mirrors the navbar: magnifier at rest, becomes a
@@ -413,16 +458,24 @@ $(document).ready(function(){
 
             if (!q) { restore(); return; }
 
+            // Re-highlight from scratch on every keystroke
+            clearMarks(accordion);
+
             var firstMatch = null;
             var visible = 0;
 
             sections.forEach(function (s) {
                 var headerHit = s.header.indexOf(q) !== -1;
                 var sectionHit = false;
+                if (headerHit && s.button) highlight(s.button, q);
                 s.cards.forEach(function (card) {
                     var hit = headerHit || card.text.indexOf(q) !== -1;
                     card.el.style.display = hit ? '' : 'none';
-                    if (hit) { sectionHit = true; visible++; }
+                    if (hit) {
+                        sectionHit = true;
+                        visible++;
+                        highlight(card.el, q);
+                    }
                 });
                 if (sectionHit) {
                     s.item.style.display = '';
@@ -447,6 +500,7 @@ $(document).ready(function(){
 
         function restore() {
             lastFirst = null;
+            clearMarks(accordion);
             sections.forEach(function (s) {
                 s.item.style.display = '';
                 s.item.classList.remove('wl-hit');
