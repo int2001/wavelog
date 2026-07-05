@@ -258,6 +258,7 @@ msgstr "Tropospheric ducting"
 #: application/controllers/Contesting.php:1024
 #: application/controllers/Qso.php:475 application/controllers/Qso.php:498
 #: application/controllers/Qso.php:521 application/controllers/Qso.php:829
+#: application/controllers/Contesting.php:1028
 msgid "You're not allowed to do that!"
 msgstr "请不要这样操作！"
 
@@ -1090,27 +1091,32 @@ msgstr "删除竞赛会话出现错误，请重试。"
 
 #: application/controllers/Contesting.php:963
 #: application/controllers/Contesting.php:966
+#: application/controllers/Contesting.php:970
 msgid "Operator switching is disabled."
 msgstr "已禁用操作员切换。"
 
 #: application/controllers/Contesting.php:983
 #: application/controllers/Contesting.php:986
+#: application/controllers/Contesting.php:990
 msgid "Operator switching is only available in club stations."
 msgstr "操作员切换仅对俱乐部台站可用。"
 
 #: application/controllers/Contesting.php:993
 #: application/controllers/Contesting.php:996
+#: application/controllers/Contesting.php:1000
 msgid "Access denied"
 msgstr "拒绝访问"
 
 #: application/controllers/Contesting.php:1001
 #: application/controllers/User.php:1444
 #: application/controllers/Contesting.php:1004
+#: application/controllers/Contesting.php:1008
 msgid "Incorrect username or password!"
 msgstr "用户名或密码错误！"
 
 #: application/controllers/Contesting.php:1010
 #: application/controllers/Contesting.php:1013
+#: application/controllers/Contesting.php:1017
 msgid "A club account cannot be used as an operator."
 msgstr "俱乐部账户不能作为操作员。"
 
