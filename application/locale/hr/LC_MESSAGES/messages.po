@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-03 14:26+0000\n"
+"POT-Creation-Date: 2026-07-05 18:55+0000\n"
 "PO-Revision-Date: 2026-06-20 17:33+0000\n"
 "Last-Translator: marin <wavelog@marin.fyi>\n"
 "Language-Team: Croatian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -143,7 +143,7 @@ msgstr ""
 #: application/controllers/Contest_admin.php:14
 #: application/controllers/Contestcalendar.php:8
 #: application/controllers/Contesting.php:39
-#: application/controllers/Contesting.php:1024
+#: application/controllers/Contesting.php:1028
 #: application/controllers/Contesting_import.php:11
 #: application/controllers/Contesting_import.php:27
 #: application/controllers/Contesting_import.php:57
@@ -1053,24 +1053,24 @@ msgstr "Contest sesija uspješno obrisana."
 msgid "There was an error deleting the contest session. Please try again."
 msgstr "Dogodila se pogreška u brisanju contest sesije. Probajte ponovno."
 
-#: application/controllers/Contesting.php:966
+#: application/controllers/Contesting.php:970
 msgid "Operator switching is disabled."
 msgstr "Mijenjanje operatora je ugašeno."
 
-#: application/controllers/Contesting.php:986
+#: application/controllers/Contesting.php:990
 msgid "Operator switching is only available in club stations."
 msgstr "Mijenjanje operatora dostupno je samo klupskim postajama."
 
-#: application/controllers/Contesting.php:996
+#: application/controllers/Contesting.php:1000
 msgid "Access denied"
 msgstr "Pristup zabranjen"
 
-#: application/controllers/Contesting.php:1004
+#: application/controllers/Contesting.php:1008
 #: application/controllers/User.php:1444
 msgid "Incorrect username or password!"
 msgstr "Neispravno korisničko ime ili lozinka!"
 
-#: application/controllers/Contesting.php:1013
+#: application/controllers/Contesting.php:1017
 msgid "A club account cannot be used as an operator."
 msgstr "Klupski račun ne može es koristiti kao operator."
 
