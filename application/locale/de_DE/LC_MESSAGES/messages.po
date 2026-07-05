@@ -26,9 +26,9 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-05 18:55+0000\n"
-"PO-Revision-Date: 2026-07-02 21:25+0000\n"
-"Last-Translator: Jörg Dorgeist <wavelog@dj7nt.de>\n"
+"POT-Creation-Date: 2026-07-03 14:26+0000\n"
+"PO-Revision-Date: 2026-07-05 18:11+0000\n"
+"Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
 "Language: de_DE\n"
@@ -161,7 +161,7 @@ msgstr "troposphärisches Ducting"
 #: application/controllers/Contest_admin.php:14
 #: application/controllers/Contestcalendar.php:8
 #: application/controllers/Contesting.php:39
-#: application/controllers/Contesting.php:1028
+#: application/controllers/Contesting.php:1024
 #: application/controllers/Contesting_import.php:11
 #: application/controllers/Contesting_import.php:27
 #: application/controllers/Contesting_import.php:57
@@ -252,6 +252,7 @@ msgstr "troposphärisches Ducting"
 #: application/controllers/Webadif.php:101
 #: application/controllers/Zonechecker.php:17
 #: application/models/Club_model.php:52
+#: application/controllers/Contesting.php:1028
 msgid "You're not allowed to do that!"
 msgstr "Das ist Dir nicht gestattet!"
 
@@ -1079,23 +1080,28 @@ msgstr ""
 "Beim Löschen der Contest-Session ist ein Fehler aufgetreten. Bitte erneut "
 "versuchen."
 
+#: application/controllers/Contesting.php:966
 #: application/controllers/Contesting.php:970
 msgid "Operator switching is disabled."
 msgstr "Das Wechseln des Operators ist deaktiviert."
 
+#: application/controllers/Contesting.php:986
 #: application/controllers/Contesting.php:990
 msgid "Operator switching is only available in club stations."
 msgstr "Das Umschalten des Operators ist nur in Clubstationen verfügbar."
 
+#: application/controllers/Contesting.php:996
 #: application/controllers/Contesting.php:1000
 msgid "Access denied"
 msgstr "Zugriff verweigert"
 
-#: application/controllers/Contesting.php:1008
+#: application/controllers/Contesting.php:1004
 #: application/controllers/User.php:1444
+#: application/controllers/Contesting.php:1008
 msgid "Incorrect username or password!"
 msgstr "Falscher Benutzername oder Passwort!"
 
+#: application/controllers/Contesting.php:1013
 #: application/controllers/Contesting.php:1017
 msgid "A club account cannot be used as an operator."
 msgstr "Ein Clubkonto kann nicht als Operator verwendet werden."
@@ -2825,8 +2831,8 @@ msgid ""
 "Please compare your current config.php with the latest config.sample.php and "
 "update accordingly."
 msgstr ""
-"Bitte vergleiche deine aktuelle config.php mit der neuesten config.sample."
-"php und aktualisiere sie entsprechend."
+"Bitte vergleiche deine aktuelle config.php mit der neuesten "
+"config.sample.php und aktualisiere sie entsprechend."
 
 #: application/controllers/Qslpostcard.php:35
 #: application/views/interface_assets/header.php:560
@@ -10701,14 +10707,14 @@ msgstr "Winkeyer"
 #: application/views/qso/components/winkeysettings.php:54
 msgctxt "ESM mode"
 msgid "Run"
-msgstr ""
+msgstr "Run"
 
 #: application/views/contesting/logger/components/winkeyer.php:24
 #: application/views/qso/components/winkeysettings.php:58
 #: application/views/qso/components/winkeysettings.php:59
 msgctxt "ESM mode"
 msgid "S&P"
-msgstr ""
+msgstr "S&P"
 
 #: application/views/contesting/logger/components/winkeyer.php:51
 #: application/views/qso/index.php:828
@@ -10717,7 +10723,7 @@ msgstr "Verbinden"
 
 #: application/views/contesting/logger/components/winkeyer.php:53
 msgid "Toggle Run / Search & Pounce for ESM"
-msgstr ""
+msgstr "Umschalten zwischen Run / Search & Pounce für ESM"
 
 #: application/views/contesting/logger/components/winkeyer.php:73
 #: application/views/qso/index.php:856
@@ -13615,8 +13621,8 @@ msgstr ""
 #: application/views/eqsl/export.php:37
 msgid "Clicking 'Upload QSOs' will send QSO information to eQSL.cc."
 msgstr ""
-"Wenn du auf 'QSOs hochladen' klickst, sendest du QSO-Informationen an eQSL."
-"cc."
+"Wenn du auf 'QSOs hochladen' klickst, sendest du QSO-Informationen an "
+"eQSL.cc."
 
 #: application/views/eqsl/export.php:46
 msgid "The following QSOs were sent to eQSL."
@@ -17322,8 +17328,8 @@ msgstr "E-Mail Adresse"
 msgid ""
 "The email address from which the emails are sent, e.g. 'wavelog@example.com'"
 msgstr ""
-"Die E-Mail Adresse von der die Mails versendet werden, z.B. 'wavelog@example."
-"com'"
+"Die E-Mail Adresse von der die Mails versendet werden, z.B. "
+"'wavelog@example.com'"
 
 #: application/views/options/email.php:46
 msgid "SMTP Host"
@@ -18521,7 +18527,7 @@ msgstr "Token"
 
 #: application/views/qso/components/winkeysettings.php:46
 msgid "ESM (Enter Sends Message)"
-msgstr ""
+msgstr "ESM (Enter Sends Message)"
 
 #: application/views/qso/components/winkeysettings.php:49
 msgid ""
@@ -18531,50 +18537,56 @@ msgid ""
 "only your own call, and logging sends your report instead of a TU. Alt+Enter "
 "logs without sending."
 msgstr ""
+"Wenn aktiviert, steuert die Eingabetaste das QSO: Ein leeres Call-Feld "
+"sendet CQ, ein unklarer Call (enthält \"?\") fragt erneut, ein volles "
+"Callsign ohne Austausch sendet den Exchange und ein vollständiges QSO wird "
+"mit einem TU abgeschlossen und gelogged. Im S&P-Modus sendet die erste "
+"Eingabe nur den eigenen Call und das Loggen sendet den Exchange anstelle "
+"eines TU. Alt+Enter logged das QSO ohne etwas zu senden."
 
 #: application/views/qso/components/winkeysettings.php:55
 msgid "Unclear call (?)"
-msgstr ""
+msgstr "Unklares Rufzeichen"
 
 #: application/views/qso/components/winkeysettings.php:56
 msgid "Exchange / Report"
-msgstr ""
+msgstr "Exchange / Report"
 
 #: application/views/qso/components/winkeysettings.php:57
 msgid "Log QSO / TU"
-msgstr ""
+msgstr "QSO loggen / TU"
 
 #: application/views/qso/components/winkeysettings.php:58
 msgid "own call"
-msgstr ""
+msgstr "eigener Call"
 
 #: application/views/qso/components/winkeysettings.php:59
 msgid "exchange on log"
-msgstr ""
+msgstr "Exchange beim loggen"
 
 #: application/views/qso/components/winkeysettings.php:78
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Tastenkombinationen"
 
 #: application/views/qso/components/winkeysettings.php:82
 msgid "Send the corresponding CW macro"
-msgstr ""
+msgstr "Das entsprechende CW-Makro senden"
 
 #: application/views/qso/components/winkeysettings.php:83
 msgid "ESM on: drive the QSO (CQ / report / log); ESM off: log the QSO"
-msgstr ""
+msgstr "ESM an: das QSO führen (CQ / Bericht / Log); ESM aus: das QSO loggen"
 
 #: application/views/qso/components/winkeysettings.php:84
 msgid "Log the QSO without sending anything"
-msgstr ""
+msgstr "Das QSO loggen ohne etwas zu senden"
 
 #: application/views/qso/components/winkeysettings.php:85
 msgid "Clear the entry form"
-msgstr ""
+msgstr "Die Eingabefelder löschen"
 
 #: application/views/qso/components/winkeysettings.php:86
 msgid "In the callsign field: jump to the next empty field"
-msgstr ""
+msgstr "Im Rufzeichenfeld: zum nächsten leeren Feld springen"
 
 #: application/views/qso/edit_ajax.php:35
 msgid "Sats"
@@ -19676,9 +19688,9 @@ msgid ""
 msgstr ""
 "Um zu beginnen, stelle sicher, dass du die Felder auf der linken Seite "
 "bereits mit Datum, Stationsrufzeichen/-standort und Rufzeichen des Operators "
-"ausgefüllt hast. Die wichtigsten Daten umfassen das Band (oder QRG in MHz, z."
-"B. '7.145'), Mode und Zeit. Nach der Zeit gibst du das erste QSO an, was im "
-"wesentlichen das Rufzeichen ist."
+"ausgefüllt hast. Die wichtigsten Daten umfassen das Band (oder QRG in MHz, "
+"z.B. '7.145'), Mode und Zeit. Nach der Zeit gibst du das erste QSO an, was "
+"im wesentlichen das Rufzeichen ist."
 
 #: application/views/simplefle/syntax_help.php:9
 msgid "For example, a QSO that started at 21:34 (UTC) with 4W7EST on 20m SSB."
@@ -20654,9 +20666,9 @@ msgid ""
 "Create a new folder in 'assets/css/' and upload a 'bootstrap.min.css' file "
 "which contains basic styling rules. We use the themes from %s"
 msgstr ""
-"Erstelle einen neuen Ordner in 'assets/css/' und lade eine 'bootstrap.min."
-"css' Datei hoch, welche die grundlegende Styling-Regeln enthält. Wir "
-"verwenden die Themes von %s"
+"Erstelle einen neuen Ordner in 'assets/css/' und lade eine "
+"'bootstrap.min.css' Datei hoch, welche die grundlegende Styling-Regeln "
+"enthält. Wir verwenden die Themes von %s"
 
 #: application/views/themes/index.php:50
 msgid "2. Step"

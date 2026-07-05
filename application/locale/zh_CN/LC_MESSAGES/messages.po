@@ -31,11 +31,11 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-05 18:55+0000\n"
-"PO-Revision-Date: 2026-07-02 21:25+0000\n"
+"POT-Creation-Date: 2026-07-02 13:31+0000\n"
+"PO-Revision-Date: 2026-07-04 18:16+0000\n"
 "Last-Translator: \"Shen RuiQin(BH4FJN)\" <jerry19980425@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
-"org/projects/wavelog/main-translation/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translate.wavelog.org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -164,7 +164,7 @@ msgstr "Tropospheric ducting"
 #: application/controllers/Contest_admin.php:14
 #: application/controllers/Contestcalendar.php:8
 #: application/controllers/Contesting.php:39
-#: application/controllers/Contesting.php:1028
+#: application/controllers/Contesting.php:1021
 #: application/controllers/Contesting_import.php:11
 #: application/controllers/Contesting_import.php:27
 #: application/controllers/Contesting_import.php:57
@@ -215,8 +215,8 @@ msgstr "Tropospheric ducting"
 #: application/controllers/Qslprint.php:24
 #: application/controllers/Qslprint.php:159 application/controllers/Qso.php:8
 #: application/controllers/Qso.php:22 application/controllers/Qso.php:308
-#: application/controllers/Qso.php:475 application/controllers/Qso.php:498
-#: application/controllers/Qso.php:521 application/controllers/Qso.php:829
+#: application/controllers/Qso.php:440 application/controllers/Qso.php:463
+#: application/controllers/Qso.php:486 application/controllers/Qso.php:794
 #: application/controllers/Radio.php:32 application/controllers/Radio.php:322
 #: application/controllers/Radio.php:348 application/controllers/Radio.php:364
 #: application/controllers/Satellite.php:13
@@ -255,6 +255,10 @@ msgstr "Tropospheric ducting"
 #: application/controllers/Webadif.php:101
 #: application/controllers/Zonechecker.php:17
 #: application/models/Club_model.php:52
+#: application/controllers/Contesting.php:1024
+#: application/controllers/Qso.php:475 application/controllers/Qso.php:498
+#: application/controllers/Qso.php:521 application/controllers/Qso.php:829
+#: application/controllers/Contesting.php:1028
 msgid "You're not allowed to do that!"
 msgstr "请不要这样操作！"
 
@@ -414,7 +418,7 @@ msgid "API Key %s description has been updated."
 msgstr "API Key %s 的说明信息已更新。"
 
 #: application/controllers/Api.php:111 application/controllers/Api.php:146
-#: application/controllers/Qso.php:620
+#: application/controllers/Qso.php:585 application/controllers/Qso.php:620
 msgid "Invalid request method"
 msgstr "无效的请求方法"
 
@@ -1007,6 +1011,7 @@ msgid "Contest Management"
 msgstr "竞赛管理"
 
 #: application/controllers/Contesting.php:93
+#: application/controllers/Contesting.php:631
 #: application/controllers/Contesting.php:634
 msgid "Officers must set up contests."
 msgstr "集体台站管理员必须配置好比赛。"
@@ -1019,6 +1024,8 @@ msgstr "快速启动竞赛:%s"
 #: application/controllers/Contesting.php:126
 #: application/controllers/Contesting.php:160
 #: application/controllers/Contesting.php:486
+#: application/controllers/Contesting.php:673
+#: application/controllers/Contesting.php:729
 #: application/controllers/Contesting.php:676
 #: application/controllers/Contesting.php:732
 msgid "Contest session not found."
@@ -1043,53 +1050,72 @@ msgstr "登录令牌无效。"
 msgid "You are not authorized to access this contest session."
 msgstr "您无权访问此比赛会话。"
 
+#: application/controllers/Contesting.php:648
 #: application/controllers/Contesting.php:651
 msgid "Contest session created successfully."
 msgstr "竞赛会话已成功创建。"
 
+#: application/controllers/Contesting.php:650
 #: application/controllers/Contesting.php:653
 msgid "There was an error creating the contest session. Please try again."
 msgstr "创建竞赛会话出现错误，请重试。"
 
+#: application/controllers/Contesting.php:656
+#: application/controllers/Contesting.php:712
+#: application/controllers/Contesting.php:759
 #: application/controllers/Contesting.php:659
 #: application/controllers/Contesting.php:715
 #: application/controllers/Contesting.php:762
 msgid "Invalid request method."
 msgstr "请求方法无效。"
 
+#: application/controllers/Contesting.php:704
 #: application/controllers/Contesting.php:707
 msgid "Contest session updated successfully."
 msgstr "竞赛会话更新成功。"
 
+#: application/controllers/Contesting.php:706
 #: application/controllers/Contesting.php:709
 msgid "There was an error updating the contest session. Please try again."
 msgstr "更新竞赛会话出现错误，请重试。"
 
+#: application/controllers/Contesting.php:751
 #: application/controllers/Contesting.php:754
 msgid "Contest session deleted successfully."
 msgstr "竞赛会话删除成功。"
 
+#: application/controllers/Contesting.php:753
 #: application/controllers/Contesting.php:756
 msgid "There was an error deleting the contest session. Please try again."
 msgstr "删除竞赛会话出现错误，请重试。"
 
+#: application/controllers/Contesting.php:963
+#: application/controllers/Contesting.php:966
 #: application/controllers/Contesting.php:970
 msgid "Operator switching is disabled."
 msgstr "已禁用操作员切换。"
 
+#: application/controllers/Contesting.php:983
+#: application/controllers/Contesting.php:986
 #: application/controllers/Contesting.php:990
 msgid "Operator switching is only available in club stations."
 msgstr "操作员切换仅对俱乐部台站可用。"
 
+#: application/controllers/Contesting.php:993
+#: application/controllers/Contesting.php:996
 #: application/controllers/Contesting.php:1000
 msgid "Access denied"
 msgstr "拒绝访问"
 
-#: application/controllers/Contesting.php:1008
+#: application/controllers/Contesting.php:1001
 #: application/controllers/User.php:1444
+#: application/controllers/Contesting.php:1004
+#: application/controllers/Contesting.php:1008
 msgid "Incorrect username or password!"
 msgstr "用户名或密码错误！"
 
+#: application/controllers/Contesting.php:1010
+#: application/controllers/Contesting.php:1013
 #: application/controllers/Contesting.php:1017
 msgid "A club account cannot be used as an operator."
 msgstr "俱乐部账户不能作为操作员。"
@@ -2851,15 +2877,15 @@ msgstr "打印被请求的 QSL 卡片"
 msgid "Add QSO"
 msgstr "添加 QSO"
 
-#: application/controllers/Qso.php:890
+#: application/controllers/Qso.php:855 application/controllers/Qso.php:890
 msgid "You have to be logged in to access this URL."
 msgstr "需要登录方可浏览此页面。"
 
-#: application/controllers/Qso.php:896
+#: application/controllers/Qso.php:861 application/controllers/Qso.php:896
 msgid "Call Transfer"
 msgstr "通联转接"
 
-#: application/controllers/Qso.php:903
+#: application/controllers/Qso.php:868 application/controllers/Qso.php:903
 msgid "No callsign provided."
 msgstr "未提供呼号。"
 
@@ -2889,10 +2915,11 @@ msgid "Options"
 msgstr "设置"
 
 #: application/controllers/Radio.php:53
-#: application/views/contesting/logger/components/winkeyer.php:52
+#: application/views/contesting/logger/components/winkeyer.php:50
 #: application/views/contesting/logger/index.php:128
 #: application/views/debug/index.php:379 application/views/qso/index.php:830
 #: application/views/satellite/pass.php:116
+#: application/views/contesting/logger/components/winkeyer.php:52
 msgid "Settings"
 msgstr "设置"
 
@@ -5983,7 +6010,7 @@ msgstr ""
 
 #: application/views/awards/counties/index.php:45
 msgid "Worked Counties"
-msgstr ""
+msgstr "通联的（郡）县"
 
 #: application/views/awards/counties/index.php:47
 #, php-format
@@ -5992,12 +6019,12 @@ msgstr ""
 
 #: application/views/awards/counties/index.php:52
 msgid "Confirmed Counties"
-msgstr ""
+msgstr "确认的（郡）县"
 
 #: application/views/awards/counties/index.php:54
 #, php-format
 msgid "%s%% of worked"
-msgstr ""
+msgstr "%s%% 已完成"
 
 #: application/views/awards/counties/index.php:59
 msgid "Remaining Counties"
@@ -6005,7 +6032,7 @@ msgstr ""
 
 #: application/views/awards/counties/index.php:61
 msgid "Based on current worked count"
-msgstr ""
+msgstr "基于当前已完成工作量的统计"
 
 #: application/views/awards/counties/index.php:66
 #: application/views/awards/dxcc/index.php:41
@@ -6054,7 +6081,7 @@ msgstr "已确认"
 
 #: application/views/awards/counties/index.php:80
 msgid "Remaining"
-msgstr ""
+msgstr "剩余"
 
 #: application/views/awards/counties/index.php:81
 #: application/views/awards/dxcc/index.php:287
@@ -6068,7 +6095,7 @@ msgstr "已完成通联"
 #: application/views/awards/dxcc/index.php:361
 #: application/views/awards/dxcc/progress.php:5
 msgid "Confirmed Progress"
-msgstr "已确认的通联"
+msgstr "已确认通联"
 
 #: application/views/awards/counties/index.php:110
 #: application/views/awards/counties/state_ajax.php:32
@@ -7523,8 +7550,8 @@ msgid ""
 "any kind of 'Special Interest Group Award' for awards that are not "
 "implemented in Wavelog."
 msgstr ""
-"SIG 或特别兴趣小组类别（Special Interest Group Category）允许用户使用任意"
-"的“特别兴趣小组奖”来奖励未在当前 Wavelog 实现的奖。"
+"SIG 或特别兴趣小组类别（Special Interest Group Category）允许用户使用任意的"
+"“特别兴趣小组奖”来奖励未在当前 Wavelog 实现的奖。"
 
 #: application/views/awards/sig/index.php:8
 msgid ""
@@ -10329,56 +10356,45 @@ msgstr "时间窗口"
 msgid "Winkeyer"
 msgstr "Winkeyer"
 
-#: application/views/contesting/logger/components/winkeyer.php:23
-#: application/views/contesting/logger/components/winkeyer.php:53
-#: application/views/qso/components/winkeysettings.php:54
-msgctxt "ESM mode"
-msgid "Run"
-msgstr ""
-
-#: application/views/contesting/logger/components/winkeyer.php:24
-#: application/views/qso/components/winkeysettings.php:58
-#: application/views/qso/components/winkeysettings.php:59
-msgctxt "ESM mode"
-msgid "S&P"
-msgstr ""
-
-#: application/views/contesting/logger/components/winkeyer.php:51
+#: application/views/contesting/logger/components/winkeyer.php:49
 #: application/views/qso/index.php:828
+#: application/views/contesting/logger/components/winkeyer.php:51
 msgid "Connect"
 msgstr "连接"
 
-#: application/views/contesting/logger/components/winkeyer.php:53
-msgid "Toggle Run / Search & Pounce for ESM"
-msgstr ""
-
-#: application/views/contesting/logger/components/winkeyer.php:73
+#: application/views/contesting/logger/components/winkeyer.php:70
 #: application/views/qso/index.php:856
+#: application/views/contesting/logger/components/winkeyer.php:73
 msgid "CW Speed"
 msgstr "CW 速度"
 
-#: application/views/contesting/logger/components/winkeyer.php:75
+#: application/views/contesting/logger/components/winkeyer.php:72
 #: application/views/qso/index.php:858
+#: application/views/contesting/logger/components/winkeyer.php:75
 msgid "Stop"
 msgstr "停止"
 
-#: application/views/contesting/logger/components/winkeyer.php:76
+#: application/views/contesting/logger/components/winkeyer.php:73
 #: application/views/qso/index.php:859
+#: application/views/contesting/logger/components/winkeyer.php:76
 msgid "Tune"
 msgstr "调谐"
 
-#: application/views/contesting/logger/components/winkeyer.php:77
+#: application/views/contesting/logger/components/winkeyer.php:74
 #: application/views/qso/index.php:860
+#: application/views/contesting/logger/components/winkeyer.php:77
 msgid "Stop Tune"
 msgstr "停止调谐"
 
-#: application/views/contesting/logger/components/winkeyer.php:82
+#: application/views/contesting/logger/components/winkeyer.php:79
 #: application/views/qso/index.php:865
+#: application/views/contesting/logger/components/winkeyer.php:82
 msgid "Enter text..."
 msgstr "输入内容…"
 
-#: application/views/contesting/logger/components/winkeyer.php:83
+#: application/views/contesting/logger/components/winkeyer.php:80
 #: application/views/qso/index.php:866
+#: application/views/contesting/logger/components/winkeyer.php:83
 msgid "Send"
 msgstr "发射"
 
@@ -11554,7 +11570,7 @@ msgstr "仪表盘选项"
 
 #: application/views/dashboard/_options_menu.php:12
 msgid "KPI statistics"
-msgstr ""
+msgstr "KPI 统计"
 
 #: application/views/dashboard/_options_menu.php:15
 msgid "Solar data"
@@ -11659,7 +11675,7 @@ msgstr "你至少一张证书即将过期"
 #: application/views/dashboard/index.php:230
 #: application/views/dashboard/solar_data.php:2
 msgid "Right-click for options"
-msgstr ""
+msgstr "点击右键获取选项"
 
 #: application/views/dashboard/index.php:245
 msgid "QSOs this year"
@@ -17801,7 +17817,7 @@ msgstr "仅为通联美国各州显示总结。"
 
 #: application/views/qso/components/fav_modal.php:5
 msgid "Save Favourite"
-msgstr ""
+msgstr "保存收藏"
 
 #: application/views/qso/components/fav_modal.php:9
 msgid "e.g. 20m SSB, SO-50, portable setup"
@@ -17831,63 +17847,6 @@ msgstr "宏"
 #: application/views/qso/components/winkeysettings.php:39
 msgid "Tokens"
 msgstr "令牌"
-
-#: application/views/qso/components/winkeysettings.php:46
-msgid "ESM (Enter Sends Message)"
-msgstr ""
-
-#: application/views/qso/components/winkeysettings.php:49
-msgid ""
-"When enabled, the Enter key drives the QSO: empty call sends CQ, an unclear "
-"call (with \"?\") asks again, a full call without exchange sends the report, "
-"and a complete QSO is logged with a TU. In S&P mode the first Enter sends "
-"only your own call, and logging sends your report instead of a TU. Alt+Enter "
-"logs without sending."
-msgstr ""
-
-#: application/views/qso/components/winkeysettings.php:55
-msgid "Unclear call (?)"
-msgstr ""
-
-#: application/views/qso/components/winkeysettings.php:56
-msgid "Exchange / Report"
-msgstr ""
-
-#: application/views/qso/components/winkeysettings.php:57
-msgid "Log QSO / TU"
-msgstr ""
-
-#: application/views/qso/components/winkeysettings.php:58
-msgid "own call"
-msgstr ""
-
-#: application/views/qso/components/winkeysettings.php:59
-msgid "exchange on log"
-msgstr ""
-
-#: application/views/qso/components/winkeysettings.php:78
-msgid "Keyboard shortcuts"
-msgstr ""
-
-#: application/views/qso/components/winkeysettings.php:82
-msgid "Send the corresponding CW macro"
-msgstr ""
-
-#: application/views/qso/components/winkeysettings.php:83
-msgid "ESM on: drive the QSO (CQ / report / log); ESM off: log the QSO"
-msgstr ""
-
-#: application/views/qso/components/winkeysettings.php:84
-msgid "Log the QSO without sending anything"
-msgstr ""
-
-#: application/views/qso/components/winkeysettings.php:85
-msgid "Clear the entry form"
-msgstr ""
-
-#: application/views/qso/components/winkeysettings.php:86
-msgid "In the callsign field: jump to the next empty field"
-msgstr ""
 
 #: application/views/qso/edit_ajax.php:35
 msgid "Sats"
@@ -19911,8 +19870,8 @@ msgid ""
 "Click here on 'Add a Theme' and type in the necessary data. Type in the "
 "filenames for the logos %swithout%s the file extension '.png'"
 msgstr ""
-"在这里添加主题，Logo 文件请输入 png 文件的文件名部分（ %s不带有%s 后缀 '."
-"png'）"
+"在这里添加主题，Logo 文件请输入 png 文件的文件名部分（ %s不带有%s 后缀 "
+"'.png'）"
 
 #: application/views/themes/index.php:83
 msgid "Foldername"
@@ -20419,7 +20378,7 @@ msgstr "禁用仪表盘上的全局通知横幅。"
 
 #: application/views/user/edit.php:824
 msgid "Dashboard KPI statistics"
-msgstr ""
+msgstr "仪表盘KPI统计"
 
 #: application/views/user/edit.php:825
 msgid ""
@@ -21431,6 +21390,86 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#: application/views/contesting/logger/components/winkeyer.php:23
+#: application/views/contesting/logger/components/winkeyer.php:53
+#: application/views/qso/components/winkeysettings.php:54
+msgctxt "ESM mode"
+msgid "Run"
+msgstr ""
+
+#: application/views/contesting/logger/components/winkeyer.php:24
+#: application/views/qso/components/winkeysettings.php:58
+#: application/views/qso/components/winkeysettings.php:59
+msgctxt "ESM mode"
+msgid "S&P"
+msgstr ""
+
+#: application/views/contesting/logger/components/winkeyer.php:53
+msgid "Toggle Run / Search & Pounce for ESM"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:46
+msgid "ESM (Enter Sends Message)"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:49
+msgid ""
+"When enabled, the Enter key drives the QSO: empty call sends CQ, an unclear "
+"call (with \"?\") asks again, a full call without exchange sends the report, "
+"and a complete QSO is logged with a TU. In S&P mode the first Enter sends "
+"only your own call, and logging sends your report instead of a TU. Alt+Enter "
+"logs without sending."
+msgstr ""
+"启用此功能后，Enter 键将控制 QSO 流程：输入为空时发送 CQ；呼号不完整（含“?”）"
+"时请求对方重发；输入完整呼号但未包含交换信息时发送信号报告；输入完整 QSO 信息"
+"后则发送 TU 并记录日志。在 S&P 模式下，首次按下 Enter 键仅发送本方呼号，而记"
+"录日志时发送的是信号报告而非 TU。使用 Alt+Enter 组合键可在不发送信息的情况下"
+"记录日志。"
+
+#: application/views/qso/components/winkeysettings.php:55
+msgid "Unclear call (?)"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:56
+msgid "Exchange / Report"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:57
+msgid "Log QSO / TU"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:58
+msgid "own call"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:59
+msgid "exchange on log"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:78
+msgid "Keyboard shortcuts"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:82
+msgid "Send the corresponding CW macro"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:83
+msgid "ESM on: drive the QSO (CQ / report / log); ESM off: log the QSO"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:84
+msgid "Log the QSO without sending anything"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:85
+msgid "Clear the entry form"
+msgstr ""
+
+#: application/views/qso/components/winkeysettings.php:86
+msgid "In the callsign field: jump to the next empty field"
+msgstr ""
 
 #~ msgid ""
 #~ "This switches the display of the solar and propagation data on the "
@@ -22725,8 +22764,8 @@ msgstr "CQz geojson"
 #~ "Click here on 'Add a Theme' and type in the necessary data. Type in the "
 #~ "filenames for the logos <b>without</b> the file extension '.png'"
 #~ msgstr ""
-#~ "在这里点击 '添加主题'，输入必要的信息，填写 Logo 的文件名（<b>不要带有 ."
-#~ "png 后缀名</b>）"
+#~ "在这里点击 '添加主题'，输入必要的信息，填写 Logo 的文件名（<b>不要带"
+#~ "有 .png 后缀名</b>）"
 
 #, php-format
 #~ msgid ""
