@@ -4,7 +4,6 @@ class Continents extends CI_Controller {
 
 	public function index()
 	{
-        $this->load->model('user_model');
         $this->load->model('bands');
         $this->load->model('logbookadvanced_model');
 		$this->load->model('gridmap_model');

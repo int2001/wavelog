@@ -841,7 +841,6 @@ class Logbookadvanced_model extends CI_Model {
     }
 
 	public function updateQsl($ids, $user_id, $method, $sent) {
-		$this->load->model('user_model');
 
 		if(!$this->user_model->authorize(2)) {
 			return array('message' => 'Error');
@@ -884,7 +883,6 @@ class Logbookadvanced_model extends CI_Model {
 	}
 
 	public function updateQslReceived($ids, $user_id, $method, $sent) {
-		$this->load->model('user_model');
 
 		if(!$this->user_model->authorize(2)) {
 			return array('message' => 'Error');

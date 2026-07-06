@@ -8,7 +8,6 @@ class Qsl extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('user_model');
         if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		if(($this->config->item('disable_qsl') ?? false)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); exit; }
     }
@@ -45,7 +44,6 @@ class Qsl extends CI_Controller {
 
     // Deletes QSL Card
     public function delete() {
-        $this->load->model('user_model');
         if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
         $id = $this->input->post('id');
         $this->load->model('Qsl_model');
@@ -53,7 +51,6 @@ class Qsl extends CI_Controller {
     }
 
     public function uploadqsl() {
-        $this->load->model('user_model');
         if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
         $qsoid = $this->input->post('qsoid');

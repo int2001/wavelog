@@ -19,10 +19,10 @@ $('#qrg_unit').on('click', function () {
 });
 
 function qrg_inputtype() {
-	// on small screens we change the input type of the frequency and frequency_rx fields to number to show the numeric keyboard
+	// On small screens add inputmode=decimal to show the numeric keyboard.
 	if (window.innerWidth < 768) {
-		$('#freq_calculated').attr('type', 'number').attr('step', '0.001').attr('inputmode', 'decimal').attr('lang', 'en');
-		$('#frequency_rx').attr('type', 'number').attr('step', '0.001').attr('inputmode', 'decimal').attr('lang', 'en');
+		$('#freq_calculated').attr('inputmode', 'decimal');
+		$('#frequency_rx').attr('inputmode', 'decimal');
 	}
 }
 
@@ -163,8 +163,6 @@ $('#frequency').on('change', function () {
 });
 
 $('#freq_calculated').on('input', function () {
-	if (window.innerWidth > 768) {
-		$(this).val($(this).val().replace(',', '.'));
-	}
+	$(this).val($(this).val().replace(',', '.'));
 });
 

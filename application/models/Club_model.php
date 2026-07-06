@@ -24,7 +24,6 @@ class Club_model extends CI_Model {
         }
 
         // admin is always allowed
-        $this->load->model('user_model');
         if ($user_id != NULL) {
             if ($this->user_model->get_by_id($user_id)->row()->user_type == 99) {
                 return true;

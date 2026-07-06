@@ -28,7 +28,6 @@ class Staticmap_model extends CI_Model {
         //===============================================================================================================================
 
         $this->load->model('Stations');
-        $this->load->model('user_model');
         $this->load->model('stationsetup_model');
 
         if (!$this->load->is_loaded('Qra')) {
