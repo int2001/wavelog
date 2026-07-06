@@ -26,7 +26,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-06 11:53+0000\n"
+"POT-Creation-Date: 2026-07-06 12:27+0000\n"
 "PO-Revision-Date: 2026-07-05 18:11+0000\n"
 "Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
@@ -16385,6 +16385,7 @@ msgid "DCL received"
 msgstr "DCL empfangen"
 
 #: application/views/logbookadvanced/index.php:725
+#: application/views/view_log/qso.php:726
 msgid "QSL Images"
 msgstr "QSL Bilder"
 
@@ -22190,10 +22191,6 @@ msgstr "Mehr QSOs"
 #: application/views/view_log/qso.php:615
 msgid "Share"
 msgstr "Teilen"
-
-#: application/views/view_log/qso.php:726
-msgid "QSL images"
-msgstr ""
 
 #: application/views/view_log/qso.php:755
 msgid "Uploaded QSL Card front image"
