@@ -26,6 +26,61 @@ if (empty($station_id)) {
 	}
 
 if ($qsos->result() != NULL) { ?>
+
+	<!-- toolbar to manipulate QSOs -->
+	<div class="d-flex flex-wrap align-items-center gap-2 mb-3 p-2 rounded border">
+
+		<!-- method picker (used by the 'Mark' dropdown) -->
+		<label for="markqslmethod" class="mb-0 small text-muted text-nowrap"><?= __("Mark QSOs for a certain QSL Method:"); ?></label>
+		<select id="markqslmethod" class="form-select form-select-sm w-auto">
+			<option value="ALL" selected><?= __("All"); ?></option>
+			<option value="B"><?= echo_qsl_sent_via("B") ?></option>
+			<option value="D"><?= echo_qsl_sent_via("D") ?></option>
+			<option value="E"><?= echo_qsl_sent_via("E") ?></option>
+		</select>
+
+		<!-- Mark -->
+		<div class="btn-group">
+			<button type="button" class="btn btn-sm btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-check me-1"></i><?= __("Mark"); ?></button>
+			<ul class="dropdown-menu">
+				<li><button type="button" class="dropdown-item markmethod" onclick="markMethod()" title="<?= __("Mark all QSOs for the chosen QSL method"); ?>"><?= __("Mark all QSOs for the chosen QSL method"); ?></button></li>
+				<li><button type="button" class="dropdown-item unmarkall" onclick="unmarkallQSOs()" title="<?= __("Unmark every QSO"); ?>"><?= __("Unmark every QSO"); ?></button></li>
+				<li><hr class="dropdown-divider"></li>
+				<li><button type="button" class="dropdown-item markallprinted" onclick="markSelectedQsos();" title="<?= __("Mark selected QSOs as sent"); ?>"><?= __("Mark selected QSOs as sent"); ?></button></li>
+				<li><a class="dropdown-item" href="<?php echo site_url('qslprint/qsl_printed/' . $station_id); ?>" title="<?= __("Mark QSLs as printed"); ?>"><?= __("Mark requested QSLs as sent"); ?></a></li>
+			</ul>
+		</div>
+
+		<!-- Export -->
+		<div class="btn-group">
+			<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-file-export me-1"></i><?= __("Export"); ?></button>
+			<ul class="dropdown-menu">
+				<li><button type="button" class="dropdown-item exportselected" onclick="exportSelectedQsos();" title="<?= __("Export selected QSOs to ADIF-file"); ?>"><?= __("Export selected QSOs to ADIF-file"); ?></button></li>
+				<li><hr class="dropdown-divider"></li>
+				<li><a class="dropdown-item" href="<?php echo site_url('qslprint/exportcsv/' . $station_id); ?>" title="<?= __("Export CSV-file"); ?>"><?= __("Export requested QSLs to CSV-file"); ?></a></li>
+				<li><a class="dropdown-item" href="<?php echo site_url('qslprint/exportadif/' . $station_id); ?>" title="<?= __("Export ADIF"); ?>"><?= __("Export requested QSLs to ADIF-file"); ?></a></li>
+			</ul>
+		</div>
+
+		<!-- Print -->
+		<div class="btn-group">
+			<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-print me-1"></i><?= __("Print"); ?></button>
+			<ul class="dropdown-menu">
+				<li><button type="submit" formaction="<?php echo site_url('qslpostcard/printqueue_selected'); ?>" class="dropdown-item" title="<?= __("Print Selected QSO Postcards"); ?>"><?= __("Print Selected QSO Postcards"); ?></button></li>
+				<li><a class="dropdown-item" href="<?php echo site_url('qslpostcard/printqueue'); ?>"><?= __("Print Postcards for all QSOs"); ?></a></li>
+			</ul>
+		</div>
+
+		<!-- Delete -->
+		<div class="btn-group">
+			<button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-trash-alt me-1"></i><?= __("Delete"); ?></button>
+			<ul class="dropdown-menu">
+				<li><button type="button" class="dropdown-item removeall" onclick="removeSelectedQsos();" title="<?= __("Remove selected QSOs from the queue"); ?>"><?= __("Remove selected QSOs from the queue"); ?></button></li>
+			</ul>
+		</div>
+
+	</div>
+
 		<table style="width:100%" class="table table-sm table-bordered table-hover table-striped table-condensed qslprint" id="qslprint_table">
 			<thead>
 				<tr>
@@ -80,41 +135,6 @@ if ($qsos->result() != NULL) { ?>
 	?>
 
 
-	<!-- all the buttons to manipulate QSOs -->
-	<p>
-		<div>
-			<label for="markqslmethod" class="me-2"><?= __("Mark QSOs for a certain QSL Method:"); ?></label>
-			<div class="d-flex align-items-center mb-3">
-				<select id="markqslmethod" class="form-select me-2" style="width: 20%;">
-				<option value="ALL" selected><?= __("All"); ?></option>
-				<option value="B"><?= echo_qsl_sent_via("B") ?></option>
-				<option value="D"><?= echo_qsl_sent_via("D") ?></option>
-				<option value="E"><?= echo_qsl_sent_via("E") ?></option>
-				</select>
-				<button type="button" onclick="markMethod()" title="<?= __("Mark all QSOs for the chosen QSL method"); ?>" class="btn btn-success markmethod"><?= __("Mark all QSOs for the chosen QSL method"); ?></button>
-				<button type="button" onclick="unmarkallQSOs()" style="margin-left: 5px;" title="<?= __("Unmark every QSO"); ?>" class="btn btn-danger unmarkall"><?= __("Unmark every QSO"); ?></button>
-			</div>
-		</div>
-	</p>
-
-	<label class="me-2"><?= __("Update QSOs"); ?>:</label>
-	<p>
-
-		<button type="button" onclick="markSelectedQsos();" title="<?= __("Mark selected QSOs as sent"); ?>" class="btn btn-success markallprinted"><?= __("Mark selected QSOs as sent"); ?></button>
-		<button type="button" onclick="removeSelectedQsos();" title="<?= __("Remove selected QSOs from the queue"); ?>" class="btn btn-danger removeall"><?= __("Remove selected QSOs from the queue"); ?></button>
-		<button type="button" onclick="exportSelectedQsos();" title="<?= __("Export selected QSOs to ADIF-file"); ?>" class="btn btn-primary exportselected"><?= __("Export selected QSOs to ADIF-file"); ?></button>
-	</p>
-
-
-	<p>
-		<a href="<?php echo site_url('qslprint/exportcsv/' . $station_id); ?>" title="<?= __("Export CSV-file"); ?>" class="btn btn-primary"><?= __("Export requested QSLs to CSV-file"); ?></a>
-		<a href="<?php echo site_url('qslprint/exportadif/' . $station_id); ?>" title="<?= __("Export ADIF"); ?>" class="btn btn-primary"><?= __("Export requested QSLs to ADIF-file"); ?></a>
-		<a href="<?php echo site_url('qslprint/qsl_printed/' . $station_id); ?>" title="<?= __("Mark QSLs as printed"); ?>" class="btn btn-primary"><?= __("Mark requested QSLs as sent"); ?></a>
-	</p>
-	<p>
-		<a class="btn btn-primary" href="<?php echo site_url('qslpostcard/printqueue'); ?>"> <?= __("Print Postcards for all QSOs"); ?></a>
-		<button type="submit" formaction="<?php echo site_url('qslpostcard/printqueue_selected'); ?>" class="btn btn-primary"><?= __("Print Selected QSO Postcards"); ?></button>
-	</p>
 </form>
 <?php
 } else {
