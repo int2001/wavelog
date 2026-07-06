@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-06 16:40+0000\n"
+"POT-Creation-Date: 2026-07-06 16:45+0000\n"
 "PO-Revision-Date: 2026-03-21 17:42+0000\n"
 "Last-Translator: Dariusz Koryto <dariusz@koryto.eu>\n"
 "Language-Team: Serbian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -154,9 +154,9 @@ msgstr "Tropospheric ducting"
 #: application/controllers/Csv.php:28
 #: application/controllers/Dayswithqso.php:10
 #: application/controllers/Dcl.php:10 application/controllers/Dcl.php:18
-#: application/controllers/Dcl.php:23 application/controllers/Dcl.php:49
-#: application/controllers/Dcl.php:51 application/controllers/Dcl.php:221
-#: application/controllers/Dcl.php:252 application/controllers/Debug.php:9
+#: application/controllers/Dcl.php:44 application/controllers/Dcl.php:46
+#: application/controllers/Dcl.php:216 application/controllers/Dcl.php:247
+#: application/controllers/Debug.php:9
 #: application/controllers/Distancerecords.php:10
 #: application/controllers/Distances.php:10
 #: application/controllers/Dxatlas.php:6 application/controllers/Dxatlas.php:28
@@ -1186,12 +1186,12 @@ msgstr "Kontrolna tabla"
 msgid "Days with QSOs"
 msgstr "Dana sa QSO-ima"
 
-#: application/controllers/Dcl.php:32
+#: application/controllers/Dcl.php:27
 #: application/views/dcl_views/key_import.php:3
 msgid "DCL Key Import"
 msgstr "Увоз DCL кључа"
 
-#: application/controllers/Dcl.php:66 application/views/dcl_views/import.php:3
+#: application/controllers/Dcl.php:61 application/views/dcl_views/import.php:3
 #: application/views/dcl_views/index.php:3
 #: application/views/logbookadvanced/index.php:997
 #: application/views/logbookadvanced/useroptions.php:148
@@ -1204,27 +1204,27 @@ msgstr "Увоз DCL кључа"
 msgid "DCL"
 msgstr "DCL"
 
-#: application/controllers/Dcl.php:136
+#: application/controllers/Dcl.php:131
 msgid "No QSOs to upload."
 msgstr "Нема QSO-а за отпремање."
 
-#: application/controllers/Dcl.php:183 application/controllers/Dcl.php:195
+#: application/controllers/Dcl.php:178 application/controllers/Dcl.php:190
 msgid "Upload Failed"
 msgstr "Отпремање неуспешно"
 
-#: application/controllers/Dcl.php:185
+#: application/controllers/Dcl.php:180
 msgid "Timeout reached. Stopping subsequent uploads."
 msgstr "Истекло је време. Заустављам следећа отпремања."
 
-#: application/controllers/Dcl.php:198
+#: application/controllers/Dcl.php:193
 msgid "Upload Successful"
 msgstr "Отпремање успешно"
 
-#: application/controllers/Dcl.php:208
+#: application/controllers/Dcl.php:203
 msgid "No Station Profiles found to upload to DCL"
 msgstr "Нема пронађених профила станица за отпремање на DCL"
 
-#: application/controllers/Dcl.php:224
+#: application/controllers/Dcl.php:219
 msgid "Key(s) Deleted."
 msgstr "Кључ(еви) избрисан(и)."
 

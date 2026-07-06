@@ -343,7 +343,9 @@ msgstr "対流圏ダクト"
 #: application/controllers/Webadif.php:10
 #: application/controllers/Webadif.php:99
 #: application/controllers/Zonechecker.php:16
-#: application/models/Club_model.php:51
+#: application/models/Club_model.php:51 application/controllers/Dcl.php:44
+#: application/controllers/Dcl.php:46 application/controllers/Dcl.php:216
+#: application/controllers/Dcl.php:247
 msgid "You're not allowed to do that!"
 msgstr "それは禁止です！"
 
@@ -1502,7 +1504,7 @@ msgstr "QSOした日数"
 
 #: application/controllers/Dcl.php:33
 #: application/views/dcl_views/key_import.php:3
-#: application/controllers/Dcl.php:32
+#: application/controllers/Dcl.php:32 application/controllers/Dcl.php:27
 msgid "DCL Key Import"
 msgstr "DCLキーのインポート"
 
@@ -1516,31 +1518,38 @@ msgstr "DCLキーのインポート"
 #: application/views/view_log/partial/log_ajax.php:172
 #: application/views/view_log/qso.php:534
 #: application/views/view_log/qso.php:539 application/controllers/Dcl.php:66
+#: application/controllers/Dcl.php:61
 msgid "DCL"
 msgstr "DCL"
 
 #: application/controllers/Dcl.php:139 application/controllers/Dcl.php:136
+#: application/controllers/Dcl.php:131
 msgid "No QSOs to upload."
 msgstr "アップロードする交信記録はありません。"
 
 #: application/controllers/Dcl.php:186 application/controllers/Dcl.php:198
 #: application/controllers/Dcl.php:183 application/controllers/Dcl.php:195
+#: application/controllers/Dcl.php:178 application/controllers/Dcl.php:190
 msgid "Upload Failed"
 msgstr "アップロードに失敗しました"
 
 #: application/controllers/Dcl.php:188 application/controllers/Dcl.php:185
+#: application/controllers/Dcl.php:180
 msgid "Timeout reached. Stopping subsequent uploads."
 msgstr "タイムアウトになりました。以降のアップロードを停止します。"
 
 #: application/controllers/Dcl.php:201 application/controllers/Dcl.php:198
+#: application/controllers/Dcl.php:193
 msgid "Upload Successful"
 msgstr "アップロード成功"
 
 #: application/controllers/Dcl.php:211 application/controllers/Dcl.php:208
+#: application/controllers/Dcl.php:203
 msgid "No Station Profiles found to upload to DCL"
 msgstr "DCL にアップロードする無線局プロファイルが見つかりません"
 
 #: application/controllers/Dcl.php:229 application/controllers/Dcl.php:224
+#: application/controllers/Dcl.php:219
 msgid "Key(s) Deleted."
 msgstr "キーが削除されました。"
 
