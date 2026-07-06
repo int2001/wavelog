@@ -1,9 +1,9 @@
-<div class="container px-3 px-lg-4 mt-3 mb-3">
+<div class="container px-3 px-lg-4 mt-3 mb-3" id="main-content">
 	<h2><?= __("Logbook"); ?></h2>
 	<div class="card">
 		<?php if ($results) { ?>
 			<div class="card-header py-2">
-				<h6 class="mb-0"><i class="fas fa-list"></i> <?= __("Active Logbook"); ?>: <span class="badge text-bg-info ms-1"><?php echo $this->logbooks_model->find_name($this->session->userdata('active_station_logbook')); ?></span><i id="directory_tooltip" data-bs-toggle="tooltip" data-bs-placement="right" class="fas fa-question-circle text-muted ms-2" data-bs-custom-class="custom-tooltip" data-bs-html="true" data-bs-title="<?= __("Displaying all QSOs of station locations which are linked to this logbook"); ?>"></i></h6>
+				<h6 class="mb-0"><i class="fas fa-list"></i> <?= __("Active Logbook"); ?>: <span class="badge text-bg-info ms-1"><?php echo $this->logbooks_model->find_name($this->session->userdata('active_station_logbook')); ?></span><i id="directory_tooltip" data-bs-toggle="tooltip" data-bs-placement="right" class="fas fa-question-circle text-muted ms-2" data-bs-custom-class="custom-tooltip" data-bs-html="true" data-bs-title="<?= __("Displaying all QSOs of station locations which are linked to this logbook"); ?>" role="img" aria-label="<?= __("Displaying all QSOs of station locations which are linked to this logbook"); ?>"></i></h6>
 			</div>
 		<?php } ?>
 		<?php if ($this->session->flashdata('notice')) { ?>
