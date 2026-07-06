@@ -31,9 +31,9 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-06 11:53+0000\n"
-"PO-Revision-Date: 2026-07-04 18:16+0000\n"
-"Last-Translator: \"Shen RuiQin(BH4FJN)\" <jerry19980425@gmail.com>\n"
+"POT-Creation-Date: 2026-07-06 12:27+0000\n"
+"PO-Revision-Date: 2026-07-06 05:37+0000\n"
+"Last-Translator: \"Xu, Zefan (BI1GHZ)\" <ceba_robot@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
 "org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -5997,7 +5997,7 @@ msgstr ""
 
 #: application/views/awards/counties/index.php:18
 msgid "Counties Progress"
-msgstr ""
+msgstr "通联县进展"
 
 #: application/views/awards/counties/index.php:45
 msgid "Worked Counties"
@@ -6006,7 +6006,7 @@ msgstr "通联的（郡）县"
 #: application/views/awards/counties/index.php:47
 #, php-format
 msgid "of %s known counties"
-msgstr ""
+msgstr "共 %s 县"
 
 #: application/views/awards/counties/index.php:52
 msgid "Confirmed Counties"
@@ -6019,7 +6019,7 @@ msgstr "%s%% 已完成"
 
 #: application/views/awards/counties/index.php:59
 msgid "Remaining Counties"
-msgstr ""
+msgstr "剩余的县"
 
 #: application/views/awards/counties/index.php:61
 msgid "Based on current worked count"
@@ -6035,7 +6035,7 @@ msgstr "进展"
 #: application/views/awards/counties/index.php:68
 #, php-format
 msgid "%s%% confirmed overall"
-msgstr ""
+msgstr "已确认 %s%%"
 
 #: application/views/awards/counties/index.php:77
 #: application/views/awards/cq/index.php:93
@@ -10359,14 +10359,14 @@ msgstr "Winkeyer"
 #: application/views/qso/components/winkeysettings.php:54
 msgctxt "ESM mode"
 msgid "Run"
-msgstr ""
+msgstr "运行"
 
 #: application/views/contesting/logger/components/winkeyer.php:24
 #: application/views/qso/components/winkeysettings.php:58
 #: application/views/qso/components/winkeysettings.php:59
 msgctxt "ESM mode"
 msgid "S&P"
-msgstr ""
+msgstr "S&P"
 
 #: application/views/contesting/logger/components/winkeyer.php:51
 #: application/views/qso/index.php:828
@@ -10375,7 +10375,7 @@ msgstr "连接"
 
 #: application/views/contesting/logger/components/winkeyer.php:53
 msgid "Toggle Run / Search & Pounce for ESM"
-msgstr ""
+msgstr "切换 ESM 运行 (Run) / 搜索 & 抢分 (S&P)"
 
 #: application/views/contesting/logger/components/winkeyer.php:73
 #: application/views/qso/index.php:856
@@ -13931,15 +13931,15 @@ msgstr "出现了错误，请重试！"
 
 #: application/views/interface_assets/footer.php:2837
 msgid "US Counties for state"
-msgstr ""
+msgstr "美国州下辖的县"
 
 #: application/views/interface_assets/footer.php:2890
 msgid "Confirmed counties for state:"
-msgstr ""
+msgstr "此州已确认的县："
 
 #: application/views/interface_assets/footer.php:2890
 msgid "Worked counties for state:"
-msgstr ""
+msgstr "此州已通联的县："
 
 #: application/views/interface_assets/header.php:95
 msgid "Skip to content"
@@ -15807,6 +15807,7 @@ msgid "DCL received"
 msgstr "DCL 接收"
 
 #: application/views/logbookadvanced/index.php:725
+#: application/views/view_log/qso.php:726
 msgid "QSL Images"
 msgstr "QSL 图片"
 
@@ -17891,7 +17892,7 @@ msgstr "令牌"
 
 #: application/views/qso/components/winkeysettings.php:46
 msgid "ESM (Enter Sends Message)"
-msgstr ""
+msgstr "ESM（回车发送报文）"
 
 #: application/views/qso/components/winkeysettings.php:49
 msgid ""
@@ -17909,47 +17910,47 @@ msgstr ""
 
 #: application/views/qso/components/winkeysettings.php:55
 msgid "Unclear call (?)"
-msgstr ""
+msgstr "不明确的呼号 (?)"
 
 #: application/views/qso/components/winkeysettings.php:56
 msgid "Exchange / Report"
-msgstr ""
+msgstr "交换 / 报告"
 
 #: application/views/qso/components/winkeysettings.php:57
 msgid "Log QSO / TU"
-msgstr ""
+msgstr "记录 QSO / TU"
 
 #: application/views/qso/components/winkeysettings.php:58
 msgid "own call"
-msgstr ""
+msgstr "本台呼号"
 
 #: application/views/qso/components/winkeysettings.php:59
 msgid "exchange on log"
-msgstr ""
+msgstr "日志中的交换信息"
 
 #: application/views/qso/components/winkeysettings.php:78
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "键盘快捷键"
 
 #: application/views/qso/components/winkeysettings.php:82
 msgid "Send the corresponding CW macro"
-msgstr ""
+msgstr "发送对应 CW 宏"
 
 #: application/views/qso/components/winkeysettings.php:83
 msgid "ESM on: drive the QSO (CQ / report / log); ESM off: log the QSO"
-msgstr ""
+msgstr "ESM 开启：进行 QSO (CQ / 报告 / 记录)；ESM 关闭：记录 QSO"
 
 #: application/views/qso/components/winkeysettings.php:84
 msgid "Log the QSO without sending anything"
-msgstr ""
+msgstr "记录 QSO 但不发送任何信息"
 
 #: application/views/qso/components/winkeysettings.php:85
 msgid "Clear the entry form"
-msgstr ""
+msgstr "清除输入内容"
 
 #: application/views/qso/components/winkeysettings.php:86
 msgid "In the callsign field: jump to the next empty field"
-msgstr ""
+msgstr "在呼号字段：跳转到下一个空字段"
 
 #: application/views/qso/edit_ajax.php:35
 msgid "Sats"
@@ -20501,6 +20502,8 @@ msgid ""
 "This switches the display of the KPI statistics (Total QSOs, QSOs this year/"
 "month/today, Current Streak, Unique callsigns) on the dashboard."
 msgstr ""
+"这会切换仪表盘上 KPI 统计数据的显示（总 QSO 数、本年/本月/今日 QSO 数、连续通"
+"联天数、唯一呼号数）。"
 
 #: application/views/user/edit.php:838
 msgid "Show Fields on QSO Tab"
@@ -21312,10 +21315,6 @@ msgstr "更多 QSO"
 #: application/views/view_log/qso.php:615
 msgid "Share"
 msgstr "分享"
-
-#: application/views/view_log/qso.php:726
-msgid "QSL images"
-msgstr ""
 
 #: application/views/view_log/qso.php:755
 msgid "Uploaded QSL Card front image"

@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-06 11:53+0000\n"
+"POT-Creation-Date: 2026-07-06 12:27+0000\n"
 "PO-Revision-Date: 2026-03-21 17:42+0000\n"
 "Last-Translator: Dariusz Koryto <dariusz@koryto.eu>\n"
 "Language-Team: Serbian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -15852,6 +15852,7 @@ msgid "DCL received"
 msgstr "DCL примљен"
 
 #: application/views/logbookadvanced/index.php:725
+#: application/views/view_log/qso.php:726
 msgid "QSL Images"
 msgstr "Слике QSL"
 
@@ -21462,10 +21463,6 @@ msgstr "Još QSO"
 #: application/views/view_log/qso.php:615
 msgid "Share"
 msgstr "Подели"
-
-#: application/views/view_log/qso.php:726
-msgid "QSL images"
-msgstr ""
 
 #: application/views/view_log/qso.php:755
 msgid "Uploaded QSL Card front image"

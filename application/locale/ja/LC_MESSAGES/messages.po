@@ -12,9 +12,9 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-06 11:53+0000\n"
-"PO-Revision-Date: 2026-07-04 18:16+0000\n"
-"Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
+"POT-Creation-Date: 2026-07-06 12:27+0000\n"
+"PO-Revision-Date: 2026-07-06 05:37+0000\n"
+"Last-Translator: \"Xu, Zefan (BI1GHZ)\" <ceba_robot@outlook.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ja/>\n"
 "Language: ja\n"
@@ -16180,6 +16180,7 @@ msgid "DCL received"
 msgstr "DCLを受信"
 
 #: application/views/logbookadvanced/index.php:725
+#: application/views/view_log/qso.php:726
 msgid "QSL Images"
 msgstr "QSL画像"
 
@@ -18365,7 +18366,7 @@ msgstr "ログQSO / TU"
 
 #: application/views/qso/components/winkeysettings.php:58
 msgid "own call"
-msgstr "自己判断"
+msgstr "自局コールサイン"
 
 #: application/views/qso/components/winkeysettings.php:59
 msgid "exchange on log"
@@ -21874,10 +21875,6 @@ msgstr "より多くのQSO"
 #: application/views/view_log/qso.php:615
 msgid "Share"
 msgstr "共有"
-
-#: application/views/view_log/qso.php:726
-msgid "QSL images"
-msgstr ""
 
 #: application/views/view_log/qso.php:755
 msgid "Uploaded QSL Card front image"
