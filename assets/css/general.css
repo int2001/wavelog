@@ -1830,3 +1830,93 @@ svg text.month { fill: #AAA; }
 .qsl-ctx-sub:hover > .qsl-ctx-submenu {
 	display: block;
 }
+
+/* ============================================================
+   Custom map tile styles (user-selectable; override active theme)
+   Body class = user_options map_custom.tile.style (see custom_map_style_helper).
+   map-follow = no override (active theme overrides.css wins).
+   Higher specificity (body.<slug>) beats the theme's bare .leaflet-tile.
+   ============================================================ */
+
+/* Follow active theme -- intentionally empty; theme overrides.css wins */
+body.map-follow .leaflet-tile,
+body.map-follow path.grid-rectangle,
+body.map-follow span.grid-text > font,
+body.map-follow span.grid-text-unworked > font,
+body.map-follow span.grid-text-worked > font {}
+
+/* --- Light looks: cosmo / default (+ _wide) -- no tile filter --- */
+body.map-cosmo .leaflet-tile,
+body.map-cosmo_wide .leaflet-tile,
+body.map-default .leaflet-tile,
+body.map-default_wide .leaflet-tile { filter: none !important; }
+
+body.map-cosmo path.grid-rectangle,
+body.map-cosmo_wide path.grid-rectangle,
+body.map-default path.grid-rectangle,
+body.map-default_wide path.grid-rectangle { stroke: rgba(97, 97, 97, 1); }
+
+body.map-cosmo span.grid-text > font,
+body.map-cosmo_wide span.grid-text > font,
+body.map-default span.grid-text > font,
+body.map-default_wide span.grid-text > font,
+body.map-cosmo span.grid-text-unworked > font,
+body.map-cosmo_wide span.grid-text-unworked > font,
+body.map-default span.grid-text-unworked > font,
+body.map-default_wide span.grid-text-unworked > font { color: rgb(97, 97, 97) !important; font-weight: 400 !important; }
+
+body.map-cosmo span.grid-text-worked > font,
+body.map-cosmo_wide span.grid-text-worked > font,
+body.map-default span.grid-text-worked > font,
+body.map-default_wide span.grid-text-worked > font { color: rgb(255, 255, 255) !important; font-weight: 400 !important; }
+
+/* --- Dark looks: shared grid-text (identical across cyborg/darkly/superhero) --- */
+body.map-cyborg path.grid-rectangle,
+body.map-cyborg_wide path.grid-rectangle,
+body.map-darkly path.grid-rectangle,
+body.map-darkly_wide path.grid-rectangle,
+body.map-superhero path.grid-rectangle,
+body.map-superhero_wide path.grid-rectangle { stroke: rgba(200, 200, 200, 0.5); }
+
+body.map-cyborg span.grid-text > font,
+body.map-cyborg_wide span.grid-text > font,
+body.map-darkly span.grid-text > font,
+body.map-darkly_wide span.grid-text > font,
+body.map-superhero span.grid-text > font,
+body.map-superhero_wide span.grid-text > font,
+body.map-cyborg span.grid-text-worked > font,
+body.map-cyborg_wide span.grid-text-worked > font,
+body.map-darkly span.grid-text-worked > font,
+body.map-darkly_wide span.grid-text-worked > font,
+body.map-superhero span.grid-text-worked > font,
+body.map-superhero_wide span.grid-text-worked > font { color: rgba(255, 255, 255, 1) !important; font-weight: 400 !important; }
+
+body.map-cyborg span.grid-text-unworked > font,
+body.map-cyborg_wide span.grid-text-unworked > font,
+body.map-darkly span.grid-text-unworked > font,
+body.map-darkly_wide span.grid-text-unworked > font,
+body.map-superhero span.grid-text-unworked > font,
+body.map-superhero_wide span.grid-text-unworked > font { color: rgba(255, 255, 255, .4) !important; font-weight: 400 !important; }
+
+/* Dark tile filters -- the only difference between dark looks */
+body.map-cyborg .leaflet-tile,
+body.map-cyborg_wide .leaflet-tile { filter: invert() hue-rotate(180deg) grayscale(0.8) !important; }
+
+body.map-darkly .leaflet-tile,
+body.map-darkly_wide .leaflet-tile { filter: invert() hue-rotate(180deg) grayscale(0.8) brightness(1.2) !important; }
+
+body.map-superhero .leaflet-tile,
+body.map-superhero_wide .leaflet-tile { filter: invert() hue-rotate(180deg) sepia(100%) hue-rotate(180deg) !important; }
+
+/* --- Synthetic (non-theme) looks --- */
+body.map-gray .leaflet-tile { filter: contrast(1.3) grayscale(0.8) !important; }
+body.map-gray path.grid-rectangle { stroke: rgba(0, 0, 0, 0.09); }
+body.map-gray span.grid-text > font { color: rgba(0, 0, 0, 0.09) !important; font-weight: 400 !important; }
+body.map-gray span.grid-text-unworked > font { color: rgba(0, 0, 0, .4) !important; font-weight: 400 !important; }
+body.map-gray span.grid-text-worked > font { color: rgba(0, 0, 0, 1) !important; font-weight: 400 !important; }
+
+body.map-high-contrast .leaflet-tile { filter: saturate(2.2) grayscale(0.8) contrast(1.2) !important; }
+body.map-high-contrast path.grid-rectangle { stroke: rgba(0, 0, 0, 0.2); }
+body.map-high-contrast span.grid-text > font { color: rgba(0, 0, 0, 0.4) !important; font-weight: 400 !important; }
+body.map-high-contrast span.grid-text-unworked > font { color: rgba(0, 0, 0, 0.2) !important; font-weight: 400 !important; }
+body.map-high-contrast span.grid-text-worked > font { color: rgba(0, 0, 0, 0.4) !important; font-weight: 400 !important; }

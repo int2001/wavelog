@@ -994,7 +994,7 @@ class User extends CI_Controller {
 				$data['user_map_qsoconfirm_color'] = "#00AA00";
 				$data['user_map_unworked_color'] = "#FF0000";
 				$data['user_map_gridsquare_show'] = "0";
-				$data['user_map_tile_style'] = "0";
+				$data['user_map_tile_style'] = "map-follow";
 			}
 			$data['map_icon_select'] = array(
 				'station'=>array('0', 'fas fa-home', 'fas fa-broadcast-tower', 'fas fa-user', 'fas fa-dot-circle' ),
