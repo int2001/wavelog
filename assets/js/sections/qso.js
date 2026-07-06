@@ -1309,6 +1309,9 @@ function reset_fields() {
 	// we do this first to avoid race conditions for slow javascript
 	pendingReferencesMap.clear();
 
+	lastLookupCallsign = null;
+	lookupInProgress = false;
+
 	$('#locator_info').text("");
 	$('#lotw_support').text("");
 	$('#lotw_support').removeClass();
