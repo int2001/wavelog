@@ -31,8 +31,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-03 14:26+0000\n"
-"PO-Revision-Date: 2026-07-02 21:25+0000\n"
+"POT-Creation-Date: 2026-07-05 18:55+0000\n"
+"PO-Revision-Date: 2026-07-04 18:16+0000\n"
 "Last-Translator: \"Shen RuiQin(BH4FJN)\" <jerry19980425@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
 "org/projects/wavelog/main-translation/zh_Hans/>\n"
@@ -164,7 +164,7 @@ msgstr "Tropospheric ducting"
 #: application/controllers/Contest_admin.php:14
 #: application/controllers/Contestcalendar.php:8
 #: application/controllers/Contesting.php:39
-#: application/controllers/Contesting.php:1024
+#: application/controllers/Contesting.php:1028
 #: application/controllers/Contesting_import.php:11
 #: application/controllers/Contesting_import.php:27
 #: application/controllers/Contesting_import.php:57
@@ -1073,24 +1073,24 @@ msgstr "竞赛会话删除成功。"
 msgid "There was an error deleting the contest session. Please try again."
 msgstr "删除竞赛会话出现错误，请重试。"
 
-#: application/controllers/Contesting.php:966
+#: application/controllers/Contesting.php:970
 msgid "Operator switching is disabled."
 msgstr "已禁用操作员切换。"
 
-#: application/controllers/Contesting.php:986
+#: application/controllers/Contesting.php:990
 msgid "Operator switching is only available in club stations."
 msgstr "操作员切换仅对俱乐部台站可用。"
 
-#: application/controllers/Contesting.php:996
+#: application/controllers/Contesting.php:1000
 msgid "Access denied"
 msgstr "拒绝访问"
 
-#: application/controllers/Contesting.php:1004
+#: application/controllers/Contesting.php:1008
 #: application/controllers/User.php:1444
 msgid "Incorrect username or password!"
 msgstr "用户名或密码错误！"
 
-#: application/controllers/Contesting.php:1013
+#: application/controllers/Contesting.php:1017
 msgid "A club account cannot be used as an operator."
 msgstr "俱乐部账户不能作为操作员。"
 
@@ -5983,7 +5983,7 @@ msgstr ""
 
 #: application/views/awards/counties/index.php:45
 msgid "Worked Counties"
-msgstr ""
+msgstr "通联的（郡）县"
 
 #: application/views/awards/counties/index.php:47
 #, php-format
@@ -5992,12 +5992,12 @@ msgstr ""
 
 #: application/views/awards/counties/index.php:52
 msgid "Confirmed Counties"
-msgstr ""
+msgstr "确认的（郡）县"
 
 #: application/views/awards/counties/index.php:54
 #, php-format
 msgid "%s%% of worked"
-msgstr ""
+msgstr "%s%% 已完成"
 
 #: application/views/awards/counties/index.php:59
 msgid "Remaining Counties"
@@ -6005,7 +6005,7 @@ msgstr ""
 
 #: application/views/awards/counties/index.php:61
 msgid "Based on current worked count"
-msgstr ""
+msgstr "基于当前已完成工作量的统计"
 
 #: application/views/awards/counties/index.php:66
 #: application/views/awards/dxcc/index.php:41
@@ -6054,7 +6054,7 @@ msgstr "已确认"
 
 #: application/views/awards/counties/index.php:80
 msgid "Remaining"
-msgstr ""
+msgstr "剩余"
 
 #: application/views/awards/counties/index.php:81
 #: application/views/awards/dxcc/index.php:287
@@ -6068,7 +6068,7 @@ msgstr "已完成通联"
 #: application/views/awards/dxcc/index.php:361
 #: application/views/awards/dxcc/progress.php:5
 msgid "Confirmed Progress"
-msgstr "已确认的通联"
+msgstr "已确认通联"
 
 #: application/views/awards/counties/index.php:110
 #: application/views/awards/counties/state_ajax.php:32
@@ -11554,7 +11554,7 @@ msgstr "仪表盘选项"
 
 #: application/views/dashboard/_options_menu.php:12
 msgid "KPI statistics"
-msgstr ""
+msgstr "KPI 统计"
 
 #: application/views/dashboard/_options_menu.php:15
 msgid "Solar data"
@@ -11659,7 +11659,7 @@ msgstr "你至少一张证书即将过期"
 #: application/views/dashboard/index.php:230
 #: application/views/dashboard/solar_data.php:2
 msgid "Right-click for options"
-msgstr ""
+msgstr "点击右键获取选项"
 
 #: application/views/dashboard/index.php:245
 msgid "QSOs this year"
@@ -17801,7 +17801,7 @@ msgstr "仅为通联美国各州显示总结。"
 
 #: application/views/qso/components/fav_modal.php:5
 msgid "Save Favourite"
-msgstr ""
+msgstr "保存收藏"
 
 #: application/views/qso/components/fav_modal.php:9
 msgid "e.g. 20m SSB, SO-50, portable setup"
@@ -17844,6 +17844,11 @@ msgid ""
 "only your own call, and logging sends your report instead of a TU. Alt+Enter "
 "logs without sending."
 msgstr ""
+"启用此功能后，Enter 键将控制 QSO 流程：输入为空时发送 CQ；呼号不完整（含“?”）"
+"时请求对方重发；输入完整呼号但未包含交换信息时发送信号报告；输入完整 QSO 信息"
+"后则发送 TU 并记录日志。在 S&P 模式下，首次按下 Enter 键仅发送本方呼号，而记"
+"录日志时发送的是信号报告而非 TU。使用 Alt+Enter 组合键可在不发送信息的情况下"
+"记录日志。"
 
 #: application/views/qso/components/winkeysettings.php:55
 msgid "Unclear call (?)"
@@ -20419,7 +20424,7 @@ msgstr "禁用仪表盘上的全局通知横幅。"
 
 #: application/views/user/edit.php:824
 msgid "Dashboard KPI statistics"
-msgstr ""
+msgstr "仪表盘KPI统计"
 
 #: application/views/user/edit.php:825
 msgid ""

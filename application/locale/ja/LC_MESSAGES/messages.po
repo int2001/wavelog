@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-03 14:26+0000\n"
-"PO-Revision-Date: 2026-07-02 21:25+0000\n"
+"POT-Creation-Date: 2026-07-05 18:55+0000\n"
+"PO-Revision-Date: 2026-07-04 18:16+0000\n"
 "Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ja/>\n"
@@ -145,7 +145,7 @@ msgstr "対流圏ダクト"
 #: application/controllers/Contest_admin.php:14
 #: application/controllers/Contestcalendar.php:8
 #: application/controllers/Contesting.php:39
-#: application/controllers/Contesting.php:1024
+#: application/controllers/Contesting.php:1028
 #: application/controllers/Contesting_import.php:11
 #: application/controllers/Contesting_import.php:27
 #: application/controllers/Contesting_import.php:57
@@ -1059,24 +1059,24 @@ msgid "There was an error deleting the contest session. Please try again."
 msgstr ""
 "コンテストセッションの削除中にエラーが発生しました。もう一度お試しください。"
 
-#: application/controllers/Contesting.php:966
+#: application/controllers/Contesting.php:970
 msgid "Operator switching is disabled."
 msgstr "オペレーターの切り替えは無効になっています。"
 
-#: application/controllers/Contesting.php:986
+#: application/controllers/Contesting.php:990
 msgid "Operator switching is only available in club stations."
 msgstr "オペレーターの切り替えは、クラブシャック でのみ利用可能です。"
 
-#: application/controllers/Contesting.php:996
+#: application/controllers/Contesting.php:1000
 msgid "Access denied"
 msgstr "アクセスが拒否されました"
 
-#: application/controllers/Contesting.php:1004
+#: application/controllers/Contesting.php:1008
 #: application/controllers/User.php:1444
 msgid "Incorrect username or password!"
 msgstr "ユーザー名またはパスワードが間違っています!"
 
-#: application/controllers/Contesting.php:1013
+#: application/controllers/Contesting.php:1017
 msgid "A club account cannot be used as an operator."
 msgstr "クラブアカウントはオペレーターとして使用できません。"
 
@@ -10550,14 +10550,14 @@ msgstr "Winkeyer"
 #: application/views/qso/components/winkeysettings.php:54
 msgctxt "ESM mode"
 msgid "Run"
-msgstr ""
+msgstr "Run"
 
 #: application/views/contesting/logger/components/winkeyer.php:24
 #: application/views/qso/components/winkeysettings.php:58
 #: application/views/qso/components/winkeysettings.php:59
 msgctxt "ESM mode"
 msgid "S&P"
-msgstr ""
+msgstr "S&P"
 
 #: application/views/contesting/logger/components/winkeyer.php:51
 #: application/views/qso/index.php:828
@@ -10566,7 +10566,7 @@ msgstr "接続する"
 
 #: application/views/contesting/logger/components/winkeyer.php:53
 msgid "Toggle Run / Search & Pounce for ESM"
-msgstr ""
+msgstr "RunモードとS&Pモードの切り替え"
 
 #: application/views/contesting/logger/components/winkeyer.php:73
 #: application/views/qso/index.php:856
@@ -18277,7 +18277,7 @@ msgstr "トークン"
 
 #: application/views/qso/components/winkeysettings.php:46
 msgid "ESM (Enter Sends Message)"
-msgstr ""
+msgstr "ESM（Enterキーでメッセージを送信）"
 
 #: application/views/qso/components/winkeysettings.php:49
 msgid ""
@@ -18287,50 +18287,56 @@ msgid ""
 "only your own call, and logging sends your report instead of a TU. Alt+Enter "
 "logs without sending."
 msgstr ""
+"有効にすると、Enter キーで QSO が実行されます。空の呼び出しでは CQ が送信さ"
+"れ、不明瞭な呼び出し (\"?\" 付き) では再度 CQ が送信され、交換のない完全な呼"
+"び出しではレポートが送信され、完全な QSO は TU とともにログに記録されます。"
+"S&P モードでは、最初の Enter キーで自分の呼び出しのみが送信され、ログ記録で"
+"は TU の代わりにレポートが送信されます。Alt+Enter は送信せずにログを記録しま"
+"す。"
 
 #: application/views/qso/components/winkeysettings.php:55
 msgid "Unclear call (?)"
-msgstr ""
+msgstr "不明瞭な通話（？）"
 
 #: application/views/qso/components/winkeysettings.php:56
 msgid "Exchange / Report"
-msgstr ""
+msgstr "交換／レポート"
 
 #: application/views/qso/components/winkeysettings.php:57
 msgid "Log QSO / TU"
-msgstr ""
+msgstr "ログQSO / TU"
 
 #: application/views/qso/components/winkeysettings.php:58
 msgid "own call"
-msgstr ""
+msgstr "自己判断"
 
 #: application/views/qso/components/winkeysettings.php:59
 msgid "exchange on log"
-msgstr ""
+msgstr "ログに関する交換"
 
 #: application/views/qso/components/winkeysettings.php:78
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "キーボードショートカット"
 
 #: application/views/qso/components/winkeysettings.php:82
 msgid "Send the corresponding CW macro"
-msgstr ""
+msgstr "対応するCWマクロを送信します"
 
 #: application/views/qso/components/winkeysettings.php:83
 msgid "ESM on: drive the QSO (CQ / report / log); ESM off: log the QSO"
-msgstr ""
+msgstr "ESMオン：QSOを駆動（CQ/レポート/ログ）；ESMオフ：QSOをログに記録"
 
 #: application/views/qso/components/winkeysettings.php:84
 msgid "Log the QSO without sending anything"
-msgstr ""
+msgstr "何も送信せずにQSOを記録する"
 
 #: application/views/qso/components/winkeysettings.php:85
 msgid "Clear the entry form"
-msgstr ""
+msgstr "入力フォームをクリアする"
 
 #: application/views/qso/components/winkeysettings.php:86
 msgid "In the callsign field: jump to the next empty field"
-msgstr ""
+msgstr "コールサイン欄：次の空いている欄へ移動"
 
 #: application/views/qso/edit_ajax.php:35
 msgid "Sats"

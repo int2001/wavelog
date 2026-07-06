@@ -16,8 +16,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-03 14:26+0000\n"
-"PO-Revision-Date: 2026-07-01 19:57+0000\n"
+"POT-Creation-Date: 2026-07-05 18:55+0000\n"
+"PO-Revision-Date: 2026-07-04 18:16+0000\n"
 "Last-Translator: David Quental <ct1drb72@gmail.com>\n"
 "Language-Team: Spanish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/es/>\n"
@@ -150,7 +150,7 @@ msgstr "Ducting troposférico"
 #: application/controllers/Contest_admin.php:14
 #: application/controllers/Contestcalendar.php:8
 #: application/controllers/Contesting.php:39
-#: application/controllers/Contesting.php:1024
+#: application/controllers/Contesting.php:1028
 #: application/controllers/Contesting_import.php:11
 #: application/controllers/Contesting_import.php:27
 #: application/controllers/Contesting_import.php:57
@@ -1066,24 +1066,24 @@ msgid "There was an error deleting the contest session. Please try again."
 msgstr ""
 "Hubo un error al crear la sesión del concurso. Por favor, inténtalo de nuevo."
 
-#: application/controllers/Contesting.php:966
+#: application/controllers/Contesting.php:970
 msgid "Operator switching is disabled."
 msgstr "El cambio de operador está desactivado."
 
-#: application/controllers/Contesting.php:986
+#: application/controllers/Contesting.php:990
 msgid "Operator switching is only available in club stations."
 msgstr "El cambio de operador solo está disponible en estaciones de club."
 
-#: application/controllers/Contesting.php:996
+#: application/controllers/Contesting.php:1000
 msgid "Access denied"
 msgstr "Acceso denegado"
 
-#: application/controllers/Contesting.php:1004
+#: application/controllers/Contesting.php:1008
 #: application/controllers/User.php:1444
 msgid "Incorrect username or password!"
 msgstr "¡Nombre de usuario o contraseña incorrectos!"
 
-#: application/controllers/Contesting.php:1013
+#: application/controllers/Contesting.php:1017
 msgid "A club account cannot be used as an operator."
 msgstr "Una cuenta de club no puede usarse como operador."
 
@@ -10701,14 +10701,14 @@ msgstr "Winkeyer"
 #: application/views/qso/components/winkeysettings.php:54
 msgctxt "ESM mode"
 msgid "Run"
-msgstr ""
+msgstr "Run"
 
 #: application/views/contesting/logger/components/winkeyer.php:24
 #: application/views/qso/components/winkeysettings.php:58
 #: application/views/qso/components/winkeysettings.php:59
 msgctxt "ESM mode"
 msgid "S&P"
-msgstr ""
+msgstr "S&P"
 
 #: application/views/contesting/logger/components/winkeyer.php:51
 #: application/views/qso/index.php:828
@@ -10717,7 +10717,7 @@ msgstr "Conectar"
 
 #: application/views/contesting/logger/components/winkeyer.php:53
 msgid "Toggle Run / Search & Pounce for ESM"
-msgstr ""
+msgstr "Alternar Run / S&P para ESM"
 
 #: application/views/contesting/logger/components/winkeyer.php:73
 #: application/views/qso/index.php:856
@@ -11971,15 +11971,15 @@ msgstr "Apagado"
 
 #: application/views/dashboard/_options_menu.php:10
 msgid "Dashboard options"
-msgstr ""
+msgstr "Opciones del panel de control"
 
 #: application/views/dashboard/_options_menu.php:12
 msgid "KPI statistics"
-msgstr ""
+msgstr "Estadísticas de KPI"
 
 #: application/views/dashboard/_options_menu.php:15
 msgid "Solar data"
-msgstr ""
+msgstr "Datos solares"
 
 #: application/views/dashboard/index.php:6
 msgid "RSTS"
@@ -12096,7 +12096,7 @@ msgstr "Al menos uno de tus certificados está caducando"
 #: application/views/dashboard/index.php:230
 #: application/views/dashboard/solar_data.php:2
 msgid "Right-click for options"
-msgstr ""
+msgstr "Haz clic derecho para opciones"
 
 #: application/views/dashboard/index.php:245
 msgid "QSOs this year"
@@ -18534,7 +18534,7 @@ msgstr "Tokens"
 
 #: application/views/qso/components/winkeysettings.php:46
 msgid "ESM (Enter Sends Message)"
-msgstr ""
+msgstr "ESM (Enter Envía Mensaje)"
 
 #: application/views/qso/components/winkeysettings.php:49
 msgid ""
@@ -18544,50 +18544,57 @@ msgid ""
 "only your own call, and logging sends your report instead of a TU. Alt+Enter "
 "logs without sending."
 msgstr ""
+"Cuando está habilitado, la tecla Enter impulsa el QSO: una llamada vacía "
+"envía CQ, una llamada no clara (con \"?\") pregunta de nuevo, una llamada "
+"completa sin intercambio envía el informe, y un QSO completo se registra con "
+"un TU. En el modo S&P, el primer Enter envía sólo tu propia llamada, y al "
+"registrar envía tu informe en lugar de un TU. Alt+Enter registra sin enviar."
 
 #: application/views/qso/components/winkeysettings.php:55
 msgid "Unclear call (?)"
-msgstr ""
+msgstr "Indicativo poco claro (?)"
 
 #: application/views/qso/components/winkeysettings.php:56
 msgid "Exchange / Report"
-msgstr ""
+msgstr "Intercambiar / Reportar"
 
 #: application/views/qso/components/winkeysettings.php:57
 msgid "Log QSO / TU"
-msgstr ""
+msgstr "Registrar QSO / TU"
 
 #: application/views/qso/components/winkeysettings.php:58
 msgid "own call"
-msgstr ""
+msgstr "indicativo proprio"
 
 #: application/views/qso/components/winkeysettings.php:59
 msgid "exchange on log"
-msgstr ""
+msgstr "intercambio en el registro"
 
 #: application/views/qso/components/winkeysettings.php:78
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Atajos de teclado"
 
 #: application/views/qso/components/winkeysettings.php:82
 msgid "Send the corresponding CW macro"
-msgstr ""
+msgstr "Envía el macro correspondiente de CW"
 
 #: application/views/qso/components/winkeysettings.php:83
 msgid "ESM on: drive the QSO (CQ / report / log); ESM off: log the QSO"
 msgstr ""
+"ESM activado: conduce el QSO (CQ / informe / registro); ESM desactivado: "
+"registra el QSO"
 
 #: application/views/qso/components/winkeysettings.php:84
 msgid "Log the QSO without sending anything"
-msgstr ""
+msgstr "Registra el QSO sin enviar nada"
 
 #: application/views/qso/components/winkeysettings.php:85
 msgid "Clear the entry form"
-msgstr ""
+msgstr "Limpiar el formulario de entrada"
 
 #: application/views/qso/components/winkeysettings.php:86
 msgid "In the callsign field: jump to the next empty field"
-msgstr ""
+msgstr "En el campo de indicativo: salta al siguiente campo vacío"
 
 #: application/views/qso/edit_ajax.php:35
 msgid "Sats"
@@ -19329,6 +19336,8 @@ msgstr "QSOs no confirmados en LoTW"
 #: application/views/search/filter.php:31 application/views/search/main.php:23
 msgid "Search is limited to station locations linked to active logbook"
 msgstr ""
+"La búsqueda está limitada a las ubicaciones de las estaciones vinculadas al "
+"libro de registros activo"
 
 #: application/views/search/filter.php:40
 msgid "Save query"
@@ -20229,6 +20238,7 @@ msgstr "Desenlazar la Localización de la Estación"
 #: application/views/stationsetup/locationlist.php:3
 msgid "Limited to station locations linked to active logbook"
 msgstr ""
+"Limitado a ubicaciones de estaciones vinculadas al libro de registros activo"
 
 #: application/views/stationsetup/locationlist.php:11
 msgid "QSO Count"
@@ -21172,16 +21182,18 @@ msgstr "Mostrar Localizador"
 
 #: application/views/user/edit.php:705
 msgid "Map Tile Style"
-msgstr ""
+msgstr "Estilo de cuadro del mapa"
 
 #: application/views/user/edit.php:709
 msgid "Null"
-msgstr ""
+msgstr "Nulo"
 
 #: application/views/user/edit.php:712
 msgid ""
 "Choose the map tile rendering method; this will override the theme settings."
 msgstr ""
+"Elige el método de renderización de los mosaicos del mapa; esto anulará la "
+"configuración del tema."
 
 #: application/views/user/edit.php:724
 msgid "Previous QSL Type"
@@ -21233,6 +21245,9 @@ msgid ""
 "expeditions cards (Top), at the bottom of the dashboard (Bottom), or hide it "
 "(Off)."
 msgstr ""
+"Mostrar datos solares y de propagación en el panel de control sobre las "
+"tarjetas de expediciones activas (Superiór), en la parte inferior del panel "
+"de control (Inferior), o ocultarlo (Apagado)."
 
 #: application/views/user/edit.php:792
 msgid "Dashboard Notification Banner"
@@ -21246,13 +21261,15 @@ msgstr ""
 
 #: application/views/user/edit.php:824
 msgid "Dashboard KPI statistics"
-msgstr ""
+msgstr "Estadísticas KPI del panel"
 
 #: application/views/user/edit.php:825
 msgid ""
 "This switches the display of the KPI statistics (Total QSOs, QSOs this year/"
 "month/today, Current Streak, Unique callsigns) on the dashboard."
 msgstr ""
+"Esto cambia la visualización de las estadísticas de los KPI (Total de QSOs, "
+"QSOs de este año/mes/hoy, Racha actual, Indicativos únicos) en el tablero."
 
 #: application/views/user/edit.php:834
 msgid "Show Fields on QSO Tab"
