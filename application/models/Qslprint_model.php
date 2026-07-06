@@ -68,29 +68,61 @@ class Qslprint_model extends CI_Model {
 	 * It will be provided when calling the function when the dropdown is changed and the javascript fires
 	 */
 	function get_qsos_for_print($station_id = 'All') {
+		$tbl = $this->config->item('table_name');
+		$user_id = $this->session->userdata('user_id');
+
+		// Pass 1: fetch queued QSOs only (no per-row counting)
 		$binding = [];
-		$binding[] = $this->session->userdata('user_id');
-		$sql = "SELECT count(distinct oldlog.col_primary_key) as previous_qsl,
-			count(distinct sentlog.col_primary_key) as qsl_sent_to_call,
-			count(distinct rcvdlog.col_primary_key) as qsl_rcvd_from_call,
-			log.COL_QSL_SENT, log.COL_PRIMARY_KEY, log.COL_DXCC, log.COL_CALL, log.COL_SAT_NAME, log.COL_SAT_MODE, log.COL_BAND_RX, log.COL_FREQ as frequency, log.COL_FREQ_RX as frequency_rx, log.COL_TIME_ON, log.COL_MODE, log.COL_RST_SENT, log.COL_RST_RCVD, log.COL_QSL_VIA, log.COL_QSL_SENT_VIA, log.COL_SUBMODE, log.COL_BAND, sp.station_id, sp.station_callsign, sp.station_profile_name, o.qsoid
-			FROM ".$this->config->item('table_name')." log
+		$binding[] = $user_id;
+		$sql = "SELECT log.COL_QSL_SENT, log.COL_PRIMARY_KEY, log.COL_DXCC, log.COL_CALL, log.COL_SAT_NAME, log.COL_SAT_MODE, log.COL_BAND_RX, log.COL_FREQ as frequency, log.COL_FREQ_RX as frequency_rx, log.COL_TIME_ON, log.COL_MODE, log.COL_RST_SENT, log.COL_RST_RCVD, log.COL_QSL_VIA, log.COL_QSL_SENT_VIA, log.COL_SUBMODE, log.COL_BAND, log.station_id, sp.station_callsign, sp.station_profile_name, o.qsoid
+			FROM ".$tbl." log
 			INNER JOIN station_profile sp ON sp.`station_id` = log.`station_id`
 			LEFT OUTER JOIN oqrs o ON o.`qsoid` = log.`COL_PRIMARY_KEY`
-			LEFT OUTER JOIN ".$this->config->item('table_name')." oldlog on (oldlog.COL_QSL_SENT = 'Y' and oldlog.station_id=sp.station_id and oldlog.COL_BAND=log.col_band and oldlog.COL_CALL=log.col_call and oldlog.COL_MODE=log.col_mode and oldlog.COL_SAT_NAME=log.col_sat_name and oldlog.COL_PRIMARY_KEY != log.col_primary_key)
-			LEFT OUTER JOIN ".$this->config->item('table_name')." sentlog on (sentlog.COL_QSL_SENT = 'Y' and sentlog.station_id=sp.station_id and sentlog.COL_CALL=log.col_call)
-			LEFT OUTER JOIN ".$this->config->item('table_name')." rcvdlog on (rcvdlog.COL_QSL_RCVD = 'Y' and rcvdlog.station_id=sp.station_id and rcvdlog.COL_CALL=log.col_call)
 			WHERE sp.`user_id` = ?";
 		if ($station_id != 'All') {
 			$sql .= ' AND log.`station_id` = ?';
 			$binding[] = $station_id;
 		}
 		$sql .= " AND log.`COL_QSL_SENT` IN('R', 'Q')
-			GROUP BY log.col_primary_key, log.COL_QSL_SENT, log.COL_PRIMARY_KEY, log.COL_DXCC, log.COL_CALL, log.COL_SAT_NAME, log.COL_SAT_MODE, log.COL_BAND_RX, log.COL_FREQ, log.COL_FREQ_RX, log.COL_TIME_ON, log.COL_MODE, log.COL_RST_SENT, log.COL_RST_RCVD, log.COL_QSL_VIA, log.COL_QSL_SENT_VIA, log.COL_SUBMODE, log.COL_BAND, sp.station_id, sp.station_callsign, sp.station_profile_name, o.qsoid
 			ORDER BY log.`COL_DXCC` ASC, log.`COL_CALL` ASC, log.`COL_SAT_NAME` ASC, log.`COL_SAT_MODE` ASC, log.`COL_BAND_RX` ASC, log.`COL_TIME_ON` ASC, log.`COL_MODE` ASC LIMIT 1000";
 
-		$query = $this->db->query($sql, $binding);
-		return $query;
+		$rows = $this->db->query($sql, $binding)->result();
+		if (empty($rows)) {
+			return [];
+		}
+
+		// Pass 2: batched counts, scoped ONLY to stations + callsigns present in the queue
+		$station_ids = array_values(array_unique(array_map(function($r) { return (int)$r->station_id; }, $rows)));
+		$calls = array_values(array_unique(array_map(function($r) { return $r->COL_CALL; }, $rows)));
+		$sid_ph = implode(',', array_fill(0, count($station_ids), '?'));
+		$call_ph = implode(',', array_fill(0, count($calls), '?'));
+		$bind_in = array_merge($station_ids, $calls);
+
+		$sent_map = [];
+		$rcvd_map = [];
+		$sql_sr = "SELECT station_id, COL_CALL, SUM(COL_QSL_SENT = 'Y') AS sent, SUM(COL_QSL_RCVD = 'Y') AS rcvd FROM ".$tbl." WHERE station_id IN (".$sid_ph.") AND COL_CALL IN (".$call_ph.") AND (COL_QSL_SENT = 'Y' OR COL_QSL_RCVD = 'Y') GROUP BY station_id, COL_CALL";
+		$sr = $this->db->query($sql_sr, $bind_in)->result();
+		foreach ($sr as $x) {
+			$sent_map[$x->station_id.'|'.$x->COL_CALL] = (int)$x->sent;
+			$rcvd_map[$x->station_id.'|'.$x->COL_CALL] = (int)$x->rcvd;
+		}
+
+		$prev_map = [];
+		$sql_pr = "SELECT station_id, COL_CALL, COL_BAND, COL_MODE, COALESCE(COL_SAT_NAME, '') AS sat, COUNT(*) AS c FROM ".$tbl." WHERE COL_QSL_SENT = 'Y' AND station_id IN (".$sid_ph.") AND COL_CALL IN (".$call_ph.") GROUP BY station_id, COL_CALL, COL_BAND, COL_MODE, COALESCE(COL_SAT_NAME, '')";
+		$pr = $this->db->query($sql_pr, $bind_in)->result();
+		foreach ($pr as $x) {
+			$prev_map[$x->station_id.'|'.$x->COL_CALL.'|'.$x->COL_BAND.'|'.$x->COL_MODE.'|'.$x->sat] = (int)$x->c;
+		}
+
+		foreach ($rows as $r) {
+			$k2 = $r->station_id.'|'.$r->COL_CALL;
+			$r->qsl_sent_to_call = $sent_map[$k2] ?? 0;
+			$r->qsl_rcvd_from_call = $rcvd_map[$k2] ?? 0;
+			$k5 = $r->station_id.'|'.$r->COL_CALL.'|'.$r->COL_BAND.'|'.$r->COL_MODE.'|'.($r->COL_SAT_NAME ?? '');
+			$r->previous_qsl = $prev_map[$k5] ?? 0;
+		}
+
+		return $rows;
 	}
 
 	function get_qsos_for_print_ajax($station_id) {

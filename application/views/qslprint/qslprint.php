@@ -25,7 +25,7 @@ if (empty($station_id)) {
 		$custom_date_format = $this->config->item('qso_date_format');
 	}
 
-if ($qsos->result() != NULL) { ?>
+	if (!empty($qsos)) { ?>
 		<table style="width:100%" class="table table-sm table-bordered table-hover table-striped table-condensed qslprint" id="qslprint_table">
 			<thead>
 				<tr>
@@ -51,7 +51,7 @@ if ($qsos->result() != NULL) { ?>
 
 
 
-	<?php foreach ($qsos->result() as $qsl) {
+	<?php foreach ($qsos as $qsl) {
 		echo '<tr id="qslprint_'.$qsl->COL_PRIMARY_KEY.'">';
 		echo '<td style=\'text-align: center\'><div class="form-check"><input class="form-check-input" type="checkbox" name="selected_qsos[]" value="'.$qsl->COL_PRIMARY_KEY.'" /></div></td>';
                 ?><td style='text-align: center' data-search="<?php echo htmlspecialchars(strtoupper($qsl->COL_CALL), ENT_QUOTES); ?>"><span class="qso_call"><a id="edit_qso" href="javascript:displayQso(<?php echo $qsl->COL_PRIMARY_KEY; ?>);"><?php echo str_replace("0","&Oslash;",strtoupper($qsl->COL_CALL)); ?></a><a target="_blank" href="https://www.qrz.com/db/<?php echo strtoupper($qsl->COL_CALL); ?>"><img width="16" height="16" src="<?php echo base_url(); ?>images/icons/qrz.png" alt="Lookup <?php echo strtoupper($qsl->COL_CALL); ?> on QRZ.com"></a> <a target="_blank" href="https://www.hamqth.com/<?php echo strtoupper($qsl->COL_CALL); ?>"><img width="16" height="16" src="<?php echo base_url(); ?>images/icons/hamqth.png" alt="Lookup <?php echo strtoupper($qsl->COL_CALL); ?> on HamQTH"></a> <a target="_blank" href="http://www.eqsl.cc/Member.cfm?<?php echo strtoupper($qsl->COL_CALL); ?>"><img width="16" height="16" src="<?php echo base_url(); ?>images/icons/eqsl.png" alt="Lookup <?php echo strtoupper($qsl->COL_CALL); ?> on eQSL.cc"></a></td><?php
