@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-06 16:40+0000\n"
+"POT-Creation-Date: 2026-07-06 16:45+0000\n"
 "PO-Revision-Date: 2024-08-17 10:49+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Albanian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -150,9 +150,9 @@ msgstr ""
 #: application/controllers/Csv.php:28
 #: application/controllers/Dayswithqso.php:10
 #: application/controllers/Dcl.php:10 application/controllers/Dcl.php:18
-#: application/controllers/Dcl.php:23 application/controllers/Dcl.php:49
-#: application/controllers/Dcl.php:51 application/controllers/Dcl.php:221
-#: application/controllers/Dcl.php:252 application/controllers/Debug.php:9
+#: application/controllers/Dcl.php:44 application/controllers/Dcl.php:46
+#: application/controllers/Dcl.php:216 application/controllers/Dcl.php:247
+#: application/controllers/Debug.php:9
 #: application/controllers/Distancerecords.php:10
 #: application/controllers/Distances.php:10
 #: application/controllers/Dxatlas.php:6 application/controllers/Dxatlas.php:28
@@ -1176,12 +1176,12 @@ msgstr ""
 msgid "Days with QSOs"
 msgstr ""
 
-#: application/controllers/Dcl.php:32
+#: application/controllers/Dcl.php:27
 #: application/views/dcl_views/key_import.php:3
 msgid "DCL Key Import"
 msgstr ""
 
-#: application/controllers/Dcl.php:66 application/views/dcl_views/import.php:3
+#: application/controllers/Dcl.php:61 application/views/dcl_views/import.php:3
 #: application/views/dcl_views/index.php:3
 #: application/views/logbookadvanced/index.php:997
 #: application/views/logbookadvanced/useroptions.php:148
@@ -1194,27 +1194,27 @@ msgstr ""
 msgid "DCL"
 msgstr ""
 
-#: application/controllers/Dcl.php:136
+#: application/controllers/Dcl.php:131
 msgid "No QSOs to upload."
 msgstr ""
 
-#: application/controllers/Dcl.php:183 application/controllers/Dcl.php:195
+#: application/controllers/Dcl.php:178 application/controllers/Dcl.php:190
 msgid "Upload Failed"
 msgstr ""
 
-#: application/controllers/Dcl.php:185
+#: application/controllers/Dcl.php:180
 msgid "Timeout reached. Stopping subsequent uploads."
 msgstr ""
 
-#: application/controllers/Dcl.php:198
+#: application/controllers/Dcl.php:193
 msgid "Upload Successful"
 msgstr ""
 
-#: application/controllers/Dcl.php:208
+#: application/controllers/Dcl.php:203
 msgid "No Station Profiles found to upload to DCL"
 msgstr ""
 
-#: application/controllers/Dcl.php:224
+#: application/controllers/Dcl.php:219
 msgid "Key(s) Deleted."
 msgstr ""
 

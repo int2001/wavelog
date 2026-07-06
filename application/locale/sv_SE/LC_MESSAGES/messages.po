@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-06 16:40+0000\n"
+"POT-Creation-Date: 2026-07-06 16:45+0000\n"
 "PO-Revision-Date: 2026-07-01 15:28+0000\n"
 "Last-Translator: \"Jorgen Dahl, NU1T\" <sm6srw@arrl.net>\n"
 "Language-Team: Swedish <https://translate.wavelog.org/projects/wavelog/main-"
@@ -154,9 +154,9 @@ msgstr "Troposfärisk ducting"
 #: application/controllers/Csv.php:28
 #: application/controllers/Dayswithqso.php:10
 #: application/controllers/Dcl.php:10 application/controllers/Dcl.php:18
-#: application/controllers/Dcl.php:23 application/controllers/Dcl.php:49
-#: application/controllers/Dcl.php:51 application/controllers/Dcl.php:221
-#: application/controllers/Dcl.php:252 application/controllers/Debug.php:9
+#: application/controllers/Dcl.php:44 application/controllers/Dcl.php:46
+#: application/controllers/Dcl.php:216 application/controllers/Dcl.php:247
+#: application/controllers/Debug.php:9
 #: application/controllers/Distancerecords.php:10
 #: application/controllers/Distances.php:10
 #: application/controllers/Dxatlas.php:6 application/controllers/Dxatlas.php:28
@@ -1187,12 +1187,12 @@ msgstr "Instrumentpanel"
 msgid "Days with QSOs"
 msgstr "Dagar med QSOs"
 
-#: application/controllers/Dcl.php:32
+#: application/controllers/Dcl.php:27
 #: application/views/dcl_views/key_import.php:3
 msgid "DCL Key Import"
 msgstr "DCL-nyckelimport"
 
-#: application/controllers/Dcl.php:66 application/views/dcl_views/import.php:3
+#: application/controllers/Dcl.php:61 application/views/dcl_views/import.php:3
 #: application/views/dcl_views/index.php:3
 #: application/views/logbookadvanced/index.php:997
 #: application/views/logbookadvanced/useroptions.php:148
@@ -1205,27 +1205,27 @@ msgstr "DCL-nyckelimport"
 msgid "DCL"
 msgstr "DCL"
 
-#: application/controllers/Dcl.php:136
+#: application/controllers/Dcl.php:131
 msgid "No QSOs to upload."
 msgstr "Inga QSOs att ladda upp."
 
-#: application/controllers/Dcl.php:183 application/controllers/Dcl.php:195
+#: application/controllers/Dcl.php:178 application/controllers/Dcl.php:190
 msgid "Upload Failed"
 msgstr "Uppladdning misslyckades"
 
-#: application/controllers/Dcl.php:185
+#: application/controllers/Dcl.php:180
 msgid "Timeout reached. Stopping subsequent uploads."
 msgstr "Tidsgräns nådd. Stoppar efterföljande uppladdningar."
 
-#: application/controllers/Dcl.php:198
+#: application/controllers/Dcl.php:193
 msgid "Upload Successful"
 msgstr "Uppladdning lyckades"
 
-#: application/controllers/Dcl.php:208
+#: application/controllers/Dcl.php:203
 msgid "No Station Profiles found to upload to DCL"
 msgstr "Inga stationsprofiler hittades att ladda upp till DCL"
 
-#: application/controllers/Dcl.php:224
+#: application/controllers/Dcl.php:219
 msgid "Key(s) Deleted."
 msgstr "Nyckel(nycklar) raderad(e)."
 
