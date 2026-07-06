@@ -5,7 +5,6 @@ class Debug extends CI_Controller
 	function __construct() {
 		parent::__construct();
 
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(99)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -329,7 +328,6 @@ class Debug extends CI_Controller
 	public function worker_status() {
 		header('Content-Type: application/json');
 
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			http_response_code(403);
 			echo json_encode(['success' => false]);

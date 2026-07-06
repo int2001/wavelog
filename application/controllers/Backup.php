@@ -9,7 +9,6 @@ class Backup extends CI_Controller {
 	/* User Facing Links to Backup URLs */
 	public function index()
 	{
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(99)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$data['page_title'] = __("Backup");
@@ -22,7 +21,6 @@ class Backup extends CI_Controller {
 	/* Gets all QSOs and Dumps them to logbook.adi */
 	public function adif($key = null){
 		if ($key == null) {
-			$this->load->model('user_model');
 			if(!$this->user_model->authorize(99)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		}
 
@@ -67,7 +65,6 @@ class Backup extends CI_Controller {
 	/* Export the notes to XML */
 	public function notes($key = null) {
 		if ($key == null) {
-			$this->load->model('user_model');
 			if(!$this->user_model->authorize(99)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		}
 

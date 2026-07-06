@@ -4,7 +4,6 @@ class Radio extends CI_Controller {
 
 	public function index() {
 		// Check Auth
-		$this->load->model('user_model');
 
 		// Check if users logged in
 
@@ -28,7 +27,6 @@ class Radio extends CI_Controller {
 
 	function status() {
 
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(3)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		session_write_close();
@@ -74,7 +72,6 @@ class Radio extends CI_Controller {
 				echo "<tr>";
 				echo "<td>" . $row->radio . "</td>";
 
-				$this->load->model('user_model');
 				if ($this->session->userdata('clubstation') == 1 && clubaccess_check(9)) {
 					$operator = $this->user_model->get_by_id($row->operator)->row();
 					if ($operator) {
@@ -167,10 +164,7 @@ class Radio extends CI_Controller {
 
 		$clean_id = $this->security->xss_clean($id);
 
-		$this->load->model('user_model');
-
 		// Check if users logged in
-
 		if ($this->user_model->validate_session() == 0) {
 			// user is not logged in
 			// Return Json data
@@ -317,7 +311,6 @@ class Radio extends CI_Controller {
 		$clean_id = $this->security->xss_clean($id);
 
 		// Check Auth
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(3)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -343,7 +336,6 @@ class Radio extends CI_Controller {
 		$clean_radio_id = $this->input->post('radio_id', TRUE);
 		
 		// Check Auth
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(3)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -359,7 +351,6 @@ class Radio extends CI_Controller {
 
 	function release_default_radio() {
 		// Check Auth
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(3)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');

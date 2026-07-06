@@ -5,7 +5,6 @@ class Dashboard extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			redirect('user/login');
 		}

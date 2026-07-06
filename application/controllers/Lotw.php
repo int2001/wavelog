@@ -40,7 +40,6 @@ class Lotw extends CI_Controller {
 	*/
 	public function index() {
 		$this->load->library('Permissions');
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2) || !clubaccess_check(9)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		// Load required models for page generation
@@ -85,7 +84,6 @@ class Lotw extends CI_Controller {
 	|
 	*/
 	public function cert_upload() {
-		$this->load->model('user_model');
 		$this->load->model('dxcc');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
@@ -111,7 +109,6 @@ class Lotw extends CI_Controller {
 	|
 	*/
 	public function do_cert_upload() {
-		$this->load->model('user_model');
 		$this->load->model('dxcc');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
@@ -186,7 +183,6 @@ class Lotw extends CI_Controller {
 	*/
 	public function lotw_upload() {
 
-		$this->load->model('user_model');
 		$this->user_model->authorize(2);
 
 		// set the last run in cron table for the correct cron id
@@ -406,7 +402,6 @@ class Lotw extends CI_Controller {
 	|
 	*/
     public function delete_cert($cert_id) {
-    	$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
     	$this->load->model('Lotw_model');
@@ -429,7 +424,6 @@ class Lotw extends CI_Controller {
 	|
 	*/
 	public function decrypt_key($file, $password = "") {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$results = array();
@@ -675,7 +669,6 @@ class Lotw extends CI_Controller {
 
 		unlink($filepath);
 
-		$this->load->model('user_model');
 		if ($this->user_model->authorize(2)) {	// Only Output results if authorized User
 			if(isset($data['lotw_table_headers'])) {
 				if($display_view == TRUE) {
@@ -713,7 +706,6 @@ class Lotw extends CI_Controller {
 	|
 	*/
 	function lotw_download($sync_user_id = null) {
-		$this->load->model('user_model');
 		$this->load->model('logbook_model');
 		$this->load->model('Stations');
 
@@ -934,7 +926,6 @@ class Lotw extends CI_Controller {
 	}
 
 	public function check_lotw_credentials () {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -1020,7 +1011,6 @@ class Lotw extends CI_Controller {
 	}
 
 	public function import() {	// Is only called via frontend. Cron uses "upload". within download the download is called
-		$this->load->model('user_model');
 		$this->load->model('Stations');
 		if(!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));

@@ -12,10 +12,6 @@ if (!function_exists('map_style_options')) {
 	{
 		$CI =& get_instance();
 
-		if (!isset($CI->user_model)) {
-			$CI->load->model('user_model');
-		}
-
 		$themes = $CI->user_model->getUserThemes();
 
 		$options = ['map-follow' => 'Follow active theme'];

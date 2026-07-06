@@ -263,7 +263,6 @@ class Oqrs extends CI_Controller {
 
 	private function _alert_oqrs_request($postdata, $station_ids) {
 		foreach ($station_ids as $id) {
-			$this->load->model('user_model');
 
 			$email = $this->user_model->get_email_address($id);
 
@@ -392,7 +391,6 @@ class Oqrs extends CI_Controller {
 	}
 
 	private function _check_auth() {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2) || !clubaccess_check(9)) { 
 			$this->session->set_flashdata('error', __("You're not allowed to do that!")); 
 			redirect('dashboard');
