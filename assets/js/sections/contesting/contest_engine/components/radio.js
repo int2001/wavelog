@@ -401,20 +401,8 @@ class RadioComponent {
 	 * Setup QRG input type for small screens
 	 */
 	qrg_inputtype() {
-		// on small screens we change the input type of the frequency and frequency_rx fields to number to show the numeric keyboard
-		if (this.freqCalculated) {
-			this.freqCalculated.type = 'number';
-			this.freqCalculated.step = '0.001';
-			this.freqCalculated.inputMode = 'decimal';
-			this.freqCalculated.lang = 'en';
-		}
-
-		if (this.frequencyRx) {
-			this.frequencyRx.type = 'number';
-			this.frequencyRx.step = '0.001';
-			this.frequencyRx.inputMode = 'decimal';
-			this.frequencyRx.lang = 'en';
-		}
+		if (this.freqCalculated) this.freqCalculated.inputMode = 'decimal';
+		if (this.frequencyRx)    this.frequencyRx.inputMode    = 'decimal';
 	}
 
 	/**
@@ -768,9 +756,7 @@ class RadioComponent {
 		if (this.freqCalculated) {
 			// Real-time input filtering (commas to dots)
 			this.freqCalculated.addEventListener('input', () => {
-				if (window.innerWidth > 768) {
-					this.freqCalculated.value = this.freqCalculated.value.replace(',', '.');
-				}
+				this.freqCalculated.value = this.freqCalculated.value.replace(',', '.');
 			});
 
 			// Fire set_new_qrg() when user presses Enter
