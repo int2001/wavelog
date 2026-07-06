@@ -303,6 +303,24 @@ class Qslpostcard_model extends CI_Model {
             }
         }
 
+        // Only resolve addresses when the template actually prints one: without
+        // any addr.* element the callbook lookups would be pointless work (and
+        // remote API calls). Same addr.* predicate as in the element loop below.
+        // Only needs to be done if $noaddress is not already true.
+        if (!$noaddress) {
+            $hasAddrElement = false;
+            foreach (($layout['elements'] ?? []) as $el) {
+                if (($el['type'] ?? 'field') !== 'text' && str_starts_with($el['field'] ?? '', 'addr.')) {
+                    $hasAddrElement = true;
+                    break;
+                }
+            }
+            if (!$hasAddrElement) {
+                log_message('debug', 'QSLPOSTCARD template has no addr.* elements, skipping address resolution');
+                $noaddress = true;
+            }
+        }
+
         // A QSL card is addressed to a single station, so QSOs are ALWAYS grouped
         // by callsign — a card never mixes contacts with different callsigns. Each
         // group is then split into cards of $perCard QSOs, spilling onto further
@@ -325,10 +343,16 @@ class Qslpostcard_model extends CI_Model {
 				$addr = null;
 			} else {
 				$addr = $call ? $this->resolve_address($call) : null;
-				// Skip if no usable mailing address
+				// No usable mailing address: still print the card, but mark the
+				// address as not found instead of silently dropping the whole card
+				// (which produced an empty PDF when no callsign resolved to a
+				// mailable address).
 				if (!$this->is_mailable_address($addr)) {
-					log_message('debug', 'QSLPOSTCARD skipping ' . $call . ' because no usable address was found');
-					continue;
+					log_message('debug', 'QSLPOSTCARD no usable address for ' . $call . ', printing placeholder');
+					$addr = [
+						'name'  => $call,
+						'addr1' => _pgettext("QSL Card Designer; No mailable address found", "!!! NO MAILABLE ADDRESS FOUND !!!"),
+					];
 				}
 			}
 
