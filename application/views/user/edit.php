@@ -1,18 +1,22 @@
 <div class="container">
 	<br>
-	<h3>
-	  <?php if (isset($user_add)) {
-		if ($clubstation) {
-			echo __("Create Clubstation Account");
-		} else {
-			echo __("Create User Account");
-		}
-	  } else {
-		echo __("Edit Account")." <small class=\"text-muted\">".$user_name."</small>";
-	  }
-	  ?>
+	<div class="d-flex justify-content-between align-items-center flex-wrap">
+		<h3>
+		  <?php if (isset($user_add)) {
+			if ($clubstation) {
+				echo __("Create Clubstation Account");
+			} else {
+				echo __("Create User Account");
+			}
+		  } else {
+			echo __("Edit Account")." <small class=\"text-muted\">".$user_name."</small>";
+		  }
+		  ?>
 
-	</h3>
+		</h3>
+		<!-- Settings search box gets injected here by assets/js/sections/user.js -->
+		<div id="wl-settings-search-slot"></div>
+	</div>
 
 	<?php if($this->session->flashdata('success')) { ?>
 		<!-- Display Success Message -->
@@ -1319,3 +1323,10 @@
 	<button type="submit" class="btn btn-primary mb-5 mt-3"><i class="fas fa-save"></i> <?= __("Save Account"); ?></button>
 </form>
 </div>
+
+<script>
+	// Search-box UI strings for assets/js/sections/user.js, localized via __()/gettext.
+	var lang_account_search_placeholder = "<?= __("Search settings"); ?>";
+	var lang_account_search_clear       = "<?= __("Clear"); ?>";
+	var lang_account_search_none        = "<?= __("No settings match your search."); ?>";
+</script>
