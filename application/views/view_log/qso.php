@@ -723,7 +723,7 @@
             <?php
 	    if (!($this->config->item('disable_qsl') ?? false)) {
             if (count($qslimages) > 0) {
-            echo '<table style="width:100%" class="qsltable table table-sm table-bordered table-hover table-striped table-condensed" aria-label="' . __("QSL images") . '">
+            echo '<table style="width:100%" class="qsltable table table-sm table-bordered table-hover table-striped table-condensed" aria-label="' . __("QSL Images") . '">
                 <thead>
                 <tr>
                     <th scope="col" style=\'text-align: center\'>' . __("QSL image file") . '</th>
