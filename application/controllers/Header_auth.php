@@ -79,7 +79,6 @@ class Header_auth extends CI_Controller {
         }
         $external_identifier = json_encode(['iss' => $iss, 'sub' => $sub]);
 
-        $this->load->model('user_model');
         $query = $this->user_model->get_by_external_account($external_identifier);
 
         $isNewUser = false;
@@ -281,7 +280,6 @@ class Header_auth extends CI_Controller {
         }
 
 
-        $this->load->model('user_model');
         $result = $this->user_model->add(
             $mapped['user_name']                              ?? '',
             bin2hex(random_bytes(64)),                           // password is always random

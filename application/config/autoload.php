@@ -92,7 +92,7 @@ $autoload['config'] = array('wavelog', 'bands', 'lotw', 'gettext', 'adif_propmod
 |
 */
 
-$autoload['model'] = array('user_options_model', 'logbooks_model', 'stations', 'oqrs_model');
+$autoload['model'] = array('user_model', 'user_options_model', 'logbooks_model', 'stations', 'oqrs_model');
 
 
 /* End of file autoload.php */

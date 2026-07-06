@@ -4817,7 +4817,6 @@ class Logbook_model extends CI_Model {
 	}
 
 	function import_bulk($records, $station_id = "0", $skipDuplicate = true, $markClublog = false, $markLotw = false, $dxccAdif = false, $markQrz = false, $markEqsl = false, $markHrd = false, $markDcl = false, $skipexport = false, $operatorName = false, $apicall = false, $skipStationCheck = false, $skipGridCheck = false) {
-		$this->load->model('user_model');
 		$custom_errors['errormessage'] = '';
 		$critical_errors = [];
 		$validation_errors = [];

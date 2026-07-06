@@ -77,7 +77,6 @@ class Clublog extends CI_Controller
 	 * Used for displaying the uid for manually selecting log for upload to Clublog
 	 */
 	public function export() {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2) || !clubaccess_check(9)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$this->load->model('clublog_model');
@@ -136,7 +135,6 @@ class Clublog extends CI_Controller
 	public function importlog() {
 		if (!($this->config->item('disable_manual_clublog'))) {
 
-			$this->load->model('user_model');
 			if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 			$data['page_title'] = __("Clublog QSL Import");

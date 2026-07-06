@@ -25,7 +25,6 @@ class EqslBulkDownloader {
 		$this->ci =& get_instance();
 		$this->ci->load->library('electronicqsl');
 		$this->ci->load->library('upload_guard');
-		$this->ci->load->model('user_model');
 		$this->ci->load->model('logbook_model');
 
 		// Get image path

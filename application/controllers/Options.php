@@ -10,7 +10,6 @@ class Options extends CI_Controller {
 		parent::__construct();
 		$this->load->helper(array('form', 'url'));
 
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(99)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 	}
 
@@ -315,8 +314,6 @@ class Options extends CI_Controller {
 	}
 
 	function sendTestMail() {
-		$this->load->model('user_model');
-
 		$id = $this->session->userdata('user_id');
 
 		$email = $this->user_model->get_user_email_by_id($id);
