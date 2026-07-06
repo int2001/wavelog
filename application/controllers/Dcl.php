@@ -14,11 +14,6 @@ class Dcl extends CI_Controller {
 		}
 	}
 
-	public function save_key() {
-		if (!$this->user_model->authorize(2) || !clubaccess_check(9)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
-		$this->load->model('Dcl_model');
-		$this->Dcl_model->store_key($call);
-	}
 	public function key_import() {
 		if (!$this->user_model->authorize(2) || !clubaccess_check(9)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		$this->load->library('Permissions');
