@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-05 18:55+0000\n"
+"POT-Creation-Date: 2026-07-06 05:37+0000\n"
 "PO-Revision-Date: 2025-12-30 19:49+0000\n"
 "Last-Translator: Florian Wolters <wavelog@df2et.de>\n"
 "Language-Team: Greek <https://translate.wavelog.org/projects/wavelog/main-"
@@ -4165,6 +4165,11 @@ msgstr "Κεραίες"
 
 #: application/models/Note.php:63 application/models/Note.php:94
 msgid "In Contacts category, the titles of the notes need to be unique."
+msgstr ""
+
+#: application/models/Qslpostcard_model.php:354
+msgctxt "QSL Card Designer; No mailable address found"
+msgid "!!! NO MAILABLE ADDRESS FOUND !!!"
 msgstr ""
 
 #: application/models/Update_model.php:347
