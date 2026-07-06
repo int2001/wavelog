@@ -16,7 +16,6 @@ class Awards extends CI_Controller {
 	{
 		parent::__construct();
 
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$map_custom = json_decode($this->optionslib->get_map_custom());

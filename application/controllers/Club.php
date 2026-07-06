@@ -34,7 +34,6 @@ class Club extends CI_Controller
 
     public function permissions($club_id) {
 
-		$this->load->model('user_model');
 		$this->load->model('club_model');
 		$this->load->library('form_validation');
 
@@ -88,9 +87,6 @@ class Club extends CI_Controller
 			$this->session->set_flashdata('error', __("You're not allowed to do that!")); 
 			redirect('dashboard'); 
 		}
-		if (!$this->load->is_loaded('user_model')) {
-			$this->load->model('user_model');
-		}
 
 		$query = (string) $this->input->post('query', true) ?? '';
 		if (empty($query)) {
@@ -121,7 +117,6 @@ class Club extends CI_Controller
 
 	public function alter_member() {
 		
-		$this->load->model('user_model');
 		$this->load->model('club_model');
 
 		$club_id = $this->input->post('club_id', true);
@@ -151,7 +146,6 @@ class Club extends CI_Controller
 
 	public function delete_member() {
 		
-		$this->load->model('user_model');
 		$this->load->model('club_model');
 
 		$club_id = $this->input->post('club_id', true);
@@ -176,7 +170,6 @@ class Club extends CI_Controller
 
 	public function switch_modal() {
 		
-		$this->load->model('user_model');
 		$this->load->model('club_model');
 		$this->load->library('encryption');
 

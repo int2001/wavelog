@@ -18,7 +18,6 @@ class eqsl extends CI_Controller {
 	// Default view when loading controller.
 	public function index() {
 
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -61,7 +60,6 @@ class eqsl extends CI_Controller {
 	}
 
 	public function import() {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2) || !clubaccess_check(9)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -161,7 +159,6 @@ class eqsl extends CI_Controller {
 	}
 
 	public function export() {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -250,7 +247,6 @@ class eqsl extends CI_Controller {
 	}
 
 	function generateResultTable($custom_date_format, $rows) {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -274,7 +270,6 @@ class eqsl extends CI_Controller {
 	}
 
 	function writeEqslNotSent($qslsnotsent, $custom_date_format) {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -313,7 +308,6 @@ class eqsl extends CI_Controller {
 	}
 
 	function image($id, $width=null) {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -327,7 +321,6 @@ class eqsl extends CI_Controller {
 
 		if ($this->Eqsl_images->get_image($id) == "No Image") {
 			$this->load->model('logbook_model');
-			$this->load->model('user_model');
 			$qso_query = $this->logbook_model->get_qso($id);
 
 			// Check if QSO exists and is accessible
@@ -521,7 +514,6 @@ class eqsl extends CI_Controller {
 	}
 
 	function bulk_download_image($id) {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -529,7 +521,6 @@ class eqsl extends CI_Controller {
 		$this->load->model('Eqsl_images');
 
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 		$qso_query = $this->logbook_model->get_qso($id);
 		$qso = $qso_query->row();
 		$qso_timestamp = strtotime($qso->COL_TIME_ON);
@@ -594,7 +585,6 @@ class eqsl extends CI_Controller {
 
 	public function tools() {
 		// Check logged in
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -610,7 +600,6 @@ class eqsl extends CI_Controller {
 
 	public function download() {
 		// Check logged in
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -669,7 +658,6 @@ class eqsl extends CI_Controller {
 
 	public function mark_all_sent() {
 		// Check logged in
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');

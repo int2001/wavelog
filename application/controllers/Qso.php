@@ -4,7 +4,6 @@ class QSO extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$last_qso_count = empty($this->session->userdata('qso_page_last_qso_count')) ? QSO_PAGE_DEFAULT_QSOS_COUNT : $this->session->userdata('qso_page_last_qso_count');
@@ -16,7 +15,6 @@ class QSO extends CI_Controller {
 		$this->load->library('qra');
 		$this->load->model('stations');
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 		$this->load->model('usermodes');
 		$this->load->model('bands');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
@@ -303,7 +301,6 @@ class QSO extends CI_Controller {
 	function edit() {
 
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 		$this->load->model('modes');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		$query = $this->logbook_model->qso_info($this->uri->segment(3));
@@ -464,7 +461,6 @@ class QSO extends CI_Controller {
 	function edit_ajax() {
 
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 		$this->load->model('modes');
 		$this->load->model('bands');
 		$this->load->model('contest_admin_model');
@@ -493,7 +489,6 @@ class QSO extends CI_Controller {
 	function qso_save_ajax() {
 		$this->load->library('form_validation');
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard');
 		}
@@ -517,7 +512,6 @@ class QSO extends CI_Controller {
 
 	function qsl_rcvd($id, $method) {
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		// Update Logbook to Mark Paper Card Received
@@ -534,7 +528,6 @@ class QSO extends CI_Controller {
 		$method = str_replace('"', "", $this->input->post("method", TRUE));
 
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 
 		header('Content-Type: application/json');
 
@@ -555,7 +548,6 @@ class QSO extends CI_Controller {
 		$method = str_replace('"', "", $this->input->post("method", TRUE));
 
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 
 		header('Content-Type: application/json');
 
@@ -576,7 +568,6 @@ class QSO extends CI_Controller {
 		$method = str_replace('"', "", $this->input->post("method", TRUE));
 
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 
 		header('Content-Type: application/json');
 
@@ -597,7 +588,6 @@ class QSO extends CI_Controller {
 		$method = str_replace('"', "", $this->input->post("method", TRUE));
 
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 
 		header('Content-Type: application/json');
 
@@ -884,7 +874,6 @@ class QSO extends CI_Controller {
 
 	function log_qso() {
 		// Check if users logged in
-		$this->load->model('user_model');
 		if ($this->user_model->validate_session() == 0) {
 			// user is not logged in
 			$this->session->set_flashdata('warning', __("You have to be logged in to access this URL."));

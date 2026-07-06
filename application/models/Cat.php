@@ -3,7 +3,6 @@
 	class Cat extends CI_Model {
 
 		function update($result, $user_id, $operator) {
-			$this->load->model('User_model');
 			$timestamp = gmdate("Y-m-d H:i:s");
 
 			if (isset($result['prop_mode'])) {

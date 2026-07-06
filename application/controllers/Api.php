@@ -30,7 +30,6 @@ class API extends CI_Controller {
 	}
 
 	function index() {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(3)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$this->load->model('api_model');
@@ -73,7 +72,6 @@ class API extends CI_Controller {
 	}
 
 	function edit($key) {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(3)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$this->load->model('api_model');
@@ -113,7 +111,6 @@ class API extends CI_Controller {
 			return;
 		}
 
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(3)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$rights = $this->input->post('rights', TRUE);
@@ -148,7 +145,6 @@ class API extends CI_Controller {
 			return;
 		}
 
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(3)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$key = $this->input->post('key', TRUE);
@@ -397,7 +393,6 @@ class API extends CI_Controller {
 		$real_operator = null;	// real_operator is only filled if its a clubstation and the used key is created by an OP. otherwise its null
 		if ($this->config->item('special_callsign')) {
 			if ($userid != $created_by) {
-				$this->load->model('user_model');
 				$real_operator = $this->user_model->get_by_id($created_by)->row()->user_callsign;
 			} else {
 				$real_operator = null;
@@ -1183,7 +1178,6 @@ class API extends CI_Controller {
 		$identifier = isset($raw_input['key']) ? $raw_input['key'] : null;
 		$this->check_rate_limit('private_lookup', $identifier);
 		$user_id='';
-		$this->load->model('user_model');
 		if (!( $this->user_model->authorize($this->config->item('auth_mode') ))) {				// User not authorized?
 			$no_auth=true;
 			$this->load->model('api_model');
@@ -1396,7 +1390,6 @@ class API extends CI_Controller {
 		$this->check_rate_limit('lookup', $identifier);
 
 		$user_id = '';
-		$this->load->model('user_model');
 		if (!( $this->user_model->authorize($this->config->item('auth_mode') ))) {				// User not authorized?
 			$no_auth = true;
 			$this->load->model('api_model');

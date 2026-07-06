@@ -6,7 +6,6 @@ class User extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->model('user_model');
 		$this->load->library('form_validation');
 
 		if (!$this->load->is_loaded('encryption')) {
@@ -58,7 +57,6 @@ class User extends CI_Controller {
 
 	public function actions_modal() {
 
-		$this->load->model('user_model');
 		$this->load->library('encryption');
 		if(!$this->user_model->authorize(99)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
@@ -107,7 +105,6 @@ class User extends CI_Controller {
 	}
 
 	public function unlock($uid) {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(99)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		if ($this->user_model->exists_by_id($uid)) {
@@ -125,7 +122,6 @@ class User extends CI_Controller {
 	}
 
 	public function convert() {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(99)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$user_id = $this->input->post('user_id', true) ?? '';
@@ -149,7 +145,6 @@ class User extends CI_Controller {
 	}
 
 	function add() {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(99)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$data['existing_languages'] = $this->config->item('languages');
@@ -408,7 +403,6 @@ class User extends CI_Controller {
 	}
 
 	function edit() {
-		$this->load->model('user_model');
 		if ( ($this->session->userdata('user_id') == '') || ((!$this->user_model->authorize(99)) && ($this->session->userdata('user_id') != $this->uri->segment(3))) ) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		if (!clubaccess_check(9)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		$query = $this->user_model->get_by_id($this->uri->segment(3));
@@ -1165,7 +1159,6 @@ class User extends CI_Controller {
 	}
 
 	function profile() {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		$query = $this->user_model->get_by_id($this->session->userdata('user_id'));
 		$q = $query->row();
@@ -1184,7 +1177,6 @@ class User extends CI_Controller {
 	}
 
 	function delete() {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(99)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		$query = $this->user_model->get_by_id($this->uri->segment(3));
 
@@ -1229,7 +1221,6 @@ class User extends CI_Controller {
 	public function theme_switch() {
 		header('Content-Type: application/json');
 
-		$this->load->model('user_model');
 
 		if (!$this->user_model->authorize(2)) {
 			echo json_encode(array('status' => 'error', 'message' => __("You're not allowed to do that!")));
@@ -1290,7 +1281,6 @@ class User extends CI_Controller {
 			$this->session->set_flashdata('success', __("Congrats! Wavelog was successfully installed. You can now login for the first time."));
 		}
 
-		$this->load->model('user_model');
 		$query = $this->user_model->get($this->input->post('user_name', true));
 
 		$this->load->library('form_validation');
@@ -1451,7 +1441,6 @@ class User extends CI_Controller {
 	}
 
 	function logout($custom_message = null, $hard_logout = true, $enable_idp = true) {
-		$this->load->model('user_model');
 
 		$user_name = $this->session->userdata('user_name');
 
@@ -1486,7 +1475,6 @@ class User extends CI_Controller {
 	 * Form Data to create the first station location
 	 */
 	function firstlogin_wizard_form() {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(3)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$this->load->library('form_validation');
@@ -1558,7 +1546,6 @@ class User extends CI_Controller {
 			else
 			{
 				// Check email address exists
-				$this->load->model('user_model');
 				$email = $this->input->post('email', TRUE);
 
 				$check_email = $this->user_model->check_email_address($email);
@@ -1625,7 +1612,6 @@ class User extends CI_Controller {
 		if ($this->input->is_ajax_request()) { // just additional, to make sure request is from ajax
 			if ($this->input->post('submit_allowed')) {
 
-				$this->load->model('user_model');
 
 				if(!$this->user_model->authorize(99)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
@@ -1645,7 +1631,6 @@ class User extends CI_Controller {
 				else
 				{
 					// Check email address exists
-					$this->load->model('user_model');
 
 					$check_email = $this->user_model->check_email_address($data->user_email);
 
@@ -1726,7 +1711,6 @@ class User extends CI_Controller {
 			else
 			{
 				// Lets reset the password!
-				$this->load->model('user_model');
 
 				$this->user_model->reset_password($this->input->post('password', true), $reset_code);
 				$this->session->set_flashdata('notice', 'Password Reset.');
@@ -1795,9 +1779,6 @@ class User extends CI_Controller {
 		if (!$this->load->is_loaded('encryption')) {
 			$this->load->library('encryption');
 		}
-
-		// Load the user model
-		$this->load->model('user_model');
 
 		// Precheck: If the encryption key is still default, we can't impersonate another user for security reasons
 		if ($this->config->item('encryption_key') == 'flossie1234555541') {
@@ -1892,16 +1873,12 @@ class User extends CI_Controller {
 	}
 
 	public function stop_impersonate_modal() {
-		// Load the user model
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(3)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$this->load->view('user/modals/stop_impersonate_modal');
 	}
 
 	public function stop_impersonate() {
-		// Load the user model
-		$this->load->model('user_model');
 
 		// there is no source_uid, there is probably something fishy going on. So we clear the session at this point
 		$source_uid = $this->session->userdata('source_uid') ?? false;

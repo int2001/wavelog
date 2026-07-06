@@ -195,7 +195,6 @@ class Qrz extends CI_Controller {
 	 * Used for displaying the uid for manually selecting log for upload to qrz
 	 */
 	public function export() {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2) || !clubaccess_check(9)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$this->load->model('stations');
@@ -282,7 +281,6 @@ class Qrz extends CI_Controller {
 	}
 
 	public function import_qrz() {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$data['page_title'] = __("QRZ QSL Import");
@@ -300,7 +298,6 @@ class Qrz extends CI_Controller {
 	} // end function
 
 	function download($user_id_to_load = null, $lastqrz = null, $show_views = false) {
-		$this->load->model('user_model');
 		$this->load->model('logbook_model');
 
 		$this->load->model('cron_model');
@@ -335,7 +332,6 @@ class Qrz extends CI_Controller {
 			log_message('error', "No station profiles with a QRZ API Key found.");
 		}
 
-		$this->load->model('user_model');
 		if ($this->user_model->authorize(2)) {	// Only Output results if authorized User
 			if(isset($data['tableheaders'])) {
 				if ($data['table'] != '') {
