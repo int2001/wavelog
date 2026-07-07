@@ -704,6 +704,9 @@ class Staticmap_model extends CI_Model {
             }
 
             return true; // Success
+        } else {
+            log_message('error', "Neither a station ID nor a logbook ID was provided. Exiting...");
+            return false;
         }
     }
 

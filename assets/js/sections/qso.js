@@ -3450,5 +3450,9 @@ $(document).ready(function () {
 	});
 
 	// everything loaded and ready 2 go
-	bc.postMessage('ready');
+	// bc only exists in live mode (qso_manual == 0); guard against manual mode
+	// where the BroadcastChannel is never created.
+	if (qso_manual == 0) {
+		bc.postMessage('ready');
+	}
 });

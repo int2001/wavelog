@@ -5555,8 +5555,6 @@ class Logbook_model extends CI_Model {
 				'COL_FREQ_RX' => (!empty($record['freq_rx'])) ? $freqRX : null,
 				'COL_GRIDSQUARE' => $input_gridsquare,
 				'COL_HEADING' => (!empty($record['heading'])) ? $record['heading'] : null,
-				'COL_HRDLOG_QSO_UPLOAD_DATE' => (!empty($record['hrdlog_qso_upload_date'])) ? $record['hrdlog_qso_upload_date'] : null,
-				'COL_HRDLOG_QSO_UPLOAD_STATUS' => (!empty($record['hrdlog_qso_upload_status'])) ? $record['hrdlog_qso_upload_status'] : '',
 				'COL_IOTA' => (!empty($record['iota'])) ? $record['iota'] : '',
 				'COL_ITUZ' => (!empty($record['ituz'])) ? $record['ituz'] : null,
 				'COL_K_INDEX' => (isset($record['k_index']) && is_numeric($record['k_index'])) ? $record['k_index'] : null,

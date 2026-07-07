@@ -450,7 +450,7 @@ class Widgets extends CI_Controller {
 	 * Prepare text "last seen" text
 	 *
 	 * @param int $last_seen_days_ago
-	 * @return void
+	 * @return string
 	 */
 	private function prepare_last_seen_text($last_seen_days_ago) {
 		if ($last_seen_days_ago === 0) {
