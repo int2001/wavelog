@@ -70,23 +70,38 @@ class Qslprint_model extends CI_Model {
 	function get_qsos_for_print($station_id = 'All') {
 		$binding = [];
 		$binding[] = $this->session->userdata('user_id');
-		$sql = "SELECT count(distinct oldlog.col_primary_key) as previous_qsl,
-			count(distinct sentlog.col_primary_key) as qsl_sent_to_call,
-			count(distinct rcvdlog.col_primary_key) as qsl_rcvd_from_call,
+		$sql = "SELECT
+			COALESCE(prev.previous_qsl, 0) AS previous_qsl,
+			COALESCE(sr.qsl_sent_to_call, 0) AS qsl_sent_to_call,
+			COALESCE(sr.qsl_rcvd_from_call, 0) AS qsl_rcvd_from_call,
 			log.COL_QSL_SENT, log.COL_PRIMARY_KEY, log.COL_DXCC, log.COL_CALL, log.COL_SAT_NAME, log.COL_SAT_MODE, log.COL_BAND_RX, log.COL_FREQ as frequency, log.COL_FREQ_RX as frequency_rx, log.COL_TIME_ON, log.COL_MODE, log.COL_RST_SENT, log.COL_RST_RCVD, log.COL_QSL_VIA, log.COL_QSL_SENT_VIA, log.COL_SUBMODE, log.COL_BAND, sp.station_id, sp.station_callsign, sp.station_profile_name, o.qsoid
 			FROM ".$this->config->item('table_name')." log
 			INNER JOIN station_profile sp ON sp.`station_id` = log.`station_id`
 			LEFT OUTER JOIN oqrs o ON o.`qsoid` = log.`COL_PRIMARY_KEY`
-			LEFT OUTER JOIN ".$this->config->item('table_name')." oldlog on (oldlog.COL_QSL_SENT = 'Y' and oldlog.station_id=sp.station_id and oldlog.COL_BAND=log.col_band and oldlog.COL_CALL=log.col_call and oldlog.COL_MODE=log.col_mode and oldlog.COL_SAT_NAME=log.col_sat_name and oldlog.COL_PRIMARY_KEY != log.col_primary_key)
-			LEFT OUTER JOIN ".$this->config->item('table_name')." sentlog on (sentlog.COL_QSL_SENT = 'Y' and sentlog.station_id=sp.station_id and sentlog.COL_CALL=log.col_call)
-			LEFT OUTER JOIN ".$this->config->item('table_name')." rcvdlog on (rcvdlog.COL_QSL_RCVD = 'Y' and rcvdlog.station_id=sp.station_id and rcvdlog.COL_CALL=log.col_call)
+			LEFT JOIN (
+				SELECT station_id, COL_CALL,
+					SUM(CASE WHEN COL_QSL_SENT = 'Y' THEN 1 ELSE 0 END) AS qsl_sent_to_call,
+					SUM(CASE WHEN COL_QSL_RCVD = 'Y' THEN 1 ELSE 0 END) AS qsl_rcvd_from_call
+				FROM ".$this->config->item('table_name')."
+				WHERE COL_QSL_SENT = 'Y' OR COL_QSL_RCVD = 'Y'
+				GROUP BY station_id, COL_CALL
+			) sr ON sr.station_id = log.station_id AND sr.COL_CALL = log.COL_CALL
+			LEFT JOIN (
+				SELECT station_id, COL_CALL, COL_BAND, COL_MODE, COL_SAT_NAME, COUNT(*) AS previous_qsl
+				FROM ".$this->config->item('table_name')."
+				WHERE COL_QSL_SENT = 'Y'
+				GROUP BY station_id, COL_CALL, COL_BAND, COL_MODE, COL_SAT_NAME
+			) prev ON prev.station_id = log.station_id
+				AND prev.COL_CALL = log.COL_CALL
+				AND prev.COL_BAND = log.COL_BAND
+				AND prev.COL_MODE = log.COL_MODE
+				AND COALESCE(prev.COL_SAT_NAME, '') = COALESCE(log.COL_SAT_NAME, '')
 			WHERE sp.`user_id` = ?";
 		if ($station_id != 'All') {
 			$sql .= ' AND log.`station_id` = ?';
 			$binding[] = $station_id;
 		}
 		$sql .= " AND log.`COL_QSL_SENT` IN('R', 'Q')
-			GROUP BY log.col_primary_key, log.COL_QSL_SENT, log.COL_PRIMARY_KEY, log.COL_DXCC, log.COL_CALL, log.COL_SAT_NAME, log.COL_SAT_MODE, log.COL_BAND_RX, log.COL_FREQ, log.COL_FREQ_RX, log.COL_TIME_ON, log.COL_MODE, log.COL_RST_SENT, log.COL_RST_RCVD, log.COL_QSL_VIA, log.COL_QSL_SENT_VIA, log.COL_SUBMODE, log.COL_BAND, sp.station_id, sp.station_callsign, sp.station_profile_name, o.qsoid
 			ORDER BY log.`COL_DXCC` ASC, log.`COL_CALL` ASC, log.`COL_SAT_NAME` ASC, log.`COL_SAT_MODE` ASC, log.`COL_BAND_RX` ASC, log.`COL_TIME_ON` ASC, log.`COL_MODE` ASC LIMIT 1000";
 
 		$query = $this->db->query($sql, $binding);
