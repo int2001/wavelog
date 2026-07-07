@@ -580,6 +580,7 @@
                         $commitDate = trim(exec('git log --pretty="%ci" -n1 HEAD'));
                         $line = trim(exec('git log -n 1 --pretty=%D HEAD'));
                         $pieces = explode(', ', $line);
+                        $pieceCount = count($pieces);
                         $lastFetch = trim(exec('stat -c %Y ' . realpath(APPPATH . '../') . '/.git/FETCH_HEAD'));
                         //Below is a failsafe for systems without the stat command
                         try {
@@ -587,8 +588,8 @@
                         } catch (Exception $e) {
                             $dt = new DateTime(date("Y-m-d H:i:s"));
                         }
-                        if (isset($pieces[1])) {
-                            $remote = substr($pieces[1], 0, strpos($pieces[1], '/'));
+                        if (isset($pieces[$pieceCount - 1])) {
+                            $remote = substr($pieces[$pieceCount - 1], 0, strpos($pieces[$pieceCount - 1], '/'));
                             $branch = trim(exec('git rev-parse --abbrev-ref HEAD')); // Get ONLY Name of the Branch we're on
                             $url = trim(exec('git remote get-url ' . $remote));
                             if (strpos($url, 'https://github.com') !== false) {
