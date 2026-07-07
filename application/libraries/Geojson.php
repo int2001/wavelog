@@ -75,7 +75,7 @@ class Geojson {
         $this->qra = $CI->qra;
 		if ($dxcc !== null) {
 			$this->geojsonFile = "assets/json/geojson/states_{$dxcc}.geojson";
-			$this->geojsonData = $this->loadGeoJsonFile($geojsonFile);
+			$this->geojsonData = $this->loadGeoJsonFile($this->geojsonFile);
 		}
     }
 
