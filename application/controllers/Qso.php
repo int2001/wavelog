@@ -239,7 +239,6 @@ class QSO extends CI_Controller {
 			'prop_mode' => $this->input->post('prop_mode', TRUE) ?? '',
 			'email' => $this->input->post('email', TRUE) ?? NULL,
 			'region' => $this->input->post('region', TRUE) ?? NULL,
-			'sat_name' => $this->input->post('sat_name', TRUE) ?? NULL,
 			'exchangetype' => $this->input->post('exchangetype', TRUE) ?? NULL,
 			'exch_rcvd' => $this->input->post('exch_rcvd', TRUE) ?? NULL,
 			'exch_sent' => $this->input->post('exch_sent', TRUE) ?? NULL,
