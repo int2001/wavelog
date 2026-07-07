@@ -114,9 +114,6 @@ class Callstats extends CI_Controller
 		if ($mode != null && strtolower($mode) != 'all') {
 			$data['filter'] .= __(" and mode ").$mode;
 		}
-		if (!empty($qsltype)) {
-			$data['filter'] .= __(" and ").implode('/', $qsltype);
-		}
 		$this->load->view('awards/details', $data);
 	}
 

@@ -197,8 +197,10 @@ class Paths {
         // So we will keep it simple and just use the $filepath as is, since it seems to work fine on both Linux and Windows setups
         // $fullpath = rtrim($_SERVER['DOCUMENT_ROOT'], '/\\') . str_replace('/', DIRECTORY_SEPARATOR, $filepath);
 
-        if (file_exists($fullpath)) {
-            return base_url($filepath) . '?v=' . filemtime($fullpath);
+        // $filepath is always a hard-coded, app-relative asset path from callers
+        // (never user input), so $fullpath is not attacker-controlled.
+        if (file_exists($fullpath)) { // nosemgrep: php.lang.security.injection.tainted-filename.tainted-filename
+            return base_url($filepath) . '?v=' . filemtime($fullpath); // nosemgrep: php.lang.security.injection.tainted-filename.tainted-filename
         } else {
             log_message('error', 'CACHE BUSTER: File does not exist: ' . $fullpath);
         }

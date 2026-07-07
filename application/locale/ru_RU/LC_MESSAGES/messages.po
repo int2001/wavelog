@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-06 16:45+0000\n"
+"POT-Creation-Date: 2026-07-07 16:28+0000\n"
 "PO-Revision-Date: 2026-06-26 13:21+0000\n"
 "Last-Translator: Michael Skolsky <r1blh@yandex.ru>\n"
 "Language-Team: Russian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -197,9 +197,9 @@ msgstr "Тропосферное прохождение"
 #: application/controllers/Qslpostcard.php:15
 #: application/controllers/Qslprint.php:22
 #: application/controllers/Qslprint.php:156 application/controllers/Qso.php:7
-#: application/controllers/Qso.php:20 application/controllers/Qso.php:305
-#: application/controllers/Qso.php:471 application/controllers/Qso.php:493
-#: application/controllers/Qso.php:515 application/controllers/Qso.php:819
+#: application/controllers/Qso.php:20 application/controllers/Qso.php:304
+#: application/controllers/Qso.php:470 application/controllers/Qso.php:492
+#: application/controllers/Qso.php:514 application/controllers/Qso.php:818
 #: application/controllers/Radio.php:30 application/controllers/Radio.php:315
 #: application/controllers/Radio.php:340 application/controllers/Radio.php:355
 #: application/controllers/Satellite.php:12
@@ -255,7 +255,7 @@ msgstr "Карта активированных квадратов"
 #: application/controllers/Awards.php:1162
 #: application/controllers/Awards.php:1198
 #: application/controllers/Gridmap.php:34
-#: application/controllers/Visitor.php:454
+#: application/controllers/Visitor.php:415
 #: application/views/activators/index.php:107
 #: application/views/contesting/logger/index.php:57
 #: application/views/interface_assets/footer.php:49
@@ -266,13 +266,13 @@ msgstr "Квадраты"
 
 #: application/controllers/Activated_gridmap.php:34
 #: application/controllers/Gridmap.php:35
-#: application/controllers/Visitor.php:455
+#: application/controllers/Visitor.php:416
 msgid "Gridsquares confirmed"
 msgstr "Подтверждённые квадраты"
 
 #: application/controllers/Activated_gridmap.php:35
 #: application/controllers/Gridmap.php:36
-#: application/controllers/Visitor.php:456
+#: application/controllers/Visitor.php:417
 msgid "Gridsquares not confirmed"
 msgstr "Неподтверждённые квадраты"
 
@@ -282,26 +282,26 @@ msgstr "Всего квадратов активировано"
 
 #: application/controllers/Activated_gridmap.php:38
 #: application/controllers/Gridmap.php:39
-#: application/controllers/Visitor.php:459
+#: application/controllers/Visitor.php:420
 #: application/views/qslpostcard/designer.php:142
 msgid "Fields"
 msgstr "Поля"
 
 #: application/controllers/Activated_gridmap.php:39
 #: application/controllers/Gridmap.php:40
-#: application/controllers/Visitor.php:460
+#: application/controllers/Visitor.php:421
 msgid "Fields confirmed"
 msgstr "Подтверждённые поля"
 
 #: application/controllers/Activated_gridmap.php:40
 #: application/controllers/Gridmap.php:41
-#: application/controllers/Visitor.php:461
+#: application/controllers/Visitor.php:422
 msgid "Fields not confirmed"
 msgstr "Неподтверждённые поля"
 
 #: application/controllers/Activated_gridmap.php:41
 #: application/controllers/Gridmap.php:42
-#: application/controllers/Visitor.php:462
+#: application/controllers/Visitor.php:423
 msgid "Total fields worked"
 msgstr "Всего полей сработано"
 
@@ -395,7 +395,7 @@ msgid "API Key %s description has been updated."
 msgstr "Описание ключа API %s обновлено."
 
 #: application/controllers/Api.php:109 application/controllers/Api.php:143
-#: application/controllers/Qso.php:610
+#: application/controllers/Qso.php:609
 msgid "Invalid request method"
 msgstr "Недопустимый метод запроса"
 
@@ -576,7 +576,6 @@ msgid " and mode "
 msgstr " и вид модуляции "
 
 #: application/controllers/Awards.php:686
-#: application/controllers/Callstats.php:118
 msgid " and "
 msgstr " и "
 
@@ -1120,12 +1119,12 @@ msgstr "Редактирование задачи"
 
 #: application/controllers/Cron.php:259 application/controllers/Cron.php:260
 #: application/views/cron/index.php:97 application/views/cron/index.php:99
-#: application/views/cron/index.php:101 application/views/debug/index.php:692
-#: application/views/debug/index.php:699 application/views/debug/index.php:705
-#: application/views/debug/index.php:711 application/views/debug/index.php:717
-#: application/views/debug/index.php:723 application/views/debug/index.php:729
-#: application/views/debug/index.php:735 application/views/debug/index.php:741
-#: application/views/debug/index.php:747 application/views/debug/index.php:753
+#: application/views/cron/index.php:101 application/views/debug/index.php:693
+#: application/views/debug/index.php:700 application/views/debug/index.php:706
+#: application/views/debug/index.php:712 application/views/debug/index.php:718
+#: application/views/debug/index.php:724 application/views/debug/index.php:730
+#: application/views/debug/index.php:736 application/views/debug/index.php:742
+#: application/views/debug/index.php:748 application/views/debug/index.php:754
 msgid "never"
 msgstr "никогда"
 
@@ -1183,7 +1182,7 @@ msgid "SOTA CSV Export"
 msgstr "Экспорт SOTA в CSV"
 
 #: application/controllers/Dashboard.php:168
-#: application/controllers/Visitor.php:138
+#: application/controllers/Visitor.php:128
 msgid "Dashboard"
 msgstr "Панель управления"
 
@@ -1449,7 +1448,7 @@ msgid "Gridsquare Map"
 msgstr "Карта квадратов QTH локатора"
 
 #: application/controllers/Gridmap.php:37
-#: application/controllers/Visitor.php:457
+#: application/controllers/Visitor.php:418
 msgid "Total gridsquares worked"
 msgstr "Всего сработано квадратов QTH локатора"
 
@@ -1838,7 +1837,7 @@ msgstr "Все запросы к коллбукам не удались или �
 #: application/views/contesting/manager/export_cbr.php:106
 #: application/views/continents/index.php:44 application/views/csv/index.php:42
 #: application/views/dashboard/index.php:5
-#: application/views/debug/index.php:776
+#: application/views/debug/index.php:777
 #: application/views/distancerecords/index.php:23
 #: application/views/dxatlas/index.php:42
 #: application/views/eqsl/analysis.php:39
@@ -2168,7 +2167,7 @@ msgstr "Расстояние"
 #: application/views/contesting/manager/export_cbr.php:76
 #: application/views/continents/index.php:35 application/views/csv/index.php:31
 #: application/views/dashboard/index.php:16
-#: application/views/debug/index.php:777 application/views/dxatlas/index.php:31
+#: application/views/debug/index.php:778 application/views/dxatlas/index.php:31
 #: application/views/eqsl/download.php:41
 #: application/views/eqslcard/index.php:36
 #: application/views/gridmap/index.php:78 application/views/kml/index.php:19
@@ -2315,12 +2314,12 @@ msgstr "Удалённые DXCC"
 msgid "Advanced logbook"
 msgstr "Расширенный журнал"
 
-#: application/controllers/Logbookadvanced.php:997
+#: application/controllers/Logbookadvanced.php:995
 #, php-format
 msgid "DXCC updated for %d QSO(s)."
 msgstr "Значение DXCC обновлено для %d QSO."
 
-#: application/controllers/Logbookadvanced.php:1013
+#: application/controllers/Logbookadvanced.php:1011
 #, php-format
 msgid "Map for DXCC %s and gridsquare %s."
 msgstr "Карта для DXCC %s и квадратов QTH локатора %s."
@@ -2671,15 +2670,15 @@ msgstr "Информация о версии не будет показана п
 #: application/controllers/Oqrs.php:39 application/controllers/Staticmap.php:20
 #: application/controllers/Staticmap.php:25
 #: application/controllers/Staticmap.php:202
-#: application/controllers/Visitor.php:54
-#: application/controllers/Visitor.php:85
-#: application/controllers/Visitor.php:152
-#: application/controllers/Visitor.php:165
-#: application/controllers/Visitor.php:191
-#: application/controllers/Visitor.php:217
-#: application/controllers/Visitor.php:244
-#: application/controllers/Visitor.php:279
-#: application/controllers/Visitor.php:547
+#: application/controllers/Visitor.php:46
+#: application/controllers/Visitor.php:75
+#: application/controllers/Visitor.php:141
+#: application/controllers/Visitor.php:153
+#: application/controllers/Visitor.php:177
+#: application/controllers/Visitor.php:202
+#: application/controllers/Visitor.php:227
+#: application/controllers/Visitor.php:260
+#: application/controllers/Visitor.php:517
 #: application/controllers/Widgets.php:68
 msgid "Unknown Public Page."
 msgstr "Неизвестная публичная страница."
@@ -2879,15 +2878,15 @@ msgstr "Распечатать запрошенные QSL"
 msgid "Add QSO"
 msgstr "Добавить QSO"
 
-#: application/controllers/Qso.php:879
+#: application/controllers/Qso.php:878
 msgid "You have to be logged in to access this URL."
 msgstr "Для доступа к этому URL необходимо войти в систему."
 
-#: application/controllers/Qso.php:885
+#: application/controllers/Qso.php:884
 msgid "Call Transfer"
 msgstr "Перевод вызова"
 
-#: application/controllers/Qso.php:892
+#: application/controllers/Qso.php:891
 msgid "No callsign provided."
 msgstr "Позывной не указан."
 
@@ -3144,11 +3143,11 @@ msgid "Simple Fast Log Entry"
 msgstr "Простой быстрый ввод журнала"
 
 #: application/controllers/Staticmap.php:198
-#: application/controllers/Visitor.php:80
-#: application/controllers/Visitor.php:186
-#: application/controllers/Visitor.php:240
-#: application/controllers/Visitor.php:275
-#: application/controllers/Visitor.php:543
+#: application/controllers/Visitor.php:71
+#: application/controllers/Visitor.php:173
+#: application/controllers/Visitor.php:223
+#: application/controllers/Visitor.php:256
+#: application/controllers/Visitor.php:513
 #: application/controllers/Widgets.php:64
 msgid "Empty Logbook"
 msgstr "Пустой журнал"
@@ -3223,7 +3222,7 @@ msgstr "Не разрешено"
 #: application/views/contesting/logger/components/qso-form.php:31
 #: application/views/contesting/logger/components/qso-form.php:34
 #: application/views/contesting/manager/index.php:119
-#: application/views/debug/index.php:898
+#: application/views/debug/index.php:899
 #: application/views/qslpostcard/designer.php:44
 #: application/views/qso/index.php:763 application/views/simplefle/index.php:39
 #: application/views/widgets/on_air.php:181
@@ -3253,7 +3252,7 @@ msgid "Error. Link is already in use!"
 msgstr "Ошибка. Ссылка уже используется!"
 
 #: application/controllers/Stationsetup.php:278
-#: application/views/debug/index.php:855
+#: application/views/debug/index.php:856
 #: application/views/options/appearance.php:31
 #: application/views/options/appearance.php:40
 #: application/views/options/appearance.php:49
@@ -3706,7 +3705,7 @@ msgstr "Пользователь %s вышел."
 msgid "Station Name"
 msgstr "Профиль QTH"
 
-#: application/controllers/User.php:1482 application/views/debug/index.php:778
+#: application/controllers/User.php:1482 application/views/debug/index.php:779
 #: application/views/public_search/result.php:17
 #: application/views/station_profile/create.php:60
 #: application/views/station_profile/edit.php:77
@@ -3861,16 +3860,20 @@ msgid ""
 msgstr ""
 "Вы вышли из аккаунта %s. Добро пожаловать обратно, %s, в ваш личный аккаунт!"
 
-#: application/controllers/Visitor.php:285
+#: application/controllers/Visitor.php:265
+msgid "No public slug found."
+msgstr ""
+
+#: application/controllers/Visitor.php:271
 msgid "Satellite Gridsquare Map"
 msgstr "Карта квадратов QTH локатора (спутники)"
 
-#: application/controllers/Visitor.php:481
+#: application/controllers/Visitor.php:451
 #: application/views/stationsetup/stationsetup.php:48
 msgid "Public Search"
 msgstr "Публичный поиск"
 
-#: application/controllers/Visitor.php:514
+#: application/controllers/Visitor.php:484
 msgid "Export Map"
 msgstr "Экспорт карты"
 
@@ -4126,13 +4129,13 @@ msgstr "Не указан позывной"
 msgid "DXCC has to be Numeric"
 msgstr "DXCC должен быть цифровым"
 
-#: application/models/Logbook_model.php:4925
+#: application/models/Logbook_model.php:4938
 #, php-format
 msgid ""
 "Differing station callsign %s while importing QSO with %s for %s: SKIPPED"
 msgstr "Отличающийся позывной %s при импорте QSO с %s для %s: ПРОПУЩЕНО"
 
-#: application/models/Logbook_model.php:4933
+#: application/models/Logbook_model.php:4946
 #, php-format
 msgid ""
 "Differing locator %s while importing QSO with %s for station locator %s: "
@@ -4141,7 +4144,7 @@ msgstr ""
 "Отличающийся локатор %s при импорте QSO с %s от локатора в профиле QTH %s: "
 "ПРОПУЩЕНО"
 
-#: application/models/Logbook_model.php:4949
+#: application/models/Logbook_model.php:4962
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
@@ -4149,11 +4152,11 @@ msgstr ""
 "Вы пытались импортировать QSO без действительной даты. Это QSO не "
 "действительно и не было импортировано"
 
-#: application/models/Logbook_model.php:4959
+#: application/models/Logbook_model.php:4972
 msgid "QSO on"
 msgstr "начало QSO"
 
-#: application/models/Logbook_model.php:4959
+#: application/models/Logbook_model.php:4972
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
@@ -4161,7 +4164,7 @@ msgstr ""
 "Вы пытались импортировать QSO без указанного позывного. Это QSO не было "
 "импортировано. Оно недействительно"
 
-#: application/models/Logbook_model.php:5009
+#: application/models/Logbook_model.php:5022
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
@@ -4170,63 +4173,63 @@ msgstr ""
 "QSO в %s: Вы пыталсь импортировать QSO без информации о диапазоне. Это QSO "
 "некорректно, импорт отклонён.imported. It's invalid"
 
-#: application/models/Logbook_model.php:5283
+#: application/models/Logbook_model.php:5296
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "дата получения QSL недействительна (ГГГГММДД)"
 
-#: application/models/Logbook_model.php:5294
+#: application/models/Logbook_model.php:5307
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "дата отправки QSL недействительна (ГГГГММДД)"
 
-#: application/models/Logbook_model.php:5355
+#: application/models/Logbook_model.php:5368
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "дата загрузки QSO в Clublog недействительна (ГГГГММДД)"
 
-#: application/models/Logbook_model.php:5728
+#: application/models/Logbook_model.php:5739
 #: application/views/simplefle/index.php:41
 msgid "Duplicate for"
 msgstr "Дубликат для"
 
-#: application/models/Logbook_model.php:5795
-#: application/models/Logbook_model.php:5895
+#: application/models/Logbook_model.php:5806
+#: application/models/Logbook_model.php:5906
 msgid "QSO could not be matched"
 msgstr "QSO не может быть сопоставлено"
 
-#: application/models/Logbook_model.php:5803
+#: application/models/Logbook_model.php:5814
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "подтверждено LoTW/Clublog/eQSL/Contest"
 
-#: application/models/Logbook_model.php:5809
+#: application/models/Logbook_model.php:5820
 msgid "confirmed by award manager"
 msgstr "подтверждено менеджером диплома"
 
-#: application/models/Logbook_model.php:5813
+#: application/models/Logbook_model.php:5824
 msgid "confirmed by cross-check of DCL data"
 msgstr "подтверждено кросс-проверкой с данными DCL"
 
-#: application/models/Logbook_model.php:5817
+#: application/models/Logbook_model.php:5828
 msgid "confirmation pending"
 msgstr "подтверждение ожидается"
 
-#: application/models/Logbook_model.php:5820
+#: application/models/Logbook_model.php:5831
 msgid "unconfirmed"
 msgstr "не подтверждено"
 
-#: application/models/Logbook_model.php:5823
+#: application/models/Logbook_model.php:5834
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 msgid "unknown"
 msgstr "неизвестно"
 
-#: application/models/Logbook_model.php:5898
+#: application/models/Logbook_model.php:5909
 msgid "POTA reference already in log"
 msgstr "Ренференция POTA уже в журнале"
 
-#: application/models/Logbook_model.php:5901
+#: application/models/Logbook_model.php:5912
 msgid "QSO updated"
 msgstr "QSO обновлено"
 
-#: application/models/Logbook_model.php:6329
+#: application/models/Logbook_model.php:6340
 #: application/views/activated_gridmap/index.php:109
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:57
@@ -4928,7 +4931,7 @@ msgstr ""
 #: application/views/components/hamsat/table.php:25
 #: application/views/contesting/logger/components/qso-form.php:145
 #: application/views/dashboard/index.php:338
-#: application/views/debug/index.php:773
+#: application/views/debug/index.php:774
 #: application/views/distancerecords/index.php:20
 #: application/views/eqsl/analysis.php:36
 #: application/views/eqsl/download.php:36 application/views/eqsl/result.php:33
@@ -4976,7 +4979,7 @@ msgstr "Дата"
 #: application/views/contesting/logger/components/qso-form.php:146
 #: application/views/contesting/manager/export_cbr.php:158
 #: application/views/dashboard/index.php:340
-#: application/views/debug/index.php:774
+#: application/views/debug/index.php:775
 #: application/views/distancerecords/index.php:21
 #: application/views/eqsl/analysis.php:37
 #: application/views/eqsl/download.php:37 application/views/eqsl/result.php:34
@@ -5006,7 +5009,7 @@ msgstr "Время"
 #: application/views/awards/vucc/band.php:23
 #: application/views/dashboard/index.php:413
 #: application/views/dcl_views/key_import.php:45
-#: application/views/debug/index.php:775 application/views/debug/index.php:810
+#: application/views/debug/index.php:776 application/views/debug/index.php:811
 #: application/views/dxcalendar/index.php:17
 #: application/views/eqsl/analysis.php:38
 #: application/views/eqsl/download.php:38 application/views/eqsl/result.php:35
@@ -5073,7 +5076,7 @@ msgstr "Максимальный размер загружаемого файл�
 #: application/views/clublog/export.php:70
 #: application/views/contesting/logger/index.php:59
 #: application/views/debug/index.php:221 application/views/debug/index.php:238
-#: application/views/debug/index.php:765 application/views/hrdlog/export.php:25
+#: application/views/debug/index.php:766 application/views/hrdlog/export.php:25
 #: application/views/hrdlog/export.php:74
 #: application/views/interface_assets/footer.php:37
 #: application/views/notes/add.php:23 application/views/notes/edit.php:29
@@ -12630,7 +12633,7 @@ msgstr "Удалённый репозиторий не знает о вашей 
 msgid "Wavelog Information"
 msgstr "Информация Wavelog"
 
-#: application/views/debug/index.php:36 application/views/debug/index.php:890
+#: application/views/debug/index.php:36 application/views/debug/index.php:891
 msgid "Version"
 msgstr "Версия"
 
@@ -12940,37 +12943,37 @@ msgstr "Доступные адаптеры"
 msgid "Clear Cache"
 msgstr "Очистить кеш"
 
-#: application/views/debug/index.php:609
+#: application/views/debug/index.php:610
 msgid "Git Information"
 msgstr "Информация Git"
 
-#: application/views/debug/index.php:613
+#: application/views/debug/index.php:614
 msgid "Branch"
 msgstr "Ветка"
 
-#: application/views/debug/index.php:624 application/views/debug/index.php:635
-#: application/views/debug/index.php:645
+#: application/views/debug/index.php:625 application/views/debug/index.php:636
+#: application/views/debug/index.php:646
 #: application/views/lotw_views/index.php:104
 msgid "n/a"
 msgstr "недоступно"
 
-#: application/views/debug/index.php:630
+#: application/views/debug/index.php:631
 msgid "Commit"
 msgstr "Коммит"
 
-#: application/views/debug/index.php:640
+#: application/views/debug/index.php:641
 msgid "Tag"
 msgstr "Тэг"
 
-#: application/views/debug/index.php:650
+#: application/views/debug/index.php:651
 msgid "Last Fetch"
 msgstr "Последнее обновление"
 
-#: application/views/debug/index.php:662
+#: application/views/debug/index.php:663
 msgid "Check for new version"
 msgstr "Проверить наличие новой версии"
 
-#: application/views/debug/index.php:663
+#: application/views/debug/index.php:664
 #: application/views/logbookadvanced/checkresult.php:52
 #: application/views/logbookadvanced/checkresult.php:68
 #: application/views/logbookadvanced/checkresult.php:78
@@ -12978,77 +12981,77 @@ msgstr "Проверить наличие новой версии"
 msgid "Update now"
 msgstr "Обновить сейчас"
 
-#: application/views/debug/index.php:681
+#: application/views/debug/index.php:682
 msgid "File download date"
 msgstr "Дата скачивания файла"
 
-#: application/views/debug/index.php:685
+#: application/views/debug/index.php:686
 msgid "File"
 msgstr "Файл"
 
-#: application/views/debug/index.php:686
+#: application/views/debug/index.php:687
 msgid "Last update"
 msgstr "Последнее обновление"
 
-#: application/views/debug/index.php:690
+#: application/views/debug/index.php:691
 msgid "DXCC update from Club Log"
 msgstr "Обновление DXCC из Clublog"
 
-#: application/views/debug/index.php:693 application/views/debug/index.php:700
-#: application/views/debug/index.php:706 application/views/debug/index.php:712
-#: application/views/debug/index.php:718 application/views/debug/index.php:724
-#: application/views/debug/index.php:730 application/views/debug/index.php:736
-#: application/views/debug/index.php:742 application/views/debug/index.php:748
-#: application/views/debug/index.php:754
+#: application/views/debug/index.php:694 application/views/debug/index.php:701
+#: application/views/debug/index.php:707 application/views/debug/index.php:713
+#: application/views/debug/index.php:719 application/views/debug/index.php:725
+#: application/views/debug/index.php:731 application/views/debug/index.php:737
+#: application/views/debug/index.php:743 application/views/debug/index.php:749
+#: application/views/debug/index.php:755
 #: application/views/station_profile/edit.php:53
 msgid "Update"
 msgstr "Обновить"
 
-#: application/views/debug/index.php:697
+#: application/views/debug/index.php:698
 msgid "DOK file download"
 msgstr "Скачать файл DOK"
 
-#: application/views/debug/index.php:703
+#: application/views/debug/index.php:704
 msgid "LoTW users download"
 msgstr "Скачать список пользователей LoTW"
 
-#: application/views/debug/index.php:709
+#: application/views/debug/index.php:710
 msgid "POTA file download"
 msgstr "Скачать файл POTA"
 
-#: application/views/debug/index.php:715
+#: application/views/debug/index.php:716
 msgid "SCP file download"
 msgstr "Скачать файл SCP"
 
-#: application/views/debug/index.php:721
+#: application/views/debug/index.php:722
 msgid "SOTA file download"
 msgstr "Скачать файл SOTA"
 
-#: application/views/debug/index.php:727
+#: application/views/debug/index.php:728
 msgid "WWFF file download"
 msgstr "Скачать файл WWFF"
 
-#: application/views/debug/index.php:733
+#: application/views/debug/index.php:734
 msgid "TLE update"
 msgstr "Обновление TLE"
 
-#: application/views/debug/index.php:739
+#: application/views/debug/index.php:740
 msgid "Hams Of Note update"
 msgstr "Обновление \"Заметок о корреспондентах\""
 
-#: application/views/debug/index.php:745
+#: application/views/debug/index.php:746
 msgid "HAMqsl"
 msgstr "HAMqsl"
 
-#: application/views/debug/index.php:751
+#: application/views/debug/index.php:752
 msgid "VUCC Grids"
 msgstr "Квадраты QTH локатора VUCC"
 
-#: application/views/debug/index.php:761
+#: application/views/debug/index.php:762
 msgid "QSO-DB Maintenance"
 msgstr "Обслуживание БД QSO"
 
-#: application/views/debug/index.php:765
+#: application/views/debug/index.php:766
 #, php-format
 msgid "The Database contains %d QSO without a station-profile (location)"
 msgid_plural ""
@@ -13057,193 +13060,193 @@ msgstr[0] "База данных содержит %d QSO без привязан
 msgstr[1] "База данных содержит %d QSO без привязанного профиля QTH"
 msgstr[2] "База данных содержит %d QSO без привязанного профиля QTH"
 
-#: application/views/debug/index.php:803
+#: application/views/debug/index.php:804
 msgid "Please mark QSOs and reassign them to an existing station location:"
 msgstr "Пожалуйста, отметьте QSO и привяжите их к существующему профилю QTH:"
 
-#: application/views/debug/index.php:811
+#: application/views/debug/index.php:812
 msgctxt "Stationlocation"
 msgid "Target Location"
 msgstr "Целевой профиль QTH"
 
-#: application/views/debug/index.php:812 application/views/debug/index.php:823
+#: application/views/debug/index.php:813 application/views/debug/index.php:824
 msgid "Reassign"
 msgstr "Переназначить"
 
-#: application/views/debug/index.php:832
+#: application/views/debug/index.php:833
 msgid "Every QSO in your Database is assigned to a station-profile (location)"
 msgstr ""
 "Каждое QSO в вашей базе данных привязано к соответствующему профилю QTH"
 
-#: application/views/debug/index.php:832
+#: application/views/debug/index.php:833
 msgid "Everything ok"
 msgstr "Всё ОК"
 
-#: application/views/debug/index.php:855
+#: application/views/debug/index.php:856
 msgid "Worker backend is not configured."
 msgstr "Сервер обработки не настроен."
 
-#: application/views/debug/index.php:859
+#: application/views/debug/index.php:860
 msgid "Unreachable"
 msgstr "Недоступно"
 
-#: application/views/debug/index.php:859
+#: application/views/debug/index.php:860
 msgid "Worker is configured but did not respond."
 msgstr "Сервер обработки настроен, но не отвечает."
 
-#: application/views/debug/index.php:867
+#: application/views/debug/index.php:868
 msgid "Available"
 msgstr "Доступно"
 
-#: application/views/debug/index.php:868 application/views/debug/index.php:877
+#: application/views/debug/index.php:869 application/views/debug/index.php:878
 msgid "Offline"
 msgstr "Офлайн"
 
-#: application/views/debug/index.php:876
+#: application/views/debug/index.php:877
 msgid "Online"
 msgstr "Онлайн"
 
-#: application/views/debug/index.php:887
+#: application/views/debug/index.php:888
 msgid "Worker"
 msgstr "Сервер обработки"
 
-#: application/views/debug/index.php:888
+#: application/views/debug/index.php:889
 msgid "Topics"
 msgstr "Темы"
 
-#: application/views/debug/index.php:889
+#: application/views/debug/index.php:890
 msgid "Clients"
 msgstr "Клиенты"
 
-#: application/views/debug/index.php:891
+#: application/views/debug/index.php:892
 msgid "Uptime"
 msgstr "Время работы"
 
-#: application/views/debug/index.php:898
+#: application/views/debug/index.php:899
 msgid "Could not fetch worker status."
 msgstr "Не удалось получить статус сервера обработки."
 
-#: application/views/debug/index.php:911
+#: application/views/debug/index.php:912
 msgid "Albanian"
 msgstr "Албанский"
 
-#: application/views/debug/index.php:912
+#: application/views/debug/index.php:913
 msgid "Armenian"
 msgstr "Армянский"
 
-#: application/views/debug/index.php:913
+#: application/views/debug/index.php:914
 msgid "Bosnian"
 msgstr "Боснийский"
 
-#: application/views/debug/index.php:914
+#: application/views/debug/index.php:915
 msgid "Bulgarian"
 msgstr "Болгарский"
 
-#: application/views/debug/index.php:915
+#: application/views/debug/index.php:916
 msgid "Chinese (Simplified)"
 msgstr "Китайский (упрощённый)"
 
-#: application/views/debug/index.php:916
+#: application/views/debug/index.php:917
 msgid "Croatian"
 msgstr "Хорватский"
 
-#: application/views/debug/index.php:917
+#: application/views/debug/index.php:918
 msgid "Czech"
 msgstr "Чешский"
 
-#: application/views/debug/index.php:918
+#: application/views/debug/index.php:919
 msgid "Dutch"
 msgstr "Голландский"
 
-#: application/views/debug/index.php:919
+#: application/views/debug/index.php:920
 msgid "English"
 msgstr "Английский"
 
-#: application/views/debug/index.php:920
+#: application/views/debug/index.php:921
 msgid "Estonian"
 msgstr "Эстонский"
 
-#: application/views/debug/index.php:921
+#: application/views/debug/index.php:922
 msgid "Finnish"
 msgstr "Финский"
 
-#: application/views/debug/index.php:922
+#: application/views/debug/index.php:923
 msgid "French"
 msgstr "Французский"
 
-#: application/views/debug/index.php:923
+#: application/views/debug/index.php:924
 msgid "German"
 msgstr "Немецкий"
 
-#: application/views/debug/index.php:924
+#: application/views/debug/index.php:925
 msgid "Greek"
 msgstr "Греческий"
 
-#: application/views/debug/index.php:925
+#: application/views/debug/index.php:926
 msgid "Hungarian"
 msgstr "Венгерский"
 
-#: application/views/debug/index.php:926
+#: application/views/debug/index.php:927
 msgid "Italian"
 msgstr "Итальянский"
 
-#: application/views/debug/index.php:927
+#: application/views/debug/index.php:928
 msgid "Japanese"
 msgstr "Японский"
 
-#: application/views/debug/index.php:928
+#: application/views/debug/index.php:929
 msgid "Latvian"
 msgstr "Латышский"
 
-#: application/views/debug/index.php:929
+#: application/views/debug/index.php:930
 msgid "Lithuanian"
 msgstr "Литовский"
 
-#: application/views/debug/index.php:930
+#: application/views/debug/index.php:931
 msgid "Montenegrin"
 msgstr "Черногорский"
 
-#: application/views/debug/index.php:931
+#: application/views/debug/index.php:932
 msgid "Polish"
 msgstr "Польский"
 
-#: application/views/debug/index.php:932
+#: application/views/debug/index.php:933
 msgid "Portuguese"
 msgstr "Португальский"
 
-#: application/views/debug/index.php:933
+#: application/views/debug/index.php:934
 msgid "Romanian"
 msgstr "Румынский"
 
-#: application/views/debug/index.php:934
+#: application/views/debug/index.php:935
 msgid "Russian"
 msgstr "Русский"
 
-#: application/views/debug/index.php:935
+#: application/views/debug/index.php:936
 msgid "Serbian"
 msgstr "Сербский"
 
-#: application/views/debug/index.php:936
+#: application/views/debug/index.php:937
 msgid "Slovak"
 msgstr "Словацкий"
 
-#: application/views/debug/index.php:937
+#: application/views/debug/index.php:938
 msgid "Slovenian"
 msgstr "Словенский"
 
-#: application/views/debug/index.php:938
+#: application/views/debug/index.php:939
 msgid "Spanish"
 msgstr "Испанский"
 
-#: application/views/debug/index.php:939
+#: application/views/debug/index.php:940
 msgid "Swedish"
 msgstr "Шведский"
 
-#: application/views/debug/index.php:940
+#: application/views/debug/index.php:941
 msgid "Turkish"
 msgstr "Турецкий"
 
-#: application/views/debug/index.php:941
+#: application/views/debug/index.php:942
 msgid "Ukrainian"
 msgstr "Украинский"
 
@@ -20268,7 +20271,7 @@ msgstr "Создано"
 msgid "Last Modified"
 msgstr "Последнее изменение"
 
-#: application/views/stationsetup/locationlist.php:132
+#: application/views/stationsetup/locationlist.php:133
 msgctxt "Station Locations"
 msgid "Export All Locations"
 msgstr "Экспортировать все профили QTH"
@@ -20398,7 +20401,7 @@ msgstr "Избранные"
 msgid "mark/unmark as favorite"
 msgstr "отметить/снять отметку как избранный"
 
-#: application/views/stationsetup/visitor.php:2
+#: application/views/stationsetup/visitor.php:1
 msgid ""
 "Setting a public slug allows you to share your logbook with anyone via a "
 "custom website address, this slug can contain letters & numbers only."
@@ -20406,19 +20409,19 @@ msgstr ""
 "Установка публичной метки позволит вам поделиться вашим журналом, используя "
 "веб-ссылку, это имя должно содержать только буквы и цифры."
 
-#: application/views/stationsetup/visitor.php:3
+#: application/views/stationsetup/visitor.php:2
 msgid "Later it looks like this:"
 msgstr "Ссылка будет выглядеть так:"
 
-#: application/views/stationsetup/visitor.php:4
+#: application/views/stationsetup/visitor.php:3
 msgid "[your slug]"
 msgstr "[публичная метка]"
 
-#: application/views/stationsetup/visitor.php:10
+#: application/views/stationsetup/visitor.php:9
 msgid "Type in Public Slug choice"
 msgstr "Введите публичную метку"
 
-#: application/views/stationsetup/visitor.php:17
+#: application/views/stationsetup/visitor.php:16
 msgid "Visit Public Page"
 msgstr "Посетите публичную страницу"
 

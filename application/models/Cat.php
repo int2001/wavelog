@@ -33,18 +33,14 @@
 
 			if ( (isset($result['power'])) && ($result['power'] != "NULL") && ($result['power'] != '') && (is_numeric($result['power']))) {
 				$data['power'] = $result['power'];
-			} else {
-				unset($data['power']);	// Do not update power since it isn't provided or not numeric
-			}
+			} // else we do not set power as it is not provided or not numeric
 
 			if ( (isset($result['frequency'])) && ($result['frequency'] != "NULL") && ($result['frequency'] != '') && (is_numeric($result['frequency']))) {
 				$data['frequency'] = $result['frequency'];
 			} else {
 				if ( (isset($result['uplink_freq'])) && ($result['uplink_freq'] != "NULL") && ($result['uplink_freq'] != '') && (is_numeric($result['uplink_freq'])) ) {
 					$data['frequency'] = $result['uplink_freq'];
-				} else {
-					unset($data['frequency']);	// Do not update Frequency since it wasn't provided
-				}
+				} // else we do not set frequency as it is not provided at all
 			}
 
 			if (isset($result['mode']) && $result['mode'] != "NULL") {
@@ -72,7 +68,7 @@
 			}
 
 			if (($this->config->item('mqtt_server') ?? '') != '') {
-				$h_user=$this->User_model->get_by_id($user_id);
+				$h_user=$this->user_model->get_by_id($user_id);
 				$this->load->library('Mh');
 				$eventdata=$data;
 				$eventdata['user_name']=$h_user->row()->user_name;
