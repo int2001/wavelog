@@ -4,13 +4,15 @@ class Gridmap extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
+
+		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 	}
 
     public function index() {
 		$data['page_title'] = __("Gridsquare Map");
 
-        $this->load->model('bands');
-        $this->load->model('gridmap_model');
+		$this->load->model('bands');
+		$this->load->model('gridmap_model');
 		$this->load->model('stations');
 
 		$data['visitor'] = false;
@@ -41,7 +43,9 @@ class Gridmap extends CI_Controller {
 
 		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
-        $footerData = [];
+		$data['adif_propmodes'] = $this->config->item('adif_propmodes');
+
+		$footerData = [];
 		$footerData['scripts'] = [
 			'assets/js/leaflet/geocoding.js',
 			'assets/js/sections/gridmap.js',

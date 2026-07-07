@@ -5,11 +5,10 @@ class Backup extends CI_Controller {
 	{
 		parent::__construct();
 	}
-	
+
 	/* User Facing Links to Backup URLs */
 	public function index()
 	{
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(99)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$data['page_title'] = __("Backup");
@@ -20,9 +19,8 @@ class Backup extends CI_Controller {
 	}
 
 	/* Gets all QSOs and Dumps them to logbook.adi */
-	public function adif($key = null){ 
+	public function adif($key = null){
 		if ($key == null) {
-			$this->load->model('user_model');
 			if(!$this->user_model->authorize(99)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		}
 
@@ -32,7 +30,7 @@ class Backup extends CI_Controller {
 		$this->load->library('AdifHelper');
 		// Set memory limit to unlimited to allow heavy usage
 		ini_set('memory_limit', '-1');
-		
+
 		$this->load->model('adif_data');
 		$filename = 'backup/logbook'. date('_Y_m_d_H_i_s') .'.adi';
 
@@ -47,7 +45,7 @@ class Backup extends CI_Controller {
 		$chunk_size = 5000;
 
 		do {
-			$qsos = $this->adif_data->export_all_chunked($clean_key, null, null, false, null, $offset, $chunk_size);
+			$qsos = $this->adif_data->export_all_chunked($clean_key, null, null, false, null, $offset, $chunk_size, true);
 
 			if ($qsos->num_rows() > 0) {
 				foreach ($qsos->result() as $qso) {
@@ -67,7 +65,6 @@ class Backup extends CI_Controller {
 	/* Export the notes to XML */
 	public function notes($key = null) {
 		if ($key == null) {
-			$this->load->model('user_model');
 			if(!$this->user_model->authorize(99)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		}
 

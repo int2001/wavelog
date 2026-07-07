@@ -18,7 +18,6 @@ class eqsl extends CI_Controller {
 	// Default view when loading controller.
 	public function index() {
 
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -26,7 +25,7 @@ class eqsl extends CI_Controller {
 
 		$this->load->model('eqsl_images');
 		$this->load->library('Genfunctions');
-		$folder_name = $this->eqsl_images->get_imagePath('p');
+		$folder_name = $this->paths->getUserdataPath('eqsl_card', 'p');
 		$data['storage_used'] = $this->genfunctions->sizeFormat($this->genfunctions->folderSize($folder_name));
 
 		// Pagination
@@ -61,7 +60,6 @@ class eqsl extends CI_Controller {
 	}
 
 	public function import() {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2) || !clubaccess_check(9)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -161,7 +159,6 @@ class eqsl extends CI_Controller {
 	}
 
 	public function export() {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -250,7 +247,6 @@ class eqsl extends CI_Controller {
 	}
 
 	function generateResultTable($custom_date_format, $rows) {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -274,7 +270,6 @@ class eqsl extends CI_Controller {
 	}
 
 	function writeEqslNotSent($qslsnotsent, $custom_date_format) {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -313,7 +308,6 @@ class eqsl extends CI_Controller {
 	}
 
 	function image($id, $width=null) {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -327,7 +321,6 @@ class eqsl extends CI_Controller {
 
 		if ($this->Eqsl_images->get_image($id) == "No Image") {
 			$this->load->model('logbook_model');
-			$this->load->model('user_model');
 			$qso_query = $this->logbook_model->get_qso($id);
 
 			// Check if QSO exists and is accessible
@@ -418,7 +411,16 @@ class eqsl extends CI_Controller {
 				}
 
 				$filename = uniqid() . '.jpg';
-				$image_path = $this->Eqsl_images->get_imagePath('p') . '/' . $filename;
+				$eqsl_path = $this->paths->getUserdataPath('eqsl_card', 'p');
+
+				// Make sure storing the downloaded card won't fill up the disk
+				$this->load->library('upload_guard');
+				if (!$this->upload_guard->has_free_space($eqsl_path, strlen($content))) {
+					show_error(__('Not enough free disk space to store the eQSL card'), 507);
+					return;
+				}
+
+				$image_path = $eqsl_path . '/' . $filename;
 				$save_result = file_put_contents($image_path, $content);
 
 				if ($save_result !== false) {
@@ -433,7 +435,7 @@ class eqsl extends CI_Controller {
 		} else {
 			// Load server-cached image if etag isn't 0
 			if ($etag != '0') {
-				$image_file = $this->Eqsl_images->get_imagePath('p') . '/' . $this->Eqsl_images->get_image($id);
+				$image_file = $this->paths->getUserdataPath('eqsl_card', 'p') . '/' . $this->Eqsl_images->get_image($id);
 				$content = file_get_contents($image_file);
 				if ($content !== false) {
 					$this->output_image_with_width($content, $width, $etag);
@@ -512,7 +514,6 @@ class eqsl extends CI_Controller {
 	}
 
 	function bulk_download_image($id) {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -520,7 +521,6 @@ class eqsl extends CI_Controller {
 		$this->load->model('Eqsl_images');
 
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 		$qso_query = $this->logbook_model->get_qso($id);
 		$qso = $qso_query->row();
 		$qso_timestamp = strtotime($qso->COL_TIME_ON);
@@ -570,7 +570,13 @@ class eqsl extends CI_Controller {
 			}
 			$filename = uniqid() . '.jpg';
 			if ($this->Eqsl_images->get_image($id) == "No Image") {
-				if (file_put_contents($this->Eqsl_images->get_imagePath('p') . '/' . $filename, $content) !== false) {
+				$eqsl_path = $this->paths->getUserdataPath('eqsl_card', 'p');
+				$this->load->library('upload_guard');
+				if (!$this->upload_guard->has_free_space($eqsl_path, strlen($content))) {
+					$error = __('Not enough free disk space to store the eQSL card');
+					return $error;
+				}
+				if (file_put_contents($eqsl_path . '/' . $filename, $content) !== false) {
 					$this->Eqsl_images->save_image($id, $filename);
 				}
 			}
@@ -579,7 +585,6 @@ class eqsl extends CI_Controller {
 
 	public function tools() {
 		// Check logged in
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -595,7 +600,6 @@ class eqsl extends CI_Controller {
 
 	public function download() {
 		// Check logged in
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -654,7 +658,6 @@ class eqsl extends CI_Controller {
 
 	public function mark_all_sent() {
 		// Check logged in
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');

@@ -7,7 +7,6 @@ class Distancerecords extends CI_Controller {
     {
         parent::__construct();
 
-        $this->load->model('user_model');
         if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
     }
 
@@ -86,6 +85,7 @@ class Distancerecords extends CI_Controller {
 
         $data['page_title'] = __("Log View")." - " . __("Satellite Distance Records");
         $data['filter'] = $sat;
+        $data['adif_propmodes'] = $this->config->item('adif_propmodes');
 
         $this->load->view('distancerecords/details', $data);
     }

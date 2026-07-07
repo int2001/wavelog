@@ -7,8 +7,29 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class API extends CI_Controller {
 
+	public function __construct() {
+		parent::__construct();
+
+		// Web UI endpoints that don't need CORS
+		$web_ui_methods = ['index', 'help', 'edit', 'generate', 'delete'];
+		$method = $this->uri->segment(2, 'index');
+
+		if (!in_array($method, $web_ui_methods, true)) {
+			// Preflight
+			if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+				header('Access-Control-Allow-Origin: *');
+				header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+				header('Access-Control-Allow-Headers: Content-Type');
+				header('Access-Control-Max-Age: 86400');
+				http_response_code(200);
+				exit(0);
+			}
+
+			header('Access-Control-Allow-Origin: *');
+		}
+	}
+
 	function index() {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(3)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$this->load->model('api_model');
@@ -51,7 +72,6 @@ class API extends CI_Controller {
 	}
 
 	function edit($key) {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(3)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$this->load->model('api_model');
@@ -91,7 +111,6 @@ class API extends CI_Controller {
 			return;
 		}
 
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(3)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$rights = $this->input->post('rights', TRUE);
@@ -126,7 +145,6 @@ class API extends CI_Controller {
 			return;
 		}
 
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(3)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$key = $this->input->post('key', TRUE);
@@ -149,7 +167,7 @@ class API extends CI_Controller {
 	function auth($key = '') {
 		$this->load->model('api_model');
 			header("Content-type: text/xml");
-		if($this->api_model->access($key) == "No Key Found" || $this->api_model->access($key) == "Key Disabled") {
+		if($this->api_model->authorize($key) == 0) {
 			echo "<auth>";
 			echo "<message>Key Invalid - either not found or disabled</message>";
 			echo "</auth>";
@@ -163,11 +181,23 @@ class API extends CI_Controller {
 	}
 
 	function create_station($key = '') {
+		header('Content-type: application/json');
 		$this->load->model('api_model');
 
-		if ($this->api_model->access($key) == "No Key Found" || $this->api_model->access($key) == "Key Disabled") {
-			$this->output->set_status_header(401)->set_content_type('application/json')->set_output(json_encode(['status' => 'error', 'message' => 'Auth Error, invalid key']));
-			return;
+		$apiKeyResponse = $this->api_model->authorize($key ?? '');
+
+		if ($apiKeyResponse == 0) {
+			http_response_code(401);
+			log_message("Debug",'API Call 401. Invalid API Key: '.($obj['key'] ?? 'N/A'));
+			echo json_encode(['status' => 'error', 'reason' => "missing or wrong api key"]);
+			die();
+		}
+
+		if ($apiKeyResponse == 1) {
+			http_response_code(403);
+			log_message("Debug",'API Call 403. Insufficient permissions for API Key');
+			echo json_encode(['status' => 'error', 'reason' => "API key does not have write permissions"]);
+			die();
 		}
 
 		$this->load->model('club_model');
@@ -228,19 +258,41 @@ class API extends CI_Controller {
 		$this->load->model('api_model');
 		$this->load->model('stations');
 		header("Content-type: application/json");
-		if(substr($this->api_model->access($key),0,1) == 'r') { /* Check permission for reading */
+		if($this->api_model->authorize($key) > 0) { /* Check permission for reading */
 			$this->api_model->update_last_used($key);
 			$userid = $this->api_model->key_userid($key);
 			$station_ids = array();
-			$stations=$this->stations->all_of_user($userid);
-			foreach ($stations->result() as $row) {
-				$result['station_id']=$row->station_id;
-				$result['station_profile_name']=$row->station_profile_name;
-				$result['station_gridsquare']=$row->station_gridsquare;
-				$result['station_callsign']=$row->station_callsign;;
-				$result['station_active']=$row->station_active;
-				$result['station_uuid']=$row->station_uuid;
-				array_push($station_ids, $result);
+
+			$dkey_opt=$this->user_options_model->get_options('stations',array('option_name'=>'active_log_only','option_key'=>'boolean'), $userid)->result();
+			$user_stations_active_log_only = (count($dkey_opt)>0) ? $dkey_opt[0]->option_value : false;
+			if($user_stations_active_log_only) {
+				$stations = $this->logbooks_model->list_logbooks_linked($this->logbooks_model->find_active_station_logbook_from_userid($userid));
+			} else {
+				$stations=$this->stations->all_of_user($userid);
+			}
+			if($stations !== FALSE) {
+				foreach ($stations->result() as $row) {
+					$result['station_id']=$row->station_id;
+					$result['station_profile_name']=$row->station_profile_name;
+					$result['station_gridsquare']=$row->station_gridsquare;
+					$result['station_callsign']=$row->station_callsign;;
+					$result['station_active']=$row->station_active;
+					$result['station_uuid']=$row->station_uuid;
+					$result['station_city']=$row->station_city;
+					$result['station_iota']=$row->station_iota;
+					$result['station_sota']=$row->station_sota;
+					$result['station_wwff']=$row->station_wwff;
+					$result['station_pota']=$row->station_pota;
+					$result['station_sig']=$row->station_sig;
+					$result['station_sig_info']=$row->station_sig_info;
+					$result['station_dxcc']=$row->station_dxcc;
+					$result['station_cnty']=$row->station_cnty;
+					$result['station_cq']=$row->station_cq;
+					$result['station_itu']=$row->station_itu;
+					$result['station_state']=$row->state;
+					$result['station_country']=$row->station_country;
+					array_push($station_ids, $result);
+				}
 			}
 			echo json_encode($station_ids);
 		} else {
@@ -251,7 +303,7 @@ class API extends CI_Controller {
 
 	function check_auth($key = '') {
 		$this->load->model('api_model');
-		if($this->api_model->access($key ?? '') == "No Key Found" || $this->api_model->access($key ?? '') == "Key Disabled") {
+		if($this->api_model->authorize($key ?? '') == 0) {
 			// set the content type as json
 			header("Content-type: application/json");
 
@@ -311,11 +363,20 @@ class API extends CI_Controller {
 
 		$raw='';
 
-		if(!isset($obj['key']) || $this->api_model->authorize($obj['key']) == 0) {
+		$apiKeyResponse = $this->api_model->authorize($obj['key'] ?? '');
+
+		if (!isset($obj['key']) || $apiKeyResponse == 0) {
 		   http_response_code(401);
 		   log_message("Debug",'API Call 401. Invalid API Key: '.($obj['key'] ?? 'N/A'));
 		   echo json_encode(['status' => 'failed', 'reason' => "missing or wrong api key"]);
 		   die();
+		}
+
+		if ($apiKeyResponse == 1) {
+			http_response_code(403);
+			log_message("Debug",'API Call 403. Insufficient permissions for API Key');
+			echo json_encode(['status' => 'failed', 'reason' => "API key does not have write permissions"]);
+			die();
 		}
 
 		$userid = $this->api_model->key_userid($obj['key']);
@@ -332,7 +393,6 @@ class API extends CI_Controller {
 		$real_operator = null;	// real_operator is only filled if its a clubstation and the used key is created by an OP. otherwise its null
 		if ($this->config->item('special_callsign')) {
 			if ($userid != $created_by) {
-				$this->load->model('user_model');
 				$real_operator = $this->user_model->get_by_id($created_by)->row()->user_callsign;
 			} else {
 				$real_operator = null;
@@ -456,6 +516,9 @@ class API extends CI_Controller {
 			return;
 		}
 
+		$identifier = isset($obj['key']) ? $obj['key'] : null;
+		$this->check_rate_limit('get_contacts_adif', $identifier);
+
 		//do authorization
 		if(!isset($obj['key']) || $this->api_model->authorize($obj['key']) == 0) {
 		   http_response_code(401);
@@ -473,11 +536,93 @@ class API extends CI_Controller {
 
 		//extract relevant data to variables
 		$key = $obj['key'];
-		$station_id = $obj['station_id'];
 		$fetchfromid = $obj['fetchfromid'];
+
+		$req_station_ids = is_array($obj['station_id']) ? $obj['station_id'] : [$obj['station_id']];
+		if (empty($req_station_ids)) {
+			http_response_code(400);
+			echo json_encode(['status' => 'failed', 'reason' => '"station_id" must not be empty']);
+			return;
+		}
+		$normalized_station_ids = [];
+		foreach ($req_station_ids as $sid) {
+			if (!is_numeric($sid)) {
+				http_response_code(400);
+				echo json_encode(['status' => 'failed', 'reason' => '"station_id" values must be numeric']);
+				return;
+			}
+			$normalized_station_ids[] = (int)$sid;
+		}
+		$req_station_ids = array_values(array_unique($normalized_station_ids));
 		$limit = 20000;
 		if ( (array_key_exists('limit',$obj)) && (is_numeric($obj['limit']*1)) ) {
 			$limit = $obj['limit'];
+		}
+
+		// output_format (optional, default: adif)
+		$output_format = 'adif';
+		if (isset($obj['output_format'])) {
+			if (!in_array($obj['output_format'], ['adif', 'json'], true)) {
+				http_response_code(400);
+				echo json_encode(['status' => 'failed', 'reason' => 'Invalid output_format. Use "adif" or "json"']);
+				return;
+			}
+			$output_format = $obj['output_format'];
+		}
+
+		$fields = null;
+		if (isset($obj['fields'])) {
+			if ($output_format !== 'json') {
+				http_response_code(400);
+				echo json_encode(['status' => 'failed', 'reason' => '"fields" is only valid when output_format is "json"']);
+				return;
+			}
+			if (!is_array($obj['fields']) || empty($obj['fields'])) {
+				http_response_code(400);
+				echo json_encode(['status' => 'failed', 'reason' => '"fields" must be a non-empty array']);
+				return;
+			}
+			$requested_fields = array_map('strtoupper', $obj['fields']);
+			$valid_adif_fields = ['ADDRESS','AGE','A_INDEX','ANT_AZ','ANT_EL','ANT_PATH','ARRL_SECT','AWARD_GRANTED','AWARD_SUBMITTED','BAND','BAND_RX','BIOGRAPHY','CALL','CHECK','CLASS','CLUBLOG_QSO_UPLOAD_STATUS','CNTY','COMMENT','CONT','CONTACTED_OP','CONTEST_ID','COUNTRY','CQZ','CREDIT_GRANTED','CREDIT_SUBMITTED','DARC_DOK','DISTANCE','DXCC','EMAIL','EQ_CALL','EQSL_QSL_RCVD','EQSL_QSL_SENT','EQSL_STATUS','EQSL_AG','FISTS','FISTS_CC','FORCE_INIT','GRIDSQUARE','HEADING','IOTA','ITUZ','K_INDEX','LAT','LON','LOTW_QSL_RCVD','LOTW_QSL_SENT','LOTW_STATUS','MAX_BURSTS','MODE','MS_SHOWER','NAME','NOTES','NR_BURSTS','NR_PINGS','OPERATOR','OWNER_CALLSIGN','PFX','PRECEDENCE','PROP_MODE','PUBLIC_KEY','HRDLOG_QSO_UPLOAD_STATUS','QRZCOM_QSO_UPLOAD_STATUS','QSLMSG','QSL_RCVD','QSL_RCVD_VIA','QSL_SENT','QSL_SENT_VIA','QSL_VIA','QSO_COMPLETE','QSO_RANDOM','QTH','REGION','RIG','RST_RCVD','RST_SENT','RX_PWR','SAT_MODE','SAT_NAME','SFI','SILENT_KEY','SKCC','SOTA_REF','WWFF_REF','POTA_REF','SRX','SRX_STRING','STATE','STX','STX_STRING','SUBMODE','SWL','TEN_TEN','TX_PWR','UKSMG','USACA_COUNTIES','VUCC_GRIDS','WEB','CNTY_ALT','MY_CNTY_ALT','MY_DARC_DOK','MORSE_KEY_INFO','MORSE_KEY_TYPE','QSLMSG_RCVD','DCL_QSL_RCVD','DCL_QSL_SENT','EQSL_QSLRDATE','EQSL_QSLSDATE','LOTW_QSLRDATE','LOTW_QSLSDATE','QSLRDATE','QSLSDATE','CLUBLOG_QSO_UPLOAD_DATE','HRDLOG_QSO_UPLOAD_DATE','QRZCOM_QSO_UPLOAD_DATE','DCL_QSLRDATE','DCL_QSLSDATE','FREQ','FREQ_RX','QSO_DATE','TIME_ON','QSO_DATE_OFF','TIME_OFF','STATION_CALLSIGN','MY_CITY','MY_COUNTRY','MY_DXCC','MY_GRIDSQUARE','MY_VUCC_GRIDS','MY_IOTA','MY_SOTA_REF','MY_WWFF_REF','MY_POTA_REF','MY_CQ_ZONE','MY_ITU_ZONE','MY_STATE','MY_CNTY','MY_SIG','MY_SIG_INFO','SIG','SIG_INFO','MY_ANTENNA','MY_ANTENNA_INTL'];
+			$invalid_fields = array_diff($requested_fields, $valid_adif_fields);
+			if (!empty($invalid_fields)) {
+				http_response_code(400);
+				echo json_encode(['status' => 'failed', 'reason' => 'Unknown fields: ' . implode(', ', $invalid_fields)]);
+				return;
+			}
+			$fields = $requested_fields;
+		}
+
+		$qsl_filter = null;
+		if (isset($obj['qsl_filter'])) {
+			$allowed_qsl = ['lotw', 'qsl', 'eqsl', 'clublog'];
+			if (!is_array($obj['qsl_filter']) || empty($obj['qsl_filter'])) {
+				http_response_code(400);
+				echo json_encode(['status' => 'failed', 'reason' => '"qsl_filter" must be a non-empty array']);
+				return;
+			}
+			$qsl_filter_input = array_map('strtolower', $obj['qsl_filter']);
+			$invalid_qsl = array_diff($qsl_filter_input, $allowed_qsl);
+			if (!empty($invalid_qsl)) {
+				http_response_code(400);
+				echo json_encode(['status' => 'failed', 'reason' => 'Invalid qsl_filter values: ' . implode(', ', $invalid_qsl)]);
+				return;
+			}
+			$qsl_filter = $qsl_filter_input;
+		}
+
+		// band (optional)
+		$band = null;
+		if (isset($obj['band'])) {
+			$valid_bands = ['160m','80m','60m','40m','30m','20m','17m','15m','12m','10m','6m','4m','2m','1.25m','70cm','33cm','23cm','13cm','9cm','6cm','3cm','1.25cm','sat'];
+			$band_input = strtolower(trim($obj['band']));
+			if (!in_array($band_input, $valid_bands, true)) {
+				http_response_code(400);
+				echo json_encode(['status' => 'failed', 'reason' => 'Invalid band value']);
+				return;
+			}
+			// Normalize: SAT uppercase (matches COL_PROP_MODE stored value), others lowercase (matches COL_BAND)
+			$band = ($band_input === 'sat') ? 'SAT' : $band_input;
 		}
 
 		//check if goalpost is numeric as an additional layer of SQL injection prevention
@@ -504,11 +649,12 @@ class API extends CI_Controller {
 			array_push($station_ids, $row->station_id);
 		}
 
-		//return error if station not accessible for the API key
-		if(!in_array($station_id, $station_ids)) {
-			http_response_code(401);
-	 	   	echo json_encode(['status' => 'failed', 'reason' => "Station ID not accessible for this API key"]);
-			return;
+		foreach ($req_station_ids as $station_id) {
+			if (!in_array($station_id, $station_ids)) {
+				http_response_code(401);
+				echo json_encode(['status' => 'failed', 'reason' => "Station ID not accessible for this API key"]);
+				return;
+			}
 		}
 
 		//load adif data module
@@ -525,21 +671,38 @@ class API extends CI_Controller {
 		$remaining_limit = $limit;
 		$offset = 0;
 
-		// Start building ADIF content
-		$adif_content = $this->adifhelper->getAdifHeader($this->config->item('app_name'),$this->optionslib->get_option('version'), $this->optionslib->get_option('adif_version'));
+		$adif_content = ($output_format === 'adif') ? $this->adifhelper->getAdifHeader($this->config->item('app_name'), $this->optionslib->get_option('version'), $this->optionslib->get_option('adif_version')) : '';
+		$qso_rows = [];
+
+			$seen_keys = [];
 
 		do {
 			// Calculate chunk size for this iteration
 			$current_chunk_size = min($chunk_size, $remaining_limit);
 
 			// Fetch chunk
-			$qsos = $this->adif_data->export_past_id_chunked($station_id, $fetchfromid, $current_chunk_size, null, $offset, $current_chunk_size);
+			$qsos = $this->adif_data->export_past_id_chunked($req_station_ids, $fetchfromid, $current_chunk_size, null, $offset, $current_chunk_size, $qsl_filter, $band);
 
 			if ($qsos && $qsos->num_rows() > 0) {
 				// Process chunk
 				foreach ($qsos->result() as $row) {
-					// Build ADIF content directly
-					$adif_content .= $this->adifhelper->getAdifLine($row);
+					if ($output_format === 'json') {
+						$qso_data = $this->_build_qso_array($row, $fields);
+						if ($fields !== null) {
+							$unique_key = '';
+							foreach ($fields as $field) {
+								$unique_key .= (isset($qso_data[$field]) ? $qso_data[$field] : '') . '|';
+							}
+							if (!isset($seen_keys[$unique_key])) {
+								$seen_keys[$unique_key] = true;
+								$qso_rows[] = $qso_data;
+							}
+						} else {
+							$qso_rows[] = $qso_data;
+						}
+					} else {
+						$adif_content .= $this->adifhelper->getAdifLine($row);
+					}
 
 					// Track data for response
 					$all_qso_ids[] = $row->COL_PRIMARY_KEY;
@@ -563,14 +726,90 @@ class API extends CI_Controller {
 			// Continue if we got a full chunk and haven't hit the limit
 		} while ($qsos && $qsos->num_rows() > 0 && $total_fetched < $limit);
 
-		// Return response (same format as original)
-		if($total_fetched <= 0) {
-			http_response_code(200);
-			echo json_encode(['status' => 'successfull', 'message' => 'No new QSOs available.', 'lastfetchedid' => $fetchfromid, 'exported_qsos' => 0, 'adif' => null]);
+		// Return response
+		http_response_code(200);
+		if ($total_fetched <= 0) {
+			echo json_encode(['status' => 'successful', 'message' => 'No new QSOs available.', 'lastfetchedid' => $fetchfromid, 'exported_qsos' => 0, 'adif' => null]);
+		} elseif ($output_format === 'json') {
+			echo json_encode(['status' => 'successful', 'message' => 'Export successful', 'lastfetchedid' => $lastfetchedid, 'exported_records' => count($qso_rows), 'qsos' => $qso_rows]);
 		} else {
-			http_response_code(200);
-			echo json_encode(['status' => 'successfull', 'message' => 'Export successfull', 'lastfetchedid' => $lastfetchedid, 'exported_qsos' => $total_fetched, 'adif' => $adif_content]);
+			echo json_encode(['status' => 'successful', 'message' => 'Export successful', 'lastfetchedid' => $lastfetchedid, 'exported_qsos' => $total_fetched, 'adif' => $adif_content]);
 		}
+	}
+
+
+	private function _build_qso_array($qso, $fields = null) {
+		$result = [];
+
+		$normalFields = ['ADDRESS','AGE','A_INDEX','ANT_AZ','ANT_EL','ANT_PATH','ARRL_SECT','AWARD_GRANTED','AWARD_SUBMITTED','BAND','BAND_RX','BIOGRAPHY','CALL','CHECK','CLASS','CLUBLOG_QSO_UPLOAD_STATUS','CNTY','COMMENT','CONT','CONTACTED_OP','CONTEST_ID','COUNTRY','CQZ','CREDIT_GRANTED','CREDIT_SUBMITTED','DARC_DOK','DISTANCE','DXCC','EMAIL','EQ_CALL','EQSL_QSL_RCVD','EQSL_QSL_SENT','EQSL_STATUS','EQSL_AG','FISTS','FISTS_CC','FORCE_INIT','GRIDSQUARE','HEADING','IOTA','ITUZ','K_INDEX','LAT','LON','LOTW_QSL_RCVD','LOTW_QSL_SENT','LOTW_STATUS','MAX_BURSTS','MODE','MS_SHOWER','NAME','NOTES','NR_BURSTS','NR_PINGS','OPERATOR','OWNER_CALLSIGN','PFX','PRECEDENCE','PROP_MODE','PUBLIC_KEY','HRDLOG_QSO_UPLOAD_STATUS','QRZCOM_QSO_UPLOAD_STATUS','QSLMSG','QSL_RCVD','QSL_RCVD_VIA','QSL_SENT','QSL_SENT_VIA','QSL_VIA','QSO_COMPLETE','QSO_RANDOM','QTH','REGION','RIG','RST_RCVD','RST_SENT','RX_PWR','SAT_MODE','SAT_NAME','SFI','SILENT_KEY','SKCC','SOTA_REF','WWFF_REF','POTA_REF','SRX','SRX_STRING','STATE','STX','STX_STRING','SUBMODE','SWL','TEN_TEN','TX_PWR','UKSMG','USACA_COUNTIES','VUCC_GRIDS','WEB','CNTY_ALT','MY_CNTY_ALT','MY_DARC_DOK','MORSE_KEY_INFO','MORSE_KEY_TYPE','QSLMSG_RCVD','DCL_QSL_RCVD','DCL_QSL_SENT','MY_ANTENNA','MY_ANTENNA_INTL'];
+		$dateFields   = ['EQSL_QSLRDATE','EQSL_QSLSDATE','LOTW_QSLRDATE','LOTW_QSLSDATE','QSLRDATE','QSLSDATE','CLUBLOG_QSO_UPLOAD_DATE','HRDLOG_QSO_UPLOAD_DATE','QRZCOM_QSO_UPLOAD_DATE','DCL_QSLRDATE','DCL_QSLSDATE'];
+
+		foreach ($normalFields as $f) {
+			$result[$f] = $qso->{'COL_' . $f};
+		}
+
+		foreach ($dateFields as $f) {
+			$val = $qso->{'COL_' . $f};
+			$result[$f] = $val ? date('Ymd', strtotime($val)) : null;
+		}
+
+		$result['FREQ']    = $qso->COL_FREQ    ? $qso->COL_FREQ    / 1000000 : null;
+		$result['FREQ_RX'] = $qso->COL_FREQ_RX ? $qso->COL_FREQ_RX / 1000000 : null;
+
+		if (isset($qso->COL_TIME_ON) && date('YmdHis', strtotime($qso->COL_TIME_ON)) !== '-00011130000000') {
+			$result['QSO_DATE'] = date('Ymd', strtotime($qso->COL_TIME_ON));
+			$result['TIME_ON']  = date('His', strtotime($qso->COL_TIME_ON));
+		} else {
+			$result['QSO_DATE'] = '19700101';
+			$result['TIME_ON']  = '000000';
+		}
+		if (isset($qso->COL_TIME_OFF) && date('YmdHis', strtotime($qso->COL_TIME_OFF)) !== '-00011130000000') {
+			$result['QSO_DATE_OFF'] = date('Ymd', strtotime($qso->COL_TIME_OFF));
+			$result['TIME_OFF']     = date('His', strtotime($qso->COL_TIME_OFF));
+		} else {
+			$result['QSO_DATE_OFF'] = '19700101';
+			$result['TIME_OFF']     = '000000';
+		}
+
+		$result['STATION_CALLSIGN'] = $qso->station_callsign;
+		$result['MY_CITY']          = $qso->station_city;
+		$result['MY_COUNTRY']       = $qso->station_country;
+		$result['MY_DXCC']          = $qso->station_dxcc;
+		if (strpos($qso->station_gridsquare, ',') !== false) {
+			$result['MY_VUCC_GRIDS'] = $qso->station_gridsquare;
+			$result['MY_GRIDSQUARE'] = null;
+		} else {
+			$result['MY_GRIDSQUARE'] = $qso->station_gridsquare;
+			$result['MY_VUCC_GRIDS'] = null;
+		}
+		$result['MY_IOTA']     = $qso->station_iota;
+		$result['MY_SOTA_REF'] = $qso->station_sota;
+		$result['MY_WWFF_REF'] = $qso->station_wwff;
+		$result['MY_POTA_REF'] = $qso->station_pota;
+		$result['MY_CQ_ZONE']  = $qso->station_cq;
+		$result['MY_ITU_ZONE'] = $qso->station_itu;
+		$result['MY_STATE']    = $qso->state;
+		if ($qso->station_cnty) {
+			switch ($qso->station_dxcc) {
+				case '6': case '110': case '291':
+					$result['MY_CNTY'] = trim($qso->state) . ',' . trim($qso->station_cnty);
+					break;
+				default:
+					$result['MY_CNTY'] = trim($qso->station_cnty);
+			}
+		} else {
+			$result['MY_CNTY'] = null;
+		}
+		$result['MY_SIG']      = $qso->station_sig;
+		$result['MY_SIG_INFO'] = $qso->station_sig_info;
+		$result['SIG']         = $qso->{'COL_SIG'};
+		$result['SIG_INFO']    = $qso->{'COL_SIG_INFO'};
+
+		if ($fields !== null) {
+			$result = array_intersect_key($result, array_flip($fields));
+		}
+
+		return $result;
 	}
 
 
@@ -814,16 +1053,6 @@ class API extends CI_Controller {
 	function radio() {
 		session_write_close();
 
-                if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { // Preflight CORS-Check: Allow posting from web-application as well (key is still needed!)
-                        header('Access-Control-Allow-Origin: *');
-                        header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-                        header('Access-Control-Allow-Headers: Content-Type');
-                        header('Access-Control-Max-Age: 86400');
-                        http_response_code(200);
-                        exit(0);
-                }
-                header('Access-Control-Allow-Origin: *'); // Allow posting from web-application as well (key is still needed!)
-
 		header('Content-type: application/json');
 
 		$this->load->model('api_model');
@@ -844,6 +1073,12 @@ class API extends CI_Controller {
 		if(!isset($obj['key']) || $this->api_model->authorize($obj['key']) == 0) {
 			http_response_code(401);
 			echo json_encode(['status' => 'failed', 'reason' => "missing api key"]);
+			die();
+		}
+
+		if($this->api_model->authorize($obj['key']) == 1) {
+			http_response_code(403);
+			echo json_encode(['status' => 'failed', 'reason' => "API key does not have write permissions"]);
 			die();
 		}
 
@@ -916,7 +1151,7 @@ class API extends CI_Controller {
 
 	function statistics($key = null) {
 		$this->load->model('api_model');
-		if ((($key ?? '') != '') && ($this->api_model->authorize($key) != 0)) {
+		if ((($key ?? '') != '') && ($this->api_model->authorize($key) > 0)) {
 			$this->load->model('logbook_model');
 			$qso_counts = $this->logbook_model->get_qso_counts(null, $key);
 			$data['todays_qsos'] = $qso_counts['today'];
@@ -935,6 +1170,7 @@ class API extends CI_Controller {
 	}
 
 	function private_lookup() {
+		header('Content-type: application/json');
 		// Lookup Callsign and dxcc for further informations. UseCase: e.g. external Application which checks calls like FlexRadio-Overlay
 		$raw_input = json_decode(file_get_contents("php://input"), true);
 
@@ -942,7 +1178,6 @@ class API extends CI_Controller {
 		$identifier = isset($raw_input['key']) ? $raw_input['key'] : null;
 		$this->check_rate_limit('private_lookup', $identifier);
 		$user_id='';
-		$this->load->model('user_model');
 		if (!( $this->user_model->authorize($this->config->item('auth_mode') ))) {				// User not authorized?
 			$no_auth=true;
 			$this->load->model('api_model');
@@ -978,6 +1213,7 @@ class API extends CI_Controller {
 		if ((array_key_exists('station_ids',$raw_input)) && (is_array($raw_input['station_ids']))) {		// Special station_ids needed and it is an array?
 			$a_station_ids=[];
 			foreach ($raw_input['station_ids'] as $stationid) {	// Check for grants to given station_id
+				$stationid = intval($stationid);
 				if ($this->stations->check_station_against_user($stationid, $user_id)) {
 					$a_station_ids[]=$stationid;
 				}
@@ -1085,6 +1321,13 @@ class API extends CI_Controller {
 				$return['cont'] = $callsign_dxcc_lookup['cont'] ?? '';
 			}
 
+			// ITU zone from the DXCC entity (same source/timing as dxcc_cqz). Only add the
+			// key when the entity has a known ITU zone, otherwise omit it entirely.
+			$entity = $this->logbook_model->get_entity($return['dxcc_id']);
+			if (is_array($entity) && (($entity['ituz'] ?? 0) > 0)) {
+				$return['dxcc_ituz'] = (int) $entity['ituz'];
+			}
+
 			// Query stations of KeyOwner for an already worked call
 			$userdata=$this->user_model->get_by_id($user_id);
 			$call_lookup_results = $this->logbook_model->call_lookup_result($lookup_callsign, $station_ids,$userdata->row()->user_default_confirmation,$band,$mode);
@@ -1118,10 +1361,8 @@ class API extends CI_Controller {
 			}
 
 			$lotw_days=$this->logbook_model->check_last_lotw($lookup_callsign);
-			if ($lotw_days != null) {
+			if ($lotw_days !== null) {
 				$return['lotw_member']=$lotw_days;
-			} else {
-				$lotw_member="";
 			}
 
 			if ($return['dxcc_id'] ?? '' != '') {	// DXCC derivated before? if yes: check cnf-states
@@ -1140,6 +1381,7 @@ class API extends CI_Controller {
 	}
 
 	function lookup() {
+		header('Content-type: application/json');
 		// This API provides NO information about previous QSOs. It just derivates DXCC, Lat, Long. It is used by the DXClusterAPI
 		$raw_input = json_decode(file_get_contents("php://input"), true);
 
@@ -1148,7 +1390,6 @@ class API extends CI_Controller {
 		$this->check_rate_limit('lookup', $identifier);
 
 		$user_id = '';
-		$this->load->model('user_model');
 		if (!( $this->user_model->authorize($this->config->item('auth_mode') ))) {				// User not authorized?
 			$no_auth = true;
 			$this->load->model('api_model');
@@ -1241,10 +1482,8 @@ class API extends CI_Controller {
 			}
 
 			$lotw_days=$this->logbook_model->check_last_lotw($lookup_callsign);
-			if ($lotw_days != null) {
+			if ($lotw_days !== null) {
 				$return['lotw_member']=$lotw_days;
-			} else {
-				$lotw_member="";
 			}
 			echo json_encode($return, JSON_PRETTY_PRINT);
 		} else {
@@ -1268,7 +1507,7 @@ class API extends CI_Controller {
 
 		if (!empty($data['key'])) {
 			$this->load->model('api_model');
-			if (substr($this->api_model->access($data['key']), 0, 1) == 'r') {
+			if ($this->api_model->authorize($data['key']) > 0) { /* Check permission for reading */
 				$valid = true;
 			}
 		}
@@ -1336,7 +1575,7 @@ class API extends CI_Controller {
 
 		// Load cache driver
 		$this->load->driver('cache', [
-			'adapter' => $this->config->item('cache_adapter') ?? 'file', 
+			'adapter' => $this->config->item('cache_adapter') ?? 'file',
 			'backup' => $this->config->item('cache_backup')	 ?? 'file',
 			'key_prefix' => $this->config->item('cache_key_prefix') ?? ''
 		]);
@@ -1388,7 +1627,7 @@ class API extends CI_Controller {
 		return $url;
 	}
 
-	/* ** 
+	/* **
 	* List members of a clubstation
 	* API key needs to be of a club officer (permission level 9)
 	* returns array of club member details
@@ -1406,7 +1645,7 @@ class API extends CI_Controller {
 			return;
 		}
 
-		if ($this->api_model->access($obj['key']) == "No Key Found" || $this->api_model->access($obj['key']) == "Key Disabled") {
+		if ($this->api_model->authorize($obj['key']) == 0) {
 			http_response_code(401);
 			echo json_encode(['status' => 'error', 'message' => 'Auth Error, invalid key']);
 			return;

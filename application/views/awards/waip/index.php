@@ -1,6 +1,5 @@
-<div class="container">
+<div class="container px-3 px-lg-4 mt-3 mb-3">
     <!-- Award Info Box -->
-    <br>
     <div class="position-relative">
         <div id="awardInfoButton">
             <script>
@@ -31,7 +30,7 @@ if ($waip_array) {
     echo '<div class="card mb-3">';
     echo '<div class="card-header"><h5 class="mb-0"><i class="fas fa-trophy"></i> ' . __("Award Progress") . '</h5></div>';
     echo '<div class="card-body">';
-    echo '<p class="mb-2">' . __("Progress toward working all Italian provinces:") . '</p>';
+    echo '<p class="mb-2">' . __("Progress towards working all Italian provinces:") . '</p>';
 
     $total_provinces = count($waip_array);
 
@@ -85,25 +84,28 @@ if ($waip_array) {
     echo '</div>';
 ?>
 
-<!-- Bootstrap Tabs Navigation -->
-<ul class="nav nav-tabs" id="waipTabs" role="tablist">
-    <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="mode-tab" data-bs-toggle="tab" data-bs-target="#mode-content" type="button" role="tab" aria-controls="mode-content" aria-selected="true">
-            <?= __("By Mode Category") ?>
-        </button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="band-tab" data-bs-toggle="tab" data-bs-target="#band-content" type="button" role="tab" aria-controls="band-content" aria-selected="false">
-            <?= __("By Band") ?>
-        </button>
-    </li>
-</ul>
-
-<!-- Tab Content -->
-<div class="tab-content" id="waipTabsContent">
-    <!-- Tab 1: By Mode Category -->
-    <div class="tab-pane fade show active" id="mode-content" role="tabpanel" aria-labelledby="mode-tab">
-        <div class="mt-3">
+    <div class="card">
+        <div class="card-header">
+            <!-- Bootstrap Tabs Navigation -->
+            <ul class="nav nav-tabs card-header-tabs" id="waipTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="mode-tab" data-bs-toggle="tab" data-bs-target="#mode-content" type="button" role="tab" aria-controls="mode-content" aria-selected="true">
+                        <?= __("By Mode Category") ?>
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="band-tab" data-bs-toggle="tab" data-bs-target="#band-content" type="button" role="tab" aria-controls="band-content" aria-selected="false">
+                        <?= __("By Band") ?>
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <!-- Tab Content -->
+            <div class="tab-content" id="waipTabsContent">
+                <!-- Tab 1: By Mode Category -->
+                <div class="tab-pane fade show active" id="mode-content" role="tabpanel" aria-labelledby="mode-tab">
+                    <div class="mt-3">
 <?php
     echo '<table style="width:100%" id="waiptable" class="table table-sm table-bordered table-hover table-striped table-condensed text-center">
         <thead class="table-secondary">
@@ -155,12 +157,12 @@ if ($waip_array) {
     </tfoot>
     </table>';
 ?>
-        </div>
-    </div>
+                    </div>
+                </div>
 
-    <!-- Tab 2: By Band -->
-    <div class="tab-pane fade" id="band-content" role="tabpanel" aria-labelledby="band-tab">
-        <div class="mt-3">
+                <!-- Tab 2: By Band -->
+                <div class="tab-pane fade" id="band-content" role="tabpanel" aria-labelledby="band-tab">
+                    <div class="mt-3">
 <?php
     if (isset($waip_array_bands)) {
         echo '<table style="width:100%" id="waiptable_bands" class="table table-sm table-bordered table-hover table-striped table-condensed text-center">
@@ -222,14 +224,16 @@ if ($waip_array) {
         echo '<div class="alert alert-warning" role="alert">No band data available. Debug: waip_array_bands=' . (isset($waip_array_bands) ? 'set' : 'not set') . ', worked_bands=' . (isset($worked_bands) ? 'set' : 'not set') . '</div>';
     }
 ?>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
-
-</div>
-</div>
 
 <?php
 } else {
     echo '<div class="alert alert-danger" role="alert">' . __("No QSOs found matching the criteria for the WAIP award!") . '</div>';
 }
 ?>
+</div>

@@ -19,6 +19,7 @@ class Note extends CI_Model {
 	// Return note ID for given category and title (callsign for Contacts), else false
 	public function get_note_id_by_category($user_id, $category, $title) {
 		$check_title = $title;
+		$check_title_slashed = $title;
 		if ($category === 'Contacts') {
 			$this->load->library('callbook'); // Used for callsign parsing
 			$check_title = strtoupper($this->callbook->get_plaincall($title));
@@ -51,6 +52,7 @@ class Note extends CI_Model {
 	// Add a new note for the logged-in user
 	function add($category, $title, $content, $local_time = null) {
 		$user_id = $this->session->userdata('user_id');
+		$title = $title ?? '';
 		$check_title = $title;
 		if ($category === 'Contacts') {
 			$check_title = trim(strtoupper($title));
@@ -74,6 +76,7 @@ class Note extends CI_Model {
 	// Edit an existing note for the logged-in user
 	function edit($note_id, $category, $title, $content, $local_time = null) {
 		$user_id = $this->session->userdata('user_id');
+		$title = $title ?? '';
 		$check_title = $title;
 
 		if($this->belongs_to_user($note_id, $user_id) === false) {

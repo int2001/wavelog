@@ -32,7 +32,6 @@ class Logbooks_model extends CI_Model {
 				$this->set_logbook_active($logbook_id);
 
 				// update user session data
-				$this->load->model('user_model');
 				$this->user_model->update_session($this->session->userdata('user_id'));
 			}
 			return $logbook_id;
@@ -287,6 +286,7 @@ class Logbooks_model extends CI_Model {
 			$this->db->select('station_profile.*, dxcc_entities.name as station_country, dxcc_entities.end as end');
 			$this->db->where_in('station_id', $relationships_array);
 			$this->db->join('dxcc_entities','station_profile.station_dxcc = dxcc_entities.adif','left outer');
+			$this->db->order_by('station_profile.station_callsign asc, station_profile.station_profile_name asc');
 			$query = $this->db->get('station_profile');
 
 			return $query;

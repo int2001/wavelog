@@ -7,7 +7,7 @@ class Satellite_model extends CI_Model {
 		from satellite
 		left outer join satellitemode on satellite.id = satellitemode.satelliteid
 		left outer join tle on satellite.id = tle.satelliteid
-		group by satellite.name, satellite.displayname, satellite.orbit, satellite.id, tle.updated";
+		group by satellite.name, satellite.id, tle.id, satellite.displayname, satellite.orbit, satellite.id, tle.updated, satellite.lotw, tle.tle";
 
 		return $this->db->query($sql)->result();
 	}
@@ -85,17 +85,19 @@ class Satellite_model extends CI_Model {
 			$tleline2 = trim($tlelines[1]);
 		}
 
+		$text = $tleline1 . "\n" . $tleline2;
+
 		$this->db->where('satelliteid', $id);
 		if ($this->db->get('tle')->num_rows() > 0) {
 			$data = array(
-				'tle'			=> $tleline1 . "\n" . $tleline2,
+				'tle'			=> $text,
 			);
 			$this->db->where('satelliteid', $id);
 			$this->db->update('tle', $data);
 		} else {
 			$data = array(
 				'satelliteid' 	=> $id,
-				'tle'			=> $tleline1 . "\n" . $tleline2,
+				'tle'			=> $text,
 			);
 			$this->db->insert('tle', $data);
 			$insert_id = $this->db->insert_id();

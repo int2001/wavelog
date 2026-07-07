@@ -5,7 +5,6 @@ class Bandmap extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		$this->load->model('bands');
 	}
@@ -52,6 +51,15 @@ class Bandmap extends CI_Controller {
 		}
 
 		$data['dxcluster_refresh_time'] = $this->config->item('dxcluster_refresh_time') ?? 30;
+
+		// Get user map colors for bandmap spot status (confirmed/worked/unworked)
+		$map_custom = json_decode($this->optionslib->get_map_custom());
+		$validHex = function($color, $default) {
+			return preg_match('/^#[0-9a-fA-F]{6}$/', $color ?? '') ? $color : $default;
+		};
+		$pageData['user_color_confirmed'] = $validHex($map_custom->qsoconfirm->color ?? '', '#90EE90');
+		$pageData['user_color_worked'] = $validHex($map_custom->qso->color ?? '', '#E5A50A');
+		$pageData['user_color_unworked'] = $validHex($map_custom->unworked->color ?? '', '#CC372D');
 
 		$data['page_title'] = __("DXCluster");
 		$this->load->view('interface_assets/header', $data);

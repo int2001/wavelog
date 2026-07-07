@@ -21,7 +21,6 @@ class cron extends CI_Controller {
 
 	public function index() {
 
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(99)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -53,6 +52,23 @@ class cron extends CI_Controller {
 
 		// This is the main function, which handles all crons, runs them if enabled and writes the 'next run' timestamp to the database
 
+		// Rate limit: this function may only be triggered once every minute. To prevent attack vectors we lock the cron runner for 30 seconds after it's last run.
+		$this->load->driver('cache', [
+			'adapter' => $this->config->item('cache_adapter') ?? 'file', 
+			'backup' => $this->config->item('cache_backup') ?? 'file',
+			'key_prefix' => $this->config->item('cache_key_prefix') ?? ''
+		]);
+
+		$rate_limit_key = 'cron_run_rate_limit';
+		if ($this->cache->get($rate_limit_key) !== false) {
+			http_response_code(429); // Too Many Requests
+			log_message('debug', 'CRON: run() called within the 30s rate limit window, skipping.');
+			echo "CRON: rate limit active, skipping. Try again in a few seconds.\n";
+			return;
+		}
+		// Set the lock for 30 seconds
+		$this->cache->save($rate_limit_key, time(), 30);
+
 		// check for min. PHP version
 		if (version_compare(PHP_VERSION, $this->min_php_version) >= 0) {
 
@@ -65,89 +81,95 @@ class cron extends CI_Controller {
 			foreach ($crons as $cron) {
 				// Set the status to false by default
 				$set_status = false;
-				if ($cron->enabled == 1) {
+				try {
+					if ($cron->enabled == 1) {
 
-					// calculate the crons expression
-					$data = array(
-						'expression' => $cron->expression,
-						'timeZone' => null
-					);
-					$this->load->library('CronExpression', $data);
+						// calculate the crons expression
+						$data = array(
+							'expression' => $cron->expression,
+							'timeZone' => new DateTimeZone('UTC')
+						);
+						$this->load->library('CronExpression', $data);
 
-					$cronjob = $this->cronexpression;
-					$dt = new DateTime();
-					$isdue = $cronjob->isMatching($dt);
-					// Set the status to true, if the cron is enabled by default
-					$set_status = true;
+						$cronjob = $this->cronexpression;
+						$dt = new DateTime();
+						$isdue = $cronjob->isMatching($dt);
+						// Set the status to true, if the cron is enabled by default
+						$set_status = true;
 
-					$next_run = $cronjob->getNext();
-					$next_run_date = date('Y-m-d H:i:s', $next_run);
-					$this->cron_model->set_next_run($cron->id, $next_run_date);
+						$next_run = $cronjob->getNext();
+						$next_run_date = gmdate('Y-m-d H:i:s', $next_run);
+						$this->cron_model->set_next_run($cron->id, $next_run_date);
 
-					if ($isdue == true) {
-						$isdue_result = 'true';
+						if ($isdue == true) {
+							$isdue_result = 'true';
 
-						log_message('debug', 'CRON: ' . $cron->id . ' is due and will be executed.');
+							log_message('debug', 'CRON: ' . $cron->id . ' is due and will be executed.');
 
-						echo "CRON: " . $cron->id . " -> is due: " . $isdue_result . "\n";
-						echo "CRON: " . $cron->id . " -> RUNNING...\n";
+							echo "CRON: " . $cron->id . " -> is due: " . $isdue_result . "\n";
+							echo "CRON: " . $cron->id . " -> RUNNING...\n";
 
-						if (ENVIRONMENT == "docker") {
-							// In Docker, we use the localhost[:80] to call the cron directly inside the container
-							$url = 'http://localhost/' . $cron->function;
-							log_message('debug', 'Docker Environment detected. Using URL: ' . $url);
+							if (ENVIRONMENT == "docker") {
+								// In Docker, we use the localhost[:80] to call the cron directly inside the container
+								$url = 'http://localhost/' . $cron->function;
+								log_message('debug', 'Docker Environment detected. Using URL: ' . $url);
+							} else {
+								// In other environments, we use the local_url() function to get the default url
+								// Even this local_url() helper created in https://github.com/wavelog/wavelog/pull/795 is not really necessary anymore
+								// we keep it in case of users do fancy things with it. It doesn't hurt to have it here as it usually returns the base_url
+								// from the config.php file.
+								$url = local_url() . $cron->function;
+							}
+							if (ENVIRONMENT == "development") {
+								echo "CRON: " . $cron->id . " -> URL: " . $url . "\n";
+							}
+
+							$ch = curl_init();
+							curl_setopt($ch, CURLOPT_URL, $url);
+							curl_setopt($ch, CURLOPT_HEADER, false);
+							curl_setopt($ch, CURLOPT_USERAGENT, 'Wavelog Updater');
+							curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+							if ($this->config->item('cron_allow_insecure') ?? false == true) {
+								curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+							}
+							$crun = curl_exec($ch);
+
+							if ($crun !== false) {
+								echo "CRON: " . $cron->id . " -> CURL Result: " . $crun . "\n";
+								$status = 'healthy';
+							} else {
+								echo "ERROR: Something went wrong with " . $cron->id . "; Message: " . $crun . "\n";
+								$status = 'failed';
+							}
 						} else {
-							// In other environments, we use the local_url() function to get the default url
-							// Even this local_url() helper created in https://github.com/wavelog/wavelog/pull/795 is not really necessary anymore
-							// we keep it in case of users do fancy things with it. It doesn't hurt to have it here as it usually returns the base_url
-							// from the config.php file.
-							$url = local_url() . $cron->function;
-						}
-                        if (ENVIRONMENT == "development") {
-						    echo "CRON: " . $cron->id . " -> URL: " . $url . "\n";
-                        }
-
-						$ch = curl_init();
-						curl_setopt($ch, CURLOPT_URL, $url);
-						curl_setopt($ch, CURLOPT_HEADER, false);
-						curl_setopt($ch, CURLOPT_USERAGENT, 'Wavelog Updater');
-						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-						if ($this->config->item('cron_allow_insecure') ?? false == true) {
-							curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-						}
-						$crun = curl_exec($ch);
-
-						if ($crun !== false) {
-							echo "CRON: " . $cron->id . " -> CURL Result: " . $crun . "\n";
+							$isdue_result = 'false';
+							echo "CRON: " . $cron->id . " -> is due: " . $isdue_result . " -> Next Run: " . $next_run_date . "\n";
 							$status = 'healthy';
-						} else {
-							echo "ERROR: Something went wrong with " . $cron->id . "; Message: " . $crun . "\n";
-							$status = 'failed';
+							// Don't set the status as the cronjob is not due
+							$set_status = false;
 						}
 					} else {
-						$isdue_result = 'false';
-						echo "CRON: " . $cron->id . " -> is due: " . $isdue_result . " -> Next Run: " . $next_run_date . "\n";
-						$status = 'healthy';
-						// Don't set the status as the cronjob is not due
-						$set_status = false;
-					}
-				} else {
-					echo 'CRON: ' . $cron->id . " is disabled. skipped..\n";
-					$status = 'disabled';
-					// Set the status if the cron needs to be disabled.
-					$set_status = true;
+						echo 'CRON: ' . $cron->id . " is disabled. skipped..\n";
+						$status = 'disabled';
+						// Set the status if the cron needs to be disabled.
+						$set_status = true;
 
-					// Set the next_run timestamp to null to indicate in the view/database that this cron is disabled
-					$this->cron_model->set_next_run($cron->id, null);
+						// Set the next_run timestamp to null to indicate in the view/database that this cron is disabled
+						$this->cron_model->set_next_run($cron->id, null);
+					}
+					if ($set_status == true) {
+						$this->cron_model->set_status($cron->id, $status);
+					}
+					$this->cronexpression = null;
+				} catch (Exception $e) {
+					log_message('error', 'CRON: ' . $cron->id . ' failed: ' . $e->getMessage());
+					echo "ERROR: CRON " . $cron->id . " failed: " . $e->getMessage() . "\n";
+					$this->cron_model->set_status($cron->id, 'failed');
 				}
-				if ($set_status == true) {
-					$this->cron_model->set_status($cron->id, $status);
-				}
-				$this->cronexpression = null;
 			}
 
 			$datetime = new DateTime("now", new DateTimeZone('UTC'));
-			$datetime = $datetime->format('Ymd H:i:s');
+			$datetime = $datetime->format('Y-m-d H:i:s');
 			$this->optionslib->update('mastercron_last_run', $datetime , 'no');
 		} else {
 			log_message('error', 'CRON: PHP Version '. PHP_VERSION . ' not supported. Minimum Version is: ' . $this->min_php_version);
@@ -156,8 +178,11 @@ class cron extends CI_Controller {
 	}
 
 	public function editDialog() {
-
-		$cron_query = $this->cron_model->cron(xss_clean($this->input->post('id', true)));
+		if (!$this->user_model->authorize(99)) {
+			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
+			redirect('dashboard');
+		}
+		$cron_query = $this->cron_model->cron($this->input->post('id', true));
 
 		$data['cron'] = $cron_query->row();
 		$data['page_title'] = __("Edit Cronjob");
@@ -166,20 +191,19 @@ class cron extends CI_Controller {
 	}
 
 	public function edit() {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(99)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
 		}
 
-		$id = xss_clean($this->input->post('cron_id', true));
-		$description = xss_clean($this->input->post('cron_description', true));
-		$expression = xss_clean($this->input->post('cron_expression', true));
-		$enabled = xss_clean($this->input->post('cron_enabled', true));
+		$id = $this->input->post('cron_id', true);
+		$description = $this->input->post('cron_description', true);
+		$expression = $this->input->post('cron_expression', true);
+		$enabled = $this->input->post('cron_enabled', true);
 
 		$data = array(
 			'expression' => $expression,
-			'timeZone' => null
+			'timeZone' => new DateTimeZone('UTC')
 		);
 		$this->load->library('CronExpression', $data);
 		$cron = $this->cronexpression;
@@ -200,9 +224,13 @@ class cron extends CI_Controller {
 	}
 
 	public function toogleEnableCronSwitch() {
+		if (!$this->user_model->authorize(99)) {
+			echo json_encode(['success' => false, 'messagecategory' => 'error', 'message' => 'Not allowed']);
+			return;
+		}
 
-		$id = xss_clean($this->input->post('id', true));
-		$cron_enabled = xss_clean($this->input->post('checked', true));
+		$id = $this->input->post('id', true);
+		$cron_enabled = $this->input->post('checked', true);
 
 		if ($id ?? '' != '') {
 			$this->cron_model->set_cron_enabled($id, $cron_enabled);
@@ -215,6 +243,10 @@ class cron extends CI_Controller {
 	}
 
 	public function fetchCrons() {
+		if (!$this->user_model->authorize(99)) {
+			echo json_encode(['success' => false, 'messagecategory' => 'error', 'message' => 'Not allowed']);
+			return;
+		}
 		$hres = [];
 		$result = $this->cron_model->get_crons();
 
@@ -273,15 +305,15 @@ class cron extends CI_Controller {
 	private function get_mastercron_status() {
 		$warning_timelimit_seconds = 120; 	// yellow - warning please check
 		$error_timelimit_seconds = 600; 	// red - "not running"
-	
+
 		$result = array();
-	
+
 		$last_run = $this->optionslib->get_option('mastercron_last_run') ?? null;
-	
+
 		if ($last_run != null) {
-			$timestamp_last_run = DateTime::createFromFormat('Ymd H:i:s', $last_run, new DateTimeZone('UTC'));
-			$now = new DateTime(); 
-			$diff = $now->getTimestamp() - $timestamp_last_run->getTimestamp(); 
+			$timestamp_last_run = DateTime::createFromFormat('Y-m-d H:i:s', $last_run, new DateTimeZone('UTC'));
+			$now = new DateTime();
+			$diff = $now->getTimestamp() - $timestamp_last_run->getTimestamp();
 
 			if ($diff >= 0 && $diff <= $warning_timelimit_seconds) {
 				$result['status'] = __("OK");
@@ -299,8 +331,8 @@ class cron extends CI_Controller {
 			$result['status'] = _pgettext("Master Cron", "Not running");
 			$result['status_class'] = 'danger';
 		}
-	
+
 		return $result;
 	}
-		
+
 }

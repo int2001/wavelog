@@ -72,15 +72,21 @@ class Bands extends CI_Model {
 	}
 
 	function get_user_bands_for_qso_entry($includeall = false) {
-		$this->db->from('bands');
-		$this->db->join('bandxuser', 'bandxuser.bandid = bands.id');
-		$this->db->where('bandxuser.userid', $this->session->userdata('user_id'));
-		if (!$includeall) {
-			$this->db->where('bandxuser.active', 1);
-		}
-		$this->db->where('bands.bandgroup != "sat"');
+		$sql = "
+			SELECT bands.band, bands.bandgroup
+			FROM bands
+			LEFT JOIN bandxuser ON bandxuser.bandid = bands.id AND bandxuser.userid = ?
+			WHERE bands.bandgroup != 'sat'
+		";
 
-		$result = $this->db->get()->result();
+		$params = [$this->session->userdata('user_id')];
+
+		if (!$includeall) {
+			$sql .= " AND (bandxuser.active IS NULL OR bandxuser.active = 1)";
+		}
+
+
+		$result = $this->db->query($sql, $params)->result();
 
 		$results = array();
 
@@ -92,11 +98,15 @@ class Bands extends CI_Model {
 	}
 
 	function get_all_bands_for_user() {
-		$this->db->from('bands');
-		$this->db->join('bandxuser', 'bandxuser.bandid = bands.id');
-		$this->db->where('bandxuser.userid', $this->session->userdata('user_id'));
+		$sql = "
+			SELECT bands.band, bands.bandgroup, bands.ssb, bands.data, bands.cw,
+				bandxuser.id as bxuid, bandxuser.*,
+				bands.id
+			FROM bands
+			LEFT JOIN bandxuser ON bandxuser.bandid = bands.id AND bandxuser.userid = ?
+		";
 
-		return $this->db->get()->result();
+		return $this->db->query($sql, [$this->session->userdata('user_id')])->result();
 	}
 
 	function get_all_bandedges_for_user($region = 1) {
@@ -155,7 +165,7 @@ class Bands extends CI_Model {
 
 		// get all worked slots from database
 		$data = $this->db->query(
-			"SELECT distinct LOWER(`COL_BAND`) as `COL_BAND` FROM `".$this->config->item('table_name')."` WHERE station_id in (" . $location_list . ") AND COL_PROP_MODE != \"SAT\""
+			"SELECT distinct LOWER(`COL_BAND`) as `COL_BAND` FROM `".$this->config->item('table_name')."` WHERE station_id in (" . $location_list . ") AND (COL_PROP_MODE != \"SAT\" OR COL_PROP_MODE IS NULL)"
 		);
 		$worked_slots = array();
 		foreach($data->result() as $row){
@@ -301,7 +311,8 @@ class Bands extends CI_Model {
     }
 
 	function delete($id, $userid) {
-		$this->db->delete('bandxuser', array('id' => $id, 'userid' => $userid));
+		$this->db->delete('bandxuser', array('bandid' => $id));
+		$this->db->delete('bands', array('id' => $id));
 	}
 
 	function saveBand($id, $band) {
@@ -326,24 +337,45 @@ class Bands extends CI_Model {
 			'vucc'		 => $band['vucc'] 		== "true" ? '1' : '0'
         );
 
-		$this->db->where('bandxuser.userid', $this->session->userdata('user_id'));
-        $this->db->where('bandxuser.id', $id);
+        $userid = $this->session->userdata('user_id');
 
-        $this->db->update('bandxuser', $data);
+        // Check if bandxuser entry exists
+        $bxu = $this->db->query(
+            "SELECT id FROM bandxuser WHERE bandid = ? AND userid = ?",
+            [$id, $userid]
+        )->row();
+
+        if ($bxu) {
+            // UPDATE existing entry
+            $this->db->where('id', $bxu->id);
+            $this->db->update('bandxuser', $data);
+        } else {
+            // INSERT new entry
+            $data['bandid'] = $id;
+            $data['userid'] = $userid;
+            $this->db->insert('bandxuser', $data);
+        }
 
         return true;
     }
 
 	function saveBandAward($award, $status) {
+		// Validate award field name to prevent SQL injection
+		$valid_awards = array('cq', 'dok', 'dxcc', 'helvetia', 'iota', 'jcc', 'pota',
+			'rac', 'sig', 'sota', 'uscounties', 'vucc', 'wap', 'wapc', 'waja', 'was', 'wwff');
+
+		if (!in_array($award, $valid_awards)) {
+			return false;
+		}
+
 		$data = array(
-			$award 	 => $status == "true" ? '1' : '0',
-        );
+			$award => $status == "true" ? '1' : '0',
+		);
 
 		$this->db->where('bandxuser.userid', $this->session->userdata('user_id'));
+		$this->db->update('bandxuser', $data);
 
-        $this->db->update('bandxuser', $data);
-
-        return true;
+		return true;
     }
 
 	function add($band_data) {
@@ -391,7 +423,7 @@ class Bands extends CI_Model {
 
 		// get all worked slots from database
 		$data = $this->db->query(
-			"SELECT distinct LOWER(`COL_BAND`) as `COL_BAND` FROM `".$this->config->item('table_name')."` WHERE station_id = ? AND COL_PROP_MODE != \"SAT\"", $station_id
+			"SELECT distinct LOWER(`COL_BAND`) as `COL_BAND` FROM `".$this->config->item('table_name')."` WHERE station_id = ? AND (COL_PROP_MODE != \"SAT\" OR COL_PROP_MODE IS NULL)", $station_id
 		);
 		$worked_slots = array();
 		foreach($data->result() as $row){

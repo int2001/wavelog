@@ -4,7 +4,6 @@ class QSO extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$last_qso_count = empty($this->session->userdata('qso_page_last_qso_count')) ? QSO_PAGE_DEFAULT_QSOS_COUNT : $this->session->userdata('qso_page_last_qso_count');
@@ -16,7 +15,6 @@ class QSO extends CI_Controller {
 		$this->load->library('qra');
 		$this->load->model('stations');
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 		$this->load->model('usermodes');
 		$this->load->model('bands');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
@@ -38,7 +36,11 @@ class QSO extends CI_Controller {
 		}
 
 		$data['notice'] = false;
-		$data['stations'] = $this->stations->all_of_user();
+		if (!empty($this->session->userdata('user_stations_active_log_only'))) {
+			$data['stations'] = $this->logbooks_model->list_logbooks_linked($this->session->userdata('active_station_logbook'));
+		} else {
+			$data['stations'] = $this->stations->all_of_user();
+		}
 		$data['radios'] = $this->cat->radios(true);
 		$data['radio_last_updated'] = $this->cat->last_updated()->row();
 		$data['query'] = $this->logbook_model->last_custom($this->session->userdata('qso_page_last_qso_count'));
@@ -134,6 +136,7 @@ class QSO extends CI_Controller {
 		// [eQSL default msg] GET user options (option_type='eqsl_default_qslmsg'; option_name='key_station_id'; option_key=station_id) //
 		$options_object = $this->user_options_model->get_options('eqsl_default_qslmsg',array('option_name'=>'key_station_id','option_key'=>$data['active_station_profile']))->result();
 		$data['qslmsg'] = (isset($options_object[0]->option_value))?$options_object[0]->option_value:'';
+		$data['adif_propmodes'] = $this->config->item('adif_propmodes');
 
 		$footerData = [];
 		$footerData['scripts'] = [
@@ -233,7 +236,7 @@ class QSO extends CI_Controller {
 			'start_time' => $this->input->post('start_time', TRUE),
 			'end_time' => $this->input->post('end_time', TRUE),
 			'callsign' => $this->input->post('callsign', TRUE),
-			'prop_mode' => $this->input->post('prop_mode', TRUE) ?? NULL,
+			'prop_mode' => $this->input->post('prop_mode', TRUE) ?? '',
 			'email' => $this->input->post('email', TRUE) ?? NULL,
 			'region' => $this->input->post('region', TRUE) ?? NULL,
 			'sat_name' => $this->input->post('sat_name', TRUE) ?? NULL,
@@ -298,7 +301,6 @@ class QSO extends CI_Controller {
 	function edit() {
 
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 		$this->load->model('modes');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		$query = $this->logbook_model->qso_info($this->uri->segment(3));
@@ -365,6 +367,20 @@ class QSO extends CI_Controller {
 			$cwmacros['macro5'] = ['name' => 'TEST', 'macro' => 'TEST DE [MYCALL] K'];
 		}
 
+		// Load ESM (Enter Sends Message) config, fall back to sensible defaults
+		$esmRow = $this->user_options_model->get_options('cwmacros', ['option_name' => 'esm'])->row();
+		$esmDecoded = json_decode($esmRow->option_value ?? '');
+		$cwmacros['esm'] = [
+			'enabled'  => isset($esmDecoded->enabled) ? (int) $esmDecoded->enabled : 0,
+			'cq'       => isset($esmDecoded->cq) ? (int) $esmDecoded->cq : 1,
+			'qrz'      => isset($esmDecoded->qrz) ? (int) $esmDecoded->qrz : 4,
+			'exchange' => isset($esmDecoded->exchange) ? (int) $esmDecoded->exchange : 2,
+			'tu'       => isset($esmDecoded->tu) ? (int) $esmDecoded->tu : 3,
+			'sp'       => isset($esmDecoded->sp) ? (int) $esmDecoded->sp : 4,
+			'sp_exch'  => isset($esmDecoded->sp_exch) ? (int) $esmDecoded->sp_exch : 2,
+		];
+
+		$cwmacros['contest_context'] = (bool) $this->input->post('contest', true);
 		$this->load->view('qso/components/winkeysettings', $cwmacros);
 	}
 
@@ -379,6 +395,17 @@ class QSO extends CI_Controller {
 
 			$this->user_options_model->set_option('cwmacros', "macro{$i}", array("macro{$i}" => json_encode($data)));
 		}
+
+		$esm = [
+			'enabled'  => (int) $this->input->post('esm_enabled', TRUE),
+			'cq'       => (int) $this->input->post('esm_cq', TRUE),
+			'qrz'      => (int) $this->input->post('esm_qrz', TRUE),
+			'exchange' => (int) $this->input->post('esm_exchange', TRUE),
+			'tu'       => (int) $this->input->post('esm_tu', TRUE),
+			'sp'       => (int) $this->input->post('esm_sp', TRUE),
+			'sp_exch'  => (int) $this->input->post('esm_sp_exch', TRUE),
+		];
+		$this->user_options_model->set_option('cwmacros', 'esm', array('esm' => json_encode($esm)));
 
 		echo "Macros Saved, Press Close and lets get sending!";
 	}
@@ -414,6 +441,17 @@ class QSO extends CI_Controller {
 			$i++;
 		}
 
+		// ESM (Enter Sends Message) config with defaults
+		$esmRow = $this->user_options_model->get_options('cwmacros', ['option_name' => 'esm'])->row();
+		$esmDecoded = json_decode($esmRow->option_value ?? '');
+		$result['esm_enabled']  = isset($esmDecoded->enabled) ? (int) $esmDecoded->enabled : 0;
+		$result['esm_cq']       = isset($esmDecoded->cq) ? (int) $esmDecoded->cq : 1;
+		$result['esm_qrz']      = isset($esmDecoded->qrz) ? (int) $esmDecoded->qrz : 4;
+		$result['esm_exchange'] = isset($esmDecoded->exchange) ? (int) $esmDecoded->exchange : 2;
+		$result['esm_tu']       = isset($esmDecoded->tu) ? (int) $esmDecoded->tu : 3;
+		$result['esm_sp']       = isset($esmDecoded->sp) ? (int) $esmDecoded->sp : 4;
+		$result['esm_sp_exch']  = isset($esmDecoded->sp_exch) ? (int) $esmDecoded->sp_exch : 2;
+
 		// Output as JSON
 		header('Content-Type: application/json; charset=utf-8');
 		echo json_encode($result, JSON_PRETTY_PRINT);
@@ -423,10 +461,9 @@ class QSO extends CI_Controller {
 	function edit_ajax() {
 
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 		$this->load->model('modes');
 		$this->load->model('bands');
-		$this->load->model('contesting_model');
+		$this->load->model('contest_admin_model');
 
 		$this->load->library('form_validation');
 
@@ -442,7 +479,9 @@ class QSO extends CI_Controller {
 		$data['iota'] = $this->logbook_model->fetchIota();
 		$data['modes'] = $this->modes->all();
 		$data['bands'] = $this->bands->get_user_bands_for_qso_entry(true);
-		$data['contest'] = $this->contesting_model->getActivecontests();
+		$data['contest'] = $this->contest_admin_model->getActiveContests();
+
+		$data['adif_propmodes'] = $this->config->item('adif_propmodes');
 
 		$this->load->view('qso/edit_ajax', $data);
 	}
@@ -450,7 +489,6 @@ class QSO extends CI_Controller {
 	function qso_save_ajax() {
 		$this->load->library('form_validation');
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard');
 		}
@@ -474,7 +512,6 @@ class QSO extends CI_Controller {
 
 	function qsl_rcvd($id, $method) {
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		// Update Logbook to Mark Paper Card Received
@@ -491,7 +528,6 @@ class QSO extends CI_Controller {
 		$method = str_replace('"', "", $this->input->post("method", TRUE));
 
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 
 		header('Content-Type: application/json');
 
@@ -512,7 +548,6 @@ class QSO extends CI_Controller {
 		$method = str_replace('"', "", $this->input->post("method", TRUE));
 
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 
 		header('Content-Type: application/json');
 
@@ -533,7 +568,6 @@ class QSO extends CI_Controller {
 		$method = str_replace('"', "", $this->input->post("method", TRUE));
 
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 
 		header('Content-Type: application/json');
 
@@ -554,7 +588,6 @@ class QSO extends CI_Controller {
 		$method = str_replace('"', "", $this->input->post("method", TRUE));
 
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 
 		header('Content-Type: application/json');
 
@@ -841,7 +874,6 @@ class QSO extends CI_Controller {
 
 	function log_qso() {
 		// Check if users logged in
-		$this->load->model('user_model');
 		if ($this->user_model->validate_session() == 0) {
 			// user is not logged in
 			$this->session->set_flashdata('warning', __("You have to be logged in to access this URL."));

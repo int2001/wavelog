@@ -4,7 +4,6 @@ class User_Options extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
-		$this->load->model('user_model');
 		$this->load->model('user_options_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 	}
@@ -14,11 +13,14 @@ class User_Options extends CI_Controller {
 		foreach($obj as $option_key => $option_value) {
 			$obj[$option_key]=$this->security->xss_clean($option_value);
 		}
-		if ($obj['sat_name'] ?? '' != '') {
+		if (($obj['fav_name'] ?? '') !== '') {
+			$option_name = $obj['fav_name'];
+		} elseif ($obj['sat_name'] ?? '' != '') {
 			$option_name=$obj['sat_name'].'/'.$obj['mode'];
 		} else {
 			$option_name=$obj['band'].'/'.$obj['mode'];
 		}
+		$option_name = mb_substr($option_name, 0, 45);
 		$this->user_options_model->set_option('Favourite',$option_name, $obj);
 		$jsonout['success']=1;
 		header('Content-Type: application/json');
@@ -49,6 +51,31 @@ class User_Options extends CI_Controller {
 
 	public function dismissVersionDialog() {
 		$this->user_options_model->set_option('version_dialog', 'confirmed', array('boolean' => 'true'));
+	}
+
+	/**
+	 * Save a dashboard layout preference from the dashboard context menu.
+	 * Body: {"pref":"kpi|solar","value":...}
+	 */
+	public function save_dashboard_pref() {
+		$obj = json_decode(file_get_contents("php://input"), true);
+		$pref = $this->security->xss_clean($obj['pref'] ?? '');
+		$value = $this->security->xss_clean($obj['value'] ?? '');
+
+		if ($pref === 'kpi' && in_array($value, ['1', '0'], true)) {
+			$this->user_options_model->set_option('dashboard', 'show_kpi_stats', array('boolean' => $value));
+			$this->session->set_userdata('user_dashboard_show_kpi_stats', $value);
+		} elseif ($pref === 'solar' && in_array($value, ['top', 'bottom', 'N'], true)) {
+			$this->user_options_model->set_option('dashboard', 'show_dashboard_solar', array('boolean' => $value));
+			$this->session->set_userdata('user_dashboard_solar', $value);
+		} else {
+			header('Content-Type: application/json');
+			echo json_encode(['success' => 0, 'error' => 'Invalid data']);
+			return;
+		}
+
+		header('Content-Type: application/json');
+		echo json_encode(['success' => 1]);
 	}
 
 	/**

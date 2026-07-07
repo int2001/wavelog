@@ -19,7 +19,6 @@ class adif extends CI_Controller {
 		parent::__construct();
 		$this->load->helper(array('form', 'url'));
 
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2) || (!clubaccess_check(6) && !clubaccess_check(9))) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$this->determine_allowed_tabs();
@@ -257,8 +256,8 @@ class adif extends CI_Controller {
 	}
 
 	public function index() {
-		$this->load->model('contesting_model');
-		$data['contests']=$this->contesting_model->getActivecontests();
+		$this->load->model('contest_admin_model');
+		$data['contests']=$this->contest_admin_model->getActiveContests();
 
 		$this->load->model('stations');
 
@@ -273,7 +272,14 @@ class adif extends CI_Controller {
 			$data['club_operators'] = false;
 		}
 
-		$data['station_profile'] = $this->stations->all_of_user();
+		if (!empty($this->session->userdata('user_stations_active_log_only'))) {
+			$this->load->model('logbooks_model');
+			$data['station_profile'] = $this->logbooks_model->list_logbooks_linked($this->session->userdata('active_station_logbook'));
+			$data['stations_active_log_only'] = true;
+		} else {
+			$data['station_profile'] = $this->stations->all_of_user();
+			$data['stations_active_log_only'] = false;
+		}
 		$active_station_id = $this->stations->find_active();
 		$station_profile = $this->stations->profile($active_station_id);
 
@@ -305,6 +311,18 @@ class adif extends CI_Controller {
 
 		// Pass allowed tabs to view
 		$data['allowed_tabs'] = $this->get_allowed_tabs();
+
+		$this->load->model('contest_admin_model');
+		$data['contests'] = $this->contest_admin_model->getActiveContests();
+		$data['active_station_id'] = $active_station_id; // local var, set above
+		$data['cd_p_level'] = ($this->session->userdata('cd_p_level') ?? 0);
+
+		if ($this->config->item('special_callsign') && clubaccess_check(9) && $this->session->userdata('clubstation') == 1) {
+			$this->load->model('club_model');
+			$data['club_operators'] = $this->club_model->get_club_members($this->session->userdata('user_id'));
+		} else {
+			$data['club_operators'] = false;
+		}
 
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = 'adi|ADI|adif|ADIF|zip';
@@ -422,7 +440,7 @@ class adif extends CI_Controller {
 						} else {
 							$skipDups=true;		// Box not ticked? Means: Skip Dupes, don't import them
 						}
-						$custom_errors = $this->logbook_model->import_bulk($alladif, $this->input->post('station_profile', TRUE), $skipDups, $this->input->post('markClublog'),$this->input->post('markLotw'), $this->input->post('dxccAdif'), $this->input->post('markQrz'), $this->input->post('markEqsl'), $this->input->post('markHrd'), $this->input->post('markDcl'), true, $this->input->post('operatorName') ?? false, false, $this->input->post('skipStationCheck'));
+						$custom_errors = $this->logbook_model->import_bulk($alladif, $this->input->post('station_profile', TRUE), $skipDups, $this->input->post('markClublog'),$this->input->post('markLotw'), $this->input->post('dxccAdif'), $this->input->post('markQrz'), $this->input->post('markEqsl'), $this->input->post('markHrd'), $this->input->post('markDcl'), true, $this->input->post('operatorName') ?? false, false, $this->input->post('skipStationCheck'), $this->input->post('skipGridCheck'));
 					} catch (Exception $e) {
 						log_message('error', 'Import error: '.$e->getMessage());
 						$data['page_title'] = __("ADIF Import failed!");
@@ -444,6 +462,7 @@ class adif extends CI_Controller {
 
 			log_message("Error","ADIF End");
 			$data['adif_errors'] = $custom_errors['errormessage'];
+			$data['structured_errors'] = $custom_errors['structured_errors'] ?? [];
 			$data['qsocount'] = $custom_errors['qsocount'] ?? 0;
 			$data['skip_dupes'] = $this->input->post('skipDuplicate');
 			$data['imported_contests'] = $contest_qso_infos;

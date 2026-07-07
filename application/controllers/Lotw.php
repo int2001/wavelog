@@ -40,7 +40,6 @@ class Lotw extends CI_Controller {
 	*/
 	public function index() {
 		$this->load->library('Permissions');
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2) || !clubaccess_check(9)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		// Load required models for page generation
@@ -85,7 +84,6 @@ class Lotw extends CI_Controller {
 	|
 	*/
 	public function cert_upload() {
-		$this->load->model('user_model');
 		$this->load->model('dxcc');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
@@ -111,7 +109,6 @@ class Lotw extends CI_Controller {
 	|
 	*/
 	public function do_cert_upload() {
-		$this->load->model('user_model');
 		$this->load->model('dxcc');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
@@ -186,7 +183,6 @@ class Lotw extends CI_Controller {
 	*/
 	public function lotw_upload() {
 
-		$this->load->model('user_model');
 		$this->user_model->authorize(2);
 
 		// set the last run in cron table for the correct cron id
@@ -406,7 +402,6 @@ class Lotw extends CI_Controller {
 	|
 	*/
     public function delete_cert($cert_id) {
-    	$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
     	$this->load->model('Lotw_model');
@@ -429,7 +424,6 @@ class Lotw extends CI_Controller {
 	|
 	*/
 	public function decrypt_key($file, $password = "") {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$results = array();
@@ -470,6 +464,7 @@ class Lotw extends CI_Controller {
 					$data['pem_key'] = $result;
 
 					// Read Cert Data
+					/** @var mixed $certdata */
 					$certdata= openssl_x509_parse($results['cert'],0);
 
 					// Store Variables
@@ -674,7 +669,6 @@ class Lotw extends CI_Controller {
 
 		unlink($filepath);
 
-		$this->load->model('user_model');
 		if ($this->user_model->authorize(2)) {	// Only Output results if authorized User
 			if(isset($data['lotw_table_headers'])) {
 				if($display_view == TRUE) {
@@ -691,6 +685,17 @@ class Lotw extends CI_Controller {
 		}
 	}
 
+	/**
+	 * Helper function to validate lotw url
+	 */
+	private function _validate_url(string $url) {
+		$scheme = strtolower(parse_url($url, PHP_URL_SCHEME) ?? '');
+		if ($scheme !== 'https') {
+			log_message('error', 'LoTW URL rejected – disallowed scheme: '.$scheme);
+			show_error('LoTW download URL is invalid (only https allowed).', 500);
+		}
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Function: lotw_download
@@ -701,7 +706,6 @@ class Lotw extends CI_Controller {
 	|
 	*/
 	function lotw_download($sync_user_id = null) {
-		$this->load->model('user_model');
 		$this->load->model('logbook_model');
 		$this->load->model('Stations');
 
@@ -714,6 +718,7 @@ class Lotw extends CI_Controller {
 			$url_query = $this->db->query('SELECT lotw_download_url FROM config');
 			$q = $url_query->row();
 			$lotw_base_url = $q->lotw_download_url;
+			$this->_validate_url($lotw_base_url); // fails with 500 error if URL is invalid
 
 			// Single-user mode: fall back to sequential download
 			if ($sync_user_id != null) {
@@ -752,8 +757,13 @@ class Lotw extends CI_Controller {
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 					curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
 					$content = curl_exec($ch);
+					$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 					if(curl_errno($ch)) {
 						$result = "LoTW download failed for user ".$user->user_lotw_name.": ".curl_strerror(curl_errno($ch))." (".curl_errno($ch).").";
+						continue;
+					} else if ($http_code !== 200) {
+						$result = "LoTW download failed for user ".$user->user_lotw_name.": unexpected HTTP status ".$http_code.".";
+						log_message('error', 'LoTW download failed for user '.$user->user_name.': unexpected HTTP status '.$http_code);
 						continue;
 					} else if(str_contains(substr($content,0 , 2000),"Username/password incorrect</I>")) {
 						$result = "LoTW download failed for user ".$user->user_lotw_name.": Username/password incorrect";
@@ -860,13 +870,14 @@ class Lotw extends CI_Controller {
 					if ($errno) {
 						log_message('error', 'LoTW download failed for user '.$user->user_name.': '.curl_strerror($errno));
 						curl_multi_remove_handle($mh, $ch);
-						curl_close($ch);
 					} else {
+						$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 						$content = curl_multi_getcontent($ch);
 						curl_multi_remove_handle($mh, $ch);
-						curl_close($ch);
 
-						if (str_contains(substr($content, 0, 2000), "Username/password incorrect</I>")) {
+						if ($http_code !== 200) {
+							log_message('error', 'LoTW download failed for user '.$user->user_name.': unexpected HTTP status '.$http_code);
+						} else if (str_contains(substr($content, 0, 2000), "Username/password incorrect</I>")) {
 							log_message('error', 'LoTW download failed for user '.$user->user_name.': Username/password incorrect');
 							if ($this->Lotw_model->remove_lotw_credentials($user->user_id)) {
 								log_message('error', 'LoTW credentials deleted for user '.$user->user_name);
@@ -915,7 +926,6 @@ class Lotw extends CI_Controller {
 	}
 
 	public function check_lotw_credentials () {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -1001,7 +1011,6 @@ class Lotw extends CI_Controller {
 	}
 
 	public function import() {	// Is only called via frontend. Cron uses "upload". within download the download is called
-		$this->load->model('user_model');
 		$this->load->model('Stations');
 		if(!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
@@ -1032,6 +1041,7 @@ class Lotw extends CI_Controller {
 			$query = $query = $this->db->query('SELECT lotw_download_url FROM config');
 			$q = $query->row();
 			$lotw_url = $q->lotw_download_url;
+			$this->_validate_url($lotw_url);  // fails with 500 error if URL is invalid
 
 			// Validate that LoTW credentials are not empty
 			// TODO: We don't actually see the error message
@@ -1067,8 +1077,11 @@ class Lotw extends CI_Controller {
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 				curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
 				$content = curl_exec($ch);
+				$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 				if(curl_errno($ch)) {
 					print "LoTW download failed for user ".$data['user_lotw_name'].": ".curl_strerror(curl_errno($ch))." (".curl_errno($ch).").";
+				} else if ($http_code !== 200) {
+					print "LoTW download failed for user ".$data['user_lotw_name'].": unexpected HTTP status ".$http_code.".";
 				} else if (str_contains($content,"Username/password incorrect</I>")) {
 					print "LoTW download failed for user ".$data['user_lotw_name'].": Username/password incorrect";
 				} else {

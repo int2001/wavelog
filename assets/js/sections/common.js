@@ -198,9 +198,14 @@ function displayQso(id) {
                     var qsoid = $("#qsoid").text();
                     $(".editButton").html('<a class="btn btn-primary" id="edit_qso" href="javascript:qso_edit('+qsoid+')"><i class="fas fa-edit"></i>'+lang_general_edit_qso+'</a>');
                     var lat = $("#lat").text();
-                    var long = $("#long").text();
+                    var lng = $("#lng").text();
+                    var dxcc = $("#dxcc").text();
                     var callsign = $("#callsign").text();
-                    var mymap = L.map('mapqso').setView([lat,long], 5);
+                    var zoom = 5;
+                    if (dxcc == 0) {
+                        zoom = 1;
+                    }
+                    var mymap = L.map('mapqso').setView([lat,lng], zoom);
 
                     var tiles = L.tileLayer(option_map_tile_server, {
                         maxZoom: 18,
@@ -216,13 +221,15 @@ function displayQso(id) {
                         hideControlContainer: true
                     }).addTo(mymap);
 
-                    var redIcon = L.icon({
-                        iconUrl: icon_dot_url,
-                        iconSize:     [18, 18], // size of the icon
-                    });
+                    if (dxcc != 0) {
+                        var redIcon = L.icon({
+                            iconUrl: icon_dot_url,
+                            iconSize:     [18, 18], // size of the icon
+                        });
 
-                    L.marker([lat,long], {icon: redIcon}).addTo(mymap)
-                        .bindPopup(callsign);
+                        L.marker([lat,lng], {icon: redIcon}).addTo(mymap)
+                            .bindPopup(callsign);
+                    }
 
                 },
             });
@@ -820,7 +827,7 @@ function spawnActivatorsMap(call, count, grids) {
 				nl2br: false,
 				message: html,
 				onshown: function(dialog) {
-					showActivatorsMap(call, count, grids);
+					showActivatorsMap(call, count, grids, grid_color);
 				},
 				buttons: [{
 					label: lang_admin_close,
@@ -1201,6 +1208,29 @@ function set_active_loc_quickswitcher(new_active) {
                 console.error('Error while setting the new active location: ' + error);
             }
         });
+    });
+}
+
+// Quick theme switcher — POST the chosen theme folder to the user controller,
+// then reload the page so the new stylesheet and logos take effect.
+function quick_switch_theme(foldername) {
+    $.ajax({
+        url: base_url + 'index.php/user/theme_switch',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            theme: foldername
+        },
+        success: function(response) {
+            if (response && response.status === 'success') {
+                window.location.reload();
+            } else {
+                console.error('Theme switch failed: ' + ((response && response.message) ? response.message : 'unknown error'));
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error while switching theme: ' + error);
+        }
     });
 }
 

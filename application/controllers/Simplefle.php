@@ -3,7 +3,6 @@
 class SimpleFLE extends CI_Controller {
 
     public function index() {
-        $this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 
@@ -11,10 +10,14 @@ class SimpleFLE extends CI_Controller {
 		$this->load->model('logbook_model');
 		$this->load->model('modes');
 		$this->load->model('bands');
-		$this->load->model('contesting_model');
+		$this->load->model('contest_admin_model');
 
-		$data['contests']=$this->contesting_model->getActivecontests();
-		$data['station_profile'] = $this->stations->all_of_user();			// Used in the view for station location select
+		$data['contests']=$this->contest_admin_model->getActiveContests();
+		if (!empty($this->session->userdata('user_stations_active_log_only'))) {
+			$data['station_profile'] = $this->logbooks_model->list_logbooks_linked($this->session->userdata('active_station_logbook'));
+		} else {
+			$data['station_profile'] = $this->stations->all_of_user();		// Used in the view for station location select
+		}
 		$data['bands'] = $this->bands->get_all_bands();						// Fetching Bands for SFLE
 		$data['modes'] = $this->modes_array();								// Fetching Modes for SFLE
 		$data['active_station_profile'] = $this->stations->find_active();	// Prepopulate active Station in Station Location Selector

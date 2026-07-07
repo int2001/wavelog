@@ -34,12 +34,23 @@ class Club extends CI_Controller
 
     public function permissions($club_id) {
 
-		$this->load->model('user_model');
 		$this->load->model('club_model');
 		$this->load->library('form_validation');
 
 		$cid = $this->security->xss_clean($club_id);
 		$club = $this->user_model->get_by_id($cid)->row();
+
+		// Check if club managed by SSO
+		$ssoManaged = false;
+		if ($this->config->item('auth_header_enable') ?? false) {
+
+			$this->config->load('sso', true, true);
+			$directs = $this->config->item('auth_header_clubstation_direct', 'sso') ?: [];
+
+			if (!empty($directs)) {
+				$ssoManaged = key_exists($club_id, $directs);
+			}
+		}
 
 		if (!is_numeric($cid)) {
 			$this->session->set_flashdata('error', __("Invalid User ID!"));
@@ -58,6 +69,7 @@ class Club extends CI_Controller
 		$data['club'] = $club;
 		$data['club_members'] = $this->club_model->get_club_members($cid);
 		$data['permissions'] = $this->permissions;
+		$data['sso_managed'] = $ssoManaged;
 
 		$footerData = [];
 		$footerData['scripts'] = [
@@ -74,9 +86,6 @@ class Club extends CI_Controller
 		if(!clubaccess_check(9)) { 
 			$this->session->set_flashdata('error', __("You're not allowed to do that!")); 
 			redirect('dashboard'); 
-		}
-		if (!$this->load->is_loaded('user_model')) {
-			$this->load->model('user_model');
 		}
 
 		$query = (string) $this->input->post('query', true) ?? '';
@@ -108,7 +117,6 @@ class Club extends CI_Controller
 
 	public function alter_member() {
 		
-		$this->load->model('user_model');
 		$this->load->model('club_model');
 
 		$club_id = $this->input->post('club_id', true);
@@ -138,7 +146,6 @@ class Club extends CI_Controller
 
 	public function delete_member() {
 		
-		$this->load->model('user_model');
 		$this->load->model('club_model');
 
 		$club_id = $this->input->post('club_id', true);
@@ -163,7 +170,6 @@ class Club extends CI_Controller
 
 	public function switch_modal() {
 		
-		$this->load->model('user_model');
 		$this->load->model('club_model');
 		$this->load->library('encryption');
 

@@ -11,7 +11,6 @@ class Station extends CI_Controller
 		parent::__construct();
 		$this->load->helper(array('form', 'url'));
 
-		$this->load->model('user_model');
 		if (($this->router->method == 'stationProfileCoords') && $this->user_model->authorize(2) && ((clubaccess_check(3) || clubaccess_check(6)))) { return; }	// Allow Clubmembers and Clubmembers ADIF to access list_locations
 		if (!$this->user_model->authorize(2) || !clubaccess_check(9)) { 
 			$this->session->set_flashdata('error', __("You're not allowed to do that!")); 

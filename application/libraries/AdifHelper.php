@@ -25,7 +25,6 @@ class AdifHelper {
 			'CONT',
 			'CONTACTED_OP',
 			'CONTEST_ID',
-			'COUNTRY',
 			'CQZ',
 			'CREDIT_GRANTED',
 			'CREDIT_SUBMITTED',
@@ -104,6 +103,8 @@ class AdifHelper {
 			'CNTY_ALT',
 			'MY_CNTY_ALT',
 			'MY_DARC_DOK',
+			'MY_ANTENNA',
+			'MY_ANTENNA_INTL',
 			'MORSE_KEY_INFO',
 			'MORSE_KEY_TYPE',
 			'QSLMSG_RCVD',
@@ -152,6 +153,10 @@ class AdifHelper {
 				$date = date('Ymd', $date);
 				$line .= $this->getAdifFieldLine($field, $date);
 			}
+		}
+
+		if ($qso->COL_DXCC != 0) {
+			$line .= $this->getAdifFieldLine("COUNTRY", $qso->COL_COUNTRY);
 		}
 
 		if ($qso->COL_FREQ != 0) {
@@ -239,20 +244,20 @@ class AdifHelper {
 
 		$line .= $this->getAdifFieldLine("MY_SIG", $qso->station_sig);
 		$line .= $this->getAdifFieldLine("MY_SIG_INFO", $qso->station_sig_info);
+		$line .= $this->getAdifFieldLine("MY_RIG", $qso->{'COL_MY_RIG'} ?? '');
+		$line .= $this->getAdifFieldLine("MY_RIG_INTL", $qso->{'COL_MY_RIG_INTL'} ?? '');
 
 		$line .= $this->getAdifFieldLine("SIG", $qso->{'COL_SIG'});
 		$line .= $this->getAdifFieldLine("SIG_INFO", $qso->{'COL_SIG_INFO'});
 
 	/*
 	    Missing:
-	    MY_ANTENNA
 	    MY_FISTS
 	    MY_IOTA_ISLAND_ID
 	    MY_LAT
 	    MY_LON
 	    MY_NAME
 	    MY_POSTAL_CODE
-	    MY_RIG
 	    MY_STREET
 	    MY_USACA_COUNTIES
 	 */

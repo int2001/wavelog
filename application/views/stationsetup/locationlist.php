@@ -1,46 +1,47 @@
 <div class="container-fluid pt-3 ps-4 pe-4">
 <h2><?= $page_title ?></h2>
+<?php if (in_array($cd_p_level, [3,6]) && $stations_active_log_only) { ?><p class="card-text"><span class="badge text-bg-info"><i class="fa-solid fa-info"></i></span> <?= __("Limited to station locations linked to active logbook") ?></p><?php } ?>
 
         <div class="table-responsive mt-3">
 			<table style="width:100%" class="table-sm table table-hover table-striped table-bordered table-condensed" id="qsoList">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Active</th>
-                        <th>QSO Count</th>
-                        <th>Name</th>
-                        <th>Callsign</th>
-                        <th>Grid</th>
-                        <th>City</th>
-                        <th>DXCC</th>
-                        <th>IOTA</th>
-                        <th>SOTA</th>
-                        <th>Power</th>
-                        <th>County</th>
-                        <th>CQ Zone</th>
-                        <th>ITU Zone</th>
-                        <th>State</th>
-                        <th>WWFF</th>
-                        <th>POTA</th>
-                        <th>SIG</th>
-                        <th>SIG Info</th>
-                        <th>eQSL Nickname</th>
-                        <th>eQSL default QSLmsg</th>
-                        <th>QRZ upload</th>
-                        <th>OQRS enabled</th>
-                        <th>OQRS Text</th>
-                        <th>OQRS Email alert</th>
-                        <th>QO-100 DX Club realtime upload</th>
-                        <th>ClubLog realtime upload</th>
-                        <th>ClubLog Ignore</th>
-                        <th>HRDLog realtime upload</th>
-                        <th>HRDLog username</th>
-                        <th>Created</th>
-                        <th>Last Modified</th>
+                        <th><?= __("ID") ?></th>
+                        <th><?= __("Active") ?></th>
+                        <th><?= __("QSO Count") ?></th>
+                        <th><?= __("Name") ?></th>
+                        <th><?= __("Callsign") ?></th>
+                        <th><?= __("Grid") ?></th>
+                        <th><?= __("City") ?></th>
+                        <th><?= __("DXCC") ?></th>
+                        <th><?= __("IOTA") ?></th>
+                        <th><?= __("SOTA") ?></th>
+                        <th><?= __("Power") ?></th>
+                        <th><?= __("County") ?></th>
+                        <th><?= __("CQ Zone") ?></th>
+                        <th><?= __("ITU Zone") ?></th>
+                        <th><?= __("State") ?></th>
+                        <th><?= __("WWFF") ?></th>
+                        <th><?= __("POTA") ?></th>
+                        <th><?= __("SIG") ?></th>
+                        <th><?= __("SIG Info") ?></th>
+                        <th><?= __("eQSL Nickname") ?></th>
+                        <th><?= __("eQSL default QSLmsg") ?></th>
+                        <th><?= __("QRZ upload") ?></th>
+                        <th><?= __("OQRS enabled") ?></th>
+                        <th><?= __("OQRS Text") ?></th>
+                        <th><?= __("OQRS Email alert") ?></th>
+                        <th><?= __("QO-100 DX Club realtime upload") ?></th>
+                        <th><?= __("ClubLog realtime upload") ?></th>
+                        <th><?= __("ClubLog Ignore") ?></th>
+                        <th><?= __("HRDLog realtime upload") ?></th>
+                        <th><?= __("HRDLog username") ?></th>
+                        <th><?= __("Created") ?></th>
+                        <th><?= __("Last Modified") ?></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($locations as $loc): 
+                    <?php foreach ($locations as $loc):
 				$qrzr=($loc->qrzrealtime ?? -1);
 				if ($qrzr == -1) {
 					$qrzr=__("No");
@@ -127,8 +128,9 @@
 						$(node).removeClass('dt-button').addClass('btn btn-primary');
 					},
 				},
+				<?php if (!($cd_p_level == 3) && !($cd_p_level == 6)) { // ClubOfficer (9) and normal User can export/import, while ClubMember (ADIF) (3,6) can only see. ?>
 				{
-					text: 'Export All Locations',
+					text: '<?= _pgettext("Station Locations", "Export All Locations") ?>',
 					className: 'mb-1 btn btn-sm btn-primary', // same Bootstrap style
 					action: function(e, dt, node, config) {
 						exportAllLocations();
@@ -137,9 +139,8 @@
 						$(node).removeClass('dt-button').addClass('btn btn-primary');
 					}
 				},
-				<?php if (!($cd_p_level == 3) && !($cd_p_level == 6)) { // ClubOfficer (9) and normal User can import, while ClubOfficer (ADIF) (3,6) can only see. ?>
 				{
-				text: 'Import Locations',
+				text: '<?= _pgettext("Station Locations", "Import Locations") ?>',
 				className: 'mb-1 btn btn-sm btn-primary',
 				action: function(e, dt, node, config) {
 					// Create a hidden file input (accept JSON)
