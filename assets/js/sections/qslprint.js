@@ -446,3 +446,66 @@ document.getElementById('frequency_or_band').addEventListener('change', function
 	//switch display options
 	switchbandandfrequencydisplay(event.target.value);
 });
+
+function printlabel() {
+	const id_list = getSelectedIds();
+
+	if (id_list.length === 0) {
+		BootstrapDialog.alert({
+			title: lang_gen_advanced_logbook_info,
+			message: lang_gen_advanced_logbook_select_at_least_one_row_label,
+			type: BootstrapDialog.TYPE_INFO,
+			closable: false,
+			draggable: false,
+			callback: function (result) {
+			}
+		});
+		return;
+	}
+	$('#printLabel').prop("disabled", true);
+
+	$.ajax({
+		url: base_url + 'index.php/logbookadvanced/startAtLabel',
+		type: 'post',
+		success: function (html) {
+			BootstrapDialog.show({
+				title: '<i class="fas fa-print me-2"></i>'+lang_label_print_options,
+				size: BootstrapDialog.SIZE_NORMAL,
+				cssClass: 'qso-dialog',
+				nl2br: false,
+				message: html,
+				onshown: function(dialog) {
+				},
+				buttons: [{
+					label: 'Print',
+					cssClass: 'btn btn-primary btn-sm',
+					action: function (dialogItself) {
+						printlabel(id_list);
+						dialogItself.close();
+					}
+				},
+					{
+					label: lang_admin_close,
+					cssClass: 'btn btn-secondary btn-sm',
+					action: function (dialogItself) {
+						$('#printLabel').prop("disabled", false);
+						dialogItself.close();
+					}
+				}],
+				onhide: function(dialogRef){
+					$('#printLabel').prop("disabled", false);
+				},
+			});
+		}
+	});
+}
+
+function getSelectedIds() {
+	let id_list = [];
+	$('#qsoList tbody input:checked').each(function () {
+		let id = $(this).closest('tr').attr('id')?.replace(/\D/g, '');
+		id_list.push(id);
+	});
+	return id_list;
+}
+

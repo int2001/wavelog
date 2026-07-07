@@ -68,6 +68,8 @@ if ($qsos->result() != NULL) { ?>
 			<ul class="dropdown-menu">
 				<li><button type="submit" formaction="<?php echo site_url('qslpostcard/printqueue_selected'); ?>" class="dropdown-item" title="<?= __("Print Selected QSO Postcards"); ?>"><?= __("Print Selected QSO Postcards"); ?></button></li>
 				<li><a class="dropdown-item" href="<?php echo site_url('qslpostcard/printqueue'); ?>"><?= __("Print Postcards for all QSOs"); ?></a></li>
+				<li><button type="button" onclick="printlabel();" class="dropdown-item" title="<?= __("Print Selected QSL Labels"); ?>"><?= __("Print Selected QSL Labels"); ?></button></li>
+				<li><button type="button" onclick="printlabel('all');" class="dropdown-item" title="<?= __("Print Labels for all QSOs"); ?>"><?= __("Print Labels for all QSOs"); ?></button></li>
 			</ul>
 		</div>
 
