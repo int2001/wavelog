@@ -81,7 +81,7 @@ class Kmlexport extends CI_Controller {
 
 				$timestamp = strtotime($row->COL_TIME_ON); 
 
-				$output .= "<name>".$row->COL_CALL."</name>";
+				$output .= "<name>".htmlspecialchars($row->COL_CALL, ENT_QUOTES, 'UTF-8')."</name>";
 				$output .= "<description><![CDATA[<p>Date/Time: ".date('Y-m-d H:i:s', ($timestamp))."<br/>Band: ".$row->COL_BAND."<br /></p>]]></description>";		
 				$output .= "<Point>";
 				$output .= "<coordinates>".$lng.",".$lat.",0</coordinates>";
