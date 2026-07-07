@@ -314,6 +314,7 @@ function changeEditType(type) {
 	$('#editDistanceInput').hide();
 	$('#editDokInput').hide();
 	$('#editGridsquareInput').hide();
+	$('#editQsl').hide();
 	$('#editQslMethod').hide();
 	$('#editFrequency').hide();
 	$('#editFrequencyRx').hide();
