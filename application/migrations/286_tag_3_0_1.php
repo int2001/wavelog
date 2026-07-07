@@ -8,26 +8,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Migration_tag_3_0_1 extends CI_Migration {
 
-    public function up()
-    {
-        // Tag Wavelog New Version
-        $this->db->where('option_name', 'version');
-        $this->db->update('options', array('option_value' => '3.0.1'));
+	public function up() {
+		// Tag Wavelog New Version
+		$this->db->where('option_name', 'version');
+		$this->db->update('options', array('option_value' => '3.0.1'));
 
-        // Trigger Version Info Dialog
-        $this->db->where('option_type', 'version_dialog');
-        $this->db->where('option_name', 'confirmed');
-        $this->db->update('user_options', array('option_value' => 'false'));
+		// Trigger Version Info Dialog
+		$this->db->where('option_type', 'version_dialog');
+		$this->db->where('option_name', 'confirmed');
+		$this->db->update('user_options', array('option_value' => 'false'));
 
-        // Also set Version Dialog to "both" if only custom text is applied
-        $this->db->where('option_name', 'version_dialog');
-        $this->db->where('option_value', 'custom_text');
-        $this->db->update('options', array('option_value' => 'both'));
+		// Also set Version Dialog to "both" if only custom text is applied
+		$this->db->where('option_name', 'version_dialog');
+		$this->db->where('option_value', 'custom_text');
+		$this->db->update('options', array('option_value' => 'both'));
 
-        $table = $this->config->item('table_name');
-        $this->db->query("ALTER TABLE `station_profile`
-			MODIFY `station_pota` varchar(255) DEFAULT NULL
-        ");
+		$this->db->query("ALTER TABLE `station_profile`
+				MODIFY `station_pota` varchar(255) DEFAULT NULL
+		");
 
 		$this->dbtry("INSERT INTO primary_subdivisions (adif, state, subdivision, deprecated) VALUES
 		(266,'31','Østfold',0),
@@ -41,22 +39,21 @@ class Migration_tag_3_0_1 extends CI_Migration {
 		$this->dbtry("delete from primary_subdivisions where adif = 266 and state = 54");
 		$this->dbtry("delete from primary_subdivisions where adif = 266 and state = 30");
 		$this->dbtry("delete from primary_subdivisions where adif = 266 and state = 38");
-    }
+	}
 
-    public function down()
-    {
-        $this->db->where('option_name', 'version');
-        $this->db->update('options', array('option_value' => '3.0.0'));
+	public function down() {
+		$this->db->where('option_name', 'version');
+		$this->db->update('options', array('option_value' => '3.0.0'));
 
-        // Do not cut station_pota back down to 50
-    }
+		// Do not cut station_pota back down to 50
+	}
 
 	function dbtry($what) {
-        try {
-            $this->db->query($what);
-        } catch (Exception $e) {
-            log_message("error", "Error executing operations on primary_subdivisions: ".$e." // Executing: ".$this->db->last_query());
-        }
-    }
+		try {
+			$this->db->query($what);
+		} catch (Exception $e) {
+			log_message("error", "Error executing operations on primary_subdivisions: ".$e." // Executing: ".$this->db->last_query());
+		}
+	}
 
 }
