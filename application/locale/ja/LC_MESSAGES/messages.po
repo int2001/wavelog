@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-07 07:04+0000\n"
-"PO-Revision-Date: 2026-07-06 05:37+0000\n"
-"Last-Translator: \"Xu, Zefan (BI1GHZ)\" <ceba_robot@outlook.com>\n"
+"PO-Revision-Date: 2026-07-06 16:40+0000\n"
+"Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ja/>\n"
 "Language: ja\n"
@@ -4269,7 +4269,7 @@ msgstr "連絡先カテゴリでは、メモのタイトルは一意である必
 #: application/models/Qslpostcard_model.php:354
 msgctxt "QSL Card Designer; No mailable address found"
 msgid "!!! NO MAILABLE ADDRESS FOUND !!!"
-msgstr ""
+msgstr "!!!郵送先住所が見つかりませんでした!!!"
 
 #: application/models/Update_model.php:347
 msgid "Newer release available:"
@@ -11998,7 +11998,7 @@ msgstr "ユニークなコールサイン"
 
 #: application/views/dashboard/index.php:368
 msgid "View QSO"
-msgstr ""
+msgstr "QSOを見る"
 
 #: application/views/dashboard/index.php:383
 #: application/views/qso/index.php:918
@@ -12019,7 +12019,7 @@ msgstr "日付"
 
 #: application/views/dashboard/index.php:433
 msgid "Lookup DXCC"
-msgstr ""
+msgstr "DXCCを調べる"
 
 #: application/views/dashboard/index.php:453
 #: application/views/user/edit.php:818
@@ -14275,11 +14275,11 @@ msgstr "州のために郡レベルで働いた経験："
 
 #: application/views/interface_assets/header.php:95
 msgid "Skip to content"
-msgstr ""
+msgstr "コンテンツへスキップ"
 
 #: application/views/interface_assets/header.php:98
 msgid "Wavelog home"
-msgstr ""
+msgstr "Wavelog ホーム"
 
 #: application/views/interface_assets/header.php:100
 msgid "Developer Mode"
@@ -14568,7 +14568,7 @@ msgstr "ログアウト"
 
 #: application/views/interface_assets/header.php:617
 msgid "Station locations and logbooks"
-msgstr ""
+msgstr "シャックの位置と記録簿"
 
 #: application/views/interface_assets/header.php:619
 msgid "Select a Location"
@@ -18627,7 +18627,7 @@ msgstr "衛星"
 
 #: application/views/qso/index.php:119
 msgid "Favourites"
-msgstr ""
+msgstr "お気に入り"
 
 #: application/views/qso/index.php:121
 msgid "Add to Favs"
@@ -18640,7 +18640,7 @@ msgstr "時間"
 #: application/views/qso/index.php:165 application/views/qso/index.php:167
 #: application/views/qso/index.php:201
 msgid "Reset start time"
-msgstr ""
+msgstr "開始時刻をリセット"
 
 #: application/views/qso/index.php:173
 msgid "Time off"
@@ -18648,7 +18648,7 @@ msgstr "休暇"
 
 #: application/views/qso/index.php:177
 msgid "Reset end time"
-msgstr ""
+msgstr "終了時刻をリセットします"
 
 #: application/views/qso/index.php:216
 msgid "Search DXCluster for latest Spot"
@@ -18724,7 +18724,7 @@ msgstr "QSLメッセージ"
 
 #: application/views/qso/index.php:757
 msgid "More options"
-msgstr ""
+msgstr "その他のオプション"
 
 #: application/views/qso/index.php:759
 msgid "Reset to Default"
@@ -21317,11 +21317,11 @@ msgstr "アカウントを保存"
 
 #: application/views/user/edit.php:1329
 msgid "Search settings"
-msgstr ""
+msgstr "検索設定"
 
 #: application/views/user/edit.php:1331
 msgid "No settings match your search."
-msgstr ""
+msgstr "検索条件に一致する設定は見つかりませんでした。"
 
 #: application/views/user/forgot_password.php:33
 msgid "Forgot Password?"
@@ -21744,7 +21744,7 @@ msgstr "このログブックにリンクされている局所在地のすべて
 #: application/views/view_log/qso.php:131
 #: application/views/view_log/qso.php:193
 msgid "Calculate distance/bearing"
-msgstr ""
+msgstr "距離/方位を計算する"
 
 #: application/views/view_log/partial/log_ajax.php:138
 msgid "Result"

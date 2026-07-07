@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-07 07:04+0000\n"
-"PO-Revision-Date: 2026-07-04 18:16+0000\n"
+"PO-Revision-Date: 2026-07-07 07:04+0000\n"
 "Last-Translator: iv3cvn <ricentis@gmail.com>\n"
 "Language-Team: Italian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/it/>\n"
@@ -4297,7 +4297,7 @@ msgstr "Nella categoria Contatti, i titoli delle note devono essere unici."
 #: application/models/Qslpostcard_model.php:354
 msgctxt "QSL Card Designer; No mailable address found"
 msgid "!!! NO MAILABLE ADDRESS FOUND !!!"
-msgstr ""
+msgstr "!!! NESSUN INDIRIZZO DI SPEDIZIONE TROVATO !!!"
 
 #: application/models/Update_model.php:347
 msgid "Newer release available:"
@@ -5045,7 +5045,7 @@ msgstr "Stato QSL DCL"
 #: application/views/adif/import.php:49
 #: application/views/logbookadvanced/help.php:108
 msgid "ADIF Export"
-msgstr "Esportazione ADIF"
+msgstr "Esporta ADIF"
 
 #: application/views/adif/import.php:57 application/views/adif/import.php:352
 msgid "DARC DCL"
@@ -5053,7 +5053,7 @@ msgstr "DARC DCL"
 
 #: application/views/adif/import.php:73
 msgid "CBR Import"
-msgstr "Importazione CBR"
+msgstr "Importa CBR"
 
 #: application/views/adif/import.php:90 application/views/adif/import.php:400
 #: application/views/adif/import.php:423 application/views/api/index.php:22
@@ -12112,7 +12112,7 @@ msgstr "Chiamate uniche"
 
 #: application/views/dashboard/index.php:368
 msgid "View QSO"
-msgstr ""
+msgstr "Visualizza QSO"
 
 #: application/views/dashboard/index.php:383
 #: application/views/qso/index.php:918
@@ -12134,7 +12134,7 @@ msgstr "Date"
 
 #: application/views/dashboard/index.php:433
 msgid "Lookup DXCC"
-msgstr ""
+msgstr "Cerca DXCC"
 
 #: application/views/dashboard/index.php:453
 #: application/views/user/edit.php:818
@@ -14420,11 +14420,11 @@ msgstr "Contee lavorate per stato:"
 
 #: application/views/interface_assets/header.php:95
 msgid "Skip to content"
-msgstr ""
+msgstr "Salta al contenuto"
 
 #: application/views/interface_assets/header.php:98
 msgid "Wavelog home"
-msgstr ""
+msgstr "Pagina principale di Wavelog"
 
 #: application/views/interface_assets/header.php:100
 msgid "Developer Mode"
@@ -14713,7 +14713,7 @@ msgstr "Disconnetti"
 
 #: application/views/interface_assets/header.php:617
 msgid "Station locations and logbooks"
-msgstr ""
+msgstr "Posizioni delle stazioni e dei logbooks"
 
 #: application/views/interface_assets/header.php:619
 msgid "Select a Location"
@@ -18831,7 +18831,7 @@ msgstr "Satellite"
 
 #: application/views/qso/index.php:119
 msgid "Favourites"
-msgstr ""
+msgstr "Preferiti"
 
 #: application/views/qso/index.php:121
 msgid "Add to Favs"
@@ -18844,7 +18844,7 @@ msgstr "Tempo di inizio"
 #: application/views/qso/index.php:165 application/views/qso/index.php:167
 #: application/views/qso/index.php:201
 msgid "Reset start time"
-msgstr ""
+msgstr "Reimposta l'orario di inizio"
 
 #: application/views/qso/index.php:173
 msgid "Time off"
@@ -18852,7 +18852,7 @@ msgstr "Tempo di fine"
 
 #: application/views/qso/index.php:177
 msgid "Reset end time"
-msgstr ""
+msgstr "Reimposta l'orario di fine"
 
 #: application/views/qso/index.php:216
 msgid "Search DXCluster for latest Spot"
@@ -18928,7 +18928,7 @@ msgstr "Messaggio QSL"
 
 #: application/views/qso/index.php:757
 msgid "More options"
-msgstr ""
+msgstr "Più opzioni"
 
 #: application/views/qso/index.php:759
 msgid "Reset to Default"
@@ -21274,7 +21274,7 @@ msgid ""
 "This switches the display of the KPI statistics (Total QSOs, QSOs this year/"
 "month/today, Current Streak, Unique callsigns) on the dashboard."
 msgstr ""
-"Questo cambia la visualizzazione delle statistiche KPI (QSO totali, QSO "
+"Questo attiva la visualizzazione delle statistiche KPI (QSO totali, QSO "
 "quest'anno/mese/oggi, serie corrente, nominativi unici) sul cruscotto."
 
 #: application/views/user/edit.php:838
@@ -21578,11 +21578,11 @@ msgstr "Salva Account"
 
 #: application/views/user/edit.php:1329
 msgid "Search settings"
-msgstr ""
+msgstr "Impostazioni di ricerca"
 
 #: application/views/user/edit.php:1331
 msgid "No settings match your search."
-msgstr ""
+msgstr "Nessuna impostazione corrisponde alla tua ricerca."
 
 #: application/views/user/forgot_password.php:33
 msgid "Forgot Password?"
@@ -22014,7 +22014,7 @@ msgstr ""
 #: application/views/view_log/qso.php:131
 #: application/views/view_log/qso.php:193
 msgid "Calculate distance/bearing"
-msgstr ""
+msgstr "Calcola distanza/direzione"
 
 #: application/views/view_log/partial/log_ajax.php:138
 msgid "Result"
