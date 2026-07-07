@@ -246,7 +246,7 @@ class Frequency {
 	 *                            		Possible values: 'Hz', 'kHz', 'MHz', 'GHz'. 
 	 *                            		If not provided, the unit is determined based on session data (function qrg_unit()).
 	 *
-	 * @return string 	The converted frequency in the specified format.
+	 * @return string|null 	The converted frequency in the specified format, or null.
 	 * 
 	 * To change the number of decimals shown per unit, add in your config.php
 	 * 
