@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-07 09:55+0000\n"
+"POT-Creation-Date: 2026-07-07 16:28+0000\n"
 "PO-Revision-Date: 2026-07-04 18:16+0000\n"
 "Last-Translator: David Quental <ct1drb72@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) <https://translate.wavelog.org/projects/"
@@ -193,9 +193,9 @@ msgstr "Ducting troposférico"
 #: application/controllers/Qslpostcard.php:15
 #: application/controllers/Qslprint.php:22
 #: application/controllers/Qslprint.php:156 application/controllers/Qso.php:7
-#: application/controllers/Qso.php:20 application/controllers/Qso.php:305
-#: application/controllers/Qso.php:471 application/controllers/Qso.php:493
-#: application/controllers/Qso.php:515 application/controllers/Qso.php:819
+#: application/controllers/Qso.php:20 application/controllers/Qso.php:304
+#: application/controllers/Qso.php:470 application/controllers/Qso.php:492
+#: application/controllers/Qso.php:514 application/controllers/Qso.php:818
 #: application/controllers/Radio.php:30 application/controllers/Radio.php:315
 #: application/controllers/Radio.php:340 application/controllers/Radio.php:355
 #: application/controllers/Satellite.php:12
@@ -251,7 +251,7 @@ msgstr "Mapa Gridsquare activadas"
 #: application/controllers/Awards.php:1162
 #: application/controllers/Awards.php:1198
 #: application/controllers/Gridmap.php:34
-#: application/controllers/Visitor.php:454
+#: application/controllers/Visitor.php:415
 #: application/views/activators/index.php:107
 #: application/views/contesting/logger/index.php:57
 #: application/views/interface_assets/footer.php:49
@@ -262,13 +262,13 @@ msgstr "Gridsquares"
 
 #: application/controllers/Activated_gridmap.php:34
 #: application/controllers/Gridmap.php:35
-#: application/controllers/Visitor.php:455
+#: application/controllers/Visitor.php:416
 msgid "Gridsquares confirmed"
 msgstr "Gridsquares confirmadas"
 
 #: application/controllers/Activated_gridmap.php:35
 #: application/controllers/Gridmap.php:36
-#: application/controllers/Visitor.php:456
+#: application/controllers/Visitor.php:417
 msgid "Gridsquares not confirmed"
 msgstr "Gridsquares não confirmadas"
 
@@ -278,26 +278,26 @@ msgstr "Total de gridsquares activadas"
 
 #: application/controllers/Activated_gridmap.php:38
 #: application/controllers/Gridmap.php:39
-#: application/controllers/Visitor.php:459
+#: application/controllers/Visitor.php:420
 #: application/views/qslpostcard/designer.php:142
 msgid "Fields"
 msgstr "Campos"
 
 #: application/controllers/Activated_gridmap.php:39
 #: application/controllers/Gridmap.php:40
-#: application/controllers/Visitor.php:460
+#: application/controllers/Visitor.php:421
 msgid "Fields confirmed"
 msgstr "Campos confirmados"
 
 #: application/controllers/Activated_gridmap.php:40
 #: application/controllers/Gridmap.php:41
-#: application/controllers/Visitor.php:461
+#: application/controllers/Visitor.php:422
 msgid "Fields not confirmed"
 msgstr "Campos não confirmados"
 
 #: application/controllers/Activated_gridmap.php:41
 #: application/controllers/Gridmap.php:42
-#: application/controllers/Visitor.php:462
+#: application/controllers/Visitor.php:423
 msgid "Total fields worked"
 msgstr "Total de campos trabalhados"
 
@@ -391,7 +391,7 @@ msgid "API Key %s description has been updated."
 msgstr "A descrição da chave API %s foi actualizada."
 
 #: application/controllers/Api.php:109 application/controllers/Api.php:143
-#: application/controllers/Qso.php:610
+#: application/controllers/Qso.php:609
 msgid "Invalid request method"
 msgstr "Método de pedido inválido"
 
@@ -572,7 +572,6 @@ msgid " and mode "
 msgstr " e modo "
 
 #: application/controllers/Awards.php:686
-#: application/controllers/Callstats.php:118
 msgid " and "
 msgstr " e "
 
@@ -1183,7 +1182,7 @@ msgid "SOTA CSV Export"
 msgstr "Exportar CSV SOTA"
 
 #: application/controllers/Dashboard.php:168
-#: application/controllers/Visitor.php:138
+#: application/controllers/Visitor.php:128
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -1449,7 +1448,7 @@ msgid "Gridsquare Map"
 msgstr "Mapa Gridsquare"
 
 #: application/controllers/Gridmap.php:37
-#: application/controllers/Visitor.php:457
+#: application/controllers/Visitor.php:418
 msgid "Total gridsquares worked"
 msgstr "Total de gridsquares trabalhadas"
 
@@ -2315,12 +2314,12 @@ msgstr "DXCC cancelada"
 msgid "Advanced logbook"
 msgstr "Logbook avançado"
 
-#: application/controllers/Logbookadvanced.php:997
+#: application/controllers/Logbookadvanced.php:995
 #, php-format
 msgid "DXCC updated for %d QSO(s)."
 msgstr "DXCC atualizado para %d QSO(s)."
 
-#: application/controllers/Logbookadvanced.php:1013
+#: application/controllers/Logbookadvanced.php:1011
 #, php-format
 msgid "Map for DXCC %s and gridsquare %s."
 msgstr "Mapa para DXCC %s e quadrícula %s."
@@ -2673,15 +2672,15 @@ msgstr "Versão Informação não será mostrado a nenhum utilizador"
 #: application/controllers/Oqrs.php:39 application/controllers/Staticmap.php:20
 #: application/controllers/Staticmap.php:25
 #: application/controllers/Staticmap.php:202
-#: application/controllers/Visitor.php:54
-#: application/controllers/Visitor.php:85
-#: application/controllers/Visitor.php:152
-#: application/controllers/Visitor.php:165
-#: application/controllers/Visitor.php:191
-#: application/controllers/Visitor.php:217
-#: application/controllers/Visitor.php:244
-#: application/controllers/Visitor.php:279
-#: application/controllers/Visitor.php:547
+#: application/controllers/Visitor.php:46
+#: application/controllers/Visitor.php:75
+#: application/controllers/Visitor.php:141
+#: application/controllers/Visitor.php:153
+#: application/controllers/Visitor.php:177
+#: application/controllers/Visitor.php:202
+#: application/controllers/Visitor.php:227
+#: application/controllers/Visitor.php:260
+#: application/controllers/Visitor.php:517
 #: application/controllers/Widgets.php:68
 msgid "Unknown Public Page."
 msgstr "Página pública desconhecida."
@@ -2880,15 +2879,15 @@ msgstr "Imprimir QSLs solicitadas"
 msgid "Add QSO"
 msgstr "Adicionar contacto"
 
-#: application/controllers/Qso.php:879
+#: application/controllers/Qso.php:878
 msgid "You have to be logged in to access this URL."
 msgstr "É necessário estar logado para aceder a este URL."
 
-#: application/controllers/Qso.php:885
+#: application/controllers/Qso.php:884
 msgid "Call Transfer"
 msgstr "Transferência de Chamada"
 
-#: application/controllers/Qso.php:892
+#: application/controllers/Qso.php:891
 msgid "No callsign provided."
 msgstr "Nenhum indicativo fornecido."
 
@@ -3142,11 +3141,11 @@ msgid "Simple Fast Log Entry"
 msgstr "Entrada de log simples e rápida"
 
 #: application/controllers/Staticmap.php:198
-#: application/controllers/Visitor.php:80
-#: application/controllers/Visitor.php:186
-#: application/controllers/Visitor.php:240
-#: application/controllers/Visitor.php:275
-#: application/controllers/Visitor.php:543
+#: application/controllers/Visitor.php:71
+#: application/controllers/Visitor.php:173
+#: application/controllers/Visitor.php:223
+#: application/controllers/Visitor.php:256
+#: application/controllers/Visitor.php:513
 #: application/controllers/Widgets.php:64
 msgid "Empty Logbook"
 msgstr "Logbook vazio"
@@ -3864,16 +3863,20 @@ msgid ""
 msgstr ""
 "Foi desconectado da conta %s. Bem-vindo de volta, %s, à sua conta pessoal!"
 
-#: application/controllers/Visitor.php:285
+#: application/controllers/Visitor.php:265
+msgid "No public slug found."
+msgstr ""
+
+#: application/controllers/Visitor.php:271
 msgid "Satellite Gridsquare Map"
 msgstr "Mapa Gridsquare de satélite"
 
-#: application/controllers/Visitor.php:481
+#: application/controllers/Visitor.php:451
 #: application/views/stationsetup/stationsetup.php:48
 msgid "Public Search"
 msgstr "Pesquisa pública"
 
-#: application/controllers/Visitor.php:514
+#: application/controllers/Visitor.php:484
 msgid "Export Map"
 msgstr "Exportar mapa"
 
@@ -4189,51 +4192,51 @@ msgstr "o qslsdate está inválido (AAAAMMDD)"
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "o clublog_qso_upload_date está inválido (AAAAMMDD)"
 
-#: application/models/Logbook_model.php:5741
+#: application/models/Logbook_model.php:5739
 #: application/views/simplefle/index.php:41
 msgid "Duplicate for"
 msgstr "Duplicado para"
 
-#: application/models/Logbook_model.php:5808
-#: application/models/Logbook_model.php:5908
+#: application/models/Logbook_model.php:5806
+#: application/models/Logbook_model.php:5906
 msgid "QSO could not be matched"
 msgstr "Não há correspondência de contactos"
 
-#: application/models/Logbook_model.php:5816
+#: application/models/Logbook_model.php:5814
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "confirmado por LoTW/Clublog/eQSL/Contest"
 
-#: application/models/Logbook_model.php:5822
+#: application/models/Logbook_model.php:5820
 msgid "confirmed by award manager"
 msgstr "confirmado pelo gestor do diploma"
 
-#: application/models/Logbook_model.php:5826
+#: application/models/Logbook_model.php:5824
 msgid "confirmed by cross-check of DCL data"
 msgstr "confirmado pelo controlo cruzado dos dados da DCL"
 
-#: application/models/Logbook_model.php:5830
+#: application/models/Logbook_model.php:5828
 msgid "confirmation pending"
 msgstr "confirmação pendente"
 
-#: application/models/Logbook_model.php:5833
+#: application/models/Logbook_model.php:5831
 msgid "unconfirmed"
 msgstr "não confirmado"
 
-#: application/models/Logbook_model.php:5836
+#: application/models/Logbook_model.php:5834
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 msgid "unknown"
 msgstr "desconhecido"
 
-#: application/models/Logbook_model.php:5911
+#: application/models/Logbook_model.php:5909
 msgid "POTA reference already in log"
 msgstr "Referência POTA já no log"
 
-#: application/models/Logbook_model.php:5914
+#: application/models/Logbook_model.php:5912
 msgid "QSO updated"
 msgstr "QSO atualizado"
 
-#: application/models/Logbook_model.php:6342
+#: application/models/Logbook_model.php:6340
 #: application/views/activated_gridmap/index.php:109
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:57
@@ -20424,7 +20427,7 @@ msgstr "Favorito"
 msgid "mark/unmark as favorite"
 msgstr "marcar/desmarcar como favorito"
 
-#: application/views/stationsetup/visitor.php:2
+#: application/views/stationsetup/visitor.php:1
 msgid ""
 "Setting a public slug allows you to share your logbook with anyone via a "
 "custom website address, this slug can contain letters & numbers only."
@@ -20433,19 +20436,19 @@ msgstr ""
 "qualquer pessoa através de um endereço de site Web personalizado, podendo "
 "este slug conter apenas letras e números."
 
-#: application/views/stationsetup/visitor.php:3
+#: application/views/stationsetup/visitor.php:2
 msgid "Later it looks like this:"
 msgstr "Mais tarde, o aspeto é o seguinte:"
 
-#: application/views/stationsetup/visitor.php:4
+#: application/views/stationsetup/visitor.php:3
 msgid "[your slug]"
 msgstr "[o seu slug]"
 
-#: application/views/stationsetup/visitor.php:10
+#: application/views/stationsetup/visitor.php:9
 msgid "Type in Public Slug choice"
 msgstr "Digite a opção Slug público"
 
-#: application/views/stationsetup/visitor.php:17
+#: application/views/stationsetup/visitor.php:16
 msgid "Visit Public Page"
 msgstr "Visitar a Página Pública"
 
