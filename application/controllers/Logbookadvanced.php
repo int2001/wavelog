@@ -383,8 +383,6 @@ class Logbookadvanced extends CI_Controller {
 			'continent' => '',
 			'comment' => '*',
 			'dok' => '*',
-			'qrzSent' => '',
-			'qrzReceived' => '',
 			'distance' => '*',
 			'qrzSent' => '',
 			'qrzReceived' => '',
