@@ -34,7 +34,6 @@ class Contesting extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -127,8 +126,6 @@ class Contesting extends CI_Controller {
 			redirect('contesting');
 		}
 
-		$this->load->is_loaded('user_model') ?: $this->load->model('user_model');
-
 		$session_info = $this->contesting_model->get_session_info($contest_session_id);
 		$cabrillo     = $this->contesting_model->get_exportformat_settings($contest_session_id, "cabrillo");
 		$userinfo     = $this->user_model->get_by_id($this->session->userdata('user_id'))->row();
@@ -160,8 +157,6 @@ class Contesting extends CI_Controller {
 			$this->session->set_flashdata('error', __("Contest session not found."));
 			redirect('contesting');
 		}
-
-		$this->load->is_loaded('user_model') ?: $this->load->model('user_model');
 
 		$session_info = $this->contesting_model->get_session_info($contest_session_id);
 		$reg1test     = $this->contesting_model->get_exportformat_settings($contest_session_id, "reg1test");
@@ -263,7 +258,6 @@ class Contesting extends CI_Controller {
 		$session_info = $this->contesting_model->get_session_info($contest_session_id);
 		$qsos         = $this->contesting_model->get_session_qsos_for_exportformat($contest_session_id);
 
-		$this->load->is_loaded('user_model') ?: $this->load->model('user_model');
 		$userinfo = $this->user_model->get_by_id($this->session->userdata('user_id'))->row();
 
 		$contest_id = $session_info['contest_adifname'];
@@ -333,9 +327,6 @@ class Contesting extends CI_Controller {
 
 		//load distance calculator
 		$this->load->library('Qra');
-
-		//load user model
-		$this->load->is_loaded('user_model') ?: $this->load->model('user_model');
 
 		//load userinfo
 		$userinfo = $this->user_model->get_by_id($this->session->userdata('user_id'))->row();
@@ -445,7 +436,6 @@ class Contesting extends CI_Controller {
 	 */
 	public function logging_engine($logging_token) {
 		$this->load->model('contesting_model');
-		$this->load->model('user_model');
 
 		// Decode logging token
 		$decoded_token = $this->paths->decode_contesting_logging_token($logging_token);
@@ -595,6 +585,9 @@ class Contesting extends CI_Controller {
 		];
 
 		if ($this->session->userdata('isWinkeyEnabled')) {
+			// Winkeyer sits at the bottom right (y=63). Shrink the SCP component
+			// above it so both fit stacked without the winkeyer overlapping the SCP.
+			$data['components']['scp']['height'] = 30; // 32% + 30% = 62%, leaving a 1% gap before the winkeyer at y=63
 			$data['components']['winkeyer'] = [
 				'x'      => 73,
 				'y'      => 63,
@@ -840,13 +833,17 @@ class Contesting extends CI_Controller {
 			foreach ($allowed as $key => $col) {
 				if (array_key_exists($key, $payload)) {
 					$val = $payload[$key];
-					if (in_array($key, ['callsign', 'mode', 'band', 'rst_sent', 'rst_rcvd',
+					if (in_array($key, ['callsign', 'mode', 'rst_sent', 'rst_rcvd',
 					                    'serial_sent', 'serial_rcvd', 'exchange_sent',
 					                    'exchange_rcvd', 'gridsquare_rcvd'])) {
 						$val = $val !== null ? strtoupper(trim((string)$val)) : null;
 						if ($key === 'callsign' && $val !== null) {
 							$val = $this->_validateCallsign($val);
 						}
+					}
+					// Bands are stored lowercase (e.g. 20m, 70cm)
+					if ($key === 'band') {
+						$val = $val !== null ? strtolower(trim((string)$val)) : null;
 					}
 					if (in_array($key, ['serial_sent', 'serial_rcvd']) && $val === '') {
 						$val = null;

@@ -3330,44 +3330,57 @@ class Logbook_model extends CI_Model {
 		$this->load->model('logbooks_model');
 		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
 
-		$this->db->select('COL_CALL, COL_BAND, COL_TIME_ON, COL_RST_RCVD, COL_RST_SENT, COL_MODE, COL_SUBMODE, COL_NAME, COL_COUNTRY, COL_PRIMARY_KEY, COL_SAT_NAME, COL_GRIDSQUARE');
-		$this->db->where_in('station_id', $logbooks_locations_array);
-		$this->db->where("coalesce(COL_GRIDSQUARE, '') <> ''");
+		$table = $this->config->item('table_name');
+		$in_placeholders = implode(',', array_fill(0, count($logbooks_locations_array), '?'));
+
+		$sql = "SELECT COL_CALL, COL_BAND, COL_TIME_ON, COL_RST_RCVD, COL_RST_SENT, COL_MODE, COL_SUBMODE, COL_NAME, COL_COUNTRY, COL_PRIMARY_KEY, COL_SAT_NAME, COL_GRIDSQUARE
+			FROM " . $table . "
+			WHERE station_id IN (" . $in_placeholders . ")
+			AND coalesce(COL_GRIDSQUARE, '') <> ''";
+
+		$params = $logbooks_locations_array;
 
 		if ($band != 'All') {
 			if ($band == 'SAT') {
-				$this->db->where('COL_PROP_MODE', $band);
+				$sql .= " AND COL_PROP_MODE = ?";
+				$params[] = $band;
 			} else {
-				$this->db->where("(COL_PROP_MODE != 'SAT' OR COL_PROP_MODE IS NULL)");
-				$this->db->where('COL_BAND', $band);
+				$sql .= " AND (COL_PROP_MODE != 'SAT' OR COL_PROP_MODE IS NULL) AND COL_BAND = ?";
+				$params[] = $band;
 			}
 		}
 
 		if ($mode != 'All') {
-			$this->db->where('COL_MODE', $mode);
+			$sql .= " AND COL_MODE = ?";
+			$params[] = $mode;
 		}
 
 		if ($dxcc != 'All') {
-			$this->db->where('COL_DXCC', $dxcc);
+			$sql .= " AND COL_DXCC = ?";
+			$params[] = $dxcc;
 		}
 
 		if ($cqz != 'All') {
-			$this->db->where('COL_CQZ', $cqz);
+			$sql .= " AND COL_CQZ = ?";
+			$params[] = $cqz;
 		}
 
 		if ($propagation != 'All') {
-			$this->db->where('COL_PROP_MODE', $propagation);
+			$sql .= " AND COL_PROP_MODE = ?";
+			$params[] = $propagation;
 		}
 
 		// If date is set, we add it to the where-statement
 		if ($fromdate != "") {
-			$this->db->where($this->config->item('table_name') . ".COL_TIME_ON >=", $fromdate . ' 00:00:00');
+			$sql .= " AND " . $table . ".COL_TIME_ON >= ?";
+			$params[] = $fromdate . ' 00:00:00';
 		}
 		if ($todate != "") {
-			$this->db->where($this->config->item('table_name') . ".COL_TIME_ON <=", $todate . ' 23:59:59');
+			$sql .= " AND " . $table . ".COL_TIME_ON <= ?";
+			$params[] = $todate . ' 23:59:59';
 		}
 
-		$query = $this->db->get($this->config->item('table_name'));
+		$query = $this->db->query($sql, $params);
 		return $query;
 	}
 
@@ -4817,7 +4830,6 @@ class Logbook_model extends CI_Model {
 	}
 
 	function import_bulk($records, $station_id = "0", $skipDuplicate = true, $markClublog = false, $markLotw = false, $dxccAdif = false, $markQrz = false, $markEqsl = false, $markHrd = false, $markDcl = false, $skipexport = false, $operatorName = false, $apicall = false, $skipStationCheck = false, $skipGridCheck = false) {
-		$this->load->model('user_model');
 		$custom_errors['errormessage'] = '';
 		$critical_errors = [];
 		$validation_errors = [];

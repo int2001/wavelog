@@ -32,7 +32,6 @@ class Logbooks_model extends CI_Model {
 				$this->set_logbook_active($logbook_id);
 
 				// update user session data
-				$this->load->model('user_model');
 				$this->user_model->update_session($this->session->userdata('user_id'));
 			}
 			return $logbook_id;

@@ -2,24 +2,24 @@
 
 function echo_table_header_col($ctx, $name) {
 	switch($name) {
-		case 'Mode': echo '<th>'.__("Mode").'</th>'; break;
-		case 'RSTS': echo '<th>'.__("RST (S)").'</th>'; break;
-		case 'RSTR': echo '<th>'.__("RST (R)").'</th>'; break;
-		case 'Country': echo '<th>'.__("Country").'</th>'; break;
-		case 'IOTA': echo '<th>'.__("IOTA").'</th>'; break;
-		case 'SOTA': echo '<th>'.__("SOTA").'</th>'; break;
-		case 'WWFF': echo '<th>'.__("WWFF").'</th>'; break;
-		case 'POTA': echo '<th>'.__("POTA").'</th>'; break;
-		case 'State': echo '<th>'.__("State").'</th>'; break;
-		case 'Grid': echo '<th>'.__("Gridsquare").'</th>'; break;
-		case 'Distance': echo '<th>'.__("Distance").'</th>'; break;
-		case 'Band': echo '<th>'.__("Band").'</td>'; break;
-		case 'Frequency': echo '<th>'.__("Frequency").'</th>'; break;
-		case 'Operator': echo '<th>'.__("Operator").'</th>'; break;
-		case 'Location': echo '<th>'.__("Station Location").'</th>'; break;
-		case 'Name': echo '<th>'.__("Name").'</th>'; break;
-		case 'Bearing': echo '<th>'.__("Bearing").'</th>'; break;
-		case 'Propagation': echo '<th>'.__("Propagation").'</th>'; break;
+		case 'Mode': echo '<th scope="col">'.__("Mode").'</th>'; break;
+		case 'RSTS': echo '<th scope="col">'.__("RST (S)").'</th>'; break;
+		case 'RSTR': echo '<th scope="col">'.__("RST (R)").'</th>'; break;
+		case 'Country': echo '<th scope="col">'.__("Country").'</th>'; break;
+		case 'IOTA': echo '<th scope="col">'.__("IOTA").'</th>'; break;
+		case 'SOTA': echo '<th scope="col">'.__("SOTA").'</th>'; break;
+		case 'WWFF': echo '<th scope="col">'.__("WWFF").'</th>'; break;
+		case 'POTA': echo '<th scope="col">'.__("POTA").'</th>'; break;
+		case 'State': echo '<th scope="col">'.__("State").'</th>'; break;
+		case 'Grid': echo '<th scope="col">'.__("Gridsquare").'</th>'; break;
+		case 'Distance': echo '<th scope="col">'.__("Distance").'</th>'; break;
+		case 'Band': echo '<th scope="col">'.__("Band").'</th>'; break;
+		case 'Frequency': echo '<th scope="col">'.__("Frequency").'</th>'; break;
+		case 'Operator': echo '<th scope="col">'.__("Operator").'</th>'; break;
+		case 'Location': echo '<th scope="col">'.__("Station Location").'</th>'; break;
+		case 'Name': echo '<th scope="col">'.__("Name").'</th>'; break;
+		case 'Bearing': echo '<th scope="col">'.__("Bearing").'</th>'; break;
+		case 'Propagation': echo '<th scope="col">'.__("Propagation").'</th>'; break;
 	}
 }
 
@@ -113,10 +113,10 @@ function echoQrbCalcLink($mygrid, $grid, $vucc, $isVisitor = false) {
 	$echo = "";
 	if (!empty($grid)) {
 		$echo = $grid;
-		$echo .= (!$isVisitor) ? (' <a href="javascript:spawnQrbCalculator(\'' . $mygrid . '\',\'' . $grid . '\')"><i class="fas fa-globe"></i></a>') : '';
+		$echo .= (!$isVisitor) ? (' <button type="button" class="btn btn-link text-decoration-none p-0 align-baseline" onclick="spawnQrbCalculator(\'' . $mygrid . '\',\'' . $grid . '\')" aria-label="' . __("Calculate distance/bearing") . '"><i class="fas fa-globe" aria-hidden="true"></i></button>') : '';
 	} else if (!empty($vucc)) {
 		$echo = $vucc;
-		$echo .= (!$isVisitor) ? (' <a href="javascript:spawnQrbCalculator(\'' . $mygrid . '\',\'' . $vucc . '\')"><i class="fas fa-globe"></i></a>') : '';
+		$echo .= (!$isVisitor) ? (' <button type="button" class="btn btn-link text-decoration-none p-0 align-baseline" onclick="spawnQrbCalculator(\'' . $mygrid . '\',\'' . $vucc . '\')" aria-label="' . __("Calculate distance/bearing") . '"><i class="fas fa-globe" aria-hidden="true"></i></button>') : '';
 	}
 	return $echo;
 }
@@ -133,14 +133,18 @@ function echoQrbCalcLink($mygrid, $grid, $vucc, $isVisitor = false) {
 ?>
 
 <div class="table-responsive">
-    <table style="width:100%" id="<?= $tableid ?>" class="table <?= $tableid ?> table-striped table-hover">
+    <?php
+    $result_count = $results->num_rows();
+    $table_aria_label = $result_count > 1 ? $result_count.' '.__("Results") : ($result_count == 1 ? $result_count.' '.__("Result") : '');
+    ?>
+    <table style="width:100%" id="<?= $tableid ?>" class="table <?= $tableid ?> table-striped table-hover"<?php if ($table_aria_label != '') { echo ' aria-label="'.htmlspecialchars($table_aria_label).'"'; } ?>>
         <thead>
             <tr class="titles">
-                <th><?= __("Date"); ?></th>
+                <th scope="col"><?= __("Date"); ?></th>
                 <?php if(($this->config->item('use_auth') && ($this->session->userdata('user_type') >= 2)) || $this->config->item('use_auth') === FALSE || ($this->config->item('show_time'))) { ?>
-                <th><?= __("Time"); ?></th>
+                <th scope="col"><?= __("Time"); ?></th>
                 <?php } ?>
-                <th><?= __("Call"); ?></th>
+                <th scope="col"><?= __("Call"); ?></th>
                 <?php
                 echo_table_header_col($this, $this->session->userdata('user_column1')==""?'Mode':$this->session->userdata('user_column1'));
                 echo_table_header_col($this, $this->session->userdata('user_column2')==""?'RSTS':$this->session->userdata('user_column2'));
@@ -150,27 +154,27 @@ function echoQrbCalcLink($mygrid, $grid, $vucc, $isVisitor = false) {
 
                     if(($this->config->item('use_auth')) && ($this->session->userdata('user_type') >= 2)) {
     		    	if ( strpos($this->session->userdata('user_default_confirmation'),'Q') !== false  ) { ?>
-                    	<th>QSL</th>
+                    	<th scope="col">QSL</th>
                     <?php } ?>
                     <?php if ( strpos($this->session->userdata('user_default_confirmation'),'E') !== false && ($this->session->userdata('user_eqsl_name') != "") ) { ?>
-                        <th>eQSL</th>
+                        <th scope="col">eQSL</th>
                     <?php } ?>
                     <?php if ( strpos($this->session->userdata('user_default_confirmation'),'L') !== false && ($this->session->userdata('user_lotw_name') != "") ) { ?>
-                        <th>LoTW</th>
+                        <th scope="col">LoTW</th>
                     <?php } ?>
     		    <?php if ( strpos($this->session->userdata('user_default_confirmation'),'Z') !== false && ($this->session->userdata('hasQrzKey') != "") ) { ?>
-                        <th>QRZ</th>
+                        <th scope="col">QRZ</th>
                     <?php } ?>
     		    <?php if ( strpos($this->session->userdata('user_default_confirmation'),'C') !== false  ) { ?>
-                        <th><?= __("Clublog"); ?></th>
+                        <th scope="col"><?= __("Clublog"); ?></th>
                     <?php } ?>
     		    <?php if ( strpos($this->session->userdata('user_default_confirmation'),'D') !== false  ) { ?>
-                        <th><?= __("DCL"); ?></th>
+                        <th scope="col"><?= __("DCL"); ?></th>
                     <?php } ?>
                 <?php } ?>
-                        <th><?= __("Station"); ?></th>
+                        <th scope="col"><?= __("Station"); ?></th>
                 <?php if(($this->config->item('use_auth')) && ($this->session->userdata('user_type') >= 2)) { ?>
-                    <th></th>
+                    <th scope="col"><span class="visually-hidden"><?= __("Actions"); ?></span></th>
                 <?php } ?>
             </tr>
         </thead>
@@ -192,7 +196,7 @@ function echoQrbCalcLink($mygrid, $grid, $vucc, $isVisitor = false) {
                 <td><?php $timestamp = strtotime($row->COL_TIME_ON ?? '1970-01-01 00:00:00'); echo date('H:i', $timestamp); ?></td>
             <?php } ?>
             <td>
-                <a id="edit_qso" href="javascript:displayQso(<?php echo $row->COL_PRIMARY_KEY; ?>)"><?php echo str_replace("0","&Oslash;",strtoupper($row->COL_CALL)); ?></a>
+                <button type="button" class="btn btn-link text-decoration-none p-0" id="edit_qso" onclick="displayQso(<?php echo $row->COL_PRIMARY_KEY; ?>)"><?php echo str_replace("0","&Oslash;",strtoupper($row->COL_CALL)); ?></button>
                 <?php
                    if (isset($row->lastupload) && ($row->lastupload)) {
                        $lotw_hint = '';
@@ -604,45 +608,45 @@ function echoQrbCalcLink($mygrid, $grid, $vucc, $isVisitor = false) {
             <?php if(($this->config->item('use_auth')) && ($this->session->userdata('user_type') >= 2)) { ?>
                 <td>
                     <div class="dropdown">
-                        <div class="btn btn-sm btn-secondary dropdown-toggle text-nowrap" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-cog"></i>
-                        </div>
+                        <button type="button" class="btn btn-sm btn-secondary dropdown-toggle text-nowrap" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="<?= __("Actions"); ?>">
+                            <i class="fas fa-cog" aria-hidden="true"></i>
+                        </button>
 
                         <div class="dropdown-menu menuOnResultTab" data-bs-toggle="popover" data-bs-placement="auto" data-qsoid="qso_<?php echo $row->COL_PRIMARY_KEY; ?>">
                             <?php if (clubaccess_check(3, $row->COL_PRIMARY_KEY)) { ?>
-                            <a class="dropdown-item" id="edit_qso" href="javascript:qso_edit(<?php echo $row->COL_PRIMARY_KEY; ?>)"><i class="fas fa-edit"></i> <?= __("Edit QSO"); ?></a>
+                            <button type="button" class="dropdown-item" id="edit_qso" onclick="qso_edit(<?php echo $row->COL_PRIMARY_KEY; ?>)"><i class="fas fa-edit" aria-hidden="true"></i> <?= __("Edit QSO"); ?></button>
                             <?php } ?>
 
                             <?php if (clubaccess_check(9)) { ?>
                                 <?php if($row->COL_QSL_SENT !='Y') { ?>
                                     <div class="qsl_sent_<?php echo $row->COL_PRIMARY_KEY; ?>">
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="javascript:qsl_sent(<?php echo $row->COL_PRIMARY_KEY; ?>, 'B')" ><i class="fas fa-envelope"></i> <?= __("Mark QSL Sent (Bureau)"); ?></a>
-                                        <a class="dropdown-item" href="javascript:qsl_sent(<?php echo $row->COL_PRIMARY_KEY; ?>, 'D')" ><i class="fas fa-envelope"></i> <?= __("Mark QSL Sent (Direct)"); ?></a>
-                                        <a class="dropdown-item" href="javascript:qsl_requested(<?php echo $row->COL_PRIMARY_KEY; ?>, 'B')" ><i class="fas fa-envelope"></i> <?= __("Mark QSL Card Requested (Bureau)"); ?></a>
-                                        <a class="dropdown-item" href="javascript:qsl_requested(<?php echo $row->COL_PRIMARY_KEY; ?>, 'D')" ><i class="fas fa-envelope"></i> <?= __("Mark QSL Card Requested (Direct)"); ?></a>
-                                        <a class="dropdown-item" href="javascript:qsl_ignore(<?php echo $row->COL_PRIMARY_KEY; ?>, 'D')" ><i class="fas fa-envelope"></i> <?= __("Mark QSL Card Not Required"); ?></a>
+                                        <button type="button" class="dropdown-item" onclick="qsl_sent(<?php echo $row->COL_PRIMARY_KEY; ?>, 'B')" ><i class="fas fa-envelope" aria-hidden="true"></i> <?= __("Mark QSL Sent (Bureau)"); ?></button>
+                                        <button type="button" class="dropdown-item" onclick="qsl_sent(<?php echo $row->COL_PRIMARY_KEY; ?>, 'D')" ><i class="fas fa-envelope" aria-hidden="true"></i> <?= __("Mark QSL Sent (Direct)"); ?></button>
+                                        <button type="button" class="dropdown-item" onclick="qsl_requested(<?php echo $row->COL_PRIMARY_KEY; ?>, 'B')" ><i class="fas fa-envelope" aria-hidden="true"></i> <?= __("Mark QSL Card Requested (Bureau)"); ?></button>
+                                        <button type="button" class="dropdown-item" onclick="qsl_requested(<?php echo $row->COL_PRIMARY_KEY; ?>, 'D')" ><i class="fas fa-envelope" aria-hidden="true"></i> <?= __("Mark QSL Card Requested (Direct)"); ?></button>
+                                        <button type="button" class="dropdown-item" onclick="qsl_ignore(<?php echo $row->COL_PRIMARY_KEY; ?>, 'D')" ><i class="fas fa-envelope" aria-hidden="true"></i> <?= __("Mark QSL Card Not Required"); ?></button>
                                     </div>
                                 <?php } ?>
 
                                 <?php if($row->COL_QSL_RCVD !='Y') { ?>
                                     <div class="qsl_rcvd_<?php echo $row->COL_PRIMARY_KEY; ?>">
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="javascript:qsl_rcvd(<?php echo $row->COL_PRIMARY_KEY; ?>, 'B')" ><i class="fas fa-envelope"></i> <?= __("Mark QSL Received (Bureau)"); ?></a>
-                                        <a class="dropdown-item" href="javascript:qsl_rcvd(<?php echo $row->COL_PRIMARY_KEY; ?>, 'D')" ><i class="fas fa-envelope"></i> <?= __("Mark QSL Received (Direct)"); ?></a>
+                                        <button type="button" class="dropdown-item" onclick="qsl_rcvd(<?php echo $row->COL_PRIMARY_KEY; ?>, 'B')" ><i class="fas fa-envelope" aria-hidden="true"></i> <?= __("Mark QSL Received (Bureau)"); ?></button>
+                                        <button type="button" class="dropdown-item" onclick="qsl_rcvd(<?php echo $row->COL_PRIMARY_KEY; ?>, 'D')" ><i class="fas fa-envelope" aria-hidden="true"></i> <?= __("Mark QSL Received (Direct)"); ?></button>
                                     </div>
                                 <?php } ?>
 
                                 <div class="dropdown-divider"></div>
                             <?php } ?>
 
-                            <a class="dropdown-item" href="https://www.qrz.com/db/<?php echo $row->COL_CALL; ?>" target="_blank"><i class="fas fa-question"></i> <?= __("Lookup on QRZ.com"); ?></a>
+                            <a class="dropdown-item" href="https://www.qrz.com/db/<?php echo $row->COL_CALL; ?>" target="_blank"><i class="fas fa-question" aria-hidden="true"></i> <?= __("Lookup on QRZ.com"); ?></a>
 
-                            <a class="dropdown-item" href="https://www.hamqth.com/<?php echo $row->COL_CALL; ?>" target="_blank"><i class="fas fa-question"></i> <?= __("Lookup on HamQTH"); ?></a>
+                            <a class="dropdown-item" href="https://www.hamqth.com/<?php echo $row->COL_CALL; ?>" target="_blank"><i class="fas fa-question" aria-hidden="true"></i> <?= __("Lookup on HamQTH"); ?></a>
 
                             <?php if (clubaccess_check(3, $row->COL_PRIMARY_KEY)) { ?>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="javascript:qso_delete(<?php echo $row->COL_PRIMARY_KEY; ?>, '<?php echo $row->COL_CALL; ?>')"><i class="fas fa-trash-alt"></i> <?= __("Delete QSO"); ?></a>
+                            <button type="button" class="dropdown-item" onclick="qso_delete(<?php echo $row->COL_PRIMARY_KEY; ?>, '<?php echo $row->COL_CALL; ?>')"><i class="fas fa-trash-alt" aria-hidden="true"></i> <?= __("Delete QSO"); ?></button>
                             <?php } ?>
                         </div>
                     </div>
@@ -650,11 +654,6 @@ function echoQrbCalcLink($mygrid, $grid, $vucc, $isVisitor = false) {
             <?php } ?>
             </tr>
             <?php $i++; }
-		if ($i>1) {
-			echo '<caption>'.$i.' '.__("Results").'</caption>';
-		} elseif ($i==1) {
-			echo '<caption>'.$i.' '.__("Result").'</caption>';
-		}
 	    ?>
                             </tbody>
     </table></div>

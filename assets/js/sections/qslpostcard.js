@@ -971,7 +971,7 @@
 		fd.append('preview_image', fileInput.files[0]);
 		showToast('', LANG.uploading, 'bg-info text-white', 2000);
 
-		const r = await fetch(base_url + 'qslpostcard/upload_preview', { method: 'POST', body: fd });
+		const r = await fetch(base_url + 'index.php/qslpostcard/upload_preview', { method: 'POST', body: fd });
 		const out = await r.json();
 		if (!out.ok) {
 			showToast(LANG.error, LANG.uploadFailed + ': ' + (out.error || LANG.unknownError), 'bg-danger text-white', 5000);
@@ -1053,6 +1053,7 @@
 			setBackground(null);
 			document.getElementById('tplName').value = '';
 			document.getElementById('btnPdf').href = '#';
+			document.getElementById('btnPdfSave').href = '#';
 			tplOptions = { ...DEFAULT_TPL_OPTIONS };
 			applyTplOptionsToControls();
 			setPitchWrapVisibility();
@@ -1063,6 +1064,7 @@
 		}
 		document.getElementById('tplName').value = e.target.options[e.target.selectedIndex].text;
 		document.getElementById('btnPdf').href = base_url + 'index.php/qslpostcard/pdf/' + id;
+		document.getElementById('btnPdfSave').href = base_url + 'index.php/qslpostcard/pdf/' + id + '?download=1';
 		await loadTemplate(id);
 	});
 
@@ -1090,6 +1092,7 @@
 		opt.textContent = name;
 		tplSelect.value = newId;
 		document.getElementById('btnPdf').href = base_url + 'index.php/qslpostcard/pdf/' + newId;
+		document.getElementById('btnPdfSave').href = base_url + 'index.php/qslpostcard/pdf/' + newId + '?download=1';
 		showToast(LANG.success, LANG.saved, 'bg-success text-white', 4000);
 	});
 

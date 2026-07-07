@@ -70,12 +70,12 @@
 		var userName = '<?php echo $this->session->userdata('user_name'); ?>';
 		<?php
 		if ($this->uri->segment(1) == "qso") {
-                	$actstation=$this->stations->find_active() ?? '';
-                	echo "var activeStationId = '".$actstation."';\n";
-                	$profile_info = $this->stations->profile($actstation)->row();
-                	echo "var activeStationTXPower = '".xss_clean($profile_info->station_power ?? 0)."';\n";
-                	echo "var activeStationOP = '".xss_clean($this->session->userdata('operator_callsign'))."';\n";
-                	echo "var last_qsos_count = ".$this->session->userdata('qso_page_last_qso_count')."\n";
+			$actstation=$this->stations->find_active() ?? '';
+			echo "var activeStationId = '".$actstation."';\n";
+			$profile_info = $this->stations->profile($actstation)->row();
+			echo "var activeStationTXPower = '".xss_clean($profile_info->station_power ?? 0)."';\n";
+			echo "var activeStationOP = '".xss_clean($this->session->userdata('operator_callsign'))."';\n";
+			echo "var last_qsos_count = ".$this->session->userdata('qso_page_last_qso_count')."\n";
 		}
                 ?>
 	</script>
@@ -91,10 +91,11 @@
 			} ?> - Wavelog</title>
 </head>
 
-<body dir="<?php echo $language['direction']; ?>">
+<body dir="<?php echo $language['direction']; ?>" class="<?= map_style_class(); ?>">
+	<a class="visually-hidden-focusable" href="#main-content"><?= __("Skip to content"); ?></a>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light main-nav" id="header-menu">
 		<div class="container">
-			<a class="navbar-brand" href="<?php echo site_url(); ?>"><img class="headerLogo" src="<?php echo $this->paths->cache_buster('/assets/logo/'. $this->optionslib->get_logo('header_logo').'.png'); ?>" alt="Logo" /></a>
+			<a class="navbar-brand" href="<?php echo site_url(); ?>"><img class="headerLogo" src="<?php echo $this->paths->cache_buster('/assets/logo/'. $this->optionslib->get_logo('header_logo').'.png'); ?>" alt="<?= __("Wavelog home"); ?>" /></a>
 			<?php if (ENVIRONMENT == "development") { ?>
 				<span class="badge text-bg-danger me-1"><?= __("Developer Mode"); ?></span>
 			<?php } ?>
@@ -113,15 +114,15 @@
 						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"> <?= __("Logbook"); ?></a>
 						<ul class="dropdown-menu header-dropdown">
 							<li><a class="dropdown-item" href="<?php echo site_url('logbook'); ?>"><i class="fas fa-book"></i> <?= __("Overview"); ?></a></li>
-							<div class="dropdown-divider"></div>
+							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="<?php echo site_url('logbookadvanced'); ?>"><i class="fas fa-book-open"></i> <?= __("Advanced"); ?></a></li>
-							<div class="dropdown-divider"></div>
+							<li><hr class="dropdown-divider"></li>
 							<?php if (!($this->config->item('disable_qsl') ?? false)) { ?>
 							<li><a class="dropdown-item" href="<?php echo site_url('qsl'); ?>" title="QSL"><i class="fa fa-id-card"></i> <?= __("View QSL Cards"); ?></a></li>
-							<div class="dropdown-divider"></div>
+							<li><hr class="dropdown-divider"></li>
 							<?php } ?>
 							<li><a class="dropdown-item" href="<?php echo site_url('eqsl'); ?>" title="eQSL"><i class="fa fa-id-card"></i> <?= __("View eQSL Cards"); ?></a></li>
-							<div class="dropdown-divider"></div>
+							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="<?php echo site_url('generic_qsl/confirmations'); ?>" title="eQSL"><i class="fa fa-id-card"></i> <?= __("View last confirmations"); ?></a></li>
 						</ul>
 					</li>
@@ -131,9 +132,9 @@
 							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><?= __("QSO"); ?></a>
 							<ul class="dropdown-menu header-dropdown">
 								<li><a class="dropdown-item" href="<?php echo site_url('qso?manual=0'); ?>" title="Log Live QSOs"><i class="fas fa-list"></i> <?= __("Live QSO"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('qso?manual=1'); ?>" title="Log QSO made in the past"><i class="fas fa-list"></i> <?= __("Post QSO"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('simplefle'); ?>" title="Simple Fast Log Entry"><i class="fas fa-list"></i> <?= __("Simple Fast Log Entry"); ?></a></li>
 							</ul>
 						</li>
@@ -142,46 +143,46 @@
 							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><?= __("Contest"); ?></a>
 							<ul class="dropdown-menu header-dropdown">
 								<li><a class="dropdown-item" href="<?php echo site_url('contesting/quickstart'); ?>" target="_blank" title="<?= __("Quick Start"); ?>"><i class="fas fa-list"></i> <?= __("Quick Start"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('contesting'); ?>" title="<?= __("Manage Contests"); ?>"><i class="fas fa-list"></i> <?= __("Manage Contests"); ?></a></li>
 							</ul>
 						</li>
 
 						<?php if ($this->session->userdata('user_show_notes') == 1) { ?><!-- NOTES -->
-							<a class="nav-link" href="<?php echo site_url('notes'); ?>"><?= __("Notes"); ?></a>
+							<li class="nav-item"><a class="nav-link" href="<?php echo site_url('notes'); ?>"><?= __("Notes"); ?></a></li>
 						<?php } ?>
 
 						<li class="nav-item dropdown"> <!-- ANALYTICS -->
 							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><?= __("Analytics"); ?></a>
 							<ul class="dropdown-menu header-dropdown">
 								<li><a class="dropdown-item" href="<?php echo site_url('statistics'); ?>" title="Statistics"><i class="fas fa-chart-area"></i> <?= __("Statistics"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('statistics/antennaanalytics'); ?>" title="Antenna Analytics"><i class="fas fa-chart-area"></i> <?= __("Antenna Analytics"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('statistics/qslstats'); ?>" title="QSL Statistics"><i class="fas fa-chart-area"></i> <?= __("QSL Statistics"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('gridmap'); ?>" title="Gridmap"><i class="fas fa-globe-europe"></i> <?= __("Gridsquare Map"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('activated_gridmap'); ?>" title="Activated Gridsquares"><i class="fas fa-globe-europe"></i> <?= __("Activated Gridsquares"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('activators'); ?>" title="Gridsquare Activators"><i class="fas fa-globe-europe"></i> <?= __("Gridsquare Activators"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('distances'); ?>" title="Distances"><i class="fas fa-chart-area"></i> <?= __("Distances Worked"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('distancerecords'); ?>" title="Satellite Distance records"><i class="fas fa-chart-area"></i> <?= __("Satellite Distance Records"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('dayswithqso'); ?>" title="Days with QSOs"><i class="fas fa-chart-area"></i> <?= __("Days with QSOs"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('timeline'); ?>" title="Timeline"><i class="fas fa-chart-area"></i> <?= __("Timeline"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('accumulated'); ?>" title="Accumulated Statistics"><i class="fas fa-chart-area"></i> <?= __("Accumulated Statistics"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('timeplotter'); ?>" title="View time when worked"><i class="fas fa-chart-area"></i> <?= __("Timeplotter"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('continents'); ?>" title="Continents"><i class="fas fa-globe-europe"></i> <?= __("Continents"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('callstats'); ?>" title="Callsign Statistics"><i class="fas fa-chart-area"></i> <?= __("Callsign Statistics"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('statistics/initials'); ?>" title="EME Initials"><i class="fas fa-chart-area"></i> <?= __("EME Initials"); ?></a></li>
 							</ul>
 						</li>
@@ -191,116 +192,116 @@
 								<li><a class="dropdown-item dropdown-toggle dropdown-toggle-submenu" data-bs-toggle="dropdown" href="#"><i class="fas fa-globe"></i> <?= __("International"); ?></a>
 									<ul class="submenu dropdown-menu">
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/cq'); ?>"><i class="fas fa-trophy"></i> <?= __("CQ WAZ"); ?></a></li>
-										<div class="dropdown-divider"></div>
+										<li><hr class="dropdown-divider"></li>
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/dxcc'); ?>"><i class="fas fa-trophy"></i> <?= __("DXCC"); ?></a></li>
-										<div class="dropdown-divider"></div>
+										<li><hr class="dropdown-divider"></li>
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/itu'); ?>"><i class="fas fa-trophy"></i> <?= __("ITU"); ?></a></li>
-										<div class="dropdown-divider"></div>
+										<li><hr class="dropdown-divider"></li>
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/sig'); ?>"><i class="fas fa-trophy"></i> <?= __("SIG"); ?></a></li>
-										<div class="dropdown-divider"></div>
+										<li><hr class="dropdown-divider"></li>
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/vucc'); ?>"><i class="fas fa-trophy"></i> <?= __("VUCC"); ?></a></li>
-										<div class="dropdown-divider"></div>
+										<li><hr class="dropdown-divider"></li>
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/wae'); ?>"><i class="fas fa-trophy"></i> <?= __("Worked All Europe (WAE)"); ?></a></li>
-										<div class="dropdown-divider"></div>
+										<li><hr class="dropdown-divider"></li>
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/wac'); ?>"><i class="fas fa-trophy"></i> <?= __("Worked All Continents (WAC)"); ?></a></li>
-										<div class="dropdown-divider"></div>
+										<li><hr class="dropdown-divider"></li>
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/wpx'); ?>"><i class="fas fa-trophy"></i> <?= __("Worked All Prefixes (WPX)"); ?></a></li>
-										<div class="dropdown-divider"></div>
+										<li><hr class="dropdown-divider"></li>
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/wwff'); ?>"><i class="fas fa-trophy"></i> <?= __("WWFF"); ?></a></li>
 									</ul>
 								</li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item dropdown-toggle dropdown-toggle-submenu" data-bs-toggle="dropdown" href="#"><i class="fas fa-satellite"></i> <?= __("Satellite"); ?></a>
 									<ul class="submenu dropdown-menu">
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/seven3on73'); ?>"><i class="fas fa-trophy"></i> <?= __("73 on 73"); ?></a></li>
 									<li><a class="dropdown-item" href="<?php echo site_url('awards/amsat_rover'); ?>"><i class="fas fa-trophy"></i> <?= __("AMSAT Rover"); ?></a></li>
 									</ul>
 								</li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item dropdown-toggle dropdown-toggle-submenu" data-bs-toggle="dropdown" href="#"><i class="fas fa-trophy"></i> xOTA</a>
 									<ul class="submenu dropdown-menu">
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/sota'); ?>"><i class="fas fa-trophy"></i> <?= __("SOTA"); ?></a></li>
-										<div class="dropdown-divider"></div>
+										<li><hr class="dropdown-divider"></li>
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/iota'); ?>"><i class="fas fa-trophy"></i> <?= __("IOTA"); ?></a></li>
-										<div class="dropdown-divider"></div>
+										<li><hr class="dropdown-divider"></li>
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/pota'); ?>"><i class="fas fa-trophy"></i> <?= __("POTA"); ?></a></li>
 									</ul>
 								</li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item dropdown-toggle dropdown-toggle-submenu" data-bs-toggle="dropdown" href="#">🇨🇦 <?= __("Canada"); ?></a>
 									<ul class="submenu dropdown-menu">
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/rac'); ?>"><i class="fas fa-trophy"></i> <?= __("RAC"); ?></a></li>
 									</ul>
 								</li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item dropdown-toggle dropdown-toggle-submenu" data-bs-toggle="dropdown" href="#">🇨🇳 <?= __("China"); ?></a>
 									<ul class="submenu dropdown-menu">
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/wapc'); ?>"><i class="fas fa-trophy"></i> <?= __("WAPC"); ?></a></li>
 									</ul>
 								</li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item dropdown-toggle dropdown-toggle-submenu" data-bs-toggle="dropdown" href="#">🇩🇪 <?= __("Germany"); ?></a>
 									<ul class="submenu dropdown-menu">
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/dok'); ?>"><i class="fas fa-trophy"></i> <?= __("DOK"); ?></a></li>
-										<div class="dropdown-divider"></div>
+										<li><hr class="dropdown-divider"></li>
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/gridmaster/dl'); ?>"><i class="fas fa-trophy"></i> <?= __("DL Gridmaster"); ?></a></li>
 									</ul>
 								</li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item dropdown-toggle dropdown-toggle-submenu" data-bs-toggle="dropdown" href="#">🇬🇧 <?= __("Great Britain"); ?></a>
 									<ul class="submenu dropdown-menu">
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/wab'); ?>"><i class="fas fa-trophy"></i> <?= __("WAB"); ?></a></li>
 									</ul>
 								</li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item dropdown-toggle dropdown-toggle-submenu" data-bs-toggle="dropdown" href="#">🇮🇹 <?= __("Italy"); ?></a>
 									<ul class="submenu dropdown-menu">
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/waip'); ?>"><i class="fas fa-trophy"></i> <?= __("WAIP"); ?></a></li>
 									</ul>
 								</li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item dropdown-toggle dropdown-toggle-submenu" data-bs-toggle="dropdown" href="#">🇯🇵 <?= __("Japan"); ?></a>
 									<ul class="submenu dropdown-menu">
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/waja'); ?>"><i class="fas fa-trophy"></i> <?= __("WAJA"); ?></a></li>
-										<div class="dropdown-divider"></div>
+										<li><hr class="dropdown-divider"></li>
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/jcc'); ?>"><i class="fas fa-trophy"></i> <?= __("JCC"); ?></a></li>
-										<div class="dropdown-divider"></div>
+										<li><hr class="dropdown-divider"></li>
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/gridmaster/ja'); ?>"><i class="fas fa-trophy"></i> <?= __("JA Gridmaster"); ?></a></li>
 									</ul>
 								</li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item dropdown-toggle dropdown-toggle-submenu" data-bs-toggle="dropdown" href="#">🇱🇺 <?= __("Luxemburg"); ?></a>
 									<ul class="submenu dropdown-menu">
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/gridmaster/lx'); ?>"><i class="fas fa-trophy"></i> <?= __("LX Gridmaster"); ?></a></li>
 									</ul>
 								</li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item dropdown-toggle dropdown-toggle-submenu" data-bs-toggle="dropdown" href="#">🇵🇱 <?= __("Poland"); ?></a>
 									<ul class="submenu dropdown-menu">
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/pl_polska'); ?>"><i class="fas fa-trophy"></i> <?= __("\"Polska\" Award"); ?></a></li>
 									</ul>
 								</li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item dropdown-toggle dropdown-toggle-submenu" data-bs-toggle="dropdown" href="#">🇨🇭 <?= __("Switzerland"); ?></a>
 									<ul class="submenu dropdown-menu">
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/helvetia'); ?>"><i class="fas fa-trophy"></i> H26</a></li>
 									</ul>
 								</li>
-							    <div class="dropdown-divider"></div>
+							    <li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item dropdown-toggle dropdown-toggle-submenu" data-bs-toggle="dropdown" href="#">🇳🇱️ <?= __("The Netherlands"); ?></a>
 									<ul class="submenu dropdown-menu">
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/wap'); ?>"><i class="fas fa-trophy"></i> <?= __("WAP Worked All Provinces"); ?></a></li>
 									</ul>
 								</li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item dropdown-toggle dropdown-toggle-submenu" data-bs-toggle="dropdown" href="#">🇺🇸 <?= __("USA"); ?></a>
 									<ul class="submenu dropdown-menu">
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/counties'); ?>"><i class="fas fa-trophy"></i> <?= __("US Counties"); ?></a></li>
-										<div class="dropdown-divider"></div>
+										<li><hr class="dropdown-divider"></li>
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/was'); ?>"><i class="fas fa-trophy"></i> <?= __("WAS"); ?></a></li>
-										<div class="dropdown-divider"></div>
+										<li><hr class="dropdown-divider"></li>
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/gridmaster/us'); ?>"><i class="fas fa-trophy"></i> <?= __("US Gridmaster"); ?></a></li>
-										<div class="dropdown-divider"></div>
+										<li><hr class="dropdown-divider"></li>
 										<li><a class="dropdown-item" href="<?php echo site_url('awards/ffma'); ?>"><i class="fas fa-trophy"></i> <?= __("Fred Fish Memorial Award"); ?></a></li>
 									</ul>
 								</li>
@@ -311,24 +312,24 @@
 							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><?= __("Tools"); ?></a>
 							<ul class="dropdown-menu header-dropdown">
 								<li><a class="dropdown-item" href="<?php echo site_url('bandmap/list'); ?>" title="DX Cluster"><i class="fa fa-tower-broadcast"></i> <?= __("DX Cluster"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('dxcalendar'); ?>" title="DX Calendar"><i class="fas fa-calendar"></i> <?= __("DX Calendar"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('contestcalendar'); ?>" title="Contest Calendar"><i class="fas fa-calendar"></i> <?= __("Contest Calendar"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('hamsat'); ?>" title="Hams.at"><i class="fas fa-list"></i> Hams.at</a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('sattimers'); ?>" title="SAT Timers"><i class="fas fa-satellite"></i> <?= __("SAT Timers"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('satellite/flightpath'); ?>" title="Show Satellite Flight Path"><i class="fas fa-satellite"></i> <?= __("Satellite Flightpath"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('satellite/pass'); ?>" title="Search for satellite passes"><i class="fas fa-satellite"></i> <?= __("Satellite Pass"); ?></a></li>
 							</ul>
 						</li>
 					<?php } ?>
 					<?php if (($this->config->item('use_auth')) && ($this->session->userdata('user_type') == 99)) { ?> <!-- ADMIN -->
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" title="<?= __("Admin"); ?>"><i class="fas fa-users-cog"></i></a>
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" title="<?= __("Admin"); ?>" aria-label="<?= __("Admin"); ?>" aria-haspopup="true"><i class="fas fa-users-cog" aria-hidden="true"></i></a>
 
 							<div class="dropdown-menu header-dropdown">
 								<a class="dropdown-item" href="<?php echo site_url('user'); ?>" title="Manage user accounts"><i class="fas fa-user"></i> <?= __("User Accounts"); ?></a>
@@ -398,15 +399,15 @@
 							<div class="input-group">
 								<input class="form-control border" id="nav-bar-search-input" type="text" name="callsign" placeholder="<?= __("Add/Search Callsign"); ?>" aria-label="Quicklog" onkeypress="handleKeyPress(event)">
 
-								<button title="<?= __("Log"); ?>" class="btn btn-outline-success border" type="button" onclick="logQuicklog()"><i class="fas fa-plus"></i></button>
-								<button title="<?= __("Search"); ?>" class="btn btn-outline-success border" type="button" onclick="submitForm('search')"><i class="fas fa-search"></i></button>
+							<button title="<?= __("Log"); ?>" aria-label="<?= __("Log"); ?>" class="btn btn-outline-success border" type="button" onclick="logQuicklog()"><i class="fas fa-plus" aria-hidden="true"></i></button>
+							<button title="<?= __("Search"); ?>" aria-label="<?= __("Search"); ?>" class="btn btn-outline-success border" type="button" onclick="submitForm('search')"><i class="fas fa-search" aria-hidden="true"></i></button>
 							</div>
 						</form>
 					<?php } else { ?>
 						<form id="searchbar-form" method="post" class="d-flex align-items-center me-2" action="<?php echo site_url('search'); ?>">
 							<div class="input-group">
 								<input class="form-control border" id="nav-bar-search-input" type="search" name="callsign" placeholder="<?= __("Search Callsign"); ?>" aria-label="Search">
-								<button title="<?= __("Search"); ?>" class="btn btn-outline-success border" type="submit"><i class="fas fa-search"></i></button>
+								<button title="<?= __("Search"); ?>" aria-label="<?= __("Search"); ?>" class="btn btn-outline-success border" type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
 							</div>
 						</form>
 					<?php } ?>
@@ -423,7 +424,44 @@
 						</form>
 					<?php } ?>
 
-					<?php if (($this->config->item('use_auth')) && ($this->session->userdata('user_type') >= 2)) { ?>
+					<?php $quick_theme_switcher = ($this->user_options_model->get_options('header_menu', array('option_name' => 'quick_theme_switcher'))->row()->option_value ?? 'true') === 'true' ? 'true' : 'false';
+
+					if (($this->config->item('use_auth')) && ($this->session->userdata('user_type') >= 2)) {
+
+						if ($quick_theme_switcher === 'true') {
+
+							// Quick theme switcher — list every installed theme so the user can
+							// change skin straight from the header without opening their settings.
+							$qts         = $this->user_model->getUserThemes();
+							$qts_current = $qts['current'];
+							$qts_themes  = $qts['themes'];
+							?>
+							<!-- Quick Theme Switcher -->
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" title="<?= __("Themes"); ?>" aria-label="<?= __("Themes"); ?>" aria-haspopup="true"><i class="fas fa-palette" aria-hidden="true"></i></a>
+								<ul class="dropdown-menu dropdown-menu-right header-dropdown">
+									<li><span class="dropdown-item-text fw-bold"><?= __("Themes"); ?></span></li>
+									<li><hr class="dropdown-divider"></li>
+									<?php foreach ($qts_themes as $qts_t) { ?>
+										<li>
+											<button type="button" class="dropdown-item d-flex justify-content-between align-items-center" onclick="quick_switch_theme('<?php echo xss_clean($qts_t->foldername); ?>')">
+												<span>
+													<?php if ($qts_t->foldername == $qts_current) { ?>
+														<i class="fas fa-check text-success me-2"></i>
+													<?php } else { ?>
+														<i class="far fa-circle me-2"></i>
+													<?php } ?>
+													<?php echo htmlspecialchars($qts_t->name, ENT_QUOTES, 'UTF-8'); ?>
+												</span>
+												<?php if (!empty($qts_t->theme_mode)) { ?>
+													<small class="text-muted ms-3 text-capitalize"><?php echo $qts_t->theme_mode; ?></small>
+												<?php } ?>
+											</button>
+										</li>
+									<?php } ?>
+								</ul>
+							</li>
+						<?php } ?>
 
 						<!-- Logged in As -->
 						<li class="nav-item dropdown">
@@ -442,21 +480,18 @@
 							<ul class="dropdown-menu dropdown-menu-right header-dropdown">
 
 								<?php if (clubaccess_check(9)) { ?> <!-- Club Access Check -->
-
 									<li><a class="dropdown-item" href="<?php echo site_url('user/edit') . "/" . $this->session->userdata('user_id'); ?>" title="Account"><i class="fas fa-user"></i> <?= __("Account"); ?></a></li>
 								<?php
 								$quickswitch_enabled = ($this->user_options_model->get_options('header_menu', array('option_name' => 'locations_quickswitch'))->row()->option_value ?? 'false');
-								if ($quickswitch_enabled != 'true') {
 								?>
-									<li><a class="dropdown-item" href="<?php echo site_url('stationsetup'); ?>" title="Manage station setup"><i class="fas fa-home"></i> <?= __("Station Setup"); ?></a></li>
-								<?php } ?>
+								<li><a class="dropdown-item" href="<?php echo site_url('stationsetup'); ?>" title="Manage station setup"><i class="fas fa-home"></i> <?= __("Station Setup"); ?></a></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('band'); ?>" title="Manage Bands"><i class="fas fa-cog"></i> <?= __("Bands"); ?></a></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('band/edges'); ?>" title="Manage Band Edgeds"><i class="fas fa-cog"></i> <?= __("Band Edges"); ?></a></li>
 								<li><a class="dropdown-item" href="<?php echo site_url('usermode'); ?>" title="Manage Modes"><i class="fas fa-cog"></i> <?= __("Modes"); ?></a></li>
 
 								<?php if ($this->config->item('special_callsign') && $this->session->userdata('clubstation') == 0) { ?>
 									<?php if (!empty($this->session->userdata('available_clubstations'))) { ?>
-										<div class="dropdown-divider"></div>
+										<li><hr class="dropdown-divider"></li>
 										<li><a class="dropdown-item disabled"><?= __("Switch to Clubstation:"); ?></a></li>
 										<?php foreach ($this->session->userdata('available_clubstations') as $clubstation) { ?>
 											<li>
@@ -465,7 +500,7 @@
 														<i class="fas fa-exchange-alt"></i> <?php echo $clubstation->user_callsign; ?>
 													</button>
 													<?php if ($clubstation->p_level >= 9 || $this->session->userdata('user_type') == 99) { ?>
-														<a class="dropdown-item text-end" style="flex: 0 0 50px;" title="<?= sprintf(_pgettext("Managing a Club Callsign", "Manage %s"), $clubstation->user_callsign); ?>" href="<?php echo site_url('club/permissions/' . $clubstation->user_id); ?>">
+														<a class="dropdown-item text-end" style="flex: 0 0 50px;" title="<?= sprintf(_pgettext("Managing a Club Callsign", "Manage %s"), $clubstation->user_callsign); ?>" aria-label="<?= sprintf(_pgettext("Managing a Club Callsign", "Manage %s"), $clubstation->user_callsign); ?>" href="<?php echo site_url('club/permissions/' . $clubstation->user_id); ?>">
 															<i class="fas fa-cogs"></i>
 														</a>
 													<?php } ?>
@@ -473,12 +508,12 @@
 											</li>
 										<?php } ?>
 									<?php } else if ($this->session->userdata('user_type') === '99') { ?>
-										<div class="dropdown-divider"></div>
+										<li><hr class="dropdown-divider"></li>
 										<li><a class="dropdown-item disabled"><?= __("No Clubstations available"); ?></a></li>
 									<?php } ?>
 								<?php } ?>
 
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 
 								<?php } if ((clubaccess_check(3) || clubaccess_check(3)) && !(clubaccess_check(9))) { ?> <!-- Club Access Check -->
 								<li><a class="dropdown-item" href="<?php echo site_url('stationsetup/list_locations'); ?>" title="Manage station setup"><i class="fas fa-home"></i> <?= __("Station Setup"); ?></a></li>
@@ -500,7 +535,7 @@
 									</ul>
 								</li>
 
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 
 								<?php
 								$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
@@ -525,7 +560,7 @@
 										<i class="fas fa-id-card"></i> <?= __("QSL Postcard Designer"); ?>
 									</a>
 								</li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item dropdown-toggle dropdown-toggle-submenu" data-bs-toggle="dropdown"><i class="fas fa-sync"></i> <?= __("Third-Party Services"); ?></a>
 									<ul class="submenu submenu-left dropdown-menu">
 										<li><a class="dropdown-item" href="<?php echo site_url('lotw'); ?>" title="Synchronise with Logbook of the World (LoTW)"><i class="fas fa-sync"></i> <?= __("Logbook of the World"); ?></a></li>
@@ -540,7 +575,7 @@
 										<?php } ?>
 									</ul>
 								</li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 
 								<?php } ?> <!-- End of Clubaccess check -->
 
@@ -548,7 +583,7 @@
 								<li><a class="dropdown-item" href="<?php echo site_url('radio'); ?>" title="Interface with one or more radios"><i class="fas fa-broadcast-tower"></i> <?= __("Hardware Interfaces"); ?></a></li>
 
 								<?php if (($this->config->item('internal_tools') ?? false) && ($this->session->userdata('user_type') == 99)) { ?>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item dropdown-toggle dropdown-toggle-submenu" data-bs-toggle="dropdown"><i class="fas fa-wrench"></i> <?= __("Internal tools"); ?></a>
 									<ul class="submenu submenu-left dropdown-menu">
 										<li><a class="dropdown-item" href="<?php echo site_url('calltester'); ?>" title="Callsign DXCC checker"><i class="fas fa-wrench"></i> <?= __("Callsign DXCC checker"); ?></a></li>
@@ -558,11 +593,11 @@
 								</li>
 								<?php } ?>
 
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="javascript:displayVersionDialog();" title="Version Information"><i class="fas fa-star"></i> <?= __("Version Info"); ?></a></li>
 								<li><a class="dropdown-item" target="_blank" href="https://docs.wavelog.org/" title="Help"><i class="fas fa-question"></i> <?= __("Help"); ?></a></li>
 								<li><a class="dropdown-item" target="_blank" href="https://github.com/wavelog/wavelog/discussions" title="Forum"><i class="far fa-comment-dots"></i> <?= __("Forum"); ?></a></li>
-								<div class="dropdown-divider"></div>
+								<li><hr class="dropdown-divider"></li>
 								<?php if ($this->session->userdata('impersonate') == 1) { ?>
 									<li>
 										<button class="dropdown-item" style="flex: 1;" title="<?= sprintf(__("Stop impersonate and switch back to %s"), $this->session->userdata('cd_src_call') ?? ''); ?>" onclick="stopImpersonate_modal()">
@@ -579,7 +614,7 @@
 						<?php
 						if (($quickswitch_enabled ?? '') == 'true') { ?>
 							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><i class="fas fa-map-marker-alt"></i> | <i class="fas fa-book"></i></a>
+								<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" aria-label="<?= __("Station locations and logbooks"); ?>" aria-haspopup="true"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> | <i class="fas fa-book" aria-hidden="true"></i></a>
 								<ul class="dropdown-menu dropdown-menu-right header-dropdown">
 									<li><a class="dropdown-item disabled"><?= __("Select a Location"); ?>:</a></li>
 									<?php
@@ -626,9 +661,9 @@
 											<?php }
 										}
 									} ?>
-									<div class="dropdown-divider"></div>
+									<li><hr class="dropdown-divider"></li>
 									<li><a class="dropdown-item quickswitcher disabled"><?= __("Active Logbook"); ?>:<span class="badge text-bg-info ms-1"><?php echo $this->logbooks_model->find_name($this->session->userdata('active_station_logbook')); ?></span></a></li>
-									<div class="dropdown-divider"></div>
+									<li><hr class="dropdown-divider"></li>
 									<li><a class="dropdown-item" href="<?php echo site_url('stationsetup'); ?>" title="<?= __("You miss station-locations here? Go to stationsetup and fav them");?>" ><?= __("Station Setup"); ?>...<i class="fa fa-question-circle" title="<?= __("You miss station-locations here? Go to stationsetup and fav them"); ?>"></i></a></li>
 								</ul>
 							</li>

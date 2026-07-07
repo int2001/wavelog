@@ -24,6 +24,37 @@ class User_Model extends CI_Model {
 		return $r;
 	}
 
+	// GET — returns the installed themes plus the one currently active for the user
+	public function getUserThemes() {
+		$this->load->is_loaded('cache') ?: $this->load->driver('cache', [
+			'adapter' => $this->config->item('cache_adapter') ?? 'file',
+			'backup' => $this->config->item('cache_backup') ?? 'file',
+			'key_prefix' => $this->config->item('cache_key_prefix') ?? ''
+		]);
+
+		$cache_key = 'user_themes';
+
+		// Cache check - early return
+		if ($cached = $this->cache->get($cache_key)) {
+			$themes = $cached;
+		} else {
+			// Load the Themes_model if not already loaded
+			if (!isset($this->Themes_model)) {
+				$this->load->model('Themes_model');
+			}
+
+			$themes = $this->Themes_model->getThemes();
+
+			// Cache the themes for 1 year
+			$this->cache->save($cache_key, $themes, 60 * 60 * 24 * 7 * 52);
+		}
+
+		return array(
+			'current' => $this->optionslib->get_theme(),
+			'themes'  => $themes
+		);
+	}
+
 	// FUNCTION: object get_by_id($id)
 	// Retrieve a user by user ID
 	function get_by_id($id) {
@@ -299,12 +330,7 @@ class User_Model extends CI_Model {
 			$this->db->query("insert into bandxuser (bandid, userid) select bands.id, ? from bands;", [$insert_id]);
 			$this->db->query("insert into paper_types (user_id,paper_name,metric,width,orientation,height) SELECT ?, paper_name, metric, width, orientation,height FROM paper_types where user_id = 0;", [$insert_id]);
 
-			// Default user_options rows — [option_type, option_name, option_key, option_value]
 			$user_options = [
-				['map_custom', 'icon',                    'qso',                           '{"icon":"fas fa-dot-circle","color":"#ff0000"}'],
-				['map_custom', 'icon',                    'qsoconfirm',                    '{"icon":"fas fa-dot-circle","color":"#00ff00"}'],
-				['map_custom', 'icon',                    'station',                       '{"icon":"fas fa-broadcast-tower","color":"#0000ff"}'],
-				['map_custom', 'gridsquare',              'show',                          '0'],
 				['hamsat',     'hamsat_key',              'api',                           $user_hamsat_key],
 				['hamsat',     'hamsat_key',              'workable',                      $user_hamsat_workable_only],
 				['qso_tab',    'iota',                    'show',                          (($user_iota_to_qso_tab    ?? 'off') == "on" ? 1 : 0)],
@@ -426,6 +452,7 @@ class User_Model extends CI_Model {
 				$this->session->set_userdata('user_dashboard_solar',xss_clean($fields['user_dashboard_solar'] ?? 'N'));
 				$this->session->set_userdata('user_dashboard_show_dxpeditions',xss_clean($fields['user_dashboard_show_dxpeditions'] ?? '1'));
 				$this->session->set_userdata('user_dashboard_show_contests',xss_clean($fields['user_dashboard_show_contests'] ?? '1'));
+				$this->session->set_userdata('user_dashboard_show_kpi_stats',xss_clean($fields['user_dashboard_show_kpi_stats'] ?? '1'));
 				$this->session->set_userdata('user_dxwaterfall_enable',xss_clean($fields['user_dxwaterfall_enable'] ?? 'N'));
 				$this->session->set_userdata('user_stations_active_log_only',xss_clean($fields['user_stations_active_log_only'] ?? '0'));
 
@@ -612,6 +639,7 @@ class User_Model extends CI_Model {
 			'user_dashboard_solar' 			=> ((($sess['user_dashboard_solar'] ?? 'N') == 'Y') ? ($sess['user_dashboard_solar'] ?? 'N') : ($user_options['dashboard']['show_dashboard_solar']['boolean'] ?? 'N')),
 			'user_dashboard_show_dxpeditions' => ((($sess['user_dashboard_show_dxpeditions'] ?? '0') == '1') ? ($sess['user_dashboard_show_dxpeditions'] ?? '0') : ($user_options['dashboard']['show_dxpeditions']['boolean'] ?? '0')),
 			'user_dashboard_show_contests' 	=> ((($sess['user_dashboard_show_contests'] ?? '0') == '1') ? ($sess['user_dashboard_show_contests'] ?? '0') : ($user_options['dashboard']['show_contests']['boolean'] ?? '0')),
+			'user_dashboard_show_kpi_stats'	=> ((($sess['user_dashboard_show_kpi_stats'] ?? '1') == '1') ? ($sess['user_dashboard_show_kpi_stats'] ?? '1') : ($user_options['dashboard']['show_kpi_stats']['boolean'] ?? '1')),
 			'user_qso_db_search_priority' 	=> ((($sess['user_qso_db_search_priority'] ?? 'Y') == 'Y') ? ($sess['user_qso_db_search_priority'] ?? 'Y') : ($user_options['qso_db_search_priority']['enable']['boolean'] ?? 'Y')),
 			'user_dxwaterfall_enable' 		=> ((($sess['user_dxwaterfall_enable'] ?? 'N') == 'Y') ? ($sess['user_dxwaterfall_enable'] ?? 'N') : ($user_options['dxwaterfall']['enable']['boolean'] ?? 'N')),
 			'user_date_format' 				=> $u->user_date_format,
@@ -846,6 +874,15 @@ class User_Model extends CI_Model {
 
 	// FUNCTION: bool authorize($level)
 	// Checks a user's level of access against the given $level
+	// FUNCTION: bool set_user_stylesheet($user_id, $foldername)
+	// Quickly switch the active theme (stylesheet foldername) for a single user.
+	// Used by the header theme switcher so users can change skin without opening
+	// their profile settings. Returns TRUE on success.
+	function set_user_stylesheet($user_id, $foldername) {
+		$this->db->where('user_id', xss_clean($user_id));
+		return $this->db->update('users', array('user_stylesheet' => xss_clean($foldername)));
+	}
+
 	function authorize($level) {
 		$u = $this->get_by_id($this->session->userdata('user_id'));
 		$l = $this->config->item('auth_mode');

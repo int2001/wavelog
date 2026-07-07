@@ -3,7 +3,6 @@
 	class Cat extends CI_Model {
 
 		function update($result, $user_id, $operator) {
-			$this->load->model('User_model');
 			$timestamp = gmdate("Y-m-d H:i:s");
 
 			if (isset($result['prop_mode'])) {
@@ -73,7 +72,7 @@
 			}
 
 			if (($this->config->item('mqtt_server') ?? '') != '') {
-				$h_user=$this->User_model->get_by_id($user_id);
+				$h_user=$this->user_model->get_by_id($user_id);
 				$this->load->library('Mh');
 				$eventdata=$data;
 				$eventdata['user_name']=$h_user->row()->user_name;

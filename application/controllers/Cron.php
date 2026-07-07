@@ -21,7 +21,6 @@ class cron extends CI_Controller {
 
 	public function index() {
 
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(99)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -179,7 +178,6 @@ class cron extends CI_Controller {
 	}
 
 	public function editDialog() {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(99)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -193,7 +191,6 @@ class cron extends CI_Controller {
 	}
 
 	public function edit() {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(99)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -227,7 +224,6 @@ class cron extends CI_Controller {
 	}
 
 	public function toogleEnableCronSwitch() {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(99)) {
 			echo json_encode(['success' => false, 'messagecategory' => 'error', 'message' => 'Not allowed']);
 			return;
@@ -247,7 +243,6 @@ class cron extends CI_Controller {
 	}
 
 	public function fetchCrons() {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(99)) {
 			echo json_encode(['success' => false, 'messagecategory' => 'error', 'message' => 'Not allowed']);
 			return;

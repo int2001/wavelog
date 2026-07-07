@@ -43,7 +43,7 @@
 
     <title><?php if(isset($page_title)) { echo $page_title; } ?> - Wavelog</title>
   </head>
-  <body>
+  <body class="<?= map_style_class(); ?>">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light main-nav">
 <div class="container">

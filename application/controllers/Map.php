@@ -7,7 +7,6 @@ class Map extends CI_Controller {
 	{
 		parent::__construct();
 
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -22,7 +21,6 @@ class Map extends CI_Controller {
 	 * QSO Map with country selection and OpenStreetMap
 	 */
 	public function qso_map() {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(99)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');

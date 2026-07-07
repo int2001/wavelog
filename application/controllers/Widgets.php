@@ -83,7 +83,6 @@ class Widgets extends CI_Controller {
 		$this->load->model('oqrs_model');
 		$this->load->model('publicsearch');
 		$this->load->model('stationsetup_model');
-		$this->load->model('user_model');
 		
 		$data['slug'] = $this->security->xss_clean($slug);
 
@@ -417,7 +416,6 @@ class Widgets extends CI_Controller {
 	 * @return object
 	 */
 	private function get_user_by_slug($slug) {
-		$this->load->model('user_model');
 		$user_result = $this->user_model->get_by_slug($slug);
 		if ($user_result->num_rows() == 0) {
 			throw new \Exception(__("User not found by slug"));

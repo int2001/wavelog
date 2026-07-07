@@ -1,4 +1,4 @@
-<div class="container qso_panel">
+<div class="container qso_panel" id="main-content">
 <?php
 // Get Date format
 if($this->session->userdata('user_date_format')) {
@@ -116,9 +116,9 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
           </li>
 
   <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" id="fav_item" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-star"></i></a>
+    <a class="nav-link dropdown-toggle" id="fav_item" href="#" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" aria-label="<?= __("Favourites"); ?>"><i class="fa fa-star" aria-hidden="true"></i></a>
     <div class="dropdown-menu">
-      <a class="dropdown-item" href="#" id="fav_add"><?= __("Add Band/Mode to Favs"); ?></a>
+      <button type="button" class="dropdown-item" id="fav_add"><?= __("Add to Favs"); ?></button>
       <div class="dropdown-divider"></div>
       <div id="fav_menu"></div>
     </div>
@@ -162,9 +162,9 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
                   <div class="input-group">
                     <input type="text" class="form-control form-control-sm input_start_time" name="start_time" id="start_time" tabindex="5" value="<?php echo $manual_mode == 0 ? date('H:i:s') : date('H:i'); ?>" size="7" <?php echo ($manual_mode == 0 ? "disabled" : "");  ?> required pattern="[0-2][0-9]:[0-5][0-9]">
                     <?php if ($manual_mode != 1) { ?>
-                      <span class="input-group-text btn-included-on-field"><i id="reset_time" data-bs-toggle="tooltip" title="Reset start time" class="fas fa-stopwatch"></i></span>
+                      <button type="button" class="btn btn-outline-secondary btn-included-on-field" id="reset_time" data-bs-toggle="tooltip" title="<?= __("Reset start time"); ?>" aria-label="<?= __("Reset start time"); ?>"><i class="fas fa-stopwatch" aria-hidden="true"></i></button>
                     <?php } else { ?>
-                      <span class="input-group-text btn-included-on-field"><i id="reset_start_time" data-bs-toggle="tooltip" title="Reset start time" class="fas fa-stopwatch"></i></span>
+                      <button type="button" class="btn btn-outline-secondary btn-included-on-field" id="reset_start_time" data-bs-toggle="tooltip" title="<?= __("Reset start time"); ?>" aria-label="<?= __("Reset start time"); ?>"><i class="fas fa-stopwatch" aria-hidden="true"></i></button>
                     <?php } ?>
                   </div>
                 </div>
@@ -174,7 +174,7 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
                   <div class="input-group">
                     <input type="text" class="form-control form-control-sm input_end_time" name="end_time" id="end_time" tabindex="6" value="<?php echo $manual_mode == 0 ? date('H:i:s') : date('H:i'); ?>" size="7" <?php echo ($manual_mode == 0 ? "disabled" : "");  ?> required pattern="[0-2][0-9]:[0-5][0-9]">
                     <?php if ($manual_mode == 1) { ?>
-                      <span class="input-group-text btn-included-on-field"><i id="reset_end_time" data-bs-toggle="tooltip" title="Reset end time" class="fas fa-stopwatch"></i></span>
+                      <button type="button" class="btn btn-outline-secondary btn-included-on-field" id="reset_end_time" data-bs-toggle="tooltip" title="<?= __("Reset end time"); ?>" aria-label="<?= __("Reset end time"); ?>"><i class="fas fa-stopwatch" aria-hidden="true"></i></button>
                     <?php } ?>
                   </div>
                 </div>
@@ -198,7 +198,7 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
                   <div class="input-group">
                     <input type="text" class="form-control form-control-sm input_start_time" name="start_time" id="start_time" tabindex="5" value="<?php echo $manual_mode == 0 ? date('H:i:s') : date('H:i'); ?>" size="7" <?php echo ($manual_mode == 0 ? "disabled" : "");  ?> required pattern="[0-2][0-9]:[0-5][0-9]">
                     <?php if ($manual_mode == 1) { ?>
-                      <span class="input-group-text btn-included-on-field"><i id="reset_start_time" data-bs-toggle="tooltip" title="Reset start time" class="fas fa-stopwatch"></i></span>
+                      <button type="button" class="btn btn-outline-secondary btn-included-on-field" id="reset_start_time" data-bs-toggle="tooltip" title="<?= __("Reset start time"); ?>" aria-label="<?= __("Reset start time"); ?>"><i class="fas fa-stopwatch" aria-hidden="true"></i></button>
                     <?php } ?>
                   </div>
                 </div>
@@ -213,16 +213,16 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
               <!-- Callsign Input -->
               <div class="row">
                 <div class="mb-3 col-md-12">
-                  <label for="callsign"><?= __("Callsign"); ?></label>&nbsp;<i id="check_cluster" data-bs-toggle="tooltip" title="<?= __("Search DXCluster for latest Spot"); ?>" class="fas fa-search"></i><i id="fetch_status" class="fas fa-spinner fa-spin ms-1" style="display: none;"></i></label>
+                  <label for="callsign"><?= __("Callsign"); ?></label>&nbsp;<button type="button" id="check_cluster" class="btn btn-link text-decoration-none p-0 align-baseline" data-bs-toggle="tooltip" title="<?= __("Search DXCluster for latest Spot"); ?>" aria-label="<?= __("Search DXCluster for latest Spot"); ?>"><i class="fas fa-search" aria-hidden="true"></i></button><i id="fetch_status" class="fas fa-spinner fa-spin ms-1" aria-hidden="true" style="display: none;"></i>
                   <div class="input-group">
                     <input tabindex="7" type="text" class="form-control uppercase" id="callsign" name="callsign" autocomplete="off" required>
                     <span id="qrz_info" class="input-group-text btn-included-on-field d-none py-0"></span>
                     <span id="hamqth_info" class="input-group-text btn-included-on-field d-none py-0"></span>
                   </div>
-                  <div style="min-height: 24px;">
+                  <div style="min-height: 24px;" aria-live="polite" aria-atomic="true">
                     <small id="callsign_info" class="badge text-bg-secondary"></small> <a id="lotw_link"><small id="lotw_info" class="badge text-bg-success"></small></a>
                   </div>
-                  <div id="ham_of_note_line" style="margin-top: 5px; display: none"></div>
+                  <div id="ham_of_note_line" style="margin-top: 5px; display: none" aria-live="polite"></div>
                 </div>
               </div>
 
@@ -261,7 +261,7 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
                   </select>
                 </div>
                 <div class="mb-3 col">
-                  <label for="frequency"><?= __("Frequency"); ?></label>
+                  <label for="freq_calculated"><?= __("Frequency"); ?></label>
                   <div class="input-group input-group-sm">
                     <input type="text" tabindex="3" class="form-control form-control-sm" id="freq_calculated" name="freq_calculated" value="0" />
                     <small class="input-group-text btn-included-on-field" id="qrg_unit">...</small>
@@ -378,7 +378,7 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
                   <label for="locator" class="col-sm-3 col-form-label"><?= __("Gridsquare"); ?></label>
                   <div class="col-sm-9">
                     <input tabindex="19" type="text" class="form-control form-control-sm uppercase" name="locator" id="locator" value="">
-                    <small id="locator_info" class="form-text text-muted" style="min-height: 20px; display: block;">&nbsp;</small>
+                    <small id="locator_info" class="form-text text-muted" style="min-height: 20px; display: block;" aria-live="polite">&nbsp;</small>
                 </div>
               </div>
 
@@ -737,8 +737,8 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
             </div>
 
            <div class="mb-3">
-            <label for="qslmsg"><?= __("QSL MSG"); ?><span class="qso_eqsl_qslmsg_update" title="<?= __("Get the default message for eQSL, for this station."); ?>"><i class="fas fa-redo-alt"></i></span></label>
-						<label class="position-absolute end-0 mb-2 me-3" for="qslmsg" id="charsLeft"> </label>
+            <label for="qslmsg"><?= __("QSL MSG"); ?> <button type="button" class="btn btn-link text-decoration-none p-0 align-baseline qso_eqsl_qslmsg_update" title="<?= __("Get the default message for eQSL, for this station."); ?>" aria-label="<?= __("Get the default message for eQSL, for this station."); ?>"><i class="fas fa-redo-alt" aria-hidden="true"></i></button></label>
+						<span class="position-absolute end-0 mb-2 me-3" id="charsLeft" aria-live="polite"> </span>
             <textarea  type="text" class="form-control" id="qslmsg" name="qslmsg" rows="5" maxlength="240"><?php echo $qslmsg; ?></textarea>
             <div class="small form-text text-muted"><?= __("Note: Gets exported to third-party services.") ?></div>
             <div id="qslmsg_hide" style="display:none;"><?php echo $qslmsg; ?></div>
@@ -754,9 +754,9 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
 
         <div class="btn-group" role="group">
               <button tabindex="22" type="button" class="btn btn-secondary" id="btn_reset"><?= __("Clear"); ?></button>
-        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"></button>
+        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" aria-label="<?= __("More options"); ?>"></button>
         <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                <li><a class="dropdown-item" href="#" id="btn_fullreset"><?= __("Reset to Default"); ?></a></li>
+                <li><button type="button" class="dropdown-item" id="btn_fullreset"><?= __("Reset to Default"); ?></button></li>
             </ul>
         </div>
         <button tabindex="21" type="submit" id="saveQso" name="saveQso" class="btn btn-primary"><i class="fas fa-save"></i> <?= __("Save QSO"); ?></button>
@@ -771,17 +771,17 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
 	</script>
 
 	<div class="card callsign-notes" id="callsign-notes" style="display: none;">
-        <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#callsign-notes-body" aria-expanded="false" aria-controls="callsign-notes-body" style="cursor: pointer;">
-          <h4 style="font-size: 16px; font-weight: bold;" class="card-title mb-0">
+        <button type="button" class="card-header d-flex justify-content-between align-items-center w-100 text-start" data-bs-toggle="collapse" data-bs-target="#callsign-notes-body" aria-expanded="false" aria-controls="callsign-notes-body" style="cursor: pointer;">
+          <span style="font-size: 16px; font-weight: bold;" class="card-title mb-0">
             <?= __("Callsign Notes"); ?>
             <span class="ms-1" data-bs-toggle="tooltip" title="<?= __("Store private information about your QSO partner. These notes are never shared or exported to external services.") ?>">
-              <i class="fa fa-question-circle"></i>
+              <i class="fa fa-question-circle" aria-hidden="true"></i>
             </span>
-          </h4>
-          <span>
+          </span>
+          <span aria-hidden="true">
             <i class="fas fa-up-down"></i>
           </span>
-        </div>
+        </button>
 		<div class="card-body collapse" id="callsign-notes-body">
 				<textarea id="callsign_note_content" class="form-control" rows="6"></textarea>
 				<input type="hidden" id="callsign-note-id" value="" />
@@ -903,14 +903,14 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
     <div class="card previous-qsos">
       <div class="card-header"><h4 class="card-title" id="timesWorked" style="font-size: 16px; font-weight: bold;"><?= __("Previous Contacts"); ?></h4></div>
 
-        <div id="partial_view" style="font-size: 0.95rem;"></div>
+        <div id="partial_view" style="font-size: 0.95rem;" aria-live="polite" aria-atomic="true"></div>
 
 		<?php
 		$result = $this->optionslib->get_option('disable_refresh_past_contacts');
 		if($result === null) { ?>
-			<div id="qso-last-table" hx-get="<?php echo site_url('/qso/component_past_contacts'); ?>" hx-trigger="load, qso_event, every 15s">
+			<div id="qso-last-table" hx-get="<?php echo site_url('/qso/component_past_contacts'); ?>" hx-trigger="load, qso_event, every 15s" aria-live="polite" aria-atomic="true">
 		<?php } else { ?>
-			<div id="qso-last-table" hx-get="<?php echo site_url('/qso/component_past_contacts'); ?>" hx-trigger="load, qso_event">
+			<div id="qso-last-table" hx-get="<?php echo site_url('/qso/component_past_contacts'); ?>" hx-trigger="load, qso_event" aria-live="polite" aria-atomic="true">
 		<?php } ?>
 
         </div>
@@ -922,6 +922,8 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
 </div>
 
 </div>
+
+<?php $this->load->view('qso/components/fav_modal'); ?>
 
 <script>
 	var station_callsign = "<?php echo $station_callsign; ?>";

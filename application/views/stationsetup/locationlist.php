@@ -1,5 +1,6 @@
 <div class="container-fluid pt-3 ps-4 pe-4">
 <h2><?= $page_title ?></h2>
+<?php if (in_array($cd_p_level, [3,6]) && $stations_active_log_only) { ?><p class="card-text"><span class="badge text-bg-info"><i class="fa-solid fa-info"></i></span> <?= __("Limited to station locations linked to active logbook") ?></p><?php } ?>
 
         <div class="table-responsive mt-3">
 			<table style="width:100%" class="table-sm table table-hover table-striped table-bordered table-condensed" id="qsoList">
@@ -40,7 +41,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($locations as $loc): 
+                    <?php foreach ($locations as $loc):
 				$qrzr=($loc->qrzrealtime ?? -1);
 				if ($qrzr == -1) {
 					$qrzr=__("No");
@@ -127,6 +128,7 @@
 						$(node).removeClass('dt-button').addClass('btn btn-primary');
 					},
 				},
+				<?php if (!($cd_p_level == 3) && !($cd_p_level == 6)) { // ClubOfficer (9) and normal User can export/import, while ClubMember (ADIF) (3,6) can only see. ?>
 				{
 					text: '<?= _pgettext("Station Locations", "Export All Locations") ?>',
 					className: 'mb-1 btn btn-sm btn-primary', // same Bootstrap style
@@ -137,7 +139,6 @@
 						$(node).removeClass('dt-button').addClass('btn btn-primary');
 					}
 				},
-				<?php if (!($cd_p_level == 3) && !($cd_p_level == 6)) { // ClubOfficer (9) and normal User can import, while ClubOfficer (ADIF) (3,6) can only see. ?>
 				{
 				text: '<?= _pgettext("Station Locations", "Import Locations") ?>',
 				className: 'mb-1 btn btn-sm btn-primary',

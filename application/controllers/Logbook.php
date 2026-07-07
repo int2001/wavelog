@@ -8,7 +8,6 @@ class Logbook extends CI_Controller {
 
 	function index() {
 		// Check if users logged in
-		$this->load->model('user_model');
 		if($this->user_model->validate_session() == 0) {
 			// user is not logged in
 			redirect('user/login');
@@ -66,7 +65,6 @@ class Logbook extends CI_Controller {
 	}
 
 	function jsonentity($adif) {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 
 		$return['dxcc'] = $this->getentity($adif);
@@ -75,7 +73,6 @@ class Logbook extends CI_Controller {
 	}
 
 	function json($tempcallsign, $tempband, $tempmode, $tempstation_id = null, $date = "", $count = 5) {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 		session_write_close();
 
@@ -238,7 +235,6 @@ class Logbook extends CI_Controller {
 	// Helper function to get user's lookup priority setting
 	// Returns 1 for database priority, 2 for external lookup priority (default)
 	function get_lookup_priority() {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 		$this->load->model('user_options_model');
 		$priority = $this->user_options_model->get_options('qso_db_search_priority', array('option_name'=>'enable', 'option_key'=>'boolean'))->row();
@@ -372,7 +368,6 @@ class Logbook extends CI_Controller {
 	*
 	*/
 	function jsonlookupgrid($gridsquare, $type, $band, $mode) {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 
 		session_write_close();
@@ -462,7 +457,6 @@ class Logbook extends CI_Controller {
 	}
 
 	function jsonlookupdxcc($country, $type, $band, $mode) {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 		session_write_close();
 
@@ -563,7 +557,6 @@ class Logbook extends CI_Controller {
 	}
 
 	function jsonlookupcallsign($callsign, $type, $band, $mode) {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 		session_write_close();
 
@@ -663,7 +656,6 @@ class Logbook extends CI_Controller {
 	}
 
 	function view($id) {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 
 		$this->load->library('DxccFlag');
@@ -704,7 +696,6 @@ class Logbook extends CI_Controller {
 	}
 
 	function partial($lookupcall, $callbook, $callsign, $dxcc, $lotw_days, $band = null, $count = 5) {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 
 		$this->load->model('logbooks_model');
@@ -1012,7 +1003,6 @@ class Logbook extends CI_Controller {
 	}
 
 	function search_result($id="", $id2="") {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 
 		$this->load->model('logbook_model');
@@ -1086,8 +1076,14 @@ class Logbook extends CI_Controller {
 	}
 
 	private function querydb($id) {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
+
+		$stationsactivelogonly_sql = '';
+		if (!empty($this->session->userdata('user_stations_active_log_only'))) {
+			$stationid_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
+			$station_id_list = "'" . implode("','", $stationid_array) . "'";
+			$stationsactivelogonly_sql = " AND `station_profile`.`station_id` IN (" . $station_id_list .") ";
+		}
 
 		$binding = array();
 		$sql = "SELECT dxcc_entities.adif, lotw_users.callsign, COL_BAND, COL_CALL, COL_CLUBLOG_QSO_DOWNLOAD_DATE, COL_DCL_QSLRDATE, COL_DCL_QSLSDATE, COL_DCL_QSL_SENT, COL_DCL_QSL_RCVD,
@@ -1110,6 +1106,7 @@ class Logbook extends CI_Controller {
 			LEFT OUTER JOIN satellite ON qsos.col_prop_mode='SAT' and qsos.COL_SAT_NAME = COALESCE(NULLIF(satellite.name, ''), NULLIF(satellite.displayname, ''))
 			WHERE ( qsos.COL_CALL LIKE ? ESCAPE '!' OR qsos.COL_GRIDSQUARE LIKE ? ESCAPE '!' OR qsos.COL_VUCC_GRIDS LIKE ? ESCAPE '!')
 			AND station_profile.user_id = ".$this->session->userdata('user_id')."
+			" . $stationsactivelogonly_sql . "
 			ORDER BY COL_TIME_ON DESC;";
 		$binding[] = '%'.$id.'%';
 		$binding[] = '%'.$id.'%';
@@ -1118,7 +1115,6 @@ class Logbook extends CI_Controller {
 	}
 
 	function search_lotw_unconfirmed($station_id) {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 
 		$clean_station_id = $this->security->xss_clean($station_id);
@@ -1129,16 +1125,23 @@ class Logbook extends CI_Controller {
 		}
 
 		$this->load->model('stations');
-		$logbooks_locations_array = $this->stations->all_of_user();
-
-		$station_ids = array();
-
-		if ($logbooks_locations_array->num_rows() > 0){
-			foreach ($logbooks_locations_array->result() as $row) {
-				array_push($station_ids, $row->station_id);
+		if (!empty($this->session->userdata('user_stations_active_log_only'))) {
+			$station_ids = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
+			if ($station_ids == array(-1)) {
+				return null;
 			}
 		} else {
-			return null;
+			$logbooks_locations_array = $this->stations->all_of_user();
+
+			$station_ids = array();
+
+			if ($logbooks_locations_array->num_rows() > 0){
+				foreach ($logbooks_locations_array->result() as $row) {
+					array_push($station_ids, $row->station_id);
+				}
+			} else {
+				return null;
+			}
 		}
 
 		$location_list = "'".implode("','",$station_ids)."'";
@@ -1163,7 +1166,6 @@ class Logbook extends CI_Controller {
 	}
 
 	function search_incorrect_cq_zones($station_id) {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 
 		$clean_station_id = $this->security->xss_clean($station_id);
@@ -1210,7 +1212,6 @@ class Logbook extends CI_Controller {
 	}
 
 	function search_incorrect_itu_zones($station_id) {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 
 		$clean_station_id = $this->security->xss_clean($station_id);
@@ -1260,7 +1261,6 @@ class Logbook extends CI_Controller {
 	 * Provide a dxcc search, returning results json encoded
 	 */
 	private function dxcheck($call = "", $date = "") {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 
 		if ($date == ''){
@@ -1273,7 +1273,6 @@ class Logbook extends CI_Controller {
 	}
 
 	private function getentity($adif) {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 		$this->load->model("logbook_model");
 
@@ -1284,7 +1283,6 @@ class Logbook extends CI_Controller {
 
 	/* return station bearing */
 	function searchbearing() {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 
 		$locator = xss_clean($this->input->post('grid'));
@@ -1329,7 +1327,6 @@ class Logbook extends CI_Controller {
 
 	/* return distance */
 	function searchdistance() {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 
 		$locator = xss_clean($this->input->post('grid'));
@@ -1367,7 +1364,6 @@ class Logbook extends CI_Controller {
 
 	/* return station bearing */
 	function bearing($locator, $unit = 'M', $station_id = null, $ant_path = null) {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 
 		if(!$this->load->is_loaded('Qra')) {
@@ -1402,7 +1398,6 @@ class Logbook extends CI_Controller {
 
 	/* return distance */
 	function distance($locator, $station_id = null, $ant_path = null) {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 
 		$distance = 0;
@@ -1436,7 +1431,6 @@ class Logbook extends CI_Controller {
 	}
 
 	function qralatlng($qra) {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 
 		if(!$this->load->is_loaded('Qra')) {
@@ -1447,7 +1441,6 @@ class Logbook extends CI_Controller {
 	}
 
 	function qralatlngjson() {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize($this->config->item('auth_mode'))) { return; }
 
 		$qra = xss_clean($this->input->post('qra'));

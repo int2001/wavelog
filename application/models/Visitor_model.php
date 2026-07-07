@@ -114,7 +114,6 @@ class Visitor_model extends CI_Model {
 	}
 
 	function get_user_default_confirmation($userid) {
-		$this->load->model('user_model');
 		return $this->user_model->get_by_id($userid)->row()->user_default_confirmation ?? '';
 	}
 }

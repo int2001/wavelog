@@ -1,17 +1,17 @@
 <?php if ($query && ($query->num_rows() > 0)) {  foreach ($query->result() as $row) { ?>
-<div class="container-fluid">
+<div class="container-fluid" id="main-content">
 
     <ul style="margin-bottom: 10px;" class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="table-tab" data-bs-toggle="tab" href="#qsodetails" role="tab" aria-controls="table" aria-selected="true"><?= __("QSO Details"); ?></a>
+            <a class="nav-link active" id="table-tab" data-bs-toggle="tab" href="#qsodetails" role="tab" aria-controls="qsodetails" aria-selected="true"><?= __("QSO Details"); ?></a>
         </li>
         <li class="nav-item">
-            <a id="station-tab" class="nav-link" data-bs-toggle="tab" href="#stationdetails" role="tab" aria-controls="table" aria-selected="true"><?= __("Station Location"); ?></a>
+            <a id="station-tab" class="nav-link" data-bs-toggle="tab" href="#stationdetails" role="tab" aria-controls="stationdetails" aria-selected="false"><?= __("Station Location"); ?></a>
         </li>
         <?php
         if ($row->COL_NOTES != null) {?>
         <li class="nav-item">
-            <a id="notes-tab" class="nav-link" data-bs-toggle="tab" href="#notesdetails" role="tab" aria-controls="table" aria-selected="true"><?= __("Notes"); ?></a>
+            <a id="notes-tab" class="nav-link" data-bs-toggle="tab" href="#notesdetails" role="tab" aria-controls="notesdetails" aria-selected="false"><?= __("Notes"); ?></a>
         </li>
         <?php }?>
         <?php
@@ -22,11 +22,11 @@
                 echo 'hidden ';
             }
                 echo 'class="qslcardtab nav-item">
-                <a class="nav-link" id="qsltab" data-bs-toggle="tab" href="#qslcard" role="tab" aria-controls="home" aria-selected="false">'. __("QSL Card") .'</a>
+                <a class="nav-link" id="qsltab" data-bs-toggle="tab" href="#qslcard" role="tab" aria-controls="qslcard" aria-selected="false">'. __("QSL Card") .'</a>
                 </li>';
             if (clubaccess_check(9)) {
                 echo '<li class="nav-item">
-                <a class="nav-link" id="qslmanagementtab" data-bs-toggle="tab" href="#qslupload" role="tab" aria-controls="home" aria-selected="false">'. __("QSL Management") .'</a>
+                <a class="nav-link" id="qslmanagementtab" data-bs-toggle="tab" href="#qslupload" role="tab" aria-controls="qslupload" aria-selected="false">'. __("QSL Management") .'</a>
                 </li>';
             }
         }
@@ -40,7 +40,7 @@
                 echo 'hidden ';
             }
                 echo 'class="eqslcardtab nav-item">
-                <a class="nav-link" id="eqsltab" data-bs-toggle="tab" href="#eqslcard" role="tab" aria-controls="home" aria-selected="false">'. __("eQSL Card") .'</a>
+                <a class="nav-link" id="eqsltab" data-bs-toggle="tab" href="#eqslcard" role="tab" aria-controls="eqslcard" aria-selected="false">'. __("eQSL Card") .'</a>
                 </li>';
         }
 
@@ -49,12 +49,12 @@
     </ul>
 
     <div class="tab-content" id="myTabContent">
-        <div class="tab-pane active" id="qsodetails" role="tabpanel" aria-labelledby="home-tab">
+        <div class="tab-pane active" id="qsodetails" role="tabpanel" aria-labelledby="table-tab">
 
         <div class="row">
             <div class="col-md">
 
-                <table width="100%">
+                <table width="100%" aria-label="<?= __("QSO Details"); ?>">
                     <tr>
                         <?php
 
@@ -69,7 +69,7 @@
 
                         ?>
 
-                        <td><?= __("Date/Time"); ?></td>
+                        <th scope="row"><?= __("Date/Time"); ?></th>
                         <?php if(($this->config->item('use_auth') && ($this->session->userdata('user_type') >= 2)) || $this->config->item('use_auth') === FALSE || ($this->config->item('show_time'))) { ?>
                         <td><?php $timestamp = strtotime($row->COL_TIME_ON); echo date($custom_date_format, $timestamp); $timestamp = strtotime($row->COL_TIME_ON); $time_on = date('H:i', $timestamp); echo " at ".$time_on; ?>
                         <?php $timestamp = strtotime($row->COL_TIME_OFF); $time_off = date('H:i', $timestamp); if ($time_on != $time_off) { echo " - ".$time_off; } ?>
@@ -80,7 +80,7 @@
                     </tr>
 
                     <tr>
-                        <td><?= __("Callsign"); ?></td>
+                        <th scope="row"><?= __("Callsign"); ?></th>
                         <td><b><?php echo str_replace("0","&Oslash;",strtoupper($row->COL_CALL)); ?></b> <a target="_blank" href="https://www.qrz.com/db/<?php echo strtoupper($row->COL_CALL); ?>"><img width="16" height="16" src="<?php echo base_url(); ?>images/icons/qrz.png" alt="Lookup <?php echo strtoupper($row->COL_CALL); ?> on QRZ.com"></a> <a target="_blank" href="https://www.hamqth.com/<?php echo strtoupper($row->COL_CALL); ?>"><img width="16" height="16" src="<?php echo base_url(); ?>images/icons/hamqth.png" alt="Lookup <?php echo strtoupper($row->COL_CALL); ?> on HamQTH"></a> <a target="_blank" href="https://www.eqsl.cc/Member.cfm?<?php echo strtoupper($row->COL_CALL); ?>"><img width="16" height="16" src="<?php echo base_url(); ?>images/icons/eqsl.png" alt="Lookup <?php echo strtoupper($row->COL_CALL); ?> on eQSL.cc"></a> <a target="_blank" href="https://clublog.org/logsearch.php?log=<?php echo strtoupper($row->COL_CALL); ?>&call=<?php echo strtoupper($row->station_callsign); ?>"><img width="16" height="16" src="<?php echo base_url(); ?>images/icons/clublog.png" alt="Clublog Log Search"></a>
                         <?php if (!empty($contacts_note_id) && $this->session->userdata('user_show_notes')==1) { ?>
                             <a href="<?php echo base_url(); ?>index.php/notes/view/<?php echo $contacts_note_id; ?>" target="_blank" title="<?= __("View note for this callsign"); ?>" style="margin-left:2px;vertical-align:middle;">
@@ -91,51 +91,51 @@
                     </tr>
 
                     <tr>
-                        <td><?= __("Band"); ?></td>
+                        <th scope="row"><?= __("Band"); ?></th>
                         <td><?php echo $row->COL_BAND; ?></td>
                     </tr>
 
                     <?php if($this->config->item('display_freq') == true) { ?>
                         <?php if($row->COL_FREQ != 0) { ?>
                         <tr>
-                            <td><?= __("Frequency"); ?></td>
+                            <th scope="row"><?= __("Frequency"); ?></th>
                             <td><?php echo $this->frequency->qrg_conversion($row->COL_FREQ); ?></td>
                         </tr>
                         <?php } ?>
                         <?php if($row->COL_FREQ_RX != 0) { ?>
                         <tr>
-                            <td><?= __("Frequency (RX)"); ?></td>
+                            <th scope="row"><?= __("Frequency (RX)"); ?></th>
                             <td><?php echo $this->frequency->qrg_conversion($row->COL_FREQ_RX); ?></td>
                         </tr>
                         <?php } ?>
                     <?php } ?>
 
                     <tr>
-                        <td><?= __("Mode"); ?></td>
+                        <th scope="row"><?= __("Mode"); ?></th>
                         <td><?php echo $row->COL_SUBMODE==null?$row->COL_MODE:$row->COL_SUBMODE; ?></td>
                     </tr>
 
                     <tr>
-                        <td><?= __("RST (S)"); ?></td>
+                        <th scope="row"><?= __("RST (S)"); ?></th>
                         <td><?php echo $row->COL_RST_SENT; ?> <?php if ($row->COL_STX) { ?>(<?php printf("%03d", $row->COL_STX);?>)<?php } ?> <?php if ($row->COL_STX_STRING) { ?>(<?php echo $row->COL_STX_STRING;?>)<?php } ?></td>
                     </tr>
 
                     <tr>
-                        <td><?= __("RST (R)"); ?></td>
+                        <th scope="row"><?= __("RST (R)"); ?></th>
                         <td><?php echo $row->COL_RST_RCVD; ?> <?php if ($row->COL_SRX) { ?>(<?php printf("%03d", $row->COL_SRX);?>)<?php } ?> <?php if ($row->COL_SRX_STRING) { ?>(<?php echo $row->COL_SRX_STRING;?>)<?php } ?></td>
                     </tr>
 
                     <?php if($row->COL_GRIDSQUARE != null) { ?>
                     <tr>
-                        <td>Gridsquare:</td>
-                        <td><?php echo $row->COL_GRIDSQUARE; ?> <a href="javascript:spawnQrbCalculator('<?php echo $row->station_gridsquare . '\',\'' . $row->COL_GRIDSQUARE; ?>')"><i class="fas fa-globe"></i></a></td>
+                        <th scope="row"><?= __("Gridsquare"); ?>:</th>
+                        <td><?php echo $row->COL_GRIDSQUARE; ?> <button type="button" class="btn btn-link text-decoration-none p-0 align-baseline" onclick="spawnQrbCalculator('<?php echo $row->station_gridsquare . '\',\'' . $row->COL_GRIDSQUARE; ?>')" aria-label="<?= __("Calculate distance/bearing"); ?>"><i class="fas fa-globe" aria-hidden="true"></i></button></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->COL_GRIDSQUARE != null && strlen($row->COL_GRIDSQUARE) >= 4) { ?>
                     <!-- Total Distance Between the Station Profile Gridsquare and Logged Square -->
                     <tr>
-                        <td><?= __("Total Distance"); //Total distance ?></td>
+                        <th scope="row"><?= __("Total Distance"); //Total distance ?></th>
                         <td>
                             <?php
                                 // Cacluate Distance if COL_DISTANCE is not set
@@ -179,7 +179,7 @@
 
                     <?php if($row->COL_VUCC_GRIDS != null) { ?>
                     <tr>
-                        <td>Gridsquare (Multi):</td>
+                        <th scope="row"><?= __("Gridsquare"); ?> (Multi):</th>
                         <td>
                         <?php
                            if (!str_contains($row->COL_VUCC_GRIDS, ',')) {
@@ -190,7 +190,7 @@
                               echo " <i class='fa fa-question-circle' aria-hidden='true' data-bs-toggle='tooltip' title='".__("A single gridsquare was entered into the VUCC gridsquares field which should contain two or four gridsquares instead of a single grid.")."'></i>";
                               echo "</span>";
                            }
-                           echo " <a href='javascript:spawnQrbCalculator('".$row->station_gridsquare."\',\'".$row->COL_VUCC_GRIDS.")'><i class='fas fa-globe'></i></a>";
+                           echo " <button type='button' class='btn btn-link text-decoration-none p-0 align-baseline' onclick='spawnQrbCalculator('".$row->station_gridsquare."\',\'".$row->COL_VUCC_GRIDS.")' aria-label='".__("Calculate distance/bearing")."'><i class='fas fa-globe' aria-hidden='true'></i></button>";
                         ?>
                         </td>
                             <?php
@@ -215,21 +215,21 @@
 
                     <?php if($row->COL_STATE != null) { ?>
                     <tr>
-                        <td><?php echo $primary_subdivision ?>:</td>
+                        <th scope="row"><?php echo $primary_subdivision ?>:</th>
                         <td><?php if ($row->subdivision != '') { echo $row->subdivision.' ('.$row->COL_STATE.')'; } else { echo $row->COL_STATE; } ?></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->COL_CNTY != null && $row->COL_CNTY != ",") { ?>
                     <tr>
-                        <td><?php echo $secondary_subdivision ?>:</td>
+                        <th scope="row"><?php echo $secondary_subdivision ?>:</th>
                         <td><?php echo $row->COL_CNTY; ?></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->COL_NAME != null) { ?>
                     <tr>
-                        <td><?= __("Name"); ?></td>
+                        <th scope="row"><?= __("Name"); ?></th>
                         <td><?php echo $row->COL_NAME; ?></td>
                     </tr>
                     <?php } ?>
@@ -237,7 +237,7 @@
                     <?php if(($this->config->item('use_auth') && ($this->session->userdata('user_type') >= 2)) || $this->config->item('use_auth') === FALSE) { ?>
                     <?php if($row->COL_COMMENT != null) { ?>
                     <tr>
-                        <td><?= __("Comment"); ?></td>
+                        <th scope="row"><?= __("Comment"); ?></th>
                         <td><?php echo $row->COL_COMMENT; ?></td>
                     </tr>
                     <?php } ?>
@@ -245,14 +245,14 @@
 
                     <?php if($row->COL_PROP_MODE != null and $row->COL_PROP_MODE != '') { ?>
                     <tr>
-                        <td><?= __("Propagation"); ?></td>
+                        <th scope="row"><?= __("Propagation"); ?></th>
                         <td><?php echo htmlspecialchars_decode($this->config->item('adif_propmodes')[$row->COL_PROP_MODE] ?? $row->COL_PROP_MODE); ?></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->COL_SAT_NAME != null) { ?>
                     <tr>
-                        <td><?= __("Satellite Name"); ?></td>
+                        <th scope="row"><?= __("Satellite Name"); ?></th>
                         <td><a href="https://db.satnogs.org/search/?q=<?php echo $row->COL_SAT_NAME; ?>" target="_blank">
                         <?php if ($row->sat_displayname != null) {
                                  echo $row->COL_SAT_NAME." (".$row->sat_displayname.")";
@@ -266,28 +266,28 @@
 
                     <?php if($row->COL_SAT_MODE != null) { ?>
                     <tr>
-                        <td><?= __("Satellite Mode"); ?></td>
+                        <th scope="row"><?= __("Satellite Mode"); ?></th>
                         <td><?php echo (strlen($row->COL_SAT_MODE) == 2 ? (strtoupper($row->COL_SAT_MODE[0]).'/'.strtoupper($row->COL_SAT_MODE[1])) : strtoupper($row->COL_SAT_MODE)); ?></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->COL_ANT_AZ != null) { ?>
                     <tr>
-                        <td><?= __("Antenna Azimuth"); ?></td>
+                        <th scope="row"><?= __("Antenna Azimuth"); ?></th>
                         <td><?php echo round($row->COL_ANT_AZ, 1); ?>&deg; <span style="margin-left: 2px; display: inline-block; transform: rotate(<?php echo (-45+$row->COL_ANT_AZ); ?>deg);"><i class="fas fa-location-arrow fa-xs"></i></span></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->COL_ANT_EL != null) { ?>
                     <tr>
-                        <td><?= __("Antenna Elevation"); ?></td>
+                        <th scope="row"><?= __("Antenna Elevation"); ?></th>
                         <td><?php echo round($row->COL_ANT_EL, 1); ?>&deg; <span style="margin-left: 2px; display: inline-block; transform: rotate(<?php echo (-$row->COL_ANT_EL); ?>deg);"><i class="fas fa-arrow-right fa-xs"></i></span></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->name != null) { ?>
                     <tr>
-                        <td><?= __("Country"); ?></td>
+                        <th scope="row"><?= __("Country"); ?></th>
                         <td><?php if ($row->adif == '0') {
                                      echo $row->name;
                                   } else {
@@ -298,7 +298,7 @@
 
                     <?php if($row->COL_CONT != null) { ?>
                     <tr>
-                        <td><?= __("Continent"); ?></td>
+                        <th scope="row"><?= __("Continent"); ?></th>
                         <td>
                         <?php
                            switch($row->COL_CONT) {
@@ -331,35 +331,35 @@
 
                     <?php if($row->contestname != null) { ?>
                     <tr>
-                        <td><?= __("Contest Name"); ?></td>
+                        <th scope="row"><?= __("Contest Name"); ?></th>
                         <td><?php echo $row->contestname; ?></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->COL_IOTA != null) { ?>
                     <tr>
-                        <td><?= __("IOTA Reference"); ?></td>
+                        <th scope="row"><?= __("IOTA Reference"); ?></th>
                         <td><a href="https://www.iota-world.org/iotamaps/?grpref=<?php echo $row->COL_IOTA; ?>" target="_blank"><?php echo $row->COL_IOTA; ?></a></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->COL_SOTA_REF != null) { ?>
                     <tr>
-                        <td><?= __("SOTA Reference"); ?></td>
+                        <th scope="row"><?= __("SOTA Reference"); ?></th>
                         <td><a href="https://summits.sota.org.uk/summit/<?php echo $row->COL_SOTA_REF; ?>" target="_blank"><?php echo $row->COL_SOTA_REF; ?></a></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->COL_WWFF_REF != null) { ?>
                     <tr>
-                        <td><?= __("WWFF Reference"); ?></td>
+                        <th scope="row"><?= __("WWFF Reference"); ?></th>
                         <td><a href="https://www.cqgma.org/zinfo.php?ref=<?php echo $row->COL_WWFF_REF; ?>" target="_blank"><?php echo $row->COL_WWFF_REF; ?></a></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->COL_POTA_REF != null) { ?>
                     <tr>
-                        <td><?= __("POTA Reference(s)"); ?></td>
+                        <th scope="row"><?= __("POTA Reference(s)"); ?></th>
                         <td>
                             <?php
                             $pota_refs = explode(',', $row->COL_POTA_REF);
@@ -381,7 +381,7 @@
 
                     <?php if($row->COL_SIG != null) { ?>
                     <tr>
-                        <td><?= __("SIG"); ?></td>
+                        <th scope="row"><?= __("SIG"); ?></th>
                         <?php
                         switch ($row->COL_SIG) {
                         case "GMA":
@@ -397,7 +397,7 @@
 
                     <?php if($row->COL_SIG_INFO != null) { ?>
                     <tr>
-                        <td><?= __("SIG Info"); ?></td>
+                        <th scope="row"><?= __("SIG Info"); ?></th>
                         <?php
                         switch ($row->COL_SIG) {
                         case "GMA":
@@ -416,7 +416,7 @@
 
                     <?php if($row->COL_DARC_DOK != null) { ?>
                     <tr>
-                        <td><?= __("DOK"); ?></td>
+                        <th scope="row"><?= __("DOK"); ?></th>
                         <?php if (preg_match('/^[A-Y]\d{2}$/', $row->COL_DARC_DOK)) { ?>
                         <td><a href="https://www.darc.de/<?php echo $row->COL_DARC_DOK; ?>" target="_blank"><?php echo $row->COL_DARC_DOK; ?></a></td>
                         <?php } else if (preg_match('/^DV[ABCDEFGHIKLMNOPQRSTUVWXY]$/', $row->COL_DARC_DOK)) { ?>
@@ -431,14 +431,14 @@
 
                     <?php if($row->COL_REGION != null) { ?>
                     <tr>
-                        <td><?= __("Region"); ?></td>
+                        <th scope="row"><?= __("Region"); ?></th>
                         <td><?php echo $this->logbook_model->getLongRegion($row->COL_REGION).' ('.$row->COL_REGION.')'; ?></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->COL_EMAIL != null) { ?>
                     <tr>
-                        <td><?= __("E-mail"); ?></td>
+                        <th scope="row"><?= __("E-mail"); ?></th>
                         <td><a href="mailto:<?php echo $row->COL_EMAIL; ?>"><?php echo $row->COL_EMAIL; ?></a></td>
                     </tr>
                     <?php } ?>
@@ -548,7 +548,7 @@
                     <?php if(($this->config->item('use_auth') && ($this->session->userdata('user_type') >= 2)) || $this->config->item('use_auth') === FALSE) { ?>
                         <br>
                             <?php if (clubaccess_check(3, $row->COL_PRIMARY_KEY)) { ?>
-                            <div style="display: inline-block;"><p class="editButton"><a class="btn btn-primary" href="<?php echo site_url('qso/edit'); ?>/<?php echo $row->COL_PRIMARY_KEY; ?>" href="javascript:;"><i class="fas fa-edit"></i> <?= __("Edit QSO"); ?></a></p></div>
+                            <div style="display: inline-block;"><p class="editButton"><a class="btn btn-primary" href="<?php echo site_url('qso/edit'); ?>/<?php echo $row->COL_PRIMARY_KEY; ?>"><i class="fas fa-edit" aria-hidden="true"></i> <?= __("Edit QSO"); ?></a></p></div>
                             <?php } ?>
                             <div style="display: inline-block;"><form method="POST" action="<?php echo site_url('search'); ?>"><input type="hidden" value="<?php echo strtoupper($row->COL_CALL); ?>" name="callsign"><button class="btn btn-primary" type="submit"><i class="fas fa-eye"></i> <?= __("More QSOs"); ?></button></form></div>
                     <?php } ?>
@@ -617,101 +617,101 @@
             </div>
         </div>
 
-        <div class="tab-pane fade" id="stationdetails" role="tabpanel" aria-labelledby="table-tab">
+        <div class="tab-pane fade" id="stationdetails" role="tabpanel" aria-labelledby="station-tab">
             <h3><?= __("Station") . ' ' . __("Details"); ?></h3>
 
-            <table width="100%">
+            <table width="100%" aria-label="<?= __("Station") . ' ' . __("Details"); ?>">
                     <tr>
-                        <td><?= __("Station") . ' ' . __("Callsign"); ?></td>
+                        <th scope="row"><?= __("Station") . ' ' . __("Callsign"); ?></th>
                         <td><?php echo str_replace("0","&Oslash;",strtoupper($row->station_callsign)); ?></td>
                     </tr>
                     <tr>
-                        <td><?= __("Station") . ' ' . __("Name"); ?></td>
+                        <th scope="row"><?= __("Station") . ' ' . __("Name"); ?></th>
                         <td><?php echo $row->station_profile_name; ?></td>
                     </tr>
                     <tr>
-                        <td><?= __("Station") . ' ' . __("Gridsquare"); ?></td>
+                        <th scope="row"><?= __("Station") . ' ' . __("Gridsquare"); ?></th>
                         <td><?php echo $row->station_gridsquare; ?></td>
                     </tr>
 
                     <?php if($row->station_city) { ?>
                     <tr>
-                        <td><?= __("Station") . ' ' . __("City"); ?></td>
+                        <th scope="row"><?= __("Station") . ' ' . __("City"); ?></th>
                         <td><?php echo $row->station_city; ?></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->station_country) { ?>
                     <tr>
-                        <td><?= __("Station") . ' ' . __("Country"); ?></td>
+                        <th scope="row"><?= __("Station") . ' ' . __("Country"); ?></th>
                         <td><?php echo ucwords(strtolower(($row->station_country)), "- (/"); if ($row->station_end != null) echo ' <span class="badge text-bg-danger">'.__("Deleted DXCC").'</span>'; ?></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->COL_OPERATOR) { ?>
                     <tr>
-                        <td><?= __("Station") . ' ' . __("Operator"); ?></td>
+                        <th scope="row"><?= __("Station") . ' ' . __("Operator"); ?></th>
                         <td><?php echo $row->COL_OPERATOR; ?></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->COL_TX_PWR) { ?>
                     <tr>
-                        <td><?= __("Station") . ' ' . __("Transmit Power (W)"); ?></td>
+                        <th scope="row"><?= __("Station") . ' ' . __("Transmit Power (W)"); ?></th>
                         <td><?php echo $row->COL_TX_PWR; ?> W</td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->COL_MY_RIG && (($row->COL_MY_RIG ?? '') != '')) { ?>
                     <tr>
-                        <td><?= __("Station") . ' ' . __("Radio"); ?></td>
+                        <th scope="row"><?= __("Station") . ' ' . __("Radio"); ?></th>
                         <td><?php echo $row->COL_MY_RIG; ?></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->station_iota) { ?>
                     <tr>
-                        <td><?= __("Station") . ' ' . __("IOTA Reference"); ?></td>
+                        <th scope="row"><?= __("Station") . ' ' . __("IOTA Reference"); ?></th>
                         <td><?php echo $row->station_iota; ?></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->station_sota) { ?>
                     <tr>
-                        <td><?= __("Station") . ' ' . __("SOTA Reference"); ?></td>
+                        <th scope="row"><?= __("Station") . ' ' . __("SOTA Reference"); ?></th>
                         <td><?php echo $row->station_sota; ?></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->station_wwff) { ?>
                     <tr>
-                        <td><?= __("Station") . ' ' . __("WWFF Reference"); ?></td>
+                        <th scope="row"><?= __("Station") . ' ' . __("WWFF Reference"); ?></th>
                         <td><?php echo $row->station_wwff; ?></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->station_pota) { ?>
                     <tr>
-                        <td><?= __("Station") . ' ' . __("POTA Reference(s)"); ?></td>
+                        <th scope="row"><?= __("Station") . ' ' . __("POTA Reference(s)"); ?></th>
                         <td><?php echo $row->station_pota; ?></td>
                     </tr>
                     <?php } ?>
 
                     <?php if($row->station_sig) { ?>
                     <tr>
-                        <td><?= __("Station") . ' ' . __("SIG"); ?></td>
+                        <th scope="row"><?= __("Station") . ' ' . __("SIG"); ?></th>
                         <td><?php echo $row->station_sig; ?></td>
                     </tr>
 
                     <tr>
-                        <td><?= __("Station") . ' ' . __("SIG Info"); ?></td>
+                        <th scope="row"><?= __("Station") . ' ' . __("SIG Info"); ?></th>
                         <td><?php echo $row->station_sig_info; ?></td>
                     </tr>
                     <?php } ?>
             </table>
         </div>
 
-        <div class="tab-pane fade" id="notesdetails" role="tabpanel" aria-labelledby="table-tab">
+        <div class="tab-pane fade" id="notesdetails" role="tabpanel" aria-labelledby="notes-tab">
             <h3><?= __("Notes"); ?></h3>
             <?php if (isset($row->COL_NOTES)) { echo nl2br($row->COL_NOTES); } ?>
         </div>
@@ -719,16 +719,16 @@
         <?php
         if (($this->config->item('use_auth')) && ($this->session->userdata('user_type') >= 2)) {
         ?>
-        <div class="tab-pane fade" id="qslupload" role="tabpanel" aria-labelledby="table-tab">
+        <div class="tab-pane fade" id="qslupload" role="tabpanel" aria-labelledby="qslmanagementtab">
             <?php
 	    if (!($this->config->item('disable_qsl') ?? false)) {
             if (count($qslimages) > 0) {
-            echo '<table style="width:100%" class="qsltable table table-sm table-bordered table-hover table-striped table-condensed">
+            echo '<table style="width:100%" class="qsltable table table-sm table-bordered table-hover table-striped table-condensed" aria-label="' . __("QSL Images") . '">
                 <thead>
                 <tr>
-                    <th style=\'text-align: center\'>' . __("QSL image file") . '</th>
-                    <th style=\'text-align: center\'></th>
-                    <th style=\'text-align: center\'></th>
+                    <th scope="col" style=\'text-align: center\'>' . __("QSL image file") . '</th>
+                    <th scope="col" style=\'text-align: center\'><span class="visually-hidden">' . __("Delete") . '</span></th>
+                    <th scope="col" style=\'text-align: center\'><span class="visually-hidden">' . __("View") . '</span></th>
                 </tr>
                 </thead><tbody>';
 
@@ -794,11 +794,11 @@
             </div>
         </div>
 
-        <div class="tab-pane fade" id="qslcard" role="tabpanel" aria-labelledby="table-tab">
+        <div class="tab-pane fade" id="qslcard" role="tabpanel" aria-labelledby="qsltab">
             <?php $this->load->view('qslcard/qslcarousel', $qslimages); ?>
         </div>
 
-        <div class="tab-pane fade" id="eqslcard" role="tabpanel" aria-labelledby="table-tab">
+        <div class="tab-pane fade" id="eqslcard" role="tabpanel" aria-labelledby="eqsltab">
         <?php
 	    if ($row->eqsl_image_file != null) {
 		    echo '<img class="d-block" src="' . base_url() . '/'. $this->paths->getUserdataPath('eqsl_card') .'/' . $row->eqsl_image_file .'" alt="' . __("eQSL picture") . '">';
