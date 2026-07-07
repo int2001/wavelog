@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-07 07:04+0000\n"
+"POT-Creation-Date: 2026-07-07 08:50+0000\n"
 "PO-Revision-Date: 2026-03-21 17:42+0000\n"
 "Last-Translator: Dariusz Koryto <dariusz@koryto.eu>\n"
 "Language-Team: Serbian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -4070,30 +4070,30 @@ msgstr "Није дат позивни знак"
 msgid "DXCC has to be Numeric"
 msgstr "DXCC мора бити нумерички"
 
-#: application/models/Logbook_model.php:4925
+#: application/models/Logbook_model.php:4938
 #, php-format
 msgid ""
 "Differing station callsign %s while importing QSO with %s for %s: SKIPPED"
 msgstr ""
 
-#: application/models/Logbook_model.php:4933
+#: application/models/Logbook_model.php:4946
 #, php-format
 msgid ""
 "Differing locator %s while importing QSO with %s for station locator %s: "
 "SKIPPED"
 msgstr ""
 
-#: application/models/Logbook_model.php:4949
+#: application/models/Logbook_model.php:4962
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
 msgstr ""
 
-#: application/models/Logbook_model.php:4959
+#: application/models/Logbook_model.php:4972
 msgid "QSO on"
 msgstr "Почетак QSO"
 
-#: application/models/Logbook_model.php:4959
+#: application/models/Logbook_model.php:4972
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
@@ -4101,70 +4101,70 @@ msgstr ""
 "Pokušali ste uvesti QSO bez bilo kojeg znaka. Ovaj QSO nije uvežen, "
 "neispravan je"
 
-#: application/models/Logbook_model.php:5009
+#: application/models/Logbook_model.php:5022
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
 "imported. It's invalid"
 msgstr ""
 
-#: application/models/Logbook_model.php:5283
+#: application/models/Logbook_model.php:5296
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "датум пријема QSL је неисправан (YYYYMMDD)"
 
-#: application/models/Logbook_model.php:5294
+#: application/models/Logbook_model.php:5307
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "датум слања QSL је неисправан (YYYYMMDD)"
 
-#: application/models/Logbook_model.php:5355
+#: application/models/Logbook_model.php:5368
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "Датум учитавања веза на Clublog је неисправан (YYYYMMDD)"
 
-#: application/models/Logbook_model.php:5728
+#: application/models/Logbook_model.php:5741
 #: application/views/simplefle/index.php:41
 msgid "Duplicate for"
 msgstr "Дупликат за"
 
-#: application/models/Logbook_model.php:5795
-#: application/models/Logbook_model.php:5895
+#: application/models/Logbook_model.php:5808
+#: application/models/Logbook_model.php:5908
 msgid "QSO could not be matched"
 msgstr "QSO се не поклапа"
 
-#: application/models/Logbook_model.php:5803
+#: application/models/Logbook_model.php:5816
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "потврђено преко LoTW/Clublog/eQSL/Контест"
 
-#: application/models/Logbook_model.php:5809
+#: application/models/Logbook_model.php:5822
 msgid "confirmed by award manager"
 msgstr "потврђено од стране менаџера за дипломе"
 
-#: application/models/Logbook_model.php:5813
+#: application/models/Logbook_model.php:5826
 msgid "confirmed by cross-check of DCL data"
 msgstr "потврђено унакрсном провером DCL података"
 
-#: application/models/Logbook_model.php:5817
+#: application/models/Logbook_model.php:5830
 msgid "confirmation pending"
 msgstr "чека потврђивање"
 
-#: application/models/Logbook_model.php:5820
+#: application/models/Logbook_model.php:5833
 msgid "unconfirmed"
 msgstr "непотврђено"
 
-#: application/models/Logbook_model.php:5823
+#: application/models/Logbook_model.php:5836
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 msgid "unknown"
 msgstr "непознато"
 
-#: application/models/Logbook_model.php:5898
+#: application/models/Logbook_model.php:5911
 msgid "POTA reference already in log"
 msgstr "POTA референца је већ у дневнику"
 
-#: application/models/Logbook_model.php:5901
+#: application/models/Logbook_model.php:5914
 msgid "QSO updated"
 msgstr "QSO ажуриран"
 
-#: application/models/Logbook_model.php:6329
+#: application/models/Logbook_model.php:6342
 #: application/views/activated_gridmap/index.php:109
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:57

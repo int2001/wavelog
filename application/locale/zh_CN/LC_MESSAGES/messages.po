@@ -31,7 +31,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-07 07:04+0000\n"
+"POT-Creation-Date: 2026-07-07 08:50+0000\n"
 "PO-Revision-Date: 2026-07-06 05:37+0000\n"
 "Last-Translator: \"Xu, Zefan (BI1GHZ)\" <ceba_robot@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
@@ -4058,7 +4058,7 @@ msgstr "未提供呼号"
 msgid "DXCC has to be Numeric"
 msgstr "DXCC 应该是数字"
 
-#: application/models/Logbook_model.php:4925
+#: application/models/Logbook_model.php:4938
 #, php-format
 msgid ""
 "Differing station callsign %s while importing QSO with %s for %s: SKIPPED"
@@ -4066,7 +4066,7 @@ msgstr ""
 "导入的本台呼号 %s 与当前台站地址不匹配，这是与 %s 的 QSO，当前台站地址的呼号"
 "为 %s：已跳过"
 
-#: application/models/Logbook_model.php:4933
+#: application/models/Logbook_model.php:4946
 #, php-format
 msgid ""
 "Differing locator %s while importing QSO with %s for station locator %s: "
@@ -4075,23 +4075,23 @@ msgstr ""
 "导入的本台网格 %s 与当前台站地址不匹配，这是与 %s 的 QSO，当前台站地址的网格"
 "为 %s：已跳过"
 
-#: application/models/Logbook_model.php:4949
+#: application/models/Logbook_model.php:4962
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
 msgstr "导入QSO时使用了无效日期，该QSO未被导入。这是无效的"
 
-#: application/models/Logbook_model.php:4959
+#: application/models/Logbook_model.php:4972
 msgid "QSO on"
 msgstr "QSO 时间"
 
-#: application/models/Logbook_model.php:4959
+#: application/models/Logbook_model.php:4972
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
 msgstr "试图导入的 QSO 不存在对方呼号（CALL）。此 QSO 无效，未导入"
 
-#: application/models/Logbook_model.php:5009
+#: application/models/Logbook_model.php:5022
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
@@ -4099,63 +4099,63 @@ msgid ""
 msgstr ""
 "在 %s 上的 QSO：你尝试导入一个未指定频段的 QSO。该 QSO 未被导入。此 QSO 无效"
 
-#: application/models/Logbook_model.php:5283
+#: application/models/Logbook_model.php:5296
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "qslrdate 字段错误（YYYYMMDD）"
 
-#: application/models/Logbook_model.php:5294
+#: application/models/Logbook_model.php:5307
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "qslsdate 字段错误（YYYYMMDD）"
 
-#: application/models/Logbook_model.php:5355
+#: application/models/Logbook_model.php:5368
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "clublog_qso_upload_date 字段错误（ YYYYMMDD）"
 
-#: application/models/Logbook_model.php:5728
+#: application/models/Logbook_model.php:5741
 #: application/views/simplefle/index.php:41
 msgid "Duplicate for"
 msgstr "内容重复"
 
-#: application/models/Logbook_model.php:5795
-#: application/models/Logbook_model.php:5895
+#: application/models/Logbook_model.php:5808
+#: application/models/Logbook_model.php:5908
 msgid "QSO could not be matched"
 msgstr "QSO 无法匹配"
 
-#: application/models/Logbook_model.php:5803
+#: application/models/Logbook_model.php:5816
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "已经通过 LoTW/Clublog/eQSL/竞赛 确认"
 
-#: application/models/Logbook_model.php:5809
+#: application/models/Logbook_model.php:5822
 msgid "confirmed by award manager"
 msgstr "已经通过奖项管理员确认"
 
-#: application/models/Logbook_model.php:5813
+#: application/models/Logbook_model.php:5826
 msgid "confirmed by cross-check of DCL data"
 msgstr "已经通过 DCL 数据交叉检查确认"
 
-#: application/models/Logbook_model.php:5817
+#: application/models/Logbook_model.php:5830
 msgid "confirmation pending"
 msgstr "等待确认"
 
-#: application/models/Logbook_model.php:5820
+#: application/models/Logbook_model.php:5833
 msgid "unconfirmed"
 msgstr "未确认"
 
-#: application/models/Logbook_model.php:5823
+#: application/models/Logbook_model.php:5836
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 msgid "unknown"
 msgstr "未知"
 
-#: application/models/Logbook_model.php:5898
+#: application/models/Logbook_model.php:5911
 msgid "POTA reference already in log"
 msgstr "日志中已存在 POTA 编号"
 
-#: application/models/Logbook_model.php:5901
+#: application/models/Logbook_model.php:5914
 msgid "QSO updated"
 msgstr "QSO已上传"
 
-#: application/models/Logbook_model.php:6329
+#: application/models/Logbook_model.php:6342
 #: application/views/activated_gridmap/index.php:109
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:57
