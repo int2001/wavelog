@@ -57,25 +57,12 @@ class Kmlexport extends CI_Controller {
 		$output .= "<Document>";
 
 		foreach ($qsos->result() as $row) {
-			if($row->COL_GRIDSQUARE != null) {
-				$stn_loc = $this->qra->qra2latlong($row->COL_GRIDSQUARE);
-				
-				$lat = $stn_loc[0];
-				$lng = $stn_loc[1];
-			} else {
-				$query = $this->db->query('
-					SELECT *
-					FROM dxcc_entities
-					WHERE prefix = SUBSTRING( ?, 1, LENGTH( prefix ) )
-					ORDER BY LENGTH( prefix ) DESC
-					LIMIT 1 
-				', [$row->COL_CALL]);
-					foreach ($query->result() as $dxcc) {
-						$lat = $dxcc->lat;
-						$lng = $dxcc->long;
-					}
-			}
-
+			# Gridsquare cannot be null (see Model)
+			$stn_loc = $this->qra->qra2latlong($row->COL_GRIDSQUARE);
+			
+			$lat = $stn_loc[0];
+			$lng = $stn_loc[1];
+		
 			if (isset($lat) && isset($lng)) {
 				$output .= "<Placemark>";
 
