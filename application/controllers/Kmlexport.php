@@ -66,10 +66,10 @@ class Kmlexport extends CI_Controller {
 				$query = $this->db->query('
 					SELECT *
 					FROM dxcc_entities
-					WHERE prefix = SUBSTRING( \''.$row->COL_CALL.'\', 1, LENGTH( prefix ) )
+					WHERE prefix = SUBSTRING( ?, 1, LENGTH( prefix ) )
 					ORDER BY LENGTH( prefix ) DESC
 					LIMIT 1 
-				');
+				', [$row->COL_CALL]);
 					foreach ($query->result() as $dxcc) {
 						$lat = $dxcc->lat;
 						$lng = $dxcc->long;
@@ -81,7 +81,7 @@ class Kmlexport extends CI_Controller {
 
 				$timestamp = strtotime($row->COL_TIME_ON); 
 
-				$output .= "<name>".$row->COL_CALL."</name>";
+				$output .= "<name>".htmlspecialchars($row->COL_CALL, ENT_QUOTES, 'UTF-8')."</name>";
 				$output .= "<description><![CDATA[<p>Date/Time: ".date('Y-m-d H:i:s', ($timestamp))."<br/>Band: ".$row->COL_BAND."<br /></p>]]></description>";		
 				$output .= "<Point>";
 				$output .= "<coordinates>".$lng.",".$lat.",0</coordinates>";
