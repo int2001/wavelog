@@ -819,29 +819,8 @@
          $lng = $stn_loc[1];
       }
    } else if ($row->COL_VUCC_GRIDS != null) {
-      $grids = explode(",", $row->COL_VUCC_GRIDS);
-      if (count($grids) == 2) {
-         $grid1 = $this->qra->qra2latlong(trim($grids[0]));
-         $grid2 = $this->qra->qra2latlong(trim($grids[1]));
-
-         $coords[]=array('lat' => $grid1[0],'lng'=> $grid1[1]);
-         $coords[]=array('lat' => $grid2[0],'lng'=> $grid2[1]);
-
-         $midpoint = $this->qra->get_midpoint($coords);
-         $lat = $midpoint[0];
-         $lng = $midpoint[1];
-      } else if (count($grids) == 4) {
-         $grid1 = $this->qra->qra2latlong(trim($grids[0]));
-         $grid2 = $this->qra->qra2latlong(trim($grids[1]));
-         $grid3 = $this->qra->qra2latlong(trim($grids[2]));
-         $grid4 = $this->qra->qra2latlong(trim($grids[3]));
-
-         $coords[]=array('lat' => $grid1[0],'lng'=> $grid1[1]);
-         $coords[]=array('lat' => $grid2[0],'lng'=> $grid2[1]);
-         $coords[]=array('lat' => $grid3[0],'lng'=> $grid3[1]);
-         $coords[]=array('lat' => $grid4[0],'lng'=> $grid4[1]);
-
-         $midpoint = $this->qra->get_midpoint($coords);
+      $midpoint = $this->qra->qra2latlong($row->COL_VUCC_GRIDS);
+      if ($midpoint) {
          $lat = $midpoint[0];
          $lng = $midpoint[1];
       } else {

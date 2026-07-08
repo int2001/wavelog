@@ -6304,30 +6304,7 @@ class Logbook_model extends CI_Model {
 					$xbearing = $this->qra->get_bearing($this->session->userdata('user_locator'),$row->COL_GRIDSQUARE);
 				}
 			} elseif ($row->COL_VUCC_GRIDS != null) {
-				$coords = array();
-				$grids = explode(",", $row->COL_VUCC_GRIDS);
-				if (count($grids) == 2) {
-					$grid1 = $this->qra->qra2latlong(trim($grids[0]));
-					$grid2 = $this->qra->qra2latlong(trim($grids[1]));
-
-					$coords[] = array('lat' => $grid1[0], 'lng' => $grid1[1]);
-					$coords[] = array('lat' => $grid2[0], 'lng' => $grid2[1]);
-
-					$stn_loc = $this->qra->get_midpoint($coords);
-				}
-				if (count($grids) == 4) {
-					$grid1 = $this->qra->qra2latlong(trim($grids[0]));
-					$grid2 = $this->qra->qra2latlong(trim($grids[1]));
-					$grid3 = $this->qra->qra2latlong(trim($grids[2]));
-					$grid4 = $this->qra->qra2latlong(trim($grids[3]));
-
-					$coords[] = array('lat' => $grid1[0], 'lng' => $grid1[1]);
-					$coords[] = array('lat' => $grid2[0], 'lng' => $grid2[1]);
-					$coords[] = array('lat' => $grid3[0], 'lng' => $grid3[1]);
-					$coords[] = array('lat' => $grid4[0], 'lng' => $grid4[1]);
-
-					$stn_loc = $this->qra->get_midpoint($coords);
-				}
+				$stn_loc = $this->qra->qra2latlong($row->COL_VUCC_GRIDS);
 				if (($this->session->userdata('user_locator') ?? '') != '') {
 					$xbearing = $this->qra->get_bearing($this->session->userdata('user_locator'),$row->COL_VUCC_GRIDS);
 				}
