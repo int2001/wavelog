@@ -1328,13 +1328,13 @@ svg text.month { fill: #AAA; }
     gap: 0.5em; /* Adds space between the flag and callsign */
 }
 
-.htmx-indicator {
-   opacity: 0;
+.sync-indicator {
+   display: none;
    animation: blinker 2s linear infinite;
 }
 
-.htmx-request.htmx-indicator {
-   opacity: 1;
+.sync-indicator.active {
+   display: inline;
 }
 
 @keyframes blinker {
