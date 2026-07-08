@@ -397,7 +397,8 @@ function echo_table_header_col($name) {
 		</div>
 		<?php } ?>
 
-		<div id="radio_display" hx-get="<?php echo site_url('dashboard/radio_display_component'); ?>" hx-trigger="load, every 5s"></div>
+		<!-- radio status component -->
+		<div id="radio_display"></div>
 
 
 			<?php if (($dashboard_solar ?? 'N') === 'top') { $this->load->view('dashboard/solar_data'); } ?>

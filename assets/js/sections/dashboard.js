@@ -20,4 +20,8 @@ $(document).ready(function () {
             'position': 'sticky', 'top': '0px', 'z-index': 1, 'background-color': 'inherit', 'width': '100%', 'height': '37px'
         });
     }
+
+    const loadRadio = () => wlLoadInto(base_url + 'index.php/dashboard/radio_display_component', '#radio_display');
+	loadRadio();
+	setInterval(loadRadio, 5000);
 });
