@@ -33,8 +33,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-07 16:28+0000\n"
-"PO-Revision-Date: 2026-07-08 08:52+0000\n"
-"Last-Translator: 洛雨 <i@luotianyi.eu>\n"
+"PO-Revision-Date: 2026-07-08 19:20+0000\n"
+"Last-Translator: \"Xu, Zefan (BI1GHZ)\" <ceba_robot@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translate.wavelog.org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -3806,7 +3806,7 @@ msgstr "你已经登出 %s 。欢迎回到你的私人账户，%s ！"
 
 #: application/controllers/Visitor.php:265
 msgid "No public slug found."
-msgstr ""
+msgstr "未找到外部链接。"
 
 #: application/controllers/Visitor.php:271
 msgid "Satellite Gridsquare Map"
@@ -4222,7 +4222,7 @@ msgstr "在通讯录类别中，笔记标题需要是唯一的。"
 #: application/models/Qslpostcard_model.php:354
 msgctxt "QSL Card Designer; No mailable address found"
 msgid "!!! NO MAILABLE ADDRESS FOUND !!!"
-msgstr ""
+msgstr "!!! 未找到可邮寄地址 !!!"
 
 #: application/models/Update_model.php:347
 msgid "Newer release available:"
@@ -6004,7 +6004,7 @@ msgstr "通联县进展"
 
 #: application/views/awards/counties/index.php:45
 msgid "Worked Counties"
-msgstr "通联的（郡）县"
+msgstr "通联的县"
 
 #: application/views/awards/counties/index.php:47
 #, php-format
@@ -6013,7 +6013,7 @@ msgstr "共 %s 县"
 
 #: application/views/awards/counties/index.php:52
 msgid "Confirmed Counties"
-msgstr "确认的（郡）县"
+msgstr "确认的县"
 
 #: application/views/awards/counties/index.php:54
 #, php-format
@@ -13946,7 +13946,7 @@ msgstr "此州已通联的县："
 
 #: application/views/interface_assets/header.php:95
 msgid "Skip to content"
-msgstr ""
+msgstr "跳到内容"
 
 #: application/views/interface_assets/header.php:98
 msgid "Wavelog home"
