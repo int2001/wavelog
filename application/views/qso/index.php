@@ -905,13 +905,8 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
 
         <div id="partial_view" style="font-size: 0.95rem;" aria-live="polite" aria-atomic="true"></div>
 
-		<?php
-		$result = $this->optionslib->get_option('disable_refresh_past_contacts');
-		if($result === null) { ?>
-			<div id="qso-last-table" hx-get="<?php echo site_url('/qso/component_past_contacts'); ?>" hx-trigger="load, qso_event, every 15s" aria-live="polite" aria-atomic="true">
-		<?php } else { ?>
-			<div id="qso-last-table" hx-get="<?php echo site_url('/qso/component_past_contacts'); ?>" hx-trigger="load, qso_event" aria-live="polite" aria-atomic="true">
-		<?php } ?>
+		<?php $result = $this->optionslib->get_option('disable_refresh_past_contacts'); ?>
+			<div id="qso-last-table" data-past-contacts-url="<?php echo site_url('/qso/component_past_contacts'); ?>" data-auto-refresh="<?php echo $result === null ? '1' : '0'; ?>" aria-live="polite" aria-atomic="true">
 
         </div>
       </div>

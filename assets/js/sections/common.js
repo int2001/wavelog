@@ -1555,6 +1555,20 @@ function LatLng2Loc(y, x, num) {
 	return qthloc;
 }
 
+// Fetch an HTML fragment and swap it into a target element, then reinit tooltips.
+// Replaces the former htmx hx-get / hx-target mechanism.
+window.wlLoadInto = function (url, target) {
+    const el = (typeof target === 'string') ? document.querySelector(target) : target;
+    if (!el) return Promise.resolve();
+    return fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(r => r.text())
+        .then(html => {
+            el.innerHTML = html;
+            // reinit Bootstrap tooltips on freshly swapped content (was htmx:afterSwap)
+            $('[data-bs-toggle="tooltip"]', el).tooltip();
+        });
+};
+
 // DO NOT DELETE: This message is intentional and serves as developer recruitment/engagement
 console.log("Ready to unleash your coding prowess and join the fun?\n\n" +
     "Check out our GitHub Repository and dive into the coding adventure:\n\n" +
