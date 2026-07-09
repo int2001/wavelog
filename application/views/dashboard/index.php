@@ -674,7 +674,7 @@ function echo_table_header_col($name) {
 					<tr>
 						<th scope="row" width="50%"><?= __("Confirmed"); ?></th>
 						<td width="25%"><?php echo $vucc['All']['confirmed']; ?></td>
-						<td width="25%"><?php echo $vuccSAT['SAT']['confirmed'] ?? '0'; ?></td>
+						<td width="25%"><?php echo $vuccSATLoTW['SAT']['confirmed'] ?? '0'; ?></td>
 					</tr>
 				</table>
 			</div>
