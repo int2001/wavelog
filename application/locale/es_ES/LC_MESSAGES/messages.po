@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-08 19:20+0000\n"
+"POT-Creation-Date: 2026-07-09 08:37+0000\n"
 "PO-Revision-Date: 2026-07-04 18:16+0000\n"
 "Last-Translator: David Quental <ct1drb72@gmail.com>\n"
 "Language-Team: Spanish <https://translate.wavelog.org/projects/wavelog/main-"
@@ -2998,8 +2998,8 @@ msgstr "Editar"
 #: application/views/oqrs/showrequests.php:80
 #: application/views/qslcard/index.php:80
 #: application/views/qslcard/index.php:129
-#: application/views/qslpostcard/designer.php:299
-#: application/views/qslpostcard/designer.php:338
+#: application/views/qslpostcard/designer.php:312
+#: application/views/qslpostcard/designer.php:351
 #: application/views/satellite/edit.php:57
 #: application/views/satellite/index.php:59
 #: application/views/search/stored_queries.php:22
@@ -13963,8 +13963,8 @@ msgid "Duplication is disabled for Contacts notes"
 msgstr "La duplicación está desactivada para las notas de Contactos"
 
 #: application/views/interface_assets/footer.php:66
-#: application/views/qslpostcard/designer.php:296
-#: application/views/qslpostcard/designer.php:312
+#: application/views/qslpostcard/designer.php:309
+#: application/views/qslpostcard/designer.php:325
 msgid "Duplicate"
 msgstr "Duplicar"
 
@@ -14878,7 +14878,7 @@ msgstr "Altura total de una etiqueta"
 
 #: application/views/labels/create.php:105
 #: application/views/labels/edit.php:107 application/views/labels/index.php:81
-#: application/views/qslpostcard/designer.php:263
+#: application/views/qslpostcard/designer.php:276
 msgid "Font Size"
 msgstr "Tamaño de fuente"
 
@@ -18242,89 +18242,97 @@ msgstr "Haz clic con el botón derecho en un campo para más acciones."
 msgid "Text"
 msgstr "Texto"
 
-#: application/views/qslpostcard/designer.php:243
+#: application/views/qslpostcard/designer.php:242
+msgid "Frequency format"
+msgstr ""
+
+#: application/views/qslpostcard/designer.php:250
+msgid "Omit unit"
+msgstr ""
+
+#: application/views/qslpostcard/designer.php:256
 msgid "X"
 msgstr "X"
 
-#: application/views/qslpostcard/designer.php:247
+#: application/views/qslpostcard/designer.php:260
 msgid "Y"
 msgstr "Y"
 
-#: application/views/qslpostcard/designer.php:253
+#: application/views/qslpostcard/designer.php:266
 msgid "Font"
 msgstr "Frente"
 
-#: application/views/qslpostcard/designer.php:269
+#: application/views/qslpostcard/designer.php:282
 msgid "Bold"
 msgstr "Negrito"
 
-#: application/views/qslpostcard/designer.php:275
+#: application/views/qslpostcard/designer.php:288
 msgid "Color"
 msgstr "Color"
 
-#: application/views/qslpostcard/designer.php:280
+#: application/views/qslpostcard/designer.php:293
 msgid "Wrap width"
 msgstr "Ancho de ajuste"
 
-#: application/views/qslpostcard/designer.php:285
+#: application/views/qslpostcard/designer.php:298
 msgid "Print this field once per QSO when a card holds multiple QSOs"
 msgstr ""
 "Imprime este campo una vez por QSO cuando una tarjeta tenga múltiples QSOs"
 
-#: application/views/qslpostcard/designer.php:286
+#: application/views/qslpostcard/designer.php:299
 msgid "Repeats per QSO"
 msgstr "Repeticiones por QSO"
 
-#: application/views/qslpostcard/designer.php:290
+#: application/views/qslpostcard/designer.php:303
 msgid "Move this element freely without snapping to the grid or other elements"
 msgstr ""
 "Mueve este elemento libremente sin ajustarse a la rejilla u otros elementos"
 
-#: application/views/qslpostcard/designer.php:291
+#: application/views/qslpostcard/designer.php:304
 msgid "Disable Auto-Snap"
 msgstr "Desactivar el Auto-Snap"
 
-#: application/views/qslpostcard/designer.php:317
+#: application/views/qslpostcard/designer.php:330
 msgid "Align & distribute"
 msgstr "Alinear y distribuir"
 
-#: application/views/qslpostcard/designer.php:321
+#: application/views/qslpostcard/designer.php:334
 msgid "Align left"
 msgstr "Alinear a la izquierda"
 
-#: application/views/qslpostcard/designer.php:322
+#: application/views/qslpostcard/designer.php:335
 msgid "Align horizontal centers"
 msgstr "Alinear centros horizontales"
 
-#: application/views/qslpostcard/designer.php:323
+#: application/views/qslpostcard/designer.php:336
 msgid "Align right"
 msgstr "Alinear a la derecha"
 
-#: application/views/qslpostcard/designer.php:325
+#: application/views/qslpostcard/designer.php:338
 msgid "Align top"
 msgstr "Alinear arriba"
 
-#: application/views/qslpostcard/designer.php:326
+#: application/views/qslpostcard/designer.php:339
 msgid "Align vertical centers"
 msgstr "Alinear centros verticales"
 
-#: application/views/qslpostcard/designer.php:327
+#: application/views/qslpostcard/designer.php:340
 msgid "Align bottom"
 msgstr "Alinear abajo"
 
-#: application/views/qslpostcard/designer.php:329
+#: application/views/qslpostcard/designer.php:342
 msgid "Distribute horizontally"
 msgstr "Distribuir horizontalmente"
 
-#: application/views/qslpostcard/designer.php:330
+#: application/views/qslpostcard/designer.php:343
 msgid "Distribute vertically"
 msgstr "Distribuir verticalmente"
 
-#: application/views/qslpostcard/designer.php:332
+#: application/views/qslpostcard/designer.php:345
 msgid "Center on page (horizontal)"
 msgstr "Centrar en la página (horizontal)"
 
-#: application/views/qslpostcard/designer.php:333
+#: application/views/qslpostcard/designer.php:346
 msgid "Center on page (vertical)"
 msgstr "Centrar en la página (vertical)"
 

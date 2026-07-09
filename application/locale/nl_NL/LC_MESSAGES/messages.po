@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-08 19:20+0000\n"
+"POT-Creation-Date: 2026-07-09 08:37+0000\n"
 "PO-Revision-Date: 2026-06-27 14:16+0000\n"
 "Last-Translator: PE1PQX <Andre@pe1pqx.eu>\n"
 "Language-Team: Dutch <https://translate.wavelog.org/projects/wavelog/main-"
@@ -2983,8 +2983,8 @@ msgstr "Bewerken"
 #: application/views/oqrs/showrequests.php:80
 #: application/views/qslcard/index.php:80
 #: application/views/qslcard/index.php:129
-#: application/views/qslpostcard/designer.php:299
-#: application/views/qslpostcard/designer.php:338
+#: application/views/qslpostcard/designer.php:312
+#: application/views/qslpostcard/designer.php:351
 #: application/views/satellite/edit.php:57
 #: application/views/satellite/index.php:59
 #: application/views/search/stored_queries.php:22
@@ -13863,8 +13863,8 @@ msgid "Duplication is disabled for Contacts notes"
 msgstr "Duplicatie is uitgeschakeld voor Contactnotities"
 
 #: application/views/interface_assets/footer.php:66
-#: application/views/qslpostcard/designer.php:296
-#: application/views/qslpostcard/designer.php:312
+#: application/views/qslpostcard/designer.php:309
+#: application/views/qslpostcard/designer.php:325
 msgid "Duplicate"
 msgstr "Duplicaat"
 
@@ -14771,7 +14771,7 @@ msgstr "Totale hoogte van één etiket"
 
 #: application/views/labels/create.php:105
 #: application/views/labels/edit.php:107 application/views/labels/index.php:81
-#: application/views/qslpostcard/designer.php:263
+#: application/views/qslpostcard/designer.php:276
 msgid "Font Size"
 msgstr "Lettergrootte"
 
@@ -18122,89 +18122,97 @@ msgstr "Klik met de rechtermuisknop op een veld voor meer acties."
 msgid "Text"
 msgstr "Tekst"
 
-#: application/views/qslpostcard/designer.php:243
+#: application/views/qslpostcard/designer.php:242
+msgid "Frequency format"
+msgstr ""
+
+#: application/views/qslpostcard/designer.php:250
+msgid "Omit unit"
+msgstr ""
+
+#: application/views/qslpostcard/designer.php:256
 msgid "X"
 msgstr "X"
 
-#: application/views/qslpostcard/designer.php:247
+#: application/views/qslpostcard/designer.php:260
 msgid "Y"
 msgstr "Y"
 
-#: application/views/qslpostcard/designer.php:253
+#: application/views/qslpostcard/designer.php:266
 msgid "Font"
 msgstr "Lettertype"
 
-#: application/views/qslpostcard/designer.php:269
+#: application/views/qslpostcard/designer.php:282
 msgid "Bold"
 msgstr "Vetgedrukt"
 
-#: application/views/qslpostcard/designer.php:275
+#: application/views/qslpostcard/designer.php:288
 msgid "Color"
 msgstr "Kleur"
 
-#: application/views/qslpostcard/designer.php:280
+#: application/views/qslpostcard/designer.php:293
 msgid "Wrap width"
 msgstr "Breedte omhullen"
 
-#: application/views/qslpostcard/designer.php:285
+#: application/views/qslpostcard/designer.php:298
 msgid "Print this field once per QSO when a card holds multiple QSOs"
 msgstr "Print dit veld één keer per QSO wanneer een kaart meerdere QSOs bevat"
 
-#: application/views/qslpostcard/designer.php:286
+#: application/views/qslpostcard/designer.php:299
 msgid "Repeats per QSO"
 msgstr "Herhaald per QSO"
 
-#: application/views/qslpostcard/designer.php:290
+#: application/views/qslpostcard/designer.php:303
 msgid "Move this element freely without snapping to the grid or other elements"
 msgstr ""
 "Verplaats dit element vrij zonder vast te klikken aan het raster of andere "
 "elementen"
 
-#: application/views/qslpostcard/designer.php:291
+#: application/views/qslpostcard/designer.php:304
 msgid "Disable Auto-Snap"
 msgstr "Automatisch vastklikken uitschakelen"
 
-#: application/views/qslpostcard/designer.php:317
+#: application/views/qslpostcard/designer.php:330
 msgid "Align & distribute"
 msgstr "Uitlijnen & verdelen"
 
-#: application/views/qslpostcard/designer.php:321
+#: application/views/qslpostcard/designer.php:334
 msgid "Align left"
 msgstr "Links uitlijnen"
 
-#: application/views/qslpostcard/designer.php:322
+#: application/views/qslpostcard/designer.php:335
 msgid "Align horizontal centers"
 msgstr "Horizontale middens uitlijnen"
 
-#: application/views/qslpostcard/designer.php:323
+#: application/views/qslpostcard/designer.php:336
 msgid "Align right"
 msgstr "Rechts uitlijnen"
 
-#: application/views/qslpostcard/designer.php:325
+#: application/views/qslpostcard/designer.php:338
 msgid "Align top"
 msgstr "Naar boven uitlijnen"
 
-#: application/views/qslpostcard/designer.php:326
+#: application/views/qslpostcard/designer.php:339
 msgid "Align vertical centers"
 msgstr "Verticale middens uitlijnen"
 
-#: application/views/qslpostcard/designer.php:327
+#: application/views/qslpostcard/designer.php:340
 msgid "Align bottom"
 msgstr "Naar onder uitlijnen"
 
-#: application/views/qslpostcard/designer.php:329
+#: application/views/qslpostcard/designer.php:342
 msgid "Distribute horizontally"
 msgstr "Horizontaal verdelen"
 
-#: application/views/qslpostcard/designer.php:330
+#: application/views/qslpostcard/designer.php:343
 msgid "Distribute vertically"
 msgstr "Verticaal verdelen"
 
-#: application/views/qslpostcard/designer.php:332
+#: application/views/qslpostcard/designer.php:345
 msgid "Center on page (horizontal)"
 msgstr "Centreren op pagina (horizontaal)"
 
-#: application/views/qslpostcard/designer.php:333
+#: application/views/qslpostcard/designer.php:346
 msgid "Center on page (vertical)"
 msgstr "Centreren op pagina (verticaal)"
 
