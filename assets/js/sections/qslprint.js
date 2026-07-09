@@ -449,6 +449,18 @@ document.getElementById('frequency_or_band').addEventListener('change', function
 
 function printDialog(printType, printAll = false) {
 	const id_list = getSelectedIds();
+	if (id_list.length === 0 && !printAll) {
+		BootstrapDialog.alert({
+			title: lang_qslprint_info,
+			message: lang_qslprint_select_at_least_one_row,
+			type: BootstrapDialog.TYPE_INFO,
+			closable: false,
+			draggable: false,
+			callback: function (result) {
+			}
+		});
+		return;
+	}
 
 	$.ajax({
 		url: base_url + 'index.php/qslprint/printdialog',

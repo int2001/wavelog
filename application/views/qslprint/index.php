@@ -1,5 +1,7 @@
 <script>
-	var lang_export_qslprint_pagination_all = "<?= __("All") ?>";
+	let lang_export_qslprint_pagination_all = "<?= __("All") ?>";
+	let lang_qslprint_info = "<?= __("INFO") ?>";
+	let lang_qslprint_select_at_least_one_row = "<?= __("Please select at least one row") ?>";
 </script>
 
 <div class="container">
