@@ -535,21 +535,30 @@ function saveAndPrintSelectedQsos(printAll) {
 	}
 }
 
-function printLabel() {
+function printLabel(printAll) {
 	const id_list = getSelectedIds();
+	const options = {
+			'startat': $('#startat').val(),
+			'grid': $('#gridlabel')[0].checked,
+			'via': $('#via')[0].checked,
+			'tnxmsg': $('#tnxmsg')[0].checked,
+			'qslmsg': $('#qslmsg')[0].checked,
+			'reference': $('#reference')[0].checked,
+			'mycall': $('#mycall')[0].checked,
+			'opcall': $('#opcall')[0].checked
+		};
+	let url, postData;
+	if (printAll == true) {
+		url = base_url + 'index.php/labels/print/All';
+		postData = options;
+	} else {
+		url = base_url + 'index.php/labels/printids';
+		postData = $.extend({'id': JSON.stringify(id_list, null, 2)}, options);
+	}
 	$.ajax({
-		url: base_url + 'index.php/labels/printids',
+		url: url,
 		type: 'post',
-		data: {'id': JSON.stringify(id_list, null, 2),
-				'startat': $('#startat').val(),
-				'grid': $('#gridlabel')[0].checked,
-				'via': $('#via')[0].checked,
-				'tnxmsg': $('#tnxmsg')[0].checked,
-				'qslmsg': $('#qslmsg')[0].checked,
-				'reference': $('#reference')[0].checked,
-				'mycall': $('#mycall')[0].checked,
-				'opcall': $('#opcall')[0].checked
-			},
+		data: postData,
 		xhr:function(){
 			var xhr = new XMLHttpRequest();
 			xhr.responseType= 'blob'
