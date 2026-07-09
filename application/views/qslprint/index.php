@@ -2,6 +2,8 @@
 	let lang_export_qslprint_pagination_all = "<?= __("All") ?>";
 	let lang_qslprint_info = "<?= __("INFO") ?>";
 	let lang_qslprint_select_at_least_one_row = "<?= __("Please select at least one row") ?>";
+	let lang_print_label = "<?= __("Print Label") ?>";
+	let lang_print_qslcard = "<?= __("Print QSLcard") ?>";
 </script>
 
 <div class="container">

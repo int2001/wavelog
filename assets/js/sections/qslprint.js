@@ -461,6 +461,12 @@ function printDialog(printType, printAll = false) {
 		});
 		return;
 	}
+	let title = '';
+	if (printType === 'label') {
+		title = lang_print_label;
+	} else if (printType === 'qslcard') {
+		title = lang_print_qslcard;
+	}
 
 	$.ajax({
 		url: base_url + 'index.php/qslprint/printdialog',
@@ -468,7 +474,7 @@ function printDialog(printType, printAll = false) {
 		data: {'printType': printType, 'id_list': id_list, 'printAll': printAll},
 		success: function (html) {
 			BootstrapDialog.show({
-				title: '<i class="fas fa-print me-2"></i>',
+				title: '<i class="fas fa-print me-2"></i>' + title,
 				size: BootstrapDialog.SIZE_NORMAL,
 				cssClass: 'qso-dialog',
 				nl2br: false,
