@@ -146,6 +146,7 @@ function initQslprintTable() {
 	if (!$.fn.dataTable.isDataTable('#qslprint_table')) {
 		$('#qslprint_table').DataTable({
 			stateSave: true,
+			autoWidth: false,
 			ordering: true,
 			order: [],
 			columnDefs: [
