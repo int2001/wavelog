@@ -66,7 +66,7 @@ class Qslpostcard_model extends CI_Model {
         $table = $this->config->item('table_name');
 
         // Scope to the logged-in user's stations only
-        $sql = "SELECT {$table}.*
+        $sql = "SELECT {$table}.*, station_profile.station_callsign
             FROM {$table}
             INNER JOIN station_profile ON station_profile.station_id = {$table}.station_id
             WHERE station_profile.user_id = ?
@@ -466,7 +466,7 @@ class Qslpostcard_model extends CI_Model {
         // Most likely starting point for physical cards:
         // requested cards or unsent cards
         // Adjust after we confirm your queue logic.
-        $sql = "SELECT {$table}.*
+        $sql = "SELECT {$table}.*, station_profile.station_callsign
             FROM {$table}
             INNER JOIN station_profile ON station_profile.station_id = {$table}.station_id
             WHERE station_profile.user_id = ?
@@ -514,7 +514,7 @@ class Qslpostcard_model extends CI_Model {
         $placeholders = implode(',', array_fill(0, count($ids), '?'));
 
         // Scope to the logged-in user's stations only
-        $sql = "SELECT {$table}.*
+        $sql = "SELECT {$table}.*, station_profile.station_callsign
             FROM {$table}
             INNER JOIN station_profile ON station_profile.station_id = {$table}.station_id
             WHERE station_profile.user_id = ?
@@ -692,6 +692,18 @@ class Qslpostcard_model extends CI_Model {
         if ($field === 'qso.my_iota_ref') return $qso['COL_MY_IOTA'] ?? '';
 
         if ($field === 'qso.my_grid') return trim($qso['COL_MY_GRIDSQUARE'] ?? '');
+
+        if ($field === 'qso.station_callsign') {
+            return strtoupper($qso['station_callsign'] ?? $qso['COL_STATION_CALLSIGN'] ?? '');
+        }
+
+        if ($field === 'qso.operator') {
+            $op = strtoupper(trim($qso['COL_OPERATOR'] ?? ''));
+            if ($op !== '') {
+                return $op;
+            }
+            return strtoupper($qso['station_callsign'] ?? $qso['COL_STATION_CALLSIGN'] ?? '');
+        }
 
         if ($field === 'qso.iota_line') {
             $ref = trim($qso['COL_MY_IOTA'] ?? '');
