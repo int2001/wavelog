@@ -27,62 +27,6 @@ if (empty($station_id)) {
 
 if ($qsos->result() != NULL) { ?>
 
-	<!-- toolbar to manipulate QSOs -->
-	<div class="d-flex flex-wrap align-items-center gap-2 mb-3 p-2 rounded border">
-
-		<!-- method picker (used by the 'Mark' dropdown) -->
-		<label for="markqslmethod" class="mb-0 small text-muted text-nowrap"><?= __("Mark QSOs for a certain QSL Method:"); ?></label>
-		<select id="markqslmethod" class="form-select form-select-sm w-auto">
-			<option value="ALL" selected><?= __("All"); ?></option>
-			<option value="B"><?= echo_qsl_sent_via("B") ?></option>
-			<option value="D"><?= echo_qsl_sent_via("D") ?></option>
-			<option value="E"><?= echo_qsl_sent_via("E") ?></option>
-		</select>
-
-		<!-- Mark -->
-		<div class="btn-group">
-			<button type="button" class="btn btn-sm btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-check me-1"></i><?= __("Mark"); ?></button>
-			<ul class="dropdown-menu">
-				<li><button type="button" class="dropdown-item markmethod" onclick="markMethod()" title="<?= __("Mark all QSOs for the chosen QSL method"); ?>"><?= __("Mark all QSOs for the chosen QSL method"); ?></button></li>
-				<li><button type="button" class="dropdown-item unmarkall" onclick="unmarkallQSOs()" title="<?= __("Unmark every QSO"); ?>"><?= __("Unmark every QSO"); ?></button></li>
-				<li><hr class="dropdown-divider"></li>
-				<li><button type="button" class="dropdown-item markallprinted" onclick="markSelectedQsos();" title="<?= __("Mark selected QSOs as sent"); ?>"><?= __("Mark selected QSOs as sent"); ?></button></li>
-				<li><a class="dropdown-item" href="<?php echo site_url('qslprint/qsl_printed/' . $station_id); ?>" title="<?= __("Mark QSLs as printed"); ?>"><?= __("Mark requested QSLs as sent"); ?></a></li>
-			</ul>
-		</div>
-
-		<!-- Export -->
-		<div class="btn-group">
-			<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-file-export me-1"></i><?= __("Export"); ?></button>
-			<ul class="dropdown-menu">
-				<li><button type="button" class="dropdown-item exportselected" onclick="exportSelectedQsos();" title="<?= __("Export selected QSOs to ADIF-file"); ?>"><?= __("Export selected QSOs to ADIF-file"); ?></button></li>
-				<li><hr class="dropdown-divider"></li>
-				<li><a class="dropdown-item" href="<?php echo site_url('qslprint/exportcsv/' . $station_id); ?>" title="<?= __("Export CSV-file"); ?>"><?= __("Export requested QSLs to CSV-file"); ?></a></li>
-				<li><a class="dropdown-item" href="<?php echo site_url('qslprint/exportadif/' . $station_id); ?>" title="<?= __("Export ADIF"); ?>"><?= __("Export requested QSLs to ADIF-file"); ?></a></li>
-			</ul>
-		</div>
-
-		<!-- Print -->
-		<div class="btn-group">
-			<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-print me-1"></i><?= __("Print"); ?></button>
-			<ul class="dropdown-menu">
-				<li><button type="button" onclick="printDialog('qslcard');" class="dropdown-item" title="<?= __("Print Selected QSO Postcards"); ?>"><?= __("Print Selected QSO Postcards"); ?></button></li>
-				<li><button type="button" onclick="printDialog('qslcard', true);" class="dropdown-item" title="<?= __("Print Postcards for all QSOs"); ?>"><?= __("Print Postcards for all QSOs"); ?></button></li>
-				<li><button type="button" onclick="printDialog('label');" class="dropdown-item" title="<?= __("Print Selected QSL Labels"); ?>"><?= __("Print Selected QSL Labels"); ?></button></li>
-				<li><button type="button" onclick="printDialog('label', true);" class="dropdown-item" title="<?= __("Print Labels for all QSOs"); ?>"><?= __("Print Labels for all QSOs"); ?></button></li>
-			</ul>
-		</div>
-
-		<!-- Remove -->
-		<div class="btn-group">
-			<button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-trash-alt me-1"></i><?= __("Remove"); ?></button>
-			<ul class="dropdown-menu">
-				<li><button type="button" class="dropdown-item removeall" onclick="removeSelectedQsos();" title="<?= __("Remove selected QSOs from the queue"); ?>"><?= __("Remove selected QSOs from the queue"); ?></button></li>
-			</ul>
-		</div>
-
-	</div>
-
 		<table style="width:100%" class="table table-sm table-bordered table-hover table-striped table-condensed qslprint" id="qslprint_table">
 			<thead>
 				<tr>
@@ -100,9 +44,7 @@ if ($qsos->result() != NULL) { ?>
 					<th style='text-align: center'><?= __("Profile name") ?></th>
 					<th class='select-filter' style='text-align: center'><?= __("Send Method") ?></th>
 					<th style='text-align: center; white-space: nowrap;'><?= __("Previous QSL") ?></th>
-					<th style='text-align: center'><?= __("Mark as sent") ?></th>
-					<th style='text-align: center'><?= __("Remove") ?></th>
-					<th style='text-align: center'><?= __("QSO List") ?></th>
+					<th style='text-align: center; white-space: nowrap;'><?= __("Actions") ?></th>
 				</tr>
 			</thead><tbody>
 
@@ -128,9 +70,11 @@ if ($qsos->result() != NULL) { ?>
 		echo '<span class="badge bg-info" data-bs-toggle="tooltip" data-bs-title="' . __("QSL sent to callsign (total)") . '">' . $qsl->qsl_sent_to_call . '</span> / ';
 		echo '<span class="badge bg-info" data-bs-toggle="tooltip" data-bs-title="' . __("QSL received from callsign (total)") . '">' . $qsl->qsl_rcvd_from_call . '</span>';
 		echo '</td>';
-		echo '<td style=\'text-align: center\'><button type="button" onclick="mark_qsl_sent(\''.$qsl->COL_PRIMARY_KEY.'\', \''. $qsl->COL_QSL_SENT_VIA. '\')" class="btn btn-sm btn-success"><i class="fa fa-check"></i></button></td>';
-		echo '<td style=\'text-align: center\'><button type="button" onclick="deleteFromQslQueue(\''.$qsl->COL_PRIMARY_KEY.'\')" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button></td>';
-		echo '<td style=\'text-align: center\'><button type="button" onclick="openQsoList(\''.$qsl->COL_CALL.'\')" class="btn btn-sm btn-success"><i class="fas fa-search"></i></button></td>';
+		echo '<td style=\'text-align: center; white-space: nowrap;\'><div class="d-inline-flex align-items-center gap-1">';
+		echo '<button type="button" onclick="mark_qsl_sent(\''.$qsl->COL_PRIMARY_KEY.'\', \''. $qsl->COL_QSL_SENT_VIA. '\')" class="btn btn-sm btn-success" data-bs-toggle="tooltip" data-bs-title="' . __("Mark as sent") . '"><i class="fa fa-check"></i></button>';
+		echo '<button type="button" onclick="deleteFromQslQueue(\''.$qsl->COL_PRIMARY_KEY.'\')" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" data-bs-title="' . __("Remove") . '"><i class="fas fa-trash-alt"></i></button>';
+		echo '<button type="button" onclick="openQsoList(\''.$qsl->COL_CALL.'\')" class="btn btn-sm btn-success" data-bs-toggle="tooltip" data-bs-title="' . __("QSO List") . '"><i class="fas fa-search"></i></button>';
+		echo '</div></td>';
 		echo '</tr>';
 	}
 	echo '</tbody></table>';

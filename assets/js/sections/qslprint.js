@@ -112,15 +112,14 @@ function addQsoToPrintQueue(id) {
 					line += '<td style=\'text-align: center\'>'+$("#qsolist_"+id).find("td:eq(11)").text()+'</td>';
 					let prev_qsl_html = $("#qsolist_"+id).find("td:eq(12)").html();
 					line += '<td style=\'text-align: center; white-space: nowrap;\'>'+prev_qsl_html+'</td>';
-					line += '<td style=\'text-align: center\'><button onclick="mark_qsl_sent('+id+', \'B\')" class="btn btn-sm btn-success"><i class="fa fa-check"></i></button></td>';
-					line += '<td style=\'text-align: center\'><button onclick="deleteFromQslQueue('+id+')" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button></td></td>';
-					line += '<td style=\'text-align: center\'><button onclick="openQsoList(\''+$("#qsolist_"+id).find("td:eq(0)").text()+'\')" class="btn btn-sm btn-success"><i class="fas fa-search"></i></button></td>';
+					line += '<td style=\'text-align: center; white-space: nowrap;\'><div class="d-inline-flex align-items-center gap-1"><button onclick="mark_qsl_sent('+id+', \'B\')" class="btn btn-sm btn-success" data-bs-toggle="tooltip" data-bs-title="'+lang_qslprint_action_mark+'"><i class="fa fa-check"></i></button><button onclick="deleteFromQslQueue('+id+')" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" data-bs-title="'+lang_qslprint_action_remove+'"><i class="fas fa-trash-alt"></i></button><button onclick="openQsoList(\''+$("#qsolist_"+id).find("td:eq(0)").text()+'\')" class="btn btn-sm btn-success" data-bs-toggle="tooltip" data-bs-title="'+lang_qslprint_action_qsolist+'"><i class="fas fa-search"></i></button></div></td>';
                     line += '</tr>';
                     if ($.fn.dataTable.isDataTable('#qslprint_table')) {
                         $('#qslprint_table').DataTable().row.add($(line)).draw(false);
                     } else {
                         $('#qslprint_table tr:last').after(line);
                     }
+                    $('#qslprint_'+id+' [data-bs-toggle="tooltip"]').tooltip();
                     $("#qsolist_"+id).remove();
                 },
                 error: function() {
@@ -536,6 +535,10 @@ function printDialog(printType, printAll = false) {
 			});
 		}
 	});
+}
+
+function requestedQslAction(action) {
+	window.location.href = base_url + 'index.php/qslprint/' + action + '/' + $('.station_id').val();
 }
 
 function getSelectedIds() {
