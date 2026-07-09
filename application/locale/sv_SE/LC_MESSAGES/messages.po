@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-08 19:20+0000\n"
+"POT-Creation-Date: 2026-07-09 08:37+0000\n"
 "PO-Revision-Date: 2026-07-01 15:28+0000\n"
 "Last-Translator: \"Jorgen Dahl, NU1T\" <sm6srw@arrl.net>\n"
 "Language-Team: Swedish <https://translate.wavelog.org/projects/wavelog/main-"
@@ -2972,8 +2972,8 @@ msgstr "Redigera"
 #: application/views/oqrs/showrequests.php:80
 #: application/views/qslcard/index.php:80
 #: application/views/qslcard/index.php:129
-#: application/views/qslpostcard/designer.php:299
-#: application/views/qslpostcard/designer.php:338
+#: application/views/qslpostcard/designer.php:312
+#: application/views/qslpostcard/designer.php:351
 #: application/views/satellite/edit.php:57
 #: application/views/satellite/index.php:59
 #: application/views/search/stored_queries.php:22
@@ -13799,8 +13799,8 @@ msgid "Duplication is disabled for Contacts notes"
 msgstr "Duplicering är inaktiverad för kontaktsanteckningar"
 
 #: application/views/interface_assets/footer.php:66
-#: application/views/qslpostcard/designer.php:296
-#: application/views/qslpostcard/designer.php:312
+#: application/views/qslpostcard/designer.php:309
+#: application/views/qslpostcard/designer.php:325
 msgid "Duplicate"
 msgstr "Duplicera"
 
@@ -14708,7 +14708,7 @@ msgstr "Total höjd på en etikett"
 
 #: application/views/labels/create.php:105
 #: application/views/labels/edit.php:107 application/views/labels/index.php:81
-#: application/views/qslpostcard/designer.php:263
+#: application/views/qslpostcard/designer.php:276
 msgid "Font Size"
 msgstr "Teckenstorlek"
 
@@ -18037,90 +18037,98 @@ msgstr "Högerklicka på ett fält för fler åtgärder."
 msgid "Text"
 msgstr "Text"
 
-#: application/views/qslpostcard/designer.php:243
+#: application/views/qslpostcard/designer.php:242
+msgid "Frequency format"
+msgstr ""
+
+#: application/views/qslpostcard/designer.php:250
+msgid "Omit unit"
+msgstr ""
+
+#: application/views/qslpostcard/designer.php:256
 msgid "X"
 msgstr "X"
 
-#: application/views/qslpostcard/designer.php:247
+#: application/views/qslpostcard/designer.php:260
 msgid "Y"
 msgstr "Y"
 
-#: application/views/qslpostcard/designer.php:253
+#: application/views/qslpostcard/designer.php:266
 msgid "Font"
 msgstr "Typsnitt"
 
-#: application/views/qslpostcard/designer.php:269
+#: application/views/qslpostcard/designer.php:282
 msgid "Bold"
 msgstr "Fetstil"
 
-#: application/views/qslpostcard/designer.php:275
+#: application/views/qslpostcard/designer.php:288
 msgid "Color"
 msgstr "Färg"
 
-#: application/views/qslpostcard/designer.php:280
+#: application/views/qslpostcard/designer.php:293
 msgid "Wrap width"
 msgstr "Omslagsbredd"
 
-#: application/views/qslpostcard/designer.php:285
+#: application/views/qslpostcard/designer.php:298
 msgid "Print this field once per QSO when a card holds multiple QSOs"
 msgstr ""
 "Skriv ut det här fältet en gång per QSO när ett kort innehåller flera QSOs"
 
-#: application/views/qslpostcard/designer.php:286
+#: application/views/qslpostcard/designer.php:299
 msgid "Repeats per QSO"
 msgstr "Upprepas per QSO"
 
-#: application/views/qslpostcard/designer.php:290
+#: application/views/qslpostcard/designer.php:303
 msgid "Move this element freely without snapping to the grid or other elements"
 msgstr ""
 "Flytta det här elementet fritt utan att fästa det på rutnätet eller andra "
 "element"
 
-#: application/views/qslpostcard/designer.php:291
+#: application/views/qslpostcard/designer.php:304
 msgid "Disable Auto-Snap"
 msgstr "Inaktivera automatisk snapp"
 
-#: application/views/qslpostcard/designer.php:317
+#: application/views/qslpostcard/designer.php:330
 msgid "Align & distribute"
 msgstr "Justera och fördela"
 
-#: application/views/qslpostcard/designer.php:321
+#: application/views/qslpostcard/designer.php:334
 msgid "Align left"
 msgstr "Justera vänster"
 
-#: application/views/qslpostcard/designer.php:322
+#: application/views/qslpostcard/designer.php:335
 msgid "Align horizontal centers"
 msgstr "Justera horisontella centra"
 
-#: application/views/qslpostcard/designer.php:323
+#: application/views/qslpostcard/designer.php:336
 msgid "Align right"
 msgstr "Justera höger"
 
-#: application/views/qslpostcard/designer.php:325
+#: application/views/qslpostcard/designer.php:338
 msgid "Align top"
 msgstr "Justera överst"
 
-#: application/views/qslpostcard/designer.php:326
+#: application/views/qslpostcard/designer.php:339
 msgid "Align vertical centers"
 msgstr "Justera vertikala centra"
 
-#: application/views/qslpostcard/designer.php:327
+#: application/views/qslpostcard/designer.php:340
 msgid "Align bottom"
 msgstr "Justera längst ner"
 
-#: application/views/qslpostcard/designer.php:329
+#: application/views/qslpostcard/designer.php:342
 msgid "Distribute horizontally"
 msgstr "Fördela horisontellt"
 
-#: application/views/qslpostcard/designer.php:330
+#: application/views/qslpostcard/designer.php:343
 msgid "Distribute vertically"
 msgstr "Distribuera vertikalt"
 
-#: application/views/qslpostcard/designer.php:332
+#: application/views/qslpostcard/designer.php:345
 msgid "Center on page (horizontal)"
 msgstr "Centrera på sidan (horisontellt)"
 
-#: application/views/qslpostcard/designer.php:333
+#: application/views/qslpostcard/designer.php:346
 msgid "Center on page (vertical)"
 msgstr "Centrera på sidan (vertikalt)"
 
