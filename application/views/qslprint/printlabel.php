@@ -114,4 +114,4 @@
     </div>
 </form>
 <button type="button" class="btn btn-primary btn-sm me-3" onclick="printLabel(<?php echo $printAll; ?>)"><i class="fas fa-print me-1"></i> <?= __("Print Label"); ?></button>
-<button type="button" class="btn btn-secondary btn-sm me-3 ld-ext-right" id="button_markprint"><i class="fas fa-check me-1"></i> <?= __("Mark QSL as printed"); ?></button>
+<button type="button" class="btn btn-secondary btn-sm me-3 ld-ext-right" id="button_markprint" onclick="markQslPrinted(<?php echo $printAll; ?>)"><i class="fas fa-check me-1"></i> <?= __("Mark QSL as printed"); ?></button>

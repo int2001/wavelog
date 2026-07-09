@@ -34,6 +34,7 @@
                         <li><button type="button" onclick="saveAndPrintSelectedQsos(<?php echo $printAll; ?>)" class="dropdown-item" href="#" id="btnPrintQslCardSave"><i class="fas fa-download me-1"></i> <?= __("Save PDF"); ?></button></li>
                     </ul>
                 </div>
+				<button type="button" class="btn btn-secondary btn-sm me-3 ld-ext-right" id="button_markprint" onclick="markQslPrinted(<?php echo $printAll; ?>)"><i class="fas fa-check me-1"></i> <?= __("Mark QSL as printed"); ?></button>
             </form>
         <?php } else { ?>
             <div class="alert alert-info mb-0 d-flex align-items-start">

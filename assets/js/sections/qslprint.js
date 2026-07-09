@@ -590,18 +590,47 @@ function printLabel(printAll) {
 	});
 }
 
-function markQslPrinted() {
+function markQslPrinted(printAll) {
 	$('#button_markprint').attr("disabled", true).addClass("running");
-	let murl = base_url + 'index.php/qslprint/qsl_printed/' + $('#sid2print').val();
-	$.ajax({
-		url: murl,
-		type: 'get',
-		success: function (html) {
-			$('#button_markprint').removeClass("running");
-			$('#button1id').attr("disabled", true);		// Disable printing as well, since every QSO for this station has been marked
-		},
-		error: function (html) {
+	if (printAll == true) {
+		$.ajax({
+			url: base_url + 'index.php/qslprint/qsl_printed/all',
+			type: 'get',
+			success: function () {
+				if ($.fn.dataTable.isDataTable('#qslprint_table')) {
+					$('#qslprint_table').DataTable().clear().draw();
+				}
+				$('#button_markprint').removeClass("running");
+			},
+			error: function () {
+				$('#button_markprint').prop("disabled", false).removeClass("running");
+			}
+		});
+	} else {
+		let id_list = getSelectedIds();
+		if (!id_list.length) {
 			$('#button_markprint').prop("disabled", false).removeClass("running");
+			return;
 		}
-	});
+		$.ajax({
+			url: base_url + 'index.php/logbookadvanced/update_qsl',
+			type: 'post',
+			data: {
+				'id': JSON.stringify(id_list, null, 2),
+				'sent': 'Y',
+				'method': ''
+			},
+			success: function (data) {
+				if (data !== []) {
+					$.each(data, function (k, v) {
+						removeQslRow(this.qsoID);
+					});
+				}
+				$('#button_markprint').prop("disabled", false).removeClass("running");
+			},
+			error: function () {
+				$('#button_markprint').prop("disabled", false).removeClass("running");
+			}
+		});
+	}
 }
