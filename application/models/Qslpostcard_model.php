@@ -66,7 +66,7 @@ class Qslpostcard_model extends CI_Model {
         $table = $this->config->item('table_name');
 
         // Scope to the logged-in user's stations only
-        $sql = "SELECT {$table}.*
+        $sql = "SELECT {$table}.*, station_profile.station_callsign
             FROM {$table}
             INNER JOIN station_profile ON station_profile.station_id = {$table}.station_id
             WHERE station_profile.user_id = ?
@@ -382,7 +382,7 @@ class Qslpostcard_model extends CI_Model {
                     if ($type === 'text') {
                         $val = $el['text'] ?? '';
                     } else {
-                        $val = $this->resolve_field($field, $qso, $addr);
+                        $val = $this->resolve_field($field, $qso, $addr, $el);
                     }
 
                     if ($val === '') {
@@ -466,7 +466,7 @@ class Qslpostcard_model extends CI_Model {
         // Most likely starting point for physical cards:
         // requested cards or unsent cards
         // Adjust after we confirm your queue logic.
-        $sql = "SELECT {$table}.*
+        $sql = "SELECT {$table}.*, station_profile.station_callsign
             FROM {$table}
             INNER JOIN station_profile ON station_profile.station_id = {$table}.station_id
             WHERE station_profile.user_id = ?
@@ -514,7 +514,7 @@ class Qslpostcard_model extends CI_Model {
         $placeholders = implode(',', array_fill(0, count($ids), '?'));
 
         // Scope to the logged-in user's stations only
-        $sql = "SELECT {$table}.*
+        $sql = "SELECT {$table}.*, station_profile.station_callsign
             FROM {$table}
             INNER JOIN station_profile ON station_profile.station_id = {$table}.station_id
             WHERE station_profile.user_id = ?
@@ -552,7 +552,7 @@ class Qslpostcard_model extends CI_Model {
         return $sub !== '' ? $sub : ($qso['COL_MODE'] ?? $qso['mode'] ?? '');
     }
 
-    private function resolve_field($field, $qso, $addr) {
+    private function resolve_field($field, $qso, $addr, $el = []) {
 
         // Address computed fields
         if ($field === 'addr.source') {
@@ -603,7 +603,21 @@ class Qslpostcard_model extends CI_Model {
         if ($field === 'qso.mode') return $this->resolve_mode($qso);
         if ($field === 'qso.sat_name') return trim($qso['COL_SAT_NAME'] ?? '');
         if ($field === 'qso.sat_mode') return $this->pretty_sat_mode($qso['COL_SAT_MODE'] ?? '');
-        if ($field === 'qso.freq') return $qso['COL_FREQ'] ?? $qso['freq'] ?? '';
+        if ($field === 'qso.freq') {
+            $hz = $qso['COL_FREQ'] ?? $qso['freq'] ?? '';
+            if ($hz === '' || $hz === null || (float)$hz == 0) {
+                return '';
+            }
+            $unit = $el['freq_format'] ?? 'MHz';
+            if (!in_array($unit, ['Hz', 'kHz', 'MHz'], true)) {
+                $unit = 'MHz';
+            }
+            if (!$this->load->is_loaded('frequency')) {
+                $this->load->library('frequency');
+            }
+            $r_option = !empty($el['freq_no_unit']) ? 0 : 1;
+            return $this->frequency->qrg_conversion((float)$hz, $r_option, 'Hz', $unit) ?? '';
+        }
         if ($field === 'qso.rst_sent') return $qso['COL_RST_SENT'] ?? $qso['rst_sent'] ?? '';
         if ($field === 'qso.rst_rcvd') return $qso['COL_RST_RCVD'] ?? $qso['rst_rcvd'] ?? '';
         if ($field === 'qso.r_sent') return substr($qso['COL_RST_SENT'] ?? $qso['rst_sent'] ?? '', 0, 1);
@@ -692,6 +706,18 @@ class Qslpostcard_model extends CI_Model {
         if ($field === 'qso.my_iota_ref') return $qso['COL_MY_IOTA'] ?? '';
 
         if ($field === 'qso.my_grid') return trim($qso['COL_MY_GRIDSQUARE'] ?? '');
+
+        if ($field === 'qso.station_callsign') {
+            return strtoupper($qso['station_callsign'] ?? $qso['COL_STATION_CALLSIGN'] ?? '');
+        }
+
+        if ($field === 'qso.operator') {
+            $op = strtoupper(trim($qso['COL_OPERATOR'] ?? ''));
+            if ($op !== '') {
+                return $op;
+            }
+            return strtoupper($qso['station_callsign'] ?? $qso['COL_STATION_CALLSIGN'] ?? '');
+        }
 
         if ($field === 'qso.iota_line') {
             $ref = trim($qso['COL_MY_IOTA'] ?? '');

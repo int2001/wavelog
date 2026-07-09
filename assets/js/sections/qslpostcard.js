@@ -240,6 +240,8 @@
 			wrap_w_in: 2.6,
 			repeat_per_qso: false,
 			no_snap: false,
+			freq_format: 'MHz',
+			freq_no_unit: false,
 		};
 		if (type === 'field') item.field = value;
 		else item.text = value;
@@ -450,6 +452,13 @@
 		document.getElementById('propPosRow').style.display = multi ? 'none' : '';
 		document.getElementById('propTextRow').style.display = (!multi && isText) ? 'block' : 'none';
 
+		const isFreq = !multi && !isText && item.field === 'qso.freq';
+		document.getElementById('propFreqFormatRow').style.display = isFreq ? '' : 'none';
+		if (isFreq) {
+			document.getElementById('propFreqFormat').value = item.freq_format || 'MHz';
+			document.getElementById('propFreqNoUnit').checked = !!item.freq_no_unit;
+		}
+
 		if (multi) {
 			document.getElementById('propTypeBadge').textContent = selectedIds.length;
 			document.getElementById('propTypeLabel').textContent = LANG.selected;
@@ -512,6 +521,8 @@
 	wireProp('propWrap', (item, n) => { item.wrap_w_in = Math.max(0.2, dispToIn(parseFloat(n.value || '2.6'))); });
 	wireProp('propRepeat', (item, n) => { item.repeat_per_qso = n.checked; renderGhosts(item); });
 	wireProp('propNoSnap', (item, n) => { item.no_snap = n.checked; });
+	wireProp('propFreqFormat', (item, n) => { item.freq_format = n.value; });
+	wireProp('propFreqNoUnit', (item, n) => { item.freq_no_unit = n.checked; });
 
 	document.getElementById('btnDuplicate').addEventListener('click', duplicateSelected);
 	document.getElementById('btnDeleteElem').addEventListener('click', deleteSelected);
@@ -1034,6 +1045,8 @@
 			wrap_w_in: el.wrap_w_in ?? 2.6,
 			repeat_per_qso: !!el.repeat_per_qso,
 			no_snap: !!el.no_snap,
+			freq_format: el.freq_format || 'MHz',
+			freq_no_unit: !!el.freq_no_unit,
 		}));
 
 		history.length = 0;

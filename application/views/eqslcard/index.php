@@ -25,7 +25,7 @@
       $custom_date_format = $this->config->item('qso_date_format');
    }
 
-    if (is_array($qslarray->result())) {
+    if (isset($qslarray) && $qslarray->num_rows() > 0) {
         echo '<table class="eqsltable table table-sm table-bordered table-hover table-striped table-condensed">
         <thead>
         <tr>

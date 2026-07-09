@@ -169,15 +169,6 @@
 		polyfillCountryFlagEmojis();
 </script>
 
-<script src="<?php echo $this->paths->cache_buster('/assets/js/htmx.min.js'); ?>"></script>
-
-<script>
-    // Reinitialize tooltips after new content has been loaded
-    document.addEventListener('htmx:afterSwap', function(event) {
-        $('[data-bs-toggle="tooltip"]').tooltip();
-    });
-</script>
-
 
 <!-- DATATABLES LANGUAGE -->
 <?php

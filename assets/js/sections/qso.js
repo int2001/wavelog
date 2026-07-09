@@ -427,9 +427,16 @@ $("#qso_input").off('submit').on('submit', function (e) {
 	return false;
 });
 
+// Load the "Previous Contacts" table (was htmx hx-get on #qso-last-table).
+// Also called from prepare_next_qso() after saving a QSO (was the qso_event trigger).
+function refreshPastContacts() {
+	const table = document.getElementById('qso-last-table');
+	if (table) wlLoadInto(table.dataset.pastContactsUrl, table);
+}
+
 function prepare_next_qso(saveQsoButtonText) {
 	reset_fields();
-	htmx.trigger("#qso-last-table", "qso_event")
+	refreshPastContacts();
 	$("#saveQso").html(saveQsoButtonText).prop("disabled", false);
 	$("#callsign").val("");
 	var triggerEl = document.querySelector('#myTab a[href="#qso"]')
@@ -3448,6 +3455,14 @@ $(document).ready(function () {
 				alert(lang_qso_note_error_saving);
 			});
 	});
+
+	// Previous Contacts table: initial load + periodic refresh
+	// (replaces the former htmx hx-get / hx-trigger on #qso-last-table).
+	const pastContactsTable = document.getElementById('qso-last-table');
+	refreshPastContacts();
+	if (pastContactsTable.dataset.autoRefresh === '1') {
+		setInterval(refreshPastContacts, 15000);
+	}
 
 	// everything loaded and ready 2 go
 	// bc only exists in live mode (qso_manual == 0); guard against manual mode
