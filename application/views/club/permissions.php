@@ -47,7 +47,7 @@
                                             <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
                                         <tr class="empty-row">
-                                            <td colspan="3"></td>
+                                            <td colspan="4"></td>
                                         </tr>
                                         <tr>
                                             <td><?= __("Log QSOs via API"); ?></td>
@@ -56,7 +56,7 @@
                                             <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
                                         <tr class="empty-row">
-                                            <td colspan="3"></td>
+                                            <td colspan="4"></td>
                                         </tr>
                                         <tr>
                                             <td><?= __("Edit a QSO"); ?></td>
@@ -77,7 +77,7 @@
                                             <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
                                         <tr class="empty-row">
-                                            <td colspan="3"></td>
+                                            <td colspan="4"></td>
                                         </tr>
                                         <tr>
                                             <td><?= __("Delete a QSO"); ?></td>
@@ -107,7 +107,7 @@
                                             <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
                                         <tr class="empty-row">
-                                            <td colspan="3"></td>
+                                            <td colspan="4"></td>
                                         </tr>
                                         <tr>
                                             <td><?= __("Manage Third-Party services"); ?></td>
@@ -116,7 +116,7 @@
                                             <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
                                         <tr class="empty-row">
-                                            <td colspan="3"></td>
+                                            <td colspan="4"></td>
                                         </tr>
                                         <tr>
                                             <td><?= __("Import QSO per ADIF"); ?></td>
