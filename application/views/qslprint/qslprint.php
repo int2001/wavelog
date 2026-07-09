@@ -46,6 +46,23 @@ if ($qsos->result() != NULL) { ?>
 					<th style='text-align: center; white-space: nowrap;'><?= __("Previous QSL") ?></th>
 					<th style='text-align: center; white-space: nowrap;'><?= __("Actions") ?></th>
 				</tr>
+				<tr>
+					<th></th>
+					<th class='select-filter select-filter-html'></th>
+					<th class='select-filter'></th>
+					<th></th>
+					<th class='select-filter'></th>
+					<th class='select-filter col-band'></th>
+					<th class='col-freq' style='display:none;'></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th class='select-filter select-filter-html'></th>
+					<th></th>
+					<th class='select-filter'></th>
+					<th></th>
+					<th></th>
+				</tr>
 			</thead><tbody>
 
 

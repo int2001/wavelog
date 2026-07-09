@@ -147,6 +147,7 @@ function initQslprintTable() {
 		$('#qslprint_table').DataTable({
 			stateSave: true,
 			autoWidth: false,
+			orderCellsTop: true,
 			ordering: true,
 			order: [],
 			columnDefs: [
@@ -162,18 +163,23 @@ function initQslprintTable() {
 				url: getDataTablesLanguageUrl(),
 			},
 			initComplete: function () {
-				this.api().columns('.select-filter').every(function () {
+				var api = this.api();
+				// Filter dropdowns live in their own (second) header row
+				var $filterCells = $('#qslprint_table thead tr').last().find('th');
+				api.columns('.select-filter').every(function () {
 					var column = this;
-					var select = $('<select class="form-select form-select-sm mt-1"><option value=""></option></select>')
-						.appendTo($(column.header()))
+					var $cell = $filterCells.eq(column.index());
+					if (!$cell.length) { return; }
+					var select = $('<select class="form-select form-select-sm" style="width:100%;"><option value=""></option></select>')
+						.appendTo($cell.empty())
 						.on('click', function (e) { e.stopPropagation(); })	// keep dropdown clicks from re-sorting the column
 						.on('change', function () {
 							var val = $.fn.dataTable.util.escapeRegex($(this).val());
 							column.search(val ? '^' + val + '$' : '', true, false).draw();
 						});
-					if ($(column.header()).hasClass('select-filter-html')) {
-						// Cell holds HTML (e.g. Callsign links); build options from the plain
-						// text stored in data-search so values/labels stay clean and safe.
+					if ($cell.hasClass('select-filter-html')) {
+						// Body cell holds HTML (e.g. Callsign links); build options from the
+						// plain text stored in data-search so values/labels stay clean and safe.
 						var seen = {}, labels = [];
 						column.nodes().to$().each(function () {
 							var label = $(this).attr('data-search') || $(this).text().trim();
