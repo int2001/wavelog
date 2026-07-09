@@ -615,7 +615,8 @@ class Qslpostcard_model extends CI_Model {
             if (!$this->load->is_loaded('frequency')) {
                 $this->load->library('frequency');
             }
-            return $this->frequency->qrg_conversion((float)$hz, 1, 'Hz', $unit) ?? '';
+            $r_option = !empty($el['freq_no_unit']) ? 0 : 1;
+            return $this->frequency->qrg_conversion((float)$hz, $r_option, 'Hz', $unit) ?? '';
         }
         if ($field === 'qso.rst_sent') return $qso['COL_RST_SENT'] ?? $qso['rst_sent'] ?? '';
         if ($field === 'qso.rst_rcvd') return $qso['COL_RST_RCVD'] ?? $qso['rst_rcvd'] ?? '';

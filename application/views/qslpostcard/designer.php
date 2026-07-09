@@ -245,6 +245,10 @@ $_step_pitch = $_metric ? '0.1'  : '0.05';   // row pitch
 						<option value="kHz">kHz</option>
 						<option value="Hz">Hz</option>
 					</select>
+					<div class="form-check mt-1">
+						<input class="form-check-input" type="checkbox" id="propFreqNoUnit">
+						<label class="form-check-label small" for="propFreqNoUnit"><?= __("Omit unit"); ?></label>
+					</div>
 				</div>
 
 					<div class="row g-2 mb-2" id="propPosRow">
