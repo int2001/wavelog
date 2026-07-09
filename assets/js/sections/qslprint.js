@@ -447,54 +447,31 @@ document.getElementById('frequency_or_band').addEventListener('change', function
 	switchbandandfrequencydisplay(event.target.value);
 });
 
-function printlabel() {
+function printDialog(printType, printAll = false) {
 	const id_list = getSelectedIds();
 
-	if (id_list.length === 0) {
-		BootstrapDialog.alert({
-			title: lang_gen_advanced_logbook_info,
-			message: lang_gen_advanced_logbook_select_at_least_one_row_label,
-			type: BootstrapDialog.TYPE_INFO,
-			closable: false,
-			draggable: false,
-			callback: function (result) {
-			}
-		});
-		return;
-	}
-	$('#printLabel').prop("disabled", true);
-
 	$.ajax({
-		url: base_url + 'index.php/logbookadvanced/startAtLabel',
+		url: base_url + 'index.php/qslprint/printdialog',
 		type: 'post',
+		data: {'printType': printType, 'id_list': id_list, 'printAll': printAll},
 		success: function (html) {
 			BootstrapDialog.show({
-				title: '<i class="fas fa-print me-2"></i>'+lang_label_print_options,
+				title: '<i class="fas fa-print me-2"></i>',
 				size: BootstrapDialog.SIZE_NORMAL,
 				cssClass: 'qso-dialog',
 				nl2br: false,
 				message: html,
 				onshown: function(dialog) {
 				},
-				buttons: [{
-					label: 'Print',
-					cssClass: 'btn btn-primary btn-sm',
-					action: function (dialogItself) {
-						printlabel(id_list);
-						dialogItself.close();
-					}
-				},
+				buttons: [
 					{
-					label: lang_admin_close,
-					cssClass: 'btn btn-secondary btn-sm',
-					action: function (dialogItself) {
-						$('#printLabel').prop("disabled", false);
-						dialogItself.close();
+						label: lang_admin_close,
+						cssClass: 'btn btn-secondary btn-sm',
+						action: function (dialogItself) {
+							dialogItself.close();
+						}
 					}
-				}],
-				onhide: function(dialogRef){
-					$('#printLabel').prop("disabled", false);
-				},
+				],
 			});
 		}
 	});
@@ -502,10 +479,120 @@ function printlabel() {
 
 function getSelectedIds() {
 	let id_list = [];
-	$('#qsoList tbody input:checked').each(function () {
-		let id = $(this).closest('tr').attr('id')?.replace(/\D/g, '');
-		id_list.push(id);
+	$('#qslprint_table tbody input[name="selected_qsos[]"]:checked').each(function () {
+		id_list.push($(this).val());
 	});
 	return id_list;
 }
 
+function printSelectedQsos(printAll) {
+	if (printAll == true) {
+		const tpl = document.getElementById('qslcard_template_id').value;
+        // Print options come from the template's layout.options, not this form.
+        window.open(base_url + 'index.php/qslpostcard/pdfqueue/' + tpl, '_blank');
+	} else {
+		let id_list = getSelectedIds();
+		let $container = $('#qslcard_selected_ids');
+		if (id_list.length) {
+			$container.empty();
+			$.each(id_list, function (i, id) {
+				$('<input>').attr({ type: 'hidden', name: 'selected_ids[]' }).val(id).appendTo($container);
+			});
+		}
+		let tplId = $('#qslcard_template_id').val();
+		if (!tplId) {
+			return;
+		}
+		let $form = $('#printQslCardForm');
+		$form.attr('action', base_url + 'index.php/qslpostcard/pdfselected/' + tplId);
+		$form.attr('target', '_blank');
+		$form[0].submit();
+	}
+}
+
+function saveAndPrintSelectedQsos(printAll) {
+	if (printAll == true) {
+		const tpl = document.getElementById('qslcard_template_id').value;
+        window.location.href  = base_url + 'index.php/qslpostcard/pdfqueue/' + tpl + '?download=1', '_blank';
+	} else {
+		let id_list = getSelectedIds();
+		let $container = $('#qslcard_selected_ids');
+		if (id_list.length) {
+			$container.empty();
+			$.each(id_list, function (i, id) {
+				$('<input>').attr({ type: 'hidden', name: 'selected_ids[]' }).val(id).appendTo($container);
+			});
+		}
+		var tplId = $('#qslcard_template_id').val();
+		if (!tplId) {
+			return;
+		}
+		var $form = $('#printQslCardForm');
+		$form.attr('action', base_url + 'index.php/qslpostcard/pdfselected/' + tplId + '?download=1');
+		$form.attr('target', '_blank');
+		$form[0].submit();
+		dialog.close();
+	}
+}
+
+function printLabel() {
+	const id_list = getSelectedIds();
+	$.ajax({
+		url: base_url + 'index.php/labels/printids',
+		type: 'post',
+		data: {'id': JSON.stringify(id_list, null, 2),
+				'startat': $('#startat').val(),
+				'grid': $('#gridlabel')[0].checked,
+				'via': $('#via')[0].checked,
+				'tnxmsg': $('#tnxmsg')[0].checked,
+				'qslmsg': $('#qslmsg')[0].checked,
+				'reference': $('#reference')[0].checked,
+				'mycall': $('#mycall')[0].checked,
+				'opcall': $('#opcall')[0].checked
+			},
+		xhr:function(){
+			var xhr = new XMLHttpRequest();
+			xhr.responseType= 'blob'
+			return xhr;
+		},
+		success: function(data) {
+			if(data){
+				var file = new Blob([data], {type: 'application/pdf'});
+				var fileURL = URL.createObjectURL(file);
+				window.open(fileURL);
+			}
+			$('#printLabel').prop("disabled", false);
+		},
+		error: function (data) {
+			BootstrapDialog.alert({
+				title: lang_gen_advanced_logbook_error,
+				message: lang_gen_advanced_logbook_label_print_error,
+				type: BootstrapDialog.TYPE_DANGER,
+				closable: false,
+				draggable: false,
+				callback: function (result) {
+				}
+			});
+			$.each(id_list, function(k, v) {
+				unselectQsoID(this);
+			});
+			$('#printLabel').prop("disabled", false);
+		},
+	});
+}
+
+function markQslPrinted() {
+	$('#button_markprint').attr("disabled", true).addClass("running");
+	let murl = base_url + 'index.php/qslprint/qsl_printed/' + $('#sid2print').val();
+	$.ajax({
+		url: murl,
+		type: 'get',
+		success: function (html) {
+			$('#button_markprint').removeClass("running");
+			$('#button1id').attr("disabled", true);		// Disable printing as well, since every QSO for this station has been marked
+		},
+		error: function (html) {
+			$('#button_markprint').prop("disabled", false).removeClass("running");
+		}
+	});
+}
