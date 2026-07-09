@@ -138,27 +138,70 @@ $(".station_id").change(function(){
 		success: function(html) {
 			$('.resulttable').empty();
 			$('.resulttable').append(html);
+			initQslprintTable();
 		}
 	});
 });
 
-$('#qslprint_table').DataTable({
-	stateSave: true,
-	ordering: true,
-	order: [],
-	columnDefs: [
-		{ orderable: false, targets: 0 }
-	],
-	pageLength: 25,
-	lengthMenu: [
-		[10, 25, 50, 100, -1],
-		[10, 25, 50, 100, lang_export_qslprint_pagination_all]
-	],
-	paging: 'pagination',
-	language: {
-		url: getDataTablesLanguageUrl(),
+function initQslprintTable() {
+	if (!$.fn.dataTable.isDataTable('#qslprint_table')) {
+		$('#qslprint_table').DataTable({
+			stateSave: true,
+			ordering: true,
+			order: [],
+			columnDefs: [
+				{ orderable: false, targets: 0 }
+			],
+			pageLength: 25,
+			lengthMenu: [
+				[10, 25, 50, 100, -1],
+				[10, 25, 50, 100, lang_export_qslprint_pagination_all]
+			],
+			paging: 'pagination',
+			language: {
+				url: getDataTablesLanguageUrl(),
+			},
+			initComplete: function () {
+				this.api().columns('.select-filter').every(function () {
+					var column = this;
+					var select = $('<select class="form-select form-select-sm mt-1"><option value=""></option></select>')
+						.appendTo($(column.header()))
+						.on('click', function (e) { e.stopPropagation(); })	// keep dropdown clicks from re-sorting the column
+						.on('change', function () {
+							var val = $.fn.dataTable.util.escapeRegex($(this).val());
+							column.search(val ? '^' + val + '$' : '', true, false).draw();
+						});
+					if ($(column.header()).hasClass('select-filter-html')) {
+						// Cell holds HTML (e.g. Callsign links); build options from the plain
+						// text stored in data-search so values/labels stay clean and safe.
+						var seen = {}, labels = [];
+						column.nodes().to$().each(function () {
+							var label = $(this).attr('data-search') || $(this).text().trim();
+							if (label && !seen.hasOwnProperty(label)) {
+								seen[label] = true;
+								labels.push(label);
+							}
+						});
+						labels.sort();
+						$.each(labels, function (i, label) {
+							$('<option>').val(label).text(label).appendTo(select);
+						});
+					} else {
+						column.data().unique().sort().each(function (d) {
+							select.append('<option value="' + d + '">' + d + '</option>');
+						});
+					}
+					// Reflect any stateSave-restored column search back into the dropdown
+					var saved = column.search();
+					if (saved) {
+						select.val(saved.replace(/^\^|\$$/g, ''));
+					}
+				});
+			}
+		});
 	}
-});
+}
+initQslprintTable();
 
 function showOqrs(id) {
 	$.ajax({

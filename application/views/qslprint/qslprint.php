@@ -87,18 +87,18 @@ if ($qsos->result() != NULL) { ?>
 			<thead>
 				<tr>
 					<th style="text-align: center"><div class="form-check" style="margin-top: -1.5em"><input class="form-check-input" type="checkbox" id="checkBoxAll" /></div></th>
-					<th style='text-align: center'><?= __("Callsign") ?></th>
-					<th style='text-align: center'><?= __("Date") ?></th>
+					<th class='select-filter select-filter-html' style='text-align: center'><?= __("Callsign") ?></th>
+					<th class='select-filter' style='text-align: center'><?= __("Date") ?></th>
 					<th style='text-align: center'><?= __("Time") ?></th>
-					<th style='text-align: center'><?= __("Mode") ?></th>
-					<th class='col-band' style='text-align: center'><?= __("Band") ?></th>
+					<th class='select-filter' style='text-align: center'><?= __("Mode") ?></th>
+					<th class='col-band select-filter' style='text-align: center'><?= __("Band") ?></th>
 					<th class='col-freq' style='text-align: center;display:none;'><?= __("Frequency") ?></th>
 					<th style='text-align: center'><?= __("RST (S)") ?></th>
 					<th style='text-align: center'><?= __("RST (R)") ?></th>
 					<th style='text-align: center'><?= __("QSL") ?> <?= __("Via") ?></th>
 					<th style='text-align: center'><?= __("Station") ?></th>
 					<th style='text-align: center'><?= __("Profile name") ?></th>
-					<th style='text-align: center'><?= __("Send Method") ?></th>
+					<th class='select-filter' style='text-align: center'><?= __("Send Method") ?></th>
 					<th style='text-align: center; white-space: nowrap;'><?= __("Previous QSL") ?></th>
 					<th style='text-align: center'><?= __("Mark as sent") ?></th>
 					<th style='text-align: center'><?= __("Remove") ?></th>
