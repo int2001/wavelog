@@ -5,7 +5,7 @@ $qsl_field_groups = [
 	__("Address")             => ['addr.name', 'addr.addr1', 'addr.addr2', 'addr.city_state_zip', 'addr.country'],
 	__("QSO Core")            => ['qso.call', 'qso.band', 'qso.mode', 'qso.sat_name', 'qso.sat_mode', 'qso.freq', 'qso.rst_sent', 'qso.r_sent', 'qso.s_sent', 'qso.t_sent', 'qso.rst_rcvd', 'qso.summary'],
 	__("Date & Time")         => ['qso.qso_date', 'qso.time_on', 'qso.time', 'qso.time_utc', 'qso.day', 'qso.month', 'qso.month_name', 'qso.year'],
-	__("Station & Equipment") => ['qso.tx_power'], //['qso.rig', 'qso.my_rig', 'qso.antenna', 'qso.rx_power'], Implement later if there's demand
+	__("Station & Equipment") => ['qso.station_callsign', 'qso.operator', 'qso.tx_power'], //['qso.rig', 'qso.my_rig', 'qso.antenna', 'qso.rx_power'], Implement later if there's demand
 	__("My References")       => ['qso.my_pota_ref', 'qso.pota_line', 'qso.my_sota_ref', 'qso.sota_line', 'qso.my_iota_ref', 'qso.iota_line', 'qso.my_grid'],
 	__("Markers")             => ['qso.pse_qsl', 'qso.tnx_qsl', 'qso.pse_qsl_tnx_text','qso.portable', 'qso.mobile'],
 	__("Other")               => ['qso.comment', 'qso.qsl_message', 'qso.qsl_via'],
@@ -233,10 +233,23 @@ $_step_pitch = $_metric ? '0.1'  : '0.05';   // row pitch
 						<span class="fw-bold ms-1" id="propTypeLabel"></span>
 					</div>
 
-					<div class="mb-2" id="propTextRow" style="display:none;">
-						<label class="form-label small mb-1"><?= __("Text"); ?></label>
-						<input id="propText" class="form-control form-control-sm">
+				<div class="mb-2" id="propTextRow" style="display:none;">
+					<label class="form-label small mb-1"><?= __("Text"); ?></label>
+					<input id="propText" class="form-control form-control-sm">
+				</div>
+
+				<div class="mb-2" id="propFreqFormatRow" style="display:none;">
+					<label class="form-label small mb-1"><?= __("Frequency format"); ?></label>
+					<select id="propFreqFormat" class="form-select form-select-sm">
+						<option value="MHz">MHz</option>
+						<option value="kHz">kHz</option>
+						<option value="Hz">Hz</option>
+					</select>
+					<div class="form-check mt-1">
+						<input class="form-check-input" type="checkbox" id="propFreqNoUnit">
+						<label class="form-check-label small" for="propFreqNoUnit"><?= __("Omit unit"); ?></label>
 					</div>
+				</div>
 
 					<div class="row g-2 mb-2" id="propPosRow">
 						<div class="col-6">
