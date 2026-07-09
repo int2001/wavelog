@@ -73,9 +73,9 @@ if ($qsos->result() != NULL) { ?>
 			</ul>
 		</div>
 
-		<!-- Delete -->
+		<!-- Remove -->
 		<div class="btn-group">
-			<button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-trash-alt me-1"></i><?= __("Delete"); ?></button>
+			<button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-trash-alt me-1"></i><?= __("Remove"); ?></button>
 			<ul class="dropdown-menu">
 				<li><button type="button" class="dropdown-item removeall" onclick="removeSelectedQsos();" title="<?= __("Remove selected QSOs from the queue"); ?>"><?= __("Remove selected QSOs from the queue"); ?></button></li>
 			</ul>
