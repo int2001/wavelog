@@ -233,10 +233,19 @@ $_step_pitch = $_metric ? '0.1'  : '0.05';   // row pitch
 						<span class="fw-bold ms-1" id="propTypeLabel"></span>
 					</div>
 
-					<div class="mb-2" id="propTextRow" style="display:none;">
-						<label class="form-label small mb-1"><?= __("Text"); ?></label>
-						<input id="propText" class="form-control form-control-sm">
-					</div>
+				<div class="mb-2" id="propTextRow" style="display:none;">
+					<label class="form-label small mb-1"><?= __("Text"); ?></label>
+					<input id="propText" class="form-control form-control-sm">
+				</div>
+
+				<div class="mb-2" id="propFreqFormatRow" style="display:none;">
+					<label class="form-label small mb-1"><?= __("Frequency format"); ?></label>
+					<select id="propFreqFormat" class="form-select form-select-sm">
+						<option value="MHz">MHz</option>
+						<option value="kHz">kHz</option>
+						<option value="Hz">Hz</option>
+					</select>
+				</div>
 
 					<div class="row g-2 mb-2" id="propPosRow">
 						<div class="col-6">

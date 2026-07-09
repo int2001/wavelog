@@ -382,7 +382,7 @@ class Qslpostcard_model extends CI_Model {
                     if ($type === 'text') {
                         $val = $el['text'] ?? '';
                     } else {
-                        $val = $this->resolve_field($field, $qso, $addr);
+                        $val = $this->resolve_field($field, $qso, $addr, $el);
                     }
 
                     if ($val === '') {
@@ -552,7 +552,7 @@ class Qslpostcard_model extends CI_Model {
         return $sub !== '' ? $sub : ($qso['COL_MODE'] ?? $qso['mode'] ?? '');
     }
 
-    private function resolve_field($field, $qso, $addr) {
+    private function resolve_field($field, $qso, $addr, $el = []) {
 
         // Address computed fields
         if ($field === 'addr.source') {
@@ -603,7 +603,20 @@ class Qslpostcard_model extends CI_Model {
         if ($field === 'qso.mode') return $this->resolve_mode($qso);
         if ($field === 'qso.sat_name') return trim($qso['COL_SAT_NAME'] ?? '');
         if ($field === 'qso.sat_mode') return $this->pretty_sat_mode($qso['COL_SAT_MODE'] ?? '');
-        if ($field === 'qso.freq') return $qso['COL_FREQ'] ?? $qso['freq'] ?? '';
+        if ($field === 'qso.freq') {
+            $hz = $qso['COL_FREQ'] ?? $qso['freq'] ?? '';
+            if ($hz === '' || $hz === null || (float)$hz == 0) {
+                return '';
+            }
+            $unit = $el['freq_format'] ?? 'MHz';
+            if (!in_array($unit, ['Hz', 'kHz', 'MHz'], true)) {
+                $unit = 'MHz';
+            }
+            if (!$this->load->is_loaded('frequency')) {
+                $this->load->library('frequency');
+            }
+            return $this->frequency->qrg_conversion((float)$hz, 1, 'Hz', $unit) ?? '';
+        }
         if ($field === 'qso.rst_sent') return $qso['COL_RST_SENT'] ?? $qso['rst_sent'] ?? '';
         if ($field === 'qso.rst_rcvd') return $qso['COL_RST_RCVD'] ?? $qso['rst_rcvd'] ?? '';
         if ($field === 'qso.r_sent') return substr($qso['COL_RST_SENT'] ?? $qso['rst_sent'] ?? '', 0, 1);
