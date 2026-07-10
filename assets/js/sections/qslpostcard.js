@@ -1058,8 +1058,31 @@
 		renderAll();
 	}
 
-	tplSelect.addEventListener('change', async e => {
-		const id = e.target.value;
+	// ===== Work-in-progress (dirty) tracking =====
+	// Snapshot of the layout in its last "clean" state — right after being loaded,
+	// saved, or reset to blank. The canvas has unsaved changes whenever its current
+	// state diverges from this snapshot. That stops an accidental template dropdown
+	// selection from silently discarding in-progress work (see change handler below).
+	function currentLayoutSig() {
+		return JSON.stringify({
+			elements: elements,
+			offX: dispToIn(parseFloat(offXInput.value || '0')),
+			offY: dispToIn(parseFloat(offYInput.value || '0')),
+			options: tplOptions,
+			preview_image: previewImagePath,
+		});
+	}
+	let cleanLayoutSig = currentLayoutSig();
+	function markClean() { cleanLayoutSig = currentLayoutSig(); }
+	function hasUnsavedChanges() { return currentLayoutSig() !== cleanLayoutSig; }
+
+	// The template id currently reflected on the canvas. If the user cancels a
+	// "discard unsaved changes?" prompt we revert the dropdown back to this value.
+	let confirmedTplId = '';
+
+	// Apply a dropdown selection (blank or a saved template), bypassing the
+	// unsaved-WIP guard. The canvas ends in a clean state, so we markClean() here.
+	async function applyTemplateSelection(id) {
 		prefSet('tpl', id);
 		if (!id) {
 			// "(new)" — start a blank canvas
@@ -1075,12 +1098,37 @@
 			history.length = 0; future.length = 0; updateHistoryButtons();
 			deselect();
 			renderAll();
+		} else {
+			document.getElementById('tplName').value = tplSelect.options[tplSelect.selectedIndex].text;
+			document.getElementById('btnPdf').href = base_url + 'index.php/qslpostcard/pdf/' + id;
+			document.getElementById('btnPdfSave').href = base_url + 'index.php/qslpostcard/pdf/' + id + '?download=1';
+			await loadTemplate(id);
+		}
+		confirmedTplId = String(id);
+		markClean();
+	}
+
+	tplSelect.addEventListener('change', e => {
+		const id = e.target.value;
+		// An accidental selection here would silently discard unsaved work — confirm first.
+		if (hasUnsavedChanges()) {
+			BootstrapDialog.confirm({
+				title: LANG.unsavedChangesTitle,
+				message: LANG.unsavedChangesConfirm,
+				type: BootstrapDialog.TYPE_WARNING,
+				closable: true,
+				draggable: true,
+				btnOKClass: 'btn-warning',
+				btnOKLabel: LANG.discardChanges,
+				btnCancelLabel: LANG.keepEditing,
+				callback: result => {
+					if (!result) { tplSelect.value = confirmedTplId; return; } // revert dropdown, keep WIP
+					applyTemplateSelection(id);
+				},
+			});
 			return;
 		}
-		document.getElementById('tplName').value = e.target.options[e.target.selectedIndex].text;
-		document.getElementById('btnPdf').href = base_url + 'index.php/qslpostcard/pdf/' + id;
-		document.getElementById('btnPdfSave').href = base_url + 'index.php/qslpostcard/pdf/' + id + '?download=1';
-		await loadTemplate(id);
+		applyTemplateSelection(id);
 	});
 
 	document.getElementById('btnSave').addEventListener('click', async () => {
@@ -1108,6 +1156,8 @@
 		tplSelect.value = newId;
 		document.getElementById('btnPdf').href = base_url + 'index.php/qslpostcard/pdf/' + newId;
 		document.getElementById('btnPdfSave').href = base_url + 'index.php/qslpostcard/pdf/' + newId + '?download=1';
+		confirmedTplId = String(newId);
+		markClean(); // saved state matches the canvas
 		showToast(LANG.success, LANG.saved, 'bg-success text-white', 4000);
 	});
 
@@ -1133,6 +1183,8 @@
 				showToast(LANG.success, LANG.deleteSuccess, 'bg-success text-white', 5000);
 				tplSelect.querySelector('option[value="' + id + '"]')?.remove();
 				tplSelect.value = '';
+				confirmedTplId = '';
+				markClean(); // deletion already confirmed — don't re-prompt on the blank reset
 				tplSelect.dispatchEvent(new Event('change'));
 			},
 		});
