@@ -104,7 +104,7 @@ class Dashboard extends CI_Controller {
 			foreach ($this->cat->radios()->result() as $radio) {
 				$topic = 'radio.' . $radio->id;
 				$this->worker->register_topic($topic);
-				$radio_worker_topics[] = ['topic' => $topic, 'token' => $this->worker->create_token($topic)];
+				$radio_worker_topics[] = ['id' => $radio->id, 'topic' => $topic, 'token' => $this->worker->create_token($topic)];
 			}
 		}
 		$data['radio_worker_topics'] = $radio_worker_topics;

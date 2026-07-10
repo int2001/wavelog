@@ -51,8 +51,20 @@ $(document).ready(function () {
 				topic: t.topic,
 				token: t.token,
 				onMessage: function (frame) {
-					if (frame.type === 'push' && frame.payload && frame.payload.type === 'radio_updated') {
+					if (frame.type !== 'push' || !frame.payload || frame.payload.type !== 'radio_updated' || !frame.payload.radio_status) {
+						return;
+					}
+					var cell = $('#radio_display tr[data-radio-id="' + t.id + '"] .radio-qrg');
+					if (!cell.length) {
+						// Radio not shown yet (just became active) — reload to add its row.
 						throttleLoadRadio();
+						return;
+					}
+					var s = frame.payload.radio_status;
+					if (s.prop_mode === 'SAT') {
+						cell.text(s.satname || '');
+					} else {
+						cell.text((s.frequency_formatted || '') + ' (' + (s.mode || '') + ')');
 					}
 				},
                 onReconnect: function () {

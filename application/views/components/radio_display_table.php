@@ -8,9 +8,9 @@
 
 		<table class="table table-striped">
 			<?php foreach ($radio_status->result_array() as $row) { ?>
-			<tr>
+			<tr data-radio-id="<?php echo html_escape($row['id']); ?>">
 				<td><?php echo $row['radio']; ?></td>
-				<td>
+				<td class="radio-qrg">
 					<?php if($row['prop_mode'] == 'SAT') { ?>
 						<?php echo $row['sat_name']; ?>
 					<?php } else { ?>
