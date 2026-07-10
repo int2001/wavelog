@@ -15,6 +15,15 @@ class Radio extends CI_Controller {
 		// load the view
 		$data['page_title'] = __("Hardware Interfaces");
 
+		$this->load->is_loaded('worker') ?: $this->load->library('worker');
+		$data['worker_enabled'] = $this->worker->is_enabled(); // without this line worker.js is not loaded!
+		$data['radios_user_worker'] = null;
+		if ($this->worker->is_enabled()) {
+			$topic = 'radios_user.' . $this->session->userdata('user_id');
+			$this->worker->register_topic($topic);
+			$data['radios_user_worker'] = ['topic' => $topic, 'token' => $this->worker->create_token($topic)];
+		}
+
 		$footerData = [];
 		$footerData['scripts'] = [
 			'assets/js/sections/radio.js',
@@ -69,7 +78,7 @@ class Radio extends CI_Controller {
 			echo "</tr>";
 
 			foreach ($query->result() as $row) {
-				echo "<tr>";
+				echo '<tr data-radio-id="' . $row->id . '">';
 				echo "<td>" . $row->radio . "</td>";
 
 				if ($this->session->userdata('clubstation') == 1 && clubaccess_check(9)) {
@@ -82,22 +91,24 @@ class Radio extends CI_Controller {
 				}
 
 				if (empty($row->frequency) || $row->frequency == "0") {
-					echo "<td>- / -</td>";
+					$freq_html = "- / -";
 				} elseif (empty($row->frequency_rx) || $row->frequency_rx == "0") {
-					echo "<td>" . $this->frequency->qrg_conversion($row->frequency) . "</td>";
+					$freq_html = $this->frequency->qrg_conversion($row->frequency);
 				} elseif ($this->frequency->frequencies_are_equal($row->frequency, $row->frequency_rx)) {
-					echo "<td>" . $this->frequency->qrg_conversion($row->frequency) . "</td>";
+					$freq_html = $this->frequency->qrg_conversion($row->frequency);
 				} else {
-					echo "<td>" . $this->frequency->qrg_conversion($row->frequency_rx) . " / " . $this->frequency->qrg_conversion($row->frequency) . "</td>";
+					$freq_html = $this->frequency->qrg_conversion($row->frequency_rx) . " / " . $this->frequency->qrg_conversion($row->frequency);
 				}
+				echo '<td class="radio-freq">' . $freq_html . '</td>';
 
 				if (empty($row->mode) || $row->mode == "non") {
-					echo "<td>N/A</td>";
+					$mode_html = "N/A";
 				} elseif (empty($row->mode_rx) || $row->mode_rx == "non") {
-					echo "<td>" . $row->mode . "</td>";
+					$mode_html = $row->mode;
 				} else {
-					echo "<td>" . $row->mode_rx . " / " . $row->mode . "</td>";
+					$mode_html = $row->mode_rx . " / " . $row->mode;
 				}
+				echo '<td class="radio-mode">' . $mode_html . '</td>';
 
 				// Get Date format
 				if ($this->session->userdata('user_date_format')) {
@@ -114,9 +125,9 @@ class Radio extends CI_Controller {
 				$last_updated = $this->cat->last_updated()->row()->id;
 
 				if ($last_updated == $row->id) {
-					echo '<td><i>' . __("last updated") . '</i></td>';
+					echo '<td class="radio-lastupdated"><i>' . __("last updated") . '</i></td>';
 				} else {
-					echo '<td></td>';
+					echo '<td class="radio-lastupdated"></td>';
 				}
 
 				if ($default_user_radio == $row->id) {
