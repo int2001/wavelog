@@ -111,8 +111,16 @@
 					// Same shape as radio/json, plus a ms timestamp for client-side staleness
 					$radio_status = $this->format_status($row);
 					$radio_status['timestamp'] = (int) round(microtime(true) * 1000);
+					// Per-radio topic — for single-radio views (QSO entry, bandmap, contesting)
 					$this->worker->publish('radio.' . $id, [
 						'type'         => 'radio_updated',
+						'radio_status' => $radio_status,
+					]);
+					// Per-user topic — carries all of the user's radios for multi-radio
+					// views (dashboard, hardware interfaces); radio_id routes the update.
+					$this->worker->publish('radios_user.' . $user_id, [
+						'type'         => 'radio_updated',
+						'radio_id'     => (int) $id,
 						'radio_status' => $radio_status,
 					]);
 				}
@@ -183,6 +191,9 @@
 			}
 			if (isset($mode) && ($mode != null)) {
 				$a_ret['mode'] = $mode;
+			}
+			if (isset($row->mode_rx) && ($row->mode_rx != null) && ($row->mode_rx != 'non')) {
+				$a_ret['mode_rx'] = strtoupper($row->mode_rx);
 			}
 			if (isset($sat_mode) && ($sat_mode != null)) {
 				$a_ret['satmode'] = $sat_mode;

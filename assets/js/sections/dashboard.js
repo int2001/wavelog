@@ -43,34 +43,29 @@ $(document).ready(function () {
 		}, 1000);
 	}
 
-	var radioTopics = window.radioWorkerTopics || [];
-	if (radioTopics.length && window.WavelogWorker && WavelogWorker.isAvailable()) {
+	var rw = window.radiosUserWorker;
+	if (rw && window.WavelogWorker && WavelogWorker.isAvailable()) {
 		setInterval(loadRadio, 60000);
-		radioTopics.forEach(function (t) {
-			WavelogWorker.subscribe({
-				topic: t.topic,
-				token: t.token,
-				onMessage: function (frame) {
-					if (frame.type !== 'push' || !frame.payload || frame.payload.type !== 'radio_updated' || !frame.payload.radio_status) {
-						return;
-					}
-					var cell = $('#radio_display tr[data-radio-id="' + t.id + '"] .radio-qrg');
-					if (!cell.length) {
-						// Radio not shown yet (just became active) — reload to add its row.
-						throttleLoadRadio();
-						return;
-					}
-					var s = frame.payload.radio_status;
-					if (s.prop_mode === 'SAT') {
-						cell.text(s.satname || '');
-					} else {
-						cell.text((s.frequency_formatted || '') + ' (' + (s.mode || '') + ')');
-					}
-				},
-                onReconnect: function () {
-                    throttleLoadRadio();
-                }
-			});
+		WavelogWorker.subscribe({
+			topic: rw.topic,
+			token: rw.token,
+			onMessage: function (frame) {
+				if (frame.type !== 'push' || !frame.payload || frame.payload.type !== 'radio_updated' || !frame.payload.radio_status) {
+					return;
+				}
+				var cell = $('#radio_display tr[data-radio-id="' + frame.payload.radio_id + '"] .radio-qrg');
+				if (!cell.length) {
+					throttleLoadRadio();
+					return;
+				}
+				var s = frame.payload.radio_status;
+				if (s.prop_mode === 'SAT') {
+					cell.text(s.satname || '');
+				} else {
+					cell.text((s.frequency_formatted || '') + ' (' + (s.mode || '') + ')');
+				}
+			},
+			onReconnect: function () { throttleLoadRadio(); }
 		});
 	} else {
 		setInterval(loadRadio, 5000);
