@@ -26,26 +26,42 @@ if (empty($station_id)) {
 	}
 
 if ($qsos->result() != NULL) { ?>
+
 		<table style="width:100%" class="table table-sm table-bordered table-hover table-striped table-condensed qslprint" id="qslprint_table">
 			<thead>
 				<tr>
 					<th style="text-align: center"><div class="form-check" style="margin-top: -1.5em"><input class="form-check-input" type="checkbox" id="checkBoxAll" /></div></th>
-					<th style='text-align: center'><?= __("Callsign") ?></th>
-					<th style='text-align: center'><?= __("Date") ?></th>
+					<th class='select-filter select-filter-html' style='text-align: center'><?= __("Callsign") ?></th>
+					<th class='select-filter' style='text-align: center'><?= __("Date") ?></th>
 					<th style='text-align: center'><?= __("Time") ?></th>
-					<th style='text-align: center'><?= __("Mode") ?></th>
-					<th class='col-band' style='text-align: center'><?= __("Band") ?></th>
+					<th class='select-filter' style='text-align: center'><?= __("Mode") ?></th>
+					<th class='col-band select-filter' style='text-align: center'><?= __("Band") ?></th>
 					<th class='col-freq' style='text-align: center;display:none;'><?= __("Frequency") ?></th>
 					<th style='text-align: center'><?= __("RST (S)") ?></th>
 					<th style='text-align: center'><?= __("RST (R)") ?></th>
 					<th style='text-align: center'><?= __("QSL") ?> <?= __("Via") ?></th>
-					<th style='text-align: center'><?= __("Station") ?></th>
+					<th class='select-filter select-filter-html' style='text-align: center'><?= __("Station") ?></th>
 					<th style='text-align: center'><?= __("Profile name") ?></th>
-					<th style='text-align: center'><?= __("Send Method") ?></th>
+					<th class='select-filter' style='text-align: center'><?= __("Send Method") ?></th>
 					<th style='text-align: center; white-space: nowrap;'><?= __("Previous QSL") ?></th>
-					<th style='text-align: center'><?= __("Mark as sent") ?></th>
-					<th style='text-align: center'><?= __("Remove") ?></th>
-					<th style='text-align: center'><?= __("QSO List") ?></th>
+					<th style='text-align: center; white-space: nowrap;'><?= __("Actions") ?></th>
+				</tr>
+				<tr>
+					<th></th>
+					<th class='select-filter select-filter-html'></th>
+					<th class='select-filter'></th>
+					<th></th>
+					<th class='select-filter'></th>
+					<th class='select-filter col-band'></th>
+					<th class='col-freq' style='display:none;'></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th class='select-filter select-filter-html'></th>
+					<th></th>
+					<th class='select-filter'></th>
+					<th></th>
+					<th></th>
 				</tr>
 			</thead><tbody>
 
@@ -63,7 +79,7 @@ if ($qsos->result() != NULL) { ?>
 		echo '<td style=\'text-align: center\'>' . $qsl->COL_RST_SENT . '</td>';
 		echo '<td style=\'text-align: center\'>' . $qsl->COL_RST_RCVD . '</td>';
 		echo '<td style=\'text-align: center\'>' . $qsl->COL_QSL_VIA . '</td>';
-		echo '<td style=\'text-align: center\'><span class="badge text-bg-light">' . $qsl->station_callsign . '</span></td>';
+		echo '<td style=\'text-align: center\' data-search="' . htmlspecialchars($qsl->station_callsign, ENT_QUOTES) . '"><span class="badge text-bg-light">' . $qsl->station_callsign . '</span></td>';
 		echo '<td style=\'text-align: center\'>' . $qsl->station_profile_name . '</span></td>';
 		echo '<td class=\'send-method\' style=\'text-align: center\'>'; echo_qsl_sent_via($qsl->COL_QSL_SENT_VIA); echo '</td>';
 		echo '<td style=\'text-align: center; white-space: nowrap;\'>';
@@ -71,50 +87,17 @@ if ($qsos->result() != NULL) { ?>
 		echo '<span class="badge bg-info" data-bs-toggle="tooltip" data-bs-title="' . __("QSL sent to callsign (total)") . '">' . $qsl->qsl_sent_to_call . '</span> / ';
 		echo '<span class="badge bg-info" data-bs-toggle="tooltip" data-bs-title="' . __("QSL received from callsign (total)") . '">' . $qsl->qsl_rcvd_from_call . '</span>';
 		echo '</td>';
-		echo '<td style=\'text-align: center\'><button type="button" onclick="mark_qsl_sent(\''.$qsl->COL_PRIMARY_KEY.'\', \''. $qsl->COL_QSL_SENT_VIA. '\')" class="btn btn-sm btn-success"><i class="fa fa-check"></i></button></td>';
-		echo '<td style=\'text-align: center\'><button type="button" onclick="deleteFromQslQueue(\''.$qsl->COL_PRIMARY_KEY.'\')" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button></td>';
-		echo '<td style=\'text-align: center\'><button type="button" onclick="openQsoList(\''.$qsl->COL_CALL.'\')" class="btn btn-sm btn-success"><i class="fas fa-search"></i></button></td>';
+		echo '<td style=\'text-align: center; white-space: nowrap;\'><div class="d-inline-flex align-items-center gap-1">';
+		echo '<button type="button" onclick="mark_qsl_sent(\''.$qsl->COL_PRIMARY_KEY.'\', \''. $qsl->COL_QSL_SENT_VIA. '\')" class="btn btn-sm btn-success" data-bs-toggle="tooltip" data-bs-title="' . __("Mark as sent") . '"><i class="fa fa-check"></i></button>';
+		echo '<button type="button" onclick="deleteFromQslQueue(\''.$qsl->COL_PRIMARY_KEY.'\')" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" data-bs-title="' . __("Remove") . '"><i class="fas fa-trash-alt"></i></button>';
+		echo '<button type="button" onclick="openQsoList(\''.$qsl->COL_CALL.'\')" class="btn btn-sm btn-success" data-bs-toggle="tooltip" data-bs-title="' . __("QSO List") . '"><i class="fas fa-search"></i></button>';
+		echo '</div></td>';
 		echo '</tr>';
 	}
 	echo '</tbody></table>';
 	?>
 
 
-	<!-- all the buttons to manipulate QSOs -->
-	<p>
-		<div>
-			<label for="markqslmethod" class="me-2"><?= __("Mark QSOs for a certain QSL Method:"); ?></label>
-			<div class="d-flex align-items-center mb-3">
-				<select id="markqslmethod" class="form-select me-2" style="width: 20%;">
-				<option value="ALL" selected><?= __("All"); ?></option>
-				<option value="B"><?= echo_qsl_sent_via("B") ?></option>
-				<option value="D"><?= echo_qsl_sent_via("D") ?></option>
-				<option value="E"><?= echo_qsl_sent_via("E") ?></option>
-				</select>
-				<button type="button" onclick="markMethod()" title="<?= __("Mark all QSOs for the chosen QSL method"); ?>" class="btn btn-success markmethod"><?= __("Mark all QSOs for the chosen QSL method"); ?></button>
-				<button type="button" onclick="unmarkallQSOs()" style="margin-left: 5px;" title="<?= __("Unmark every QSO"); ?>" class="btn btn-danger unmarkall"><?= __("Unmark every QSO"); ?></button>
-			</div>
-		</div>
-	</p>
-
-	<label class="me-2"><?= __("Update QSOs"); ?>:</label>
-	<p>
-
-		<button type="button" onclick="markSelectedQsos();" title="<?= __("Mark selected QSOs as sent"); ?>" class="btn btn-success markallprinted"><?= __("Mark selected QSOs as sent"); ?></button>
-		<button type="button" onclick="removeSelectedQsos();" title="<?= __("Remove selected QSOs from the queue"); ?>" class="btn btn-danger removeall"><?= __("Remove selected QSOs from the queue"); ?></button>
-		<button type="button" onclick="exportSelectedQsos();" title="<?= __("Export selected QSOs to ADIF-file"); ?>" class="btn btn-primary exportselected"><?= __("Export selected QSOs to ADIF-file"); ?></button>
-	</p>
-
-
-	<p>
-		<a href="<?php echo site_url('qslprint/exportcsv/' . $station_id); ?>" title="<?= __("Export CSV-file"); ?>" class="btn btn-primary"><?= __("Export requested QSLs to CSV-file"); ?></a>
-		<a href="<?php echo site_url('qslprint/exportadif/' . $station_id); ?>" title="<?= __("Export ADIF"); ?>" class="btn btn-primary"><?= __("Export requested QSLs to ADIF-file"); ?></a>
-		<a href="<?php echo site_url('qslprint/qsl_printed/' . $station_id); ?>" title="<?= __("Mark QSLs as printed"); ?>" class="btn btn-primary"><?= __("Mark requested QSLs as sent"); ?></a>
-	</p>
-	<p>
-		<a class="btn btn-primary" href="<?php echo site_url('qslpostcard/printqueue'); ?>"> <?= __("Print Postcards for all QSOs"); ?></a>
-		<button type="submit" formaction="<?php echo site_url('qslpostcard/printqueue_selected'); ?>" class="btn btn-primary"><?= __("Print Selected QSO Postcards"); ?></button>
-	</p>
 </form>
 <?php
 } else {
