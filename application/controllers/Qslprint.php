@@ -204,4 +204,18 @@ class QSLPrint extends CI_Controller {
 		$this->load->view('oqrs/showoqrs', $data);
 	}
 
+	public function printdialog() {
+		$data['type'] = $this->input->post('printType', true);
+		$data['id_list'] = $this->input->post('id_list', true);
+		$data['printAll'] = $this->input->post('printAll', true);
+
+		if ($data['type'] === 'label') {
+			$this->load->view('qslprint/printlabel', $data);
+		} else {
+			$this->load->model('Qslpostcard_model');
+			$data['templates'] = $this->Qslpostcard_model->list_templates();
+			$this->load->view('qslprint/printqsl', $data);
+		}
+	}
+
 }

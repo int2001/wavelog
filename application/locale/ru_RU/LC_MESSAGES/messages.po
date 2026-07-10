@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-09 08:37+0000\n"
+"POT-Creation-Date: 2026-07-10 12:46+0000\n"
 "PO-Revision-Date: 2026-06-26 13:21+0000\n"
 "Last-Translator: Michael Skolsky <r1blh@yandex.ru>\n"
 "Language-Team: Russian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -283,7 +283,7 @@ msgstr "Всего квадратов активировано"
 #: application/controllers/Activated_gridmap.php:38
 #: application/controllers/Gridmap.php:39
 #: application/controllers/Visitor.php:420
-#: application/views/qslpostcard/designer.php:142
+#: application/views/qslpostcard/designer.php:139
 msgid "Fields"
 msgstr "Поля"
 
@@ -1702,7 +1702,7 @@ msgstr "Журнал"
 #: application/views/logbookadvanced/index.php:985
 #: application/views/logbookadvanced/useroptions.php:124
 #: application/views/oqrs/qsolist.php:12
-#: application/views/qslprint/qslprint.php:41
+#: application/views/qslprint/qslprint.php:42
 #: application/views/qslprint/qsolist.php:16
 #: application/views/qslprint/qsolist.php:19
 #: application/views/qso/edit_ajax.php:39 application/views/qso/index.php:115
@@ -1876,7 +1876,7 @@ msgstr "Все запросы к коллбукам не удались или �
 #: application/views/qslcard/searchresult.php:44
 #: application/views/qslcard/searchresult.php:60
 #: application/views/qslcard/searchresult.php:76
-#: application/views/qslprint/qslprint.php:36
+#: application/views/qslprint/qslprint.php:37
 #: application/views/qslprint/qsolist.php:9
 #: application/views/qso/components/previous_contacts.php:77
 #: application/views/qso/edit_ajax.php:121 application/views/qso/index.php:231
@@ -1914,7 +1914,7 @@ msgstr "Модуляция"
 #: application/views/qslcard/searchresult.php:45
 #: application/views/qslcard/searchresult.php:61
 #: application/views/qslcard/searchresult.php:77
-#: application/views/qslprint/qslprint.php:39
+#: application/views/qslprint/qslprint.php:40
 #: application/views/qslprint/qsolist.php:12
 #: application/views/qso/components/previous_contacts.php:78
 #: application/views/qso/edit_ajax.php:143 application/views/qso/index.php:276
@@ -1941,7 +1941,7 @@ msgstr "RST (TX)"
 #: application/views/qslcard/searchresult.php:46
 #: application/views/qslcard/searchresult.php:62
 #: application/views/qslcard/searchresult.php:78
-#: application/views/qslprint/qslprint.php:40
+#: application/views/qslprint/qslprint.php:41
 #: application/views/qslprint/qsolist.php:13
 #: application/views/qso/components/previous_contacts.php:79
 #: application/views/qso/edit_ajax.php:148 application/views/qso/index.php:281
@@ -2201,8 +2201,8 @@ msgstr "Расстояние"
 #: application/views/qslcard/searchresult.php:53
 #: application/views/qslcard/searchresult.php:69
 #: application/views/qslcard/searchresult.php:85
-#: application/views/qslprint/index.php:38
-#: application/views/qslprint/qslprint.php:37
+#: application/views/qslprint/index.php:47
+#: application/views/qslprint/qslprint.php:38
 #: application/views/qslprint/qsolist.php:10
 #: application/views/qso/components/previous_contacts.php:88
 #: application/views/qso/edit_ajax.php:85 application/views/qso/index.php:246
@@ -2240,8 +2240,8 @@ msgstr "Диапазон"
 #: application/views/qslcard/searchresult.php:54
 #: application/views/qslcard/searchresult.php:70
 #: application/views/qslcard/searchresult.php:86
-#: application/views/qslprint/index.php:39
-#: application/views/qslprint/qslprint.php:38
+#: application/views/qslprint/index.php:48
+#: application/views/qslprint/qslprint.php:39
 #: application/views/qslprint/qsolist.php:11
 #: application/views/qso/components/previous_contacts.php:89
 #: application/views/qso/edit_ajax.php:73 application/views/qso/index.php:264
@@ -2986,8 +2986,8 @@ msgstr "Редактировать"
 #: application/views/oqrs/showrequests.php:80
 #: application/views/qslcard/index.php:80
 #: application/views/qslcard/index.php:129
-#: application/views/qslpostcard/designer.php:312
-#: application/views/qslpostcard/designer.php:351
+#: application/views/qslpostcard/designer.php:309
+#: application/views/qslpostcard/designer.php:348
 #: application/views/satellite/edit.php:57
 #: application/views/satellite/index.php:59
 #: application/views/search/stored_queries.php:22
@@ -3175,7 +3175,7 @@ msgstr "Редактировать профиль QTH: "
 #: application/views/logbookadvanced/dbtoolsdialog.php:16
 #: application/views/logbookadvanced/edit.php:23
 #: application/views/logbookadvanced/showMissingDxccQsos.php:26
-#: application/views/qslprint/index.php:25 application/views/qso/index.php:137
+#: application/views/qslprint/index.php:34 application/views/qso/index.php:137
 #: application/views/qso/index.php:400
 #: application/views/search/search_result_ajax.php:18
 #: application/views/station_profile/create.php:431
@@ -4506,8 +4506,7 @@ msgstr "Разница"
 #: application/views/oqrs/showrequests.php:54
 #: application/views/oqrs/showrequests.php:69
 #: application/views/qslprint/index.php:2
-#: application/views/qslprint/index.php:27
-#: application/views/qslprint/qslprint.php:89
+#: application/views/qslprint/index.php:36
 #: application/views/search/lotw_unconfirmed.php:30
 #: application/views/stationsetup/exportmapoptions.php:33
 #: application/views/statistics/antennaanalytics.php:26
@@ -4834,8 +4833,8 @@ msgstr "Не найдено!"
 #: application/views/qslcard/confirmationresult.php:15
 #: application/views/qslcard/index.php:43
 #: application/views/qslcard/searchform.php:3
-#: application/views/qslprint/index.php:29
-#: application/views/qslprint/qslprint.php:33
+#: application/views/qslprint/index.php:38
+#: application/views/qslprint/qslprint.php:34
 #: application/views/qslprint/qsolist.php:6
 #: application/views/qso/edit_ajax.php:64 application/views/qso/index.php:216
 #: application/views/search/lotw_unconfirmed.php:32
@@ -4947,7 +4946,7 @@ msgstr ""
 #: application/views/public_search/result.php:13
 #: application/views/qslcard/index.php:45
 #: application/views/qslcard/searchresult.php:4
-#: application/views/qslprint/qslprint.php:34
+#: application/views/qslprint/qslprint.php:35
 #: application/views/qslprint/qsolist.php:7 application/views/qso/index.php:156
 #: application/views/qso/index.php:192 application/views/satellite/pass.php:132
 #: application/views/satellite/skedtable.php:12
@@ -4989,7 +4988,7 @@ msgstr "Дата"
 #: application/views/logbookadvanced/checkresult.php:318
 #: application/views/oqrs/qsolist.php:8 application/views/qslcard/index.php:46
 #: application/views/qslcard/searchresult.php:6
-#: application/views/qslprint/qslprint.php:35
+#: application/views/qslprint/qslprint.php:36
 #: application/views/qslprint/qsolist.php:8 application/views/qso/index.php:197
 #: application/views/satellite/skedtable.php:13
 #: application/views/satellite/skedtable.php:15
@@ -5081,6 +5080,7 @@ msgstr "Максимальный размер загружаемого файл�
 #: application/views/interface_assets/footer.php:37
 #: application/views/notes/add.php:23 application/views/notes/edit.php:29
 #: application/views/qrz/export.php:75 application/views/qrz/export.php:96
+#: application/views/qslprint/index.php:10
 #: application/views/stationsetup/stationsetup.php:144
 #: application/views/view_log/qso.php:747
 #: application/views/webadif/export.php:34
@@ -5720,6 +5720,7 @@ msgstr "Разрешения"
 #: application/views/hrdlog/export.php:39
 #: application/views/logbookadvanced/index.php:828
 #: application/views/notes/main.php:77 application/views/qrz/export.php:44
+#: application/views/qslprint/qslprint.php:47
 #: application/views/user/index.php:33 application/views/user/index.php:160
 #: application/views/view_log/partial/log_ajax.php:177
 #: application/views/view_log/partial/log_ajax.php:611
@@ -7439,8 +7440,8 @@ msgstr "Город"
 #: application/views/awards/jcc/index.php:200
 #: application/views/dashboard/index.php:666
 #: application/views/distances/index.php:27
-#: application/views/qslprint/qslprint.php:61
-#: application/views/qslprint/qslprint.php:62
+#: application/views/qslprint/qslprint.php:77
+#: application/views/qslprint/qslprint.php:78
 #: application/views/qslprint/qsolist.php:49
 #: application/views/qslprint/qsolist.php:51
 #: application/views/qslprint/qsolist.php:58
@@ -7795,7 +7796,8 @@ msgid "Number of Refs"
 msgstr "Количество референций"
 
 #: application/views/awards/sig/qso_list.php:6
-#: application/views/qslprint/qslprint.php:48
+#: application/views/qslprint/index.php:9
+#: application/views/qslprint/qslprint.php:93
 #: application/views/simplefle/index.php:147
 msgid "QSO List"
 msgstr "Список QSO"
@@ -10043,7 +10045,7 @@ msgstr ""
 #: application/views/logbookadvanced/index.php:1072
 #: application/views/logbookadvanced/useroptions.php:336
 #: application/views/qrz/export.php:39
-#: application/views/qslprint/qslprint.php:43
+#: application/views/qslprint/qslprint.php:44
 #: application/views/qslprint/qsolist.php:15
 #: application/views/webadif/export.php:41
 msgid "Profile name"
@@ -10838,7 +10840,7 @@ msgstr "Траектория"
 #: application/views/logbookadvanced/mergedialog.php:54
 #: application/views/logbookadvanced/showStateQsos.php:28
 #: application/views/oqrs/qsolist.php:11
-#: application/views/qslprint/qslprint.php:42
+#: application/views/qslprint/qslprint.php:43
 #: application/views/qslprint/qsolist.php:14
 #: application/views/qso/edit_ajax.php:41 application/views/qso/index.php:97
 #: application/views/search/lotw_unconfirmed_result.php:11
@@ -11727,7 +11729,6 @@ msgid "START"
 msgstr "СТАРТ"
 
 #: application/views/contesting/manager/index.php:94
-#: application/views/qslprint/qslprint.php:111
 msgid "Export ADIF"
 msgstr "Экспортировать в ADIF"
 
@@ -11937,7 +11938,7 @@ msgid "All but Repeater"
 msgstr "Все, кроме репитера"
 
 #: application/views/csv/index.php:114 application/views/dxatlas/index.php:113
-#: application/views/kml/index.php:98
+#: application/views/kml/index.php:98 application/views/qslprint/index.php:65
 msgid "Export"
 msgstr "Экспорт"
 
@@ -13904,8 +13905,8 @@ msgid "Duplication is disabled for Contacts notes"
 msgstr "Дублирование отключено для заметок о контактах"
 
 #: application/views/interface_assets/footer.php:66
-#: application/views/qslpostcard/designer.php:309
-#: application/views/qslpostcard/designer.php:325
+#: application/views/qslpostcard/designer.php:306
+#: application/views/qslpostcard/designer.php:322
 msgid "Duplicate"
 msgstr "Дубликат"
 
@@ -14815,7 +14816,7 @@ msgstr "Полная высота одной наклейки"
 
 #: application/views/labels/create.php:105
 #: application/views/labels/edit.php:107 application/views/labels/index.php:81
-#: application/views/qslpostcard/designer.php:276
+#: application/views/qslpostcard/designer.php:273
 msgid "Font Size"
 msgstr "Размер шрифта"
 
@@ -14902,10 +14903,13 @@ msgstr ""
 
 #: application/views/labels/index.php:2
 #: application/views/logbookadvanced/startatform.php:104
+#: application/views/qslprint/printlabel.php:117
+#: application/views/qslprint/printqsl.php:37
 msgid "Mark QSL as printed"
 msgstr "Отметить, что QSL напечатана"
 
 #: application/views/labels/index.php:3 application/views/labels/index.php:129
+#: application/views/qslprint/index.php:77
 msgid "Print"
 msgstr "Печать"
 
@@ -14976,21 +14980,25 @@ msgstr "Просмотр QSO"
 
 #: application/views/labels/startatform.php:21
 #: application/views/logbookadvanced/startatform.php:20
+#: application/views/qslprint/printlabel.php:20
 msgid "Include my call?"
 msgstr "Включить мой позывной?"
 
 #: application/views/labels/startatform.php:33
 #: application/views/logbookadvanced/startatform.php:32
+#: application/views/qslprint/printlabel.php:32
 msgid "Include OP-Call? (if filled)"
 msgstr "Включать позывной оператора? (если заполнено)"
 
 #: application/views/labels/startatform.php:45
 #: application/views/logbookadvanced/startatform.php:44
+#: application/views/qslprint/printlabel.php:44
 msgid "Include Grid?"
 msgstr "Включить квадрат QTH локатора?"
 
 #: application/views/labels/startatform.php:57
 #: application/views/logbookadvanced/startatform.php:56
+#: application/views/qslprint/printlabel.php:56
 msgid ""
 "Include reference? (SIG, SOTA, POTA, IOTA, WWFF; If available in location)"
 msgstr ""
@@ -15010,11 +15018,13 @@ msgstr "Включить сообщение TNX?"
 
 #: application/views/labels/startatform.php:106
 #: application/views/logbookadvanced/startatform.php:117
+#: application/views/qslprint/printlabel.php:105
 msgid "Start printing at?"
 msgstr "С какой позиции на листе начать печать?"
 
 #: application/views/labels/startatform.php:112
 #: application/views/logbookadvanced/startatform.php:123
+#: application/views/qslprint/printlabel.php:111
 msgid "Enter the starting position for label printing"
 msgstr "Введите начальную позицию для печати наклеек"
 
@@ -15970,6 +15980,7 @@ msgid "SUCCESS"
 msgstr "УСПЕШНО"
 
 #: application/views/logbookadvanced/index.php:52
+#: application/views/qslprint/index.php:3
 msgid "INFO"
 msgstr "ИНФОРМАЦИЯ"
 
@@ -16475,6 +16486,8 @@ msgid "Create ADIF"
 msgstr "Создать ADIF"
 
 #: application/views/logbookadvanced/index.php:856
+#: application/views/qslprint/index.php:5
+#: application/views/qslprint/printlabel.php:116
 msgid "Print Label"
 msgstr "Напечатать наклейки"
 
@@ -16605,7 +16618,7 @@ msgstr ""
 "поля из каждого QSO."
 
 #: application/views/logbookadvanced/mergedialog.php:71
-#: application/views/qslpostcard/designer.php:232
+#: application/views/qslpostcard/designer.php:229
 msgid "Field"
 msgstr "Поля"
 
@@ -16613,12 +16626,14 @@ msgstr "Поля"
 #: application/views/qslpostcard/designer.php:58
 #: application/views/qslpostcard/printqueue.php:8
 #: application/views/qslpostcard/printqueue_selected.php:10
+#: application/views/qslprint/printqsl.php:9
 msgid "Template"
 msgstr "Шаблон"
 
 #: application/views/logbookadvanced/printQsl.php:22
 #: application/views/qslpostcard/printqueue.php:18
 #: application/views/qslpostcard/printqueue_selected.php:21
+#: application/views/qslprint/printqsl.php:22
 msgid ""
 "Print options (QSOs per card, background image, address printing) are set "
 "per template in the QSL Postcard Designer."
@@ -16629,19 +16644,22 @@ msgstr ""
 #: application/views/logbookadvanced/printQsl.php:30
 #: application/views/qslpostcard/printqueue.php:22
 #: application/views/qslpostcard/printqueue_selected.php:30
+#: application/views/qslprint/printqsl.php:30
 msgid "Generate Postcard PDF"
 msgstr "Создать PDF QSL-карточки"
 
 #: application/views/logbookadvanced/printQsl.php:34
-#: application/views/qslpostcard/designer.php:90
+#: application/views/qslpostcard/designer.php:87
 #: application/views/qslpostcard/printqueue.php:26
 #: application/views/qslpostcard/printqueue_selected.php:34
+#: application/views/qslprint/printqsl.php:34
 msgid "Save PDF"
 msgstr ""
 
 #: application/views/logbookadvanced/printQsl.php:41
 #: application/views/qslpostcard/printqueue.php:33
 #: application/views/qslpostcard/printqueue_selected.php:41
+#: application/views/qslprint/printqsl.php:42
 msgid ""
 "No templates available for printing. Go to the QSL Postcard Designer and "
 "create a template first."
@@ -16729,14 +16747,17 @@ msgid "The number of QSOs updated for gridsquare is"
 msgstr "Количество QSO, в которых обновлена информация о квадрате QTH локатора"
 
 #: application/views/logbookadvanced/startatform.php:68
+#: application/views/qslprint/printlabel.php:68
 msgid "Include Via"
 msgstr "Включить via"
 
 #: application/views/logbookadvanced/startatform.php:80
+#: application/views/qslprint/printlabel.php:80
 msgid "Include QSLMSG"
 msgstr "Включить QSLMSG"
 
 #: application/views/logbookadvanced/startatform.php:92
+#: application/views/qslprint/printlabel.php:92
 msgid "Include TNX message"
 msgstr "Включить сообщение TNX"
 
@@ -17651,7 +17672,7 @@ msgid "Send not in log request"
 msgstr "Отправить запрос 'не в журнале'"
 
 #: application/views/oqrs/qsolist.php:76
-#: application/views/qslprint/qslprint.php:41
+#: application/views/qslprint/qslprint.php:42
 #: application/views/qslprint/qsolist.php:16
 #: application/views/qslprint/qsolist.php:109
 #: application/views/qso/index.php:733
@@ -18080,35 +18101,31 @@ msgstr "Удалить шаблон"
 msgid "Background image"
 msgstr "Фоновое изображение"
 
-#: application/views/qslpostcard/designer.php:81
-msgid "Upload Preview Image"
-msgstr "Загрузить предварительный просмотр изображения"
-
-#: application/views/qslpostcard/designer.php:85
+#: application/views/qslpostcard/designer.php:82
 msgid "Generate PDF (demo)"
 msgstr "Создать PDF (демо)"
 
-#: application/views/qslpostcard/designer.php:86
+#: application/views/qslpostcard/designer.php:83
 msgid "PDF"
 msgstr "PDF"
 
-#: application/views/qslpostcard/designer.php:98
+#: application/views/qslpostcard/designer.php:95
 msgid "History"
 msgstr "История"
 
-#: application/views/qslpostcard/designer.php:100
+#: application/views/qslpostcard/designer.php:97
 msgid "Undo"
 msgstr "Отменить"
 
-#: application/views/qslpostcard/designer.php:101
+#: application/views/qslpostcard/designer.php:98
 msgid "Redo"
 msgstr "Повторить"
 
-#: application/views/qslpostcard/designer.php:107
+#: application/views/qslpostcard/designer.php:104
 msgid "Zoom"
 msgstr "Увеличение"
 
-#: application/views/qslpostcard/designer.php:117
+#: application/views/qslpostcard/designer.php:114
 msgid ""
 "Tip: After a test print, adjust global offsets rather than moving every "
 "field."
@@ -18116,176 +18133,243 @@ msgstr ""
 "Совет: После тестовой печати корректируйте глобальные смещения, а не "
 "перемещайте каждое поле."
 
-#: application/views/qslpostcard/designer.php:118
+#: application/views/qslpostcard/designer.php:115
 msgid "Print offset"
 msgstr "Печать со смещением"
 
-#: application/views/qslpostcard/designer.php:147
+#: application/views/qslpostcard/designer.php:144
 msgid "Search fields…"
 msgstr "Поиск полей…"
 
-#: application/views/qslpostcard/designer.php:151
+#: application/views/qslpostcard/designer.php:148
 msgid "Add Custom Text"
 msgstr "Добавить пользовательский текст"
 
-#: application/views/qslpostcard/designer.php:166
+#: application/views/qslpostcard/designer.php:163
 msgid "No fields match your search."
 msgstr "Нет полей, соответствующих вашему запросу."
 
-#: application/views/qslpostcard/designer.php:174
+#: application/views/qslpostcard/designer.php:171
 msgid "Postcard Canvas"
 msgstr "Холст карточки"
 
-#: application/views/qslpostcard/designer.php:175
+#: application/views/qslpostcard/designer.php:172
 msgid "drag fields onto the postcard"
 msgstr "перетащите поля на карточку"
 
-#: application/views/qslpostcard/designer.php:196
+#: application/views/qslpostcard/designer.php:193
 msgid "Template Options"
 msgstr "Параметры шаблона"
 
-#: application/views/qslpostcard/designer.php:200
+#: application/views/qslpostcard/designer.php:197
 msgid "Number of QSOs per QSL card"
 msgstr "Количество QSO на одну QSL карточку"
 
-#: application/views/qslpostcard/designer.php:204
+#: application/views/qslpostcard/designer.php:201
 msgid "Row spacing"
 msgstr "Расстояние между рядами"
 
-#: application/views/qslpostcard/designer.php:209
+#: application/views/qslpostcard/designer.php:206
 msgid "Print background image (uncheck for pre-printed cards)"
 msgstr ""
 "Печать фоновое изображение (снимите отметку при использовании предварительно "
 "распечатанных карточек)"
 
-#: application/views/qslpostcard/designer.php:213
+#: application/views/qslpostcard/designer.php:210
 msgid "Skip address printing (for printing on regular QSL cards)"
 msgstr "Пропустить печать адреса (для печати на обычных QSL-карточках)"
 
-#: application/views/qslpostcard/designer.php:221
+#: application/views/qslpostcard/designer.php:218
 msgid "Properties"
 msgstr "Свойства"
 
-#: application/views/qslpostcard/designer.php:226
+#: application/views/qslpostcard/designer.php:223
 msgid "Select a field on the canvas to edit it."
 msgstr "Выберите поле на холсте, чтобы отредактировать его."
 
-#: application/views/qslpostcard/designer.php:227
+#: application/views/qslpostcard/designer.php:224
 msgid "Right-click a field for more actions."
 msgstr "Щелкните правой кнопкой мыши на поле для дополнительных действий."
 
-#: application/views/qslpostcard/designer.php:237
+#: application/views/qslpostcard/designer.php:234
 msgid "Text"
 msgstr "Текст"
 
-#: application/views/qslpostcard/designer.php:242
+#: application/views/qslpostcard/designer.php:239
 msgid "Frequency format"
 msgstr ""
 
-#: application/views/qslpostcard/designer.php:250
+#: application/views/qslpostcard/designer.php:247
 msgid "Omit unit"
 msgstr ""
 
-#: application/views/qslpostcard/designer.php:256
+#: application/views/qslpostcard/designer.php:253
 msgid "X"
 msgstr "X"
 
-#: application/views/qslpostcard/designer.php:260
+#: application/views/qslpostcard/designer.php:257
 msgid "Y"
 msgstr "У"
 
-#: application/views/qslpostcard/designer.php:266
+#: application/views/qslpostcard/designer.php:263
 msgid "Font"
 msgstr "Шрифт"
 
-#: application/views/qslpostcard/designer.php:282
+#: application/views/qslpostcard/designer.php:279
 msgid "Bold"
 msgstr "Жирный"
 
-#: application/views/qslpostcard/designer.php:288
+#: application/views/qslpostcard/designer.php:285
 msgid "Color"
 msgstr "Цвет"
 
-#: application/views/qslpostcard/designer.php:293
+#: application/views/qslpostcard/designer.php:290
 msgid "Wrap width"
 msgstr "Ширина переноса"
 
-#: application/views/qslpostcard/designer.php:298
+#: application/views/qslpostcard/designer.php:295
 msgid "Print this field once per QSO when a card holds multiple QSOs"
 msgstr ""
 "Печать этого поля для каждого QSO, если карточка содержит несколько QSO"
 
-#: application/views/qslpostcard/designer.php:299
+#: application/views/qslpostcard/designer.php:296
 msgid "Repeats per QSO"
 msgstr "Повторение для каждого QSO"
 
-#: application/views/qslpostcard/designer.php:303
+#: application/views/qslpostcard/designer.php:300
 msgid "Move this element freely without snapping to the grid or other elements"
 msgstr ""
 "Свободное перемещение этого элемента, без привязки к сетке или другим "
 "элементам"
 
-#: application/views/qslpostcard/designer.php:304
+#: application/views/qslpostcard/designer.php:301
 msgid "Disable Auto-Snap"
 msgstr "Отключение автопривязки"
 
-#: application/views/qslpostcard/designer.php:330
+#: application/views/qslpostcard/designer.php:327
 msgid "Align & distribute"
 msgstr "Выравнивание и распределение"
 
-#: application/views/qslpostcard/designer.php:334
+#: application/views/qslpostcard/designer.php:331
 msgid "Align left"
 msgstr "Выравнивание по левому краю"
 
-#: application/views/qslpostcard/designer.php:335
+#: application/views/qslpostcard/designer.php:332
 msgid "Align horizontal centers"
 msgstr "Выравнивание по центру, по горизонтали"
 
-#: application/views/qslpostcard/designer.php:336
+#: application/views/qslpostcard/designer.php:333
 msgid "Align right"
 msgstr "Выравнивание по правому краю"
 
-#: application/views/qslpostcard/designer.php:338
+#: application/views/qslpostcard/designer.php:335
 msgid "Align top"
 msgstr "Выравнивание по верхнему краю"
 
-#: application/views/qslpostcard/designer.php:339
+#: application/views/qslpostcard/designer.php:336
 msgid "Align vertical centers"
 msgstr "Выравнивание по центру, по вертикали"
 
-#: application/views/qslpostcard/designer.php:340
+#: application/views/qslpostcard/designer.php:337
 msgid "Align bottom"
 msgstr "Выравнивание по нижнему краю"
 
-#: application/views/qslpostcard/designer.php:342
+#: application/views/qslpostcard/designer.php:339
 msgid "Distribute horizontally"
 msgstr "Распределение по горизонтали"
 
-#: application/views/qslpostcard/designer.php:343
+#: application/views/qslpostcard/designer.php:340
 msgid "Distribute vertically"
 msgstr "Распределение по вертикали"
 
-#: application/views/qslpostcard/designer.php:345
+#: application/views/qslpostcard/designer.php:342
 msgid "Center on page (horizontal)"
 msgstr "Центрирование на странице (по горизонтали)"
 
-#: application/views/qslpostcard/designer.php:346
+#: application/views/qslpostcard/designer.php:343
 msgid "Center on page (vertical)"
 msgstr "Центрирование на странице (по вертикали)"
 
-#: application/views/qslprint/index.php:20
+#: application/views/qslprint/index.php:4
+msgid "Please select at least one row"
+msgstr ""
+
+#: application/views/qslprint/index.php:6
+msgid "Print QSLcard"
+msgstr ""
+
+#: application/views/qslprint/index.php:7
+#: application/views/qslprint/qslprint.php:91
+msgid "Mark as sent"
+msgstr "Отметить отправленной"
+
+#: application/views/qslprint/index.php:8
+#: application/views/qslprint/index.php:91
+#: application/views/qslprint/qslprint.php:92
+msgid "Remove"
+msgstr "Убрать"
+
+#: application/views/qslprint/index.php:11
+msgid "Are you sure you want to mark ALL requested QSLs as sent?"
+msgstr ""
+
+#: application/views/qslprint/index.php:29
 msgid "Export Requested QSLs for Printing"
 msgstr "Экспортировать запрошенные QSL для печати"
 
-#: application/views/qslprint/index.php:36
+#: application/views/qslprint/index.php:45
 msgid "Show Band or Frequency:"
 msgstr "Показать диапазон или частоту:"
 
-#: application/views/qslprint/index.php:40
+#: application/views/qslprint/index.php:49
 msgid "Band & Frequency"
 msgstr "Диапазон и частота"
 
-#: application/views/qslprint/index.php:45
+#: application/views/qslprint/index.php:55
+msgid "Mark"
+msgstr ""
+
+#: application/views/qslprint/index.php:57
+msgid "Mark selected QSOs as sent"
+msgstr "Отметить выбранные QSO как отправленные"
+
+#: application/views/qslprint/index.php:59
+msgid "Mark ALL requested QSLs as sent"
+msgstr ""
+
+#: application/views/qslprint/index.php:67
+msgid "Export selected QSOs to ADIF-file"
+msgstr "Экспортировать выбранные QSO в файл ADIF"
+
+#: application/views/qslprint/index.php:69
+msgid "Export requested QSLs to CSV-file"
+msgstr "Экспорт выбранных QSL в CSV-файл"
+
+#: application/views/qslprint/index.php:71
+msgid "Export requested QSLs to ADIF-file"
+msgstr "Экспорт выбранных QSL в ADIF-файл"
+
+#: application/views/qslprint/index.php:79
+msgid "Print Selected QSO Postcards"
+msgstr "Напечатать выбранные QSL-карточки"
+
+#: application/views/qslprint/index.php:81
+msgid "Print Postcards for all QSOs"
+msgstr "Распечатать QSL-карточки для всех QSO"
+
+#: application/views/qslprint/index.php:83
+msgid "Print Selected QSL Labels"
+msgstr ""
+
+#: application/views/qslprint/index.php:85
+msgid "Print Labels for all QSOs"
+msgstr ""
+
+#: application/views/qslprint/index.php:93
+msgid "Remove selected QSOs from the queue"
+msgstr "Убрать выбранные QSO из очереди"
+
+#: application/views/qslprint/index.php:98
 msgid ""
 "Here you can export requested QSLs as CSV or ADIF files for printing and, "
 "optionally, mark them as sent."
@@ -18293,7 +18377,7 @@ msgstr ""
 "Здесь вы можете экспортировать запрошенные QSL в файлы CSV или ADIF для "
 "печати и, при желании, пометить их как отправленные."
 
-#: application/views/qslprint/index.php:47
+#: application/views/qslprint/index.php:100
 msgid ""
 "Requested QSLs are any QSOs with a value of 'Requested' or 'Queued' in their "
 "'QSL Sent' field."
@@ -18301,13 +18385,13 @@ msgstr ""
 "Запрашиваемые QSL — это любые QSO со значением 'Запрошено' или 'В очереди' в "
 "поле 'QSL отправлено'."
 
-#: application/views/qslprint/index.php:48
-#: application/views/qslprint/qslprint.php:45
+#: application/views/qslprint/index.php:101
+#: application/views/qslprint/qslprint.php:46
 #: application/views/qslprint/qsolist.php:18
 msgid "Previous QSL"
 msgstr "Предыдущая QSL"
 
-#: application/views/qslprint/index.php:48
+#: application/views/qslprint/index.php:101
 #, php-format
 msgid ""
 "The column %s shows how many QSLs have been sent to the same station before "
@@ -18316,91 +18400,27 @@ msgstr ""
 "Столбец %s показывает, сколько QSL было отправлено этой же станции ранее с "
 "теми же диапазоном и видом модуляции."
 
-#: application/views/qslprint/qslprint.php:44
+#: application/views/qslprint/qslprint.php:45
 #: application/views/qslprint/qsolist.php:17
 msgid "Send Method"
 msgstr "Способ отправки"
 
-#: application/views/qslprint/qslprint.php:46
-msgid "Mark as sent"
-msgstr "Отметить отправленной"
-
-#: application/views/qslprint/qslprint.php:47
-msgid "Remove"
-msgstr "Убрать"
-
-#: application/views/qslprint/qslprint.php:70
+#: application/views/qslprint/qslprint.php:86
 #: application/views/qslprint/qsolist.php:70
 msgid "Previous QSL sent (same band/mode)"
 msgstr "Предыдущая QSL отправлена (тот же диапазон/вид модуляции)"
 
-#: application/views/qslprint/qslprint.php:71
+#: application/views/qslprint/qslprint.php:87
 #: application/views/qslprint/qsolist.php:71
 msgid "QSL sent to callsign (total)"
 msgstr "Всего QSL отправлено (позывному)"
 
-#: application/views/qslprint/qslprint.php:72
+#: application/views/qslprint/qslprint.php:88
 #: application/views/qslprint/qsolist.php:72
 msgid "QSL received from callsign (total)"
 msgstr "Всего QSL получено (от позывного)"
 
-#: application/views/qslprint/qslprint.php:86
-msgid "Mark QSOs for a certain QSL Method:"
-msgstr "Отметьте QSO для определенного метода QSL:"
-
-#: application/views/qslprint/qslprint.php:94
-msgid "Mark all QSOs for the chosen QSL method"
-msgstr "Отметьте все QSO для выбранного метода QSL"
-
-#: application/views/qslprint/qslprint.php:95
-msgid "Unmark every QSO"
-msgstr "Снять отметку со всех QSO"
-
-#: application/views/qslprint/qslprint.php:100
-msgid "Update QSOs"
-msgstr "Обновить QSO"
-
-#: application/views/qslprint/qslprint.php:103
-msgid "Mark selected QSOs as sent"
-msgstr "Отметить выбранные QSO как отправленные"
-
 #: application/views/qslprint/qslprint.php:104
-msgid "Remove selected QSOs from the queue"
-msgstr "Убрать выбранные QSO из очереди"
-
-#: application/views/qslprint/qslprint.php:105
-msgid "Export selected QSOs to ADIF-file"
-msgstr "Экспортировать выбранные QSO в файл ADIF"
-
-#: application/views/qslprint/qslprint.php:110
-msgid "Export CSV-file"
-msgstr "Экспортировать в CSV-файл"
-
-#: application/views/qslprint/qslprint.php:110
-msgid "Export requested QSLs to CSV-file"
-msgstr "Экспорт выбранных QSL в CSV-файл"
-
-#: application/views/qslprint/qslprint.php:111
-msgid "Export requested QSLs to ADIF-file"
-msgstr "Экспорт выбранных QSL в ADIF-файл"
-
-#: application/views/qslprint/qslprint.php:112
-msgid "Mark QSLs as printed"
-msgstr "Отметить, что QSL напечатаны"
-
-#: application/views/qslprint/qslprint.php:112
-msgid "Mark requested QSLs as sent"
-msgstr "Отметить, что запрошенные QSL отправлены"
-
-#: application/views/qslprint/qslprint.php:115
-msgid "Print Postcards for all QSOs"
-msgstr "Распечатать QSL-карточки для всех QSO"
-
-#: application/views/qslprint/qslprint.php:116
-msgid "Print Selected QSO Postcards"
-msgstr "Напечатать выбранные QSL-карточки"
-
-#: application/views/qslprint/qslprint.php:121
 msgid "No QSLs to print were found!"
 msgstr "QSL для печати не найдены!"
 
@@ -22312,6 +22332,30 @@ msgstr "CQ"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQ geojson"
+
+#~ msgid "Mark QSOs for a certain QSL Method:"
+#~ msgstr "Отметьте QSO для определенного метода QSL:"
+
+#~ msgid "Mark all QSOs for the chosen QSL method"
+#~ msgstr "Отметьте все QSO для выбранного метода QSL"
+
+#~ msgid "Unmark every QSO"
+#~ msgstr "Снять отметку со всех QSO"
+
+#~ msgid "Update QSOs"
+#~ msgstr "Обновить QSO"
+
+#~ msgid "Export CSV-file"
+#~ msgstr "Экспортировать в CSV-файл"
+
+#~ msgid "Mark QSLs as printed"
+#~ msgstr "Отметить, что QSL напечатаны"
+
+#~ msgid "Mark requested QSLs as sent"
+#~ msgstr "Отметить, что запрошенные QSL отправлены"
+
+#~ msgid "Upload Preview Image"
+#~ msgstr "Загрузить предварительный просмотр изображения"
 
 #~ msgid ""
 #~ "This switches the display of the solar and propagation data on the "
