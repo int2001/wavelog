@@ -1141,6 +1141,11 @@ msgstr "编辑计划任务"
 #: application/views/debug/index.php:724 application/views/debug/index.php:730
 #: application/views/debug/index.php:736 application/views/debug/index.php:742
 #: application/views/debug/index.php:748 application/views/debug/index.php:754
+#: application/views/debug/index.php:725 application/views/debug/index.php:731
+#: application/views/debug/index.php:737 application/views/debug/index.php:743
+#: application/views/debug/index.php:749 application/views/debug/index.php:755
+#: application/views/debug/index.php:761 application/views/debug/index.php:767
+#: application/views/debug/index.php:773 application/views/debug/index.php:779
 msgid "never"
 msgstr "从不"
 
@@ -1258,31 +1263,32 @@ msgstr "(空)"
 msgid "Debug"
 msgstr "调试"
 
-#: application/controllers/Debug.php:170
+#: application/controllers/Debug.php:170 application/controllers/Debug.php:182
 msgid "Migrate data now"
 msgstr "立即迁移数据"
 
-#: application/controllers/Debug.php:173
+#: application/controllers/Debug.php:173 application/controllers/Debug.php:185
 msgid "Migration already done. Run again?"
 msgstr "数据迁移已完成，是否重新运行？"
 
-#: application/controllers/Debug.php:177
+#: application/controllers/Debug.php:177 application/controllers/Debug.php:189
 msgid "No data to migrate"
 msgstr "没有可迁移的数据"
 
 #: application/controllers/Debug.php:181 application/controllers/Debug.php:186
+#: application/controllers/Debug.php:193 application/controllers/Debug.php:198
 msgid "No migration possible"
 msgstr "无法迁移"
 
-#: application/controllers/Debug.php:251
+#: application/controllers/Debug.php:251 application/controllers/Debug.php:263
 msgid "Wavelog was updated successfully!"
 msgstr "Wavelog 更新成功！"
 
-#: application/controllers/Debug.php:269
+#: application/controllers/Debug.php:269 application/controllers/Debug.php:281
 msgid "Selfupdate() not available. Check the Error Log."
 msgstr "自动更新不可用。请检查错误日志。"
 
-#: application/controllers/Debug.php:316
+#: application/controllers/Debug.php:316 application/controllers/Debug.php:328
 msgid ""
 "File Migration was successful, but please check also manually. If everything "
 "seems right you can delete the folders 'assets/qslcard' and 'images/"
@@ -1291,7 +1297,7 @@ msgstr ""
 "文件迁移成功，请手动检查。若一切正常，你可以删除文件夹“assets/"
 "qslcard”和“images/eqsl_card_images”。"
 
-#: application/controllers/Debug.php:319
+#: application/controllers/Debug.php:319 application/controllers/Debug.php:331
 msgid "File Migration failed. Please check the Error Log."
 msgstr "文件迁移失败。请检查错误日志。"
 
@@ -1905,6 +1911,7 @@ msgstr "所有呼号簿的查询均失败或没有结果。"
 #: application/views/view_log/qso.php:114 application/views/visitor/index.php:6
 #: application/views/visitor/mini.php:185 application/views/widgets/qsos.php:18
 #: application/views/qslprint/qslprint.php:37
+#: application/views/debug/index.php:802
 msgid "Mode"
 msgstr "模式"
 
@@ -2233,6 +2240,7 @@ msgstr "距离"
 #: application/views/visitor/mini.php:184 application/views/widgets/qsos.php:21
 #: application/views/qslprint/index.php:47
 #: application/views/qslprint/qslprint.php:38
+#: application/views/debug/index.php:803
 msgid "Band"
 msgstr "频段"
 
@@ -2320,6 +2328,7 @@ msgstr "操作员"
 #: application/views/view_log/qso.php:294
 #: application/views/view_log/qso.php:647
 #: application/views/interface_assets/footer.php:818
+#: application/views/interface_assets/footer.php:825
 msgid "Deleted DXCC"
 msgstr "删除 DXCC 实体"
 
@@ -2913,6 +2922,7 @@ msgstr "设置"
 #: application/views/contesting/logger/index.php:128
 #: application/views/debug/index.php:379 application/views/qso/index.php:830
 #: application/views/satellite/pass.php:116
+#: application/views/debug/index.php:404
 msgid "Settings"
 msgstr "设置"
 
@@ -2957,6 +2967,8 @@ msgstr "上次更新"
 #: application/views/themes/index.php:104 application/views/user/index.php:97
 #: application/views/user/index.php:203
 #: application/views/interface_assets/footer.php:678
+#: application/views/interface_assets/footer.php:685
+#: application/views/interface_assets/footer.php:694
 msgid "Edit"
 msgstr "编辑"
 
@@ -2999,6 +3011,10 @@ msgstr "编辑"
 #: application/views/qslpostcard/designer.php:351
 #: application/views/qslpostcard/designer.php:309
 #: application/views/qslpostcard/designer.php:348
+#: application/views/interface_assets/footer.php:2648
+#: application/views/interface_assets/footer.php:2666
+#: application/views/interface_assets/footer.php:2685
+#: application/views/interface_assets/footer.php:2703
 msgid "Delete"
 msgstr "删除"
 
@@ -3262,7 +3278,7 @@ msgstr "错误，链接已被使用！"
 #: application/views/station_profile/edit.php:395
 #: application/views/stationsetup/locationlist.php:55
 #: application/views/stationsetup/stationsetup.php:107
-#: application/views/user/edit.php:535
+#: application/views/user/edit.php:535 application/views/debug/index.php:877
 msgid "Disabled"
 msgstr "已禁用"
 
@@ -3700,6 +3716,7 @@ msgstr "台站名称"
 #: application/views/stationsetup/linkedlocations.php:32
 #: application/views/stationsetup/stationsetup.php:156
 #: application/views/user/modals/first_login_wizard.php:34
+#: application/views/debug/index.php:804
 msgid "Station Callsign"
 msgstr "电台呼号"
 
@@ -4484,6 +4501,8 @@ msgstr "差异"
 #: application/views/interface_assets/footer.php:1519
 #: application/views/interface_assets/footer.php:1658
 #: application/views/qslprint/index.php:36
+#: application/views/interface_assets/footer.php:1526
+#: application/views/interface_assets/footer.php:1665
 msgid "All"
 msgstr "所有"
 
@@ -4927,6 +4946,7 @@ msgstr ""
 #: application/views/visitor/index.php:151
 #: application/views/visitor/mini.php:182 application/views/widgets/qsos.php:16
 #: application/views/qslprint/qslprint.php:35
+#: application/views/debug/index.php:799
 msgid "Date"
 msgstr "日期"
 
@@ -4964,6 +4984,7 @@ msgstr "日期"
 #: application/views/view_log/partial/log_ajax.php:145
 #: application/views/visitor/index.php:154
 #: application/views/qslprint/qslprint.php:36
+#: application/views/debug/index.php:800
 msgid "Time"
 msgstr "时间"
 
@@ -4989,6 +5010,7 @@ msgstr "时间"
 #: application/views/visitor/index.php:156
 #: application/views/widgets/qsos.php:17
 #: application/views/dashboard/index.php:414
+#: application/views/debug/index.php:801 application/views/debug/index.php:836
 msgid "Call"
 msgstr "呼号"
 
@@ -5050,6 +5072,8 @@ msgstr "最大上传文件大小是 "
 #: application/views/webadif/export.php:34
 #: application/views/webadif/export.php:94
 #: application/views/qslprint/index.php:10
+#: application/views/debug/index.php:246 application/views/debug/index.php:263
+#: application/views/debug/index.php:791
 msgid "Warning"
 msgstr "注意"
 
@@ -5107,6 +5131,8 @@ msgstr "如果不选择，Wavelog 将会自动判断 QSO 的 DXCC。"
 #: application/views/interface_assets/footer.php:2407
 #: application/views/interface_assets/footer.php:638
 #: application/views/interface_assets/footer.php:2398
+#: application/views/interface_assets/footer.php:645
+#: application/views/interface_assets/footer.php:2405
 msgid "DANGER"
 msgstr "警告"
 
@@ -5543,6 +5569,7 @@ msgstr "如用于描述用途的名字。"
 #: application/views/satellite/pass.php:185
 #: application/views/simplefle/index.php:22
 #: application/views/interface_assets/footer.php:673
+#: application/views/interface_assets/footer.php:680
 msgid "Save"
 msgstr "保存"
 
@@ -6515,6 +6542,7 @@ msgstr "显示 QSL 分类下的 QSO"
 #: application/views/qso/edit_ajax.php:405
 #: application/views/view_log/qso.php:25
 #: application/views/interface_assets/footer.php:2377
+#: application/views/interface_assets/footer.php:2384
 msgid "QSL Card"
 msgstr "QSL 卡片"
 
@@ -6920,7 +6948,7 @@ msgstr "没有大洲数据可供查询。"
 
 #: application/views/awards/dxcc/index.php:413
 #: application/views/contesting/logger/components/scp.php:52
-#: application/views/debug/index.php:144
+#: application/views/debug/index.php:144 application/views/debug/index.php:169
 msgid "Loading..."
 msgstr "加载中…"
 
@@ -9494,6 +9522,7 @@ msgstr "呼号 DXCC 识别"
 #: application/views/logbookadvanced/index.php:881
 #: application/views/zonechecker/index.php:10
 #: application/views/interface_assets/footer.php:874
+#: application/views/interface_assets/footer.php:881
 msgid "Callsign: "
 msgstr "呼号： "
 
@@ -10109,6 +10138,7 @@ msgstr "ADIF 名称"
 #: application/views/stationsetup/locationlist.php:10
 #: application/views/usermode/index.php:6
 #: application/views/usermode/index.php:51
+#: application/views/debug/index.php:507 application/views/debug/index.php:518
 msgid "Active"
 msgstr "启用"
 
@@ -10635,6 +10665,9 @@ msgstr "未知错误"
 #: application/views/debug/index.php:203
 #: application/views/interface_assets/footer.php:38
 #: application/views/qslpostcard/designer.php:43
+#: application/views/debug/index.php:183 application/views/debug/index.php:194
+#: application/views/debug/index.php:205 application/views/debug/index.php:216
+#: application/views/debug/index.php:228
 msgid "Success"
 msgstr "成功"
 
@@ -12337,6 +12370,7 @@ msgid "Wavelog Information"
 msgstr "Wavelog 信息"
 
 #: application/views/debug/index.php:36 application/views/debug/index.php:891
+#: application/views/debug/index.php:149
 msgid "Version"
 msgstr "版本"
 
@@ -12455,11 +12489,11 @@ msgstr "Codeigniter 版本"
 msgid "Wavelog Worker Backend"
 msgstr "Wavelog Worker 后端"
 
-#: application/views/debug/index.php:150
+#: application/views/debug/index.php:150 application/views/debug/index.php:175
 msgid "Folder Permissions"
 msgstr "文件夹权限"
 
-#: application/views/debug/index.php:152
+#: application/views/debug/index.php:152 application/views/debug/index.php:177
 msgid ""
 "This verifies that the folders used by Wavelog have read and write "
 "permissions by PHP."
@@ -12468,52 +12502,57 @@ msgstr "这验证了 Wavelog 使用的文件夹是否具有 PHP 的读写权限�
 #: application/views/debug/index.php:160 application/views/debug/index.php:171
 #: application/views/debug/index.php:182 application/views/debug/index.php:193
 #: application/views/debug/index.php:205 application/views/debug/index.php:484
-#: application/views/debug/index.php:495
+#: application/views/debug/index.php:495 application/views/debug/index.php:185
+#: application/views/debug/index.php:196 application/views/debug/index.php:207
+#: application/views/debug/index.php:218 application/views/debug/index.php:230
+#: application/views/debug/index.php:509 application/views/debug/index.php:520
 msgid "Failed"
 msgstr "失败"
 
-#: application/views/debug/index.php:215
+#: application/views/debug/index.php:215 application/views/debug/index.php:240
 msgid "Config Maintenance"
 msgstr "维护配置"
 
-#: application/views/debug/index.php:221
+#: application/views/debug/index.php:221 application/views/debug/index.php:246
 msgid "Your authentication mode is outdated and possibly unsafe"
 msgstr "你的认证方式已过时，可能存在风险隐患"
 
 #: application/views/debug/index.php:223 application/views/debug/index.php:240
+#: application/views/debug/index.php:248 application/views/debug/index.php:265
 #, php-format
 msgid "Please edit your %s File:"
 msgstr "请编辑你的 %s 文件："
 
-#: application/views/debug/index.php:224
+#: application/views/debug/index.php:224 application/views/debug/index.php:249
 msgid ""
 "Go to your application/config Folder and compare config.sample.php with your "
 "config.php"
 msgstr ""
 "请前往 application/config 文件夹，根据 config.sample.php 修改成 config.php"
 
-#: application/views/debug/index.php:225
+#: application/views/debug/index.php:225 application/views/debug/index.php:250
 #, php-format
 msgid "Change %s to the value %s (Strongly recommended)"
 msgstr "将%s改为%s（强烈建议）"
 
-#: application/views/debug/index.php:231
+#: application/views/debug/index.php:231 application/views/debug/index.php:256
 msgid "Authentication Mode is set correctly"
 msgstr "认证方式设置正确"
 
 #: application/views/debug/index.php:231 application/views/debug/index.php:248
+#: application/views/debug/index.php:256 application/views/debug/index.php:273
 msgid "Ok"
 msgstr "好的"
 
-#: application/views/debug/index.php:238
+#: application/views/debug/index.php:238 application/views/debug/index.php:263
 msgid "You use the default encryption key. You should change it!"
 msgstr "你使用了默认加密密钥。请修改它！"
 
-#: application/views/debug/index.php:241
+#: application/views/debug/index.php:241 application/views/debug/index.php:266
 msgid "This will also enable the 'Keep me logged in' feature."
 msgstr "修改之后，“保持登录状态” 的功能将变为可用。"
 
-#: application/views/debug/index.php:242
+#: application/views/debug/index.php:242 application/views/debug/index.php:267
 #, php-format
 msgid ""
 "Change the value of %s to a new encryption key other then "
@@ -12522,21 +12561,21 @@ msgstr ""
 "将 %s 的值改为新的加密密钥，而非 “flossie1234555541”，选择一个安全的长密码。"
 "(强烈建议）"
 
-#: application/views/debug/index.php:248
+#: application/views/debug/index.php:248 application/views/debug/index.php:273
 msgid "You do not use the default encryption key"
 msgstr "你没有使用默认加密密钥"
 
-#: application/views/debug/index.php:255
+#: application/views/debug/index.php:255 application/views/debug/index.php:280
 msgid "Migrate Userdata"
 msgstr "迁移用户数据"
 
-#: application/views/debug/index.php:257
+#: application/views/debug/index.php:257 application/views/debug/index.php:282
 msgid ""
 "Here you can migrate existing QSL cards and eQSL cards to the new userdata "
 "folder."
 msgstr "可将现有的 QSL 卡和 eQSL 卡图片迁移到新的用户数据文件夹。"
 
-#: application/views/debug/index.php:270
+#: application/views/debug/index.php:270 application/views/debug/index.php:295
 msgid "Modules"
 msgstr "模块"
 
@@ -12544,7 +12583,11 @@ msgstr "模块"
 #: application/views/debug/index.php:298 application/views/debug/index.php:309
 #: application/views/debug/index.php:320 application/views/debug/index.php:331
 #: application/views/debug/index.php:343 application/views/debug/index.php:356
-#: application/views/debug/index.php:369
+#: application/views/debug/index.php:369 application/views/debug/index.php:301
+#: application/views/debug/index.php:312 application/views/debug/index.php:323
+#: application/views/debug/index.php:334 application/views/debug/index.php:345
+#: application/views/debug/index.php:368 application/views/debug/index.php:381
+#: application/views/debug/index.php:394
 msgid "Installed"
 msgstr "已安装"
 
@@ -12552,58 +12595,62 @@ msgstr "已安装"
 #: application/views/debug/index.php:300 application/views/debug/index.php:311
 #: application/views/debug/index.php:322 application/views/debug/index.php:333
 #: application/views/debug/index.php:345 application/views/debug/index.php:358
-#: application/views/debug/index.php:371
+#: application/views/debug/index.php:371 application/views/debug/index.php:303
+#: application/views/debug/index.php:314 application/views/debug/index.php:325
+#: application/views/debug/index.php:336 application/views/debug/index.php:347
+#: application/views/debug/index.php:370 application/views/debug/index.php:383
+#: application/views/debug/index.php:396
 msgid "Not Installed"
 msgstr "未安装"
 
-#: application/views/debug/index.php:471
+#: application/views/debug/index.php:471 application/views/debug/index.php:496
 msgid "Cache Information"
 msgstr "缓存信息"
 
-#: application/views/debug/index.php:475
+#: application/views/debug/index.php:475 application/views/debug/index.php:500
 msgid "Current Configuration"
 msgstr "当前配置"
 
-#: application/views/debug/index.php:478
+#: application/views/debug/index.php:478 application/views/debug/index.php:503
 msgctxt "Cache Adapter"
 msgid "Primary adapter"
 msgstr "主连接器"
 
-#: application/views/debug/index.php:489
+#: application/views/debug/index.php:489 application/views/debug/index.php:514
 msgctxt "Cache Backup Adapter (Fallback)"
 msgid "Backup adapter"
 msgstr "备连接器"
 
-#: application/views/debug/index.php:500
+#: application/views/debug/index.php:500 application/views/debug/index.php:525
 #, php-format
 msgctxt "Cache Path"
 msgid "Path for %s adapter"
 msgstr "当前连接器(%s)"
 
-#: application/views/debug/index.php:504
+#: application/views/debug/index.php:504 application/views/debug/index.php:529
 msgctxt "Cache Key Prefix"
 msgid "Key Prefix"
 msgstr "键前缀"
 
-#: application/views/debug/index.php:510
+#: application/views/debug/index.php:510 application/views/debug/index.php:535
 msgid "Cache Details"
 msgstr "缓存详情"
 
-#: application/views/debug/index.php:513
+#: application/views/debug/index.php:513 application/views/debug/index.php:538
 msgctxt "Cache Details"
 msgid "Total Size"
 msgstr "总容量"
 
-#: application/views/debug/index.php:519
+#: application/views/debug/index.php:519 application/views/debug/index.php:544
 msgctxt "Cache Key"
 msgid "Number of Keys"
 msgstr "键数量"
 
-#: application/views/debug/index.php:529
+#: application/views/debug/index.php:529 application/views/debug/index.php:554
 msgid "Cache is working properly. Everything okay!"
 msgstr "缓存运行正常。一切就绪！"
 
-#: application/views/debug/index.php:533
+#: application/views/debug/index.php:533 application/views/debug/index.php:558
 msgid ""
 "Cache is currently using the backup adapter because the primary is "
 "unavailable. Check your file permissions, PHP extensions, and/or your "
@@ -12612,7 +12659,7 @@ msgstr ""
 "因主适配器不可用缓存启用备用适配器。请检查文件权限、PHP 扩展，以及 redis/"
 "memcached 服务的网络连接(如使用该缓存服务)。"
 
-#: application/views/debug/index.php:537
+#: application/views/debug/index.php:537 application/views/debug/index.php:562
 #, php-format
 msgid ""
 "Cache does not work! Currently the system is using a %s adapter. Check your "
@@ -12624,41 +12671,43 @@ msgstr ""
 "接(如使用 redis/memcached)。你可以继续使用 Wavelog，但不会缓存任何数据(这会有"
 "一些影响)。"
 
-#: application/views/debug/index.php:545
+#: application/views/debug/index.php:545 application/views/debug/index.php:570
 msgid "Available Adapters"
 msgstr "可用的连接器"
 
-#: application/views/debug/index.php:562
+#: application/views/debug/index.php:562 application/views/debug/index.php:587
 msgid "Clear Cache"
 msgstr "清理缓存"
 
-#: application/views/debug/index.php:610
+#: application/views/debug/index.php:610 application/views/debug/index.php:635
 msgid "Git Information"
 msgstr "Git 信息"
 
-#: application/views/debug/index.php:614
+#: application/views/debug/index.php:614 application/views/debug/index.php:639
 msgid "Branch"
 msgstr "分支"
 
 #: application/views/debug/index.php:625 application/views/debug/index.php:636
 #: application/views/debug/index.php:646
 #: application/views/lotw_views/index.php:104
+#: application/views/debug/index.php:650 application/views/debug/index.php:661
+#: application/views/debug/index.php:671
 msgid "n/a"
 msgstr "n/a"
 
-#: application/views/debug/index.php:631
+#: application/views/debug/index.php:631 application/views/debug/index.php:656
 msgid "Commit"
 msgstr "Commit"
 
-#: application/views/debug/index.php:641
+#: application/views/debug/index.php:641 application/views/debug/index.php:666
 msgid "Tag"
 msgstr "标签"
 
-#: application/views/debug/index.php:651
+#: application/views/debug/index.php:651 application/views/debug/index.php:676
 msgid "Last Fetch"
 msgstr "上次抓取"
 
-#: application/views/debug/index.php:663
+#: application/views/debug/index.php:663 application/views/debug/index.php:688
 msgid "Check for new version"
 msgstr "检查新版本"
 
@@ -12667,22 +12716,23 @@ msgstr "检查新版本"
 #: application/views/logbookadvanced/checkresult.php:68
 #: application/views/logbookadvanced/checkresult.php:78
 #: application/views/logbookadvanced/index.php:57
+#: application/views/debug/index.php:689
 msgid "Update now"
 msgstr "现在升级"
 
-#: application/views/debug/index.php:682
+#: application/views/debug/index.php:682 application/views/debug/index.php:707
 msgid "File download date"
 msgstr "文件下载日期"
 
-#: application/views/debug/index.php:686
+#: application/views/debug/index.php:686 application/views/debug/index.php:711
 msgid "File"
 msgstr "文件"
 
-#: application/views/debug/index.php:687
+#: application/views/debug/index.php:687 application/views/debug/index.php:712
 msgid "Last update"
 msgstr "上次更新"
 
-#: application/views/debug/index.php:691
+#: application/views/debug/index.php:691 application/views/debug/index.php:716
 msgid "DXCC update from Club Log"
 msgstr "DXCC 更新（ClubLog）"
 
@@ -12693,90 +12743,96 @@ msgstr "DXCC 更新（ClubLog）"
 #: application/views/debug/index.php:743 application/views/debug/index.php:749
 #: application/views/debug/index.php:755
 #: application/views/station_profile/edit.php:53
+#: application/views/debug/index.php:726 application/views/debug/index.php:732
+#: application/views/debug/index.php:738 application/views/debug/index.php:744
+#: application/views/debug/index.php:750 application/views/debug/index.php:756
+#: application/views/debug/index.php:762 application/views/debug/index.php:768
+#: application/views/debug/index.php:774 application/views/debug/index.php:780
 msgid "Update"
 msgstr "更新"
 
-#: application/views/debug/index.php:698
+#: application/views/debug/index.php:698 application/views/debug/index.php:723
 msgid "DOK file download"
 msgstr "下载 DOK 文件"
 
-#: application/views/debug/index.php:704
+#: application/views/debug/index.php:704 application/views/debug/index.php:729
 msgid "LoTW users download"
 msgstr "下载 LoTW 用户状态"
 
-#: application/views/debug/index.php:710
+#: application/views/debug/index.php:710 application/views/debug/index.php:735
 msgid "POTA file download"
 msgstr "下载 POTA 文件"
 
-#: application/views/debug/index.php:716
+#: application/views/debug/index.php:716 application/views/debug/index.php:741
 msgid "SCP file download"
 msgstr "下载 SCP 文件"
 
-#: application/views/debug/index.php:722
+#: application/views/debug/index.php:722 application/views/debug/index.php:747
 msgid "SOTA file download"
 msgstr "下载 SOTA 文件"
 
-#: application/views/debug/index.php:728
+#: application/views/debug/index.php:728 application/views/debug/index.php:753
 msgid "WWFF file download"
 msgstr "下载 WWFF 文件"
 
-#: application/views/debug/index.php:734
+#: application/views/debug/index.php:734 application/views/debug/index.php:759
 msgid "TLE update"
 msgstr "TLE 更新"
 
-#: application/views/debug/index.php:740
+#: application/views/debug/index.php:740 application/views/debug/index.php:765
 msgid "Hams Of Note update"
 msgstr "更新 Hams of Note"
 
-#: application/views/debug/index.php:746
+#: application/views/debug/index.php:746 application/views/debug/index.php:771
 msgid "HAMqsl"
 msgstr "HAMqsl"
 
-#: application/views/debug/index.php:752
+#: application/views/debug/index.php:752 application/views/debug/index.php:777
 msgid "VUCC Grids"
 msgstr "VUCC 网格"
 
-#: application/views/debug/index.php:762
+#: application/views/debug/index.php:762 application/views/debug/index.php:787
 msgid "QSO-DB Maintenance"
 msgstr "QSO-DB 维护"
 
-#: application/views/debug/index.php:766
+#: application/views/debug/index.php:766 application/views/debug/index.php:791
 #, php-format
 msgid "The Database contains %d QSO without a station-profile (location)"
 msgid_plural ""
 "The Database contains %d QSOs without a station-profile (location)"
 msgstr[0] "数据库中共有%d个没有台站信息（位置）的 QSO"
 
-#: application/views/debug/index.php:804
+#: application/views/debug/index.php:804 application/views/debug/index.php:829
 msgid "Please mark QSOs and reassign them to an existing station location:"
 msgstr "请标记 QSO 并将其重新分配到现有的电台位置："
 
-#: application/views/debug/index.php:812
+#: application/views/debug/index.php:812 application/views/debug/index.php:837
 msgctxt "Stationlocation"
 msgid "Target Location"
 msgstr "目标位置"
 
 #: application/views/debug/index.php:813 application/views/debug/index.php:824
+#: application/views/debug/index.php:838 application/views/debug/index.php:849
 msgid "Reassign"
 msgstr "重新分配"
 
-#: application/views/debug/index.php:833
+#: application/views/debug/index.php:833 application/views/debug/index.php:858
 msgid "Every QSO in your Database is assigned to a station-profile (location)"
 msgstr "数据库中的所有 QSO 都有台站相关联"
 
-#: application/views/debug/index.php:833
+#: application/views/debug/index.php:833 application/views/debug/index.php:858
 msgid "Everything ok"
 msgstr "一切正常"
 
-#: application/views/debug/index.php:856
+#: application/views/debug/index.php:856 application/views/debug/index.php:877
 msgid "Worker backend is not configured."
 msgstr "尚未配置 Worker 后端。"
 
-#: application/views/debug/index.php:860
+#: application/views/debug/index.php:860 application/views/debug/index.php:878
 msgid "Unreachable"
 msgstr "无法访问"
 
-#: application/views/debug/index.php:860
+#: application/views/debug/index.php:860 application/views/debug/index.php:878
 msgid "Worker is configured but did not respond."
 msgstr "已配置 Woker，但无响应。"
 
@@ -12788,23 +12844,24 @@ msgstr "可用"
 msgid "Offline"
 msgstr "离线"
 
-#: application/views/debug/index.php:877
+#: application/views/debug/index.php:877 application/views/debug/index.php:156
+#: application/views/debug/index.php:875
 msgid "Online"
 msgstr "在线"
 
-#: application/views/debug/index.php:888
+#: application/views/debug/index.php:888 application/views/debug/index.php:146
 msgid "Worker"
 msgstr "Worker"
 
-#: application/views/debug/index.php:889
+#: application/views/debug/index.php:889 application/views/debug/index.php:147
 msgid "Topics"
 msgstr "主题"
 
-#: application/views/debug/index.php:890
+#: application/views/debug/index.php:890 application/views/debug/index.php:148
 msgid "Clients"
 msgstr "客户端"
 
-#: application/views/debug/index.php:892
+#: application/views/debug/index.php:892 application/views/debug/index.php:151
 msgid "Uptime"
 msgstr "正常运行时间"
 
@@ -12812,127 +12869,127 @@ msgstr "正常运行时间"
 msgid "Could not fetch worker status."
 msgstr "无法获取 Worker 状态。"
 
-#: application/views/debug/index.php:912
+#: application/views/debug/index.php:912 application/views/debug/index.php:898
 msgid "Albanian"
 msgstr "阿尔巴尼亚语"
 
-#: application/views/debug/index.php:913
+#: application/views/debug/index.php:913 application/views/debug/index.php:899
 msgid "Armenian"
 msgstr "亚美尼亚语"
 
-#: application/views/debug/index.php:914
+#: application/views/debug/index.php:914 application/views/debug/index.php:900
 msgid "Bosnian"
 msgstr "波斯尼亚语"
 
-#: application/views/debug/index.php:915
+#: application/views/debug/index.php:915 application/views/debug/index.php:901
 msgid "Bulgarian"
 msgstr "保加利亚语"
 
-#: application/views/debug/index.php:916
+#: application/views/debug/index.php:916 application/views/debug/index.php:902
 msgid "Chinese (Simplified)"
 msgstr "简体中文"
 
-#: application/views/debug/index.php:917
+#: application/views/debug/index.php:917 application/views/debug/index.php:903
 msgid "Croatian"
 msgstr "克罗地亚语"
 
-#: application/views/debug/index.php:918
+#: application/views/debug/index.php:918 application/views/debug/index.php:904
 msgid "Czech"
 msgstr "捷克语"
 
-#: application/views/debug/index.php:919
+#: application/views/debug/index.php:919 application/views/debug/index.php:905
 msgid "Dutch"
 msgstr "荷兰语"
 
-#: application/views/debug/index.php:920
+#: application/views/debug/index.php:920 application/views/debug/index.php:906
 msgid "English"
 msgstr "英语"
 
-#: application/views/debug/index.php:921
+#: application/views/debug/index.php:921 application/views/debug/index.php:907
 msgid "Estonian"
 msgstr "爱沙尼亚语"
 
-#: application/views/debug/index.php:922
+#: application/views/debug/index.php:922 application/views/debug/index.php:908
 msgid "Finnish"
 msgstr "芬兰语"
 
-#: application/views/debug/index.php:923
+#: application/views/debug/index.php:923 application/views/debug/index.php:909
 msgid "French"
 msgstr "法语"
 
-#: application/views/debug/index.php:924
+#: application/views/debug/index.php:924 application/views/debug/index.php:910
 msgid "German"
 msgstr "德语"
 
-#: application/views/debug/index.php:925
+#: application/views/debug/index.php:925 application/views/debug/index.php:911
 msgid "Greek"
 msgstr "希腊语"
 
-#: application/views/debug/index.php:926
+#: application/views/debug/index.php:926 application/views/debug/index.php:912
 msgid "Hungarian"
 msgstr "匈牙利语"
 
-#: application/views/debug/index.php:927
+#: application/views/debug/index.php:927 application/views/debug/index.php:913
 msgid "Italian"
 msgstr "意大利语"
 
-#: application/views/debug/index.php:928
+#: application/views/debug/index.php:928 application/views/debug/index.php:914
 msgid "Japanese"
 msgstr "日语"
 
-#: application/views/debug/index.php:929
+#: application/views/debug/index.php:929 application/views/debug/index.php:915
 msgid "Latvian"
 msgstr "拉脱维亚语"
 
-#: application/views/debug/index.php:930
+#: application/views/debug/index.php:930 application/views/debug/index.php:916
 msgid "Lithuanian"
 msgstr "立陶宛语"
 
-#: application/views/debug/index.php:931
+#: application/views/debug/index.php:931 application/views/debug/index.php:917
 msgid "Montenegrin"
 msgstr "黑山语"
 
-#: application/views/debug/index.php:932
+#: application/views/debug/index.php:932 application/views/debug/index.php:918
 msgid "Polish"
 msgstr "波兰语"
 
-#: application/views/debug/index.php:933
+#: application/views/debug/index.php:933 application/views/debug/index.php:919
 msgid "Portuguese"
 msgstr "葡萄牙语"
 
-#: application/views/debug/index.php:934
+#: application/views/debug/index.php:934 application/views/debug/index.php:920
 msgid "Romanian"
 msgstr "罗马尼亚语"
 
-#: application/views/debug/index.php:935
+#: application/views/debug/index.php:935 application/views/debug/index.php:921
 msgid "Russian"
 msgstr "俄语"
 
-#: application/views/debug/index.php:936
+#: application/views/debug/index.php:936 application/views/debug/index.php:922
 msgid "Serbian"
 msgstr "塞尔维亚语"
 
-#: application/views/debug/index.php:937
+#: application/views/debug/index.php:937 application/views/debug/index.php:923
 msgid "Slovak"
 msgstr "斯洛伐克语"
 
-#: application/views/debug/index.php:938
+#: application/views/debug/index.php:938 application/views/debug/index.php:924
 msgid "Slovenian"
 msgstr "斯洛文尼亚语"
 
-#: application/views/debug/index.php:939
+#: application/views/debug/index.php:939 application/views/debug/index.php:925
 msgid "Spanish"
 msgstr "西班牙语"
 
-#: application/views/debug/index.php:940
+#: application/views/debug/index.php:940 application/views/debug/index.php:926
 msgid "Swedish"
 msgstr "瑞典语"
 
-#: application/views/debug/index.php:941
+#: application/views/debug/index.php:941 application/views/debug/index.php:927
 msgid "Turkish"
 msgstr "土耳其语"
 
-#: application/views/debug/index.php:942
+#: application/views/debug/index.php:942 application/views/debug/index.php:928
 msgid "Ukrainian"
 msgstr "乌克兰语"
 
@@ -13373,6 +13430,10 @@ msgstr "QSL 日期"
 #: application/views/interface_assets/footer.php:2660
 #: application/views/interface_assets/footer.php:2679
 #: application/views/interface_assets/footer.php:2697
+#: application/views/interface_assets/footer.php:2649
+#: application/views/interface_assets/footer.php:2667
+#: application/views/interface_assets/footer.php:2686
+#: application/views/interface_assets/footer.php:2704
 msgid "View"
 msgstr "查看"
 
@@ -13871,6 +13932,7 @@ msgstr "要将你的电台连接到 Wavelog，请访问 Wavelog 维基获取设�
 #: application/views/interface_assets/header.php:597
 #: application/views/options/tabs.php:37
 #: application/views/interface_assets/footer.php:211
+#: application/views/interface_assets/footer.php:218
 msgid "Version Info"
 msgstr "版本信息"
 
@@ -13878,38 +13940,46 @@ msgstr "版本信息"
 #: application/views/interface_assets/footer.php:288
 #: application/views/interface_assets/footer.php:264
 #: application/views/interface_assets/footer.php:279
+#: application/views/interface_assets/footer.php:271
+#: application/views/interface_assets/footer.php:286
 msgid "Failed to load the modal. Please try again."
 msgstr "加载模式失败。请重试。"
 
 #: application/views/interface_assets/footer.php:537
 #: application/views/interface_assets/footer.php:528
+#: application/views/interface_assets/footer.php:535
 msgid "Description:"
 msgstr "说明："
 
 #: application/views/interface_assets/footer.php:540
 #: application/views/interface_assets/footer.php:531
+#: application/views/interface_assets/footer.php:538
 msgid "Query description"
 msgstr "查询说明"
 
 #: application/views/interface_assets/footer.php:556
 #: application/views/interface_assets/footer.php:547
+#: application/views/interface_assets/footer.php:554
 msgid "Your query has been saved!"
 msgstr "查询已储存！"
 
 #: application/views/interface_assets/footer.php:558
 #: application/views/search/filter.php:43
 #: application/views/interface_assets/footer.php:549
+#: application/views/interface_assets/footer.php:556
 msgid "Edit queries"
 msgstr "编辑查询"
 
 #: application/views/interface_assets/footer.php:560
 #: application/views/interface_assets/footer.php:551
+#: application/views/interface_assets/footer.php:558
 msgid "Stored queries:"
 msgstr "存储的查询："
 
 #: application/views/interface_assets/footer.php:565
 #: application/views/search/filter.php:57
 #: application/views/interface_assets/footer.php:556
+#: application/views/interface_assets/footer.php:563
 msgid "Run Query"
 msgstr "执行查询"
 
@@ -13919,6 +13989,9 @@ msgstr "执行查询"
 #: application/views/interface_assets/footer.php:568
 #: application/views/interface_assets/footer.php:704
 #: application/views/interface_assets/footer.php:774
+#: application/views/interface_assets/footer.php:575
+#: application/views/interface_assets/footer.php:711
+#: application/views/interface_assets/footer.php:781
 msgid "Stored Queries"
 msgstr "存储的查询"
 
@@ -13926,6 +13999,8 @@ msgstr "存储的查询"
 #: application/views/interface_assets/footer.php:788
 #: application/views/interface_assets/footer.php:573
 #: application/views/interface_assets/footer.php:779
+#: application/views/interface_assets/footer.php:580
+#: application/views/interface_assets/footer.php:786
 msgid "You need to make a query before you search!"
 msgstr "你需要创建查询来进行搜索！"
 
@@ -13934,6 +14009,8 @@ msgstr "你需要创建查询来进行搜索！"
 #: application/views/search/filter.php:76
 #: application/views/interface_assets/footer.php:594
 #: application/views/interface_assets/footer.php:731
+#: application/views/interface_assets/footer.php:601
+#: application/views/interface_assets/footer.php:738
 msgid "Export to ADIF"
 msgstr "导出 ADIF"
 
@@ -13942,36 +14019,44 @@ msgstr "导出 ADIF"
 #: application/views/search/main.php:32
 #: application/views/interface_assets/footer.php:595
 #: application/views/interface_assets/footer.php:732
+#: application/views/interface_assets/footer.php:602
+#: application/views/interface_assets/footer.php:739
 msgid "Open in the Advanced Logbook"
 msgstr "在详细日志中打开"
 
 #: application/views/interface_assets/footer.php:648
 #: application/views/interface_assets/footer.php:639
+#: application/views/interface_assets/footer.php:646
 msgid "Warning! Are you sure you want delete this stored query?"
 msgstr "警告！确定要删除存储的查询？"
 
 #: application/views/interface_assets/footer.php:662
 #: application/views/interface_assets/footer.php:653
+#: application/views/interface_assets/footer.php:660
 msgid "The stored query has been deleted!"
 msgstr "存储的查询已删除！"
 
 #: application/views/interface_assets/footer.php:671
 #: application/views/interface_assets/footer.php:662
+#: application/views/interface_assets/footer.php:669
 msgid "The stored query could not be deleted. Please try again!"
 msgstr "无法删除存储的查询，请重试！"
 
 #: application/views/interface_assets/footer.php:697
 #: application/views/interface_assets/footer.php:688
+#: application/views/interface_assets/footer.php:695
 msgid "The query description has been updated!"
 msgstr "查询说明已更新！"
 
 #: application/views/interface_assets/footer.php:701
 #: application/views/interface_assets/footer.php:692
+#: application/views/interface_assets/footer.php:699
 msgid "Something went wrong with the save. Please try again!"
 msgstr "存储出错，请重试！"
 
 #: application/views/interface_assets/footer.php:830
 #: application/views/interface_assets/footer.php:821
+#: application/views/interface_assets/footer.php:828
 msgid ""
 "Stop here for a Moment. Your chosen DXCC is outdated and not valid anymore. "
 "Check which DXCC for this particular location is the correct one. If you are "
@@ -13982,11 +14067,13 @@ msgstr ""
 
 #: application/views/interface_assets/footer.php:884
 #: application/views/interface_assets/footer.php:875
+#: application/views/interface_assets/footer.php:882
 msgid "Count: "
 msgstr "总数： "
 
 #: application/views/interface_assets/footer.php:885
 #: application/views/interface_assets/footer.php:876
+#: application/views/interface_assets/footer.php:883
 msgid "Grids: "
 msgstr "网格： "
 
@@ -13995,12 +14082,14 @@ msgstr "网格： "
 #: application/views/map/qso_map.php:7
 #: application/views/satellite/flightpath.php:11
 #: application/views/interface_assets/footer.php:1101
+#: application/views/interface_assets/footer.php:1108
 msgctxt "Map Options"
 msgid "Gridsquares"
 msgstr "网格"
 
 #: application/views/interface_assets/footer.php:1304
 #: application/views/interface_assets/footer.php:1295
+#: application/views/interface_assets/footer.php:1302
 msgid "Location Lookup failed. Please check browser console."
 msgstr "位置查询失败，请检查浏览器控制台。"
 
@@ -14016,6 +14105,10 @@ msgstr "位置查询失败，请检查浏览器控制台。"
 #: application/views/interface_assets/footer.php:1590
 #: application/views/interface_assets/footer.php:1594
 #: application/views/interface_assets/footer.php:1597
+#: application/views/interface_assets/footer.php:1457
+#: application/views/interface_assets/footer.php:1460
+#: application/views/interface_assets/footer.php:1601
+#: application/views/interface_assets/footer.php:1604
 msgid "grid square"
 msgstr "网格"
 
@@ -14023,27 +14116,33 @@ msgstr "网格"
 #: application/views/interface_assets/footer.php:1606
 #: application/views/interface_assets/footer.php:1453
 #: application/views/interface_assets/footer.php:1597
+#: application/views/interface_assets/footer.php:1460
+#: application/views/interface_assets/footer.php:1604
 msgid "Total count"
 msgstr "总数"
 
 #: application/views/interface_assets/footer.php:2388
 #: application/views/interface_assets/footer.php:2379
+#: application/views/interface_assets/footer.php:2386
 msgid "QSL Card for "
 msgstr "QSL 卡片至 "
 
 #: application/views/interface_assets/footer.php:2408
 #: application/views/interface_assets/footer.php:2399
+#: application/views/interface_assets/footer.php:2406
 msgid "Warning! Are you sure you want to delete this QSL card?"
 msgstr "警告！确定要删除这个 QSL 卡片吗？"
 
 #: application/views/interface_assets/footer.php:2448
 #: application/views/view_log/qso.php:43
 #: application/views/interface_assets/footer.php:2439
+#: application/views/interface_assets/footer.php:2446
 msgid "eQSL Card"
 msgstr "电子 QSL 卡片"
 
 #: application/views/interface_assets/footer.php:2450
 #: application/views/interface_assets/footer.php:2441
+#: application/views/interface_assets/footer.php:2448
 msgid "eQSL Card for "
 msgstr "eQSL 卡片至 "
 
@@ -14052,27 +14151,33 @@ msgstr "eQSL 卡片至 "
 #: application/views/view_log/qso.php:729
 #: application/views/interface_assets/footer.php:2653
 #: application/views/interface_assets/footer.php:2690
+#: application/views/interface_assets/footer.php:2660
+#: application/views/interface_assets/footer.php:2697
 msgid "QSL image file"
 msgstr "QSL 图片文件"
 
 #: application/views/interface_assets/footer.php:2681
 #: application/views/interface_assets/footer.php:2672
+#: application/views/interface_assets/footer.php:2679
 msgid "Front QSL Card"
 msgstr "QSL 卡片正面"
 
 #: application/views/interface_assets/footer.php:2717
 #: application/views/interface_assets/footer.php:2708
+#: application/views/interface_assets/footer.php:2715
 msgid "Back QSL Card"
 msgstr "QSL 卡片背面"
 
 #: application/views/interface_assets/footer.php:2721
 #: application/views/interface_assets/footer.php:2712
+#: application/views/interface_assets/footer.php:2719
 msgid "The QSL card upload could not be completed."
 msgstr "QSL 卡片上传未能完成。"
 
 #: application/views/interface_assets/footer.php:2721
 #: application/views/qslpostcard/designer.php:31
 #: application/views/interface_assets/footer.php:2712
+#: application/views/interface_assets/footer.php:2719
 msgid "Upload failed"
 msgstr "上传失败"
 
@@ -14080,26 +14185,32 @@ msgstr "上传失败"
 #: application/views/interface_assets/footer.php:2754
 #: application/views/interface_assets/footer.php:2720
 #: application/views/interface_assets/footer.php:2745
+#: application/views/interface_assets/footer.php:2727
+#: application/views/interface_assets/footer.php:2752
 msgid "Add additional QSOs to a QSL Card"
 msgstr "向一张卡片添加额外的 QSO"
 
 #: application/views/interface_assets/footer.php:2765
 #: application/views/interface_assets/footer.php:2756
+#: application/views/interface_assets/footer.php:2763
 msgid "Something went wrong. Please try again!"
 msgstr "出现了错误，请重试！"
 
 #: application/views/interface_assets/footer.php:2837
 #: application/views/interface_assets/footer.php:2828
+#: application/views/interface_assets/footer.php:2835
 msgid "US Counties for state"
 msgstr "美国州下辖的县"
 
 #: application/views/interface_assets/footer.php:2890
 #: application/views/interface_assets/footer.php:2881
+#: application/views/interface_assets/footer.php:2888
 msgid "Confirmed counties for state:"
 msgstr "此州已确认的县："
 
 #: application/views/interface_assets/footer.php:2890
 #: application/views/interface_assets/footer.php:2881
+#: application/views/interface_assets/footer.php:2888
 msgid "Worked counties for state:"
 msgstr "此州已通联的县："
 
@@ -21832,6 +21943,24 @@ msgstr ""
 
 #: application/views/qslprint/index.php:85
 msgid "Print Labels for all QSOs"
+msgstr ""
+
+#: application/views/debug/index.php:150
+msgid "Cluster nodes"
+msgstr ""
+
+#: application/views/debug/index.php:876
+msgid "Degraded"
+msgstr ""
+
+#: application/views/debug/index.php:879
+msgid "Outdated"
+msgstr ""
+
+#: application/views/debug/index.php:879
+msgid ""
+"Please update your Wavelog Worker to version 0.2.0 or newer to see the "
+"status."
 msgstr ""
 
 #~ msgid "Null"
