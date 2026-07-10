@@ -23,5 +23,22 @@ $(document).ready(function () {
 
     const loadRadio = () => wlLoadInto(base_url + 'index.php/dashboard/radio_display_component', '#radio_display');
 	loadRadio();
-	setInterval(loadRadio, 5000);
+
+	var radioTopics = window.radioWorkerTopics || [];
+	if (radioTopics.length && window.WavelogWorker && WavelogWorker.isAvailable()) {
+		setInterval(loadRadio, 60000);
+		radioTopics.forEach(function (t) {
+			WavelogWorker.subscribe({
+				topic: t.topic,
+				token: t.token,
+				onMessage: function (frame) {
+					if (frame.type === 'push' && frame.payload && frame.payload.type === 'radio_updated') {
+						loadRadio();
+					}
+				}
+			});
+		});
+	} else {
+		setInterval(loadRadio, 5000);
+	}
 });
