@@ -193,6 +193,17 @@ $(document).ready(function () {
 	// Cluster node x/y comes from the backend (9001 reachability), polled.
 	if (cluster) { loadCluster(); setInterval(loadCluster, 10000); }
 
+	// WS status unavailable (never connected, or connected but silent) → ask the
+	// backend (9001): worker reachable = too old for the status feed → update hint;
+	// otherwise truly unreachable.
+	function fallback() {
+		fetch(cfg.snapshotUrl).then(function (r) { return r.json(); }).then(function (data) {
+			if (data && data.disabled) { showMessage(cfg.msg.disabled); return; }
+			var alive = ((data && data.workers) || []).some(function (w) { return w.alive; });
+			showMessage(alive ? cfg.msg.update : cfg.msg.unreachable);
+		}).catch(function () { showMessage(cfg.msg.unreachable); });
+	}
+
 	// Live stats over the generic worker WS client (handles auth + reconnect).
 	var pollT, statusDeadline;
 	var conn = WavelogWorker.subscribe({
@@ -203,12 +214,12 @@ $(document).ready(function () {
 			clearInterval(pollT);
 			pollT = setInterval(function () { conn.send({ type: 'status' }); }, 4000);
 			// Connected but no status frame in time → worker too old for the status feed.
-			statusDeadline = setTimeout(function () { clearInterval(pollT); conn.close(); showMessage(cfg.msg.update); }, 3000);
+			statusDeadline = setTimeout(function () { clearInterval(pollT); conn.close(); fallback(); }, 3000);
 		},
 		onMessage: function (frame) {
 			if (frame.type === 'status' && frame.payload) { clearTimeout(statusDeadline); renderStats(frame.payload); }
 		},
 		onClose: function () { clearInterval(pollT); clearTimeout(statusDeadline); stopTick(); }, // freeze; dot stays while worker.js reconnects
-		onFailed: function () { clearInterval(pollT); showMessage(cfg.msg.unreachable); }
+		onFailed: function () { clearInterval(pollT); fallback(); }
 	});
 });
