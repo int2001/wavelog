@@ -26,7 +26,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-10 12:08+0000\n"
+"POT-Creation-Date: 2026-07-10 12:46+0000\n"
 "PO-Revision-Date: 2026-07-06 12:36+0000\n"
 "Last-Translator: Florian Wolters <wavelog@df2et.de>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
@@ -1722,7 +1722,7 @@ msgstr "Logbuch"
 #: application/views/logbookadvanced/index.php:985
 #: application/views/logbookadvanced/useroptions.php:124
 #: application/views/oqrs/qsolist.php:12
-#: application/views/qslprint/qslprint.php:41
+#: application/views/qslprint/qslprint.php:42
 #: application/views/qslprint/qsolist.php:16
 #: application/views/qslprint/qsolist.php:19
 #: application/views/qso/edit_ajax.php:39 application/views/qso/index.php:115
@@ -1898,7 +1898,7 @@ msgstr ""
 #: application/views/qslcard/searchresult.php:44
 #: application/views/qslcard/searchresult.php:60
 #: application/views/qslcard/searchresult.php:76
-#: application/views/qslprint/qslprint.php:36
+#: application/views/qslprint/qslprint.php:37
 #: application/views/qslprint/qsolist.php:9
 #: application/views/qso/components/previous_contacts.php:77
 #: application/views/qso/edit_ajax.php:121 application/views/qso/index.php:231
@@ -1936,7 +1936,7 @@ msgstr "Mode"
 #: application/views/qslcard/searchresult.php:45
 #: application/views/qslcard/searchresult.php:61
 #: application/views/qslcard/searchresult.php:77
-#: application/views/qslprint/qslprint.php:39
+#: application/views/qslprint/qslprint.php:40
 #: application/views/qslprint/qsolist.php:12
 #: application/views/qso/components/previous_contacts.php:78
 #: application/views/qso/edit_ajax.php:143 application/views/qso/index.php:276
@@ -1963,7 +1963,7 @@ msgstr "RST (S)"
 #: application/views/qslcard/searchresult.php:46
 #: application/views/qslcard/searchresult.php:62
 #: application/views/qslcard/searchresult.php:78
-#: application/views/qslprint/qslprint.php:40
+#: application/views/qslprint/qslprint.php:41
 #: application/views/qslprint/qsolist.php:13
 #: application/views/qso/components/previous_contacts.php:79
 #: application/views/qso/edit_ajax.php:148 application/views/qso/index.php:281
@@ -2223,8 +2223,8 @@ msgstr "Distanz"
 #: application/views/qslcard/searchresult.php:53
 #: application/views/qslcard/searchresult.php:69
 #: application/views/qslcard/searchresult.php:85
-#: application/views/qslprint/index.php:38
-#: application/views/qslprint/qslprint.php:37
+#: application/views/qslprint/index.php:47
+#: application/views/qslprint/qslprint.php:38
 #: application/views/qslprint/qsolist.php:10
 #: application/views/qso/components/previous_contacts.php:88
 #: application/views/qso/edit_ajax.php:85 application/views/qso/index.php:246
@@ -2262,8 +2262,8 @@ msgstr "Band"
 #: application/views/qslcard/searchresult.php:54
 #: application/views/qslcard/searchresult.php:70
 #: application/views/qslcard/searchresult.php:86
-#: application/views/qslprint/index.php:39
-#: application/views/qslprint/qslprint.php:38
+#: application/views/qslprint/index.php:48
+#: application/views/qslprint/qslprint.php:39
 #: application/views/qslprint/qsolist.php:11
 #: application/views/qso/components/previous_contacts.php:89
 #: application/views/qso/edit_ajax.php:73 application/views/qso/index.php:264
@@ -3198,7 +3198,7 @@ msgstr "Bearbeite Stationsstandort: "
 #: application/views/logbookadvanced/dbtoolsdialog.php:16
 #: application/views/logbookadvanced/edit.php:23
 #: application/views/logbookadvanced/showMissingDxccQsos.php:26
-#: application/views/qslprint/index.php:25 application/views/qso/index.php:137
+#: application/views/qslprint/index.php:34 application/views/qso/index.php:137
 #: application/views/qso/index.php:400
 #: application/views/search/search_result_ajax.php:18
 #: application/views/station_profile/create.php:431
@@ -4537,8 +4537,7 @@ msgstr "Differenz"
 #: application/views/oqrs/showrequests.php:54
 #: application/views/oqrs/showrequests.php:69
 #: application/views/qslprint/index.php:2
-#: application/views/qslprint/index.php:27
-#: application/views/qslprint/qslprint.php:89
+#: application/views/qslprint/index.php:36
 #: application/views/search/lotw_unconfirmed.php:30
 #: application/views/stationsetup/exportmapoptions.php:33
 #: application/views/statistics/antennaanalytics.php:26
@@ -4865,8 +4864,8 @@ msgstr "Nichts gefunden!"
 #: application/views/qslcard/confirmationresult.php:15
 #: application/views/qslcard/index.php:43
 #: application/views/qslcard/searchform.php:3
-#: application/views/qslprint/index.php:29
-#: application/views/qslprint/qslprint.php:33
+#: application/views/qslprint/index.php:38
+#: application/views/qslprint/qslprint.php:34
 #: application/views/qslprint/qsolist.php:6
 #: application/views/qso/edit_ajax.php:64 application/views/qso/index.php:216
 #: application/views/search/lotw_unconfirmed.php:32
@@ -4979,7 +4978,7 @@ msgstr ""
 #: application/views/public_search/result.php:13
 #: application/views/qslcard/index.php:45
 #: application/views/qslcard/searchresult.php:4
-#: application/views/qslprint/qslprint.php:34
+#: application/views/qslprint/qslprint.php:35
 #: application/views/qslprint/qsolist.php:7 application/views/qso/index.php:156
 #: application/views/qso/index.php:192 application/views/satellite/pass.php:132
 #: application/views/satellite/skedtable.php:12
@@ -5021,7 +5020,7 @@ msgstr "Datum"
 #: application/views/logbookadvanced/checkresult.php:318
 #: application/views/oqrs/qsolist.php:8 application/views/qslcard/index.php:46
 #: application/views/qslcard/searchresult.php:6
-#: application/views/qslprint/qslprint.php:35
+#: application/views/qslprint/qslprint.php:36
 #: application/views/qslprint/qsolist.php:8 application/views/qso/index.php:197
 #: application/views/satellite/skedtable.php:13
 #: application/views/satellite/skedtable.php:15
@@ -5113,6 +5112,7 @@ msgstr "Die max. Dateigröße für Uploads beträgt "
 #: application/views/interface_assets/footer.php:37
 #: application/views/notes/add.php:23 application/views/notes/edit.php:29
 #: application/views/qrz/export.php:75 application/views/qrz/export.php:96
+#: application/views/qslprint/index.php:10
 #: application/views/stationsetup/stationsetup.php:144
 #: application/views/view_log/qso.php:747
 #: application/views/webadif/export.php:34
@@ -5759,6 +5759,7 @@ msgstr "Berechtigungen"
 #: application/views/hrdlog/export.php:39
 #: application/views/logbookadvanced/index.php:828
 #: application/views/notes/main.php:77 application/views/qrz/export.php:44
+#: application/views/qslprint/qslprint.php:47
 #: application/views/user/index.php:33 application/views/user/index.php:160
 #: application/views/view_log/partial/log_ajax.php:177
 #: application/views/view_log/partial/log_ajax.php:611
@@ -7486,8 +7487,8 @@ msgstr "Stadt"
 #: application/views/awards/jcc/index.php:200
 #: application/views/dashboard/index.php:666
 #: application/views/distances/index.php:27
-#: application/views/qslprint/qslprint.php:61
-#: application/views/qslprint/qslprint.php:62
+#: application/views/qslprint/qslprint.php:77
+#: application/views/qslprint/qslprint.php:78
 #: application/views/qslprint/qsolist.php:49
 #: application/views/qslprint/qsolist.php:51
 #: application/views/qslprint/qsolist.php:58
@@ -7843,7 +7844,8 @@ msgid "Number of Refs"
 msgstr "Anzahl der Refs"
 
 #: application/views/awards/sig/qso_list.php:6
-#: application/views/qslprint/qslprint.php:48
+#: application/views/qslprint/index.php:9
+#: application/views/qslprint/qslprint.php:93
 #: application/views/simplefle/index.php:147
 msgid "QSO List"
 msgstr "QSO Liste"
@@ -10083,7 +10085,7 @@ msgstr ""
 #: application/views/logbookadvanced/index.php:1072
 #: application/views/logbookadvanced/useroptions.php:336
 #: application/views/qrz/export.php:39
-#: application/views/qslprint/qslprint.php:43
+#: application/views/qslprint/qslprint.php:44
 #: application/views/qslprint/qsolist.php:15
 #: application/views/webadif/export.php:41
 msgid "Profile name"
@@ -10882,7 +10884,7 @@ msgstr "Pfad"
 #: application/views/logbookadvanced/mergedialog.php:54
 #: application/views/logbookadvanced/showStateQsos.php:28
 #: application/views/oqrs/qsolist.php:11
-#: application/views/qslprint/qslprint.php:42
+#: application/views/qslprint/qslprint.php:43
 #: application/views/qslprint/qsolist.php:14
 #: application/views/qso/edit_ajax.php:41 application/views/qso/index.php:97
 #: application/views/search/lotw_unconfirmed_result.php:11
@@ -11775,7 +11777,6 @@ msgid "START"
 msgstr "START"
 
 #: application/views/contesting/manager/index.php:94
-#: application/views/qslprint/qslprint.php:111
 msgid "Export ADIF"
 msgstr "ADIF Export"
 
@@ -11984,7 +11985,7 @@ msgid "All but Repeater"
 msgstr "Alles außer Repeater"
 
 #: application/views/csv/index.php:114 application/views/dxatlas/index.php:113
-#: application/views/kml/index.php:98
+#: application/views/kml/index.php:98 application/views/qslprint/index.php:65
 msgid "Export"
 msgstr "Exportieren"
 
@@ -14956,10 +14957,13 @@ msgstr ""
 
 #: application/views/labels/index.php:2
 #: application/views/logbookadvanced/startatform.php:104
+#: application/views/qslprint/printlabel.php:117
+#: application/views/qslprint/printqsl.php:37
 msgid "Mark QSL as printed"
 msgstr "Markiere QSL als gedruckt"
 
 #: application/views/labels/index.php:3 application/views/labels/index.php:129
+#: application/views/qslprint/index.php:77
 msgid "Print"
 msgstr "Drucken"
 
@@ -15030,21 +15034,25 @@ msgstr "QSOs ansehen"
 
 #: application/views/labels/startatform.php:21
 #: application/views/logbookadvanced/startatform.php:20
+#: application/views/qslprint/printlabel.php:20
 msgid "Include my call?"
 msgstr "Mein Rufzeichen drucken?"
 
 #: application/views/labels/startatform.php:33
 #: application/views/logbookadvanced/startatform.php:32
+#: application/views/qslprint/printlabel.php:32
 msgid "Include OP-Call? (if filled)"
 msgstr "Operator (sofern befüllt) hinzufügen"
 
 #: application/views/labels/startatform.php:45
 #: application/views/logbookadvanced/startatform.php:44
+#: application/views/qslprint/printlabel.php:44
 msgid "Include Grid?"
 msgstr "Mit Locator?"
 
 #: application/views/labels/startatform.php:57
 #: application/views/logbookadvanced/startatform.php:56
+#: application/views/qslprint/printlabel.php:56
 msgid ""
 "Include reference? (SIG, SOTA, POTA, IOTA, WWFF; If available in location)"
 msgstr ""
@@ -15065,11 +15073,13 @@ msgstr "Inklusive TNX Nachricht?"
 
 #: application/views/labels/startatform.php:106
 #: application/views/logbookadvanced/startatform.php:117
+#: application/views/qslprint/printlabel.php:105
 msgid "Start printing at?"
 msgstr "Druck starten bei?"
 
 #: application/views/labels/startatform.php:112
 #: application/views/logbookadvanced/startatform.php:123
+#: application/views/qslprint/printlabel.php:111
 msgid "Enter the starting position for label printing"
 msgstr "Gib die Startposition für den Labeldruck an"
 
@@ -16019,6 +16029,7 @@ msgid "SUCCESS"
 msgstr "Erfolg"
 
 #: application/views/logbookadvanced/index.php:52
+#: application/views/qslprint/index.php:3
 msgid "INFO"
 msgstr "Info"
 
@@ -16527,6 +16538,8 @@ msgid "Create ADIF"
 msgstr "Erstelle ADIF"
 
 #: application/views/logbookadvanced/index.php:856
+#: application/views/qslprint/index.php:5
+#: application/views/qslprint/printlabel.php:116
 msgid "Print Label"
 msgstr "Label drucken"
 
@@ -16666,12 +16679,14 @@ msgstr "Feld"
 #: application/views/qslpostcard/designer.php:58
 #: application/views/qslpostcard/printqueue.php:8
 #: application/views/qslpostcard/printqueue_selected.php:10
+#: application/views/qslprint/printqsl.php:9
 msgid "Template"
 msgstr "Vorlage"
 
 #: application/views/logbookadvanced/printQsl.php:22
 #: application/views/qslpostcard/printqueue.php:18
 #: application/views/qslpostcard/printqueue_selected.php:21
+#: application/views/qslprint/printqsl.php:22
 msgid ""
 "Print options (QSOs per card, background image, address printing) are set "
 "per template in the QSL Postcard Designer."
@@ -16682,6 +16697,7 @@ msgstr ""
 #: application/views/logbookadvanced/printQsl.php:30
 #: application/views/qslpostcard/printqueue.php:22
 #: application/views/qslpostcard/printqueue_selected.php:30
+#: application/views/qslprint/printqsl.php:30
 msgid "Generate Postcard PDF"
 msgstr "PDF der Postkarte erstellen"
 
@@ -16689,12 +16705,14 @@ msgstr "PDF der Postkarte erstellen"
 #: application/views/qslpostcard/designer.php:87
 #: application/views/qslpostcard/printqueue.php:26
 #: application/views/qslpostcard/printqueue_selected.php:34
+#: application/views/qslprint/printqsl.php:34
 msgid "Save PDF"
 msgstr "Speichere PDF"
 
 #: application/views/logbookadvanced/printQsl.php:41
 #: application/views/qslpostcard/printqueue.php:33
 #: application/views/qslpostcard/printqueue_selected.php:41
+#: application/views/qslprint/printqsl.php:42
 msgid ""
 "No templates available for printing. Go to the QSL Postcard Designer and "
 "create a template first."
@@ -16779,14 +16797,17 @@ msgid "The number of QSOs updated for gridsquare is"
 msgstr "Anzahl aktualisierter QSOs bezüglich Planquadrat ist"
 
 #: application/views/logbookadvanced/startatform.php:68
+#: application/views/qslprint/printlabel.php:68
 msgid "Include Via"
 msgstr "Inklusive Via"
 
 #: application/views/logbookadvanced/startatform.php:80
+#: application/views/qslprint/printlabel.php:80
 msgid "Include QSLMSG"
 msgstr "QSLMSG einfügen"
 
 #: application/views/logbookadvanced/startatform.php:92
+#: application/views/qslprint/printlabel.php:92
 msgid "Include TNX message"
 msgstr "TNX Nachricht einfügen"
 
@@ -17697,7 +17718,7 @@ msgid "Send not in log request"
 msgstr "Sende eine 'Nicht im Log'-Anfrage"
 
 #: application/views/oqrs/qsolist.php:76
-#: application/views/qslprint/qslprint.php:41
+#: application/views/qslprint/qslprint.php:42
 #: application/views/qslprint/qsolist.php:16
 #: application/views/qslprint/qsolist.php:109
 #: application/views/qso/index.php:733
@@ -18318,19 +18339,86 @@ msgstr "Zentrieren auf Seite (horizontal)"
 msgid "Center on page (vertical)"
 msgstr "In der Mitte der Seite (vertikal)"
 
-#: application/views/qslprint/index.php:20
+#: application/views/qslprint/index.php:4
+msgid "Please select at least one row"
+msgstr ""
+
+#: application/views/qslprint/index.php:6
+msgid "Print QSLcard"
+msgstr ""
+
+#: application/views/qslprint/index.php:7
+#: application/views/qslprint/qslprint.php:91
+msgid "Mark as sent"
+msgstr "Markieren als gesendet"
+
+#: application/views/qslprint/index.php:8
+#: application/views/qslprint/index.php:91
+#: application/views/qslprint/qslprint.php:92
+msgid "Remove"
+msgstr "Entfernen"
+
+#: application/views/qslprint/index.php:11
+msgid "Are you sure you want to mark ALL requested QSLs as sent?"
+msgstr ""
+
+#: application/views/qslprint/index.php:29
 msgid "Export Requested QSLs for Printing"
 msgstr "Exportiere angeforderte QSL-Karten für den Druck"
 
-#: application/views/qslprint/index.php:36
+#: application/views/qslprint/index.php:45
 msgid "Show Band or Frequency:"
 msgstr "Zeige Band oder Frequenz:"
 
-#: application/views/qslprint/index.php:40
+#: application/views/qslprint/index.php:49
 msgid "Band & Frequency"
 msgstr "Band & Frequenz"
 
-#: application/views/qslprint/index.php:45
+#: application/views/qslprint/index.php:55
+msgid "Mark"
+msgstr ""
+
+#: application/views/qslprint/index.php:57
+msgid "Mark selected QSOs as sent"
+msgstr "Markiere ausgewählte QSOs als gesendet"
+
+#: application/views/qslprint/index.php:59
+msgid "Mark ALL requested QSLs as sent"
+msgstr ""
+
+#: application/views/qslprint/index.php:67
+msgid "Export selected QSOs to ADIF-file"
+msgstr "Exportiere ausgewählte QSOs in eine ADIF-Datei"
+
+#: application/views/qslprint/index.php:69
+msgid "Export requested QSLs to CSV-file"
+msgstr "Exportiere angefragte QSLs als CSV Datei"
+
+#: application/views/qslprint/index.php:71
+msgid "Export requested QSLs to ADIF-file"
+msgstr "Exportiere angefragte QSLs als ADIF Datei"
+
+#: application/views/qslprint/index.php:79
+msgid "Print Selected QSO Postcards"
+msgstr "Drucke ausgewählte QSO Karten"
+
+#: application/views/qslprint/index.php:81
+msgid "Print Postcards for all QSOs"
+msgstr "Drucke Postkarten für alle QSOs"
+
+#: application/views/qslprint/index.php:83
+msgid "Print Selected QSL Labels"
+msgstr ""
+
+#: application/views/qslprint/index.php:85
+msgid "Print Labels for all QSOs"
+msgstr ""
+
+#: application/views/qslprint/index.php:93
+msgid "Remove selected QSOs from the queue"
+msgstr "Entferne ausgewählte QSOs aus der Warteschlange"
+
+#: application/views/qslprint/index.php:98
 msgid ""
 "Here you can export requested QSLs as CSV or ADIF files for printing and, "
 "optionally, mark them as sent."
@@ -18338,7 +18426,7 @@ msgstr ""
 "Hier kannst du angefragte QSLs als CSV- oder ADIF-Dateien für den Druck "
 "exportieren und sie optional als gesendet markieren."
 
-#: application/views/qslprint/index.php:47
+#: application/views/qslprint/index.php:100
 msgid ""
 "Requested QSLs are any QSOs with a value of 'Requested' or 'Queued' in their "
 "'QSL Sent' field."
@@ -18346,13 +18434,13 @@ msgstr ""
 "Angefragte QSLs sind alle QSOs mit dem Wert 'Angefragt' oder 'In der "
 "Warteschlange' in dem Feld 'QSL gesendet'."
 
-#: application/views/qslprint/index.php:48
-#: application/views/qslprint/qslprint.php:45
+#: application/views/qslprint/index.php:101
+#: application/views/qslprint/qslprint.php:46
 #: application/views/qslprint/qsolist.php:18
 msgid "Previous QSL"
 msgstr "Vorherige QSLs"
 
-#: application/views/qslprint/index.php:48
+#: application/views/qslprint/index.php:101
 #, php-format
 msgid ""
 "The column %s shows how many QSLs have been sent to the same station before "
@@ -18361,91 +18449,27 @@ msgstr ""
 "Die Spalte %s zeigt, wie viele QSLs zuvor an die gleiche Station im gleichen "
 "Band und Mode gesendet wurden."
 
-#: application/views/qslprint/qslprint.php:44
+#: application/views/qslprint/qslprint.php:45
 #: application/views/qslprint/qsolist.php:17
 msgid "Send Method"
 msgstr "Sende Methode"
 
-#: application/views/qslprint/qslprint.php:46
-msgid "Mark as sent"
-msgstr "Markieren als gesendet"
-
-#: application/views/qslprint/qslprint.php:47
-msgid "Remove"
-msgstr "Entfernen"
-
-#: application/views/qslprint/qslprint.php:70
+#: application/views/qslprint/qslprint.php:86
 #: application/views/qslprint/qsolist.php:70
 msgid "Previous QSL sent (same band/mode)"
 msgstr "Bereits gesendete QSL (gleiches Band/Modus)"
 
-#: application/views/qslprint/qslprint.php:71
+#: application/views/qslprint/qslprint.php:87
 #: application/views/qslprint/qsolist.php:71
 msgid "QSL sent to callsign (total)"
 msgstr "QSL an Rufzeichen gesendet (insgesamt)"
 
-#: application/views/qslprint/qslprint.php:72
+#: application/views/qslprint/qslprint.php:88
 #: application/views/qslprint/qsolist.php:72
 msgid "QSL received from callsign (total)"
 msgstr "QSL von Rufzeichen erhalten (gesamt)"
 
-#: application/views/qslprint/qslprint.php:86
-msgid "Mark QSOs for a certain QSL Method:"
-msgstr "Markiere QSOs einer bestimmten Versandmethode:"
-
-#: application/views/qslprint/qslprint.php:94
-msgid "Mark all QSOs for the chosen QSL method"
-msgstr "Markiere alle QSOs die zur gewählten Methode gehören"
-
-#: application/views/qslprint/qslprint.php:95
-msgid "Unmark every QSO"
-msgstr "Entferne Markierung für alle QSOs"
-
-#: application/views/qslprint/qslprint.php:100
-msgid "Update QSOs"
-msgstr "Aktualisiere QSOs"
-
-#: application/views/qslprint/qslprint.php:103
-msgid "Mark selected QSOs as sent"
-msgstr "Markiere ausgewählte QSOs als gesendet"
-
 #: application/views/qslprint/qslprint.php:104
-msgid "Remove selected QSOs from the queue"
-msgstr "Entferne ausgewählte QSOs aus der Warteschlange"
-
-#: application/views/qslprint/qslprint.php:105
-msgid "Export selected QSOs to ADIF-file"
-msgstr "Exportiere ausgewählte QSOs in eine ADIF-Datei"
-
-#: application/views/qslprint/qslprint.php:110
-msgid "Export CSV-file"
-msgstr "CSV-Datei exportieren"
-
-#: application/views/qslprint/qslprint.php:110
-msgid "Export requested QSLs to CSV-file"
-msgstr "Exportiere angefragte QSLs als CSV Datei"
-
-#: application/views/qslprint/qslprint.php:111
-msgid "Export requested QSLs to ADIF-file"
-msgstr "Exportiere angefragte QSLs als ADIF Datei"
-
-#: application/views/qslprint/qslprint.php:112
-msgid "Mark QSLs as printed"
-msgstr "Markiere QSLs als gedruckt"
-
-#: application/views/qslprint/qslprint.php:112
-msgid "Mark requested QSLs as sent"
-msgstr "Markiere angefragte QSLs als gesendet"
-
-#: application/views/qslprint/qslprint.php:115
-msgid "Print Postcards for all QSOs"
-msgstr "Drucke Postkarten für alle QSOs"
-
-#: application/views/qslprint/qslprint.php:116
-msgid "Print Selected QSO Postcards"
-msgstr "Drucke ausgewählte QSO Karten"
-
-#: application/views/qslprint/qslprint.php:121
 msgid "No QSLs to print were found!"
 msgstr "Es wurden keine QSLs zum Drucken gefunden!"
 
@@ -22412,6 +22436,27 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#~ msgid "Mark QSOs for a certain QSL Method:"
+#~ msgstr "Markiere QSOs einer bestimmten Versandmethode:"
+
+#~ msgid "Mark all QSOs for the chosen QSL method"
+#~ msgstr "Markiere alle QSOs die zur gewählten Methode gehören"
+
+#~ msgid "Unmark every QSO"
+#~ msgstr "Entferne Markierung für alle QSOs"
+
+#~ msgid "Update QSOs"
+#~ msgstr "Aktualisiere QSOs"
+
+#~ msgid "Export CSV-file"
+#~ msgstr "CSV-Datei exportieren"
+
+#~ msgid "Mark QSLs as printed"
+#~ msgstr "Markiere QSLs als gedruckt"
+
+#~ msgid "Mark requested QSLs as sent"
+#~ msgstr "Markiere angefragte QSLs als gesendet"
 
 #~ msgid "Upload Preview Image"
 #~ msgstr "Lade Vorschaubild hoch"
