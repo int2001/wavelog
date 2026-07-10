@@ -286,6 +286,15 @@ function markSelectedQsos() {
 	var elements = $('.qslprint tbody input:checked');
 	var nElements = elements.length;
 	if (nElements == 0) {
+		BootstrapDialog.alert({
+			title: lang_qslprint_info,
+			message: lang_qslprint_select_at_least_one_row,
+			type: BootstrapDialog.TYPE_INFO,
+			closable: false,
+			draggable: false,
+			callback: function (result) {
+			}
+		});
 		return;
 	}
 	$('.markallprinted').prop("disabled", true);
@@ -318,6 +327,15 @@ function removeSelectedQsos() {
 	var elements = $('.qslprint tbody input:checked');
 	var nElements = elements.length;
 	if (nElements == 0) {
+		BootstrapDialog.alert({
+			title: lang_qslprint_info,
+			message: lang_qslprint_select_at_least_one_row,
+			type: BootstrapDialog.TYPE_INFO,
+			closable: false,
+			draggable: false,
+			callback: function (result) {
+			}
+		});
 		return;
 	}
 	$('.removeall').prop("disabled", true);
@@ -352,6 +370,15 @@ function exportSelectedQsos() {
 	var elements = $('.qslprint tbody input:checked');
 	var nElements = elements.length;
 	if (nElements == 0) {
+		BootstrapDialog.alert({
+			title: lang_qslprint_info,
+			message: lang_qslprint_select_at_least_one_row,
+			type: BootstrapDialog.TYPE_INFO,
+			closable: false,
+			draggable: false,
+			callback: function (result) {
+			}
+		});
 		return;
 	}
 	$('.exportselected').prop("disabled", true);
