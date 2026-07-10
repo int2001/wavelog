@@ -875,7 +875,7 @@
             'degraded'    => __("Degraded"),
             'disabled'    => '<span class="badge rounded-pill text-bg-secondary">' . __("Disabled") . '</span> ' . __("Worker backend is not configured."),
             'unreachable' => '<span class="badge rounded-pill text-bg-danger">' . __("Unreachable") . '</span> ' . __("Worker is configured but did not respond."),
-            'error'       => '<span class="badge rounded-pill text-bg-danger">' . __("Error") . '</span> ' . __("Could not fetch worker status."),
+            'update'      => '<span class="badge rounded-pill text-bg-warning">' . __("Outdated") . '</span> ' . __("Please update your Wavelog Worker to version 0.2.0 or newer to see the status."),
         ],
     ]); ?>;
 

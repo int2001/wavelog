@@ -194,19 +194,21 @@ $(document).ready(function () {
 	if (cluster) { loadCluster(); setInterval(loadCluster, 10000); }
 
 	// Live stats over the generic worker WS client (handles auth + reconnect).
-	var pollT;
+	var pollT, statusDeadline;
 	var conn = WavelogWorker.subscribe({
 		topic: cfg.topic,
 		token: cfg.token,
 		onOpen: function () {
 			conn.send({ type: 'status' });
 			clearInterval(pollT);
-			pollT = setInterval(function () { conn.send({ type: 'status' }); }, 3000);
+			pollT = setInterval(function () { conn.send({ type: 'status' }); }, 4000);
+			// Connected but no status frame in time → worker too old for the status feed.
+			statusDeadline = setTimeout(function () { clearInterval(pollT); conn.close(); showMessage(cfg.msg.update); }, 3000);
 		},
 		onMessage: function (frame) {
-			if (frame.type === 'status' && frame.payload) { renderStats(frame.payload); }
+			if (frame.type === 'status' && frame.payload) { clearTimeout(statusDeadline); renderStats(frame.payload); }
 		},
-		onClose: function () { clearInterval(pollT); stopTick(); }, // freeze; dot stays while worker.js reconnects
+		onClose: function () { clearInterval(pollT); clearTimeout(statusDeadline); stopTick(); }, // freeze; dot stays while worker.js reconnects
 		onFailed: function () { clearInterval(pollT); showMessage(cfg.msg.unreachable); }
 	});
 });
