@@ -68,7 +68,6 @@
 		if (expiryTimer) { clearTimeout(expiryTimer); }
 		var delay = deadline - EXPIRY_LEAD_MS - Date.now();
 		if (delay < 0) { delay = 0; }
-		if (delay > MAX_TIMEOUT_MS) { delay = MAX_TIMEOUT_MS; }
 		expiryTimer = setTimeout(fireExpiryToast, delay);
 	};
 
