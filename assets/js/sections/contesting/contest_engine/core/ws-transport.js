@@ -29,6 +29,7 @@ export class WsTransport extends TransportAdapter {
 		this._url    = url.replace(/\/$/, '');
 		this._topic  = topic;
 		this._token  = token;
+		window.WavelogWorker?.watchTokenExpiry?.(this._token);
 		this._ws     = null;
 		this._ready  = false;
 

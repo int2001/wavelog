@@ -30,6 +30,47 @@
 	/** True when the Worker integration exposed a client URL. */
 	W.isAvailable = function () { return !!W.url; };
 
+	var EXPIRY_LEAD_MS = 120000;       // warn 2 minutes before the token expires
+	var expiryDeadline = null;         // earliest token expiry (ms) seen so far
+	var expiryTimer = null;
+
+	/** Decode the `expires` (unix seconds) claim from a worker token, or null. */
+	function decodeTokenExpires(token) {
+		try {
+			var hex = String(token).split('.')[0];
+			var json = hex.replace(/../g, function (h) {
+				return String.fromCharCode(parseInt(h, 16));
+			});
+			var expires = JSON.parse(json).expires;
+			return (typeof expires === 'number' && isFinite(expires)) ? expires : null;
+		} catch (e) { return null; }
+	}
+
+	function fireExpiryToast() {
+		if (typeof showToast !== 'function') { return; }
+		var title = window.lang_worker_token_expired_title;
+		var msg = window.lang_worker_token_expired_msg;
+		var lang_reload_now = window.lang_worker_reload_now;
+		var body = `${msg}<a class="text-white d-block text-center mt-2" href="#" onclick="window.location.reload(); return false;"><i class="fas fa-sync-alt"></i> <b>${lang_reload_now}</b></a>`;
+		showToast(title, body, 'bg-danger text-white', false);
+	}
+
+	/**
+	 * Watch a worker token and fire a toast warning when it is about to expire.
+	 */
+	W.watchTokenExpiry = function (token) {
+		var expires = decodeTokenExpires(token);
+		if (expires == null) { return; }
+		var deadline = expires * 1000;
+		if (expiryDeadline != null && deadline >= expiryDeadline) { return; }
+		expiryDeadline = deadline;
+		if (expiryTimer) { clearTimeout(expiryTimer); }
+		var delay = deadline - EXPIRY_LEAD_MS - Date.now();
+		if (delay < 0) { delay = 0; }
+		if (delay > MAX_TIMEOUT_MS) { delay = MAX_TIMEOUT_MS; }
+		expiryTimer = setTimeout(fireExpiryToast, delay);
+	};
+
 	/**
 	 * Open an authenticated, auto-reconnecting subscription to a topic.
 	 * @param {object} opts topic, token, onOpen, onMessage(frame), onClose,
@@ -42,6 +83,7 @@
 		var baseUrl          = (W.url || '').replace(/\/$/, '');
 		var topic            = opts.topic;
 		var token            = opts.token;
+		W.watchTokenExpiry(token);
 		var connectTimeoutMs = opts.connectTimeoutMs || 1500;
 		var retryDelayMs     = opts.retryDelayMs || 1000;
 		var maxRetries       = (opts.maxRetries != null) ? opts.maxRetries : 4;
