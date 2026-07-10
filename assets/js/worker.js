@@ -53,7 +53,7 @@
 		var msg = window.lang_worker_token_expired_msg;
 		var lang_reload_now = window.lang_worker_reload_now;
 		var body = `${msg}<a class="text-white d-block text-center mt-2" href="#" onclick="window.location.reload(); return false;"><i class="fas fa-sync-alt"></i> <b>${lang_reload_now}</b></a>`;
-		showToast(title, body, 'bg-danger text-white', false);
+		showToast(title, body, 'bg-danger text-white', 0, false);
 	}
 
 	/**
