@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-09 08:37+0000\n"
-"PO-Revision-Date: 2026-07-10 12:08+0000\n"
+"PO-Revision-Date: 2026-07-10 12:46+0000\n"
 "Last-Translator: \"Jorgen Dahl, NU1T\" <sm6srw@arrl.net>\n"
 "Language-Team: Swedish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/sv/>\n"
@@ -6103,29 +6103,29 @@ msgstr "Counties Framsteg"
 
 #: application/views/awards/counties/index.php:45
 msgid "Worked Counties"
-msgstr ""
+msgstr "Kontaktade Counties"
 
 #: application/views/awards/counties/index.php:47
 #, php-format
 msgid "of %s known counties"
-msgstr ""
+msgstr "av %s kända counties"
 
 #: application/views/awards/counties/index.php:52
 msgid "Confirmed Counties"
-msgstr ""
+msgstr "Bekräftade Counties"
 
 #: application/views/awards/counties/index.php:54
 #, php-format
 msgid "%s%% of worked"
-msgstr ""
+msgstr "%s%% av kontaktade"
 
 #: application/views/awards/counties/index.php:59
 msgid "Remaining Counties"
-msgstr ""
+msgstr "Återstående Counties"
 
 #: application/views/awards/counties/index.php:61
 msgid "Based on current worked count"
-msgstr ""
+msgstr "Baserat på nuvarande antal kontaktade"
 
 #: application/views/awards/counties/index.php:66
 #: application/views/awards/dxcc/index.php:41
@@ -6137,7 +6137,7 @@ msgstr "Framsteg"
 #: application/views/awards/counties/index.php:68
 #, php-format
 msgid "%s%% confirmed overall"
-msgstr ""
+msgstr "%s%% bekräftade totalt"
 
 #: application/views/awards/counties/index.php:77
 #: application/views/awards/cq/index.php:93
@@ -6178,7 +6178,7 @@ msgstr "Bekräftade"
 
 #: application/views/awards/counties/index.php:80
 msgid "Remaining"
-msgstr ""
+msgstr "Återstående"
 
 #: application/views/awards/counties/index.php:81
 #: application/views/awards/dxcc/index.php:287
@@ -6231,11 +6231,11 @@ msgstr "Totalt"
 
 #: application/views/awards/counties/state_ajax.php:8
 msgid "QSOs Worked"
-msgstr ""
+msgstr "QSOs kontaktade"
 
 #: application/views/awards/counties/state_ajax.php:9
 msgid "QSOs Confirmed"
-msgstr ""
+msgstr "QSOs Bekräftade"
 
 #: application/views/awards/cq/index.php:3
 #: application/views/awards/cq/index.php:205
@@ -10601,14 +10601,14 @@ msgstr "Winkeyer"
 #: application/views/qso/components/winkeysettings.php:54
 msgctxt "ESM mode"
 msgid "Run"
-msgstr ""
+msgstr "Run"
 
 #: application/views/contesting/logger/components/winkeyer.php:24
 #: application/views/qso/components/winkeysettings.php:58
 #: application/views/qso/components/winkeysettings.php:59
 msgctxt "ESM mode"
 msgid "S&P"
-msgstr ""
+msgstr "S&P"
 
 #: application/views/contesting/logger/components/winkeyer.php:51
 #: application/views/qso/index.php:828
@@ -10617,7 +10617,7 @@ msgstr "Anslut"
 
 #: application/views/contesting/logger/components/winkeyer.php:53
 msgid "Toggle Run / Search & Pounce for ESM"
-msgstr ""
+msgstr "Växla mellan run / S&P för ESM"
 
 #: application/views/contesting/logger/components/winkeyer.php:73
 #: application/views/qso/index.php:856
@@ -11861,15 +11861,15 @@ msgstr "Av"
 
 #: application/views/dashboard/_options_menu.php:10
 msgid "Dashboard options"
-msgstr ""
+msgstr "Instrumentpanel alternativ"
 
 #: application/views/dashboard/_options_menu.php:12
 msgid "KPI statistics"
-msgstr ""
+msgstr "KPI-statistik"
 
 #: application/views/dashboard/_options_menu.php:15
 msgid "Solar data"
-msgstr ""
+msgstr "Soldata"
 
 #: application/views/dashboard/index.php:6
 msgid "RSTS"
@@ -11982,7 +11982,7 @@ msgstr "Minst ett av dina certifikat går ut"
 #: application/views/dashboard/index.php:230
 #: application/views/dashboard/solar_data.php:2
 msgid "Right-click for options"
-msgstr ""
+msgstr "Högerklicka för alternativ"
 
 #: application/views/dashboard/index.php:245
 msgid "QSOs this year"
@@ -12015,7 +12015,7 @@ msgstr "Unika anropssignaler"
 
 #: application/views/dashboard/index.php:368
 msgid "View QSO"
-msgstr ""
+msgstr "Visa QSO"
 
 #: application/views/dashboard/index.php:383
 #: application/views/qso/index.php:913
@@ -12037,7 +12037,7 @@ msgstr "Datum"
 
 #: application/views/dashboard/index.php:434
 msgid "Lookup DXCC"
-msgstr ""
+msgstr "Slå upp DXCC"
 
 #: application/views/dashboard/index.php:454
 #: application/views/user/edit.php:818
@@ -14292,23 +14292,23 @@ msgstr "Något gick fel. Försök igen!"
 
 #: application/views/interface_assets/footer.php:2828
 msgid "US Counties for state"
-msgstr ""
+msgstr "USAs counties för delstaten"
 
 #: application/views/interface_assets/footer.php:2881
 msgid "Confirmed counties for state:"
-msgstr ""
+msgstr "Bekräftade counties per delstat:"
 
 #: application/views/interface_assets/footer.php:2881
 msgid "Worked counties for state:"
-msgstr ""
+msgstr "Kontaktade counties för staten:"
 
 #: application/views/interface_assets/header.php:95
 msgid "Skip to content"
-msgstr ""
+msgstr "Hoppa till innehåll"
 
 #: application/views/interface_assets/header.php:98
 msgid "Wavelog home"
-msgstr ""
+msgstr "Wavelog hem"
 
 #: application/views/interface_assets/header.php:100
 msgid "Developer Mode"
@@ -14597,7 +14597,7 @@ msgstr "Logga ut"
 
 #: application/views/interface_assets/header.php:617
 msgid "Station locations and logbooks"
-msgstr ""
+msgstr "Stationsplatser och loggböcker"
 
 #: application/views/interface_assets/header.php:619
 msgid "Select a Location"
@@ -18070,12 +18070,12 @@ msgstr "Text"
 #: application/views/qslpostcard/designer.php:242
 #: application/views/qslpostcard/designer.php:239
 msgid "Frequency format"
-msgstr ""
+msgstr "Frekvensformat"
 
 #: application/views/qslpostcard/designer.php:250
 #: application/views/qslpostcard/designer.php:247
 msgid "Omit unit"
-msgstr ""
+msgstr "Utelämna enhet"
 
 #: application/views/qslpostcard/designer.php:256
 #: application/views/qslpostcard/designer.php:253
@@ -18447,7 +18447,7 @@ msgstr "Tokens"
 
 #: application/views/qso/components/winkeysettings.php:46
 msgid "ESM (Enter Sends Message)"
-msgstr ""
+msgstr "ESM (Enter skickar meddelande)"
 
 #: application/views/qso/components/winkeysettings.php:49
 msgid ""
@@ -18457,50 +18457,56 @@ msgid ""
 "only your own call, and logging sends your report instead of a TU. Alt+Enter "
 "logs without sending."
 msgstr ""
+"När aktiverad, Retur-tangenten kontrollerar QSO: tomt anrop skickar CQ, ett "
+"otydligt anrop (med \"?\") frågar igen, ett fullständigt anrop utan utbyte "
+"skickar rapporten, och ett komplett QSO loggas med en TU. I S&P-läget "
+"skickar första Retur endast ditt eget anrop, och vid loggning skickas din "
+"rapport istället för en TU. Alt+Enter loggar utan att skicka."
 
 #: application/views/qso/components/winkeysettings.php:55
 msgid "Unclear call (?)"
-msgstr ""
+msgstr "Otydligt anrop (?)"
 
 #: application/views/qso/components/winkeysettings.php:56
 msgid "Exchange / Report"
-msgstr ""
+msgstr "Utbyte / Rapport"
 
 #: application/views/qso/components/winkeysettings.php:57
 msgid "Log QSO / TU"
-msgstr ""
+msgstr "Logga QSO / TU"
 
 #: application/views/qso/components/winkeysettings.php:58
 msgid "own call"
-msgstr ""
+msgstr "egen signal"
 
 #: application/views/qso/components/winkeysettings.php:59
 msgid "exchange on log"
-msgstr ""
+msgstr "utbyte vid loggning"
 
 #: application/views/qso/components/winkeysettings.php:78
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Tangentbordsgenvägar"
 
 #: application/views/qso/components/winkeysettings.php:82
 msgid "Send the corresponding CW macro"
-msgstr ""
+msgstr "Skicka motsvarande CW-makro"
 
 #: application/views/qso/components/winkeysettings.php:83
 msgid "ESM on: drive the QSO (CQ / report / log); ESM off: log the QSO"
 msgstr ""
+"ESM på: kontrollera QSO:s (CQ / rapport / loggning); ESM av: logga QSO:s"
 
 #: application/views/qso/components/winkeysettings.php:84
 msgid "Log the QSO without sending anything"
-msgstr ""
+msgstr "Logga QSO:t utan att skicka något"
 
 #: application/views/qso/components/winkeysettings.php:85
 msgid "Clear the entry form"
-msgstr ""
+msgstr "Töm formuläret"
 
 #: application/views/qso/components/winkeysettings.php:86
 msgid "In the callsign field: jump to the next empty field"
-msgstr ""
+msgstr "I anropsfältet: hoppa till nästa tomma fält"
 
 #: application/views/qso/edit_ajax.php:35
 msgid "Sats"
@@ -18735,7 +18741,7 @@ msgstr "Satelit"
 
 #: application/views/qso/index.php:119
 msgid "Favourites"
-msgstr ""
+msgstr "Favoriter"
 
 #: application/views/qso/index.php:121
 msgid "Add to Favs"
@@ -18748,7 +18754,7 @@ msgstr "Tid på"
 #: application/views/qso/index.php:165 application/views/qso/index.php:167
 #: application/views/qso/index.php:201
 msgid "Reset start time"
-msgstr ""
+msgstr "Återställ starttid"
 
 #: application/views/qso/index.php:173
 msgid "Time off"
@@ -18756,7 +18762,7 @@ msgstr "Tid av"
 
 #: application/views/qso/index.php:177
 msgid "Reset end time"
-msgstr ""
+msgstr "Återställ sluttid"
 
 #: application/views/qso/index.php:216
 msgid "Search DXCluster for latest Spot"
@@ -18832,7 +18838,7 @@ msgstr "QSL MSG"
 
 #: application/views/qso/index.php:757
 msgid "More options"
-msgstr ""
+msgstr "Fler alternativ"
 
 #: application/views/qso/index.php:759
 msgid "Reset to Default"
@@ -19252,6 +19258,8 @@ msgstr "QSOs obekräftade på LoTW"
 #: application/views/search/filter.php:31 application/views/search/main.php:23
 msgid "Search is limited to station locations linked to active logbook"
 msgstr ""
+"Sökningen är begränsad till de stationsplatser som är kopplade till den "
+"aktiva loggboken"
 
 #: application/views/search/filter.php:40
 msgid "Save query"
@@ -20135,7 +20143,7 @@ msgstr "Avlänka stationsplats"
 
 #: application/views/stationsetup/locationlist.php:3
 msgid "Limited to station locations linked to active logbook"
-msgstr ""
+msgstr "Begränsad till stationsplatser kopplade till den aktiva loggboken"
 
 #: application/views/stationsetup/locationlist.php:11
 msgid "QSO Count"
@@ -21014,11 +21022,11 @@ msgstr "Visa aktuell UTC-tid i menyn"
 
 #: application/views/user/edit.php:615
 msgid "Quick Theme Switcher"
-msgstr ""
+msgstr "Snabb temaväxlare"
 
 #: application/views/user/edit.php:616
 msgid "Show the quick theme switcher in the header menu."
-msgstr ""
+msgstr "Visa snabbväxlare för teman i header-menyn."
 
 #: application/views/user/edit.php:628
 msgid "Map Settings"
@@ -21062,12 +21070,14 @@ msgstr "Visa lokator"
 
 #: application/views/user/edit.php:709
 msgid "Map Tile Style"
-msgstr ""
+msgstr "Kart ruta stil"
 
 #: application/views/user/edit.php:716
 msgid ""
 "Choose the map tile rendering method; this will override the theme settings."
 msgstr ""
+"Välj metod för kartrutans rendering; detta kommer att åsidosätta "
+"temainställningarna."
 
 #: application/views/user/edit.php:728
 msgid "Previous QSL Type"
@@ -21119,6 +21129,9 @@ msgid ""
 "expeditions cards (Top), at the bottom of the dashboard (Bottom), or hide it "
 "(Off)."
 msgstr ""
+"Visa sol- och propageringssdata på instrumentpanelen ovanför korten för "
+"aktuella expeditioner (Topp), längst ner på instrumentpanelen (Nedan) eller "
+"dölj den (Av)."
 
 #: application/views/user/edit.php:796
 msgid "Dashboard Notification Banner"
@@ -21132,13 +21145,15 @@ msgstr ""
 
 #: application/views/user/edit.php:828
 msgid "Dashboard KPI statistics"
-msgstr ""
+msgstr "Dashboard KPI-statistik"
 
 #: application/views/user/edit.php:829
 msgid ""
 "This switches the display of the KPI statistics (Total QSOs, QSOs this year/"
 "month/today, Current Streak, Unique callsigns) on the dashboard."
 msgstr ""
+"Detta ändrar visning av KPI-statistik (Totalt antal QSOs, QSOs per år/månad/"
+"idag, Aktuell svit, Unika anropssignaler) på instrumentpanelen."
 
 #: application/views/user/edit.php:838
 msgid "Show Fields on QSO Tab"
@@ -21434,11 +21449,11 @@ msgstr "Spara kontoändringar"
 
 #: application/views/user/edit.php:1329
 msgid "Search settings"
-msgstr ""
+msgstr "Sökinställningar"
 
 #: application/views/user/edit.php:1331
 msgid "No settings match your search."
-msgstr ""
+msgstr "Inga inställningar matchar din sökning."
 
 #: application/views/user/forgot_password.php:33
 msgid "Forgot Password?"
@@ -21866,7 +21881,7 @@ msgstr "Visar alla QSOs för stationsplatser som är länkade till denna loggbok
 #: application/views/view_log/qso.php:131
 #: application/views/view_log/qso.php:193
 msgid "Calculate distance/bearing"
-msgstr ""
+msgstr "Beräkna avstånd/riktning"
 
 #: application/views/view_log/partial/log_ajax.php:138
 msgid "Result"
