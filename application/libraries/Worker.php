@@ -44,7 +44,11 @@ class Worker {
 		$this->enabled    = (bool) $CI->config->item('worker_enabled', 'worker')
 		                    && $this->url !== ''
 		                    && $this->secret !== '';
-		$this->token_expiration = (int) $CI->config->item('worker_token_expiration', 'worker') ?? 86400; // Default 24h
+		$this->token_expiration = (int) ($CI->config->item('worker_token_expiration', 'worker') ?? 86400); // Default 24h
+		// if token_expiration is set to 0 or negative, we throw an exception to prevent misconfiguration
+		if ($this->token_expiration <= 0) {
+			throw new InvalidArgumentException('worker_token_expiration must be positive');
+		}
 	}
 
 	/**

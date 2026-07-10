@@ -55,7 +55,7 @@ $config['worker_client_url'] = 'ws://log.example.org:9000';
 
 /**
  * Optional: Override the default HMAC token expiration time (in seconds) for browser connections.
- * Default: 24h (86400 seconds). Set to 0 to disable expiration (not recommended).
+ * Default: 24h (86400 seconds). Can not be 0 or negative.
  * 
  * Important:
  * This only controls the token expiration for the browser. The worker itself has another TTL which
