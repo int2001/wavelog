@@ -1190,6 +1190,35 @@
 		});
 	});
 
+	document.getElementById('btnCopy').addEventListener('click', async () => {
+		const id = parseInt(tplSelect.value || '0', 10);
+		if (!id) { showToast(LANG.error, LANG.selectTemplateToCopy, 'bg-danger text-white', 5000); return; }
+
+		const r = await fetch(base_url + 'index.php/qslpostcard/copy_template', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ id: id }),
+		});
+		const out = await r.json();
+		if (!out.ok) { showToast(LANG.error, out.error || LANG.copyFailed, 'bg-danger text-white', 5000); return; }
+
+		// Reflect the new copy in the dropdown (appended; list re-sorts by
+		// updated_at on next page load).
+		const opt = document.createElement('option');
+		opt.value = out.id;
+		opt.textContent = out.name || '(copy)';
+		tplSelect.appendChild(opt);
+
+		// If the canvas has no unsaved work, switch to the copy so the user can
+		// edit it right away. With dirty work in progress, leave the canvas alone
+		// — switching would silently drop those edits.
+		if (!hasUnsavedChanges()) {
+			tplSelect.value = out.id;
+			await applyTemplateSelection(out.id);
+		}
+		showToast(LANG.success, LANG.copySuccess, 'bg-success text-white', 4000);
+	});
+
 	// ===================================================================
 	//  Init
 	// ===================================================================
