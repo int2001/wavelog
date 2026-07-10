@@ -3488,6 +3488,9 @@ $(document).ready(function () {
 				if (frame.type === 'push' && frame.payload && frame.payload.type === 'qso_changed') {
 					throttleRefreshPastContacts();
 				}
+			},
+			onReconnect: function () {
+				throttleRefreshPastContacts();
 			}
 		});
 	} else if (pastContactsTable.dataset.autoRefresh === '1') {

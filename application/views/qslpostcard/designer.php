@@ -43,6 +43,10 @@ $_step_pitch = $_metric ? '0.1'  : '0.05';   // row pitch
 		success: <?= json_encode(__("Success")); ?>,
 		error: <?= json_encode(__("Error")); ?>,
 		selected: <?= json_encode(__("selected")); ?>,
+		unsavedChangesTitle: <?= json_encode(__("Unsaved changes")); ?>,
+		unsavedChangesConfirm: <?= json_encode(__("Your current design has unsaved changes. Loading a different template will replace it. Continue?")); ?>,
+		discardChanges: <?= json_encode(__("Discard changes")); ?>,
+		keepEditing: <?= json_encode(__("Keep editing")); ?>,
 	};
 </script>
 
