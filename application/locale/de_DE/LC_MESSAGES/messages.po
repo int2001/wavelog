@@ -297,6 +297,7 @@ msgstr "Summe aktivierter Locator"
 #: application/controllers/Gridmap.php:39
 #: application/controllers/Visitor.php:420
 #: application/views/qslpostcard/designer.php:142
+#: application/views/qslpostcard/designer.php:139
 msgid "Fields"
 msgstr "Felder"
 
@@ -3038,6 +3039,8 @@ msgstr "Bearbeiten"
 #: application/views/interface_assets/footer.php:2696
 #: application/views/qslpostcard/designer.php:312
 #: application/views/qslpostcard/designer.php:351
+#: application/views/qslpostcard/designer.php:309
+#: application/views/qslpostcard/designer.php:348
 msgid "Delete"
 msgstr "Löschen"
 
@@ -14032,6 +14035,8 @@ msgstr "Duplizierung ist für Kontaktnotizen deaktiviert"
 #: application/views/qslpostcard/designer.php:312
 #: application/views/qslpostcard/designer.php:309
 #: application/views/qslpostcard/designer.php:325
+#: application/views/qslpostcard/designer.php:306
+#: application/views/qslpostcard/designer.php:322
 msgid "Duplicate"
 msgstr "Duplikat"
 
@@ -15008,6 +15013,7 @@ msgstr "Gesamthöhe eines Etiketts"
 #: application/views/labels/edit.php:107 application/views/labels/index.php:81
 #: application/views/qslpostcard/designer.php:263
 #: application/views/qslpostcard/designer.php:276
+#: application/views/qslpostcard/designer.php:273
 msgid "Font Size"
 msgstr "Schriftgröße"
 
@@ -16795,6 +16801,7 @@ msgstr ""
 
 #: application/views/logbookadvanced/mergedialog.php:71
 #: application/views/qslpostcard/designer.php:232
+#: application/views/qslpostcard/designer.php:229
 msgid "Field"
 msgstr "Feld"
 
@@ -16825,6 +16832,7 @@ msgstr "PDF der Postkarte erstellen"
 #: application/views/qslpostcard/designer.php:90
 #: application/views/qslpostcard/printqueue.php:26
 #: application/views/qslpostcard/printqueue_selected.php:34
+#: application/views/qslpostcard/designer.php:87
 msgid "Save PDF"
 msgstr "Speichere PDF"
 
@@ -18271,30 +18279,37 @@ msgid "Upload Preview Image"
 msgstr "Lade Vorschaubild hoch"
 
 #: application/views/qslpostcard/designer.php:85
+#: application/views/qslpostcard/designer.php:82
 msgid "Generate PDF (demo)"
 msgstr "Generiere Demo-PDF"
 
 #: application/views/qslpostcard/designer.php:86
+#: application/views/qslpostcard/designer.php:83
 msgid "PDF"
 msgstr "PDF"
 
 #: application/views/qslpostcard/designer.php:98
+#: application/views/qslpostcard/designer.php:95
 msgid "History"
 msgstr "Verlauf"
 
 #: application/views/qslpostcard/designer.php:100
+#: application/views/qslpostcard/designer.php:97
 msgid "Undo"
 msgstr "Rückgängig"
 
 #: application/views/qslpostcard/designer.php:101
+#: application/views/qslpostcard/designer.php:98
 msgid "Redo"
 msgstr "Wiederholen"
 
 #: application/views/qslpostcard/designer.php:107
+#: application/views/qslpostcard/designer.php:104
 msgid "Zoom"
 msgstr "Zoom"
 
 #: application/views/qslpostcard/designer.php:117
+#: application/views/qslpostcard/designer.php:114
 msgid ""
 "Tip: After a test print, adjust global offsets rather than moving every "
 "field."
@@ -18303,109 +18318,133 @@ msgstr ""
 "einzeln zu bewegen."
 
 #: application/views/qslpostcard/designer.php:118
+#: application/views/qslpostcard/designer.php:115
 msgid "Print offset"
 msgstr "Druck-Offset"
 
 #: application/views/qslpostcard/designer.php:147
+#: application/views/qslpostcard/designer.php:144
 msgid "Search fields…"
 msgstr "Durchsuche Felder…"
 
 #: application/views/qslpostcard/designer.php:151
+#: application/views/qslpostcard/designer.php:148
 msgid "Add Custom Text"
 msgstr "Füge Freitext hinzu"
 
 #: application/views/qslpostcard/designer.php:166
+#: application/views/qslpostcard/designer.php:163
 msgid "No fields match your search."
 msgstr "Kein entsprechendes Feld gefunden."
 
 #: application/views/qslpostcard/designer.php:174
+#: application/views/qslpostcard/designer.php:171
 msgid "Postcard Canvas"
 msgstr "Kartenansicht"
 
 #: application/views/qslpostcard/designer.php:175
+#: application/views/qslpostcard/designer.php:172
 msgid "drag fields onto the postcard"
 msgstr "Ziehe Felder auf die Karte"
 
 #: application/views/qslpostcard/designer.php:196
+#: application/views/qslpostcard/designer.php:193
 msgid "Template Options"
 msgstr "Vorlagenoptionen"
 
 #: application/views/qslpostcard/designer.php:200
+#: application/views/qslpostcard/designer.php:197
 msgid "Number of QSOs per QSL card"
 msgstr "Anzahl der QSOs je QSL-Karte"
 
 #: application/views/qslpostcard/designer.php:204
+#: application/views/qslpostcard/designer.php:201
 msgid "Row spacing"
 msgstr "Zeilenabstand"
 
 #: application/views/qslpostcard/designer.php:209
+#: application/views/qslpostcard/designer.php:206
 msgid "Print background image (uncheck for pre-printed cards)"
 msgstr ""
 "Drucke Hintergrundbild mit aus (deaktiviere dies für vorgedruckte Karten)"
 
 #: application/views/qslpostcard/designer.php:213
+#: application/views/qslpostcard/designer.php:210
 msgid "Skip address printing (for printing on regular QSL cards)"
 msgstr "Keine Adressen mitdrucken (bspw. für Karten via Büro)"
 
 #: application/views/qslpostcard/designer.php:221
+#: application/views/qslpostcard/designer.php:218
 msgid "Properties"
 msgstr "Eigenschaften"
 
 #: application/views/qslpostcard/designer.php:226
+#: application/views/qslpostcard/designer.php:223
 msgid "Select a field on the canvas to edit it."
 msgstr "Clicke ein Feld auf der Karte an um es zu bearbeiten."
 
 #: application/views/qslpostcard/designer.php:227
+#: application/views/qslpostcard/designer.php:224
 msgid "Right-click a field for more actions."
 msgstr "Rechtsclick für mehr Aktionen."
 
 #: application/views/qslpostcard/designer.php:237
+#: application/views/qslpostcard/designer.php:234
 msgid "Text"
 msgstr "Text"
 
 #: application/views/qslpostcard/designer.php:243
 #: application/views/qslpostcard/designer.php:256
+#: application/views/qslpostcard/designer.php:253
 msgid "X"
 msgstr "X"
 
 #: application/views/qslpostcard/designer.php:247
 #: application/views/qslpostcard/designer.php:260
+#: application/views/qslpostcard/designer.php:257
 msgid "Y"
 msgstr "Y"
 
 #: application/views/qslpostcard/designer.php:253
 #: application/views/qslpostcard/designer.php:266
+#: application/views/qslpostcard/designer.php:263
 msgid "Font"
 msgstr "Schriftart"
 
 #: application/views/qslpostcard/designer.php:269
 #: application/views/qslpostcard/designer.php:282
+#: application/views/qslpostcard/designer.php:279
 msgid "Bold"
 msgstr "Fett"
 
 #: application/views/qslpostcard/designer.php:275
 #: application/views/qslpostcard/designer.php:288
+#: application/views/qslpostcard/designer.php:285
 msgid "Color"
 msgstr "Farbe"
 
 #: application/views/qslpostcard/designer.php:280
 #: application/views/qslpostcard/designer.php:293
+#: application/views/qslpostcard/designer.php:290
 msgid "Wrap width"
 msgstr "Umbruch"
 
 #: application/views/qslpostcard/designer.php:285
 #: application/views/qslpostcard/designer.php:298
+#: application/views/qslpostcard/designer.php:295
 msgid "Print this field once per QSO when a card holds multiple QSOs"
 msgstr ""
 "Drucke dieses Feld einmal pro QSO, wenn eine Karte mehrere QSOs enthält"
 
 #: application/views/qslpostcard/designer.php:286
 #: application/views/qslpostcard/designer.php:299
+#: application/views/qslpostcard/designer.php:296
 msgid "Repeats per QSO"
 msgstr "Wiederholt sich pro QSO"
 
 #: application/views/qslpostcard/designer.php:290
 #: application/views/qslpostcard/designer.php:303
+#: application/views/qslpostcard/designer.php:300
 msgid "Move this element freely without snapping to the grid or other elements"
 msgstr ""
 "Bewege dieses Element frei, ohne es am Raster oder an anderen Elementen "
@@ -18413,61 +18452,73 @@ msgstr ""
 
 #: application/views/qslpostcard/designer.php:291
 #: application/views/qslpostcard/designer.php:304
+#: application/views/qslpostcard/designer.php:301
 msgid "Disable Auto-Snap"
 msgstr "Auto-Snap deaktivieren"
 
 #: application/views/qslpostcard/designer.php:317
 #: application/views/qslpostcard/designer.php:330
+#: application/views/qslpostcard/designer.php:327
 msgid "Align & distribute"
 msgstr "Ausrichten & verteilen"
 
 #: application/views/qslpostcard/designer.php:321
 #: application/views/qslpostcard/designer.php:334
+#: application/views/qslpostcard/designer.php:331
 msgid "Align left"
 msgstr "Links ausrichten"
 
 #: application/views/qslpostcard/designer.php:322
 #: application/views/qslpostcard/designer.php:335
+#: application/views/qslpostcard/designer.php:332
 msgid "Align horizontal centers"
 msgstr "Horizontale Zentren ausrichten"
 
 #: application/views/qslpostcard/designer.php:323
 #: application/views/qslpostcard/designer.php:336
+#: application/views/qslpostcard/designer.php:333
 msgid "Align right"
 msgstr "Rechts ausrichten"
 
 #: application/views/qslpostcard/designer.php:325
 #: application/views/qslpostcard/designer.php:338
+#: application/views/qslpostcard/designer.php:335
 msgid "Align top"
 msgstr "Oben ausrichten"
 
 #: application/views/qslpostcard/designer.php:326
 #: application/views/qslpostcard/designer.php:339
+#: application/views/qslpostcard/designer.php:336
 msgid "Align vertical centers"
 msgstr "Vertikale Mittelpunkte ausrichten"
 
 #: application/views/qslpostcard/designer.php:327
 #: application/views/qslpostcard/designer.php:340
+#: application/views/qslpostcard/designer.php:337
 msgid "Align bottom"
 msgstr "Unten ausrichten"
 
 #: application/views/qslpostcard/designer.php:329
 #: application/views/qslpostcard/designer.php:342
+#: application/views/qslpostcard/designer.php:339
 msgid "Distribute horizontally"
 msgstr "Horizontal verteilen"
 
 #: application/views/qslpostcard/designer.php:330
 #: application/views/qslpostcard/designer.php:343
+#: application/views/qslpostcard/designer.php:340
 msgid "Distribute vertically"
 msgstr "Vertikal verteilen"
 
 #: application/views/qslpostcard/designer.php:332
 #: application/views/qslpostcard/designer.php:345
+#: application/views/qslpostcard/designer.php:342
 msgid "Center on page (horizontal)"
 msgstr "Zentrieren auf Seite (horizontal)"
 
 #: application/views/qslpostcard/designer.php:333
 #: application/views/qslpostcard/designer.php:346
+#: application/views/qslpostcard/designer.php:343
 msgid "Center on page (vertical)"
 msgstr "In der Mitte der Seite (vertikal)"
 

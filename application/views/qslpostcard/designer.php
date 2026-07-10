@@ -78,9 +78,6 @@ $_step_pitch = $_metric ? '0.1'  : '0.05';   // row pitch
 					<label class="qsl-tb-label"><?= __("Background image"); ?></label>
 					<div class="d-flex gap-2 align-items-center">
 						<input type="file" id="previewImageFile" class="form-control form-control-sm" style="max-width:275px;" accept=".jpg,.jpeg,.png,.JPG,.JPEG,.PNG">
-						<button type="button" id="btnUploadPreview" class="btn btn-sm btn-primary" title="<?= __("Upload Preview Image"); ?>">
-							<i class="fas fa-upload"></i>
-						</button>
 					<div class="btn-group btn-group-sm" role="group">
 						<a id="btnPdf" class="btn btn-primary" href="#" target="_blank" title="<?= __("Generate PDF (demo)"); ?>">
 							<i class="fas fa-file-pdf me-1"></i><?= __("PDF"); ?>
