@@ -906,8 +906,16 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
         <div id="partial_view" style="font-size: 0.95rem;" aria-live="polite" aria-atomic="true"></div>
 
 		<?php $result = $this->optionslib->get_option('disable_refresh_past_contacts'); ?>
-			<div id="qso-last-table" data-past-contacts-url="<?php echo site_url('/qso/component_past_contacts'); ?>" data-auto-refresh="<?php echo $result === null ? '1' : '0'; ?>" aria-live="polite" aria-atomic="true">
-
+			  <div 
+          id="qso-last-table" 
+          data-past-contacts-url="<?php echo site_url('/qso/component_past_contacts'); ?>" 
+          data-auto-refresh="<?php echo $result === null ? '1' : '0'; ?>"
+          <?php if (!empty($past_contacts_worker)) { ?> 
+            data-worker-topic="<?php echo html_escape($past_contacts_worker['topic']); ?>" 
+            data-worker-token="<?php echo html_escape($past_contacts_worker['token']); ?>"
+          <?php } ?> 
+          aria-live="polite" 
+          aria-atomic="true">
         </div>
       </div>
       <small style="float: right;"><?= sprintf(_ngettext("Max. %d previous contact is shown", "Max. %d previous contacts are shown", intval($qso_count)), intval($qso_count)); ?></small>
