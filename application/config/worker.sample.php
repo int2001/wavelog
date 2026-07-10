@@ -65,5 +65,9 @@ $config['worker_client_url'] = 'ws://log.example.org:9000';
  * Also keep in mind that there is also a PHP session expiration which may be shorter than the token 
  * expiration. If the PHP session expires, the token will be invalidated as well. You can control the
  * PHP session expiration in application/config/config.php
+ * 
+ * Ah and before I forget: Your reverse proxy may also have a timeout for WebSocket connections.
+ * 
+ * Just reload your damn browser once a day :-D
  */
 // $config['worker_token_expiration'] = 86400;
