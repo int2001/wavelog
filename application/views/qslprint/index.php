@@ -52,8 +52,9 @@
 				<div class="btn-group">
 					<button type="button" class="btn btn-sm btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-check me-1"></i><?= __("Mark"); ?></button>
 					<ul class="dropdown-menu">
-						<li><button type="button" class="dropdown-item markallprinted" onclick="markSelectedQsos();" title="<?= __("Mark selected QSOs as sent"); ?>"><?= __("Mark selected QSOs as sent"); ?></button></li>
-						<li><button type="button" class="dropdown-item" onclick="requestedQslAction('qsl_printed')" title="<?= __("Mark QSLs as printed"); ?>"><?= __("Mark requested QSLs as sent"); ?></button></li>
+						<li><button type="button" class="dropdown-item markallprinted" onclick="markSelectedQsos();"><?= __("Mark selected QSOs as sent"); ?></button></li>
+						<li><hr class="dropdown-divider"></li>
+						<li><button type="button" class="dropdown-item" onclick="requestedQslAction('qsl_printed')"><?= __("Mark requested QSLs as sent"); ?></button></li>
 					</ul>
 				</div>
 
@@ -61,10 +62,11 @@
 				<div class="btn-group">
 					<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-file-export me-1"></i><?= __("Export"); ?></button>
 					<ul class="dropdown-menu">
-						<li><button type="button" class="dropdown-item exportselected" onclick="exportSelectedQsos();" title="<?= __("Export selected QSOs to ADIF-file"); ?>"><?= __("Export selected QSOs to ADIF-file"); ?></button></li>
+						<li><button type="button" class="dropdown-item exportselected" onclick="exportSelectedQsos();"><?= __("Export selected QSOs to ADIF-file"); ?></button></li>
 						<li><hr class="dropdown-divider"></li>
-						<li><button type="button" class="dropdown-item" onclick="requestedQslAction('exportcsv')" title="<?= __("Export CSV-file"); ?>"><?= __("Export requested QSLs to CSV-file"); ?></button></li>
-						<li><button type="button" class="dropdown-item" onclick="requestedQslAction('exportadif')" title="<?= __("Export ADIF"); ?>"><?= __("Export requested QSLs to ADIF-file"); ?></button></li>
+						<li><button type="button" class="dropdown-item" onclick="requestedQslAction('exportcsv')"><?= __("Export requested QSLs to CSV-file"); ?></button></li>
+						<li><hr class="dropdown-divider"></li>
+						<li><button type="button" class="dropdown-item" onclick="requestedQslAction('exportadif')"><?= __("Export requested QSLs to ADIF-file"); ?></button></li>
 					</ul>
 				</div>
 
@@ -72,10 +74,13 @@
 				<div class="btn-group">
 					<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-print me-1"></i><?= __("Print"); ?></button>
 					<ul class="dropdown-menu">
-						<li><button type="button" onclick="printDialog('qslcard');" class="dropdown-item" title="<?= __("Print Selected QSO Postcards"); ?>"><?= __("Print Selected QSO Postcards"); ?></button></li>
-						<li><button type="button" onclick="printDialog('qslcard', true);" class="dropdown-item" title="<?= __("Print Postcards for all QSOs"); ?>"><?= __("Print Postcards for all QSOs"); ?></button></li>
-						<li><button type="button" onclick="printDialog('label');" class="dropdown-item" title="<?= __("Print Selected QSL Labels"); ?>"><?= __("Print Selected QSL Labels"); ?></button></li>
-						<li><button type="button" onclick="printDialog('label', true);" class="dropdown-item" title="<?= __("Print Labels for all QSOs"); ?>"><?= __("Print Labels for all QSOs"); ?></button></li>
+						<li><button type="button" onclick="printDialog('qslcard');" class="dropdown-item"><?= __("Print Selected QSO Postcards"); ?></button></li>
+						<li><hr class="dropdown-divider"></li>
+						<li><button type="button" onclick="printDialog('qslcard', true);" class="dropdown-item"><?= __("Print Postcards for all QSOs"); ?></button></li>
+						<li><hr class="dropdown-divider"></li>
+						<li><button type="button" onclick="printDialog('label');" class="dropdown-item"><?= __("Print Selected QSL Labels"); ?></button></li>
+						<li><hr class="dropdown-divider"></li>
+						<li><button type="button" onclick="printDialog('label', true);" class="dropdown-item"><?= __("Print Labels for all QSOs"); ?></button></li>
 					</ul>
 				</div>
 
@@ -83,7 +88,7 @@
 				<div class="btn-group">
 					<button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-trash-alt me-1"></i><?= __("Remove"); ?></button>
 					<ul class="dropdown-menu">
-						<li><button type="button" class="dropdown-item removeall" onclick="removeSelectedQsos();" title="<?= __("Remove selected QSOs from the queue"); ?>"><?= __("Remove selected QSOs from the queue"); ?></button></li>
+						<li><button type="button" class="dropdown-item removeall" onclick="removeSelectedQsos();"><?= __("Remove selected QSOs from the queue"); ?></button></li>
 					</ul>
 				</div>
 			</div>
