@@ -24,6 +24,25 @@ $(document).ready(function () {
     const loadRadio = () => wlLoadInto(base_url + 'index.php/dashboard/radio_display_component', '#radio_display');
 	loadRadio();
 
+    var pending = null;
+	var missed = false;
+	function throttleLoadRadio() {
+		// Load at most once every 1 seconds. If more pushes arrive during the
+		// lockout, refresh once afterwards so no update is lost.
+		if (pending) {
+			missed = true;
+			return;
+		}
+		loadRadio();
+		pending = setTimeout(function () {
+			pending = null;
+			if (missed) {
+				missed = false;
+				throttleLoadRadio();
+			}
+		}, 1000);
+	}
+
 	var radioTopics = window.radioWorkerTopics || [];
 	if (radioTopics.length && window.WavelogWorker && WavelogWorker.isAvailable()) {
 		setInterval(loadRadio, 60000);
@@ -33,7 +52,7 @@ $(document).ready(function () {
 				token: t.token,
 				onMessage: function (frame) {
 					if (frame.type === 'push' && frame.payload && frame.payload.type === 'radio_updated') {
-						loadRadio();
+						throttleLoadRadio();
 					}
 				}
 			});
