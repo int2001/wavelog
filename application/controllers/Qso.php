@@ -44,6 +44,17 @@ class QSO extends CI_Controller {
 		$data['radios'] = $this->cat->radios(true);
 		$data['radio_last_updated'] = $this->cat->last_updated()->row();
 		$data['query'] = $this->logbook_model->last_custom($this->session->userdata('qso_page_last_qso_count'));
+
+		$this->load->is_loaded('worker') ?: $this->load->library('worker');
+		$data['worker_enabled'] = $this->worker->is_enabled(); // without this line the worker.js is not loaded!
+		$data['past_contacts_worker'] = null;
+		$user_id = $this->session->userdata('user_id') ?? null;
+		if ($this->worker->is_enabled() && $user_id) {
+			$topic = 'qso.' . $user_id;
+			$this->worker->register_topic($topic);
+			$data['past_contacts_worker'] = ['topic' => $topic, 'token' => $this->worker->create_token($topic)];
+		}
+
 		$data['dxcc'] = $this->logbook_model->fetchDxcc();
 		$data['iota'] = $this->logbook_model->fetchIota();
 		$data['modes'] = $this->usermodes->active();

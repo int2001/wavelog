@@ -54,7 +54,10 @@ $(document).ready(function () {
 					if (frame.type === 'push' && frame.payload && frame.payload.type === 'radio_updated') {
 						throttleLoadRadio();
 					}
-				}
+				},
+                onReconnect: function () {
+                    throttleLoadRadio();
+                }
 			});
 		});
 	} else {
