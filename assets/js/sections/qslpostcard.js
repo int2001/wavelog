@@ -972,7 +972,7 @@
 		}
 	}
 
-	document.getElementById('btnUploadPreview').addEventListener('click', async () => {
+	async function uploadPreview() {
 		const fileInput = document.getElementById('previewImageFile');
 		if (!fileInput.files.length) {
 			showToast(LANG.error, LANG.pleaseChooseImage, 'bg-warning text-dark', 4000);
@@ -992,7 +992,9 @@
 		previewImageUrl = out.url;
 		setBackground(previewImageUrl);
 		showToast(LANG.success, LANG.previewUploaded, 'bg-success text-white', 4000);
-	});
+	}
+
+	document.getElementById('previewImageFile').addEventListener('change', uploadPreview);
 
 	// ===================================================================
 	//  Template load / save / delete
