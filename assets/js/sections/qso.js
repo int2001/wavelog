@@ -3461,13 +3461,21 @@ $(document).ready(function () {
 	const pastContactsTable = document.getElementById('qso-last-table');
 	refreshPastContacts();
 
+	var pending = null;
+	function throttleRefreshPastContacts() {
+        // do not load more than once every 4 seconds
+		if (pending) return;
+		refreshPastContacts();
+		pending = setTimeout(function () { pending = null; }, 4000);
+	}
+
 	if (pastContactsTable.dataset.workerTopic && window.WavelogWorker && WavelogWorker.isAvailable()) {
 		WavelogWorker.subscribe({
 			topic: pastContactsTable.dataset.workerTopic,
 			token: pastContactsTable.dataset.workerToken,
 			onMessage: function (frame) {
 				if (frame.type === 'push' && frame.payload && frame.payload.type === 'qso_changed') {
-					refreshPastContacts();
+					throttleRefreshPastContacts();
 				}
 			}
 		});
