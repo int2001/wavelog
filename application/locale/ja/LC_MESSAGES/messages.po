@@ -1709,6 +1709,7 @@ msgstr "ログブック"
 #: application/views/timeline/index.php:62 application/views/user/edit.php:735
 #: application/views/user/edit.php:1003 application/views/visitor/mini.php:187
 #: application/views/dashboard/index.php:417
+#: application/views/qslprint/qslprint.php:42
 msgid "QSL"
 msgstr "QSL"
 
@@ -1902,6 +1903,7 @@ msgstr "すべてのコールブック検索が失敗したか、結果が提供
 #: application/views/view_log/partial/log_ajax.php:5
 #: application/views/view_log/qso.php:114 application/views/visitor/index.php:6
 #: application/views/visitor/mini.php:185 application/views/widgets/qsos.php:18
+#: application/views/qslprint/qslprint.php:37
 msgid "Mode"
 msgstr "モード"
 
@@ -1929,6 +1931,7 @@ msgstr "モード"
 #: application/views/view_log/partial/log.php:10
 #: application/views/view_log/partial/log_ajax.php:6
 #: application/views/view_log/qso.php:119 application/views/visitor/index.php:9
+#: application/views/qslprint/qslprint.php:40
 msgid "RST (S)"
 msgstr "RST (S)"
 
@@ -1957,6 +1960,7 @@ msgstr "RST (S)"
 #: application/views/view_log/partial/log_ajax.php:7
 #: application/views/view_log/qso.php:124
 #: application/views/visitor/index.php:12
+#: application/views/qslprint/qslprint.php:41
 msgid "RST (R)"
 msgstr "RST (R)"
 
@@ -2226,6 +2230,8 @@ msgstr "距離"
 #: application/views/view_log/partial/log_ajax.php:16
 #: application/views/view_log/qso.php:94 application/views/visitor/index.php:33
 #: application/views/visitor/mini.php:184 application/views/widgets/qsos.php:21
+#: application/views/qslprint/index.php:47
+#: application/views/qslprint/qslprint.php:38
 msgid "Band"
 msgstr "バンド"
 
@@ -2255,6 +2261,8 @@ msgstr "バンド"
 #: application/views/view_log/partial/log_ajax.php:17
 #: application/views/view_log/qso.php:101
 #: application/views/visitor/index.php:36
+#: application/views/qslprint/index.php:48
+#: application/views/qslprint/qslprint.php:39
 msgid "Frequency"
 msgstr "周波数"
 
@@ -3189,6 +3197,7 @@ msgstr "局の所在地を編集: "
 #: application/views/view_log/qso.php:9 application/views/webadif/export.php:75
 #: application/views/webadif/export.php:115
 #: application/views/zonechecker/index.php:5
+#: application/views/qslprint/index.php:34
 msgid "Station Location"
 msgstr "局の所在地"
 
@@ -4526,6 +4535,7 @@ msgstr "違い"
 #: application/views/dashboard/index.php:665
 #: application/views/interface_assets/footer.php:1519
 #: application/views/interface_assets/footer.php:1658
+#: application/views/qslprint/index.php:36
 msgid "All"
 msgstr "全て"
 
@@ -4853,6 +4863,8 @@ msgstr "何も見つかりません!"
 #: application/views/view_log/qso.php:83 application/views/view_log/qso.php:625
 #: application/views/visitor/mini.php:183
 #: application/views/zonechecker/result.php:50
+#: application/views/qslprint/index.php:38
+#: application/views/qslprint/qslprint.php:34
 msgid "Callsign"
 msgstr "コールサイン"
 
@@ -4966,6 +4978,7 @@ msgstr ""
 #: application/views/view_log/partial/log_ajax.php:143
 #: application/views/visitor/index.php:151
 #: application/views/visitor/mini.php:182 application/views/widgets/qsos.php:16
+#: application/views/qslprint/qslprint.php:35
 msgid "Date"
 msgstr "日付"
 
@@ -5002,6 +5015,7 @@ msgstr "日付"
 #: application/views/view_log/partial/log.php:6
 #: application/views/view_log/partial/log_ajax.php:145
 #: application/views/visitor/index.php:154
+#: application/views/qslprint/qslprint.php:36
 msgid "Time"
 msgstr "時間"
 
@@ -5087,6 +5101,7 @@ msgstr "最大ファイルアップロードサイズは "
 #: application/views/view_log/qso.php:747
 #: application/views/webadif/export.php:34
 #: application/views/webadif/export.php:94
+#: application/views/qslprint/index.php:10
 msgid "Warning"
 msgstr "警告"
 
@@ -5727,6 +5742,7 @@ msgstr "権限"
 #: application/views/view_log/partial/log_ajax.php:177
 #: application/views/view_log/partial/log_ajax.php:611
 #: application/views/webadif/export.php:45
+#: application/views/qslprint/qslprint.php:47
 msgid "Actions"
 msgstr "アクション"
 
@@ -7447,6 +7463,8 @@ msgstr "市"
 #: application/views/qslprint/qsolist.php:58
 #: application/views/qslprint/qsolist.php:60
 #: application/views/dashboard/index.php:666
+#: application/views/qslprint/qslprint.php:77
+#: application/views/qslprint/qslprint.php:78
 msgid "SAT"
 msgstr "衛星"
 
@@ -7793,6 +7811,8 @@ msgstr "参照数"
 #: application/views/awards/sig/qso_list.php:6
 #: application/views/qslprint/qslprint.php:48
 #: application/views/simplefle/index.php:147
+#: application/views/qslprint/index.php:9
+#: application/views/qslprint/qslprint.php:93
 msgid "QSO List"
 msgstr "QSOリスト"
 
@@ -9999,6 +10019,7 @@ msgstr ""
 #: application/views/qslprint/qslprint.php:43
 #: application/views/qslprint/qsolist.php:15
 #: application/views/webadif/export.php:41
+#: application/views/qslprint/qslprint.php:44
 msgid "Profile name"
 msgstr "プロフィール名"
 
@@ -10813,6 +10834,7 @@ msgstr "パス"
 #: application/views/view_log/qso.php:695
 #: application/views/view_log/qso.php:702
 #: application/views/view_log/qso.php:707
+#: application/views/qslprint/qslprint.php:43
 msgid "Station"
 msgstr "無線局"
 
@@ -11893,7 +11915,7 @@ msgid "All but Repeater"
 msgstr "リピーターを除くすべて"
 
 #: application/views/csv/index.php:114 application/views/dxatlas/index.php:113
-#: application/views/kml/index.php:98
+#: application/views/kml/index.php:98 application/views/qslprint/index.php:65
 msgid "Export"
 msgstr "エクスポート"
 
@@ -14917,10 +14939,13 @@ msgstr ""
 
 #: application/views/labels/index.php:2
 #: application/views/logbookadvanced/startatform.php:104
+#: application/views/qslprint/printlabel.php:117
+#: application/views/qslprint/printqsl.php:37
 msgid "Mark QSL as printed"
 msgstr "QSLを印刷済みとしてマークする"
 
 #: application/views/labels/index.php:3 application/views/labels/index.php:129
+#: application/views/qslprint/index.php:77
 msgid "Print"
 msgstr "印刷"
 
@@ -14991,21 +15016,25 @@ msgstr "QSOを表示"
 
 #: application/views/labels/startatform.php:21
 #: application/views/logbookadvanced/startatform.php:20
+#: application/views/qslprint/printlabel.php:20
 msgid "Include my call?"
 msgstr "私の通話を含めますか?"
 
 #: application/views/labels/startatform.php:33
 #: application/views/logbookadvanced/startatform.php:32
+#: application/views/qslprint/printlabel.php:32
 msgid "Include OP-Call? (if filled)"
 msgstr "OP-Callを含めるか？（記入済みの場合）"
 
 #: application/views/labels/startatform.php:45
 #: application/views/logbookadvanced/startatform.php:44
+#: application/views/qslprint/printlabel.php:44
 msgid "Include Grid?"
 msgstr "グリッドを含めますか?"
 
 #: application/views/labels/startatform.php:57
 #: application/views/logbookadvanced/startatform.php:56
+#: application/views/qslprint/printlabel.php:56
 msgid ""
 "Include reference? (SIG, SOTA, POTA, IOTA, WWFF; If available in location)"
 msgstr ""
@@ -15025,11 +15054,13 @@ msgstr "お礼 メッセージを含めますか?"
 
 #: application/views/labels/startatform.php:106
 #: application/views/logbookadvanced/startatform.php:117
+#: application/views/qslprint/printlabel.php:105
 msgid "Start printing at?"
 msgstr "印刷開始時刻は？"
 
 #: application/views/labels/startatform.php:112
 #: application/views/logbookadvanced/startatform.php:123
+#: application/views/qslprint/printlabel.php:111
 msgid "Enter the starting position for label printing"
 msgstr "ラベル印刷の開始位置を入力してください"
 
@@ -15965,6 +15996,7 @@ msgid "SUCCESS"
 msgstr "成功"
 
 #: application/views/logbookadvanced/index.php:52
+#: application/views/qslprint/index.php:3
 msgid "INFO"
 msgstr "情報"
 
@@ -16464,6 +16496,8 @@ msgid "Create ADIF"
 msgstr "ADIFを作成する"
 
 #: application/views/logbookadvanced/index.php:856
+#: application/views/qslprint/index.php:5
+#: application/views/qslprint/printlabel.php:116
 msgid "Print Label"
 msgstr "ラベルを印刷"
 
@@ -16602,12 +16636,14 @@ msgstr "フィールド"
 #: application/views/qslpostcard/designer.php:58
 #: application/views/qslpostcard/printqueue.php:8
 #: application/views/qslpostcard/printqueue_selected.php:10
+#: application/views/qslprint/printqsl.php:9
 msgid "Template"
 msgstr "テンプレート"
 
 #: application/views/logbookadvanced/printQsl.php:22
 #: application/views/qslpostcard/printqueue.php:18
 #: application/views/qslpostcard/printqueue_selected.php:21
+#: application/views/qslprint/printqsl.php:22
 msgid ""
 "Print options (QSOs per card, background image, address printing) are set "
 "per template in the QSL Postcard Designer."
@@ -16618,6 +16654,7 @@ msgstr ""
 #: application/views/logbookadvanced/printQsl.php:30
 #: application/views/qslpostcard/printqueue.php:22
 #: application/views/qslpostcard/printqueue_selected.php:30
+#: application/views/qslprint/printqsl.php:30
 msgid "Generate Postcard PDF"
 msgstr "ポストカードのPDFを生成する"
 
@@ -16626,12 +16663,14 @@ msgstr "ポストカードのPDFを生成する"
 #: application/views/qslpostcard/printqueue.php:26
 #: application/views/qslpostcard/printqueue_selected.php:34
 #: application/views/qslpostcard/designer.php:87
+#: application/views/qslprint/printqsl.php:34
 msgid "Save PDF"
 msgstr "PDFで保存"
 
 #: application/views/logbookadvanced/printQsl.php:41
 #: application/views/qslpostcard/printqueue.php:33
 #: application/views/qslpostcard/printqueue_selected.php:41
+#: application/views/qslprint/printqsl.php:42
 msgid ""
 "No templates available for printing. Go to the QSL Postcard Designer and "
 "create a template first."
@@ -16716,14 +16755,17 @@ msgid "The number of QSOs updated for gridsquare is"
 msgstr "グリッドスクエアに更新されたQSOの数は"
 
 #: application/views/logbookadvanced/startatform.php:68
+#: application/views/qslprint/printlabel.php:68
 msgid "Include Via"
 msgstr "経由を含める"
 
 #: application/views/logbookadvanced/startatform.php:80
+#: application/views/qslprint/printlabel.php:80
 msgid "Include QSLMSG"
 msgstr "QSLMSGを含める"
 
 #: application/views/logbookadvanced/startatform.php:92
+#: application/views/qslprint/printlabel.php:92
 msgid "Include TNX message"
 msgstr "TNXメッセージを含める"
 
@@ -17622,7 +17664,7 @@ msgstr "ログにないリクエストを送信する"
 #: application/views/qso/index.php:733
 #: application/views/search/search_result_ajax.php:208
 #: application/views/view_log/partial/log_ajax.php:257
-#: src/QSLManager/QSO.php:452
+#: src/QSLManager/QSO.php:452 application/views/qslprint/qslprint.php:42
 msgid "Via"
 msgstr "経由"
 
@@ -18284,18 +18326,22 @@ msgid "Center on page (vertical)"
 msgstr "ページの中央（縦方向）"
 
 #: application/views/qslprint/index.php:20
+#: application/views/qslprint/index.php:29
 msgid "Export Requested QSLs for Printing"
 msgstr "印刷用にリクエストされたQSLをエクスポートする"
 
 #: application/views/qslprint/index.php:36
+#: application/views/qslprint/index.php:45
 msgid "Show Band or Frequency:"
 msgstr "バンドまたは周波数を表示:"
 
 #: application/views/qslprint/index.php:40
+#: application/views/qslprint/index.php:49
 msgid "Band & Frequency"
 msgstr "バンドと周波数"
 
 #: application/views/qslprint/index.php:45
+#: application/views/qslprint/index.php:98
 msgid ""
 "Here you can export requested QSLs as CSV or ADIF files for printing and, "
 "optionally, mark them as sent."
@@ -18304,6 +18350,7 @@ msgstr ""
 "トし、必要に応じて送信済みとしてマークすることができます。"
 
 #: application/views/qslprint/index.php:47
+#: application/views/qslprint/index.php:100
 msgid ""
 "Requested QSLs are any QSOs with a value of 'Requested' or 'Queued' in their "
 "'QSL Sent' field."
@@ -18314,10 +18361,13 @@ msgstr ""
 #: application/views/qslprint/index.php:48
 #: application/views/qslprint/qslprint.php:45
 #: application/views/qslprint/qsolist.php:18
+#: application/views/qslprint/index.php:101
+#: application/views/qslprint/qslprint.php:46
 msgid "Previous QSL"
 msgstr "以前のQSL"
 
 #: application/views/qslprint/index.php:48
+#: application/views/qslprint/index.php:101
 #, php-format
 msgid ""
 "The column %s shows how many QSLs have been sent to the same station before "
@@ -18327,29 +18377,38 @@ msgstr ""
 
 #: application/views/qslprint/qslprint.php:44
 #: application/views/qslprint/qsolist.php:17
+#: application/views/qslprint/qslprint.php:45
 msgid "Send Method"
 msgstr "送信方法"
 
 #: application/views/qslprint/qslprint.php:46
+#: application/views/qslprint/index.php:7
+#: application/views/qslprint/qslprint.php:91
 msgid "Mark as sent"
 msgstr "送信済みとしてマーク"
 
 #: application/views/qslprint/qslprint.php:47
+#: application/views/qslprint/index.php:8
+#: application/views/qslprint/index.php:91
+#: application/views/qslprint/qslprint.php:92
 msgid "Remove"
 msgstr "取り除く"
 
 #: application/views/qslprint/qslprint.php:70
 #: application/views/qslprint/qsolist.php:70
+#: application/views/qslprint/qslprint.php:86
 msgid "Previous QSL sent (same band/mode)"
 msgstr "以前送付したQSLカード（同じバンド／モード）"
 
 #: application/views/qslprint/qslprint.php:71
 #: application/views/qslprint/qsolist.php:71
+#: application/views/qslprint/qslprint.php:87
 msgid "QSL sent to callsign (total)"
 msgstr "コールサイン宛に送付されたQSLカード（合計）"
 
 #: application/views/qslprint/qslprint.php:72
 #: application/views/qslprint/qsolist.php:72
+#: application/views/qslprint/qslprint.php:88
 msgid "QSL received from callsign (total)"
 msgstr "コールサインから受け取ったQSLカード（合計）"
 
@@ -18370,14 +18429,17 @@ msgid "Update QSOs"
 msgstr "QSOの更新"
 
 #: application/views/qslprint/qslprint.php:103
+#: application/views/qslprint/index.php:57
 msgid "Mark selected QSOs as sent"
 msgstr "選択したQSOを送信済みとしてマークする"
 
 #: application/views/qslprint/qslprint.php:104
+#: application/views/qslprint/index.php:93
 msgid "Remove selected QSOs from the queue"
 msgstr "選択したQSOをキューから削除する"
 
 #: application/views/qslprint/qslprint.php:105
+#: application/views/qslprint/index.php:67
 msgid "Export selected QSOs to ADIF-file"
 msgstr "選択したQSOをADIFファイルにエクスポートする"
 
@@ -18386,10 +18448,12 @@ msgid "Export CSV-file"
 msgstr "CSVファイルのエクスポート"
 
 #: application/views/qslprint/qslprint.php:110
+#: application/views/qslprint/index.php:69
 msgid "Export requested QSLs to CSV-file"
 msgstr "リクエストされたQSLをCSVファイルにエクスポートする"
 
 #: application/views/qslprint/qslprint.php:111
+#: application/views/qslprint/index.php:71
 msgid "Export requested QSLs to ADIF-file"
 msgstr "リクエストされたQSLをADIFファイルにエクスポートする"
 
@@ -18402,14 +18466,17 @@ msgid "Mark requested QSLs as sent"
 msgstr "リクエストされたQSLを送信済みとしてマークする"
 
 #: application/views/qslprint/qslprint.php:115
+#: application/views/qslprint/index.php:81
 msgid "Print Postcards for all QSOs"
 msgstr "すべての交信記録用のポストカードを印刷する"
 
 #: application/views/qslprint/qslprint.php:116
+#: application/views/qslprint/index.php:79
 msgid "Print Selected QSO Postcards"
 msgstr "選択したQSOポストカードを印刷する"
 
 #: application/views/qslprint/qslprint.php:121
+#: application/views/qslprint/qslprint.php:104
 msgid "No QSLs to print were found!"
 msgstr "印刷する QSL が見つかりません!"
 
@@ -22307,6 +22374,34 @@ msgstr "周波数形式"
 #: application/views/qslpostcard/designer.php:250
 msgid "Omit unit"
 msgstr "所有ユニット"
+
+#: application/views/qslprint/index.php:4
+msgid "Please select at least one row"
+msgstr ""
+
+#: application/views/qslprint/index.php:6
+msgid "Print QSLcard"
+msgstr ""
+
+#: application/views/qslprint/index.php:11
+msgid "Are you sure you want to mark ALL requested QSLs as sent?"
+msgstr ""
+
+#: application/views/qslprint/index.php:55
+msgid "Mark"
+msgstr ""
+
+#: application/views/qslprint/index.php:59
+msgid "Mark ALL requested QSLs as sent"
+msgstr ""
+
+#: application/views/qslprint/index.php:83
+msgid "Print Selected QSL Labels"
+msgstr ""
+
+#: application/views/qslprint/index.php:85
+msgid "Print Labels for all QSOs"
+msgstr ""
 
 #~ msgid "Null"
 #~ msgstr "Null"
