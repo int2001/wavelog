@@ -102,6 +102,7 @@ function echo_table_header_col($name) {
 
 <script>
 	let user_map_custom = JSON.parse('<?php echo $user_map_custom; ?>');
+	window.radioWorkerTopics = <?php echo json_encode($radio_worker_topics ?? []); ?>;
 </script>
 
 <div class="container dashboard px-3 px-lg-4 mt-3 mb-3" id="main-content">
