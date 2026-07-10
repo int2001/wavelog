@@ -7,6 +7,8 @@
 	let lang_qslprint_action_mark = "<?= __("Mark as sent") ?>";
 	let lang_qslprint_action_remove = "<?= __("Remove") ?>";
 	let lang_qslprint_action_qsolist = "<?= __("QSO List") ?>";
+	let lang_qslprint_warning = "<?= __("Warning") ?>";
+	let lang_qslprint_are_you_sure = "<?= __("Are you sure you want to mark ALL requested QSLs as sent?") ?>";
 </script>
 
 <div class="container">
@@ -16,16 +18,16 @@
 		<?php if($this->session->flashdata('message')) { ?>
 			<!-- Display Message -->
 			<div class="alert-message error">
-			  <p><?php echo $this->session->flashdata('message'); ?></p>
+				<p><?php echo $this->session->flashdata('message'); ?></p>
 			</div>
 		<?php } ?>
 
 	<h2><?php echo $page_title; ?></h2>
 
 	<div class="card">
-	  <div class="card-header">
-	    <?= __("Export Requested QSLs for Printing"); ?>
-	  </div>
+		<div class="card-header">
+		<?= __("Export Requested QSLs for Printing"); ?>
+	</div>
 		<div class="card-body">
 			<div class="d-flex flex-wrap align-items-center gap-2 mb-3">
 				<form class="d-flex align-items-center" action="<?php echo site_url('adif/import'); ?>" method="post" enctype="multipart/form-data">
@@ -54,7 +56,7 @@
 					<ul class="dropdown-menu">
 						<li><button type="button" class="dropdown-item markallprinted" onclick="markSelectedQsos();"><?= __("Mark selected QSOs as sent"); ?></button></li>
 						<li><hr class="dropdown-divider"></li>
-						<li><button type="button" class="dropdown-item" onclick="requestedQslAction('qsl_printed')"><?= __("Mark requested QSLs as sent"); ?></button></li>
+						<li><button type="button" class="dropdown-item" onclick="requestedQslAction('qsl_printed')"><?= __("Mark ALL requested QSLs as sent"); ?></button></li>
 					</ul>
 				</div>
 

@@ -572,7 +572,19 @@ function printDialog(printType, printAll = false) {
 }
 
 function requestedQslAction(action) {
-	window.location.href = base_url + 'index.php/qslprint/' + action + '/' + $('.station_id').val();
+	BootstrapDialog.confirm({
+			title: lang_qslprint_warning,
+			message: lang_qslprint_are_you_sure,
+			type: BootstrapDialog.TYPE_DANGER,
+			closable: true,
+			draggable: true,
+			btnOKClass: 'btn-danger',
+			callback: function(result) {
+				if(result) {
+					window.location.href = base_url + 'index.php/qslprint/' + action + '/' + $('.station_id').val();
+				}
+			},
+		});
 }
 
 function getSelectedIds() {
