@@ -170,6 +170,13 @@
 </script>
 
 
+<?php if ($worker_enabled ?? false) { ?>
+    <!-- Wavelog Worker JS -->
+    <script>window.WavelogWorker = <?php echo json_encode(['url' => $this->worker->client_url()]); ?>;</script>
+	<script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/worker.js'); ?>"></script>
+<?php } ?>
+
+
 <!-- DATATABLES LANGUAGE -->
 <?php
 $local_code = $language['locale'];

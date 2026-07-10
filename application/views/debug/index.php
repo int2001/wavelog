@@ -140,6 +140,30 @@
             <div class="card">
                 <div class="card-header"><?= __("Wavelog Worker Backend"); ?></div>
                 <div class="card-body">
+                    <div id="worker-status" style="display: none;">
+                        <table class="table table-sm mb-0">
+                            <thead><tr>
+                                <th><?= __("Worker"); ?></th>
+                                <th><?= __("Topics"); ?></th>
+                                <th><?= __("Clients"); ?></th>
+                                <th><?= __("Version"); ?></th>
+                                <th id="ws-cluster-head" style="display: none;"><?= __("Cluster nodes"); ?></th>
+                                <th><?= __("Uptime"); ?></th>
+                            </tr></thead>
+                            <tbody><tr>
+                                <td>
+                                    <span id="ws-badge" class="badge rounded-pill text-bg-success">
+                                        <i id="ws-live-dot" class="fas fa-circle fa-fade" style="display: none; font-size: 0.6em; vertical-align: middle;"></i> <span id="ws-state"><?= __("Online"); ?></span>
+                                    </span>&nbsp;&nbsp;<span id="ws-url"></span>
+                                </td>
+                                <td id="ws-topics">—</td>
+                                <td id="ws-clients">—</td>
+                                <td id="ws-version">—</td>
+                                <td id="ws-cluster" style="display: none;">—</td>
+                                <td id="ws-uptime" style="white-space: nowrap;">—</td>
+                            </tr></tbody>
+                        </table>
+                    </div>
                     <div id="worker-status-container">
                         <span class="text-muted"><?= __("Loading..."); ?></span>
                     </div>
@@ -840,65 +864,26 @@
 </div>
 
 <script>
+    window.workerStatusLive = <?php echo json_encode([
+        'enabled'     => (bool)($worker_enabled ?? false),
+        'topic'       => $worker_status_topic ?? '',
+        'token'       => $worker_status_token ?? '',
+        'nodesTotal'  => (int)($worker_nodes_total ?? 0),
+        'snapshotUrl' => site_url('debug/worker_status'),
+        'msg'         => [
+            'online'      => __("Online"),
+            'degraded'    => __("Degraded"),
+            'disabled'    => '<span class="badge rounded-pill text-bg-secondary">' . __("Disabled") . '</span> ' . __("Worker backend is not configured."),
+            'unreachable' => '<span class="badge rounded-pill text-bg-danger">' . __("Unreachable") . '</span> ' . __("Worker is configured but did not respond."),
+            'error'       => '<span class="badge rounded-pill text-bg-danger">' . __("Error") . '</span> ' . __("Could not fetch worker status."),
+        ],
+    ]); ?>;
+
     <?php if (file_exists(realpath(APPPATH . '../') . '/.git')) { ?>
         var local_branch = '<?php echo $branch; ?>';
     <?php } else { ?>
         var local_branch = 'n/a';
     <?php } ?>
-
-    (function () {
-        fetch('<?= site_url('debug/worker_status'); ?>')
-            .then(r => r.json())
-            .then(function (data) {
-                var container = document.getElementById('worker-status-container');
-                if (!data.success) { return; }
-                if (data.disabled) {
-                    container.innerHTML = '<span class="badge rounded-pill text-bg-secondary"><?= __("Disabled"); ?></span> <?= __("Worker backend is not configured."); ?>';
-                    return;
-                }
-                if (!data.workers || data.workers.length === 0) {
-                    container.innerHTML = '<span class="badge rounded-pill text-bg-warning"><?= __("Unreachable"); ?></span> <?= __("Worker is configured but did not respond."); ?>';
-                    return;
-                }
-
-                var html = '';
-
-                if (data.vip) {
-                    var vipBadge = data.vip.alive
-                        ? '<span class="badge rounded-pill text-bg-success"><?= __("Available"); ?></span>'
-                        : '<span class="badge rounded-pill text-bg-danger"><?= __("Offline"); ?></span>';
-                    html += '<div class="mb-2">'
-                        + '<strong>VIP</strong>&nbsp;&nbsp;' + vipBadge + '&nbsp;&nbsp;<code>' + data.vip.url + '</code>'
-                        + '</div>';
-                }
-
-                var rows = data.workers.map(function (w) {
-                    var badge = w.alive
-                        ? '<span class="badge rounded-pill text-bg-success"><?= __("Online"); ?></span>'
-                        : '<span class="badge rounded-pill text-bg-danger"><?= __("Offline"); ?></span>';
-                    return '<tr>'
-                        + '<td>' + badge + '&nbsp;&nbsp;' + w.public_url + '</td>'
-                        + '<td>' + (w.active_topics     !== null ? w.active_topics     : '—') + '</td>'
-                        + '<td>' + (w.connected_clients !== null ? w.connected_clients : '—') + '</td>'
-                        + '<td>' + (w.version           !== null ? w.version           : '—') + '</td>'
-                        + '<td>' + (w.worker_uptime     !== null ? w.worker_uptime     : '—') + '</td>'
-                        + '</tr>';
-                });
-                var thead = '<thead><tr>'
-                    + '<th><?= __("Worker"); ?></th>'
-                    + '<th><?= __("Topics"); ?></th>'
-                    + '<th><?= __("Clients"); ?></th>'
-                    + '<th><?= __("Version"); ?></th>'
-                    + '<th><?= __("Uptime"); ?></th>'
-                    + '</tr></thead>';
-                html += '<table class="table table-sm mb-0">' + thead + '<tbody>' + rows.join('') + '</tbody></table>';
-                container.innerHTML = html;
-            })
-            .catch(function () {
-                document.getElementById('worker-status-container').innerHTML =
-                    '<span class="badge rounded-pill text-bg-warning"><?= __("Error"); ?></span> <?= __("Could not fetch worker status."); ?>';
-            });
-    })();
 </script>
 
 <?php
