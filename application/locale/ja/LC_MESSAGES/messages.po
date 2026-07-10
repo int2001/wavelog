@@ -232,7 +232,9 @@ msgstr "対流圏ダクト"
 #: application/controllers/Webadif.php:10
 #: application/controllers/Webadif.php:99
 #: application/controllers/Zonechecker.php:16
-#: application/models/Club_model.php:51
+#: application/models/Club_model.php:51 application/controllers/Qso.php:315
+#: application/controllers/Qso.php:481 application/controllers/Qso.php:503
+#: application/controllers/Qso.php:525 application/controllers/Qso.php:829
 msgid "You're not allowed to do that!"
 msgstr "それは禁止です！"
 
@@ -394,7 +396,7 @@ msgid "API Key %s description has been updated."
 msgstr "APIキー %s の 説明が更新されました。"
 
 #: application/controllers/Api.php:109 application/controllers/Api.php:143
-#: application/controllers/Qso.php:609
+#: application/controllers/Qso.php:609 application/controllers/Qso.php:620
 msgid "Invalid request method"
 msgstr "無効なリクエストメソッド"
 
@@ -2901,19 +2903,19 @@ msgstr "選択したQSLポストカードのPDFファイルが正常に処理さ
 msgid "Print Requested QSLs"
 msgstr "リクエストされたQSLを印刷する"
 
-#: application/controllers/Qso.php:147
+#: application/controllers/Qso.php:147 application/controllers/Qso.php:158
 msgid "Add QSO"
 msgstr "QSOを追加"
 
-#: application/controllers/Qso.php:878
+#: application/controllers/Qso.php:878 application/controllers/Qso.php:889
 msgid "You have to be logged in to access this URL."
 msgstr "この URL にアクセスするにはログインする必要があります。"
 
-#: application/controllers/Qso.php:884
+#: application/controllers/Qso.php:884 application/controllers/Qso.php:895
 msgid "Call Transfer"
 msgstr "通話転送"
 
-#: application/controllers/Qso.php:891
+#: application/controllers/Qso.php:891 application/controllers/Qso.php:902
 msgid "No callsign provided."
 msgstr "コールサインが提供されていません。"
 
@@ -4151,23 +4153,29 @@ msgid "HRDlog: No station profiles with HRDlog Credentials found."
 msgstr "HRDlog: HRDlog 資格情報を持つ無線局プロファイルが見つかりません。"
 
 #: application/models/Logbook_model.php:315
+#: application/models/Logbook_model.php:328
 msgid "Station not accessible"
 msgstr "利用できない無線局"
 
 #: application/models/Logbook_model.php:1420
+#: application/models/Logbook_model.php:1434
 msgid "Station ID not allowed"
 msgstr "許可されてない無線局ID"
 
 #: application/models/Logbook_model.php:1425
+#: application/models/Logbook_model.php:1439
 msgid "No Call given"
 msgstr "コールなし"
 
 #: application/models/Logbook_model.php:1495
 #: application/models/Logbook_model.php:1699
+#: application/models/Logbook_model.php:1509
+#: application/models/Logbook_model.php:1713
 msgid "DXCC has to be Numeric"
 msgstr "DXCCは数値でなければなりません"
 
 #: application/models/Logbook_model.php:4938
+#: application/models/Logbook_model.php:4957
 #, php-format
 msgid ""
 "Differing station callsign %s while importing QSO with %s for %s: SKIPPED"
@@ -4176,6 +4184,7 @@ msgstr ""
 "れました"
 
 #: application/models/Logbook_model.php:4946
+#: application/models/Logbook_model.php:4965
 #, php-format
 msgid ""
 "Differing locator %s while importing QSO with %s for station locator %s: "
@@ -4185,6 +4194,7 @@ msgstr ""
 "た：スキップしました"
 
 #: application/models/Logbook_model.php:4962
+#: application/models/Logbook_model.php:4981
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
@@ -4193,10 +4203,12 @@ msgstr ""
 "んでした。無効です"
 
 #: application/models/Logbook_model.php:4972
+#: application/models/Logbook_model.php:4991
 msgid "QSO on"
 msgstr "QSOオン"
 
 #: application/models/Logbook_model.php:4972
+#: application/models/Logbook_model.php:4991
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
@@ -4205,6 +4217,7 @@ msgstr ""
 "されませんでした。無効です"
 
 #: application/models/Logbook_model.php:5022
+#: application/models/Logbook_model.php:5041
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
@@ -4214,58 +4227,72 @@ msgstr ""
 "はインポートされませんでした。無効です"
 
 #: application/models/Logbook_model.php:5296
+#: application/models/Logbook_model.php:5315
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "qslrdate が無効です (YYYYMMDD)"
 
 #: application/models/Logbook_model.php:5307
+#: application/models/Logbook_model.php:5326
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "qslsdate が無効です (YYYYMMDD)"
 
 #: application/models/Logbook_model.php:5368
+#: application/models/Logbook_model.php:5387
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "clublog_qso_upload_date が無効です (YYYYMMDD)"
 
 #: application/models/Logbook_model.php:5739
 #: application/views/simplefle/index.php:41
+#: application/models/Logbook_model.php:5758
 msgid "Duplicate for"
 msgstr "複製用"
 
 #: application/models/Logbook_model.php:5806
 #: application/models/Logbook_model.php:5906
+#: application/models/Logbook_model.php:5825
+#: application/models/Logbook_model.php:5925
 msgid "QSO could not be matched"
 msgstr "QSOが一致しませんでした"
 
 #: application/models/Logbook_model.php:5814
+#: application/models/Logbook_model.php:5833
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "LoTW/Clublog/eQSL/コンテストで確認済み"
 
 #: application/models/Logbook_model.php:5820
+#: application/models/Logbook_model.php:5839
 msgid "confirmed by award manager"
 msgstr "賞の管理者によって確認された"
 
 #: application/models/Logbook_model.php:5824
+#: application/models/Logbook_model.php:5843
 msgid "confirmed by cross-check of DCL data"
 msgstr "DCLデータのクロスチェックによって確認された"
 
 #: application/models/Logbook_model.php:5828
+#: application/models/Logbook_model.php:5847
 msgid "confirmation pending"
 msgstr "確認中"
 
 #: application/models/Logbook_model.php:5831
+#: application/models/Logbook_model.php:5850
 msgid "unconfirmed"
 msgstr "未確認"
 
 #: application/models/Logbook_model.php:5834
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
+#: application/models/Logbook_model.php:5853
 msgid "unknown"
 msgstr "不明"
 
 #: application/models/Logbook_model.php:5909
+#: application/models/Logbook_model.php:5928
 msgid "POTA reference already in log"
 msgstr "POTA 参照。既にログに存在します"
 
 #: application/models/Logbook_model.php:5912
+#: application/models/Logbook_model.php:5931
 msgid "QSO updated"
 msgstr "QSOが更新されました"
 
@@ -4282,6 +4309,7 @@ msgstr "QSOが更新されました"
 #: application/views/user/edit.php:379 application/views/user/edit.php:404
 #: application/views/view_log/partial/log_ajax.php:21
 #: application/models/Logbook_model.php:6317
+#: application/models/Logbook_model.php:6336
 msgid "Bearing"
 msgstr "方位"
 
@@ -12196,6 +12224,7 @@ msgstr "QSOを見る"
 #: application/views/dashboard/index.php:383
 #: application/views/qso/index.php:918 application/views/qso/index.php:913
 #: application/views/dashboard/index.php:384
+#: application/views/qso/index.php:921
 #, php-format
 msgid "Max. %d previous contact is shown"
 msgid_plural "Max. %d previous contacts are shown"

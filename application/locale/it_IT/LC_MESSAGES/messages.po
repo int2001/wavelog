@@ -232,7 +232,9 @@ msgstr "Canalizzazioni troposferiche"
 #: application/controllers/Webadif.php:10
 #: application/controllers/Webadif.php:99
 #: application/controllers/Zonechecker.php:16
-#: application/models/Club_model.php:51
+#: application/models/Club_model.php:51 application/controllers/Qso.php:315
+#: application/controllers/Qso.php:481 application/controllers/Qso.php:503
+#: application/controllers/Qso.php:525 application/controllers/Qso.php:829
 msgid "You're not allowed to do that!"
 msgstr "Non ti è permesso farlo!"
 
@@ -394,7 +396,7 @@ msgid "API Key %s description has been updated."
 msgstr "La descrizione per la chiave %s è stata aggiornata."
 
 #: application/controllers/Api.php:109 application/controllers/Api.php:143
-#: application/controllers/Qso.php:609
+#: application/controllers/Qso.php:609 application/controllers/Qso.php:620
 msgid "Invalid request method"
 msgstr "Metodo di richiesta non valido"
 
@@ -2913,19 +2915,19 @@ msgstr "cartolina QSL PDF selezionata non riuscito: "
 msgid "Print Requested QSLs"
 msgstr "Stampa QSL richieste"
 
-#: application/controllers/Qso.php:147
+#: application/controllers/Qso.php:147 application/controllers/Qso.php:158
 msgid "Add QSO"
 msgstr "Aggiungi QSO"
 
-#: application/controllers/Qso.php:878
+#: application/controllers/Qso.php:878 application/controllers/Qso.php:889
 msgid "You have to be logged in to access this URL."
 msgstr "Devi effettuare l'accesso per accedere a questo URL."
 
-#: application/controllers/Qso.php:884
+#: application/controllers/Qso.php:884 application/controllers/Qso.php:895
 msgid "Call Transfer"
 msgstr "Trasferisci nominativo"
 
-#: application/controllers/Qso.php:891
+#: application/controllers/Qso.php:891 application/controllers/Qso.php:902
 msgid "No callsign provided."
 msgstr "Nessun nominativo fornito."
 
@@ -4176,23 +4178,29 @@ msgid "HRDlog: No station profiles with HRDlog Credentials found."
 msgstr "HRDlog: nessun profilo di stazione con credenziali HRDlog trovate."
 
 #: application/models/Logbook_model.php:315
+#: application/models/Logbook_model.php:328
 msgid "Station not accessible"
 msgstr "Stazione non accessibile"
 
 #: application/models/Logbook_model.php:1420
+#: application/models/Logbook_model.php:1434
 msgid "Station ID not allowed"
 msgstr "ID stazione non consentito"
 
 #: application/models/Logbook_model.php:1425
+#: application/models/Logbook_model.php:1439
 msgid "No Call given"
 msgstr "Nessun nominatio fornito"
 
 #: application/models/Logbook_model.php:1495
 #: application/models/Logbook_model.php:1699
+#: application/models/Logbook_model.php:1509
+#: application/models/Logbook_model.php:1713
 msgid "DXCC has to be Numeric"
 msgstr "DXCC deve essere numerico"
 
 #: application/models/Logbook_model.php:4938
+#: application/models/Logbook_model.php:4957
 #, php-format
 msgid ""
 "Differing station callsign %s while importing QSO with %s for %s: SKIPPED"
@@ -4201,6 +4209,7 @@ msgstr ""
 "per %s: SALTATO"
 
 #: application/models/Logbook_model.php:4946
+#: application/models/Logbook_model.php:4965
 #, php-format
 msgid ""
 "Differing locator %s while importing QSO with %s for station locator %s: "
@@ -4210,6 +4219,7 @@ msgstr ""
 "della stazione %s: SALTATO"
 
 #: application/models/Logbook_model.php:4962
+#: application/models/Logbook_model.php:4981
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
@@ -4218,10 +4228,12 @@ msgstr ""
 "stato importato. Non è valido"
 
 #: application/models/Logbook_model.php:4972
+#: application/models/Logbook_model.php:4991
 msgid "QSO on"
 msgstr "QSO alle"
 
 #: application/models/Logbook_model.php:4972
+#: application/models/Logbook_model.php:4991
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
@@ -4230,6 +4242,7 @@ msgstr ""
 "QSO non è stato importato perchè non valido"
 
 #: application/models/Logbook_model.php:5022
+#: application/models/Logbook_model.php:5041
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
@@ -4239,58 +4252,72 @@ msgstr ""
 "Questo QSO non è stato importato. È non valido"
 
 #: application/models/Logbook_model.php:5296
+#: application/models/Logbook_model.php:5315
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "La data di ricezione QSL non è valida (AAAAMMGG)"
 
 #: application/models/Logbook_model.php:5307
+#: application/models/Logbook_model.php:5326
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "La data di invio QSL non è valida (AAAAMMGG)"
 
 #: application/models/Logbook_model.php:5368
+#: application/models/Logbook_model.php:5387
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "La data di upload Clublog non è valida (AAAAMMGG)"
 
 #: application/models/Logbook_model.php:5739
 #: application/views/simplefle/index.php:41
+#: application/models/Logbook_model.php:5758
 msgid "Duplicate for"
 msgstr "Duplicata"
 
 #: application/models/Logbook_model.php:5806
 #: application/models/Logbook_model.php:5906
+#: application/models/Logbook_model.php:5825
+#: application/models/Logbook_model.php:5925
 msgid "QSO could not be matched"
 msgstr "Impossibile abbinare QSO"
 
 #: application/models/Logbook_model.php:5814
+#: application/models/Logbook_model.php:5833
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "confermato da LoTW/Clublog/eQSL/Contest"
 
 #: application/models/Logbook_model.php:5820
+#: application/models/Logbook_model.php:5839
 msgid "confirmed by award manager"
 msgstr "confermato dal responsabile del diploma"
 
 #: application/models/Logbook_model.php:5824
+#: application/models/Logbook_model.php:5843
 msgid "confirmed by cross-check of DCL data"
 msgstr "confermato dal controllo incrociato dei dati DCL"
 
 #: application/models/Logbook_model.php:5828
+#: application/models/Logbook_model.php:5847
 msgid "confirmation pending"
 msgstr "Conferma in sospeso"
 
 #: application/models/Logbook_model.php:5831
+#: application/models/Logbook_model.php:5850
 msgid "unconfirmed"
 msgstr "Non confermato"
 
 #: application/models/Logbook_model.php:5834
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
+#: application/models/Logbook_model.php:5853
 msgid "unknown"
 msgstr "sconosciuto"
 
 #: application/models/Logbook_model.php:5909
+#: application/models/Logbook_model.php:5928
 msgid "POTA reference already in log"
 msgstr "Riferimento POTA già presente nel registro di stazione"
 
 #: application/models/Logbook_model.php:5912
+#: application/models/Logbook_model.php:5931
 msgid "QSO updated"
 msgstr "QSO aggiornato"
 
@@ -4306,6 +4333,7 @@ msgstr "QSO aggiornato"
 #: application/views/user/edit.php:333 application/views/user/edit.php:356
 #: application/views/user/edit.php:379 application/views/user/edit.php:404
 #: application/views/view_log/partial/log_ajax.php:21
+#: application/models/Logbook_model.php:6336
 msgid "Bearing"
 msgstr "Direzione"
 
@@ -12308,6 +12336,7 @@ msgstr "Visualizza QSO"
 #: application/views/dashboard/index.php:383
 #: application/views/qso/index.php:918 application/views/qso/index.php:913
 #: application/views/dashboard/index.php:384
+#: application/views/qso/index.php:921
 #, php-format
 msgid "Max. %d previous contact is shown"
 msgid_plural "Max. %d previous contacts are shown"

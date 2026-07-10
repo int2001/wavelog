@@ -14,6 +14,7 @@
  *         onOpen:    function ()      {  },   // authenticated (auth_ok)
  *         onMessage: function (frame) {  },   // every non-control frame
  *         onClose:   function ()      {  },   // socket dropped (will reconnect)
+ *         onReconnect: function ()    {  },   // re-authenticated after a drop
  *         onFailed:  function ()      {  },   // gave up / server rejected us
  *     });
  *     conn.send({ type: 'status' });
@@ -33,8 +34,8 @@
 	/**
 	 * Open an authenticated, auto-reconnecting subscription to a topic.
 	 * @param {object} opts topic, token, onOpen, onMessage(frame), onClose,
-	 *   onReconnecting(attempt), onFailed, and optional connectTimeoutMs /
-	 *   retryDelayMs / maxRetries overrides.
+	 *   onReconnecting(attempt), onReconnect, onFailed, and optional
+	 *   connectTimeoutMs / retryDelayMs / maxRetries overrides.
 	 * @returns {{send: function, close: function, isConnected: function}}
 	 */
 	W.subscribe = function (opts) {
@@ -102,6 +103,7 @@
 				if (msg.type === 'auth_ok') {
 					ready = true;
 					settled = false;
+					if (attempt > 0) { hook(opts.onReconnect); }
 					attempt = 0;
 					clearConnectTimer();
 					hook(opts.onOpen);
