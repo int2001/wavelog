@@ -130,6 +130,18 @@ class Debug extends CI_Controller
 
 		$data['page_title'] = __("Debug");
 
+		$this->load->library('worker');
+		$data['worker_status_topic'] = '';
+		$data['worker_status_token'] = '';
+		$data['worker_enabled'] = $this->worker->is_enabled();
+		$urls = $this->config->item('worker_urls', 'worker');
+		$data['worker_nodes_total'] = is_array($urls) ? count($urls) : 0;
+		if ($data['worker_enabled'] && $this->worker->client_url() !== '') {
+			$debug_topic = 'worker.status';
+			$data['worker_status_topic'] = $debug_topic;
+			$data['worker_status_token'] = $this->worker->create_token($debug_topic);
+		}
+
 		$this->load->view('interface_assets/header', $data);
 		$this->load->view('debug/index');
 		$this->load->view('interface_assets/footer', $footerData);
@@ -355,21 +367,9 @@ class Debug extends CI_Controller
 		}
 
 		$vip_url = rtrim((string) $this->config->item('worker_vip', 'worker'), '/');
-		$vip     = null;
-		if ($vip_url !== '') {
-			$ch = curl_init($vip_url . '/internal/status');
-			curl_setopt_array($ch, [
-				CURLOPT_RETURNTRANSFER    => true,
-				CURLOPT_CONNECTTIMEOUT_MS => 300,
-				CURLOPT_TIMEOUT_MS        => 800,
-				CURLOPT_HTTPHEADER        => ['X-Worker-Secret: ' . $secret],
-			]);
-			curl_exec($ch);
-			$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-			curl_close($ch);
-			$vip = ['url' => $vip_url, 'alive' => $http_code === 200];
-		}
+		$vip     = $vip_url !== '' ? ['url' => $vip_url] : null;
 
+		// fan-out to all configured workers and check their status
 		$workers = [];
 		foreach ($worker_urls as $url) {
 			$ch = curl_init($url . '/internal/status');
@@ -391,7 +391,6 @@ class Debug extends CI_Controller
 				'active_topics'     => $stats['active_topics']     ?? null,
 				'connected_clients' => $stats['connected_clients'] ?? null,
 				'worker_uptime'     => $stats['uptime']            ?? null,
-				'cluster_nodes'     => $stats['cluster_nodes']     ?? null,
 			];
 		}
 
