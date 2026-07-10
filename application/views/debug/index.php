@@ -165,7 +165,8 @@
                         </table>
                     </div>
                     <div id="worker-status-container">
-                        <span class="text-muted"><?= __("Loading..."); ?></span>
+                        <span class="spinner-border spinner-border-sm text-muted align-middle" role="status" aria-hidden="true"></span>
+                        <span class="text-muted align-middle"><?= __("Loading..."); ?></span>
                     </div>
                 </div>
             </div>
