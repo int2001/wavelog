@@ -3462,11 +3462,22 @@ $(document).ready(function () {
 	refreshPastContacts();
 
 	var pending = null;
+	var missed = false;
 	function throttleRefreshPastContacts() {
-        // do not load more than once every 4 seconds
-		if (pending) return;
+		// Load at most once every 4 seconds. If more pushes arrive during the
+		// lockout, refresh once afterwards so no update is lost.
+		if (pending) {
+			missed = true;
+			return;
+		}
 		refreshPastContacts();
-		pending = setTimeout(function () { pending = null; }, 4000);
+		pending = setTimeout(function () {
+			pending = null;
+			if (missed) {
+				missed = false;
+				throttleRefreshPastContacts();
+			}
+		}, 4000);
 	}
 
 	if (pastContactsTable.dataset.workerTopic && window.WavelogWorker && WavelogWorker.isAvailable()) {
