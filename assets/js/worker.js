@@ -42,9 +42,9 @@
 		var baseUrl          = (W.url || '').replace(/\/$/, '');
 		var topic            = opts.topic;
 		var token            = opts.token;
-		var connectTimeoutMs = opts.connectTimeoutMs || 3000;
-		var retryDelayMs     = opts.retryDelayMs || 2000;
-		var maxRetries       = (opts.maxRetries != null) ? opts.maxRetries : 10;
+		var connectTimeoutMs = opts.connectTimeoutMs || 1500;
+		var retryDelayMs     = opts.retryDelayMs || 1000;
+		var maxRetries       = (opts.maxRetries != null) ? opts.maxRetries : 4;
 
 		var ws = null;
 		var ready = false;          // auth_ok received
