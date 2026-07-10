@@ -112,15 +112,14 @@ function addQsoToPrintQueue(id) {
 					line += '<td style=\'text-align: center\'>'+$("#qsolist_"+id).find("td:eq(11)").text()+'</td>';
 					let prev_qsl_html = $("#qsolist_"+id).find("td:eq(12)").html();
 					line += '<td style=\'text-align: center; white-space: nowrap;\'>'+prev_qsl_html+'</td>';
-					line += '<td style=\'text-align: center\'><button onclick="mark_qsl_sent('+id+', \'B\')" class="btn btn-sm btn-success"><i class="fa fa-check"></i></button></td>';
-					line += '<td style=\'text-align: center\'><button onclick="deleteFromQslQueue('+id+')" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button></td></td>';
-					line += '<td style=\'text-align: center\'><button onclick="openQsoList(\''+$("#qsolist_"+id).find("td:eq(0)").text()+'\')" class="btn btn-sm btn-success"><i class="fas fa-search"></i></button></td>';
+					line += '<td style=\'text-align: center; white-space: nowrap;\'><div class="d-inline-flex align-items-center gap-1"><button onclick="mark_qsl_sent('+id+', \'B\')" class="btn btn-sm btn-success" data-bs-toggle="tooltip" data-bs-title="'+lang_qslprint_action_mark+'"><i class="fa fa-check"></i></button><button onclick="deleteFromQslQueue('+id+')" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" data-bs-title="'+lang_qslprint_action_remove+'"><i class="fas fa-trash-alt"></i></button><button onclick="openQsoList(\''+$("#qsolist_"+id).find("td:eq(0)").text()+'\')" class="btn btn-sm btn-success" data-bs-toggle="tooltip" data-bs-title="'+lang_qslprint_action_qsolist+'"><i class="fas fa-search"></i></button></div></td>';
                     line += '</tr>';
                     if ($.fn.dataTable.isDataTable('#qslprint_table')) {
                         $('#qslprint_table').DataTable().row.add($(line)).draw(false);
                     } else {
                         $('#qslprint_table tr:last').after(line);
                     }
+                    $('#qslprint_'+id+' [data-bs-toggle="tooltip"]').tooltip();
                     $("#qsolist_"+id).remove();
                 },
                 error: function() {
@@ -138,27 +137,77 @@ $(".station_id").change(function(){
 		success: function(html) {
 			$('.resulttable').empty();
 			$('.resulttable').append(html);
+			initQslprintTable();
 		}
 	});
 });
 
-$('#qslprint_table').DataTable({
-	stateSave: true,
-	ordering: true,
-	order: [],
-	columnDefs: [
-		{ orderable: false, targets: 0 }
-	],
-	pageLength: 25,
-	lengthMenu: [
-		[10, 25, 50, 100, -1],
-		[10, 25, 50, 100, lang_export_qslprint_pagination_all]
-	],
-	paging: 'pagination',
-	language: {
-		url: getDataTablesLanguageUrl(),
+function initQslprintTable() {
+	if (!$.fn.dataTable.isDataTable('#qslprint_table')) {
+		$('#qslprint_table').DataTable({
+			stateSave: true,
+			autoWidth: false,
+			orderCellsTop: true,
+			ordering: true,
+			order: [],
+			columnDefs: [
+				{ orderable: false, targets: 0 }
+			],
+			pageLength: 25,
+			lengthMenu: [
+				[10, 25, 50, 100, -1],
+				[10, 25, 50, 100, lang_export_qslprint_pagination_all]
+			],
+			paging: 'pagination',
+			language: {
+				url: getDataTablesLanguageUrl(),
+			},
+			initComplete: function () {
+				var api = this.api();
+				// Filter dropdowns live in their own (second) header row
+				var $filterCells = $('#qslprint_table thead tr').last().find('th');
+				api.columns('.select-filter').every(function () {
+					var column = this;
+					var $cell = $filterCells.eq(column.index());
+					if (!$cell.length) { return; }
+					var select = $('<select class="form-select form-select-sm" style="width:100%;"><option value=""></option></select>')
+						.appendTo($cell.empty())
+						.on('click', function (e) { e.stopPropagation(); })	// keep dropdown clicks from re-sorting the column
+						.on('change', function () {
+							var val = $.fn.dataTable.util.escapeRegex($(this).val());
+							column.search(val ? '^' + val + '$' : '', true, false).draw();
+						});
+					if ($cell.hasClass('select-filter-html')) {
+						// Body cell holds HTML (e.g. Callsign links); build options from the
+						// plain text stored in data-search so values/labels stay clean and safe.
+						var seen = {}, labels = [];
+						column.nodes().to$().each(function () {
+							var label = $(this).attr('data-search') || $(this).text().trim();
+							if (label && !seen.hasOwnProperty(label)) {
+								seen[label] = true;
+								labels.push(label);
+							}
+						});
+						labels.sort();
+						$.each(labels, function (i, label) {
+							$('<option>').val(label).text(label).appendTo(select);
+						});
+					} else {
+						column.data().unique().sort().each(function (d) {
+							select.append('<option value="' + d + '">' + d + '</option>');
+						});
+					}
+					// Reflect any stateSave-restored column search back into the dropdown
+					var saved = column.search();
+					if (saved) {
+						select.val(saved.replace(/^\^|\$$/g, ''));
+					}
+				});
+			}
+		});
 	}
-});
+}
+initQslprintTable();
 
 function showOqrs(id) {
 	$.ajax({
@@ -237,6 +286,15 @@ function markSelectedQsos() {
 	var elements = $('.qslprint tbody input:checked');
 	var nElements = elements.length;
 	if (nElements == 0) {
+		BootstrapDialog.alert({
+			title: lang_qslprint_info,
+			message: lang_qslprint_select_at_least_one_row,
+			type: BootstrapDialog.TYPE_INFO,
+			closable: false,
+			draggable: false,
+			callback: function (result) {
+			}
+		});
 		return;
 	}
 	$('.markallprinted').prop("disabled", true);
@@ -269,6 +327,15 @@ function removeSelectedQsos() {
 	var elements = $('.qslprint tbody input:checked');
 	var nElements = elements.length;
 	if (nElements == 0) {
+		BootstrapDialog.alert({
+			title: lang_qslprint_info,
+			message: lang_qslprint_select_at_least_one_row,
+			type: BootstrapDialog.TYPE_INFO,
+			closable: false,
+			draggable: false,
+			callback: function (result) {
+			}
+		});
 		return;
 	}
 	$('.removeall').prop("disabled", true);
@@ -303,6 +370,15 @@ function exportSelectedQsos() {
 	var elements = $('.qslprint tbody input:checked');
 	var nElements = elements.length;
 	if (nElements == 0) {
+		BootstrapDialog.alert({
+			title: lang_qslprint_info,
+			message: lang_qslprint_select_at_least_one_row,
+			type: BootstrapDialog.TYPE_INFO,
+			closable: false,
+			draggable: false,
+			callback: function (result) {
+			}
+		});
 		return;
 	}
 	$('.exportselected').prop("disabled", true);
@@ -446,3 +522,225 @@ document.getElementById('frequency_or_band').addEventListener('change', function
 	//switch display options
 	switchbandandfrequencydisplay(event.target.value);
 });
+
+function printDialog(printType, printAll = false) {
+	const id_list = getSelectedIds();
+	if (id_list.length === 0 && !printAll) {
+		BootstrapDialog.alert({
+			title: lang_qslprint_info,
+			message: lang_qslprint_select_at_least_one_row,
+			type: BootstrapDialog.TYPE_INFO,
+			closable: false,
+			draggable: false,
+			callback: function (result) {
+			}
+		});
+		return;
+	}
+	let title = '';
+	if (printType === 'label') {
+		title = lang_print_label;
+	} else if (printType === 'qslcard') {
+		title = lang_print_qslcard;
+	}
+
+	$.ajax({
+		url: base_url + 'index.php/qslprint/printdialog',
+		type: 'post',
+		data: {'printType': printType, 'id_list': id_list, 'printAll': printAll},
+		success: function (html) {
+			BootstrapDialog.show({
+				title: '<i class="fas fa-print me-2"></i>' + title,
+				size: BootstrapDialog.SIZE_NORMAL,
+				cssClass: 'qso-dialog',
+				nl2br: false,
+				message: html,
+				onshown: function(dialog) {
+				},
+				buttons: [
+					{
+						label: lang_admin_close,
+						cssClass: 'btn btn-secondary btn-sm',
+						action: function (dialogItself) {
+							dialogItself.close();
+						}
+					}
+				],
+			});
+		}
+	});
+}
+
+function requestedQslAction(action) {
+	BootstrapDialog.confirm({
+			title: lang_qslprint_warning,
+			message: lang_qslprint_are_you_sure,
+			type: BootstrapDialog.TYPE_DANGER,
+			closable: true,
+			draggable: true,
+			btnOKClass: 'btn-danger',
+			callback: function(result) {
+				if(result) {
+					window.location.href = base_url + 'index.php/qslprint/' + action + '/' + $('.station_id').val();
+				}
+			},
+		});
+}
+
+function getSelectedIds() {
+	let id_list = [];
+	$('#qslprint_table tbody input[name="selected_qsos[]"]:checked').each(function () {
+		id_list.push($(this).val());
+	});
+	return id_list;
+}
+
+function printSelectedQsos(printAll) {
+	if (printAll == true) {
+		const tpl = document.getElementById('qslcard_template_id').value;
+        // Print options come from the template's layout.options, not this form.
+        window.open(base_url + 'index.php/qslpostcard/pdfqueue/' + tpl, '_blank');
+	} else {
+		let id_list = getSelectedIds();
+		let $container = $('#qslcard_selected_ids');
+		if (id_list.length) {
+			$container.empty();
+			$.each(id_list, function (i, id) {
+				$('<input>').attr({ type: 'hidden', name: 'selected_ids[]' }).val(id).appendTo($container);
+			});
+		}
+		let tplId = $('#qslcard_template_id').val();
+		if (!tplId) {
+			return;
+		}
+		let $form = $('#printQslCardForm');
+		$form.attr('action', base_url + 'index.php/qslpostcard/pdfselected/' + tplId);
+		$form.attr('target', '_blank');
+		$form[0].submit();
+	}
+}
+
+function saveAndPrintSelectedQsos(printAll) {
+	if (printAll == true) {
+		const tpl = document.getElementById('qslcard_template_id').value;
+        window.location.href  = base_url + 'index.php/qslpostcard/pdfqueue/' + tpl + '?download=1', '_blank';
+	} else {
+		let id_list = getSelectedIds();
+		let $container = $('#qslcard_selected_ids');
+		if (id_list.length) {
+			$container.empty();
+			$.each(id_list, function (i, id) {
+				$('<input>').attr({ type: 'hidden', name: 'selected_ids[]' }).val(id).appendTo($container);
+			});
+		}
+		var tplId = $('#qslcard_template_id').val();
+		if (!tplId) {
+			return;
+		}
+		var $form = $('#printQslCardForm');
+		$form.attr('action', base_url + 'index.php/qslpostcard/pdfselected/' + tplId + '?download=1');
+		$form.attr('target', '_blank');
+		$form[0].submit();
+		dialog.close();
+	}
+}
+
+function printLabel(printAll) {
+	const id_list = getSelectedIds();
+	const options = {
+			'startat': $('#startat').val(),
+			'grid': $('#gridlabel')[0].checked,
+			'via': $('#via')[0].checked,
+			'tnxmsg': $('#tnxmsg')[0].checked,
+			'qslmsg': $('#qslmsg')[0].checked,
+			'reference': $('#reference')[0].checked,
+			'mycall': $('#mycall')[0].checked,
+			'opcall': $('#opcall')[0].checked
+		};
+	let url, postData;
+	if (printAll == true) {
+		url = base_url + 'index.php/labels/print/All';
+		postData = options;
+	} else {
+		url = base_url + 'index.php/labels/printids';
+		postData = $.extend({'id': JSON.stringify(id_list, null, 2)}, options);
+	}
+	$.ajax({
+		url: url,
+		type: 'post',
+		data: postData,
+		xhr:function(){
+			var xhr = new XMLHttpRequest();
+			xhr.responseType= 'blob'
+			return xhr;
+		},
+		success: function(data) {
+			if(data){
+				var file = new Blob([data], {type: 'application/pdf'});
+				var fileURL = URL.createObjectURL(file);
+				window.open(fileURL);
+			}
+			$('#printLabel').prop("disabled", false);
+		},
+		error: function (data) {
+			BootstrapDialog.alert({
+				title: lang_gen_advanced_logbook_error,
+				message: lang_gen_advanced_logbook_label_print_error,
+				type: BootstrapDialog.TYPE_DANGER,
+				closable: false,
+				draggable: false,
+				callback: function (result) {
+				}
+			});
+			$.each(id_list, function(k, v) {
+				unselectQsoID(this);
+			});
+			$('#printLabel').prop("disabled", false);
+		},
+	});
+}
+
+function markQslPrinted(printAll) {
+	$('#button_markprint').attr("disabled", true).addClass("running");
+	if (printAll == true) {
+		$.ajax({
+			url: base_url + 'index.php/qslprint/qsl_printed/all',
+			type: 'get',
+			success: function () {
+				if ($.fn.dataTable.isDataTable('#qslprint_table')) {
+					$('#qslprint_table').DataTable().clear().draw();
+				}
+				$('#button_markprint').removeClass("running");
+			},
+			error: function () {
+				$('#button_markprint').prop("disabled", false).removeClass("running");
+			}
+		});
+	} else {
+		let id_list = getSelectedIds();
+		if (!id_list.length) {
+			$('#button_markprint').prop("disabled", false).removeClass("running");
+			return;
+		}
+		$.ajax({
+			url: base_url + 'index.php/logbookadvanced/update_qsl',
+			type: 'post',
+			data: {
+				'id': JSON.stringify(id_list, null, 2),
+				'sent': 'Y',
+				'method': ''
+			},
+			success: function (data) {
+				if (data !== []) {
+					$.each(data, function (k, v) {
+						removeQslRow(this.qsoID);
+					});
+				}
+				$('#button_markprint').prop("disabled", false).removeClass("running");
+			},
+			error: function () {
+				$('#button_markprint').prop("disabled", false).removeClass("running");
+			}
+		});
+	}
+}
