@@ -37,6 +37,9 @@
     var lang_general_word_warning = "<?= __("Warning"); ?>";
     var lang_general_word_success = "<?= __("Success"); ?>";
     var lang_general_word_info = "<?= __("Info"); ?>";
+    var lang_worker_token_expired_title = "<?= __("Session expired"); ?>";
+    var lang_worker_token_expired_msg = "<?= __("Your live connection has expired. Please reload the page to keep receiving live updates."); ?>";
+    var lang_worker_reload_now = "<?= __("Reload now"); ?>";
     var lang_general_word_cancel = "<?= __("Cancel"); ?>";
     var lang_general_word_ok = "<?= __("OK"); ?>";
     var lang_general_word_search = "<?= __("Search"); ?>";
