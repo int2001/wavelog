@@ -188,7 +188,7 @@ class API extends CI_Controller {
 
 		if ($apiKeyResponse == 0) {
 			http_response_code(401);
-			log_message("Debug",'API Call 401. Invalid API Key: '.($obj['key'] ?? 'N/A'));
+			log_message("Debug",'API Call 401. Invalid API Key: '.($key ?? 'N/A'));
 			echo json_encode(['status' => 'error', 'reason' => "missing or wrong api key"]);
 			die();
 		}
@@ -242,7 +242,7 @@ class API extends CI_Controller {
 			$this->output->set_status_header(500)->set_content_type('application/json')->set_output(json_encode(['status' => 'error', 'message' => 'Processing error: ' . $e->getMessage()]));
 		}
 		$this->load->model('stationsetup_model');
-		$imported = $this->stationsetup_model->import_locations_parse($locations,$userid);
+		$imported = $this->stationsetup_model->import_locations_parse($locations ?? [], $userid);
 		if (($imported[0] ?? '0') == 'limit') {
 			$this->output->set_status_header(201)->set_content_type('application/json')->set_output(json_encode(['status' => 'success', 'message' => ($imported[1] ?? '0')." locations imported. Maximum limit of 1000 locations reached."]));
 		} else {
@@ -1663,6 +1663,7 @@ class API extends CI_Controller {
 
 		$memberlist = $this->club_model->get_club_members($userid);
 		if (!empty($memberlist)) {
+			$members = [];
 			foreach($memberlist as $member) {
 				$members[] = [
 					'callsign' => $member->user_callsign,
