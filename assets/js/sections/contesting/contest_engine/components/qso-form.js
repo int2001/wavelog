@@ -296,6 +296,10 @@ class QsoFormComponent {
 			this.updateWorkedBeforeWarning(callsign);
 		});
 
+		// Follow the radio component's QRG unit toggle: re-render the table so the
+		// displayed frequencies switch to the newly selected unit for that band.
+		window.addEventListener('qrgUnitChanged', () => this.rerenderVisibleRows());
+
 		// Live map preview: re-emit location when the received gridsquare changes, so the
 		// map can plot the exact grid (with the current DXCC info as fallback).
 		const gridRcvd = this.container.querySelector('#qso-gridsquare-received');
@@ -479,8 +483,10 @@ class QsoFormComponent {
 
 	/** User's preferred QRG display unit for a band. Mirrors radio.js (localStorage first, then session config). */
 	_qrgUnit(band) {
-		return localStorage.getItem('qrgunit_' + band)
-			|| window.ContestLoggerConfig?.qrgUnits?.[band]
+		// Band is always lowercase; normalize defensively so the qrgunit_<band> key always matches.
+		const b = String(band ?? '').toLowerCase();
+		return localStorage.getItem('qrgunit_' + b)
+			|| window.ContestLoggerConfig?.qrgUnits?.[b]
 			|| 'kHz';
 	}
 
@@ -599,7 +605,8 @@ class QsoFormComponent {
 		const hasGridsquare   = fields.includes('gridsquare');
 		const isClubStation   = !!(window.ContestLoggerConfig?.isClubStation);
 
-		const band     = qso.band || this.convertQrgToBand(parseInt(qso.frequency));
+		const bandRaw  = qso.band || this.convertQrgToBand(parseInt(qso.frequency));
+		const band     = bandRaw ? bandRaw.toLowerCase() : bandRaw;
 		const qrgUnit  = this._qrgUnit(band);
 		const qrgValue = qso.frequency ? this._hzToUnit(qso.frequency, qrgUnit) : '';
 		const qrgDisp  = qso.frequency ? `${qrgValue} ${qrgUnit}` : '';
@@ -1142,6 +1149,26 @@ class QsoFormComponent {
 		tbody.insertBefore(row, tbody.firstChild);
 	}
 
+	/**
+	 * Re-render the currently displayed rows in place (e.g. after the QRG unit changed).
+	 * Preserves row order and scroll, and skips rows the user is editing.
+	 */
+	rerenderVisibleRows() {
+		const tbody = this.container?.querySelector('#qso-tbody');
+		if (!tbody) return;
+
+		const byId = new Map();
+		for (const qso of this.dataStore.getPattern('qso.*').values()) {
+			byId.set(String(qso.tmpId || qso.serverId), qso);
+		}
+
+		tbody.querySelectorAll('tr').forEach(row => {
+			if (row.dataset.editing === 'true') return;
+			const qso = byId.get(row.dataset.qsoId);
+			if (qso) this._renderQsoRow(row, qso);
+		});
+	}
+
 	updateQSOInTable(qso) {
 		if (!this.container) return;
 
@@ -1371,7 +1398,8 @@ class QsoFormComponent {
 			frequency: freq,
 			mode: sq.mode,
 			submode: sq.submode,
-			band: sq.band,
+			// Band is always stored/compared lowercase (server data can arrive uppercased).
+			band: sq.band ? sq.band.toLowerCase() : sq.band,
 			date: sq.date || datePart,
 			time: sq.time || timePart,
 			time_on: sq.time_on,
