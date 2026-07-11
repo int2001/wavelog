@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-11 18:58+0000\n"
-"PO-Revision-Date: 2026-07-09 09:00+0000\n"
-"Last-Translator: Florian Wolters <wavelog@df2et.de>\n"
+"PO-Revision-Date: 2026-07-11 21:52+0000\n"
+"Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
 "Language: de_DE\n"
@@ -2727,7 +2727,7 @@ msgstr "OQRS-Anforderungen"
 
 #: application/controllers/Oqrs.php:286
 msgid "Invalid time format. Please use HH:MM (e.g. 08:31)."
-msgstr ""
+msgstr "Ungültiges Zeitformat. Bitte verwende HH:MM (z.B. 08:31)."
 
 #: application/controllers/Oqrs.php:409
 msgid "QSO match deleted successfully."
@@ -12820,7 +12820,7 @@ msgstr "Clients"
 
 #: application/views/debug/index.php:150
 msgid "Cluster nodes"
-msgstr ""
+msgstr "Cluster-Knoten"
 
 #: application/views/debug/index.php:151
 msgid "Uptime"
@@ -13159,7 +13159,7 @@ msgstr "Alles in Ordnung"
 
 #: application/views/debug/index.php:876
 msgid "Degraded"
-msgstr ""
+msgstr "Beeinträchtigt"
 
 #: application/views/debug/index.php:877
 msgid "Worker backend is not configured."
@@ -13175,13 +13175,15 @@ msgstr "Der Worker ist konfiguriert, hat aber nicht geantwortet."
 
 #: application/views/debug/index.php:879
 msgid "Outdated"
-msgstr ""
+msgstr "Veraltet"
 
 #: application/views/debug/index.php:879
 msgid ""
 "Please update your Wavelog Worker to version 0.2.0 or newer to see the "
 "status."
 msgstr ""
+"Bitte aktualisiere deinen Wavelog Worker auf Version 0.2.0 oder neuer, um "
+"den Status zu sehen."
 
 #: application/views/debug/index.php:898
 msgid "Albanian"
@@ -13898,13 +13900,15 @@ msgstr "Achtung"
 
 #: application/views/interface_assets/footer.php:40
 msgid "Session expired"
-msgstr ""
+msgstr "Session abgelaufen"
 
 #: application/views/interface_assets/footer.php:41
 msgid ""
 "Your live connection has expired. Please reload the page to keep receiving "
 "live updates."
 msgstr ""
+"Deine Live-Verbindung ist abgelaufen. Bitte lade die Seite neu, um weiterhin "
+"Live-Updates zu erhalten."
 
 #: application/views/interface_assets/footer.php:46
 msgid "Warning! Are you sure you want delete QSO with "
@@ -17699,7 +17703,7 @@ msgstr "Weiter"
 #: application/views/oqrs/request.php:1
 #: application/views/oqrs/request_grouped.php:1
 msgid "Request failed. Please try again."
-msgstr ""
+msgstr "Anfrage fehlgeschlagen. Bitte versuche es erneut."
 
 #: application/views/oqrs/notinlogform.php:3
 msgid ""
@@ -18157,15 +18161,15 @@ msgstr "Bitte wähle eine Vorlage zum Löschen aus."
 
 #: application/views/qslpostcard/designer.php:43
 msgid "Copy failed"
-msgstr ""
+msgstr "Kopieren fehlgeschlagen"
 
 #: application/views/qslpostcard/designer.php:44
 msgid "Template copied."
-msgstr ""
+msgstr "Vorlage kopiert."
 
 #: application/views/qslpostcard/designer.php:45
 msgid "Please select a template to copy."
-msgstr ""
+msgstr "Bitte wähle eine Vorlage zum Kopieren aus."
 
 #: application/views/qslpostcard/designer.php:48
 msgid "selected"
@@ -18173,21 +18177,23 @@ msgstr "ausgewählt"
 
 #: application/views/qslpostcard/designer.php:49
 msgid "Unsaved changes"
-msgstr ""
+msgstr "Nicht gespeicherte Änderungen"
 
 #: application/views/qslpostcard/designer.php:50
 msgid ""
 "Your current design has unsaved changes. Loading a different template will "
 "replace it. Continue?"
 msgstr ""
+"Dein aktuelles Design hat ungespeicherte Änderungen. Das Laden einer anderen "
+"Vorlage verwirft diese. Fortfahren?"
 
 #: application/views/qslpostcard/designer.php:51
 msgid "Discard changes"
-msgstr ""
+msgstr "Änderungen verwerfen"
 
 #: application/views/qslpostcard/designer.php:52
 msgid "Keep editing"
-msgstr ""
+msgstr "Weiter bearbeiten"
 
 #: application/views/qslpostcard/designer.php:68
 msgid "(new)"
@@ -18203,7 +18209,7 @@ msgstr "Speichere Vorlage"
 
 #: application/views/qslpostcard/designer.php:77
 msgid "Copy Template"
-msgstr ""
+msgstr "Vorlage kopieren"
 
 #: application/views/qslpostcard/designer.php:80
 msgid "Delete Template"
@@ -18403,11 +18409,11 @@ msgstr "In der Mitte der Seite (vertikal)"
 
 #: application/views/qslprint/index.php:4
 msgid "Please select at least one row"
-msgstr ""
+msgstr "Bitte wähle mindestens eine Zeile aus"
 
 #: application/views/qslprint/index.php:6
 msgid "Print QSLcard"
-msgstr ""
+msgstr "QSL-Karte drucken"
 
 #: application/views/qslprint/index.php:7
 #: application/views/qslprint/qslprint.php:91
@@ -18422,7 +18428,7 @@ msgstr "Entfernen"
 
 #: application/views/qslprint/index.php:11
 msgid "Are you sure you want to mark ALL requested QSLs as sent?"
-msgstr ""
+msgstr "Möchtest du wirklich ALLE angeforderten QSLs als gesendet markieren?"
 
 #: application/views/qslprint/index.php:29
 msgid "Export Requested QSLs for Printing"
@@ -18438,7 +18444,7 @@ msgstr "Band & Frequenz"
 
 #: application/views/qslprint/index.php:55
 msgid "Mark"
-msgstr ""
+msgstr "Markieren"
 
 #: application/views/qslprint/index.php:57
 msgid "Mark selected QSOs as sent"
@@ -18446,7 +18452,7 @@ msgstr "Markiere ausgewählte QSOs als gesendet"
 
 #: application/views/qslprint/index.php:59
 msgid "Mark ALL requested QSLs as sent"
-msgstr ""
+msgstr "Markiere ALLE angefragte QSLs als gesendet"
 
 #: application/views/qslprint/index.php:67
 msgid "Export selected QSOs to ADIF-file"
@@ -18470,11 +18476,11 @@ msgstr "Drucke Postkarten für alle QSOs"
 
 #: application/views/qslprint/index.php:83
 msgid "Print Selected QSL Labels"
-msgstr ""
+msgstr "Ausgewählte QSL-Etiketten drucken"
 
 #: application/views/qslprint/index.php:85
 msgid "Print Labels for all QSOs"
-msgstr ""
+msgstr "Etiketten für alle QSOs drucken"
 
 #: application/views/qslprint/index.php:93
 msgid "Remove selected QSOs from the queue"

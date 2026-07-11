@@ -30,14 +30,15 @@
 # Weblate user 156 <tidy-elm-snuggle@users.noreply.translate.wavelog.org>, 2026.
 # 洛雨 <i@luotianyi.eu>, 2026.
 # "Luoyu (BG7QBL)" <i@luotianyi.eu>, 2026.
+# 橙子木 <czm233@ypa.moe>, 2026.
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-11 18:58+0000\n"
-"PO-Revision-Date: 2026-07-10 18:40+0000\n"
-"Last-Translator: \"Luoyu (BG7QBL)\" <i@luotianyi.eu>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
-"org/projects/wavelog/main-translation/zh_Hans/>\n"
+"POT-Creation-Date: 2026-07-11 08:37+0000\n"
+"PO-Revision-Date: 2026-07-11 18:58+0000\n"
+"Last-Translator: 橙子木 <czm233@ypa.moe>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translate.wavelog.org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -160,8 +161,8 @@ msgstr "Tropospheric ducting"
 #: application/controllers/Calltester.php:12
 #: application/controllers/Club.php:60 application/controllers/Club.php:87
 #: application/controllers/Club.php:131 application/controllers/Club.php:159
-#: application/controllers/Club.php:185 application/controllers/Clublog.php:82
-#: application/controllers/Clublog.php:140
+#: application/controllers/Club.php:185 application/controllers/Clublog.php:80
+#: application/controllers/Clublog.php:138
 #: application/controllers/Components.php:12
 #: application/controllers/Contest_admin.php:13
 #: application/controllers/Contestcalendar.php:7
@@ -208,7 +209,7 @@ msgstr "Tropospheric ducting"
 #: application/controllers/Operator.php:12
 #: application/controllers/Options.php:13 application/controllers/Oqrs.php:12
 #: application/controllers/Oqrs.php:424 application/controllers/Qrbcalc.php:12
-#: application/controllers/Qrz.php:200 application/controllers/Qrz.php:286
+#: application/controllers/Qrz.php:198 application/controllers/Qrz.php:284
 #: application/controllers/Qsl.php:11 application/controllers/Qsl.php:12
 #: application/controllers/Qsl.php:47 application/controllers/Qsl.php:54
 #: application/controllers/Qsl.php:82 application/controllers/Qsl.php:130
@@ -231,8 +232,8 @@ msgstr "Tropospheric ducting"
 #: application/controllers/Satellite.php:117
 #: application/controllers/Satellite.php:131
 #: application/controllers/Satellite.php:149
-#: application/controllers/Satellite.php:696
-#: application/controllers/Satellite.php:705
+#: application/controllers/Satellite.php:692
+#: application/controllers/Satellite.php:701
 #: application/controllers/Sattimers.php:8 application/controllers/Search.php:9
 #: application/controllers/Simplefle.php:6
 #: application/controllers/Station.php:16
@@ -253,7 +254,11 @@ msgstr "Tropospheric ducting"
 #: application/controllers/Webadif.php:10
 #: application/controllers/Webadif.php:99
 #: application/controllers/Zonechecker.php:16
-#: application/models/Club_model.php:51
+#: application/models/Club_model.php:51 application/controllers/Clublog.php:82
+#: application/controllers/Clublog.php:140 application/controllers/Qrz.php:200
+#: application/controllers/Qrz.php:286
+#: application/controllers/Satellite.php:696
+#: application/controllers/Satellite.php:705
 msgid "You're not allowed to do that!"
 msgstr "请不要这样操作！"
 
@@ -273,23 +278,26 @@ msgstr "已激活网格地图"
 #: application/controllers/Awards.php:1162
 #: application/controllers/Awards.php:1198
 #: application/controllers/Gridmap.php:34
-#: application/controllers/Visitor.php:418
+#: application/controllers/Visitor.php:415
 #: application/views/activators/index.php:107
 #: application/views/contesting/logger/index.php:57
 #: application/views/interface_assets/footer.php:52
 #: application/views/visitor/layout/footer.php:12
 #: application/views/visitor/layout/header.php:68
+#: application/controllers/Visitor.php:418
 msgid "Gridsquares"
 msgstr "网格代码"
 
 #: application/controllers/Activated_gridmap.php:34
 #: application/controllers/Gridmap.php:35
+#: application/controllers/Visitor.php:416
 #: application/controllers/Visitor.php:419
 msgid "Gridsquares confirmed"
 msgstr "已确认网格"
 
 #: application/controllers/Activated_gridmap.php:35
 #: application/controllers/Gridmap.php:36
+#: application/controllers/Visitor.php:417
 #: application/controllers/Visitor.php:420
 msgid "Gridsquares not confirmed"
 msgstr "未确认网格"
@@ -300,25 +308,29 @@ msgstr "总激活网格"
 
 #: application/controllers/Activated_gridmap.php:38
 #: application/controllers/Gridmap.php:39
-#: application/controllers/Visitor.php:423
+#: application/controllers/Visitor.php:420
 #: application/views/qslpostcard/designer.php:149
+#: application/controllers/Visitor.php:423
 msgid "Fields"
 msgstr "区块"
 
 #: application/controllers/Activated_gridmap.php:39
 #: application/controllers/Gridmap.php:40
+#: application/controllers/Visitor.php:421
 #: application/controllers/Visitor.php:424
 msgid "Fields confirmed"
 msgstr "已确认的区块"
 
 #: application/controllers/Activated_gridmap.php:40
 #: application/controllers/Gridmap.php:41
+#: application/controllers/Visitor.php:422
 #: application/controllers/Visitor.php:425
 msgid "Fields not confirmed"
 msgstr "未确认的区块"
 
 #: application/controllers/Activated_gridmap.php:41
 #: application/controllers/Gridmap.php:42
+#: application/controllers/Visitor.php:423
 #: application/controllers/Visitor.php:426
 msgid "Total fields worked"
 msgstr "全部的区块"
@@ -462,6 +474,13 @@ msgstr "奖项"
 #: application/controllers/Awards.php:1389
 #: application/controllers/Awards.php:1540
 #: application/controllers/Awards.php:1591
+#: application/controllers/Awards.php:2151
+#: application/controllers/Awards.php:2300
+#: application/controllers/Awards.php:2430
+#: application/controllers/Awards.php:2504
+#: application/controllers/Awards.php:2517
+#: application/controllers/Awards.php:2592
+#: application/controllers/Awards.php:2734
 #: application/controllers/Awards.php:2152
 #: application/controllers/Awards.php:2301
 #: application/controllers/Awards.php:2431
@@ -543,7 +562,7 @@ msgstr "日志视图 - VUCC"
 
 #: application/controllers/Awards.php:668
 #: application/controllers/Callstats.php:101
-#: application/controllers/Distancerecords.php:87
+#: application/controllers/Distancerecords.php:86
 #: application/controllers/Statistics.php:370
 #: application/controllers/Timeline.php:127
 #: application/controllers/Timeline.php:130
@@ -551,6 +570,7 @@ msgstr "日志视图 - VUCC"
 #: application/controllers/Timeline.php:136
 #: application/controllers/Timeline.php:139
 #: application/controllers/Timeline.php:142
+#: application/controllers/Distancerecords.php:87
 msgid "Log View"
 msgstr "日志视图"
 
@@ -759,37 +779,44 @@ msgstr "WAP"
 msgid "WAIP"
 msgstr "WAIP"
 
-#: application/controllers/Awards.php:2301
+#: application/controllers/Awards.php:2300
 #: application/views/awards/itu/index.php:27
+#: application/controllers/Awards.php:2301
 msgid "ITU Zones"
 msgstr "ITU 分区"
 
-#: application/controllers/Awards.php:2431
+#: application/controllers/Awards.php:2430
 #: application/views/awards/wac/index.php:7
 #: application/views/interface_assets/header.php:206
+#: application/controllers/Awards.php:2431
 msgid "Worked All Continents (WAC)"
 msgstr "通联世界大洲奖（WAC）"
 
+#: application/controllers/Awards.php:2504
 #: application/controllers/Awards.php:2505
 msgid "WAE"
 msgstr "WAE"
 
-#: application/controllers/Awards.php:2518
+#: application/controllers/Awards.php:2517
 #: application/views/interface_assets/header.php:216
+#: application/controllers/Awards.php:2518
 msgid "73 on 73"
 msgstr "73 on 73"
 
-#: application/controllers/Awards.php:2593
+#: application/controllers/Awards.php:2592
 #: application/views/awards/wpx/wpx_details.php:19
+#: application/controllers/Awards.php:2593
 msgid "WPX"
 msgstr "WPX"
 
-#: application/controllers/Awards.php:2735
+#: application/controllers/Awards.php:2734
 #: application/views/awards/pl_polska/index.php:41
 #: application/views/interface_assets/header.php:281
+#: application/controllers/Awards.php:2735
 msgid "\"Polska\" Award"
 msgstr "“波兰”奖项"
 
+#: application/controllers/Awards.php:2778
 #: application/controllers/Awards.php:2779
 msgid "Awards - AMSAT Rover"
 msgstr "奖状 - AMSAT 漫游者 (AMSAT Rover)"
@@ -923,14 +950,15 @@ msgstr "无法将成员移出集体台站。"
 msgid "Invalid message type."
 msgstr "消息类型无效。"
 
-#: application/controllers/Club.php:225
+#: application/controllers/Club.php:224 application/controllers/Club.php:225
 msgid "Email can't be initialized. Check the email settings."
 msgstr "无法初始化 Email 组件。请检查 Email 配置。"
 
-#: application/controllers/Club.php:232 application/views/api/index.php:68
+#: application/controllers/Club.php:231 application/views/api/index.php:68
 #: application/views/contesting/logger/components/qso-form.php:35
 #: application/views/satellite/index.php:94
 #: application/views/satellite/satinfo.php:51
+#: application/controllers/Club.php:232
 msgid "Unknown"
 msgstr "未知"
 
@@ -941,6 +969,10 @@ msgstr "未知"
 msgid "Maintenance Mode is active. Try again later."
 msgstr "维护模式已启用，请稍后重试。"
 
+#: application/controllers/Clublog.php:44
+#: application/controllers/Clublog.php:70
+#: application/controllers/Clublog.php:122
+#: application/controllers/Clublog.php:158
 #: application/controllers/Clublog.php:45
 #: application/controllers/Clublog.php:72
 #: application/controllers/Clublog.php:124
@@ -948,7 +980,7 @@ msgstr "维护模式已启用，请稍后重试。"
 msgid "No user has configured Clublog."
 msgstr "未找到配置 Clublog 的用户。"
 
-#: application/controllers/Clublog.php:87
+#: application/controllers/Clublog.php:85
 #: application/controllers/Logbook.php:789
 #: application/views/awards/cq/index.php:131
 #: application/views/awards/dok/index.php:102
@@ -974,9 +1006,11 @@ msgstr "未找到配置 Clublog 的用户。"
 #: application/views/view_log/partial/log_ajax.php:169
 #: application/views/view_log/qso.php:524
 #: application/views/view_log/qso.php:529
+#: application/controllers/Clublog.php:87
 msgid "Clublog"
 msgstr "Clublog"
 
+#: application/controllers/Clublog.php:140
 #: application/controllers/Clublog.php:142
 msgid "Clublog QSL Import"
 msgstr "Clublog QSL 导入"
@@ -1196,6 +1230,7 @@ msgid "SOTA CSV Export"
 msgstr "SOTA CSV 导出"
 
 #: application/controllers/Dashboard.php:177
+#: application/controllers/Visitor.php:128
 #: application/controllers/Visitor.php:129
 msgid "Dashboard"
 msgstr "仪表盘"
@@ -1281,7 +1316,7 @@ msgstr "Wavelog 更新成功！"
 msgid "Selfupdate() not available. Check the Error Log."
 msgstr "自动更新不可用。请检查错误日志。"
 
-#: application/controllers/Debug.php:340
+#: application/controllers/Debug.php:328 application/controllers/Debug.php:340
 msgid ""
 "File Migration was successful, but please check also manually. If everything "
 "seems right you can delete the folders 'assets/qslcard' and 'images/"
@@ -1290,14 +1325,16 @@ msgstr ""
 "文件迁移成功，请手动检查。若一切正常，你可以删除文件夹“assets/"
 "qslcard”和“images/eqsl_card_images”。"
 
-#: application/controllers/Debug.php:343
+#: application/controllers/Debug.php:331 application/controllers/Debug.php:343
 msgid "File Migration failed. Please check the Error Log."
 msgstr "文件迁移失败。请检查错误日志。"
 
-#: application/controllers/Distancerecords.php:68
-#: application/controllers/Distancerecords.php:87
+#: application/controllers/Distancerecords.php:67
+#: application/controllers/Distancerecords.php:86
 #: application/views/distancerecords/index.php:6
 #: application/views/interface_assets/header.php:172
+#: application/controllers/Distancerecords.php:68
+#: application/controllers/Distancerecords.php:87
 msgid "Satellite Distance Records"
 msgstr "卫星通联距离记录"
 
@@ -1458,6 +1495,7 @@ msgid "Gridsquare Map"
 msgstr "网格地图"
 
 #: application/controllers/Gridmap.php:37
+#: application/controllers/Visitor.php:418
 #: application/controllers/Visitor.php:421
 msgid "Total gridsquares worked"
 msgstr "已通联网格总数"
@@ -1531,59 +1569,71 @@ msgstr "QSL 卡片标签"
 msgid "Create Label Type"
 msgstr "创建标签类型"
 
-#: application/controllers/Labels.php:77 application/controllers/Labels.php:430
+#: application/controllers/Labels.php:77 application/controllers/Labels.php:425
 #: application/views/labels/create.php:22 application/views/labels/edit.php:22
+#: application/controllers/Labels.php:430
 msgid "Label Name"
 msgstr "标签名称"
 
-#: application/controllers/Labels.php:78 application/controllers/Labels.php:431
+#: application/controllers/Labels.php:78 application/controllers/Labels.php:426
 #: application/views/labels/create.php:28 application/views/labels/edit.php:28
-#: application/views/labels/index.php:77
+#: application/views/labels/index.php:77 application/controllers/Labels.php:431
 msgid "Paper Type"
 msgstr "纸张类型"
 
-#: application/controllers/Labels.php:79 application/controllers/Labels.php:432
+#: application/controllers/Labels.php:79 application/controllers/Labels.php:427
 #: application/views/labels/index.php:43 application/views/labels/index.php:78
+#: application/controllers/Labels.php:432
 msgid "Measurement"
 msgstr "测量单位"
 
-#: application/controllers/Labels.php:80 application/controllers/Labels.php:433
+#: application/controllers/Labels.php:80 application/controllers/Labels.php:428
+#: application/controllers/Labels.php:433
 msgid "Top Margin"
 msgstr "顶边距"
 
-#: application/controllers/Labels.php:81 application/controllers/Labels.php:434
+#: application/controllers/Labels.php:81 application/controllers/Labels.php:429
+#: application/controllers/Labels.php:434
 msgid "Left Margin"
 msgstr "左边距"
 
-#: application/controllers/Labels.php:82 application/controllers/Labels.php:435
+#: application/controllers/Labels.php:82 application/controllers/Labels.php:430
+#: application/controllers/Labels.php:435
 msgid "QSLs Horizontally"
 msgstr "QSL 水平数量"
 
-#: application/controllers/Labels.php:83 application/controllers/Labels.php:436
+#: application/controllers/Labels.php:83 application/controllers/Labels.php:431
+#: application/controllers/Labels.php:436
 msgid "QSLs Vertically"
 msgstr "QSL 垂直数量"
 
-#: application/controllers/Labels.php:84 application/controllers/Labels.php:437
+#: application/controllers/Labels.php:84 application/controllers/Labels.php:432
+#: application/controllers/Labels.php:437
 msgid "Horizontal Space"
 msgstr "水平空白间隔"
 
-#: application/controllers/Labels.php:85 application/controllers/Labels.php:438
+#: application/controllers/Labels.php:85 application/controllers/Labels.php:433
+#: application/controllers/Labels.php:438
 msgid "Vertical Space"
 msgstr "垂直空白间隔"
 
-#: application/controllers/Labels.php:86 application/controllers/Labels.php:439
+#: application/controllers/Labels.php:86 application/controllers/Labels.php:434
+#: application/controllers/Labels.php:439
 msgid "Label width"
 msgstr "标签宽度"
 
-#: application/controllers/Labels.php:87 application/controllers/Labels.php:440
+#: application/controllers/Labels.php:87 application/controllers/Labels.php:435
+#: application/controllers/Labels.php:440
 msgid "Label height"
 msgstr "标签高度"
 
-#: application/controllers/Labels.php:88 application/controllers/Labels.php:441
+#: application/controllers/Labels.php:88 application/controllers/Labels.php:436
+#: application/controllers/Labels.php:441
 msgid "Size of Font"
 msgstr "字体大小"
 
-#: application/controllers/Labels.php:89 application/controllers/Labels.php:442
+#: application/controllers/Labels.php:89 application/controllers/Labels.php:437
+#: application/controllers/Labels.php:442
 msgid "Number of QSOs on label"
 msgstr "标签上的 QSO 数量"
 
@@ -1592,21 +1642,25 @@ msgid "Create Paper Type"
 msgstr "创建纸张类型"
 
 #: application/controllers/Labels.php:118
+#: application/controllers/Labels.php:484
 #: application/controllers/Labels.php:489
 msgid "Paper Name"
 msgstr "纸张名称"
 
 #: application/controllers/Labels.php:119
+#: application/controllers/Labels.php:485
 #: application/controllers/Labels.php:490
 msgid "Paper Width"
 msgstr "纸张宽度"
 
 #: application/controllers/Labels.php:120
+#: application/controllers/Labels.php:486
 #: application/controllers/Labels.php:491
 msgid "Paper Height"
 msgstr "纸张高度"
 
 #: application/controllers/Labels.php:131
+#: application/controllers/Labels.php:494
 #: application/controllers/Labels.php:499
 msgid ""
 "Your paper could not be saved. Remember that it can't have the same name as "
@@ -1630,30 +1684,37 @@ msgid ""
 "font size."
 msgstr "出现了错误，标签未生成，请检查标签和字体大小。"
 
+#: application/controllers/Labels.php:257
 #: application/controllers/Labels.php:262
 msgid "0 QSOs found for print!"
 msgstr "无 QSO 可供打印！"
 
+#: application/controllers/Labels.php:414
 #: application/controllers/Labels.php:419
 msgid "Edit Label"
 msgstr "编辑标签"
 
+#: application/controllers/Labels.php:443
 #: application/controllers/Labels.php:448
 msgid "Label was saved."
 msgstr "标签已保存。"
 
+#: application/controllers/Labels.php:451
 #: application/controllers/Labels.php:456
 msgid "Label was deleted."
 msgstr "标签已删除。"
 
+#: application/controllers/Labels.php:473
 #: application/controllers/Labels.php:478
 msgid "Edit Paper"
 msgstr "编辑纸张"
 
+#: application/controllers/Labels.php:498
 #: application/controllers/Labels.php:503
 msgid "Paper was saved."
 msgstr "纸张已保存。"
 
+#: application/controllers/Labels.php:511
 #: application/controllers/Labels.php:516
 msgid "Paper was deleted."
 msgstr "纸张已删除。"
@@ -2312,11 +2373,13 @@ msgstr "删除 DXCC 实体"
 msgid "Advanced logbook"
 msgstr "详细日志"
 
+#: application/controllers/Logbookadvanced.php:995
 #: application/controllers/Logbookadvanced.php:998
 #, php-format
 msgid "DXCC updated for %d QSO(s)."
 msgstr "已更新 %d 个 QSO 的 DXCC。"
 
+#: application/controllers/Logbookadvanced.php:1011
 #: application/controllers/Logbookadvanced.php:1014
 #, php-format
 msgid "Map for DXCC %s and gridsquare %s."
@@ -2658,6 +2721,14 @@ msgstr "版本信息不再会向用户显示"
 #: application/controllers/Staticmap.php:202
 #: application/controllers/Visitor.php:46
 #: application/controllers/Visitor.php:75
+#: application/controllers/Visitor.php:141
+#: application/controllers/Visitor.php:153
+#: application/controllers/Visitor.php:177
+#: application/controllers/Visitor.php:202
+#: application/controllers/Visitor.php:227
+#: application/controllers/Visitor.php:260
+#: application/controllers/Visitor.php:517
+#: application/controllers/Widgets.php:68
 #: application/controllers/Visitor.php:142
 #: application/controllers/Visitor.php:154
 #: application/controllers/Visitor.php:178
@@ -2689,7 +2760,7 @@ msgstr "OQRS"
 
 #: application/controllers/Oqrs.php:286
 msgid "Invalid time format. Please use HH:MM (e.g. 08:31)."
-msgstr ""
+msgstr "错误的时间格式，请输入HH:MM格式的时间，例如：13:31。"
 
 #: application/controllers/Oqrs.php:409
 msgid "QSO match deleted successfully."
@@ -2728,27 +2799,30 @@ msgid "The distance between %s and %s is %s kilometer."
 msgid_plural "The distance between %s and %s is %s kilometers."
 msgstr[0] "%s 和 %s 的距离是 %s 公里。"
 
+#: application/controllers/Qrbcalc.php:65
 #: application/controllers/Qrbcalc.php:68
 #, php-format
 msgid "The bearing is %s."
 msgstr "方位角是 %s。"
 
+#: application/controllers/Qrbcalc.php:71
 #: application/controllers/Qrbcalc.php:74
 msgid ""
 "Negative latitudes are south of the equator, negative longitudes are west of "
 "Greenwich."
 msgstr "负数纬度表示南纬，负数经度表示西经。"
 
-#: application/controllers/Qrz.php:204
+#: application/controllers/Qrz.php:202
 #: application/views/interface_assets/header.php:569
+#: application/controllers/Qrz.php:204
 msgid "QRZ Logbook"
 msgstr "QRZ 日志簿"
 
-#: application/controllers/Qrz.php:288
+#: application/controllers/Qrz.php:286 application/controllers/Qrz.php:288
 msgid "QRZ QSL Import"
 msgstr "QRZ QSL 导入"
 
-#: application/controllers/Qrz.php:343
+#: application/controllers/Qrz.php:341 application/controllers/Qrz.php:343
 msgid "QRZ ADIF Information"
 msgstr "QRZ ADIF 信息"
 
@@ -3119,6 +3193,11 @@ msgstr "快速记录 QSO"
 
 #: application/controllers/Staticmap.php:198
 #: application/controllers/Visitor.php:71
+#: application/controllers/Visitor.php:173
+#: application/controllers/Visitor.php:223
+#: application/controllers/Visitor.php:256
+#: application/controllers/Visitor.php:513
+#: application/controllers/Widgets.php:64
 #: application/controllers/Visitor.php:174
 #: application/controllers/Visitor.php:225
 #: application/controllers/Visitor.php:259
@@ -3810,19 +3889,23 @@ msgid ""
 "personal account!"
 msgstr "你已经登出 %s 。欢迎回到你的私人账户，%s ！"
 
+#: application/controllers/Visitor.php:265
 #: application/controllers/Visitor.php:268
 msgid "No public slug found."
 msgstr "未找到外部链接。"
 
+#: application/controllers/Visitor.php:271
 #: application/controllers/Visitor.php:274
 msgid "Satellite Gridsquare Map"
 msgstr "卫星网格地图"
 
-#: application/controllers/Visitor.php:454
+#: application/controllers/Visitor.php:451
 #: application/views/stationsetup/stationsetup.php:48
+#: application/controllers/Visitor.php:454
 msgid "Public Search"
 msgstr "公开搜索"
 
+#: application/controllers/Visitor.php:484
 #: application/controllers/Visitor.php:487
 msgid "Export Map"
 msgstr "导出地图"
@@ -3877,6 +3960,7 @@ msgstr "查找功能未配置，请检查配置。"
 msgid "Error obtaining a session key for callbook. Error: %s"
 msgstr "获取呼号簿会话密钥时出错：%s"
 
+#: application/libraries/Callbook.php:213
 #: application/libraries/Callbook.php:214
 msgid "QRZCQ Error"
 msgstr "QRZCQ 错误"
@@ -4068,6 +4152,7 @@ msgstr "未提供呼号"
 msgid "DXCC has to be Numeric"
 msgstr "DXCC 应该是数字"
 
+#: application/models/Logbook_model.php:4957
 #: application/models/Logbook_model.php:4958
 #, php-format
 msgid ""
@@ -4076,6 +4161,7 @@ msgstr ""
 "导入的本台呼号 %s 与当前台站地址不匹配，这是与 %s 的 QSO，当前台站地址的呼号"
 "为 %s：已跳过"
 
+#: application/models/Logbook_model.php:4965
 #: application/models/Logbook_model.php:4966
 #, php-format
 msgid ""
@@ -4085,22 +4171,26 @@ msgstr ""
 "导入的本台网格 %s 与当前台站地址不匹配，这是与 %s 的 QSO，当前台站地址的网格"
 "为 %s：已跳过"
 
+#: application/models/Logbook_model.php:4981
 #: application/models/Logbook_model.php:4982
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
 msgstr "导入QSO时使用了无效日期，该QSO未被导入。这是无效的"
 
+#: application/models/Logbook_model.php:4991
 #: application/models/Logbook_model.php:4992
 msgid "QSO on"
 msgstr "QSO 时间"
 
+#: application/models/Logbook_model.php:4991
 #: application/models/Logbook_model.php:4992
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
 msgstr "试图导入的 QSO 不存在对方呼号（CALL）。此 QSO 无效，未导入"
 
+#: application/models/Logbook_model.php:5041
 #: application/models/Logbook_model.php:5042
 #, php-format
 msgid ""
@@ -4109,63 +4199,77 @@ msgid ""
 msgstr ""
 "在 %s 上的 QSO：你尝试导入一个未指定频段的 QSO。该 QSO 未被导入。此 QSO 无效"
 
+#: application/models/Logbook_model.php:5315
 #: application/models/Logbook_model.php:5316
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "qslrdate 字段错误（YYYYMMDD）"
 
+#: application/models/Logbook_model.php:5326
 #: application/models/Logbook_model.php:5327
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "qslsdate 字段错误（YYYYMMDD）"
 
+#: application/models/Logbook_model.php:5387
 #: application/models/Logbook_model.php:5388
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "clublog_qso_upload_date 字段错误（ YYYYMMDD）"
 
-#: application/models/Logbook_model.php:5759
+#: application/models/Logbook_model.php:5758
 #: application/views/simplefle/index.php:41
+#: application/models/Logbook_model.php:5759
 msgid "Duplicate for"
 msgstr "内容重复"
 
+#: application/models/Logbook_model.php:5825
+#: application/models/Logbook_model.php:5925
 #: application/models/Logbook_model.php:5826
 #: application/models/Logbook_model.php:5926
 msgid "QSO could not be matched"
 msgstr "QSO 无法匹配"
 
+#: application/models/Logbook_model.php:5833
 #: application/models/Logbook_model.php:5834
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "已经通过 LoTW/Clublog/eQSL/竞赛 确认"
 
+#: application/models/Logbook_model.php:5839
 #: application/models/Logbook_model.php:5840
 msgid "confirmed by award manager"
 msgstr "已经通过奖项管理员确认"
 
+#: application/models/Logbook_model.php:5843
 #: application/models/Logbook_model.php:5844
 msgid "confirmed by cross-check of DCL data"
 msgstr "已经通过 DCL 数据交叉检查确认"
 
+#: application/models/Logbook_model.php:5847
 #: application/models/Logbook_model.php:5848
 msgid "confirmation pending"
 msgstr "等待确认"
 
+#: application/models/Logbook_model.php:5850
 #: application/models/Logbook_model.php:5851
 msgid "unconfirmed"
 msgstr "未确认"
 
-#: application/models/Logbook_model.php:5854
+#: application/models/Logbook_model.php:5853
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
+#: application/models/Logbook_model.php:5854
 msgid "unknown"
 msgstr "未知"
 
+#: application/models/Logbook_model.php:5928
 #: application/models/Logbook_model.php:5929
 msgid "POTA reference already in log"
 msgstr "日志中已存在 POTA 编号"
 
+#: application/models/Logbook_model.php:5931
 #: application/models/Logbook_model.php:5932
 msgid "QSO updated"
 msgstr "QSO已上传"
 
-#: application/models/Logbook_model.php:6337
+#: application/models/Logbook_model.php:6336
 #: application/views/activated_gridmap/index.php:109
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:57
@@ -4177,28 +4281,34 @@ msgstr "QSO已上传"
 #: application/views/user/edit.php:333 application/views/user/edit.php:356
 #: application/views/user/edit.php:379 application/views/user/edit.php:404
 #: application/views/view_log/partial/log_ajax.php:21
+#: application/models/Logbook_model.php:6337
 msgid "Bearing"
 msgstr "方位角"
 
+#: application/models/Logbookadvanced_model.php:1840
 #: application/models/Logbookadvanced_model.php:1839
 msgid "VuccGrids table is empty. Please import the VUCC grids data first."
 msgstr "VuccGrids 表为空。请先导入 VUCC 网格数据。"
 
+#: application/models/Logbookadvanced_model.php:2460
 #: application/models/Logbookadvanced_model.php:2459
 msgid ""
 "Invalid primary QSO ID, or you do not have permission to access one of the "
 "QSOs"
 msgstr "主 QSO ID 无效，或您无权访问其中一个 QSO"
 
-#: application/models/Logbookadvanced_model.php:2469
+#: application/models/Logbookadvanced_model.php:2470
 #: application/views/view_log/qso.php:866
+#: application/models/Logbookadvanced_model.php:2469
 msgid "QSO not found"
 msgstr "QSO 未找到"
 
+#: application/models/Logbookadvanced_model.php:2556
 #: application/models/Logbookadvanced_model.php:2555
 msgid "No fields selected for merge or no differences between QSOs"
 msgstr "未选择要合并的字段，或 QSO 之间无差异"
 
+#: application/models/Logbookadvanced_model.php:2569
 #: application/models/Logbookadvanced_model.php:2568
 msgid "QSOs merged successfully"
 msgstr "QSO 合并成功"
@@ -4219,6 +4329,7 @@ msgstr "通用"
 msgid "Antennas"
 msgstr "天线"
 
+#: application/models/Note.php:63 application/models/Note.php:94
 #: application/models/Note.php:64 application/models/Note.php:95
 msgid "In Contacts category, the titles of the notes need to be unique."
 msgstr "在通讯录类别中，笔记标题需要是唯一的。"
@@ -4228,22 +4339,28 @@ msgctxt "QSL Card Designer; No mailable address found"
 msgid "!!! NO MAILABLE ADDRESS FOUND !!!"
 msgstr "!!! 未找到可邮寄地址 !!!"
 
+#: application/models/Update_model.php:347
 #: application/models/Update_model.php:349
 msgid "Newer release available:"
 msgstr "有新版本可用："
 
+#: application/models/Update_model.php:351
 #: application/models/Update_model.php:353
 msgid "You are running the latest version."
 msgstr "你运行的已经是最新版本。"
 
+#: application/models/Update_model.php:492
 #: application/models/Update_model.php:494
 msgid "cURL error:"
 msgstr "cURL 错误："
 
+#: application/models/Update_model.php:526
 #: application/models/Update_model.php:528
 msgid "SAT already existing. LoTW status updated."
 msgstr "卫星已存在，LoTW 状态已更新。"
 
+#: application/models/Update_model.php:529
+#: application/models/Update_model.php:558
 #: application/models/Update_model.php:531
 #: application/models/Update_model.php:560
 #, php-format
@@ -4251,26 +4368,32 @@ msgid "LoTW status for %d QSO updated"
 msgid_plural "LoTW status for %d QSOs updated"
 msgstr[0] "%d 个 QSO 的 LoTW 状态已更新"
 
+#: application/models/Update_model.php:532
 #: application/models/Update_model.php:534
 msgid "SAT already existing. Updating LoTW status failed."
 msgstr "卫星已存在，LoTW 状态更新失败。"
 
+#: application/models/Update_model.php:535
 #: application/models/Update_model.php:537
 msgid "SAT already existing. Ignored."
 msgstr "卫星已存在，忽略。"
 
+#: application/models/Update_model.php:542
 #: application/models/Update_model.php:544
 msgid "SAT already existing. Display name updated."
 msgstr "卫星已存在，已更新名称。"
 
+#: application/models/Update_model.php:544
 #: application/models/Update_model.php:546
 msgid "SAT already existing. Updating display name failed."
 msgstr "卫星已存在，更新名称失败。"
 
+#: application/models/Update_model.php:554
 #: application/models/Update_model.php:556
 msgid "New SAT. Inserted."
 msgstr "新卫星已添加。"
 
+#: application/models/Update_model.php:562
 #: application/models/Update_model.php:564
 msgid "New SAT. Insert failed."
 msgstr "新卫星添加失败。"
@@ -7553,8 +7676,8 @@ msgid ""
 "any kind of 'Special Interest Group Award' for awards that are not "
 "implemented in Wavelog."
 msgstr ""
-"SIG 或特别兴趣小组类别（Special Interest Group Category）允许用户使用任意"
-"的“特别兴趣小组奖”来奖励未在当前 Wavelog 实现的奖。"
+"SIG 或特别兴趣小组类别（Special Interest Group Category）允许用户使用任意的"
+"“特别兴趣小组奖”来奖励未在当前 Wavelog 实现的奖。"
 
 #: application/views/awards/sig/index.php:8
 msgid ""
@@ -12701,7 +12824,7 @@ msgstr "一切正常"
 
 #: application/views/debug/index.php:876
 msgid "Degraded"
-msgstr ""
+msgstr "回退"
 
 #: application/views/debug/index.php:877
 msgid "Worker backend is not configured."
@@ -12717,7 +12840,7 @@ msgstr "已配置 Woker，但无响应。"
 
 #: application/views/debug/index.php:879
 msgid "Outdated"
-msgstr ""
+msgstr "超时"
 
 #: application/views/debug/index.php:879
 msgid ""
@@ -13411,13 +13534,13 @@ msgstr "注意"
 
 #: application/views/interface_assets/footer.php:40
 msgid "Session expired"
-msgstr ""
+msgstr "会话已过期"
 
 #: application/views/interface_assets/footer.php:41
 msgid ""
 "Your live connection has expired. Please reload the page to keep receiving "
 "live updates."
-msgstr ""
+msgstr "您的会话已过期。请刷新页面以重新开始接收实时更新。"
 
 #: application/views/interface_assets/footer.php:46
 msgid "Warning! Are you sure you want delete QSO with "
@@ -17048,7 +17171,7 @@ msgstr "继续"
 #: application/views/oqrs/request.php:1
 #: application/views/oqrs/request_grouped.php:1
 msgid "Request failed. Please try again."
-msgstr ""
+msgstr "错误的请求，请重试。"
 
 #: application/views/oqrs/notinlogform.php:3
 msgid ""
@@ -17485,15 +17608,15 @@ msgstr "请选择一个模板来删除。"
 
 #: application/views/qslpostcard/designer.php:43
 msgid "Copy failed"
-msgstr ""
+msgstr "复制失败"
 
 #: application/views/qslpostcard/designer.php:44
 msgid "Template copied."
-msgstr ""
+msgstr "模板已复制。"
 
 #: application/views/qslpostcard/designer.php:45
 msgid "Please select a template to copy."
-msgstr ""
+msgstr "请选择一个模板以供复制。"
 
 #: application/views/qslpostcard/designer.php:48
 msgid "selected"
@@ -17531,7 +17654,7 @@ msgstr "保存模板"
 
 #: application/views/qslpostcard/designer.php:77
 msgid "Copy Template"
-msgstr ""
+msgstr "复制模板"
 
 #: application/views/qslpostcard/designer.php:80
 msgid "Delete Template"
@@ -17633,11 +17756,11 @@ msgstr "文本"
 
 #: application/views/qslpostcard/designer.php:249
 msgid "Frequency format"
-msgstr ""
+msgstr "频率格式"
 
 #: application/views/qslpostcard/designer.php:257
 msgid "Omit unit"
-msgstr ""
+msgstr "省略单位"
 
 #: application/views/qslpostcard/designer.php:263
 msgid "X"
@@ -17760,7 +17883,7 @@ msgstr "频段和频率"
 
 #: application/views/qslprint/index.php:55
 msgid "Mark"
-msgstr ""
+msgstr "标记"
 
 #: application/views/qslprint/index.php:57
 msgid "Mark selected QSOs as sent"
@@ -20083,8 +20206,8 @@ msgid ""
 "Click here on 'Add a Theme' and type in the necessary data. Type in the "
 "filenames for the logos %swithout%s the file extension '.png'"
 msgstr ""
-"在这里添加主题，Logo 文件请输入 png 文件的文件名部分（ %s不带有%s 后缀 '."
-"png'）"
+"在这里添加主题，Logo 文件请输入 png 文件的文件名部分（ %s不带有%s 后缀 "
+"'.png'）"
 
 #: application/views/themes/index.php:83
 msgid "Foldername"
@@ -22942,8 +23065,8 @@ msgstr "CQz geojson"
 #~ "Click here on 'Add a Theme' and type in the necessary data. Type in the "
 #~ "filenames for the logos <b>without</b> the file extension '.png'"
 #~ msgstr ""
-#~ "在这里点击 '添加主题'，输入必要的信息，填写 Logo 的文件名（<b>不要带有 ."
-#~ "png 后缀名</b>）"
+#~ "在这里点击 '添加主题'，输入必要的信息，填写 Logo 的文件名（<b>不要带"
+#~ "有 .png 后缀名</b>）"
 
 #, php-format
 #~ msgid ""
