@@ -111,6 +111,27 @@ class RadioComponent {
 
 		// Set default band to 160m and load its default frequency
 		this.setDefaultBand('160m');
+
+		// Restore previously selected radio from a past contest session
+		this.restoreSelectedRadio();
+	}
+
+	/**
+	 * Restore the last selected radio from the DataStore (config namespace).
+	 * Only applies if the stored radio still exists as an option.
+	 */
+	restoreSelectedRadio() {
+		if (!this.radioSelect) return;
+
+		const saved = this.dataStore.get('config.selected_radio');
+		if (!saved || saved === '0') return;
+
+		// Skip if the stored radio is no longer available in the dropdown
+		const optionExists = Array.from(this.radioSelect.options).some(o => o.value === saved);
+		if (!optionExists) return;
+
+		this.radioSelect.value = saved;
+		this.setRadio(saved);
 	}
 
 	/**
@@ -180,6 +201,8 @@ class RadioComponent {
 
 		this.selectedRadio = radioId;
 		this.manualMode = (radioId === '0');
+
+		this.dataStore.set('config.selected_radio', radioId);
 
 		if (this.manualMode) {
 			this.clearDisplay();
