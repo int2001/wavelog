@@ -32,6 +32,7 @@ class Oqrs_model extends CI_Model {
 
     function get_qsos($station_id, $callsign, $bands){
 		$modes = $this->get_worked_modes($station_id);
+		$resultArray = [];
 
 		// Creating an empty array with all the bands and modes from the database
 		foreach ($modes as $mode) {

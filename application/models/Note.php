@@ -36,6 +36,7 @@ class Note extends CI_Model {
 	// List all notes for a user or API key
 	function list_all($api_key = null) {
 		// Determine user ID
+		$user_id = null;
 		if ($api_key == null) {
 			$user_id = $this->session->userdata('user_id');
 		} else {

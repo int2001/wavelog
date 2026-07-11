@@ -1918,7 +1918,7 @@ class Logbook_model extends CI_Model {
 			$times_worked = $data->TWKED;
 		}
 
-		return $times_worked;
+		return $times_worked ?? 0;
 	}
 
 
@@ -4016,7 +4016,7 @@ class Logbook_model extends CI_Model {
 		}
 
 		$location_list = "'" . implode("','", $logbooks_locations_array) . "'";
-
+		$QSLBreakdown = [];
 		if (!empty($logbooks_locations_array)) {
 			$todayStart = date('Y-m-d 00:00:00');
 			$tomorrowStart = date('Y-m-d 00:00:00', strtotime('+1 day'));
@@ -4333,7 +4333,7 @@ class Logbook_model extends CI_Model {
 		} else {
 			$logbooks_locations_array = $StationLocationsArray;
 		}
-
+		$CountriesBreakdown = [];
 		if (!empty($logbooks_locations_array)) {
 			$this->db->select('COUNT(DISTINCT COL_DXCC) as Countries_Worked,
             COUNT(DISTINCT IF(COL_QSL_RCVD = "Y", COL_DXCC, NULL)) as Countries_Worked_QSL,
@@ -4854,6 +4854,7 @@ class Logbook_model extends CI_Model {
 		$duplicate_errors = [];
 		$a_qsos = [];
 		$amsat_qsos = [];
+		$data = [];
 		$today = time();
 		if (!$this->stations->check_station_is_accessible($station_id) && $apicall == false) {
 			$custom_errors['errormessage'] = 'Station not accessible<br>';
@@ -5787,10 +5788,10 @@ class Logbook_model extends CI_Model {
 		if (isset($record['band'])) {
 			$band = strtolower($record['band']);
 		} else {
-			if (isset($record['freq'])) {
-				if ($record['freq'] != "0") {
-					$band = $this->frequency->GetBand($record['freq']);
-				}
+			if (isset($record['freq']) && !empty($record['freq'])) {
+				$band = $this->frequency->GetBand($record['freq']);
+			} else {
+				$band = '';
 			}
 		}
 

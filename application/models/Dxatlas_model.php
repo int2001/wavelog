@@ -101,12 +101,13 @@ class Dxatlas_model extends CI_Model
 					from " . $this->config->item('table_name') .
 					' join station_profile on station_profile.station_id = ' . $this->config->item('table_name').'.station_id' .
 				" where col_gridsquare <> ''";
-		}
-		else if ($column == 'multi') {
+		} else if ($column == 'multi') {
 			$sql = "select col_vucc_grids
             	 from " . $this->config->item('table_name') .
 				 ' join station_profile on station_profile.station_id = ' . $this->config->item('table_name').'.station_id' .
 				" where col_vucc_grids <> '' ";
+		} else {
+			return [];
 		}
 
 		if ($station_id != "All") {

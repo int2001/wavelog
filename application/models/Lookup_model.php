@@ -3,6 +3,7 @@
 class Lookup_model extends CI_Model{
 
 	function getSatResult($queryinfo){
+		$resultArray = [];
 		foreach ($queryinfo['sats'] as $sat) {
 			$resultArray[$sat] = '-';
 		}

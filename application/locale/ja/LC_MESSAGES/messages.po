@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-11 08:37+0000\n"
+"POT-Creation-Date: 2026-07-11 18:58+0000\n"
 "PO-Revision-Date: 2026-07-10 23:01+0000\n"
 "Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
@@ -139,8 +139,8 @@ msgstr "対流圏ダクト"
 #: application/controllers/Calltester.php:12
 #: application/controllers/Club.php:60 application/controllers/Club.php:87
 #: application/controllers/Club.php:131 application/controllers/Club.php:159
-#: application/controllers/Club.php:185 application/controllers/Clublog.php:80
-#: application/controllers/Clublog.php:138
+#: application/controllers/Club.php:185 application/controllers/Clublog.php:82
+#: application/controllers/Clublog.php:140
 #: application/controllers/Components.php:12
 #: application/controllers/Contest_admin.php:13
 #: application/controllers/Contestcalendar.php:7
@@ -187,7 +187,7 @@ msgstr "対流圏ダクト"
 #: application/controllers/Operator.php:12
 #: application/controllers/Options.php:13 application/controllers/Oqrs.php:12
 #: application/controllers/Oqrs.php:424 application/controllers/Qrbcalc.php:12
-#: application/controllers/Qrz.php:198 application/controllers/Qrz.php:284
+#: application/controllers/Qrz.php:200 application/controllers/Qrz.php:286
 #: application/controllers/Qsl.php:11 application/controllers/Qsl.php:12
 #: application/controllers/Qsl.php:47 application/controllers/Qsl.php:54
 #: application/controllers/Qsl.php:82 application/controllers/Qsl.php:130
@@ -210,8 +210,8 @@ msgstr "対流圏ダクト"
 #: application/controllers/Satellite.php:117
 #: application/controllers/Satellite.php:131
 #: application/controllers/Satellite.php:149
-#: application/controllers/Satellite.php:692
-#: application/controllers/Satellite.php:701
+#: application/controllers/Satellite.php:696
+#: application/controllers/Satellite.php:705
 #: application/controllers/Sattimers.php:8 application/controllers/Search.php:9
 #: application/controllers/Simplefle.php:6
 #: application/controllers/Station.php:16
@@ -252,7 +252,7 @@ msgstr "アクティブなグリッドロケーターマップ"
 #: application/controllers/Awards.php:1162
 #: application/controllers/Awards.php:1198
 #: application/controllers/Gridmap.php:34
-#: application/controllers/Visitor.php:415
+#: application/controllers/Visitor.php:418
 #: application/views/activators/index.php:107
 #: application/views/contesting/logger/index.php:57
 #: application/views/interface_assets/footer.php:52
@@ -263,13 +263,13 @@ msgstr "グリッドスクウェア"
 
 #: application/controllers/Activated_gridmap.php:34
 #: application/controllers/Gridmap.php:35
-#: application/controllers/Visitor.php:416
+#: application/controllers/Visitor.php:419
 msgid "Gridsquares confirmed"
 msgstr "確認されたグリッドスクウェア"
 
 #: application/controllers/Activated_gridmap.php:35
 #: application/controllers/Gridmap.php:36
-#: application/controllers/Visitor.php:417
+#: application/controllers/Visitor.php:420
 msgid "Gridsquares not confirmed"
 msgstr "未確認のグリッドスクウェア"
 
@@ -279,26 +279,26 @@ msgstr "アクティブなグリッドスクウェア数"
 
 #: application/controllers/Activated_gridmap.php:38
 #: application/controllers/Gridmap.php:39
-#: application/controllers/Visitor.php:420
+#: application/controllers/Visitor.php:423
 #: application/views/qslpostcard/designer.php:149
 msgid "Fields"
 msgstr "フィールド"
 
 #: application/controllers/Activated_gridmap.php:39
 #: application/controllers/Gridmap.php:40
-#: application/controllers/Visitor.php:421
+#: application/controllers/Visitor.php:424
 msgid "Fields confirmed"
 msgstr "確認されたフィールド"
 
 #: application/controllers/Activated_gridmap.php:40
 #: application/controllers/Gridmap.php:41
-#: application/controllers/Visitor.php:422
+#: application/controllers/Visitor.php:425
 msgid "Fields not confirmed"
 msgstr "確認されてないフィールド"
 
 #: application/controllers/Activated_gridmap.php:41
 #: application/controllers/Gridmap.php:42
-#: application/controllers/Visitor.php:423
+#: application/controllers/Visitor.php:426
 msgid "Total fields worked"
 msgstr "交信したフィールドの合計"
 
@@ -441,13 +441,13 @@ msgstr "アワード"
 #: application/controllers/Awards.php:1389
 #: application/controllers/Awards.php:1540
 #: application/controllers/Awards.php:1591
-#: application/controllers/Awards.php:2151
-#: application/controllers/Awards.php:2300
-#: application/controllers/Awards.php:2430
-#: application/controllers/Awards.php:2504
-#: application/controllers/Awards.php:2517
-#: application/controllers/Awards.php:2592
-#: application/controllers/Awards.php:2734
+#: application/controllers/Awards.php:2152
+#: application/controllers/Awards.php:2301
+#: application/controllers/Awards.php:2431
+#: application/controllers/Awards.php:2505
+#: application/controllers/Awards.php:2518
+#: application/controllers/Awards.php:2593
+#: application/controllers/Awards.php:2735
 #, php-format
 msgid "Awards - %s"
 msgstr "アワード - %s"
@@ -522,7 +522,7 @@ msgstr "ログ表示 - VUCC"
 
 #: application/controllers/Awards.php:668
 #: application/controllers/Callstats.php:101
-#: application/controllers/Distancerecords.php:86
+#: application/controllers/Distancerecords.php:87
 #: application/controllers/Statistics.php:370
 #: application/controllers/Timeline.php:127
 #: application/controllers/Timeline.php:130
@@ -738,38 +738,38 @@ msgstr "WAP"
 msgid "WAIP"
 msgstr "WAIP"
 
-#: application/controllers/Awards.php:2300
+#: application/controllers/Awards.php:2301
 #: application/views/awards/itu/index.php:27
 msgid "ITU Zones"
 msgstr "ITUゾーン"
 
-#: application/controllers/Awards.php:2430
+#: application/controllers/Awards.php:2431
 #: application/views/awards/wac/index.php:7
 #: application/views/interface_assets/header.php:206
 msgid "Worked All Continents (WAC)"
 msgstr "全大陸交信賞 (WAC)"
 
-#: application/controllers/Awards.php:2504
+#: application/controllers/Awards.php:2505
 msgid "WAE"
 msgstr "WAE"
 
-#: application/controllers/Awards.php:2517
+#: application/controllers/Awards.php:2518
 #: application/views/interface_assets/header.php:216
 msgid "73 on 73"
 msgstr "73 on 73"
 
-#: application/controllers/Awards.php:2592
+#: application/controllers/Awards.php:2593
 #: application/views/awards/wpx/wpx_details.php:19
 msgid "WPX"
 msgstr "WPX"
 
-#: application/controllers/Awards.php:2734
+#: application/controllers/Awards.php:2735
 #: application/views/awards/pl_polska/index.php:41
 #: application/views/interface_assets/header.php:281
 msgid "\"Polska\" Award"
 msgstr "「ポーランド」アワード"
 
-#: application/controllers/Awards.php:2778
+#: application/controllers/Awards.php:2779
 msgid "Awards - AMSAT Rover"
 msgstr "アワード - AMSAT Rover"
 
@@ -902,11 +902,11 @@ msgstr "ユーザーをクラブから削除できませんでした。"
 msgid "Invalid message type."
 msgstr "メッセージ タイプが無効です。"
 
-#: application/controllers/Club.php:224
+#: application/controllers/Club.php:225
 msgid "Email can't be initialized. Check the email settings."
 msgstr "メールを初期化できません。メール設定を確認してください。"
 
-#: application/controllers/Club.php:231 application/views/api/index.php:68
+#: application/controllers/Club.php:232 application/views/api/index.php:68
 #: application/views/contesting/logger/components/qso-form.php:35
 #: application/views/satellite/index.php:94
 #: application/views/satellite/satinfo.php:51
@@ -920,14 +920,14 @@ msgstr "不明"
 msgid "Maintenance Mode is active. Try again later."
 msgstr "現在メンテナンス中です。しばらくしてからもう一度お試しください。"
 
-#: application/controllers/Clublog.php:44
-#: application/controllers/Clublog.php:70
-#: application/controllers/Clublog.php:122
-#: application/controllers/Clublog.php:158
+#: application/controllers/Clublog.php:45
+#: application/controllers/Clublog.php:72
+#: application/controllers/Clublog.php:124
+#: application/controllers/Clublog.php:161
 msgid "No user has configured Clublog."
 msgstr "Clublog を設定しているユーザーはいません。"
 
-#: application/controllers/Clublog.php:85
+#: application/controllers/Clublog.php:87
 #: application/controllers/Logbook.php:789
 #: application/views/awards/cq/index.php:131
 #: application/views/awards/dok/index.php:102
@@ -956,7 +956,7 @@ msgstr "Clublog を設定しているユーザーはいません。"
 msgid "Clublog"
 msgstr "Clublog"
 
-#: application/controllers/Clublog.php:140
+#: application/controllers/Clublog.php:142
 msgid "Clublog QSL Import"
 msgstr "Clublog QSLインポート"
 
@@ -1181,7 +1181,7 @@ msgid "SOTA CSV Export"
 msgstr "SOTA CSVエクスポート"
 
 #: application/controllers/Dashboard.php:177
-#: application/controllers/Visitor.php:128
+#: application/controllers/Visitor.php:129
 msgid "Dashboard"
 msgstr "ダッシュボード"
 
@@ -1266,7 +1266,7 @@ msgstr "Wavelogが正常に更新されました！"
 msgid "Selfupdate() not available. Check the Error Log."
 msgstr "Selfupdate() が利用できません。エラーログを確認してください。"
 
-#: application/controllers/Debug.php:328
+#: application/controllers/Debug.php:340
 msgid ""
 "File Migration was successful, but please check also manually. If everything "
 "seems right you can delete the folders 'assets/qslcard' and 'images/"
@@ -1275,12 +1275,12 @@ msgstr ""
 "ファイルの移行は成功しましたが、手動でもご確認ください。問題がなければ、"
 "「assets/qslcard」と「images/eqsl_card_images」フォルダを削除してください。"
 
-#: application/controllers/Debug.php:331
+#: application/controllers/Debug.php:343
 msgid "File Migration failed. Please check the Error Log."
 msgstr "ファイルの移行に失敗しました。エラーログを確認してください。"
 
-#: application/controllers/Distancerecords.php:67
-#: application/controllers/Distancerecords.php:86
+#: application/controllers/Distancerecords.php:68
+#: application/controllers/Distancerecords.php:87
 #: application/views/distancerecords/index.php:6
 #: application/views/interface_assets/header.php:172
 msgid "Satellite Distance Records"
@@ -1446,7 +1446,7 @@ msgid "Gridsquare Map"
 msgstr "グリッドスクエアマップ"
 
 #: application/controllers/Gridmap.php:37
-#: application/controllers/Visitor.php:418
+#: application/controllers/Visitor.php:421
 msgid "Total gridsquares worked"
 msgstr "交信したグリッドスクエアの合計"
 
@@ -1523,59 +1523,59 @@ msgstr "QSLカードラベル"
 msgid "Create Label Type"
 msgstr "ラベルタイプを作成"
 
-#: application/controllers/Labels.php:77 application/controllers/Labels.php:425
+#: application/controllers/Labels.php:77 application/controllers/Labels.php:430
 #: application/views/labels/create.php:22 application/views/labels/edit.php:22
 msgid "Label Name"
 msgstr "ラベル名"
 
-#: application/controllers/Labels.php:78 application/controllers/Labels.php:426
+#: application/controllers/Labels.php:78 application/controllers/Labels.php:431
 #: application/views/labels/create.php:28 application/views/labels/edit.php:28
 #: application/views/labels/index.php:77
 msgid "Paper Type"
 msgstr "用紙の種類"
 
-#: application/controllers/Labels.php:79 application/controllers/Labels.php:427
+#: application/controllers/Labels.php:79 application/controllers/Labels.php:432
 #: application/views/labels/index.php:43 application/views/labels/index.php:78
 msgid "Measurement"
 msgstr "測定"
 
-#: application/controllers/Labels.php:80 application/controllers/Labels.php:428
+#: application/controllers/Labels.php:80 application/controllers/Labels.php:433
 msgid "Top Margin"
 msgstr "上余白"
 
-#: application/controllers/Labels.php:81 application/controllers/Labels.php:429
+#: application/controllers/Labels.php:81 application/controllers/Labels.php:434
 msgid "Left Margin"
 msgstr "左余白"
 
-#: application/controllers/Labels.php:82 application/controllers/Labels.php:430
+#: application/controllers/Labels.php:82 application/controllers/Labels.php:435
 msgid "QSLs Horizontally"
 msgstr "QSLを横向きに"
 
-#: application/controllers/Labels.php:83 application/controllers/Labels.php:431
+#: application/controllers/Labels.php:83 application/controllers/Labels.php:436
 msgid "QSLs Vertically"
 msgstr "QSLを縦に"
 
-#: application/controllers/Labels.php:84 application/controllers/Labels.php:432
+#: application/controllers/Labels.php:84 application/controllers/Labels.php:437
 msgid "Horizontal Space"
 msgstr "水平方向のスペース"
 
-#: application/controllers/Labels.php:85 application/controllers/Labels.php:433
+#: application/controllers/Labels.php:85 application/controllers/Labels.php:438
 msgid "Vertical Space"
 msgstr "垂直空間"
 
-#: application/controllers/Labels.php:86 application/controllers/Labels.php:434
+#: application/controllers/Labels.php:86 application/controllers/Labels.php:439
 msgid "Label width"
 msgstr "ラベル幅"
 
-#: application/controllers/Labels.php:87 application/controllers/Labels.php:435
+#: application/controllers/Labels.php:87 application/controllers/Labels.php:440
 msgid "Label height"
 msgstr "ラベルの高さ"
 
-#: application/controllers/Labels.php:88 application/controllers/Labels.php:436
+#: application/controllers/Labels.php:88 application/controllers/Labels.php:441
 msgid "Size of Font"
 msgstr "フォントサイズ"
 
-#: application/controllers/Labels.php:89 application/controllers/Labels.php:437
+#: application/controllers/Labels.php:89 application/controllers/Labels.php:442
 msgid "Number of QSOs on label"
 msgstr "ラベル上のQSO数"
 
@@ -1584,22 +1584,22 @@ msgid "Create Paper Type"
 msgstr "用紙タイプを作成"
 
 #: application/controllers/Labels.php:118
-#: application/controllers/Labels.php:484
+#: application/controllers/Labels.php:489
 msgid "Paper Name"
 msgstr "論文名"
 
 #: application/controllers/Labels.php:119
-#: application/controllers/Labels.php:485
+#: application/controllers/Labels.php:490
 msgid "Paper Width"
 msgstr "紙幅"
 
 #: application/controllers/Labels.php:120
-#: application/controllers/Labels.php:486
+#: application/controllers/Labels.php:491
 msgid "Paper Height"
 msgstr "紙の高さ"
 
 #: application/controllers/Labels.php:131
-#: application/controllers/Labels.php:494
+#: application/controllers/Labels.php:499
 msgid ""
 "Your paper could not be saved. Remember that it can't have the same name as "
 "existing paper types."
@@ -1626,31 +1626,31 @@ msgstr ""
 "問題が発生しました。ラベルを生成できませんでした。ラベルのサイズとフォントサ"
 "イズを確認してください。"
 
-#: application/controllers/Labels.php:257
+#: application/controllers/Labels.php:262
 msgid "0 QSOs found for print!"
 msgstr "印刷用に0件のQSOが見つかりました！"
 
-#: application/controllers/Labels.php:414
+#: application/controllers/Labels.php:419
 msgid "Edit Label"
 msgstr "ラベルを編集"
 
-#: application/controllers/Labels.php:443
+#: application/controllers/Labels.php:448
 msgid "Label was saved."
 msgstr "ラベルが保存されました。"
 
-#: application/controllers/Labels.php:451
+#: application/controllers/Labels.php:456
 msgid "Label was deleted."
 msgstr "ラベルが削除されました。"
 
-#: application/controllers/Labels.php:473
+#: application/controllers/Labels.php:478
 msgid "Edit Paper"
 msgstr "論文の編集"
 
-#: application/controllers/Labels.php:498
+#: application/controllers/Labels.php:503
 msgid "Paper was saved."
 msgstr "紙が保存されました。"
 
-#: application/controllers/Labels.php:511
+#: application/controllers/Labels.php:516
 msgid "Paper was deleted."
 msgstr "書類が削除されました。"
 
@@ -2310,12 +2310,12 @@ msgstr "DXCCを削除しました"
 msgid "Advanced logbook"
 msgstr "ログブックの詳細"
 
-#: application/controllers/Logbookadvanced.php:995
+#: application/controllers/Logbookadvanced.php:998
 #, php-format
 msgid "DXCC updated for %d QSO(s)."
 msgstr "DXCCが %d QSO 更新されました。"
 
-#: application/controllers/Logbookadvanced.php:1011
+#: application/controllers/Logbookadvanced.php:1014
 #, php-format
 msgid "Map for DXCC %s and gridsquare %s."
 msgstr "DXCC %s およびグリッドスクエア %s のマップ。"
@@ -2668,14 +2668,14 @@ msgstr "バージョン情報はどのユーザーにも表示されません"
 #: application/controllers/Staticmap.php:202
 #: application/controllers/Visitor.php:46
 #: application/controllers/Visitor.php:75
-#: application/controllers/Visitor.php:141
-#: application/controllers/Visitor.php:153
-#: application/controllers/Visitor.php:177
-#: application/controllers/Visitor.php:202
-#: application/controllers/Visitor.php:227
-#: application/controllers/Visitor.php:260
-#: application/controllers/Visitor.php:517
-#: application/controllers/Widgets.php:68
+#: application/controllers/Visitor.php:142
+#: application/controllers/Visitor.php:154
+#: application/controllers/Visitor.php:178
+#: application/controllers/Visitor.php:204
+#: application/controllers/Visitor.php:229
+#: application/controllers/Visitor.php:263
+#: application/controllers/Visitor.php:520
+#: application/controllers/Widgets.php:67
 msgid "Unknown Public Page."
 msgstr "不明な公開ページ。"
 
@@ -2732,32 +2732,33 @@ msgid_plural "The distance between %s and %s is %s nautical miles."
 msgstr[0] "%s と %s の間の距離は %s 海里です。"
 
 #: application/controllers/Qrbcalc.php:59
+#: application/controllers/Qrbcalc.php:62
 #, php-format
 msgid "The distance between %s and %s is %s kilometer."
 msgid_plural "The distance between %s and %s is %s kilometers."
 msgstr[0] "%s と %s の間の距離は %s キロメートルです。"
 
-#: application/controllers/Qrbcalc.php:65
+#: application/controllers/Qrbcalc.php:68
 #, php-format
 msgid "The bearing is %s."
 msgstr "方位は %s 。"
 
-#: application/controllers/Qrbcalc.php:71
+#: application/controllers/Qrbcalc.php:74
 msgid ""
 "Negative latitudes are south of the equator, negative longitudes are west of "
 "Greenwich."
 msgstr "負の緯度は赤道の南側、負の経度はグリニッジの西側です。"
 
-#: application/controllers/Qrz.php:202
+#: application/controllers/Qrz.php:204
 #: application/views/interface_assets/header.php:569
 msgid "QRZ Logbook"
 msgstr "QRZログブック"
 
-#: application/controllers/Qrz.php:286
+#: application/controllers/Qrz.php:288
 msgid "QRZ QSL Import"
 msgstr "QRZ QSLインポート"
 
-#: application/controllers/Qrz.php:341
+#: application/controllers/Qrz.php:343
 msgid "QRZ ADIF Information"
 msgstr "QRZ ADIF情報"
 
@@ -3132,11 +3133,11 @@ msgstr "簡単で高速なログ入力"
 
 #: application/controllers/Staticmap.php:198
 #: application/controllers/Visitor.php:71
-#: application/controllers/Visitor.php:173
-#: application/controllers/Visitor.php:223
-#: application/controllers/Visitor.php:256
-#: application/controllers/Visitor.php:513
-#: application/controllers/Widgets.php:64
+#: application/controllers/Visitor.php:174
+#: application/controllers/Visitor.php:225
+#: application/controllers/Visitor.php:259
+#: application/controllers/Visitor.php:516
+#: application/controllers/Widgets.php:63
 msgid "Empty Logbook"
 msgstr "空のログブック"
 
@@ -3847,20 +3848,20 @@ msgstr ""
 "アカウント「%s」からログアウトされました。%sさん、ご自身の個人アカウントへよ"
 "うこそ！"
 
-#: application/controllers/Visitor.php:265
+#: application/controllers/Visitor.php:268
 msgid "No public slug found."
 msgstr "公開されているスラッグは見つかりませんでした。"
 
-#: application/controllers/Visitor.php:271
+#: application/controllers/Visitor.php:274
 msgid "Satellite Gridsquare Map"
 msgstr "衛星グリッドスクエアマップ"
 
-#: application/controllers/Visitor.php:451
+#: application/controllers/Visitor.php:454
 #: application/views/stationsetup/stationsetup.php:48
 msgid "Public Search"
 msgstr "パブリックサーチ"
 
-#: application/controllers/Visitor.php:484
+#: application/controllers/Visitor.php:487
 msgid "Export Map"
 msgstr "マップをエクスポート"
 
@@ -3916,7 +3917,7 @@ msgstr "ルックアップが設定されていません。設定を確認して
 msgid "Error obtaining a session key for callbook. Error: %s"
 msgstr "コールブックのセッションキーの取得中にエラーが発生しました。エラー: %s"
 
-#: application/libraries/Callbook.php:213
+#: application/libraries/Callbook.php:214
 msgid "QRZCQ Error"
 msgstr "QRZCQ エラー"
 
@@ -4112,7 +4113,7 @@ msgstr "コールなし"
 msgid "DXCC has to be Numeric"
 msgstr "DXCCは数値でなければなりません"
 
-#: application/models/Logbook_model.php:4957
+#: application/models/Logbook_model.php:4958
 #, php-format
 msgid ""
 "Differing station callsign %s while importing QSO with %s for %s: SKIPPED"
@@ -4120,7 +4121,7 @@ msgstr ""
 "%s との QSO をインポート中に、%s のコールサインが %s と異なるため：スキップさ"
 "れました"
 
-#: application/models/Logbook_model.php:4965
+#: application/models/Logbook_model.php:4966
 #, php-format
 msgid ""
 "Differing locator %s while importing QSO with %s for station locator %s: "
@@ -4129,7 +4130,7 @@ msgstr ""
 "局位置 %s を持つ %s の QSO をインポート中に、異なる局位置 %s が検出されまし"
 "た：スキップしました"
 
-#: application/models/Logbook_model.php:4981
+#: application/models/Logbook_model.php:4982
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
@@ -4137,11 +4138,11 @@ msgstr ""
 "有効な日付のないQSOをインポートしようとしました。このQSOはインポートされませ"
 "んでした。無効です"
 
-#: application/models/Logbook_model.php:4991
+#: application/models/Logbook_model.php:4992
 msgid "QSO on"
 msgstr "QSOオン"
 
-#: application/models/Logbook_model.php:4991
+#: application/models/Logbook_model.php:4992
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
@@ -4149,7 +4150,7 @@ msgstr ""
 "コールが指定されていないQSOをインポートしようとしました。このQSOはインポート"
 "されませんでした。無効です"
 
-#: application/models/Logbook_model.php:5041
+#: application/models/Logbook_model.php:5042
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
@@ -4158,63 +4159,63 @@ msgstr ""
 "%s でのQSO: バンドが指定されていないQSOをインポートしようとしました。このQSO"
 "はインポートされませんでした。無効です"
 
-#: application/models/Logbook_model.php:5315
+#: application/models/Logbook_model.php:5316
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "qslrdate が無効です (YYYYMMDD)"
 
-#: application/models/Logbook_model.php:5326
+#: application/models/Logbook_model.php:5327
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "qslsdate が無効です (YYYYMMDD)"
 
-#: application/models/Logbook_model.php:5387
+#: application/models/Logbook_model.php:5388
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "clublog_qso_upload_date が無効です (YYYYMMDD)"
 
-#: application/models/Logbook_model.php:5758
+#: application/models/Logbook_model.php:5759
 #: application/views/simplefle/index.php:41
 msgid "Duplicate for"
 msgstr "複製用"
 
-#: application/models/Logbook_model.php:5825
-#: application/models/Logbook_model.php:5925
+#: application/models/Logbook_model.php:5826
+#: application/models/Logbook_model.php:5926
 msgid "QSO could not be matched"
 msgstr "QSOが一致しませんでした"
 
-#: application/models/Logbook_model.php:5833
+#: application/models/Logbook_model.php:5834
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "LoTW/Clublog/eQSL/コンテストで確認済み"
 
-#: application/models/Logbook_model.php:5839
+#: application/models/Logbook_model.php:5840
 msgid "confirmed by award manager"
 msgstr "賞の管理者によって確認された"
 
-#: application/models/Logbook_model.php:5843
+#: application/models/Logbook_model.php:5844
 msgid "confirmed by cross-check of DCL data"
 msgstr "DCLデータのクロスチェックによって確認された"
 
-#: application/models/Logbook_model.php:5847
+#: application/models/Logbook_model.php:5848
 msgid "confirmation pending"
 msgstr "確認中"
 
-#: application/models/Logbook_model.php:5850
+#: application/models/Logbook_model.php:5851
 msgid "unconfirmed"
 msgstr "未確認"
 
-#: application/models/Logbook_model.php:5853
+#: application/models/Logbook_model.php:5854
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 msgid "unknown"
 msgstr "不明"
 
-#: application/models/Logbook_model.php:5928
+#: application/models/Logbook_model.php:5929
 msgid "POTA reference already in log"
 msgstr "POTA 参照。既にログに存在します"
 
-#: application/models/Logbook_model.php:5931
+#: application/models/Logbook_model.php:5932
 msgid "QSO updated"
 msgstr "QSOが更新されました"
 
-#: application/models/Logbook_model.php:6336
+#: application/models/Logbook_model.php:6337
 #: application/views/activated_gridmap/index.php:109
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:57
@@ -4229,27 +4230,27 @@ msgstr "QSOが更新されました"
 msgid "Bearing"
 msgstr "方位"
 
-#: application/models/Logbookadvanced_model.php:1840
+#: application/models/Logbookadvanced_model.php:1839
 msgid "VuccGrids table is empty. Please import the VUCC grids data first."
 msgstr ""
 "VuccGridsテーブルが空です。まずVUCCグリッドデータをインポートしてください。"
 
-#: application/models/Logbookadvanced_model.php:2460
+#: application/models/Logbookadvanced_model.php:2459
 msgid ""
 "Invalid primary QSO ID, or you do not have permission to access one of the "
 "QSOs"
 msgstr "プライマリQSOIDが無効、またはQSOへのアクセス権限がない"
 
-#: application/models/Logbookadvanced_model.php:2470
+#: application/models/Logbookadvanced_model.php:2469
 #: application/views/view_log/qso.php:866
 msgid "QSO not found"
 msgstr "QSOが見つかりません"
 
-#: application/models/Logbookadvanced_model.php:2556
+#: application/models/Logbookadvanced_model.php:2555
 msgid "No fields selected for merge or no differences between QSOs"
 msgstr "統合用のフィールドが選択されていないか、QSO同士の違いもありません"
 
-#: application/models/Logbookadvanced_model.php:2569
+#: application/models/Logbookadvanced_model.php:2568
 msgid "QSOs merged successfully"
 msgstr "QSOの統合に成功しました"
 
@@ -4269,7 +4270,7 @@ msgstr "一般"
 msgid "Antennas"
 msgstr "アンテナ"
 
-#: application/models/Note.php:63 application/models/Note.php:94
+#: application/models/Note.php:64 application/models/Note.php:95
 msgid "In Contacts category, the titles of the notes need to be unique."
 msgstr "連絡先カテゴリでは、メモのタイトルは一意である必要があります。"
 
@@ -4278,50 +4279,50 @@ msgctxt "QSL Card Designer; No mailable address found"
 msgid "!!! NO MAILABLE ADDRESS FOUND !!!"
 msgstr "!!!郵送先住所が見つかりませんでした!!!"
 
-#: application/models/Update_model.php:347
+#: application/models/Update_model.php:349
 msgid "Newer release available:"
 msgstr "新しいリリースが利用可能です:"
 
-#: application/models/Update_model.php:351
+#: application/models/Update_model.php:353
 msgid "You are running the latest version."
 msgstr "最新バージョンを実行しています。"
 
-#: application/models/Update_model.php:492
+#: application/models/Update_model.php:494
 msgid "cURL error:"
 msgstr "cURL エラー:"
 
-#: application/models/Update_model.php:526
+#: application/models/Update_model.php:528
 msgid "SAT already existing. LoTW status updated."
 msgstr "SAT は既に存在します。LoTW ステータスが更新されました。"
 
-#: application/models/Update_model.php:529
-#: application/models/Update_model.php:558
+#: application/models/Update_model.php:531
+#: application/models/Update_model.php:560
 #, php-format
 msgid "LoTW status for %d QSO updated"
 msgid_plural "LoTW status for %d QSOs updated"
 msgstr[0] "LoTWステータス %d 件の QSO が更新されました"
 
-#: application/models/Update_model.php:532
+#: application/models/Update_model.php:534
 msgid "SAT already existing. Updating LoTW status failed."
 msgstr "SAT は既に存在します。LoTW ステータスの更新に失敗しました。"
 
-#: application/models/Update_model.php:535
+#: application/models/Update_model.php:537
 msgid "SAT already existing. Ignored."
 msgstr "SAT はすでに存在します。無視されます。"
 
-#: application/models/Update_model.php:542
+#: application/models/Update_model.php:544
 msgid "SAT already existing. Display name updated."
 msgstr "SAT は既に存在します。表示名を更新しました。"
 
-#: application/models/Update_model.php:544
+#: application/models/Update_model.php:546
 msgid "SAT already existing. Updating display name failed."
 msgstr "SAT は既に存在します。表示名の更新に失敗しました。"
 
-#: application/models/Update_model.php:554
+#: application/models/Update_model.php:556
 msgid "New SAT. Inserted."
 msgstr "新しいSATを挿入しました。"
 
-#: application/models/Update_model.php:562
+#: application/models/Update_model.php:564
 msgid "New SAT. Insert failed."
 msgstr "新しい SAT。挿入に失敗しました。"
 
