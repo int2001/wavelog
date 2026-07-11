@@ -79,7 +79,7 @@ class Qslpostcard_model extends CI_Model {
 
         // Give the copy its own image file — never the source's path — so the two
         // templates stay fully independent.
-        $preview_image = $this->duplicate_preview_image($uid, $src['preview_image'] ?? null);
+        $preview_image = $this->duplicate_preview_image($src['preview_image'] ?? null);
 
         $row = [
             'name'          => $copyName,
@@ -99,7 +99,7 @@ class Qslpostcard_model extends CI_Model {
     // dir, returning the new userdata-relative ('u') path. Returns null when the
     // source has no image or the copy can't be made — never the original path, so
     // a failure can't silently create a shared reference between templates.
-    private function duplicate_preview_image($uid, $preview_image) {
+    private function duplicate_preview_image($preview_image) {
         if (empty($preview_image)) {
             return null;
         }
