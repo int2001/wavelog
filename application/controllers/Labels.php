@@ -235,6 +235,11 @@ class Labels extends CI_Controller {
 				redirect('labels');
 			}
 		}
+		// Reached only on the success path above; guard so static analysis knows $pdf/$ptype are set
+		if (!isset($pdf, $ptype)) {
+			return;
+		}
+
 		define('FPDF_FONTPATH', './src/Label/font/');
 
 		$pdf->AddPage($ptype->orientation);
