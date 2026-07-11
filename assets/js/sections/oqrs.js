@@ -152,6 +152,10 @@ function saveNotInLogRequest() {
                     $(".stationinfo").empty();
                     $(".searchinfo").empty();
                     $(".stationinfo").append('<br /><div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Your not in log query has been saved!</div>');
+                },
+                error: function(xhr) {
+                    var msg = (xhr.responseJSON && xhr.responseJSON.error) || lang_oqrs_request_failed;
+                    $(".searchinfo").prepend('<div class="alertinfo"><br /><div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + msg + '</div></div>');
                 }
             });
         }
@@ -271,6 +275,10 @@ function submitOqrsRequest() {
                     $(".stationinfo").empty();
                     $(".searchinfo").empty();
                     $(".stationinfo").append('<br /><div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Your QSL request has been saved!</div>');
+                },
+                error: function(xhr) {
+                    var msg = (xhr.responseJSON && xhr.responseJSON.error) || lang_oqrs_request_failed;
+                    $(".searchinfo").prepend('<div class="alertinfo"><br /><div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + msg + '</div></div>');
                 }
             });
         }
@@ -317,6 +325,10 @@ function submitOqrsRequestGrouped() {
                     $(".stationinfo").empty();
                     $(".searchinfo").empty();
                     $(".stationinfo").append('<br /><div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Your QSL request has been saved!</div>');
+                },
+                error: function(xhr) {
+                    var msg = (xhr.responseJSON && xhr.responseJSON.error) || lang_oqrs_request_failed;
+                    $(".searchinfo").prepend('<div class="alertinfo"><br /><div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + msg + '</div></div>');
                 }
             });
         }
