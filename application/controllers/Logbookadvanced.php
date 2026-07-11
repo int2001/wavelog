@@ -433,6 +433,9 @@ class Logbookadvanced extends CI_Controller {
 			case 'K':
 				$var_dist = " kilometers";
 				break;
+			default:
+				log_message('error', 'Invalid measurement base: ' . $measurement_base);
+				return;
 		}
 
 		$mappedcoordinates = array();
