@@ -68,7 +68,10 @@ class Qra {
 	function get_bearing($tx, $rx, $ant_path = null) {
 		$my = qra2latlong($tx);
 		$stn = qra2latlong($rx);
-		return get_bearing($my[0], $my[1], $stn[0], $stn[1], $ant_path);
+		if ($my !== false && $stn !== false) {
+			return get_bearing($my[0], $my[1], $stn[0], $stn[1], $ant_path);
+		}
+		return false;
 	}
 
 	/*
