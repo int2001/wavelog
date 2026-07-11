@@ -36,6 +36,7 @@ class Clublog extends CI_Controller
 
 		$users = $this->clublog_model->get_clublog_users();
 
+		$r = '';
 		if (!empty($users)) {
 			foreach ($users as $user) {
 				$r = $this->clublog_model->uploadUser($user->user_id, $user->user_clublog_name, $user->user_clublog_password);
@@ -58,6 +59,7 @@ class Clublog extends CI_Controller
 
 		$users = $this->clublog_model->get_clublog_users();
 
+		$r = '';
 		if (!empty($users)) {
 			foreach ($users as $user) {
 				$r = $this->clublog_model->downloadUser($user->user_id, $user->user_clublog_name, $user->user_clublog_password);
@@ -150,6 +152,7 @@ class Clublog extends CI_Controller
 			}
 			$users = $this->clublog_model->get_clublog_users($this->session->userdata('user_id'));
 
+			$r = '';
 			if (!empty($users)) {
 				foreach ($users as $user) {
 					$r = $this->clublog_model->downloadUser($user->user_id, $user->user_clublog_name, $user->user_clublog_password, $clublog_last_date);
