@@ -23,6 +23,9 @@ class Errors extends CI_Controller {
 		$data['message1'] = __("QRZ? ... no reply.");
 		$data['message2'] = __("Nobody is transmitting on this frequency.");
 
+		$language = function_exists('current_language') ? current_language() : null;
+		$data['language'] = $language ?: ['code' => 'en', 'direction' => 'ltr'];
+
 		// Keep the HTTP status correct (404_override otherwise yields 200).
 		$this->output->set_status_header(404);
 
