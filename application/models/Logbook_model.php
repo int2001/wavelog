@@ -4854,6 +4854,7 @@ class Logbook_model extends CI_Model {
 		$duplicate_errors = [];
 		$a_qsos = [];
 		$amsat_qsos = [];
+		$data = [];
 		$today = time();
 		if (!$this->stations->check_station_is_accessible($station_id) && $apicall == false) {
 			$custom_errors['errormessage'] = 'Station not accessible<br>';
@@ -5787,10 +5788,10 @@ class Logbook_model extends CI_Model {
 		if (isset($record['band'])) {
 			$band = strtolower($record['band']);
 		} else {
-			if (isset($record['freq'])) {
-				if ($record['freq'] != "0") {
-					$band = $this->frequency->GetBand($record['freq']);
-				}
+			if (isset($record['freq']) && !empty($record['freq'])) {
+				$band = $this->frequency->GetBand($record['freq']);
+			} else {
+				$band = '';
 			}
 		}
 
