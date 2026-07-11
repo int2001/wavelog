@@ -4016,7 +4016,7 @@ class Logbook_model extends CI_Model {
 		}
 
 		$location_list = "'" . implode("','", $logbooks_locations_array) . "'";
-
+		$QSLBreakdown = [];
 		if (!empty($logbooks_locations_array)) {
 			$todayStart = date('Y-m-d 00:00:00');
 			$tomorrowStart = date('Y-m-d 00:00:00', strtotime('+1 day'));
@@ -4333,7 +4333,7 @@ class Logbook_model extends CI_Model {
 		} else {
 			$logbooks_locations_array = $StationLocationsArray;
 		}
-
+		$CountriesBreakdown = [];
 		if (!empty($logbooks_locations_array)) {
 			$this->db->select('COUNT(DISTINCT COL_DXCC) as Countries_Worked,
             COUNT(DISTINCT IF(COL_QSL_RCVD = "Y", COL_DXCC, NULL)) as Countries_Worked_QSL,
