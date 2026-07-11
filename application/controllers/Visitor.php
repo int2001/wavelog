@@ -176,6 +176,7 @@ class Visitor extends CI_Controller {
 				} else {
 					log_message('error', $public_slug . ' has no associated station locations');
 					show_404(__("Unknown Public Page."));
+					die;
 				}
 
 				$this->load->model('logbook_model');
@@ -226,6 +227,7 @@ class Visitor extends CI_Controller {
 		} else {
 			log_message('error', $slug . ' has no associated station locations');
 			show_404(__("Unknown Public Page."));
+			die;
 		}
 
 		$qsos = $this->logbook_model->get_qsos($this->qso_per_page, $this->uri->segment(4), $logbooks_locations_array);
@@ -516,6 +518,7 @@ class Visitor extends CI_Controller {
 		} else {
 			log_message('error', $slug . ' has no associated station locations');
 			show_404(__("Unknown Public Page."));
+			die;
 		}
 
 		$qsos = $this->visitor_model->get_qsos($qsocount, $logbooks_locations_array, $band);
