@@ -1360,7 +1360,7 @@ class User extends CI_Controller {
 				}
 			} catch (Exception $e) {
 				// Something went wrong with the cookie
-				log_message('error', "User ID: [".$uid."]; 'Keep Login' failed. Cookie deleted. Message: ".$e);
+				log_message('error', "User ID: [".($uid ?? 'unknown')."]; 'Keep Login' failed. Cookie deleted. Message: ".$e);
 
 				// Delete keep_login cookie
 				$this->input->set_cookie('keep_login', '', -3600, '');

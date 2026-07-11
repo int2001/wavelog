@@ -2094,6 +2094,7 @@ class Awards extends CI_Controller {
 
 	    $i = 0;
 
+		$newiota = [];
 	    foreach ($iotalist as $iota) {
 		    $newiota[$i]['tag'] = $iota->tag;
 		    $newiota[$i]['prefix'] = $iota->prefix;

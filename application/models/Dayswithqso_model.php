@@ -111,6 +111,8 @@ class Dayswithqso_model extends CI_Model
         $dates = $this->getDates();
         $streak = 1;        // A day with a qso will always be a streak
         $dateprev = date_create('1900-01-01'); // init variable with an old date
+        $datecurr = null; // holds the date of the current QSO day; set inside the loop
+        $endstreak = null; // holds the last day of the current streak; set once a streak is detected
         $i = 0;
 
         if ($dates) {
@@ -125,7 +127,7 @@ class Dayswithqso_model extends CI_Model
                         $streak++;
                         $endstreak = $datecurr; // As long as the streak continues, we update the end date
                     } else {
-                        if ($streak > 1) {
+                        if ($streak > 1 && $endstreak !== null) {
                             $streaks[$i]['highstreak'] = $streak;
                             $streaks[$i]['endstreak'] = $endstreak->format('Y-m-d');
                             $streaks[$i]['beginstreak'] = $endstreak->sub(new DateInterval('P'.($streak-1).'D'))->format('Y-m-d');
@@ -137,7 +139,7 @@ class Dayswithqso_model extends CI_Model
                 }
             }
 
-			if ($dateprev == $datecurr && $streak > 1) {
+			if ($dateprev == $datecurr && $streak > 1 && $endstreak !== null) {
 				$streaks[$i]['highstreak'] = $streak;
 				$streaks[$i]['endstreak'] = $endstreak->format('Y-m-d');
 				$streaks[$i]['beginstreak'] = $endstreak->sub(new DateInterval('P'.($streak-1).'D'))->format('Y-m-d');
@@ -151,6 +153,8 @@ class Dayswithqso_model extends CI_Model
                 return null;
             }
         }
+
+        return null;
     }
 
     /*

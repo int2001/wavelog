@@ -206,9 +206,6 @@ class DXCC extends CI_Model {
 
 		if ($postdata['band'] == 'SAT') {
 			foreach ($dxccDataSat as $dxcc) {
-				if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
-					continue;
-				}
 				// Skip if this band is not in our requested bands list
 				if (!isset($validBands[$dxcc->col_band])) {
 					continue;

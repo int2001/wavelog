@@ -207,6 +207,7 @@ class Club extends CI_Controller
 				log_message('error', "Club Notification; Can't notify user - Invalid message type.");
 				$this->session->set_flashdata('error', __("Invalid message type."));
 				redirect('club/permissions/'.$club_id);
+				die;
 		}
 		
 		$config = [
