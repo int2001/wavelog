@@ -1918,7 +1918,7 @@ class Logbook_model extends CI_Model {
 			$times_worked = $data->TWKED;
 		}
 
-		return $times_worked;
+		return $times_worked ?? 0;
 	}
 
 
