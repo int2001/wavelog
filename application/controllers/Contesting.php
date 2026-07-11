@@ -1630,7 +1630,7 @@ class Contesting extends CI_Controller {
 
 		// Local DXCC lookup — always available, no network needed
 		$date    = date("Y-m-d");
-		$dxccobj = new Dxcc($date);
+		$dxccobj = new Dxcc();
 		$dxcc    = $dxccobj->dxcc_lookup($call, $date);
 
 		$payload = [
