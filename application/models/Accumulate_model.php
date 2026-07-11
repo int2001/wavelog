@@ -246,7 +246,7 @@ class Accumulate_model extends CI_Model
 	function get_accumulated_dxcc($band, $mode, $propmode, $period, $location_list) {
 		$where_condition = "COL_DXCC > 0";
 		$where_check = "COL_DXCC > 0";
-		return $this->get_accumulated_by_column($band, $mode, $propmode, $period, $location_list, 'col_dxcc', $where_condition, $where_check, $where_condition, true);
+		return $this->get_accumulated_by_column($band, $mode, $propmode, $period, $location_list, 'col_dxcc', $where_condition, $where_check, $where_condition);
 	}
 
 	function get_accumulated_waja($band, $mode, $propmode, $period, $location_list) {
