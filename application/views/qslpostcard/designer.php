@@ -40,6 +40,9 @@ $_step_pitch = $_metric ? '0.1'  : '0.05';   // row pitch
 		deleteFailed: <?= json_encode(__("Delete failed")); ?>,
 		deleteSuccess: <?= json_encode(__("Template deleted successfully!")); ?>,
 		selectTemplateToDelete: <?= json_encode(__("Please select a template to delete.")); ?>,
+		copyFailed: <?= json_encode(__("Copy failed")); ?>,
+		copySuccess: <?= json_encode(__("Template copied.")); ?>,
+		selectTemplateToCopy: <?= json_encode(__("Please select a template to copy.")); ?>,
 		success: <?= json_encode(__("Success")); ?>,
 		error: <?= json_encode(__("Error")); ?>,
 		selected: <?= json_encode(__("selected")); ?>,
@@ -70,6 +73,9 @@ $_step_pitch = $_metric ? '0.1'  : '0.05';   // row pitch
 						<input id="tplName" class="form-control form-control-sm" maxlength="100" style="min-width:140px;" placeholder="<?= __("Template name"); ?>">
 						<button id="btnSave" class="btn btn-sm btn-success text-nowrap" title="<?= __("Save Template"); ?>">
 							<i class="fas fa-save me-1"></i><?= __("Save"); ?>
+						</button>
+						<button id="btnCopy" class="btn btn-sm btn-outline-primary text-nowrap" title="<?= __("Copy Template"); ?>">
+							<i class="fas fa-copy"></i>
 						</button>
 						<button id="btnDelete" class="btn btn-sm btn-outline-danger text-nowrap" title="<?= __("Delete Template"); ?>">
 							<i class="fas fa-trash"></i>
