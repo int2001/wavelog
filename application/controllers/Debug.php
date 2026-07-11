@@ -209,7 +209,7 @@ class Debug extends CI_Controller
 		$qsoids = xss_clean(($this->input->post('qsoids')));
 		$station_profile_id = xss_clean(($this->input->post('station_id') ?? 0));
 
-		log_message('debug', 'station_profile_id:', $station_profile_id);
+		log_message('debug', 'station_profile_id: '. $station_profile_id);
 		// Check if target-station-id exists
 		$allowed = false;
 		$status = false;
