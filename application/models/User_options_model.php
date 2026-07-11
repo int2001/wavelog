@@ -10,7 +10,11 @@ class User_options_model extends CI_Model {
 		foreach ($option_array as $option_key => $option_value) {
 			$query = $this->db->query($sql, array($uid, $option_type, $option_name, $option_key, $option_value, $option_value));
 		}
-		return $query;
+		if (isset($query) && $query) {
+			return true;
+		} else {
+			log_message('error', 'set_option() failed for user_id: ' . ($uid ?? 'null') . ', option_type: ' . ($option_type ?? 'null') . ', option_name: ' . ($option_name ?? 'null'));
+		}
 	}
 
 	public function set_option_at_all_users($option_type, $option_name, $option_array) {

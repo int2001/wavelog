@@ -42,6 +42,8 @@ class Qrz extends CI_Controller {
 		curl_setopt( $ch, CURLOPT_USERAGENT, 'Wavelog/'.$this->optionslib->get_option('version'));
 		
 		$content = curl_exec($ch);
+		
+		$result = [];
 
 		if ($content){
 			if (stristr($content,'RESULT=OK')) {

@@ -207,9 +207,9 @@ class Debug extends CI_Controller
 
 		$call = xss_clean(($this->input->post('call')));
 		$qsoids = xss_clean(($this->input->post('qsoids')));
-		$station_profile_id = xss_clean(($this->input->post('station_id')));
+		$station_profile_id = xss_clean(($this->input->post('station_id') ?? 0));
 
-		log_message('debug', 'station_profile_id:', $station_profile_id);
+		log_message('debug', 'station_profile_id: '. $station_profile_id);
 		// Check if target-station-id exists
 		$allowed = false;
 		$status = false;
@@ -283,29 +283,41 @@ class Debug extends CI_Controller
 		redirect('debug');
 	}
 
+	private function git_usable() {
+		if (!function_usable('exec')) {
+			return false;
+		}
+		if (!is_dir(FCPATH.'.git')) {
+			return false;
+		}
+		exec('command -v git 2>/dev/null', $out, $ret);
+		return $ret === 0 && !empty($out);
+	}
+
 	public function wavelog_fetch() {
-		$a_versions=[];
-		if (function_usable('exec')) {
+		$versions=[];
+		if ($this->git_usable()) {
 			try {
-				$st=exec('git fetch');	// Fetch latest things from Repo. ONLY Fetch. Doesn't hurt since it isn't a pull!
-							$versions['branch'] = trim(exec('git rev-parse --abbrev-ref HEAD')); // Get ONLY Name of the Branch we're on
-				$versions['latest_commit_hash']=substr(trim(exec('git log --pretty="%H" -n1 origin'.'/'.$versions['branch'])),0,8);	// fetch latest commit-hash from repo
+				$st=exec('git fetch 2>/dev/null');	// Fetch latest things from Repo. ONLY Fetch. Doesn't hurt since it isn't a pull!
+							$versions['branch'] = trim(exec('git rev-parse --abbrev-ref HEAD 2>/dev/null')); // Get ONLY Name of the Branch we're on
+				$versions['latest_commit_hash']=substr(trim(exec('git log --pretty="%H" -n1 origin'.'/'.$versions['branch'].' 2>/dev/null')),0,8);	// fetch latest commit-hash from repo
 			}  catch (Exception $e) {
 				$versions['latest_commit_hash']='';
 				$versions['branch']='';
 			}
 		} else {
-			log_message('error', 'wavelog_fetch() not available. Function exec() not usable.');
+			log_message('debug', 'wavelog_fetch() skipped: git not usable (no git binary or not a checkout).');
 		}
 		header('Content-Type: application/json');
 		echo json_encode($versions);
 	}
 
 	public function wavelog_version() {
-		if (function_usable('exec')) {
-			$commit_hash=substr(trim(exec('git log --pretty="%H" -n1 HEAD')),0,8);	// Get latest LOCAL Hash
+		$commit_hash='';
+		if ($this->git_usable()) {
+			$commit_hash=substr(trim(exec('git log --pretty="%H" -n1 HEAD 2>/dev/null')),0,8);	// Get latest LOCAL Hash
 		} else {
-			log_message('error', 'wavelog_version() not available. Function exec() not usable.');
+			log_message('debug', 'wavelog_version() skipped: git not usable (no git binary or not a checkout).');
 		}
 		header('Content-Type: application/json');
 		echo json_encode($commit_hash);

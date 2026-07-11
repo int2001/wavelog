@@ -572,6 +572,19 @@ class Satellite extends CI_Controller {
 
 	function calcSkedPasses($tles) {
 		$overlaps=[];
+		$yourgrid = '';
+		$skedgrid = '';
+		$date = '';
+		
+		// Get Date format
+		if ($this->session->userdata('user_date_format')) {
+			// If Logged in and session exists
+			$custom_date_format = $this->session->userdata('user_date_format');
+		} else {
+			// Get Default date format from /config/wavelog.php
+			$custom_date_format = $this->config->item('qso_date_format');
+		}
+
 		foreach ($tles as $tle) {
 
 			$yourgrid = $this->security->xss_clean($this->input->post('yourgrid'));
@@ -585,15 +598,6 @@ class Satellite extends CI_Controller {
 			$minskedelevation = $this->security->xss_clean($this->input->post('minskedelevation'));
 
 			$skedPass = $this->calcPass($tle, $skedgrid, $date, $mintime, $minskedelevation);
-
-			// Get Date format
-			if ($this->session->userdata('user_date_format')) {
-				// If Logged in and session exists
-				$custom_date_format = $this->session->userdata('user_date_format');
-			} else {
-				// Get Default date format from /config/wavelog.php
-				$custom_date_format = $this->config->item('qso_date_format');
-			}
 
 			$data['format'] = $custom_date_format . ' H:i:s';
 

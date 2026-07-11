@@ -58,6 +58,9 @@ class Qrbcalc extends CI_Controller {
 			case 'K':
 				$var_dist = sprintf(_ngettext("The distance between %s and %s is %s kilometer.", "The distance between %s and %s is %s kilometers.", intval($distance)), $locator1, $locator2, $distance);
 				break;
+			default:
+				$var_dist = sprintf(_ngettext("The distance between %s and %s is %s kilometer.", "The distance between %s and %s is %s kilometers.", intval($distance)), $locator1, $locator2, $distance);
+				break;
 		}
 
 		$data['result'] = $this->qra->bearing($locator1, $locator2, $measurement_base);

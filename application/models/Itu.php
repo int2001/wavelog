@@ -100,9 +100,6 @@ class ITU extends CI_Model{
 
 		if ($postdata['band'] == 'SAT') {
 			foreach ($itudata_sat as $itu) {
-				if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
-					continue;
-				}
 				// Skip if this band is not in our requested bands list
 				if (!isset($validBands[$itu->col_band])) {
 					continue;

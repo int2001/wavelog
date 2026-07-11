@@ -559,7 +559,7 @@
                                 </div>
                             <?php } else { ?>
                                 <div class="alert alert-danger mt-2 mb-0" role="alert">
-                                    <?= __("Cache does not work! Currently the system is using a %s adapter. Check your file permissions, PHP extensions and/or your network connection to the services (if using redis/memcached). You can continue using Wavelog, but no values will be cached (which is bad).", "'dummy'"); ?>
+                                    <?= sprintf(__("Cache does not work! Currently the system is using a %s adapter. Check your file permissions, PHP extensions and/or your network connection to the services (if using redis/memcached). You can continue using Wavelog, but no values will be cached (which is bad)."), "'dummy'"); ?>
                                 </div>
                             <?php } ?>
                         </div>

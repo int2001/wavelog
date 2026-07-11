@@ -288,8 +288,12 @@ function bearing($lat1, $lon1, $lat2, $lon2, $unit = 'M', $ant_path = null) {
 	return round($bearing, 0) . "&#186; " . $dir . " " . $var_dist;
 }
 
-function get_bearing($lat1, $lon1, $lat2, $lon2) {
-	return (int)(rad2deg(atan2(sin(deg2rad($lon2) - deg2rad($lon1)) * cos(deg2rad($lat2)), cos(deg2rad($lat1)) * sin(deg2rad($lat2)) - sin(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($lon2) - deg2rad($lon1)))) + 360) % 360;
+function get_bearing($lat1, $lon1, $lat2, $lon2, $ant_path = null) {
+	$bearing = (int)(rad2deg(atan2(sin(deg2rad($lon2) - deg2rad($lon1)) * cos(deg2rad($lat2)), cos(deg2rad($lat1)) * sin(deg2rad($lat2)) - sin(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($lon2) - deg2rad($lon1)))) + 360) % 360;
+	if ($ant_path == 'L') {	// Long path is the reciprocal of the short-path bearing
+		$bearing = ($bearing + 180) % 360;
+	}
+	return $bearing;
 }
 
 function qra2latlong($strQRA) {
