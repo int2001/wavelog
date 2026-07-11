@@ -185,7 +185,7 @@
 
 			$a_ret['frequency'] = $row->frequency;
 			$a_ret['frequency_formatted'] = $this->frequency->qrg_conversion($row->frequency);
-			if (isset($row->frequency_rx) && ($row->frequency_rx != null)) {
+			if (!empty($row->frequency_rx)) {
 				$a_ret['frequency_rx'] = $row->frequency_rx;
 				$a_ret['frequency_rx_formatted'] = $this->frequency->qrg_conversion($row->frequency_rx);
 			}
