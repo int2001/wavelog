@@ -75,7 +75,7 @@ class Qslpostcard_model extends CI_Model {
             return false;
         }
 
-        $copyName = mb_substr(rtrim((string)$src['name']) . ' (' . __('copy') . ')', 0, 100);
+        $copyName = mb_substr(rtrim((string)$src['name']) . ' (' . __('Copy') . ')', 0, 100);
 
         // Give the copy its own image file — never the source's path — so the two
         // templates stay fully independent.
