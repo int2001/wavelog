@@ -1248,10 +1248,9 @@ class Logbookadvanced_model extends CI_Model {
 
 			$query = $this->db->query($sql, array($value, $value2, $band, $bandRx, json_decode($ids, true), $this->session->userdata('user_id')));
 		} else if ($column == 'COL_GRIDSQUARE') {
-			if ($value == '') {
-				$grid_value = null;
-				$vucc_value = null;
-			} else {
+			$grid_value = null;
+			$vucc_value = null;
+			if ($value != '') {
 				if(!$this->load->is_loaded('Qra')) {
 					$this->load->library('Qra');
 				}
