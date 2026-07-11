@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-10 16:54+0000\n"
-"PO-Revision-Date: 2026-07-07 07:04+0000\n"
+"POT-Creation-Date: 2026-07-10 18:40+0000\n"
+"PO-Revision-Date: 2026-07-10 07:55+0000\n"
 "Last-Translator: iv3cvn <ricentis@gmail.com>\n"
 "Language-Team: Italian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/it/>\n"
@@ -194,9 +194,9 @@ msgstr "Canalizzazioni troposferiche"
 #: application/controllers/Qslpostcard.php:15
 #: application/controllers/Qslprint.php:22
 #: application/controllers/Qslprint.php:156 application/controllers/Qso.php:7
-#: application/controllers/Qso.php:20 application/controllers/Qso.php:304
-#: application/controllers/Qso.php:470 application/controllers/Qso.php:492
-#: application/controllers/Qso.php:514 application/controllers/Qso.php:818
+#: application/controllers/Qso.php:20 application/controllers/Qso.php:315
+#: application/controllers/Qso.php:481 application/controllers/Qso.php:503
+#: application/controllers/Qso.php:525 application/controllers/Qso.php:829
 #: application/controllers/Radio.php:30 application/controllers/Radio.php:315
 #: application/controllers/Radio.php:340 application/controllers/Radio.php:355
 #: application/controllers/Satellite.php:12
@@ -392,7 +392,7 @@ msgid "API Key %s description has been updated."
 msgstr "La descrizione per la chiave %s è stata aggiornata."
 
 #: application/controllers/Api.php:109 application/controllers/Api.php:143
-#: application/controllers/Qso.php:609
+#: application/controllers/Qso.php:620
 msgid "Invalid request method"
 msgstr "Metodo di richiesta non valido"
 
@@ -2874,19 +2874,19 @@ msgstr "cartolina QSL PDF selezionata non riuscito: "
 msgid "Print Requested QSLs"
 msgstr "Stampa QSL richieste"
 
-#: application/controllers/Qso.php:147
+#: application/controllers/Qso.php:158
 msgid "Add QSO"
 msgstr "Aggiungi QSO"
 
-#: application/controllers/Qso.php:878
+#: application/controllers/Qso.php:889
 msgid "You have to be logged in to access this URL."
 msgstr "Devi effettuare l'accesso per accedere a questo URL."
 
-#: application/controllers/Qso.php:884
+#: application/controllers/Qso.php:895
 msgid "Call Transfer"
 msgstr "Trasferisci nominativo"
 
-#: application/controllers/Qso.php:891
+#: application/controllers/Qso.php:902
 msgid "No callsign provided."
 msgstr "Nessun nominativo fornito."
 
@@ -3865,7 +3865,7 @@ msgstr ""
 
 #: application/controllers/Visitor.php:265
 msgid "No public slug found."
-msgstr ""
+msgstr "Nessuno slug pubblico trovato."
 
 #: application/controllers/Visitor.php:271
 msgid "Satellite Gridsquare Map"
@@ -4115,24 +4115,24 @@ msgstr "HRDlog: nessun QSO trovato da caricare per il nominativo di stazione: "
 msgid "HRDlog: No station profiles with HRDlog Credentials found."
 msgstr "HRDlog: nessun profilo di stazione con credenziali HRDlog trovate."
 
-#: application/models/Logbook_model.php:315
+#: application/models/Logbook_model.php:328
 msgid "Station not accessible"
 msgstr "Stazione non accessibile"
 
-#: application/models/Logbook_model.php:1420
+#: application/models/Logbook_model.php:1434
 msgid "Station ID not allowed"
 msgstr "ID stazione non consentito"
 
-#: application/models/Logbook_model.php:1425
+#: application/models/Logbook_model.php:1439
 msgid "No Call given"
 msgstr "Nessun nominatio fornito"
 
-#: application/models/Logbook_model.php:1495
-#: application/models/Logbook_model.php:1699
+#: application/models/Logbook_model.php:1509
+#: application/models/Logbook_model.php:1713
 msgid "DXCC has to be Numeric"
 msgstr "DXCC deve essere numerico"
 
-#: application/models/Logbook_model.php:4938
+#: application/models/Logbook_model.php:4957
 #, php-format
 msgid ""
 "Differing station callsign %s while importing QSO with %s for %s: SKIPPED"
@@ -4140,7 +4140,7 @@ msgstr ""
 "Callsign della stazione errato ( %s) durante l'importazione di QSO con %s "
 "per %s: SALTATO"
 
-#: application/models/Logbook_model.php:4946
+#: application/models/Logbook_model.php:4965
 #, php-format
 msgid ""
 "Differing locator %s while importing QSO with %s for station locator %s: "
@@ -4149,7 +4149,7 @@ msgstr ""
 "Locatore diverso %s durante l'importazione del QSO con %s per il locatore "
 "della stazione %s: SALTATO"
 
-#: application/models/Logbook_model.php:4962
+#: application/models/Logbook_model.php:4981
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
@@ -4157,11 +4157,11 @@ msgstr ""
 "Hai cercato di importare un QSO senza una data valida. Questo QSO non è "
 "stato importato. Non è valido"
 
-#: application/models/Logbook_model.php:4972
+#: application/models/Logbook_model.php:4991
 msgid "QSO on"
 msgstr "QSO alle"
 
-#: application/models/Logbook_model.php:4972
+#: application/models/Logbook_model.php:4991
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
@@ -4169,7 +4169,7 @@ msgstr ""
 "Hai tentato di importare un QSO senza alcun nominativo di chiamata. Questo "
 "QSO non è stato importato perchè non valido"
 
-#: application/models/Logbook_model.php:5022
+#: application/models/Logbook_model.php:5041
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
@@ -4178,63 +4178,63 @@ msgstr ""
 "QSO su %s: Hai provato a importare un QSO senza una banda specificata. "
 "Questo QSO non è stato importato. È non valido"
 
-#: application/models/Logbook_model.php:5296
+#: application/models/Logbook_model.php:5315
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "La data di ricezione QSL non è valida (AAAAMMGG)"
 
-#: application/models/Logbook_model.php:5307
+#: application/models/Logbook_model.php:5326
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "La data di invio QSL non è valida (AAAAMMGG)"
 
-#: application/models/Logbook_model.php:5368
+#: application/models/Logbook_model.php:5387
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "La data di upload Clublog non è valida (AAAAMMGG)"
 
-#: application/models/Logbook_model.php:5739
+#: application/models/Logbook_model.php:5758
 #: application/views/simplefle/index.php:41
 msgid "Duplicate for"
 msgstr "Duplicata"
 
-#: application/models/Logbook_model.php:5806
-#: application/models/Logbook_model.php:5906
+#: application/models/Logbook_model.php:5825
+#: application/models/Logbook_model.php:5925
 msgid "QSO could not be matched"
 msgstr "Impossibile abbinare QSO"
 
-#: application/models/Logbook_model.php:5814
+#: application/models/Logbook_model.php:5833
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "confermato da LoTW/Clublog/eQSL/Contest"
 
-#: application/models/Logbook_model.php:5820
+#: application/models/Logbook_model.php:5839
 msgid "confirmed by award manager"
 msgstr "confermato dal responsabile del diploma"
 
-#: application/models/Logbook_model.php:5824
+#: application/models/Logbook_model.php:5843
 msgid "confirmed by cross-check of DCL data"
 msgstr "confermato dal controllo incrociato dei dati DCL"
 
-#: application/models/Logbook_model.php:5828
+#: application/models/Logbook_model.php:5847
 msgid "confirmation pending"
 msgstr "Conferma in sospeso"
 
-#: application/models/Logbook_model.php:5831
+#: application/models/Logbook_model.php:5850
 msgid "unconfirmed"
 msgstr "Non confermato"
 
-#: application/models/Logbook_model.php:5834
+#: application/models/Logbook_model.php:5853
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 msgid "unknown"
 msgstr "sconosciuto"
 
-#: application/models/Logbook_model.php:5909
+#: application/models/Logbook_model.php:5928
 msgid "POTA reference already in log"
 msgstr "Riferimento POTA già presente nel registro di stazione"
 
-#: application/models/Logbook_model.php:5912
+#: application/models/Logbook_model.php:5931
 msgid "QSO updated"
 msgstr "QSO aggiornato"
 
-#: application/models/Logbook_model.php:6317
+#: application/models/Logbook_model.php:6336
 #: application/views/activated_gridmap/index.php:109
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:57
@@ -12118,7 +12118,7 @@ msgid "View QSO"
 msgstr "Visualizza QSO"
 
 #: application/views/dashboard/index.php:384
-#: application/views/qso/index.php:913
+#: application/views/qso/index.php:921
 #, php-format
 msgid "Max. %d previous contact is shown"
 msgid_plural "Max. %d previous contacts are shown"
@@ -18231,11 +18231,11 @@ msgstr "Testo"
 
 #: application/views/qslpostcard/designer.php:243
 msgid "Frequency format"
-msgstr ""
+msgstr "Formato della frequenza"
 
 #: application/views/qslpostcard/designer.php:251
 msgid "Omit unit"
-msgstr ""
+msgstr "Ometti unità"
 
 #: application/views/qslpostcard/designer.php:257
 msgid "X"
@@ -18743,7 +18743,7 @@ msgstr "Metodo"
 
 #: application/views/qso/edit_ajax.php:452
 msgid "Sent Via"
-msgstr "Inviato tramite"
+msgstr "QSL via"
 
 #: application/views/qso/edit_ajax.php:466
 #: application/views/qso/edit_ajax.php:507
@@ -22423,6 +22423,9 @@ msgstr "CQz geojson"
 #~ msgid "Could not fetch worker status."
 #~ msgstr "Impossibile recuperare lo stato del worker."
 
+#~ msgid "Upload Preview Image"
+#~ msgstr "Carica immagine di anteprima"
+
 #~ msgid "Mark QSOs for a certain QSL Method:"
 #~ msgstr "Contrassegna i QSO per un certo metodo QSL:"
 
@@ -22443,9 +22446,6 @@ msgstr "CQz geojson"
 
 #~ msgid "Mark requested QSLs as sent"
 #~ msgstr "Segna le QSL richieste come inviate"
-
-#~ msgid "Upload Preview Image"
-#~ msgstr "Carica immagine di anteprima"
 
 #~ msgid "Null"
 #~ msgstr "Nulla"

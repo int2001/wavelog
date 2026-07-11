@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-10 16:54+0000\n"
+"POT-Creation-Date: 2026-07-10 18:40+0000\n"
 "PO-Revision-Date: 2026-03-17 22:16+0000\n"
 "Last-Translator: Dariusz Koryto <dariusz@koryto.eu>\n"
 "Language-Team: Czech <https://translate.wavelog.org/projects/wavelog/main-"
@@ -193,9 +193,9 @@ msgstr "Troposférické vedení"
 #: application/controllers/Qslpostcard.php:15
 #: application/controllers/Qslprint.php:22
 #: application/controllers/Qslprint.php:156 application/controllers/Qso.php:7
-#: application/controllers/Qso.php:20 application/controllers/Qso.php:304
-#: application/controllers/Qso.php:470 application/controllers/Qso.php:492
-#: application/controllers/Qso.php:514 application/controllers/Qso.php:818
+#: application/controllers/Qso.php:20 application/controllers/Qso.php:315
+#: application/controllers/Qso.php:481 application/controllers/Qso.php:503
+#: application/controllers/Qso.php:525 application/controllers/Qso.php:829
 #: application/controllers/Radio.php:30 application/controllers/Radio.php:315
 #: application/controllers/Radio.php:340 application/controllers/Radio.php:355
 #: application/controllers/Satellite.php:12
@@ -391,7 +391,7 @@ msgid "API Key %s description has been updated."
 msgstr "Popis %s API klíče byl aktualizován."
 
 #: application/controllers/Api.php:109 application/controllers/Api.php:143
-#: application/controllers/Qso.php:609
+#: application/controllers/Qso.php:620
 msgid "Invalid request method"
 msgstr "Neplatná metoda požadavku"
 
@@ -2853,19 +2853,19 @@ msgstr ""
 msgid "Print Requested QSLs"
 msgstr "Tisk žádaných QSL"
 
-#: application/controllers/Qso.php:147
+#: application/controllers/Qso.php:158
 msgid "Add QSO"
 msgstr "Přidat QSO"
 
-#: application/controllers/Qso.php:878
+#: application/controllers/Qso.php:889
 msgid "You have to be logged in to access this URL."
 msgstr "Pro přístup k této URL musíte být přihlášeni."
 
-#: application/controllers/Qso.php:884
+#: application/controllers/Qso.php:895
 msgid "Call Transfer"
 msgstr "Přenos značky"
 
-#: application/controllers/Qso.php:891
+#: application/controllers/Qso.php:902
 msgid "No callsign provided."
 msgstr "Nebyla zadána značka stanice."
 
@@ -4068,37 +4068,37 @@ msgstr "HRDlog: Nenalezena žádná QSO k nahrání pro značku stanice: "
 msgid "HRDlog: No station profiles with HRDlog Credentials found."
 msgstr "HRDlog: Nenalezeny žádné profily stanic s přihlašovacími údaji HRDlog."
 
-#: application/models/Logbook_model.php:315
+#: application/models/Logbook_model.php:328
 msgid "Station not accessible"
 msgstr "Stanice je nedostupná"
 
-#: application/models/Logbook_model.php:1420
+#: application/models/Logbook_model.php:1434
 msgid "Station ID not allowed"
 msgstr "Identifikace stanice je nedostupná"
 
-#: application/models/Logbook_model.php:1425
+#: application/models/Logbook_model.php:1439
 msgid "No Call given"
 msgstr "Značka není zadána"
 
-#: application/models/Logbook_model.php:1495
-#: application/models/Logbook_model.php:1699
+#: application/models/Logbook_model.php:1509
+#: application/models/Logbook_model.php:1713
 msgid "DXCC has to be Numeric"
 msgstr "DXCC musí být číselné"
 
-#: application/models/Logbook_model.php:4938
+#: application/models/Logbook_model.php:4957
 #, php-format
 msgid ""
 "Differing station callsign %s while importing QSO with %s for %s: SKIPPED"
 msgstr ""
 
-#: application/models/Logbook_model.php:4946
+#: application/models/Logbook_model.php:4965
 #, php-format
 msgid ""
 "Differing locator %s while importing QSO with %s for station locator %s: "
 "SKIPPED"
 msgstr ""
 
-#: application/models/Logbook_model.php:4962
+#: application/models/Logbook_model.php:4981
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
@@ -4106,11 +4106,11 @@ msgstr ""
 "Pokusili jste se importovat QSO bez platného data. Toto QSO nebylo "
 "importováno. Je neplatné"
 
-#: application/models/Logbook_model.php:4972
+#: application/models/Logbook_model.php:4991
 msgid "QSO on"
 msgstr "QSO na"
 
-#: application/models/Logbook_model.php:4972
+#: application/models/Logbook_model.php:4991
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
@@ -4118,7 +4118,7 @@ msgstr ""
 "Pokusili jste se importovat QSO bez zadané značky stanice. Toto QSO nebylo "
 "importováno. Je neplatné"
 
-#: application/models/Logbook_model.php:5022
+#: application/models/Logbook_model.php:5041
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
@@ -4127,63 +4127,63 @@ msgstr ""
 "QSO na %s: Pokusili jste se importovat QSO bez zadaného pásma. Toto QSO "
 "nebylo importováno. Je neplatné"
 
-#: application/models/Logbook_model.php:5296
+#: application/models/Logbook_model.php:5315
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "datum qslrdate je neplatné (RRRRMMDD)"
 
-#: application/models/Logbook_model.php:5307
+#: application/models/Logbook_model.php:5326
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "datum qslsdate je neplatné (RRRRMMDD)"
 
-#: application/models/Logbook_model.php:5368
+#: application/models/Logbook_model.php:5387
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "clublog_qso_upload_date je neplatné (RRRRMMDD)"
 
-#: application/models/Logbook_model.php:5739
+#: application/models/Logbook_model.php:5758
 #: application/views/simplefle/index.php:41
 msgid "Duplicate for"
 msgstr "Duplikát pro"
 
-#: application/models/Logbook_model.php:5806
-#: application/models/Logbook_model.php:5906
+#: application/models/Logbook_model.php:5825
+#: application/models/Logbook_model.php:5925
 msgid "QSO could not be matched"
 msgstr "QSO nelze spárovat"
 
-#: application/models/Logbook_model.php:5814
+#: application/models/Logbook_model.php:5833
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "potvrzeno přes LoTW/Clublog/eQSL/Contest"
 
-#: application/models/Logbook_model.php:5820
+#: application/models/Logbook_model.php:5839
 msgid "confirmed by award manager"
 msgstr "potvrzeno manažerem diplomů"
 
-#: application/models/Logbook_model.php:5824
+#: application/models/Logbook_model.php:5843
 msgid "confirmed by cross-check of DCL data"
 msgstr "potvrzeno kontrolou DCL dat"
 
-#: application/models/Logbook_model.php:5828
+#: application/models/Logbook_model.php:5847
 msgid "confirmation pending"
 msgstr "čeká na potvrzení"
 
-#: application/models/Logbook_model.php:5831
+#: application/models/Logbook_model.php:5850
 msgid "unconfirmed"
 msgstr "nepotvrzeno"
 
-#: application/models/Logbook_model.php:5834
+#: application/models/Logbook_model.php:5853
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 msgid "unknown"
 msgstr "neznámé"
 
-#: application/models/Logbook_model.php:5909
+#: application/models/Logbook_model.php:5928
 msgid "POTA reference already in log"
 msgstr "POTA reference již v logu"
 
-#: application/models/Logbook_model.php:5912
+#: application/models/Logbook_model.php:5931
 msgid "QSO updated"
 msgstr "QSO aktualizováno"
 
-#: application/models/Logbook_model.php:6317
+#: application/models/Logbook_model.php:6336
 #: application/views/activated_gridmap/index.php:109
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:57
@@ -11902,7 +11902,7 @@ msgid "View QSO"
 msgstr ""
 
 #: application/views/dashboard/index.php:384
-#: application/views/qso/index.php:913
+#: application/views/qso/index.php:921
 #, php-format
 msgid "Max. %d previous contact is shown"
 msgid_plural "Max. %d previous contacts are shown"

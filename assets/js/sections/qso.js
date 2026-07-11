@@ -3460,7 +3460,40 @@ $(document).ready(function () {
 	// (replaces the former htmx hx-get / hx-trigger on #qso-last-table).
 	const pastContactsTable = document.getElementById('qso-last-table');
 	refreshPastContacts();
-	if (pastContactsTable.dataset.autoRefresh === '1') {
+
+	var pending = null;
+	var missed = false;
+	function throttleRefreshPastContacts() {
+		// Load at most once every 4 seconds. If more pushes arrive during the
+		// lockout, refresh once afterwards so no update is lost.
+		if (pending) {
+			missed = true;
+			return;
+		}
+		refreshPastContacts();
+		pending = setTimeout(function () {
+			pending = null;
+			if (missed) {
+				missed = false;
+				throttleRefreshPastContacts();
+			}
+		}, 4000);
+	}
+
+	if (pastContactsTable.dataset.workerTopic && window.WavelogWorker && WavelogWorker.isAvailable()) {
+		WavelogWorker.subscribe({
+			topic: pastContactsTable.dataset.workerTopic,
+			token: pastContactsTable.dataset.workerToken,
+			onMessage: function (frame) {
+				if (frame.type === 'push' && frame.payload && frame.payload.type === 'qso_changed') {
+					throttleRefreshPastContacts();
+				}
+			},
+			onReconnect: function () {
+				throttleRefreshPastContacts();
+			}
+		});
+	} else if (pastContactsTable.dataset.autoRefresh === '1') {
 		setInterval(refreshPastContacts, 15000);
 	}
 

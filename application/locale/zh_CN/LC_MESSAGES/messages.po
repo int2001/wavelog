@@ -28,12 +28,14 @@
 # "Shen RuiQin(BH4FJN)" <jerry19980425@gmail.com>, 2026.
 # Florian Wolters <wavelog@df2et.de>, 2026.
 # Weblate user 156 <tidy-elm-snuggle@users.noreply.translate.wavelog.org>, 2026.
+# 洛雨 <i@luotianyi.eu>, 2026.
+# "Luoyu (BG7QBL)" <i@luotianyi.eu>, 2026.
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-10 16:54+0000\n"
-"PO-Revision-Date: 2026-07-06 05:37+0000\n"
-"Last-Translator: \"Xu, Zefan (BI1GHZ)\" <ceba_robot@outlook.com>\n"
+"POT-Creation-Date: 2026-07-10 18:40+0000\n"
+"PO-Revision-Date: 2026-07-10 18:40+0000\n"
+"Last-Translator: \"Luoyu (BG7QBL)\" <i@luotianyi.eu>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
 "org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -213,9 +215,9 @@ msgstr "Tropospheric ducting"
 #: application/controllers/Qslpostcard.php:15
 #: application/controllers/Qslprint.php:22
 #: application/controllers/Qslprint.php:156 application/controllers/Qso.php:7
-#: application/controllers/Qso.php:20 application/controllers/Qso.php:304
-#: application/controllers/Qso.php:470 application/controllers/Qso.php:492
-#: application/controllers/Qso.php:514 application/controllers/Qso.php:818
+#: application/controllers/Qso.php:20 application/controllers/Qso.php:315
+#: application/controllers/Qso.php:481 application/controllers/Qso.php:503
+#: application/controllers/Qso.php:525 application/controllers/Qso.php:829
 #: application/controllers/Radio.php:30 application/controllers/Radio.php:315
 #: application/controllers/Radio.php:340 application/controllers/Radio.php:355
 #: application/controllers/Satellite.php:12
@@ -411,7 +413,7 @@ msgid "API Key %s description has been updated."
 msgstr "API Key %s 的说明信息已更新。"
 
 #: application/controllers/Api.php:109 application/controllers/Api.php:143
-#: application/controllers/Qso.php:609
+#: application/controllers/Qso.php:620
 msgid "Invalid request method"
 msgstr "无效的请求方法"
 
@@ -2847,19 +2849,19 @@ msgstr "已选择的 QSL 明信片生成 PDF 失败： "
 msgid "Print Requested QSLs"
 msgstr "打印被请求的 QSL 卡片"
 
-#: application/controllers/Qso.php:147
+#: application/controllers/Qso.php:158
 msgid "Add QSO"
 msgstr "添加 QSO"
 
-#: application/controllers/Qso.php:878
+#: application/controllers/Qso.php:889
 msgid "You have to be logged in to access this URL."
 msgstr "需要登录方可浏览此页面。"
 
-#: application/controllers/Qso.php:884
+#: application/controllers/Qso.php:895
 msgid "Call Transfer"
 msgstr "通联转接"
 
-#: application/controllers/Qso.php:891
+#: application/controllers/Qso.php:902
 msgid "No callsign provided."
 msgstr "未提供呼号。"
 
@@ -3804,7 +3806,7 @@ msgstr "你已经登出 %s 。欢迎回到你的私人账户，%s ！"
 
 #: application/controllers/Visitor.php:265
 msgid "No public slug found."
-msgstr ""
+msgstr "未找到外部链接。"
 
 #: application/controllers/Visitor.php:271
 msgid "Satellite Gridsquare Map"
@@ -4043,24 +4045,24 @@ msgstr "HRDlog：无 QSO 可供上传，台站呼号为： "
 msgid "HRDlog: No station profiles with HRDlog Credentials found."
 msgstr "HRDlog：无台站配置信息。"
 
-#: application/models/Logbook_model.php:315
+#: application/models/Logbook_model.php:328
 msgid "Station not accessible"
 msgstr "台站不可用"
 
-#: application/models/Logbook_model.php:1420
+#: application/models/Logbook_model.php:1434
 msgid "Station ID not allowed"
 msgstr "集体台站 ID 有误"
 
-#: application/models/Logbook_model.php:1425
+#: application/models/Logbook_model.php:1439
 msgid "No Call given"
 msgstr "未提供呼号"
 
-#: application/models/Logbook_model.php:1495
-#: application/models/Logbook_model.php:1699
+#: application/models/Logbook_model.php:1509
+#: application/models/Logbook_model.php:1713
 msgid "DXCC has to be Numeric"
 msgstr "DXCC 应该是数字"
 
-#: application/models/Logbook_model.php:4938
+#: application/models/Logbook_model.php:4957
 #, php-format
 msgid ""
 "Differing station callsign %s while importing QSO with %s for %s: SKIPPED"
@@ -4068,7 +4070,7 @@ msgstr ""
 "导入的本台呼号 %s 与当前台站地址不匹配，这是与 %s 的 QSO，当前台站地址的呼号"
 "为 %s：已跳过"
 
-#: application/models/Logbook_model.php:4946
+#: application/models/Logbook_model.php:4965
 #, php-format
 msgid ""
 "Differing locator %s while importing QSO with %s for station locator %s: "
@@ -4077,23 +4079,23 @@ msgstr ""
 "导入的本台网格 %s 与当前台站地址不匹配，这是与 %s 的 QSO，当前台站地址的网格"
 "为 %s：已跳过"
 
-#: application/models/Logbook_model.php:4962
+#: application/models/Logbook_model.php:4981
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
 msgstr "导入QSO时使用了无效日期，该QSO未被导入。这是无效的"
 
-#: application/models/Logbook_model.php:4972
+#: application/models/Logbook_model.php:4991
 msgid "QSO on"
 msgstr "QSO 时间"
 
-#: application/models/Logbook_model.php:4972
+#: application/models/Logbook_model.php:4991
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
 msgstr "试图导入的 QSO 不存在对方呼号（CALL）。此 QSO 无效，未导入"
 
-#: application/models/Logbook_model.php:5022
+#: application/models/Logbook_model.php:5041
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
@@ -4101,63 +4103,63 @@ msgid ""
 msgstr ""
 "在 %s 上的 QSO：你尝试导入一个未指定频段的 QSO。该 QSO 未被导入。此 QSO 无效"
 
-#: application/models/Logbook_model.php:5296
+#: application/models/Logbook_model.php:5315
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "qslrdate 字段错误（YYYYMMDD）"
 
-#: application/models/Logbook_model.php:5307
+#: application/models/Logbook_model.php:5326
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "qslsdate 字段错误（YYYYMMDD）"
 
-#: application/models/Logbook_model.php:5368
+#: application/models/Logbook_model.php:5387
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "clublog_qso_upload_date 字段错误（ YYYYMMDD）"
 
-#: application/models/Logbook_model.php:5739
+#: application/models/Logbook_model.php:5758
 #: application/views/simplefle/index.php:41
 msgid "Duplicate for"
 msgstr "内容重复"
 
-#: application/models/Logbook_model.php:5806
-#: application/models/Logbook_model.php:5906
+#: application/models/Logbook_model.php:5825
+#: application/models/Logbook_model.php:5925
 msgid "QSO could not be matched"
 msgstr "QSO 无法匹配"
 
-#: application/models/Logbook_model.php:5814
+#: application/models/Logbook_model.php:5833
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "已经通过 LoTW/Clublog/eQSL/竞赛 确认"
 
-#: application/models/Logbook_model.php:5820
+#: application/models/Logbook_model.php:5839
 msgid "confirmed by award manager"
 msgstr "已经通过奖项管理员确认"
 
-#: application/models/Logbook_model.php:5824
+#: application/models/Logbook_model.php:5843
 msgid "confirmed by cross-check of DCL data"
 msgstr "已经通过 DCL 数据交叉检查确认"
 
-#: application/models/Logbook_model.php:5828
+#: application/models/Logbook_model.php:5847
 msgid "confirmation pending"
 msgstr "等待确认"
 
-#: application/models/Logbook_model.php:5831
+#: application/models/Logbook_model.php:5850
 msgid "unconfirmed"
 msgstr "未确认"
 
-#: application/models/Logbook_model.php:5834
+#: application/models/Logbook_model.php:5853
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 msgid "unknown"
 msgstr "未知"
 
-#: application/models/Logbook_model.php:5909
+#: application/models/Logbook_model.php:5928
 msgid "POTA reference already in log"
 msgstr "日志中已存在 POTA 编号"
 
-#: application/models/Logbook_model.php:5912
+#: application/models/Logbook_model.php:5931
 msgid "QSO updated"
 msgstr "QSO已上传"
 
-#: application/models/Logbook_model.php:6317
+#: application/models/Logbook_model.php:6336
 #: application/views/activated_gridmap/index.php:109
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:57
@@ -4218,7 +4220,7 @@ msgstr "在通讯录类别中，笔记标题需要是唯一的。"
 #: application/models/Qslpostcard_model.php:354
 msgctxt "QSL Card Designer; No mailable address found"
 msgid "!!! NO MAILABLE ADDRESS FOUND !!!"
-msgstr ""
+msgstr "!!! 未找到可邮寄地址 !!!"
 
 #: application/models/Update_model.php:347
 msgid "Newer release available:"
@@ -6001,7 +6003,7 @@ msgstr "通联县进展"
 
 #: application/views/awards/counties/index.php:45
 msgid "Worked Counties"
-msgstr "通联的（郡）县"
+msgstr "通联的县"
 
 #: application/views/awards/counties/index.php:47
 #, php-format
@@ -6010,7 +6012,7 @@ msgstr "共 %s 县"
 
 #: application/views/awards/counties/index.php:52
 msgid "Confirmed Counties"
-msgstr "确认的（郡）县"
+msgstr "确认的县"
 
 #: application/views/awards/counties/index.php:54
 #, php-format
@@ -11717,10 +11719,10 @@ msgstr "唯一呼号"
 
 #: application/views/dashboard/index.php:369
 msgid "View QSO"
-msgstr ""
+msgstr "查看 QSO"
 
 #: application/views/dashboard/index.php:384
-#: application/views/qso/index.php:913
+#: application/views/qso/index.php:921
 #, php-format
 msgid "Max. %d previous contact is shown"
 msgid_plural "Max. %d previous contacts are shown"
@@ -11738,7 +11740,7 @@ msgstr "日期"
 
 #: application/views/dashboard/index.php:435
 msgid "Lookup DXCC"
-msgstr ""
+msgstr "查找 DXCC"
 
 #: application/views/dashboard/index.php:455
 #: application/views/user/edit.php:818
@@ -12367,7 +12369,7 @@ msgstr "客户端"
 
 #: application/views/debug/index.php:150
 msgid "Cluster nodes"
-msgstr ""
+msgstr "集群节点"
 
 #: application/views/debug/index.php:151
 msgid "Uptime"
@@ -12714,7 +12716,7 @@ msgstr ""
 msgid ""
 "Please update your Wavelog Worker to version 0.2.0 or newer to see the "
 "status."
-msgstr ""
+msgstr "请将您的 Wavelog Worker 更新到 0.2.0 或更新版本以查看状态。"
 
 #: application/views/debug/index.php:898
 msgid "Albanian"
@@ -13949,11 +13951,11 @@ msgstr "此州已通联的县："
 
 #: application/views/interface_assets/header.php:95
 msgid "Skip to content"
-msgstr ""
+msgstr "跳到内容"
 
 #: application/views/interface_assets/header.php:98
 msgid "Wavelog home"
-msgstr ""
+msgstr "Wavelog 首页"
 
 #: application/views/interface_assets/header.php:100
 msgid "Developer Mode"
@@ -14242,7 +14244,7 @@ msgstr "注销"
 
 #: application/views/interface_assets/header.php:617
 msgid "Station locations and logbooks"
-msgstr ""
+msgstr "台站位置和日志簿"
 
 #: application/views/interface_assets/header.php:619
 msgid "Select a Location"
@@ -17464,21 +17466,21 @@ msgstr "已选择"
 
 #: application/views/qslpostcard/designer.php:46
 msgid "Unsaved changes"
-msgstr ""
+msgstr "未保存的更改"
 
 #: application/views/qslpostcard/designer.php:47
 msgid ""
 "Your current design has unsaved changes. Loading a different template will "
 "replace it. Continue?"
-msgstr ""
+msgstr "您当前的设计有未保存的更改。加载不同的模板将会替换它。是否继续？"
 
 #: application/views/qslpostcard/designer.php:48
 msgid "Discard changes"
-msgstr ""
+msgstr "放弃更改"
 
 #: application/views/qslpostcard/designer.php:49
 msgid "Keep editing"
-msgstr ""
+msgstr "继续编辑"
 
 #: application/views/qslpostcard/designer.php:65
 msgid "(new)"
@@ -17684,11 +17686,11 @@ msgstr "页面居中（垂直）"
 
 #: application/views/qslprint/index.php:4
 msgid "Please select at least one row"
-msgstr ""
+msgstr "请至少选择一行"
 
 #: application/views/qslprint/index.php:6
 msgid "Print QSLcard"
-msgstr ""
+msgstr "打印 QSL卡"
 
 #: application/views/qslprint/index.php:7
 #: application/views/qslprint/qslprint.php:91
@@ -17703,7 +17705,7 @@ msgstr "删除"
 
 #: application/views/qslprint/index.php:11
 msgid "Are you sure you want to mark ALL requested QSLs as sent?"
-msgstr ""
+msgstr "你确定要将所有请求的 QSL 都标记为已发送吗？"
 
 #: application/views/qslprint/index.php:29
 msgid "Export Requested QSLs for Printing"
@@ -17727,7 +17729,7 @@ msgstr "标记所选的 QSO 为已发送"
 
 #: application/views/qslprint/index.php:59
 msgid "Mark ALL requested QSLs as sent"
-msgstr ""
+msgstr "标记所有被请求的 QSL 为'已发送'"
 
 #: application/views/qslprint/index.php:67
 msgid "Export selected QSOs to ADIF-file"
@@ -17751,11 +17753,11 @@ msgstr "为所有 QSO 打印明信片"
 
 #: application/views/qslprint/index.php:83
 msgid "Print Selected QSL Labels"
-msgstr ""
+msgstr "打印所选的 QSL 标签"
 
 #: application/views/qslprint/index.php:85
 msgid "Print Labels for all QSOs"
-msgstr ""
+msgstr "打印所有 QSO 的标签"
 
 #: application/views/qslprint/index.php:93
 msgid "Remove selected QSOs from the queue"
@@ -18235,7 +18237,7 @@ msgstr "卫星"
 
 #: application/views/qso/index.php:119
 msgid "Favourites"
-msgstr ""
+msgstr "收藏"
 
 #: application/views/qso/index.php:121
 msgid "Add to Favs"
@@ -18248,7 +18250,7 @@ msgstr "打开时间"
 #: application/views/qso/index.php:165 application/views/qso/index.php:167
 #: application/views/qso/index.php:201
 msgid "Reset start time"
-msgstr ""
+msgstr "重置开始时间"
 
 #: application/views/qso/index.php:173
 msgid "Time off"
@@ -18256,7 +18258,7 @@ msgstr "关闭时间"
 
 #: application/views/qso/index.php:177
 msgid "Reset end time"
-msgstr ""
+msgstr "重置结束时间"
 
 #: application/views/qso/index.php:216
 msgid "Search DXCluster for latest Spot"
@@ -18332,7 +18334,7 @@ msgstr "QSL 确认信息"
 
 #: application/views/qso/index.php:757
 msgid "More options"
-msgstr ""
+msgstr "更多选项"
 
 #: application/views/qso/index.php:759
 msgid "Reset to Default"
@@ -20830,11 +20832,11 @@ msgstr "保存账户更改"
 
 #: application/views/user/edit.php:1329
 msgid "Search settings"
-msgstr ""
+msgstr "搜索设置"
 
 #: application/views/user/edit.php:1331
 msgid "No settings match your search."
-msgstr ""
+msgstr "没有符合您搜索的设置。"
 
 #: application/views/user/forgot_password.php:33
 msgid "Forgot Password?"
@@ -21241,7 +21243,7 @@ msgstr "显示该日志簿下全部 QSO"
 #: application/views/view_log/qso.php:131
 #: application/views/view_log/qso.php:193
 msgid "Calculate distance/bearing"
-msgstr ""
+msgstr "计算距离/方位"
 
 #: application/views/view_log/partial/log_ajax.php:138
 msgid "Result"
@@ -21581,6 +21583,9 @@ msgstr "CQz geojson"
 #~ msgid "Could not fetch worker status."
 #~ msgstr "无法获取 Worker 状态。"
 
+#~ msgid "Upload Preview Image"
+#~ msgstr "上传预览图片"
+
 #~ msgid "Mark QSOs for a certain QSL Method:"
 #~ msgstr "为某种 QSL 方式标记 QSO："
 
@@ -21601,9 +21606,6 @@ msgstr "CQz geojson"
 
 #~ msgid "Mark requested QSLs as sent"
 #~ msgstr "标记被请求的 QSL 为'已发送'"
-
-#~ msgid "Upload Preview Image"
-#~ msgstr "上传预览图片"
 
 #~ msgid "Null"
 #~ msgstr "Null"

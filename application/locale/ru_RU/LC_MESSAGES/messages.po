@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-10 16:54+0000\n"
-"PO-Revision-Date: 2026-06-26 13:21+0000\n"
+"POT-Creation-Date: 2026-07-10 18:40+0000\n"
+"PO-Revision-Date: 2026-07-08 19:20+0000\n"
 "Last-Translator: Michael Skolsky <r1blh@yandex.ru>\n"
 "Language-Team: Russian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ru/>\n"
@@ -197,9 +197,9 @@ msgstr "Тропосферное прохождение"
 #: application/controllers/Qslpostcard.php:15
 #: application/controllers/Qslprint.php:22
 #: application/controllers/Qslprint.php:156 application/controllers/Qso.php:7
-#: application/controllers/Qso.php:20 application/controllers/Qso.php:304
-#: application/controllers/Qso.php:470 application/controllers/Qso.php:492
-#: application/controllers/Qso.php:514 application/controllers/Qso.php:818
+#: application/controllers/Qso.php:20 application/controllers/Qso.php:315
+#: application/controllers/Qso.php:481 application/controllers/Qso.php:503
+#: application/controllers/Qso.php:525 application/controllers/Qso.php:829
 #: application/controllers/Radio.php:30 application/controllers/Radio.php:315
 #: application/controllers/Radio.php:340 application/controllers/Radio.php:355
 #: application/controllers/Satellite.php:12
@@ -395,7 +395,7 @@ msgid "API Key %s description has been updated."
 msgstr "Описание ключа API %s обновлено."
 
 #: application/controllers/Api.php:109 application/controllers/Api.php:143
-#: application/controllers/Qso.php:609
+#: application/controllers/Qso.php:620
 msgid "Invalid request method"
 msgstr "Недопустимый метод запроса"
 
@@ -2874,19 +2874,19 @@ msgstr "Не удалось создать PDF для выбранной QSL к�
 msgid "Print Requested QSLs"
 msgstr "Распечатать запрошенные QSL"
 
-#: application/controllers/Qso.php:147
+#: application/controllers/Qso.php:158
 msgid "Add QSO"
 msgstr "Добавить QSO"
 
-#: application/controllers/Qso.php:878
+#: application/controllers/Qso.php:889
 msgid "You have to be logged in to access this URL."
 msgstr "Для доступа к этому URL необходимо войти в систему."
 
-#: application/controllers/Qso.php:884
+#: application/controllers/Qso.php:895
 msgid "Call Transfer"
 msgstr "Перевод вызова"
 
-#: application/controllers/Qso.php:891
+#: application/controllers/Qso.php:902
 msgid "No callsign provided."
 msgstr "Позывной не указан."
 
@@ -3861,7 +3861,7 @@ msgstr ""
 
 #: application/controllers/Visitor.php:265
 msgid "No public slug found."
-msgstr ""
+msgstr "Публичная метка не найдена."
 
 #: application/controllers/Visitor.php:271
 msgid "Satellite Gridsquare Map"
@@ -4111,30 +4111,30 @@ msgstr "HRDlog: Не найдены QSO для загруки для позыв�
 msgid "HRDlog: No station profiles with HRDlog Credentials found."
 msgstr "HRDlog: Не найдены профили QTH с данными входя на HRDlog."
 
-#: application/models/Logbook_model.php:315
+#: application/models/Logbook_model.php:328
 msgid "Station not accessible"
 msgstr "Станция недоступна"
 
-#: application/models/Logbook_model.php:1420
+#: application/models/Logbook_model.php:1434
 msgid "Station ID not allowed"
 msgstr "Недопустимый ID станции"
 
-#: application/models/Logbook_model.php:1425
+#: application/models/Logbook_model.php:1439
 msgid "No Call given"
 msgstr "Не указан позывной"
 
-#: application/models/Logbook_model.php:1495
-#: application/models/Logbook_model.php:1699
+#: application/models/Logbook_model.php:1509
+#: application/models/Logbook_model.php:1713
 msgid "DXCC has to be Numeric"
 msgstr "DXCC должен быть цифровым"
 
-#: application/models/Logbook_model.php:4938
+#: application/models/Logbook_model.php:4957
 #, php-format
 msgid ""
 "Differing station callsign %s while importing QSO with %s for %s: SKIPPED"
 msgstr "Отличающийся позывной %s при импорте QSO с %s для %s: ПРОПУЩЕНО"
 
-#: application/models/Logbook_model.php:4946
+#: application/models/Logbook_model.php:4965
 #, php-format
 msgid ""
 "Differing locator %s while importing QSO with %s for station locator %s: "
@@ -4143,7 +4143,7 @@ msgstr ""
 "Отличающийся локатор %s при импорте QSO с %s от локатора в профиле QTH %s: "
 "ПРОПУЩЕНО"
 
-#: application/models/Logbook_model.php:4962
+#: application/models/Logbook_model.php:4981
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
@@ -4151,11 +4151,11 @@ msgstr ""
 "Вы пытались импортировать QSO без действительной даты. Это QSO не "
 "действительно и не было импортировано"
 
-#: application/models/Logbook_model.php:4972
+#: application/models/Logbook_model.php:4991
 msgid "QSO on"
 msgstr "начало QSO"
 
-#: application/models/Logbook_model.php:4972
+#: application/models/Logbook_model.php:4991
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
@@ -4163,7 +4163,7 @@ msgstr ""
 "Вы пытались импортировать QSO без указанного позывного. Это QSO не было "
 "импортировано. Оно недействительно"
 
-#: application/models/Logbook_model.php:5022
+#: application/models/Logbook_model.php:5041
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
@@ -4172,63 +4172,63 @@ msgstr ""
 "QSO в %s: Вы пыталсь импортировать QSO без информации о диапазоне. Это QSO "
 "некорректно, импорт отклонён.imported. It's invalid"
 
-#: application/models/Logbook_model.php:5296
+#: application/models/Logbook_model.php:5315
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "дата получения QSL недействительна (ГГГГММДД)"
 
-#: application/models/Logbook_model.php:5307
+#: application/models/Logbook_model.php:5326
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "дата отправки QSL недействительна (ГГГГММДД)"
 
-#: application/models/Logbook_model.php:5368
+#: application/models/Logbook_model.php:5387
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "дата загрузки QSO в Clublog недействительна (ГГГГММДД)"
 
-#: application/models/Logbook_model.php:5739
+#: application/models/Logbook_model.php:5758
 #: application/views/simplefle/index.php:41
 msgid "Duplicate for"
 msgstr "Дубликат для"
 
-#: application/models/Logbook_model.php:5806
-#: application/models/Logbook_model.php:5906
+#: application/models/Logbook_model.php:5825
+#: application/models/Logbook_model.php:5925
 msgid "QSO could not be matched"
 msgstr "QSO не может быть сопоставлено"
 
-#: application/models/Logbook_model.php:5814
+#: application/models/Logbook_model.php:5833
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "подтверждено LoTW/Clublog/eQSL/Contest"
 
-#: application/models/Logbook_model.php:5820
+#: application/models/Logbook_model.php:5839
 msgid "confirmed by award manager"
 msgstr "подтверждено менеджером диплома"
 
-#: application/models/Logbook_model.php:5824
+#: application/models/Logbook_model.php:5843
 msgid "confirmed by cross-check of DCL data"
 msgstr "подтверждено кросс-проверкой с данными DCL"
 
-#: application/models/Logbook_model.php:5828
+#: application/models/Logbook_model.php:5847
 msgid "confirmation pending"
 msgstr "подтверждение ожидается"
 
-#: application/models/Logbook_model.php:5831
+#: application/models/Logbook_model.php:5850
 msgid "unconfirmed"
 msgstr "не подтверждено"
 
-#: application/models/Logbook_model.php:5834
+#: application/models/Logbook_model.php:5853
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 msgid "unknown"
 msgstr "неизвестно"
 
-#: application/models/Logbook_model.php:5909
+#: application/models/Logbook_model.php:5928
 msgid "POTA reference already in log"
 msgstr "Ренференция POTA уже в журнале"
 
-#: application/models/Logbook_model.php:5912
+#: application/models/Logbook_model.php:5931
 msgid "QSO updated"
 msgstr "QSO обновлено"
 
-#: application/models/Logbook_model.php:6317
+#: application/models/Logbook_model.php:6336
 #: application/views/activated_gridmap/index.php:109
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:57
@@ -4293,7 +4293,7 @@ msgstr "В категории Контакты заголовки записей
 #: application/models/Qslpostcard_model.php:354
 msgctxt "QSL Card Designer; No mailable address found"
 msgid "!!! NO MAILABLE ADDRESS FOUND !!!"
-msgstr ""
+msgstr "!!! НЕ НАЙДЕН ПРИГОДНЫЙ ДЛЯ ОТПРАВКИ АДРЕС !!!"
 
 #: application/models/Update_model.php:347
 msgid "Newer release available:"
@@ -5157,7 +5157,7 @@ msgid ""
 "regardless if they match to the chosen station-location."
 msgstr ""
 "Если выбрано, Wavelog попытается импортировать %sвсе%s QSO из ADIF, "
-"независимо от того, соответствуют ли они выбранному местоположению станции."
+"независимо от того, соответствуют ли они выбранному профилю QTH."
 
 #: application/views/adif/import.php:166
 msgid "Ignore grid check on import"
@@ -5249,8 +5249,7 @@ msgstr ""
 #: application/views/adif/import.php:268
 #: application/views/search/lotw_unconfirmed.php:24
 msgid "All is limited to station locations linked to active logbook"
-msgstr ""
-"Всё это ограничено местоположениями станций, привязанных к активному журналу"
+msgstr "Всё это ограничено профилями QTH, привязанными к активному журналу"
 
 #: application/views/adif/import.php:289
 #: application/views/clublog/export.php:73 application/views/csv/index.php:104
@@ -6133,33 +6132,33 @@ msgstr ""
 
 #: application/views/awards/counties/index.php:18
 msgid "Counties Progress"
-msgstr ""
+msgstr "Прогресс по округам"
 
 #: application/views/awards/counties/index.php:45
 msgid "Worked Counties"
-msgstr ""
+msgstr "Сработано округов"
 
 #: application/views/awards/counties/index.php:47
 #, php-format
 msgid "of %s known counties"
-msgstr ""
+msgstr "%s известных округов"
 
 #: application/views/awards/counties/index.php:52
 msgid "Confirmed Counties"
-msgstr ""
+msgstr "Подтверждено округов"
 
 #: application/views/awards/counties/index.php:54
 #, php-format
 msgid "%s%% of worked"
-msgstr ""
+msgstr "%s%% сработано"
 
 #: application/views/awards/counties/index.php:59
 msgid "Remaining Counties"
-msgstr ""
+msgstr "Оставшиеся округа"
 
 #: application/views/awards/counties/index.php:61
 msgid "Based on current worked count"
-msgstr ""
+msgstr "На основе на текущего количества сработанных"
 
 #: application/views/awards/counties/index.php:66
 #: application/views/awards/dxcc/index.php:41
@@ -6171,7 +6170,7 @@ msgstr "Прогресс"
 #: application/views/awards/counties/index.php:68
 #, php-format
 msgid "%s%% confirmed overall"
-msgstr ""
+msgstr "%s%% подтверждено в целом"
 
 #: application/views/awards/counties/index.php:77
 #: application/views/awards/cq/index.php:93
@@ -6212,7 +6211,7 @@ msgstr "Подтверждено"
 
 #: application/views/awards/counties/index.php:80
 msgid "Remaining"
-msgstr ""
+msgstr "Осталось"
 
 #: application/views/awards/counties/index.php:81
 #: application/views/awards/dxcc/index.php:287
@@ -6265,11 +6264,11 @@ msgstr "Всего"
 
 #: application/views/awards/counties/state_ajax.php:8
 msgid "QSOs Worked"
-msgstr ""
+msgstr "Проведённые QSO"
 
 #: application/views/awards/counties/state_ajax.php:9
 msgid "QSOs Confirmed"
-msgstr ""
+msgstr "Подтверждённые QSO"
 
 #: application/views/awards/cq/index.php:3
 #: application/views/awards/cq/index.php:205
@@ -10685,14 +10684,14 @@ msgstr "Winkeyer"
 #: application/views/qso/components/winkeysettings.php:54
 msgctxt "ESM mode"
 msgid "Run"
-msgstr ""
+msgstr "Общий вызов"
 
 #: application/views/contesting/logger/components/winkeyer.php:24
 #: application/views/qso/components/winkeysettings.php:58
 #: application/views/qso/components/winkeysettings.php:59
 msgctxt "ESM mode"
 msgid "S&P"
-msgstr ""
+msgstr "Поиск"
 
 #: application/views/contesting/logger/components/winkeyer.php:51
 #: application/views/qso/index.php:828
@@ -10701,7 +10700,7 @@ msgstr "Подключить"
 
 #: application/views/contesting/logger/components/winkeyer.php:53
 msgid "Toggle Run / Search & Pounce for ESM"
-msgstr ""
+msgstr "Переключение работы на общий вызов / поиск для ESM"
 
 #: application/views/contesting/logger/components/winkeyer.php:73
 #: application/views/qso/index.php:856
@@ -11546,7 +11545,7 @@ msgstr ""
 
 #: application/views/contesting/manager/export_edi.php:109
 msgid "Location and Operator Information"
-msgstr "Информация о местоположении и операторе"
+msgstr "Информация о QTH и операторе"
 
 #: application/views/contesting/manager/export_edi.php:112
 msgid "Contest Address 1"
@@ -11948,15 +11947,15 @@ msgstr "Выкл"
 
 #: application/views/dashboard/_options_menu.php:10
 msgid "Dashboard options"
-msgstr ""
+msgstr "Настройки панели управления"
 
 #: application/views/dashboard/_options_menu.php:12
 msgid "KPI statistics"
-msgstr ""
+msgstr "Статистика KPI"
 
 #: application/views/dashboard/_options_menu.php:15
 msgid "Solar data"
-msgstr ""
+msgstr "Солнечная активность"
 
 #: application/views/dashboard/index.php:6
 msgid "RSTS"
@@ -12072,7 +12071,7 @@ msgstr ""
 #: application/views/dashboard/index.php:231
 #: application/views/dashboard/solar_data.php:2
 msgid "Right-click for options"
-msgstr ""
+msgstr "Кликните правой кнопкой мыши для вариантов"
 
 #: application/views/dashboard/index.php:246
 msgid "QSOs this year"
@@ -12106,10 +12105,10 @@ msgstr "Уникальные позывные"
 
 #: application/views/dashboard/index.php:369
 msgid "View QSO"
-msgstr ""
+msgstr "Просмотр QSO"
 
 #: application/views/dashboard/index.php:384
-#: application/views/qso/index.php:913
+#: application/views/qso/index.php:921
 #, php-format
 msgid "Max. %d previous contact is shown"
 msgid_plural "Max. %d previous contacts are shown"
@@ -12129,7 +12128,7 @@ msgstr "Даты"
 
 #: application/views/dashboard/index.php:435
 msgid "Lookup DXCC"
-msgstr ""
+msgstr "Поиск DXCC"
 
 #: application/views/dashboard/index.php:455
 #: application/views/user/edit.php:818
@@ -14332,8 +14331,7 @@ msgstr "Квадраты QTH локатора"
 
 #: application/views/interface_assets/footer.php:1302
 msgid "Location Lookup failed. Please check browser console."
-msgstr ""
-"Поиск местоположения не удался. Пожалуйста, проверьте консоль браузера."
+msgstr "Поиск QTH не удался. Пожалуйста, проверьте консоль браузера."
 
 #: application/views/interface_assets/footer.php:1453
 #: application/views/interface_assets/footer.php:1457
@@ -14400,23 +14398,23 @@ msgstr "Что-то пошло не так. Пожалуйста, попробу
 
 #: application/views/interface_assets/footer.php:2835
 msgid "US Counties for state"
-msgstr ""
+msgstr "Округа США для штата"
 
 #: application/views/interface_assets/footer.php:2888
 msgid "Confirmed counties for state:"
-msgstr ""
+msgstr "Подтверждённые округа для штата:"
 
 #: application/views/interface_assets/footer.php:2888
 msgid "Worked counties for state:"
-msgstr ""
+msgstr "Сработанные округа для штата:"
 
 #: application/views/interface_assets/header.php:95
 msgid "Skip to content"
-msgstr ""
+msgstr "Перейти к содержимому"
 
 #: application/views/interface_assets/header.php:98
 msgid "Wavelog home"
-msgstr ""
+msgstr "Главная страница Wavelog"
 
 #: application/views/interface_assets/header.php:100
 msgid "Developer Mode"
@@ -14705,7 +14703,7 @@ msgstr "Выход"
 
 #: application/views/interface_assets/header.php:617
 msgid "Station locations and logbooks"
-msgstr ""
+msgstr "Профили QTH и журналы"
 
 #: application/views/interface_assets/header.php:619
 msgid "Select a Location"
@@ -15834,8 +15832,8 @@ msgid ""
 "All QSOs will be exported (all for selected location), unless you have "
 "checked one or more QSOs."
 msgstr ""
-"Все QSO будут экспортированы (все для выбранного местоположения), если "
-"только вы не выбрали одно или несколько QSO."
+"Все QSO будут экспортированы (все для выбранного профиля QTH), если только "
+"вы не выбрали одно или несколько QSO."
 
 #: application/views/logbookadvanced/index.php:16
 #: application/views/stationsetup/exportmapoptions.php:23
@@ -16659,7 +16657,7 @@ msgstr "Создать PDF QSL-карточки"
 #: application/views/qslpostcard/printqueue_selected.php:34
 #: application/views/qslprint/printqsl.php:34
 msgid "Save PDF"
-msgstr ""
+msgstr "Сохранить PDF"
 
 #: application/views/logbookadvanced/printQsl.php:41
 #: application/views/qslpostcard/printqueue.php:33
@@ -18545,15 +18543,15 @@ msgstr "Сводка отображается только для штатов �
 
 #: application/views/qso/components/fav_modal.php:5
 msgid "Save Favourite"
-msgstr ""
+msgstr "Сохранить избранное"
 
 #: application/views/qso/components/fav_modal.php:9
 msgid "e.g. 20m SSB, SO-50, portable setup"
-msgstr ""
+msgstr "к примеру, 20м SSB, SO-50, портативная установка"
 
 #: application/views/qso/components/fav_modal.php:10
 msgid "Please enter a name."
-msgstr ""
+msgstr "Пожалуйста, введите имя."
 
 #: application/views/qso/components/share_modal.php:3
 msgid "Post on X"
@@ -18578,7 +18576,7 @@ msgstr "Токены"
 
 #: application/views/qso/components/winkeysettings.php:46
 msgid "ESM (Enter Sends Message)"
-msgstr ""
+msgstr "ESM (отправка сообщения по Enter)"
 
 #: application/views/qso/components/winkeysettings.php:49
 msgid ""
@@ -18588,50 +18586,60 @@ msgid ""
 "only your own call, and logging sends your report instead of a TU. Alt+Enter "
 "logs without sending."
 msgstr ""
+"Когда эта функция включена, клавиша Enter управляет процессом QSO: при "
+"пустом поле позывного отправляется общий вызов (CQ), при неполном позывном "
+"(со знаком \"?\") отправляется запрос повтора, при полностью введенном "
+"позывном без принятого контрольного номера отправляется рапорт, а при "
+"полностью завершенном QSO связь заносится в журнал с передачей \"TU\". В "
+"режиме поиска (S&P) первое нажатие Enter отправляет только ваш собственный "
+"позывной, а сохранение связи в журнал отправляет ваш рапорт вместо \"TU\". "
+"Сочетание Alt+Enter сохраняет связь в журнал без передачи в эфир."
 
 #: application/views/qso/components/winkeysettings.php:55
 msgid "Unclear call (?)"
-msgstr ""
+msgstr "Неполный позывной (?)"
 
 #: application/views/qso/components/winkeysettings.php:56
 msgid "Exchange / Report"
-msgstr ""
+msgstr "Контрольный номер / рапорт"
 
 #: application/views/qso/components/winkeysettings.php:57
 msgid "Log QSO / TU"
-msgstr ""
+msgstr "Записать QSO / TU"
 
 #: application/views/qso/components/winkeysettings.php:58
 msgid "own call"
-msgstr ""
+msgstr "собственный позывной"
 
 #: application/views/qso/components/winkeysettings.php:59
 msgid "exchange on log"
-msgstr ""
+msgstr "контрольный номер при записи в журнал"
 
 #: application/views/qso/components/winkeysettings.php:78
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Горячие клавиши"
 
 #: application/views/qso/components/winkeysettings.php:82
 msgid "Send the corresponding CW macro"
-msgstr ""
+msgstr "Отправляет соответствующий CW макрос"
 
 #: application/views/qso/components/winkeysettings.php:83
 msgid "ESM on: drive the QSO (CQ / report / log); ESM off: log the QSO"
 msgstr ""
+"ESM включен: управление QSO (CQ / рапорт / запись в журнал); ESM выключен: "
+"только запись в журнал"
 
 #: application/views/qso/components/winkeysettings.php:84
 msgid "Log the QSO without sending anything"
-msgstr ""
+msgstr "Записать QSO в журнал без отправки чего-либо"
 
 #: application/views/qso/components/winkeysettings.php:85
 msgid "Clear the entry form"
-msgstr ""
+msgstr "Очистить форму ввода"
 
 #: application/views/qso/components/winkeysettings.php:86
 msgid "In the callsign field: jump to the next empty field"
-msgstr ""
+msgstr "В поле позывного: переход к следующему пустому полю"
 
 #: application/views/qso/edit_ajax.php:35
 msgid "Sats"
@@ -18866,11 +18874,11 @@ msgstr "Спутн."
 
 #: application/views/qso/index.php:119
 msgid "Favourites"
-msgstr ""
+msgstr "Избранное"
 
 #: application/views/qso/index.php:121
 msgid "Add to Favs"
-msgstr ""
+msgstr "Добавить в избранное"
 
 #: application/views/qso/index.php:161
 msgid "Time on"
@@ -18879,7 +18887,7 @@ msgstr "Время начала"
 #: application/views/qso/index.php:165 application/views/qso/index.php:167
 #: application/views/qso/index.php:201
 msgid "Reset start time"
-msgstr ""
+msgstr "Сбросить время начала"
 
 #: application/views/qso/index.php:173
 msgid "Time off"
@@ -18887,7 +18895,7 @@ msgstr "Время окончания"
 
 #: application/views/qso/index.php:177
 msgid "Reset end time"
-msgstr ""
+msgstr "Сбросить время окончания"
 
 #: application/views/qso/index.php:216
 msgid "Search DXCluster for latest Spot"
@@ -18963,7 +18971,7 @@ msgstr "QSL MSG"
 
 #: application/views/qso/index.php:757
 msgid "More options"
-msgstr ""
+msgstr "Больше вариантов"
 
 #: application/views/qso/index.php:759
 msgid "Reset to Default"
@@ -19384,7 +19392,7 @@ msgstr "QSO, не подтверждённые на LoTW"
 
 #: application/views/search/filter.php:31 application/views/search/main.php:23
 msgid "Search is limited to station locations linked to active logbook"
-msgstr ""
+msgstr "Поиск ограничен профилями QTH, связанными с активным журналом"
 
 #: application/views/search/filter.php:40
 msgid "Save query"
@@ -20272,7 +20280,7 @@ msgstr "Отвязать профиль QTH"
 
 #: application/views/stationsetup/locationlist.php:3
 msgid "Limited to station locations linked to active logbook"
-msgstr ""
+msgstr "Ограничено профилями QTH, связанными с активным журналом"
 
 #: application/views/stationsetup/locationlist.php:11
 msgid "QSO Count"
@@ -20406,11 +20414,11 @@ msgstr "Создать профиль QTH"
 
 #: application/views/stationsetup/stationsetup.php:132
 msgid "Show only locations from the active logbook"
-msgstr "Показать местоположения только для активного журнала"
+msgstr "Показывать профили QTH только для активного журнала"
 
 #: application/views/stationsetup/stationsetup.php:133
 msgid "Show all locations"
-msgstr "Показать все местоположения"
+msgstr "Показать все профили QTH"
 
 #: application/views/stationsetup/stationsetup.php:134
 msgid "Show a location list"
@@ -20997,11 +21005,11 @@ msgstr "Выберите столбец 5 (только для журнала)"
 
 #: application/views/user/edit.php:412
 msgid "Station Location Options"
-msgstr "Параметры местоположения станции"
+msgstr "Параметры профиля QTH"
 
 #: application/views/user/edit.php:421
 msgid "Only show station locations linked to active logbook"
-msgstr "Показывать только местоположения, привязанные к активному журналу"
+msgstr "Показывать только профили QTH, привязанные к активному журналу"
 
 #: application/views/user/edit.php:431
 msgid "QSO Logging Options"
@@ -21051,7 +21059,7 @@ msgstr ""
 
 #: application/views/user/edit.php:478
 msgid "Location auto lookup."
-msgstr "Автозаполнение по местоположению."
+msgstr "Автозаполнение QTH."
 
 #: application/views/user/edit.php:479
 msgid "If set, gridsquare is fetched based on location name."
@@ -21150,11 +21158,11 @@ msgstr "Показывать текущее время UTC в меню"
 
 #: application/views/user/edit.php:615
 msgid "Quick Theme Switcher"
-msgstr ""
+msgstr "Быстрая смена темы"
 
 #: application/views/user/edit.php:616
 msgid "Show the quick theme switcher in the header menu."
-msgstr ""
+msgstr "Показать быстрое переключение тем в меню заголовка."
 
 #: application/views/user/edit.php:628
 msgid "Map Settings"
@@ -21198,12 +21206,13 @@ msgstr "Показывать QTH локатор"
 
 #: application/views/user/edit.php:709
 msgid "Map Tile Style"
-msgstr ""
+msgstr "Стиль карты"
 
 #: application/views/user/edit.php:716
 msgid ""
 "Choose the map tile rendering method; this will override the theme settings."
 msgstr ""
+"Выберите метод отрисовки тайлов карты; это переопределит настройки темы."
 
 #: application/views/user/edit.php:728
 msgid "Previous QSL Type"
@@ -21257,6 +21266,9 @@ msgid ""
 "expeditions cards (Top), at the bottom of the dashboard (Bottom), or hide it "
 "(Off)."
 msgstr ""
+"Показать данные о солнечной активности и распространении радиоволн на панели "
+"управления выше списка активных экспедиций (Вверху), внизу панели управления "
+"(Внизу) или скрыть их (Выкл.)."
 
 #: application/views/user/edit.php:796
 msgid "Dashboard Notification Banner"
@@ -21268,13 +21280,15 @@ msgstr "Включение отображения баннера на экран
 
 #: application/views/user/edit.php:828
 msgid "Dashboard KPI statistics"
-msgstr ""
+msgstr "Статистика KPI панели управления"
 
 #: application/views/user/edit.php:829
 msgid ""
 "This switches the display of the KPI statistics (Total QSOs, QSOs this year/"
 "month/today, Current Streak, Unique callsigns) on the dashboard."
 msgstr ""
+"Переключение отображения статистики KPI (Всего QSO, QSO в этом году/месяце/"
+"сегодня, текущая серия, уникальные позывные) на панели управления."
 
 #: application/views/user/edit.php:838
 msgid "Show Fields on QSO Tab"
@@ -21575,11 +21589,11 @@ msgstr "Сохранить изменения"
 
 #: application/views/user/edit.php:1329
 msgid "Search settings"
-msgstr ""
+msgstr "Поиск настроек"
 
 #: application/views/user/edit.php:1331
 msgid "No settings match your search."
-msgstr ""
+msgstr "Настройки, соответствующие вашему запросу, не найдены."
 
 #: application/views/user/forgot_password.php:33
 msgid "Forgot Password?"
@@ -22013,7 +22027,7 @@ msgstr ""
 #: application/views/view_log/qso.php:131
 #: application/views/view_log/qso.php:193
 msgid "Calculate distance/bearing"
-msgstr ""
+msgstr "Рассчитать расстояние/азимут"
 
 #: application/views/view_log/partial/log_ajax.php:138
 msgid "Result"
@@ -22365,6 +22379,9 @@ msgstr "CQ geojson"
 #~ msgid "Could not fetch worker status."
 #~ msgstr "Не удалось получить статус сервера обработки."
 
+#~ msgid "Upload Preview Image"
+#~ msgstr "Загрузить предварительный просмотр изображения"
+
 #~ msgid "Mark QSOs for a certain QSL Method:"
 #~ msgstr "Отметьте QSO для определенного метода QSL:"
 
@@ -22385,9 +22402,6 @@ msgstr "CQ geojson"
 
 #~ msgid "Mark requested QSLs as sent"
 #~ msgstr "Отметить, что запрошенные QSL отправлены"
-
-#~ msgid "Upload Preview Image"
-#~ msgstr "Загрузить предварительный просмотр изображения"
 
 #~ msgid ""
 #~ "This switches the display of the solar and propagation data on the "
