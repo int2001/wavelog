@@ -50,9 +50,19 @@ class QSO extends CI_Controller {
 		$data['past_contacts_worker'] = null;
 		$user_id = $this->session->userdata('user_id') ?? null;
 		if ($this->worker->is_enabled() && $user_id) {
+			// qso past contacts (last 5) component
 			$topic = 'qso.' . $user_id;
 			$this->worker->register_topic($topic);
 			$data['past_contacts_worker'] = ['topic' => $topic, 'token' => $this->worker->create_token($topic)];
+
+			// radio polling: keyed by radio id so cat.js can look up the selected radio
+			$radio_worker_topics = [];
+			foreach ($data['radios']->result() as $radio) {
+				$topic = 'radio.' . $radio->id;
+				$this->worker->register_topic($topic);
+				$radio_worker_topics[$radio->id] = ['topic' => $topic, 'token' => $this->worker->create_token($topic)];
+			}
+			$data['radio_worker_topics'] = $radio_worker_topics;
 		}
 
 		$data['dxcc'] = $this->logbook_model->fetchDxcc();

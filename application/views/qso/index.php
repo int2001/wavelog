@@ -930,4 +930,5 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
 
 <script>
 	var station_callsign = "<?php echo $station_callsign; ?>";
+  window.radioWorkerTopics = <?php echo json_encode($radio_worker_topics ?? []); ?>;
 </script>

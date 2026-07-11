@@ -73,6 +73,7 @@ $(document).ready(function() {
     let hasTriedWsFallback = false; // Track if we've already tried WS fallback after WSS failed
     let activeWebSocketProtocol = 'wss'; // Track which protocol is currently active ('wss' or 'ws')
     let CATInterval=null;
+    let radioWorkerSub = null; // Active wavelog worker subscription for the selected radio (null = polling/none)
     var updateFromCAT_lock = 0; // This mechanism prevents multiple simultaneous calls to query the CAT interface information
     var updateFromCAT_lockTimeout = null; // Timeout to release lock if AJAX fails
 
@@ -1208,6 +1209,27 @@ $(document).ready(function() {
         }
     };
 
+    var pending = null;
+    var missed = false;
+    var latestData = null;
+    function throttleUpdateCATui(data) {
+        // Load at most once every 1 seconds. If more pushes arrive during the
+		// lockout, refresh once afterwards so no update is lost.
+        if (pending) {
+            missed = true;
+            latestData = data;
+            return;
+        }
+        updateCATui(data);
+        pending = setTimeout(function () {
+            pending = null;
+            if (missed) {
+                missed = false;
+                throttleUpdateCATui(latestData);
+            }
+        }, 1000);
+    }
+
     /******************************************************************************
      * RADIO CAT INITIALIZATION AND EVENT HANDLERS
      ******************************************************************************/
@@ -1255,6 +1277,16 @@ $(document).ready(function() {
             websocket.close();
             websocketEnabled = false;
         }
+        if (radioWorkerSub) {	// close any active wavelog worker subscription
+            radioWorkerSub.close();
+            radioWorkerSub = null;
+        }
+        if (pending) {	// drop any pending throttled update for the old radio
+            clearTimeout(pending);
+            pending = null;
+        }
+        missed = false;
+        latestData = null;
         if (selectedRadioId == '0') {
             $('#sat_name').val('');
             $('#sat_mode').val('');
@@ -1300,8 +1332,34 @@ $(document).ready(function() {
             }
             $('#toggleCatTracking').prop('disabled', false).removeClass('disabled');
 
-            // Start standard polling
-            CATInterval = setInterval(updateFromCAT, CAT_CONFIG.POLL_INTERVAL);
+            var radioTopic = (window.radioWorkerTopics || {})[selectedRadioId];
+            if (radioTopic && window.WavelogWorker && WavelogWorker.isAvailable()) {
+                updateFromCAT(); // one initial fetch to populate the form immediately
+                radioWorkerSub = WavelogWorker.subscribe({
+                    topic: radioTopic.topic,
+                    token: radioTopic.token,
+                    onMessage: function(frame) {
+                        if (frame.type !== 'push' || !frame.payload || frame.payload.type !== 'radio_updated' || !frame.payload.radio_status) {
+                            return;
+                        }
+                        // Respect the bandmap CAT Control toggle, mirroring the poll path
+                        if (typeof window.isCatTrackingEnabled !== 'undefined' && !window.isCatTrackingEnabled) {
+                            return;
+                        }
+                        var d = frame.payload.radio_status;
+                        // Server sends 0; derive real staleness from the push timestamp
+                        d.updated_minutes_ago = d.timestamp ? Math.floor((Date.now() - d.timestamp) / 60000) : 0;
+                        throttleUpdateCATui(d);
+                    },
+                    onReconnect: function() {
+                        // one ajax on reconnect to make sure everything is up2date
+                        updateFromCAT();
+                    }
+                });
+            } else {
+                // Start standard polling
+                CATInterval = setInterval(updateFromCAT, CAT_CONFIG.POLL_INTERVAL);
+            }
 
             // Attempt Hybrid WebSocket Connection (Silent, limited retries)
             // We try to connect to localhost to receive metadata/lookup broadcasts
