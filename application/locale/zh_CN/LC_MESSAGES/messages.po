@@ -30,14 +30,15 @@
 # Weblate user 156 <tidy-elm-snuggle@users.noreply.translate.wavelog.org>, 2026.
 # 洛雨 <i@luotianyi.eu>, 2026.
 # "Luoyu (BG7QBL)" <i@luotianyi.eu>, 2026.
+# 橙子木 <czm233@ypa.moe>, 2026.
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-11 08:37+0000\n"
-"PO-Revision-Date: 2026-07-10 18:40+0000\n"
-"Last-Translator: \"Luoyu (BG7QBL)\" <i@luotianyi.eu>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
-"org/projects/wavelog/main-translation/zh_Hans/>\n"
+"PO-Revision-Date: 2026-07-11 18:58+0000\n"
+"Last-Translator: 橙子木 <czm233@ypa.moe>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translate.wavelog.org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2689,7 +2690,7 @@ msgstr "OQRS"
 
 #: application/controllers/Oqrs.php:286
 msgid "Invalid time format. Please use HH:MM (e.g. 08:31)."
-msgstr ""
+msgstr "错误的时间格式，请输入HH:MM格式的时间，例如：13:31。"
 
 #: application/controllers/Oqrs.php:409
 msgid "QSO match deleted successfully."
@@ -12700,7 +12701,7 @@ msgstr "一切正常"
 
 #: application/views/debug/index.php:876
 msgid "Degraded"
-msgstr ""
+msgstr "回退"
 
 #: application/views/debug/index.php:877
 msgid "Worker backend is not configured."
@@ -12716,7 +12717,7 @@ msgstr "已配置 Woker，但无响应。"
 
 #: application/views/debug/index.php:879
 msgid "Outdated"
-msgstr ""
+msgstr "超时"
 
 #: application/views/debug/index.php:879
 msgid ""
@@ -13410,13 +13411,13 @@ msgstr "注意"
 
 #: application/views/interface_assets/footer.php:40
 msgid "Session expired"
-msgstr ""
+msgstr "会话已过期"
 
 #: application/views/interface_assets/footer.php:41
 msgid ""
 "Your live connection has expired. Please reload the page to keep receiving "
 "live updates."
-msgstr ""
+msgstr "您的会话已过期。请刷新页面以重新开始接收实时更新。"
 
 #: application/views/interface_assets/footer.php:46
 msgid "Warning! Are you sure you want delete QSO with "
@@ -17047,7 +17048,7 @@ msgstr "继续"
 #: application/views/oqrs/request.php:1
 #: application/views/oqrs/request_grouped.php:1
 msgid "Request failed. Please try again."
-msgstr ""
+msgstr "错误的请求，请重试。"
 
 #: application/views/oqrs/notinlogform.php:3
 msgid ""
@@ -17484,15 +17485,15 @@ msgstr "请选择一个模板来删除。"
 
 #: application/views/qslpostcard/designer.php:43
 msgid "Copy failed"
-msgstr ""
+msgstr "复制失败"
 
 #: application/views/qslpostcard/designer.php:44
 msgid "Template copied."
-msgstr ""
+msgstr "模板已复制。"
 
 #: application/views/qslpostcard/designer.php:45
 msgid "Please select a template to copy."
-msgstr ""
+msgstr "请选择一个模板以供复制。"
 
 #: application/views/qslpostcard/designer.php:48
 msgid "selected"
@@ -17530,7 +17531,7 @@ msgstr "保存模板"
 
 #: application/views/qslpostcard/designer.php:77
 msgid "Copy Template"
-msgstr ""
+msgstr "复制模板"
 
 #: application/views/qslpostcard/designer.php:80
 msgid "Delete Template"
@@ -17632,11 +17633,11 @@ msgstr "文本"
 
 #: application/views/qslpostcard/designer.php:249
 msgid "Frequency format"
-msgstr ""
+msgstr "频率格式"
 
 #: application/views/qslpostcard/designer.php:257
 msgid "Omit unit"
-msgstr ""
+msgstr "省略单位"
 
 #: application/views/qslpostcard/designer.php:263
 msgid "X"
@@ -17759,7 +17760,7 @@ msgstr "频段和频率"
 
 #: application/views/qslprint/index.php:55
 msgid "Mark"
-msgstr ""
+msgstr "标记"
 
 #: application/views/qslprint/index.php:57
 msgid "Mark selected QSOs as sent"
