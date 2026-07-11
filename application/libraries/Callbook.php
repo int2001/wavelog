@@ -78,6 +78,7 @@ class Callbook {
 		// Load callbook configuration from config.php
 		$source_callbooks = $this->ci->config->item('callbook');
 		$callbook_errors = array();
+		$callbook = [];
 
 		// Check if the source callbook is a single element or an array
 		if (is_array($source_callbooks)) {

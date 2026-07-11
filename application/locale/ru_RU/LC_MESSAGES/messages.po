@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-11 08:37+0000\n"
+"POT-Creation-Date: 2026-07-11 18:58+0000\n"
 "PO-Revision-Date: 2026-07-08 19:20+0000\n"
 "Last-Translator: Michael Skolsky <r1blh@yandex.ru>\n"
 "Language-Team: Russian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -142,8 +142,8 @@ msgstr "Тропосферное прохождение"
 #: application/controllers/Calltester.php:12
 #: application/controllers/Club.php:60 application/controllers/Club.php:87
 #: application/controllers/Club.php:131 application/controllers/Club.php:159
-#: application/controllers/Club.php:185 application/controllers/Clublog.php:80
-#: application/controllers/Clublog.php:138
+#: application/controllers/Club.php:185 application/controllers/Clublog.php:82
+#: application/controllers/Clublog.php:140
 #: application/controllers/Components.php:12
 #: application/controllers/Contest_admin.php:13
 #: application/controllers/Contestcalendar.php:7
@@ -190,7 +190,7 @@ msgstr "Тропосферное прохождение"
 #: application/controllers/Operator.php:12
 #: application/controllers/Options.php:13 application/controllers/Oqrs.php:12
 #: application/controllers/Oqrs.php:424 application/controllers/Qrbcalc.php:12
-#: application/controllers/Qrz.php:198 application/controllers/Qrz.php:284
+#: application/controllers/Qrz.php:200 application/controllers/Qrz.php:286
 #: application/controllers/Qsl.php:11 application/controllers/Qsl.php:12
 #: application/controllers/Qsl.php:47 application/controllers/Qsl.php:54
 #: application/controllers/Qsl.php:82 application/controllers/Qsl.php:130
@@ -213,8 +213,8 @@ msgstr "Тропосферное прохождение"
 #: application/controllers/Satellite.php:117
 #: application/controllers/Satellite.php:131
 #: application/controllers/Satellite.php:149
-#: application/controllers/Satellite.php:692
-#: application/controllers/Satellite.php:701
+#: application/controllers/Satellite.php:696
+#: application/controllers/Satellite.php:705
 #: application/controllers/Sattimers.php:8 application/controllers/Search.php:9
 #: application/controllers/Simplefle.php:6
 #: application/controllers/Station.php:16
@@ -255,7 +255,7 @@ msgstr "Карта активированных квадратов"
 #: application/controllers/Awards.php:1162
 #: application/controllers/Awards.php:1198
 #: application/controllers/Gridmap.php:34
-#: application/controllers/Visitor.php:415
+#: application/controllers/Visitor.php:418
 #: application/views/activators/index.php:107
 #: application/views/contesting/logger/index.php:57
 #: application/views/interface_assets/footer.php:52
@@ -266,13 +266,13 @@ msgstr "Квадраты"
 
 #: application/controllers/Activated_gridmap.php:34
 #: application/controllers/Gridmap.php:35
-#: application/controllers/Visitor.php:416
+#: application/controllers/Visitor.php:419
 msgid "Gridsquares confirmed"
 msgstr "Подтверждённые квадраты"
 
 #: application/controllers/Activated_gridmap.php:35
 #: application/controllers/Gridmap.php:36
-#: application/controllers/Visitor.php:417
+#: application/controllers/Visitor.php:420
 msgid "Gridsquares not confirmed"
 msgstr "Неподтверждённые квадраты"
 
@@ -282,26 +282,26 @@ msgstr "Всего квадратов активировано"
 
 #: application/controllers/Activated_gridmap.php:38
 #: application/controllers/Gridmap.php:39
-#: application/controllers/Visitor.php:420
+#: application/controllers/Visitor.php:423
 #: application/views/qslpostcard/designer.php:149
 msgid "Fields"
 msgstr "Поля"
 
 #: application/controllers/Activated_gridmap.php:39
 #: application/controllers/Gridmap.php:40
-#: application/controllers/Visitor.php:421
+#: application/controllers/Visitor.php:424
 msgid "Fields confirmed"
 msgstr "Подтверждённые поля"
 
 #: application/controllers/Activated_gridmap.php:40
 #: application/controllers/Gridmap.php:41
-#: application/controllers/Visitor.php:422
+#: application/controllers/Visitor.php:425
 msgid "Fields not confirmed"
 msgstr "Неподтверждённые поля"
 
 #: application/controllers/Activated_gridmap.php:41
 #: application/controllers/Gridmap.php:42
-#: application/controllers/Visitor.php:423
+#: application/controllers/Visitor.php:426
 msgid "Total fields worked"
 msgstr "Всего полей сработано"
 
@@ -444,13 +444,13 @@ msgstr "Дипломы"
 #: application/controllers/Awards.php:1389
 #: application/controllers/Awards.php:1540
 #: application/controllers/Awards.php:1591
-#: application/controllers/Awards.php:2151
-#: application/controllers/Awards.php:2300
-#: application/controllers/Awards.php:2430
-#: application/controllers/Awards.php:2504
-#: application/controllers/Awards.php:2517
-#: application/controllers/Awards.php:2592
-#: application/controllers/Awards.php:2734
+#: application/controllers/Awards.php:2152
+#: application/controllers/Awards.php:2301
+#: application/controllers/Awards.php:2431
+#: application/controllers/Awards.php:2505
+#: application/controllers/Awards.php:2518
+#: application/controllers/Awards.php:2593
+#: application/controllers/Awards.php:2735
 #, php-format
 msgid "Awards - %s"
 msgstr "Дипломы — %s"
@@ -525,7 +525,7 @@ msgstr "Просмотр журнала — VUCC"
 
 #: application/controllers/Awards.php:668
 #: application/controllers/Callstats.php:101
-#: application/controllers/Distancerecords.php:86
+#: application/controllers/Distancerecords.php:87
 #: application/controllers/Statistics.php:370
 #: application/controllers/Timeline.php:127
 #: application/controllers/Timeline.php:130
@@ -741,38 +741,38 @@ msgstr "WAP"
 msgid "WAIP"
 msgstr "WAIP"
 
-#: application/controllers/Awards.php:2300
+#: application/controllers/Awards.php:2301
 #: application/views/awards/itu/index.php:27
 msgid "ITU Zones"
 msgstr "Зоны ITU"
 
-#: application/controllers/Awards.php:2430
+#: application/controllers/Awards.php:2431
 #: application/views/awards/wac/index.php:7
 #: application/views/interface_assets/header.php:206
 msgid "Worked All Continents (WAC)"
 msgstr "Worked All Continents (WAC)"
 
-#: application/controllers/Awards.php:2504
+#: application/controllers/Awards.php:2505
 msgid "WAE"
 msgstr "WAE"
 
-#: application/controllers/Awards.php:2517
+#: application/controllers/Awards.php:2518
 #: application/views/interface_assets/header.php:216
 msgid "73 on 73"
 msgstr "73 on 73"
 
-#: application/controllers/Awards.php:2592
+#: application/controllers/Awards.php:2593
 #: application/views/awards/wpx/wpx_details.php:19
 msgid "WPX"
 msgstr "WPX"
 
-#: application/controllers/Awards.php:2734
+#: application/controllers/Awards.php:2735
 #: application/views/awards/pl_polska/index.php:41
 #: application/views/interface_assets/header.php:281
 msgid "\"Polska\" Award"
 msgstr "\"Polska\" Award"
 
-#: application/controllers/Awards.php:2778
+#: application/controllers/Awards.php:2779
 msgid "Awards - AMSAT Rover"
 msgstr "Дипломы — AMSAT Rover"
 
@@ -908,11 +908,11 @@ msgstr ""
 msgid "Invalid message type."
 msgstr "Недопустимый тип сообщения."
 
-#: application/controllers/Club.php:224
+#: application/controllers/Club.php:225
 msgid "Email can't be initialized. Check the email settings."
 msgstr "Не удалось инициализировать электронную почту. Проверьте настройки."
 
-#: application/controllers/Club.php:231 application/views/api/index.php:68
+#: application/controllers/Club.php:232 application/views/api/index.php:68
 #: application/views/contesting/logger/components/qso-form.php:35
 #: application/views/satellite/index.php:94
 #: application/views/satellite/satinfo.php:51
@@ -926,14 +926,14 @@ msgstr "Неизвестно"
 msgid "Maintenance Mode is active. Try again later."
 msgstr "Сервер в режиме обслуживания. Попробуйте позже."
 
-#: application/controllers/Clublog.php:44
-#: application/controllers/Clublog.php:70
-#: application/controllers/Clublog.php:122
-#: application/controllers/Clublog.php:158
+#: application/controllers/Clublog.php:45
+#: application/controllers/Clublog.php:72
+#: application/controllers/Clublog.php:124
+#: application/controllers/Clublog.php:161
 msgid "No user has configured Clublog."
 msgstr "Ни один пользователь не сконфигурировал доступ к Clublog."
 
-#: application/controllers/Clublog.php:85
+#: application/controllers/Clublog.php:87
 #: application/controllers/Logbook.php:789
 #: application/views/awards/cq/index.php:131
 #: application/views/awards/dok/index.php:102
@@ -962,7 +962,7 @@ msgstr "Ни один пользователь не сконфигурирова
 msgid "Clublog"
 msgstr "Clublog"
 
-#: application/controllers/Clublog.php:140
+#: application/controllers/Clublog.php:142
 msgid "Clublog QSL Import"
 msgstr "Импорт QSL из Clublog"
 
@@ -1182,7 +1182,7 @@ msgid "SOTA CSV Export"
 msgstr "Экспорт SOTA в CSV"
 
 #: application/controllers/Dashboard.php:177
-#: application/controllers/Visitor.php:128
+#: application/controllers/Visitor.php:129
 msgid "Dashboard"
 msgstr "Панель управления"
 
@@ -1267,7 +1267,7 @@ msgstr "Wavelog был успешно обновлен!"
 msgid "Selfupdate() not available. Check the Error Log."
 msgstr "Selfupdate() недоступен. Проверьте журнал ошибок."
 
-#: application/controllers/Debug.php:328
+#: application/controllers/Debug.php:340
 msgid ""
 "File Migration was successful, but please check also manually. If everything "
 "seems right you can delete the folders 'assets/qslcard' and 'images/"
@@ -1277,13 +1277,13 @@ msgstr ""
 "Если все в порядке, то можете удалить папки 'assets/qslcard' и 'images/"
 "eqsl_card_images'."
 
-#: application/controllers/Debug.php:331
+#: application/controllers/Debug.php:343
 msgid "File Migration failed. Please check the Error Log."
 msgstr ""
 "Не удалось выполнить миграцию файлов. Пожалуйста, проверьте журнал ошибок."
 
-#: application/controllers/Distancerecords.php:67
-#: application/controllers/Distancerecords.php:86
+#: application/controllers/Distancerecords.php:68
+#: application/controllers/Distancerecords.php:87
 #: application/views/distancerecords/index.php:6
 #: application/views/interface_assets/header.php:172
 msgid "Satellite Distance Records"
@@ -1448,7 +1448,7 @@ msgid "Gridsquare Map"
 msgstr "Карта квадратов QTH локатора"
 
 #: application/controllers/Gridmap.php:37
-#: application/controllers/Visitor.php:418
+#: application/controllers/Visitor.php:421
 msgid "Total gridsquares worked"
 msgstr "Всего сработано квадратов QTH локатора"
 
@@ -1527,59 +1527,59 @@ msgstr "наклейки QSL карточек"
 msgid "Create Label Type"
 msgstr "Новый тип наклеек"
 
-#: application/controllers/Labels.php:77 application/controllers/Labels.php:425
+#: application/controllers/Labels.php:77 application/controllers/Labels.php:430
 #: application/views/labels/create.php:22 application/views/labels/edit.php:22
 msgid "Label Name"
 msgstr "Название наклейки"
 
-#: application/controllers/Labels.php:78 application/controllers/Labels.php:426
+#: application/controllers/Labels.php:78 application/controllers/Labels.php:431
 #: application/views/labels/create.php:28 application/views/labels/edit.php:28
 #: application/views/labels/index.php:77
 msgid "Paper Type"
 msgstr "Тип бумаги"
 
-#: application/controllers/Labels.php:79 application/controllers/Labels.php:427
+#: application/controllers/Labels.php:79 application/controllers/Labels.php:432
 #: application/views/labels/index.php:43 application/views/labels/index.php:78
 msgid "Measurement"
 msgstr "Единицы измерения"
 
-#: application/controllers/Labels.php:80 application/controllers/Labels.php:428
+#: application/controllers/Labels.php:80 application/controllers/Labels.php:433
 msgid "Top Margin"
 msgstr "Отступ сверху"
 
-#: application/controllers/Labels.php:81 application/controllers/Labels.php:429
+#: application/controllers/Labels.php:81 application/controllers/Labels.php:434
 msgid "Left Margin"
 msgstr "Отступ слева"
 
-#: application/controllers/Labels.php:82 application/controllers/Labels.php:430
+#: application/controllers/Labels.php:82 application/controllers/Labels.php:435
 msgid "QSLs Horizontally"
 msgstr "QSL в строку"
 
-#: application/controllers/Labels.php:83 application/controllers/Labels.php:431
+#: application/controllers/Labels.php:83 application/controllers/Labels.php:436
 msgid "QSLs Vertically"
 msgstr "QSL в столбец"
 
-#: application/controllers/Labels.php:84 application/controllers/Labels.php:432
+#: application/controllers/Labels.php:84 application/controllers/Labels.php:437
 msgid "Horizontal Space"
 msgstr "Интервал по горизонтали"
 
-#: application/controllers/Labels.php:85 application/controllers/Labels.php:433
+#: application/controllers/Labels.php:85 application/controllers/Labels.php:438
 msgid "Vertical Space"
 msgstr "Интервал по вертикали"
 
-#: application/controllers/Labels.php:86 application/controllers/Labels.php:434
+#: application/controllers/Labels.php:86 application/controllers/Labels.php:439
 msgid "Label width"
 msgstr "Ширина наклейки"
 
-#: application/controllers/Labels.php:87 application/controllers/Labels.php:435
+#: application/controllers/Labels.php:87 application/controllers/Labels.php:440
 msgid "Label height"
 msgstr "Высота наклейки"
 
-#: application/controllers/Labels.php:88 application/controllers/Labels.php:436
+#: application/controllers/Labels.php:88 application/controllers/Labels.php:441
 msgid "Size of Font"
 msgstr "Размер шрифта"
 
-#: application/controllers/Labels.php:89 application/controllers/Labels.php:437
+#: application/controllers/Labels.php:89 application/controllers/Labels.php:442
 msgid "Number of QSOs on label"
 msgstr "Количество QSO на наклейке"
 
@@ -1588,22 +1588,22 @@ msgid "Create Paper Type"
 msgstr "Новый тип бумаги"
 
 #: application/controllers/Labels.php:118
-#: application/controllers/Labels.php:484
+#: application/controllers/Labels.php:489
 msgid "Paper Name"
 msgstr "Название типа бумаги"
 
 #: application/controllers/Labels.php:119
-#: application/controllers/Labels.php:485
+#: application/controllers/Labels.php:490
 msgid "Paper Width"
 msgstr "Ширина бумаги"
 
 #: application/controllers/Labels.php:120
-#: application/controllers/Labels.php:486
+#: application/controllers/Labels.php:491
 msgid "Paper Height"
 msgstr "Высота бумаги"
 
 #: application/controllers/Labels.php:131
-#: application/controllers/Labels.php:494
+#: application/controllers/Labels.php:499
 msgid ""
 "Your paper could not be saved. Remember that it can't have the same name as "
 "existing paper types."
@@ -1631,31 +1631,31 @@ msgstr ""
 "Что-то пошло не так! Наклейки не могут быть сгенерированы. Проверьте размер "
 "наклеек и размер шрифта."
 
-#: application/controllers/Labels.php:257
+#: application/controllers/Labels.php:262
 msgid "0 QSOs found for print!"
 msgstr "QSO для печати не найдены!"
 
-#: application/controllers/Labels.php:414
+#: application/controllers/Labels.php:419
 msgid "Edit Label"
 msgstr "Редактировать тип наклеек"
 
-#: application/controllers/Labels.php:443
+#: application/controllers/Labels.php:448
 msgid "Label was saved."
 msgstr "Шаблон наклейки сохранён."
 
-#: application/controllers/Labels.php:451
+#: application/controllers/Labels.php:456
 msgid "Label was deleted."
 msgstr "Шаблон наклейки удалён."
 
-#: application/controllers/Labels.php:473
+#: application/controllers/Labels.php:478
 msgid "Edit Paper"
 msgstr "Редактировать тип бумаги"
 
-#: application/controllers/Labels.php:498
+#: application/controllers/Labels.php:503
 msgid "Paper was saved."
 msgstr "Тип бумаги сохранён."
 
-#: application/controllers/Labels.php:511
+#: application/controllers/Labels.php:516
 msgid "Paper was deleted."
 msgstr "Тип бумаги удалён."
 
@@ -2314,12 +2314,12 @@ msgstr "Удалённые DXCC"
 msgid "Advanced logbook"
 msgstr "Расширенный журнал"
 
-#: application/controllers/Logbookadvanced.php:995
+#: application/controllers/Logbookadvanced.php:998
 #, php-format
 msgid "DXCC updated for %d QSO(s)."
 msgstr "Значение DXCC обновлено для %d QSO."
 
-#: application/controllers/Logbookadvanced.php:1011
+#: application/controllers/Logbookadvanced.php:1014
 #, php-format
 msgid "Map for DXCC %s and gridsquare %s."
 msgstr "Карта для DXCC %s и квадратов QTH локатора %s."
@@ -2672,14 +2672,14 @@ msgstr "Информация о версии не будет показана п
 #: application/controllers/Staticmap.php:202
 #: application/controllers/Visitor.php:46
 #: application/controllers/Visitor.php:75
-#: application/controllers/Visitor.php:141
-#: application/controllers/Visitor.php:153
-#: application/controllers/Visitor.php:177
-#: application/controllers/Visitor.php:202
-#: application/controllers/Visitor.php:227
-#: application/controllers/Visitor.php:260
-#: application/controllers/Visitor.php:517
-#: application/controllers/Widgets.php:68
+#: application/controllers/Visitor.php:142
+#: application/controllers/Visitor.php:154
+#: application/controllers/Visitor.php:178
+#: application/controllers/Visitor.php:204
+#: application/controllers/Visitor.php:229
+#: application/controllers/Visitor.php:263
+#: application/controllers/Visitor.php:520
+#: application/controllers/Widgets.php:67
 msgid "Unknown Public Page."
 msgstr "Неизвестная публичная страница."
 
@@ -2740,6 +2740,7 @@ msgstr[1] "Расстояние между %s и %s составляет %s мо
 msgstr[2] "Расстояние между %s и %s составляет %s морских миль."
 
 #: application/controllers/Qrbcalc.php:59
+#: application/controllers/Qrbcalc.php:62
 #, php-format
 msgid "The distance between %s and %s is %s kilometer."
 msgid_plural "The distance between %s and %s is %s kilometers."
@@ -2747,12 +2748,12 @@ msgstr[0] "Расстояние между %s и %s составляет %s ки
 msgstr[1] "Расстояние между %s и %s составляет %s километра."
 msgstr[2] "Расстояние между %s и %s составляет %s километров."
 
-#: application/controllers/Qrbcalc.php:65
+#: application/controllers/Qrbcalc.php:68
 #, php-format
 msgid "The bearing is %s."
 msgstr "Азимут %s."
 
-#: application/controllers/Qrbcalc.php:71
+#: application/controllers/Qrbcalc.php:74
 msgid ""
 "Negative latitudes are south of the equator, negative longitudes are west of "
 "Greenwich."
@@ -2760,16 +2761,16 @@ msgstr ""
 "Отрицательные широты находятся к югу от экватора, отрицательные долготы — к "
 "западу от Гринвича."
 
-#: application/controllers/Qrz.php:202
+#: application/controllers/Qrz.php:204
 #: application/views/interface_assets/header.php:569
 msgid "QRZ Logbook"
 msgstr "Журнал QRZ"
 
-#: application/controllers/Qrz.php:286
+#: application/controllers/Qrz.php:288
 msgid "QRZ QSL Import"
 msgstr "QRZ. Импорт QSL"
 
-#: application/controllers/Qrz.php:341
+#: application/controllers/Qrz.php:343
 msgid "QRZ ADIF Information"
 msgstr "QRZ. Информация ADIF"
 
@@ -3148,11 +3149,11 @@ msgstr "Простой быстрый ввод журнала"
 
 #: application/controllers/Staticmap.php:198
 #: application/controllers/Visitor.php:71
-#: application/controllers/Visitor.php:173
-#: application/controllers/Visitor.php:223
-#: application/controllers/Visitor.php:256
-#: application/controllers/Visitor.php:513
-#: application/controllers/Widgets.php:64
+#: application/controllers/Visitor.php:174
+#: application/controllers/Visitor.php:225
+#: application/controllers/Visitor.php:259
+#: application/controllers/Visitor.php:516
+#: application/controllers/Widgets.php:63
 msgid "Empty Logbook"
 msgstr "Пустой журнал"
 
@@ -3864,20 +3865,20 @@ msgid ""
 msgstr ""
 "Вы вышли из аккаунта %s. Добро пожаловать обратно, %s, в ваш личный аккаунт!"
 
-#: application/controllers/Visitor.php:265
+#: application/controllers/Visitor.php:268
 msgid "No public slug found."
 msgstr "Публичная метка не найдена."
 
-#: application/controllers/Visitor.php:271
+#: application/controllers/Visitor.php:274
 msgid "Satellite Gridsquare Map"
 msgstr "Карта квадратов QTH локатора (спутники)"
 
-#: application/controllers/Visitor.php:451
+#: application/controllers/Visitor.php:454
 #: application/views/stationsetup/stationsetup.php:48
 msgid "Public Search"
 msgstr "Публичный поиск"
 
-#: application/controllers/Visitor.php:484
+#: application/controllers/Visitor.php:487
 msgid "Export Map"
 msgstr "Экспорт карты"
 
@@ -3935,7 +3936,7 @@ msgstr "Поиск не настроен. Пожалуйста, проверьт
 msgid "Error obtaining a session key for callbook. Error: %s"
 msgstr "Ошибка при получении ключа сеанса для колбука. Ошибка: %s"
 
-#: application/libraries/Callbook.php:213
+#: application/libraries/Callbook.php:214
 msgid "QRZCQ Error"
 msgstr "Ошибка QRZCQ"
 
@@ -4133,13 +4134,13 @@ msgstr "Не указан позывной"
 msgid "DXCC has to be Numeric"
 msgstr "DXCC должен быть цифровым"
 
-#: application/models/Logbook_model.php:4957
+#: application/models/Logbook_model.php:4958
 #, php-format
 msgid ""
 "Differing station callsign %s while importing QSO with %s for %s: SKIPPED"
 msgstr "Отличающийся позывной %s при импорте QSO с %s для %s: ПРОПУЩЕНО"
 
-#: application/models/Logbook_model.php:4965
+#: application/models/Logbook_model.php:4966
 #, php-format
 msgid ""
 "Differing locator %s while importing QSO with %s for station locator %s: "
@@ -4148,7 +4149,7 @@ msgstr ""
 "Отличающийся локатор %s при импорте QSO с %s от локатора в профиле QTH %s: "
 "ПРОПУЩЕНО"
 
-#: application/models/Logbook_model.php:4981
+#: application/models/Logbook_model.php:4982
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
@@ -4156,11 +4157,11 @@ msgstr ""
 "Вы пытались импортировать QSO без действительной даты. Это QSO не "
 "действительно и не было импортировано"
 
-#: application/models/Logbook_model.php:4991
+#: application/models/Logbook_model.php:4992
 msgid "QSO on"
 msgstr "начало QSO"
 
-#: application/models/Logbook_model.php:4991
+#: application/models/Logbook_model.php:4992
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
@@ -4168,7 +4169,7 @@ msgstr ""
 "Вы пытались импортировать QSO без указанного позывного. Это QSO не было "
 "импортировано. Оно недействительно"
 
-#: application/models/Logbook_model.php:5041
+#: application/models/Logbook_model.php:5042
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
@@ -4177,63 +4178,63 @@ msgstr ""
 "QSO в %s: Вы пыталсь импортировать QSO без информации о диапазоне. Это QSO "
 "некорректно, импорт отклонён.imported. It's invalid"
 
-#: application/models/Logbook_model.php:5315
+#: application/models/Logbook_model.php:5316
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "дата получения QSL недействительна (ГГГГММДД)"
 
-#: application/models/Logbook_model.php:5326
+#: application/models/Logbook_model.php:5327
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "дата отправки QSL недействительна (ГГГГММДД)"
 
-#: application/models/Logbook_model.php:5387
+#: application/models/Logbook_model.php:5388
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "дата загрузки QSO в Clublog недействительна (ГГГГММДД)"
 
-#: application/models/Logbook_model.php:5758
+#: application/models/Logbook_model.php:5759
 #: application/views/simplefle/index.php:41
 msgid "Duplicate for"
 msgstr "Дубликат для"
 
-#: application/models/Logbook_model.php:5825
-#: application/models/Logbook_model.php:5925
+#: application/models/Logbook_model.php:5826
+#: application/models/Logbook_model.php:5926
 msgid "QSO could not be matched"
 msgstr "QSO не может быть сопоставлено"
 
-#: application/models/Logbook_model.php:5833
+#: application/models/Logbook_model.php:5834
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "подтверждено LoTW/Clublog/eQSL/Contest"
 
-#: application/models/Logbook_model.php:5839
+#: application/models/Logbook_model.php:5840
 msgid "confirmed by award manager"
 msgstr "подтверждено менеджером диплома"
 
-#: application/models/Logbook_model.php:5843
+#: application/models/Logbook_model.php:5844
 msgid "confirmed by cross-check of DCL data"
 msgstr "подтверждено кросс-проверкой с данными DCL"
 
-#: application/models/Logbook_model.php:5847
+#: application/models/Logbook_model.php:5848
 msgid "confirmation pending"
 msgstr "подтверждение ожидается"
 
-#: application/models/Logbook_model.php:5850
+#: application/models/Logbook_model.php:5851
 msgid "unconfirmed"
 msgstr "не подтверждено"
 
-#: application/models/Logbook_model.php:5853
+#: application/models/Logbook_model.php:5854
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 msgid "unknown"
 msgstr "неизвестно"
 
-#: application/models/Logbook_model.php:5928
+#: application/models/Logbook_model.php:5929
 msgid "POTA reference already in log"
 msgstr "Ренференция POTA уже в журнале"
 
-#: application/models/Logbook_model.php:5931
+#: application/models/Logbook_model.php:5932
 msgid "QSO updated"
 msgstr "QSO обновлено"
 
-#: application/models/Logbook_model.php:6336
+#: application/models/Logbook_model.php:6337
 #: application/views/activated_gridmap/index.php:109
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:57
@@ -4248,13 +4249,13 @@ msgstr "QSO обновлено"
 msgid "Bearing"
 msgstr "Направление"
 
-#: application/models/Logbookadvanced_model.php:1840
+#: application/models/Logbookadvanced_model.php:1839
 msgid "VuccGrids table is empty. Please import the VUCC grids data first."
 msgstr ""
 "Таблица VUCCGrids пуста. Сначала импортируйте данные квадратов QTH локатора "
 "VUCC."
 
-#: application/models/Logbookadvanced_model.php:2460
+#: application/models/Logbookadvanced_model.php:2459
 msgid ""
 "Invalid primary QSO ID, or you do not have permission to access one of the "
 "QSOs"
@@ -4262,16 +4263,16 @@ msgstr ""
 "Недействительный первичный идентификатор QSO или у вас нет прав доступа к "
 "одному из QSO"
 
-#: application/models/Logbookadvanced_model.php:2470
+#: application/models/Logbookadvanced_model.php:2469
 #: application/views/view_log/qso.php:866
 msgid "QSO not found"
 msgstr "QSO не найдено"
 
-#: application/models/Logbookadvanced_model.php:2556
+#: application/models/Logbookadvanced_model.php:2555
 msgid "No fields selected for merge or no differences between QSOs"
 msgstr "Поля для объединения не выбраны или отсутствуют различия между QSO"
 
-#: application/models/Logbookadvanced_model.php:2569
+#: application/models/Logbookadvanced_model.php:2568
 msgid "QSOs merged successfully"
 msgstr "QSO успешно объединены"
 
@@ -4291,7 +4292,7 @@ msgstr "Общее"
 msgid "Antennas"
 msgstr "Антенны"
 
-#: application/models/Note.php:63 application/models/Note.php:94
+#: application/models/Note.php:64 application/models/Note.php:95
 msgid "In Contacts category, the titles of the notes need to be unique."
 msgstr "В категории Контакты заголовки записей должны быть уникальными."
 
@@ -4300,24 +4301,24 @@ msgctxt "QSL Card Designer; No mailable address found"
 msgid "!!! NO MAILABLE ADDRESS FOUND !!!"
 msgstr "!!! НЕ НАЙДЕН ПРИГОДНЫЙ ДЛЯ ОТПРАВКИ АДРЕС !!!"
 
-#: application/models/Update_model.php:347
+#: application/models/Update_model.php:349
 msgid "Newer release available:"
 msgstr "Доступна новая версия:"
 
-#: application/models/Update_model.php:351
+#: application/models/Update_model.php:353
 msgid "You are running the latest version."
 msgstr "Вы используете последнюю версию."
 
-#: application/models/Update_model.php:492
+#: application/models/Update_model.php:494
 msgid "cURL error:"
 msgstr "ошибка cURL:"
 
-#: application/models/Update_model.php:526
+#: application/models/Update_model.php:528
 msgid "SAT already existing. LoTW status updated."
 msgstr "Спутник уже существует. Статус LoTW обновлен."
 
-#: application/models/Update_model.php:529
-#: application/models/Update_model.php:558
+#: application/models/Update_model.php:531
+#: application/models/Update_model.php:560
 #, php-format
 msgid "LoTW status for %d QSO updated"
 msgid_plural "LoTW status for %d QSOs updated"
@@ -4325,27 +4326,27 @@ msgstr[0] "Статус LoTW для %d QSO обновлен"
 msgstr[1] "Статус LoTW для %d QSO обновлен"
 msgstr[2] "Статус LoTW для %d QSO обновлен"
 
-#: application/models/Update_model.php:532
+#: application/models/Update_model.php:534
 msgid "SAT already existing. Updating LoTW status failed."
 msgstr "Спутник уже существует. Обновление статуса LoTW не удалось."
 
-#: application/models/Update_model.php:535
+#: application/models/Update_model.php:537
 msgid "SAT already existing. Ignored."
 msgstr "Спутник уже существует. Игнорируется."
 
-#: application/models/Update_model.php:542
+#: application/models/Update_model.php:544
 msgid "SAT already existing. Display name updated."
 msgstr "Спутник уже существует. Отображаемое наименование обновлено."
 
-#: application/models/Update_model.php:544
+#: application/models/Update_model.php:546
 msgid "SAT already existing. Updating display name failed."
 msgstr "Спутник уже существует. Не удалось обновить отображаемое наименование."
 
-#: application/models/Update_model.php:554
+#: application/models/Update_model.php:556
 msgid "New SAT. Inserted."
 msgstr "Новый спутник. Добавлен."
 
-#: application/models/Update_model.php:562
+#: application/models/Update_model.php:564
 msgid "New SAT. Insert failed."
 msgstr "Новый спутник. Добавление не удалось."
 

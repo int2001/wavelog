@@ -21,7 +21,7 @@ class Timeline_model extends CI_Model {
 			case 'waja':  $result = $this->get_timeline_waja($band, $mode, $propmode, $location_list, $qsl, $lotw, $eqsl, $clublog, $year, $qrz, $onlynew);  break;
 		}
 
-		return $result;
+		return $result ?? null;
 	}
 
 	public function get_timeline_dxcc($band, $mode, $propmode, $location_list, $qsl, $lotw, $eqsl, $clublog, $year, $qrz, $onlynew) {

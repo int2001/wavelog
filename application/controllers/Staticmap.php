@@ -200,6 +200,7 @@ class Staticmap extends CI_Controller {
                 } else {
                     log_message('error', $slug . ' has no associated station locations');
                     show_404(__("Unknown Public Page."));
+                    die;
                 }
 
                 // we need to get an array of all coordinates of the stations
