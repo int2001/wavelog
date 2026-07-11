@@ -13,7 +13,7 @@ class User_options_model extends CI_Model {
 		if (isset($query) && $query) {
 			return true;
 		} else {
-			log_message('error', 'set_option() failed for user_id: ' . $uid . ', option_type: ' . $option_type . ', option_name: ' . $option_name);
+			log_message('error', 'set_option() failed for user_id: ' . ($uid ?? 'null') . ', option_type: ' . ($option_type ?? 'null') . ', option_name: ' . ($option_name ?? 'null'));
 		}
 	}
 
