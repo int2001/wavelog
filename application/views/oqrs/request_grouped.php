@@ -1,3 +1,5 @@
+<script> var lang_oqrs_request_failed = "<?= __("Request failed. Please try again."); ?>"; </script>
+
 <br />
 <?php if ($result) { ?>
 <?= __("The following QSO(s) were found. Please fill out the date and time and submit your request."); ?>
