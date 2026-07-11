@@ -33,7 +33,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-11 07:15+0000\n"
+"POT-Creation-Date: 2026-07-11 08:36+0000\n"
 "PO-Revision-Date: 2026-07-10 18:40+0000\n"
 "Last-Translator: \"Luoyu (BG7QBL)\" <i@luotianyi.eu>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
@@ -207,7 +207,7 @@ msgstr "Tropospheric ducting"
 #: application/controllers/Mode.php:14 application/controllers/Notes.php:9
 #: application/controllers/Operator.php:12
 #: application/controllers/Options.php:13 application/controllers/Oqrs.php:12
-#: application/controllers/Oqrs.php:395 application/controllers/Qrbcalc.php:12
+#: application/controllers/Oqrs.php:424 application/controllers/Qrbcalc.php:12
 #: application/controllers/Qrz.php:198 application/controllers/Qrz.php:284
 #: application/controllers/Qsl.php:11 application/controllers/Qsl.php:12
 #: application/controllers/Qsl.php:47 application/controllers/Qsl.php:54
@@ -1862,9 +1862,9 @@ msgstr "所有呼号簿的查询均失败或没有结果。"
 #: application/views/logbookadvanced/showStateQsos.php:23
 #: application/views/logbookadvanced/useroptions.php:46
 #: application/views/mode/index.php:40
-#: application/views/oqrs/notinlogform.php:11
-#: application/views/oqrs/qsolist.php:9 application/views/oqrs/request.php:18
-#: application/views/oqrs/request_grouped.php:11
+#: application/views/oqrs/notinlogform.php:12
+#: application/views/oqrs/qsolist.php:9 application/views/oqrs/request.php:19
+#: application/views/oqrs/request_grouped.php:13
 #: application/views/oqrs/showrequests.php:94
 #: application/views/public_search/result.php:15
 #: application/views/qslcard/confirmationresult.php:17
@@ -2186,9 +2186,9 @@ msgstr "距离"
 #: application/views/logbookadvanced/showMissingDxccQsos.php:22
 #: application/views/logbookadvanced/showStateQsos.php:24
 #: application/views/logbookadvanced/useroptions.php:64
-#: application/views/oqrs/notinlogform.php:10
-#: application/views/oqrs/qsolist.php:10 application/views/oqrs/request.php:17
-#: application/views/oqrs/request_grouped.php:10
+#: application/views/oqrs/notinlogform.php:11
+#: application/views/oqrs/qsolist.php:10 application/views/oqrs/request.php:18
+#: application/views/oqrs/request_grouped.php:12
 #: application/views/oqrs/showrequests.php:93
 #: application/views/public_search/result.php:16
 #: application/views/qslcard/confirmationresult.php:18
@@ -2682,16 +2682,20 @@ msgstr "无效站台 ID"
 msgid "Invalid station slug"
 msgstr "无效的台站标识符"
 
-#: application/controllers/Oqrs.php:174
+#: application/controllers/Oqrs.php:180
 #: application/views/interface_assets/header.php:551
 msgid "OQRS Requests"
 msgstr "OQRS"
 
-#: application/controllers/Oqrs.php:380
+#: application/controllers/Oqrs.php:286
+msgid "Invalid time format. Please use HH:MM (e.g. 08:31)."
+msgstr ""
+
+#: application/controllers/Oqrs.php:409
 msgid "QSO match deleted successfully."
 msgstr "QSO 匹配已成功删除。"
 
-#: application/controllers/Oqrs.php:390
+#: application/controllers/Oqrs.php:419
 msgid "QSO match added successfully."
 msgstr "QSO 匹配已成功添加。"
 
@@ -3659,7 +3663,7 @@ msgid "User %s logged out."
 msgstr "用户 '%s' 已登出。"
 
 #: application/controllers/User.php:1481
-#: application/views/oqrs/request_grouped.php:16
+#: application/views/oqrs/request_grouped.php:18
 #: application/views/user/modals/first_login_wizard.php:26
 msgid "Station Name"
 msgstr "台站名称"
@@ -4753,7 +4757,7 @@ msgstr "未找到！"
 #: application/views/logbookadvanced/showUpdateResult.php:43
 #: application/views/lotw_views/index.php:42
 #: application/views/oqrs/qsolist.php:6
-#: application/views/oqrs/request_grouped.php:12
+#: application/views/oqrs/request_grouped.php:14
 #: application/views/qslcard/confirmationresult.php:15
 #: application/views/qslcard/index.php:43
 #: application/views/qslcard/searchform.php:3
@@ -4864,9 +4868,9 @@ msgstr ""
 #: application/views/logbookadvanced/checkresult.php:317
 #: application/views/logbookadvanced/dupesearchdialog.php:14
 #: application/views/logbookadvanced/edit.php:15
-#: application/views/oqrs/notinlogform.php:8
-#: application/views/oqrs/qsolist.php:7 application/views/oqrs/request.php:15
-#: application/views/oqrs/request_grouped.php:8
+#: application/views/oqrs/notinlogform.php:9
+#: application/views/oqrs/qsolist.php:7 application/views/oqrs/request.php:16
+#: application/views/oqrs/request_grouped.php:10
 #: application/views/public_search/result.php:13
 #: application/views/qslcard/index.php:45
 #: application/views/qslcard/searchresult.php:4
@@ -9017,9 +9021,9 @@ msgstr "实体"
 
 #: application/views/bandmap/list.php:571
 #: application/views/bandmap/list.php:615
-#: application/views/oqrs/notinlogform.php:28
-#: application/views/oqrs/request.php:58
-#: application/views/oqrs/request_grouped.php:61
+#: application/views/oqrs/notinlogform.php:29
+#: application/views/oqrs/request.php:59
+#: application/views/oqrs/request_grouped.php:63
 #: application/views/oqrs/status_info.php:5
 msgid "Message"
 msgstr "消息"
@@ -15105,8 +15109,8 @@ msgstr "直邮"
 #: application/views/logbookadvanced/index.php:613
 #: application/views/logbookadvanced/index.php:623
 #: application/views/oqrs/qsolist.php:70 application/views/oqrs/qsolist.php:112
-#: application/views/oqrs/request.php:46
-#: application/views/oqrs/request_grouped.php:49
+#: application/views/oqrs/request.php:47
+#: application/views/oqrs/request_grouped.php:51
 #: application/views/oqrs/showrequests.php:7
 #: application/views/qslprint/qslprint.php:6
 #: application/views/qslprint/qsolist.php:103
@@ -17038,31 +17042,37 @@ msgstr "选择台站"
 msgid "Proceed"
 msgstr "继续"
 
-#: application/views/oqrs/notinlogform.php:2
+#: application/views/oqrs/notinlogform.php:1
+#: application/views/oqrs/request.php:1
+#: application/views/oqrs/request_grouped.php:1
+msgid "Request failed. Please try again."
+msgstr ""
+
+#: application/views/oqrs/notinlogform.php:3
 msgid ""
 "If you can't find your QSO in the log, please fill out the form below. You "
 "will be contacted after the log has been checked."
 msgstr "如你在日志中找不到 QSO，请填写如下表单，你会在日志得到确认后收到通知。"
 
-#: application/views/oqrs/notinlogform.php:9
-#: application/views/oqrs/request.php:16
-#: application/views/oqrs/request_grouped.php:9
+#: application/views/oqrs/notinlogform.php:10
+#: application/views/oqrs/request.php:17
+#: application/views/oqrs/request_grouped.php:11
 msgid "Time (UTC)"
 msgstr "时间（UTC）"
 
-#: application/views/oqrs/notinlogform.php:24
+#: application/views/oqrs/notinlogform.php:25
 msgid "Add line"
 msgstr "添加信息"
 
-#: application/views/oqrs/notinlogform.php:30
-#: application/views/oqrs/request.php:60
-#: application/views/oqrs/request_grouped.php:63
+#: application/views/oqrs/notinlogform.php:31
+#: application/views/oqrs/request.php:61
+#: application/views/oqrs/request_grouped.php:65
 msgid "Any extra information we need to know about?"
 msgstr "有额外的信息需要记录吗？"
 
-#: application/views/oqrs/notinlogform.php:34
-#: application/views/oqrs/request.php:64
-#: application/views/oqrs/request_grouped.php:67
+#: application/views/oqrs/notinlogform.php:35
+#: application/views/oqrs/request.php:65
+#: application/views/oqrs/request_grouped.php:69
 #: application/views/oqrs/showrequests.php:97
 #: application/views/qso/edit_ajax.php:260 application/views/qso/index.php:652
 #: application/views/user/index.php:29 application/views/user/index.php:154
@@ -17070,13 +17080,13 @@ msgstr "有额外的信息需要记录吗？"
 msgid "E-mail"
 msgstr "电子邮件"
 
-#: application/views/oqrs/notinlogform.php:36
-#: application/views/oqrs/request.php:66
-#: application/views/oqrs/request_grouped.php:69
+#: application/views/oqrs/notinlogform.php:37
+#: application/views/oqrs/request.php:67
+#: application/views/oqrs/request_grouped.php:71
 msgid "Your e-mail address where we can contact you"
 msgstr "其他人可通过 e-mail 地址联系你"
 
-#: application/views/oqrs/notinlogform.php:40
+#: application/views/oqrs/notinlogform.php:41
 msgid "Send not in log request"
 msgstr "发送“未记录日志”请求"
 
@@ -17105,29 +17115,29 @@ msgstr "添加到打印队列中"
 msgid "Match QSO"
 msgstr "匹配 QSO"
 
-#: application/views/oqrs/request.php:9
-#: application/views/oqrs/request_grouped.php:3
+#: application/views/oqrs/request.php:10
+#: application/views/oqrs/request_grouped.php:5
 msgid ""
 "The following QSO(s) were found. Please fill out the date and time and "
 "submit your request."
 msgstr "为你找到如下 QSO，请填写日期与时间然后提交请求。"
 
-#: application/views/oqrs/request.php:40
-#: application/views/oqrs/request_grouped.php:43
+#: application/views/oqrs/request.php:41
+#: application/views/oqrs/request_grouped.php:45
 msgid "QSL Route"
 msgstr "QSL 路径"
 
-#: application/views/oqrs/request.php:53
-#: application/views/oqrs/request_grouped.php:56
+#: application/views/oqrs/request.php:54
+#: application/views/oqrs/request_grouped.php:58
 msgid "Direct (write address in message below)"
 msgstr "直邮（在下方写好地址）"
 
-#: application/views/oqrs/request.php:70
-#: application/views/oqrs/request_grouped.php:73
+#: application/views/oqrs/request.php:71
+#: application/views/oqrs/request_grouped.php:75
 msgid "Submit request"
 msgstr "提交请求"
 
-#: application/views/oqrs/request_grouped.php:76
+#: application/views/oqrs/request_grouped.php:78
 #: application/views/oqrs/result.php:40
 msgid "No QSOs found in the log."
 msgstr "日志中未找到 QSO。"

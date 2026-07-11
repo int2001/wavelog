@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-11 07:15+0000\n"
+"POT-Creation-Date: 2026-07-11 08:36+0000\n"
 "PO-Revision-Date: 2026-07-10 12:46+0000\n"
 "Last-Translator: \"Jorgen Dahl, NU1T\" <sm6srw@arrl.net>\n"
 "Language-Team: Swedish <https://translate.wavelog.org/projects/wavelog/main-"
@@ -184,7 +184,7 @@ msgstr "Troposfärisk ducting"
 #: application/controllers/Mode.php:14 application/controllers/Notes.php:9
 #: application/controllers/Operator.php:12
 #: application/controllers/Options.php:13 application/controllers/Oqrs.php:12
-#: application/controllers/Oqrs.php:395 application/controllers/Qrbcalc.php:12
+#: application/controllers/Oqrs.php:424 application/controllers/Qrbcalc.php:12
 #: application/controllers/Qrz.php:198 application/controllers/Qrz.php:284
 #: application/controllers/Qsl.php:11 application/controllers/Qsl.php:12
 #: application/controllers/Qsl.php:47 application/controllers/Qsl.php:54
@@ -1853,9 +1853,9 @@ msgstr "Alla callbook-sökningar misslyckades eller gav inga resultat."
 #: application/views/logbookadvanced/showStateQsos.php:23
 #: application/views/logbookadvanced/useroptions.php:46
 #: application/views/mode/index.php:40
-#: application/views/oqrs/notinlogform.php:11
-#: application/views/oqrs/qsolist.php:9 application/views/oqrs/request.php:18
-#: application/views/oqrs/request_grouped.php:11
+#: application/views/oqrs/notinlogform.php:12
+#: application/views/oqrs/qsolist.php:9 application/views/oqrs/request.php:19
+#: application/views/oqrs/request_grouped.php:13
 #: application/views/oqrs/showrequests.php:94
 #: application/views/public_search/result.php:15
 #: application/views/qslcard/confirmationresult.php:17
@@ -2177,9 +2177,9 @@ msgstr "Avstånd"
 #: application/views/logbookadvanced/showMissingDxccQsos.php:22
 #: application/views/logbookadvanced/showStateQsos.php:24
 #: application/views/logbookadvanced/useroptions.php:64
-#: application/views/oqrs/notinlogform.php:10
-#: application/views/oqrs/qsolist.php:10 application/views/oqrs/request.php:17
-#: application/views/oqrs/request_grouped.php:10
+#: application/views/oqrs/notinlogform.php:11
+#: application/views/oqrs/qsolist.php:10 application/views/oqrs/request.php:18
+#: application/views/oqrs/request_grouped.php:12
 #: application/views/oqrs/showrequests.php:93
 #: application/views/public_search/result.php:16
 #: application/views/qslcard/confirmationresult.php:18
@@ -2685,16 +2685,20 @@ msgstr "Ogiltigt stations-ID"
 msgid "Invalid station slug"
 msgstr "Ogiltig stationsslug"
 
-#: application/controllers/Oqrs.php:174
+#: application/controllers/Oqrs.php:180
 #: application/views/interface_assets/header.php:551
 msgid "OQRS Requests"
 msgstr "OQRS Förfrågningar"
 
-#: application/controllers/Oqrs.php:380
+#: application/controllers/Oqrs.php:286
+msgid "Invalid time format. Please use HH:MM (e.g. 08:31)."
+msgstr ""
+
+#: application/controllers/Oqrs.php:409
 msgid "QSO match deleted successfully."
 msgstr "QSO-matchning raderades framgångsrikt."
 
-#: application/controllers/Oqrs.php:390
+#: application/controllers/Oqrs.php:419
 msgid "QSO match added successfully."
 msgstr "QSO-matchning har lagts till framgångsrikt."
 
@@ -3682,7 +3686,7 @@ msgid "User %s logged out."
 msgstr "Användare %s loggade ut."
 
 #: application/controllers/User.php:1481
-#: application/views/oqrs/request_grouped.php:16
+#: application/views/oqrs/request_grouped.php:18
 #: application/views/user/modals/first_login_wizard.php:26
 msgid "Station Name"
 msgstr "Stationsnamn"
@@ -4802,7 +4806,7 @@ msgstr "Inget hittades!"
 #: application/views/logbookadvanced/showUpdateResult.php:43
 #: application/views/lotw_views/index.php:42
 #: application/views/oqrs/qsolist.php:6
-#: application/views/oqrs/request_grouped.php:12
+#: application/views/oqrs/request_grouped.php:14
 #: application/views/qslcard/confirmationresult.php:15
 #: application/views/qslcard/index.php:43
 #: application/views/qslcard/searchform.php:3
@@ -4913,9 +4917,9 @@ msgstr ""
 #: application/views/logbookadvanced/checkresult.php:317
 #: application/views/logbookadvanced/dupesearchdialog.php:14
 #: application/views/logbookadvanced/edit.php:15
-#: application/views/oqrs/notinlogform.php:8
-#: application/views/oqrs/qsolist.php:7 application/views/oqrs/request.php:15
-#: application/views/oqrs/request_grouped.php:8
+#: application/views/oqrs/notinlogform.php:9
+#: application/views/oqrs/qsolist.php:7 application/views/oqrs/request.php:16
+#: application/views/oqrs/request_grouped.php:10
 #: application/views/public_search/result.php:13
 #: application/views/qslcard/index.php:45
 #: application/views/qslcard/searchresult.php:4
@@ -9225,9 +9229,9 @@ msgstr "Entitet"
 
 #: application/views/bandmap/list.php:571
 #: application/views/bandmap/list.php:615
-#: application/views/oqrs/notinlogform.php:28
-#: application/views/oqrs/request.php:58
-#: application/views/oqrs/request_grouped.php:61
+#: application/views/oqrs/notinlogform.php:29
+#: application/views/oqrs/request.php:59
+#: application/views/oqrs/request_grouped.php:63
 #: application/views/oqrs/status_info.php:5
 msgid "Message"
 msgstr "Meddelande"
@@ -15488,8 +15492,8 @@ msgstr "Direkt"
 #: application/views/logbookadvanced/index.php:613
 #: application/views/logbookadvanced/index.php:623
 #: application/views/oqrs/qsolist.php:70 application/views/oqrs/qsolist.php:112
-#: application/views/oqrs/request.php:46
-#: application/views/oqrs/request_grouped.php:49
+#: application/views/oqrs/request.php:47
+#: application/views/oqrs/request_grouped.php:51
 #: application/views/oqrs/showrequests.php:7
 #: application/views/qslprint/qslprint.php:6
 #: application/views/qslprint/qsolist.php:103
@@ -17501,7 +17505,13 @@ msgstr "Välj station"
 msgid "Proceed"
 msgstr "Fortsätt"
 
-#: application/views/oqrs/notinlogform.php:2
+#: application/views/oqrs/notinlogform.php:1
+#: application/views/oqrs/request.php:1
+#: application/views/oqrs/request_grouped.php:1
+msgid "Request failed. Please try again."
+msgstr ""
+
+#: application/views/oqrs/notinlogform.php:3
 msgid ""
 "If you can't find your QSO in the log, please fill out the form below. You "
 "will be contacted after the log has been checked."
@@ -17509,25 +17519,25 @@ msgstr ""
 "Om du inte hittar ditt QSO i loggen, fyll i formuläret nedan. Du kommer att "
 "bli kontaktad efter att loggen har kontrollerats."
 
-#: application/views/oqrs/notinlogform.php:9
-#: application/views/oqrs/request.php:16
-#: application/views/oqrs/request_grouped.php:9
+#: application/views/oqrs/notinlogform.php:10
+#: application/views/oqrs/request.php:17
+#: application/views/oqrs/request_grouped.php:11
 msgid "Time (UTC)"
 msgstr "Tid (UTC)"
 
-#: application/views/oqrs/notinlogform.php:24
+#: application/views/oqrs/notinlogform.php:25
 msgid "Add line"
 msgstr "Lägg till rad"
 
-#: application/views/oqrs/notinlogform.php:30
-#: application/views/oqrs/request.php:60
-#: application/views/oqrs/request_grouped.php:63
+#: application/views/oqrs/notinlogform.php:31
+#: application/views/oqrs/request.php:61
+#: application/views/oqrs/request_grouped.php:65
 msgid "Any extra information we need to know about?"
 msgstr "Finns det någon extra information vi behöver känna till?"
 
-#: application/views/oqrs/notinlogform.php:34
-#: application/views/oqrs/request.php:64
-#: application/views/oqrs/request_grouped.php:67
+#: application/views/oqrs/notinlogform.php:35
+#: application/views/oqrs/request.php:65
+#: application/views/oqrs/request_grouped.php:69
 #: application/views/oqrs/showrequests.php:97
 #: application/views/qso/edit_ajax.php:260 application/views/qso/index.php:652
 #: application/views/user/index.php:29 application/views/user/index.php:154
@@ -17535,13 +17545,13 @@ msgstr "Finns det någon extra information vi behöver känna till?"
 msgid "E-mail"
 msgstr "E-post"
 
-#: application/views/oqrs/notinlogform.php:36
-#: application/views/oqrs/request.php:66
-#: application/views/oqrs/request_grouped.php:69
+#: application/views/oqrs/notinlogform.php:37
+#: application/views/oqrs/request.php:67
+#: application/views/oqrs/request_grouped.php:71
 msgid "Your e-mail address where we can contact you"
 msgstr "Din e-postadress där vi kan kontakta dig"
 
-#: application/views/oqrs/notinlogform.php:40
+#: application/views/oqrs/notinlogform.php:41
 msgid "Send not in log request"
 msgstr "Skicka inte in loggförfrågan"
 
@@ -17571,8 +17581,8 @@ msgstr "Lägg till i utskriftskön"
 msgid "Match QSO"
 msgstr "Matcha QSO"
 
-#: application/views/oqrs/request.php:9
-#: application/views/oqrs/request_grouped.php:3
+#: application/views/oqrs/request.php:10
+#: application/views/oqrs/request_grouped.php:5
 msgid ""
 "The following QSO(s) were found. Please fill out the date and time and "
 "submit your request."
@@ -17580,22 +17590,22 @@ msgstr ""
 "Följande QSO hittades. Vänligen fyll i datum och tid och skicka in din "
 "förfrågan."
 
-#: application/views/oqrs/request.php:40
-#: application/views/oqrs/request_grouped.php:43
+#: application/views/oqrs/request.php:41
+#: application/views/oqrs/request_grouped.php:45
 msgid "QSL Route"
 msgstr "QSL-väg"
 
-#: application/views/oqrs/request.php:53
-#: application/views/oqrs/request_grouped.php:56
+#: application/views/oqrs/request.php:54
+#: application/views/oqrs/request_grouped.php:58
 msgid "Direct (write address in message below)"
 msgstr "Direkt (skriv adress i meddelandet nedan)"
 
-#: application/views/oqrs/request.php:70
-#: application/views/oqrs/request_grouped.php:73
+#: application/views/oqrs/request.php:71
+#: application/views/oqrs/request_grouped.php:75
 msgid "Submit request"
 msgstr "Skicka förfrågan"
 
-#: application/views/oqrs/request_grouped.php:76
+#: application/views/oqrs/request_grouped.php:78
 #: application/views/oqrs/result.php:40
 msgid "No QSOs found in the log."
 msgstr "Inga QSOs hittades i loggen."
