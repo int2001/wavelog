@@ -21,6 +21,7 @@ class Worker {
 	private string $secret;
 	private int    $timeout_ms;
 	private bool   $enabled;
+	private int    $token_expiration;
 
 	public function __construct() {
 		$CI =& get_instance();
@@ -43,6 +44,11 @@ class Worker {
 		$this->enabled    = (bool) $CI->config->item('worker_enabled', 'worker')
 		                    && $this->url !== ''
 		                    && $this->secret !== '';
+		$this->token_expiration = (int) ($CI->config->item('worker_token_expiration', 'worker') ?? 86400); // Default 24h
+		// if token_expiration is set to 0 or negative, we throw an exception to prevent misconfiguration
+		if ($this->token_expiration <= 0) {
+			throw new InvalidArgumentException('worker_token_expiration must be positive');
+		}
 	}
 
 	/**
@@ -146,9 +152,13 @@ class Worker {
 	 * @param string $topic        e.g. "contest_session.42" or "radio.5"
 	 * @param int    $ttl_seconds  Default 24h
 	 */
-	public function create_token(string $topic, int $ttl_seconds = 86400): string {
+	public function create_token(string $topic, $ttl_seconds = null): string {
 		if ($this->secret === '') {
 			return '';
+		}
+
+		if ($ttl_seconds === null) {
+			$ttl_seconds = $this->token_expiration;
 		}
 
 		$CI =& get_instance();
