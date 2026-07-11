@@ -8,6 +8,7 @@
 	var user_color_confirmed = "<?php echo $user_color_confirmed; ?>";
 	var user_color_worked = "<?php echo $user_color_worked; ?>";
 	var user_color_unworked = "<?php echo $user_color_unworked; ?>";
+	window.radioWorkerTopics = <?php echo json_encode($radio_worker_topics ?? []); ?>;
 
 	// Detect OS for proper keyboard shortcuts
 	var isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
