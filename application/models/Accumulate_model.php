@@ -34,7 +34,7 @@ class Accumulate_model extends CI_Model
                 break;
         }
 
-        return $result;
+        return $result ?? [];
     }
 
     function get_accumulated_by_column($band, $mode, $propmode, $period, $location_list, $column, $where_condition = '', $where_check = '', $outer_where_condition = '') {
@@ -66,6 +66,9 @@ class Accumulate_model extends CI_Model
 			$year_expr = "YEAR(col_time_on)";
 		} else if ($period == "month") {
 			$year_expr = "DATE_FORMAT(col_time_on, '%Y-%m')";
+		} else {
+			log_message('error', 'Invalid period specified in get_accumulated_by_column_fast: ' . $period);
+			return [];
 		}
 
 		// For DXCC, we need an outer WHERE condition in the all_periods CTE
@@ -152,6 +155,9 @@ class Accumulate_model extends CI_Model
 			$sql = "select year(thcv.col_time_on) year";
 		} else if ($period == "month") {
 			$sql = "select date_format(col_time_on, '%Y-%m') year";
+		} else {
+			log_message('error', 'Invalid period specified in get_accumulated_by_column_slow: ' . $period);
+			return [];
 		}
 
 		$sql .= ", coalesce(y.tot, 0) tot
@@ -344,6 +350,9 @@ class Accumulate_model extends CI_Model
 			$sql = "select year(thcv.col_time_on) year";
 		} else if ($period == "month") {
 			$sql = "select date_format(col_time_on, '%Y-%m') year";
+		} else {
+			log_message('error', 'Invalid period specified in slowVuccQuery: ' . $period);
+			return [];
 		}
 
 		$sql .= ", coalesce(y.tot, 0) tot
