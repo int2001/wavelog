@@ -153,9 +153,24 @@ class OptionsLib {
             foreach($result->result() as $options) {
                 if ($options->option_name == 'icon') {
                     $jsonout[$options->option_key] = json_decode($options->option_value,true);
-                } else  {
+                } else {
                     $jsonout[$options->option_name.'_'.$options->option_key]=$options->option_value;
                 }
+            }
+
+            if (count($jsonout) == 0) {
+                $jsonout['qso'] = array(
+                    "icon" => "fas fa-dot-circle",
+                    "color" => "#ff0000"
+                );
+                $jsonout['qsoconfirm'] = array(
+                    "icon" => "fas fa-dot-circle",
+                    "color" => "#00aa00"
+                );
+                $jsonout['station'] = array(
+                    "icon" => "fas fa-broadcast-tower",
+                    "color" => "#0000ff"
+                );
             }
 
         } else {

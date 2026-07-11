@@ -395,6 +395,14 @@ class Oqrs_model extends CI_Model {
 		return null;
 	}
 
+	function normalize_time($raw) {
+		if (preg_match('/^(\d{1,2}):?(\d{2})$/', trim((string)$raw), $m)
+			&& $m[1] < 24 && $m[2] < 60) {
+			return sprintf('%02d:%02d', $m[1], $m[2]);
+		}
+		return null;
+	}
+
 	function add_oqrs_to_print_queue($id) {
 		$sql = 'SELECT * FROM oqrs join station_profile on oqrs.station_id = station_profile.station_id WHERE oqrs.id = ? AND station_profile.user_id = ?';
 		$binding = [$id, $this->session->userdata('user_id')];

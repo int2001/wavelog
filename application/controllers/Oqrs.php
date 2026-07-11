@@ -146,6 +146,12 @@ class Oqrs extends CI_Controller {
 
 		$postdata = $this->input->post(NULL, TRUE); // index is null means we get all postdata, TRUE means we XSS clean everything
 		$this->load->model('oqrs_model');
+		$err = $this->_validate_oqrs_times($postdata);
+		if ($err !== null) {
+			$this->output->set_status_header(400)->set_content_type('application/json')
+				->set_output(json_encode(['error' => $err]));
+			return;
+		}
 		$this->oqrs_model->save_not_in_log($postdata);
 		array_push($station_ids, $this->input->post('station_id', TRUE));
 		$this->_alert_oqrs_request($postdata, $station_ids);
@@ -194,6 +200,12 @@ class Oqrs extends CI_Controller {
 	public function save_oqrs_request() {
 		$postdata = $this->input->post(NULL, TRUE); // index is null means we get all postdata, TRUE means we XSS clean everything
 		$this->load->model('oqrs_model');
+		$err = $this->_validate_oqrs_times($postdata);
+		if ($err !== null) {
+			$this->output->set_status_header(400)->set_content_type('application/json')
+				->set_output(json_encode(['error' => $err]));
+			return;
+		}
 		$station_ids = $this->oqrs_model->save_oqrs_request($postdata);
 		$this->_alert_oqrs_request($postdata, $station_ids);
 	}
@@ -201,6 +213,12 @@ class Oqrs extends CI_Controller {
 	public function save_oqrs_request_grouped() {
 		$postdata = $this->input->post(NULL, TRUE); // index is null means we get all postdata, TRUE means we XSS clean everything
 		$this->load->model('oqrs_model');
+		$err = $this->_validate_oqrs_times($postdata);
+		if ($err !== null) {
+			$this->output->set_status_header(400)->set_content_type('application/json')
+				->set_output(json_encode(['error' => $err]));
+			return;
+		}
 		$station_ids = $this->oqrs_model->save_oqrs_request_grouped($postdata);
 		$this->_alert_oqrs_request($postdata, $station_ids);
 	}
@@ -259,6 +277,17 @@ class Oqrs extends CI_Controller {
         $data['qsos'] = $this->oqrs_model->search_log_time_date($time, $formatted_date, $band, $mode);
 
 		$this->load->view('oqrs/qsolist', $data);
+	}
+
+	private function _validate_oqrs_times(&$postdata) {
+		foreach ($postdata['qsos'] ?? [] as $i => $qso) {
+			$t = $this->oqrs_model->normalize_time($qso[1] ?? '');
+			if ($t === null) {
+				return __("Invalid time format. Please use HH:MM (e.g. 08:31).");
+			}
+			$postdata['qsos'][$i][1] = $t;
+		}
+		return null;
 	}
 
 	private function _alert_oqrs_request($postdata, $station_ids) {
