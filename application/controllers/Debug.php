@@ -207,7 +207,7 @@ class Debug extends CI_Controller
 
 		$call = xss_clean(($this->input->post('call')));
 		$qsoids = xss_clean(($this->input->post('qsoids')));
-		$station_profile_id = xss_clean(($this->input->post('station_id')));
+		$station_profile_id = xss_clean(($this->input->post('station_id') ?? 0));
 
 		log_message('debug', 'station_profile_id:', $station_profile_id);
 		// Check if target-station-id exists
@@ -284,7 +284,7 @@ class Debug extends CI_Controller
 	}
 
 	public function wavelog_fetch() {
-		$a_versions=[];
+		$versions=[];
 		if (function_usable('exec')) {
 			try {
 				$st=exec('git fetch');	// Fetch latest things from Repo. ONLY Fetch. Doesn't hurt since it isn't a pull!
@@ -302,6 +302,7 @@ class Debug extends CI_Controller
 	}
 
 	public function wavelog_version() {
+		$commit_hash='';
 		if (function_usable('exec')) {
 			$commit_hash=substr(trim(exec('git log --pretty="%H" -n1 HEAD')),0,8);	// Get latest LOCAL Hash
 		} else {
