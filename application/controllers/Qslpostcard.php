@@ -364,6 +364,34 @@ class Qslpostcard extends CI_Controller {
 			->set_output(json_encode(['ok' => true]));
 	}
 
+	function copy_template() {
+		$raw = $this->input->raw_input_stream;
+		$payload = json_decode($raw, true);
+
+		if (!is_array($payload) || empty($payload['id'])) {
+			return $this->_json_error('Invalid payload');
+		}
+
+		$id = (int)$payload['id'];
+
+		$newId = $this->Qslpostcard_model->copy_template($id);
+		if (!$newId) {
+			return $this->_json_error('Template not found', 404);
+		}
+
+		// Echo the generated name back so the frontend can label the new dropdown
+		// option without an extra round-trip.
+		$tpl = $this->Qslpostcard_model->get_template($newId);
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode([
+				'ok'   => true,
+				'id'   => $newId,
+				'name' => $tpl['name'] ?? '',
+			]));
+	}
+
 	private function stream_pdf(string $pdfPath, string $variant, array $tpl, bool $download = false): void
 	{
 		session_write_close();
