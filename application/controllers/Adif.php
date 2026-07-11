@@ -465,7 +465,7 @@ class adif extends CI_Controller {
 			$data['structured_errors'] = $custom_errors['structured_errors'] ?? [];
 			$data['qsocount'] = $custom_errors['qsocount'] ?? 0;
 			$data['skip_dupes'] = $this->input->post('skipDuplicate');
-			$data['imported_contests'] = $contest_qso_infos;
+			$data['imported_contests'] = $contest_qso_infos ?? [];
 
 			$data['page_title'] = __("ADIF Imported");
 			$this->load->view('interface_assets/header', $data);
