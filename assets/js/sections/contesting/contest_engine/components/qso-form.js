@@ -719,14 +719,14 @@ class QsoFormComponent {
 		delete data.date_on;
 
 		// QRG is authoritative: parse the entered frequency to Hz and derive the band from it.
-		// Falls back to the band's default frequency when the field is empty or invalid.
 		if (data.frequency !== undefined) {
 			const selBand = data.band || qso.band || '';
-			const hz = this._parseQrgInput(data.frequency, this._qrgUnit(selBand));
-			if (hz && hz > 0) {
+			const unit = row.querySelector('.qrg-unit-label')?.textContent?.trim() || this._qrgUnit(selBand);
+			const hz = this._parseQrgInput(data.frequency, unit);
+			const derivedBand = (hz && hz > 0) ? this.convertQrgToBand(hz) : null;
+			if (derivedBand && derivedBand !== '??') {
 				data.frequency = String(hz);
-				const derivedBand = this.convertQrgToBand(hz);
-				if (derivedBand && derivedBand !== '??') data.band = derivedBand;
+				data.band = derivedBand;
 			} else {
 				const freq = this._bandDefaultHz(selBand, data.mode || qso.mode);
 				if (freq) data.frequency = String(freq);
