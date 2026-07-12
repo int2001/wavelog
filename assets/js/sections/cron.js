@@ -5,6 +5,10 @@ $(document).ready(function () {
 		editCronDialog(e);
 	});
 
+	$(document).on('click', '.runCron', async function (e) {	// Dynamic binding, since element doesn't exists when loading this JS
+		runCron(e.currentTarget);
+	});
+
 	$(document).on('click', '.enableCronSwitch', async function (e) {	// Dynamic binding, since element doesn't exists when loading this JS
 		toggleEnableCronSwitch(e.currentTarget.id, this);
 	});
@@ -142,6 +146,31 @@ function editCron() {
 
 }
 
+function runCron(button) {
+	var $button = $(button);
+	$button.prop('disabled', true);
+
+	$.ajax({
+		url: base_url + 'index.php/cron/runNow',
+		type: 'post',
+		dataType: 'json',
+		data: {
+			id: button.id
+		},
+		success: function (response) {
+			displayMessages(response.messagecategory, response.message);
+			reloadCrons();
+		},
+		error: function (response) {
+			var message = response.responseJSON && response.responseJSON.message ? response.responseJSON.message : 'The query failed for a unknown reason';
+			displayMessages('error', message);
+		},
+		complete: function () {
+			$button.prop('disabled', false);
+		}
+	});
+}
+
 function humanReadableInEditDialog() {
 	var exp_inputID = $('#edit_cron_expression_custom');
 	var exp_dropdownID = $('#edit_cron_expression_dropdown');
@@ -234,6 +263,7 @@ function loadCronTable(rows) {
 		data.push(cron.cron_last_run);
 		data.push(cron.cron_next_run);
 		data.push(cron.cron_edit);
+		data.push(cron.cron_run);
 		data.push(cron.cron_enabled);
 
 		let createdRow = table.row.add(data).index();
@@ -241,4 +271,3 @@ function loadCronTable(rows) {
 	table.draw();
 	init_expression_tooltips();
 }
-
