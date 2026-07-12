@@ -1596,7 +1596,11 @@ class QsoFormComponent {
 		const serialSent = this.container.querySelector('#qso-serial-sent')?.value || null;
 		const serialRcvd = this.container.querySelector('#qso-serial-received')?.value || null;
 		const gridsquareSent = this.container.querySelector('#qso-gridsquare-sent')?.value.trim().toUpperCase() || null;
-		const gridsquareRcvd = this.container.querySelector('#qso-gridsquare-received')?.value.trim().toUpperCase() || null;
+		const hasGridExchange = this.exchangeFields?.includes('gridsquare');
+		const gridsquareRcvd = (hasGridExchange
+			? this.container.querySelector('#qso-gridsquare-received')?.value
+			: this.container.querySelector('#qso-callbook-grid')?.value
+		)?.trim().toUpperCase() || null;
 		const dxccAdif = this.container.querySelector('#qso-dxcc-adif')?.value.trim();
 		const dxccCont = this.container.querySelector('#qso-dxcc-cont')?.value.trim();
 		const dxccEntity = this.container.querySelector('#qso-dxcc-entity')?.value.trim();
