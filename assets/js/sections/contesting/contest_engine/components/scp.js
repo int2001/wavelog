@@ -143,7 +143,20 @@ class SCPComponent {
 	}
 
 	setupEventListeners() {
-		// No local event listeners needed - search is triggered via API
+		// Re-run the current search when band/mode changes or the radio becomes
+		// ready, so worked-before (red) marks stay correct without re-typing.
+		const refresh = () => {
+			const q = document.querySelector('#qso-callsign')?.value || '';
+			if (q) this.searchCallsign(q);
+		};
+
+		const ds = window.contestApp?.ds;
+		if (ds?.subscribe) ds.subscribe('config.selected_band', refresh);
+
+		const modeEl = document.getElementById('mode');
+		if (modeEl) modeEl.addEventListener('change', refresh);
+
+		window.addEventListener('radioComponentReady', refresh);
 	}
 
 	async loadSCPData() {
@@ -448,12 +461,18 @@ class SCPComponent {
 		}
 
 		resultsContainer.style.display = 'block';
+
+		// Callsigns already worked on the current band/mode (from the QSO form).
+		// Built once per render so each item is an O(1) set lookup.
+		const worked = window.contestApp?.qsoFormComponent?.getWorkedCallsignsCurrentBandMode?.();
+
 		resultsContainer.innerHTML = matches.map(callsign => {
 			// Convert 0→Ø for display; keep raw form in data-callsign for selectCallsign
 			const displayCallsign = callsignToDisplay(callsign);
 			const highlighted = this.highlightMatch(displayCallsign, query);
+			const isWorked = !!(worked && worked.has(callsignToRaw(callsign).toUpperCase()));
 			return `
-				<div class="scp-result-item font-monospace" data-callsign="${callsign}">
+				<div class="scp-result-item font-monospace${isWorked ? ' scp-worked' : ''}" data-callsign="${callsign}">
 					<span class="scp-callsign">${highlighted}</span>
 				</div>
 			`;
@@ -511,6 +530,9 @@ class SCPComponent {
 		const qsoCallsignInput = document.querySelector('#qso-callsign');
 		if (qsoCallsignInput) {
 			qsoCallsignInput.value = callsignToDisplay(callsign);
+			// Fire input so side effects of typing run (instant-search filter,
+			// worked-before warning, SCP self-narrow) before the callbook blur lookup.
+			qsoCallsignInput.dispatchEvent(new Event('input', { bubbles: true }));
 			// Simulate a Tab press: fire blur (triggers the callbook lookup) and
 			// move focus to the next field in tab order (tabindex=2), so the
 			// operator can keep logging without pressing an extra Tab key.

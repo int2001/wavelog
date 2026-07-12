@@ -335,6 +335,8 @@ class QsoFormComponent {
 
 				this.updateWorkedBeforeWarning(callsign);
 
+				this.applyCallsignFilter();
+
 				// Trigger SCP search if component is available
 				if (this.scpComponent && callsign.length >= 1) {
 					this.scpComponent.searchCallsign(callsign);
@@ -671,6 +673,7 @@ class QsoFormComponent {
 	_renderQsoRow(row, qso) {
 		row.dataset.qsoId = qso.tmpId || qso.serverId;
 		if (qso.serverId) row.dataset.serverId = qso.serverId;
+		row.dataset.callsign = callsignToRaw(qso.callsign || '').toUpperCase();
 		row.dataset.sig = this._qsoRowSignature(qso);
 
 		const qsoOperator = (qso.operator ?? '').toUpperCase();
@@ -1036,6 +1039,26 @@ class QsoFormComponent {
 		return false;
 	}
 
+	// Set of callsigns (raw, uppercased) already worked on the current band and
+	// mode. SCP uses this to mark worked entries red. Mirrors checkWorkedBefore()
+	// but batched into one pass per render instead of one pass per call.
+	getWorkedCallsignsCurrentBandMode() {
+		const set = new Set();
+		if (!this.dataStore || !this.radioComponent) return set;
+		const currentBand = this.radioComponent.getBand();
+		const currentMode = this.radioComponent.getMode()?.toUpperCase();
+		if (!currentBand || !currentMode) return set;
+		for (const qso of this.dataStore.getPattern('qso.*').values()) {
+			const qsoBand = qso.band || this.convertQrgToBand(parseInt(qso.frequency));
+			const qsoMode = qso.submode?.toUpperCase() || qso.mode?.toUpperCase() || null;
+			if (qsoBand === currentBand && qsoMode === currentMode) {
+				const c = callsignToRaw(qso.callsign || '').toUpperCase();
+				if (c) set.add(c);
+			}
+		}
+		return set;
+	}
+
 	updateWorkedBeforeWarning(callsign) {
 		const warning = this.container?.querySelector('#qso-worked-before-warning');
 		const qsoinput = this.container?.querySelector('#qso-callsign');
@@ -1094,6 +1117,8 @@ class QsoFormComponent {
 
 		// Listen for full resync events (server -> client) to refresh table
 		this.dataStore.on('qsos_resynced', (eventData) => this.handleQSOsResynced(eventData));
+
+		this.applyCallsignFilter();
 	}
 
 	handleQSOsResynced(eventData) {
@@ -1118,6 +1143,7 @@ class QsoFormComponent {
 		const sorted = this.sortQsosByNewest(allQsos);
 		sorted.forEach(qso => this.addQSOToTable(qso));
 		this.updateQSOCount();
+		this.applyCallsignFilter();
 
 		this.nextSerialSent = this.computeNextSerial();
 		this.updateSerialSentDisplay();
@@ -1240,6 +1266,19 @@ class QsoFormComponent {
 		}
 	}
 
+	// Instant prefix search: hide rows whose callsign does not start with the
+	// current #qso-callsign value. Single source of truth = the input field, so
+	// call this (no args) after any rebuild or input change. Empty/ESC shows all.
+	applyCallsignFilter() {
+		const tbody = this.container?.querySelector('#qso-tbody');
+		if (!tbody) return;
+		const raw = callsignToRaw(this.container.querySelector('#qso-callsign')?.value || '')
+			.toUpperCase().replace(/[^A-Z0-9/]/g, '');
+		tbody.querySelectorAll('tr[data-qso-id]').forEach(row => {
+			row.style.display = (!raw || (row.dataset.callsign || '').startsWith(raw)) ? '' : 'none';
+		});
+	}
+
 	getLastExchangeSent() {
 		const allQsos = Array.from(this.dataStore.getPattern('qso.*').values());
 		if (!allQsos.length) return '';
@@ -1266,6 +1305,8 @@ class QsoFormComponent {
 
 		const gridsquareRcvdInput = this.container.querySelector('#qso-gridsquare-received');
 		if (gridsquareRcvdInput) gridsquareRcvdInput.value = '';
+
+		this.applyCallsignFilter();
 
 		this.lastDxccCallsign = null;
 		this.lastDxccInfo = null;
