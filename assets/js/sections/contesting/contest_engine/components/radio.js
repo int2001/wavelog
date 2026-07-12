@@ -111,6 +111,27 @@ class RadioComponent {
 
 		// Set default band to 160m and load its default frequency
 		this.setDefaultBand('160m');
+
+		// Restore previously selected radio from a past contest session
+		this.restoreSelectedRadio();
+	}
+
+	/**
+	 * Restore the last selected radio from the DataStore (config namespace).
+	 * Only applies if the stored radio still exists as an option.
+	 */
+	restoreSelectedRadio() {
+		if (!this.radioSelect) return;
+
+		const saved = this.dataStore.get('config.selected_radio');
+		if (!saved || saved === '0') return;
+
+		// Skip if the stored radio is no longer available in the dropdown
+		const optionExists = Array.from(this.radioSelect.options).some(o => o.value === saved);
+		if (!optionExists) return;
+
+		this.radioSelect.value = saved;
+		this.setRadio(saved);
 	}
 
 	/**
@@ -180,6 +201,8 @@ class RadioComponent {
 
 		this.selectedRadio = radioId;
 		this.manualMode = (radioId === '0');
+
+		this.dataStore.set('config.selected_radio', radioId);
 
 		if (this.manualMode) {
 			this.clearDisplay();
@@ -560,13 +583,16 @@ class RadioComponent {
 
 		// Determine band from frequency using local method
 		const freq_khz = qrg_hz / 1000;
-		let new_band = this.selectedBand; // fallback to current band
+		// Band is always lowercase (used as the qrgunit_<band> storage key and for band matching).
+		let new_band = (this.selectedBand || '').toLowerCase(); // fallback to current band
 		const detectedBand = this.frequencyToBand(qrg_hz);
 		if (detectedBand) {
-			new_band = detectedBand;
+			new_band = detectedBand.toLowerCase();
 			console.log('RadioComponent: Determined band from frequency:', { freq_hz: qrg_hz, freq_khz, band: new_band });
 		}
 
+		// store the values directly in localStorage without using the datastore component
+		// so it's compatible with the normal qsl logging
 		localStorage.setItem('qrgunit_' + new_band, unit);
 
 		this.frequency.value = qrg_hz;
@@ -723,8 +749,10 @@ class RadioComponent {
 					return;
 				}
 
-				const band = this.selectedBand || 'unknown';
+				const band = (this.selectedBand || 'unknown').toLowerCase();
 
+				// store the values directly in localStorage without using the datastore component
+				// so it's compatible with the normal qsl logging
 				if (this.qrgUnitElement.innerHTML == 'Hz') {
 					this.qrgUnitElement.innerHTML = 'kHz';
 					this.freqCalculated.value = this.frequency.value / 1000;
@@ -742,6 +770,11 @@ class RadioComponent {
 					this.freqCalculated.value = this.frequency.value;
 					localStorage.setItem('qrgunit_' + band, 'Hz');
 				}
+
+				// Notify other components (e.g. the QSO table) so they can follow the new unit.
+				window.dispatchEvent(new CustomEvent('qrgUnitChanged', {
+					detail: { band, unit: this.qrgUnitElement.innerHTML }
+				}));
 			});
 		}
 
