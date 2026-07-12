@@ -105,6 +105,26 @@ class Contesting_model extends CI_Model {
 	}
 
 	/**
+	 * Merges the given session settings with their defaults and returns the JSON
+	 * representation stored in the contest_session.settings column.
+	 *
+	 * @param array $parameter_array Session settings, missing keys fall back to defaults.
+	 * @return string JSON encoded settings.
+	 */
+	private function build_session_settings($parameter_array = []) {
+		$defaults = [
+			'exchangetype'    => 'Serial',
+			'copyexchangeto'  => '',
+			'exchangefields'  => ['serial'],
+			'callbook_lookup' => true,
+			'custom_name'     => '',
+			'serial_per_band' => false,
+		];
+
+		return json_encode(array_merge($defaults, $parameter_array));
+	}
+
+	/**
 	 * Creates a new contest session for the current user.
 	 *
 	 * @param int $contest_adif_id The id of the contest (contest table)
@@ -112,12 +132,14 @@ class Contesting_model extends CI_Model {
 	 * @param string $session_end The end time of the session.
 	 * @param int $station_location The station location (station_id).
 	 * @param string $session_notes Notes for the session.
+	 * @param bool $return_id If true, returns the inserted session ID instead of a boolean.
+	 * @param array $parameter_array Session settings (exchangetype, copyexchangeto, exchangefields, callbook_lookup, custom_name, serial_per_band). Missing keys fall back to defaults.
 	 * @return bool True on success, false on failure. If $return_id is true, returns the inserted session ID instead.
 	 */
-	function create_contest_session($contest_adif_id, $session_start, $session_end, $station_location, $session_notes, $return_id = false, $exchangetype = 'Serial', $copyexchangeto = '', $exchangefields = ["serial"], $callbook_lookup = true, $custom_name = '', $serial_per_band = false) {
+	function create_contest_session($contest_adif_id, $session_start, $session_end, $station_location, $session_notes, $return_id = false, $parameter_array = []) {
 		$user_id = $this->session->userdata('user_id');
 
-		$settings = json_encode(['exchangetype' => $exchangetype, 'copyexchangeto' => $copyexchangeto, 'exchangefields' => $exchangefields, 'callbook_lookup' => $callbook_lookup, 'custom_name' => $custom_name, 'serial_per_band' => $serial_per_band]);
+		$settings = $this->build_session_settings($parameter_array);
 
 		$sql = "INSERT INTO contest_session (user_id, contest_adif_id, time_start, time_end, station_id, comment, settings)
 				VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -149,16 +171,17 @@ class Contesting_model extends CI_Model {
 	 * @param string $time_end The end time of the session.
 	 * @param int $station_id The station location (station_id).
 	 * @param string $notes Notes for the session.
+	 * @param array $parameter_array Session settings (exchangetype, copyexchangeto, exchangefields, callbook_lookup, custom_name, serial_per_band). Missing keys fall back to defaults.
 	 * @return bool True on success, false on failure.
 	 */
-	function update_contest_session($contest_session_id, $contest_id, $time_start, $time_end, $station_id, $notes, $exchangetype = 'Serial', $copyexchangeto = '', $exchangefields = ["serial"], $callbook_lookup = true, $custom_name = '', $serial_per_band = false) {
+	function update_contest_session($contest_session_id, $contest_id, $time_start, $time_end, $station_id, $notes, $parameter_array = []) {
 		if (!clubaccess_check(9)) {
 			$this->session->set_flashdata('error', __("Officers must edit contests."));
 			redirect('contesting');
 		}
 		$user_id = $this->session->userdata('user_id');
 
-		$settings = json_encode(['exchangetype' => $exchangetype, 'copyexchangeto' => $copyexchangeto, 'exchangefields' => $exchangefields, 'callbook_lookup' => $callbook_lookup, 'custom_name' => $custom_name, 'serial_per_band' => $serial_per_band]);
+		$settings = $this->build_session_settings($parameter_array);
 
 		$sql = "UPDATE contest_session
 				SET contest_adif_id = ?, time_start = ?, time_end = ?, station_id = ?, comment = ?, settings = ?
