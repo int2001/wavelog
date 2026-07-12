@@ -329,9 +329,11 @@ class QsoFormComponent {
 					this.updateDxccInfoDisplay(null);
 				}
 
-				this.updateWorkedBeforeWarning(callsign);
+			this.updateWorkedBeforeWarning(callsign);
 
-				// Trigger SCP search if component is available
+			this.applyCallsignFilter();
+
+			// Trigger SCP search if component is available
 				if (this.scpComponent && callsign.length >= 1) {
 					this.scpComponent.searchCallsign(callsign);
 				} else if (this.scpComponent && callsign.length === 0) {
@@ -581,6 +583,7 @@ class QsoFormComponent {
 	_renderQsoRow(row, qso) {
 		row.dataset.qsoId = qso.tmpId || qso.serverId;
 		if (qso.serverId) row.dataset.serverId = qso.serverId;
+		row.dataset.callsign = callsignToRaw(qso.callsign || '').toUpperCase();
 		row.dataset.sig = this._qsoRowSignature(qso);
 
 		const qsoOperator = (qso.operator ?? '').toUpperCase();
@@ -997,6 +1000,8 @@ class QsoFormComponent {
 
 		// Listen for full resync events (server -> client) to refresh table
 		this.dataStore.on('qsos_resynced', (eventData) => this.handleQSOsResynced(eventData));
+
+		this.applyCallsignFilter();
 	}
 
 	handleQSOsResynced(eventData) {
@@ -1021,6 +1026,7 @@ class QsoFormComponent {
 		const sorted = this.sortQsosByNewest(allQsos);
 		sorted.forEach(qso => this.addQSOToTable(qso));
 		this.updateQSOCount();
+		this.applyCallsignFilter();
 
 		this.nextSerialSent = this.computeNextSerial();
 		this.updateSerialSentDisplay();
@@ -1123,6 +1129,19 @@ class QsoFormComponent {
 		}
 	}
 
+	// Instant prefix search: hide rows whose callsign does not start with the
+	// current #qso-callsign value. Single source of truth = the input field, so
+	// call this (no args) after any rebuild or input change. Empty/ESC shows all.
+	applyCallsignFilter() {
+		const tbody = this.container?.querySelector('#qso-tbody');
+		if (!tbody) return;
+		const raw = callsignToRaw(this.container.querySelector('#qso-callsign')?.value || '')
+			.toUpperCase().replace(/[^A-Z0-9/]/g, '');
+		tbody.querySelectorAll('tr[data-qso-id]').forEach(row => {
+			row.style.display = (!raw || (row.dataset.callsign || '').startsWith(raw)) ? '' : 'none';
+		});
+	}
+
 	getLastExchangeSent() {
 		const allQsos = Array.from(this.dataStore.getPattern('qso.*').values());
 		if (!allQsos.length) return '';
@@ -1149,6 +1168,8 @@ class QsoFormComponent {
 
 		const gridsquareRcvdInput = this.container.querySelector('#qso-gridsquare-received');
 		if (gridsquareRcvdInput) gridsquareRcvdInput.value = '';
+
+		this.applyCallsignFilter();
 
 		this.lastDxccCallsign = null;
 		this.lastDxccInfo = null;
