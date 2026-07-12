@@ -329,11 +329,11 @@ class QsoFormComponent {
 					this.updateDxccInfoDisplay(null);
 				}
 
-			this.updateWorkedBeforeWarning(callsign);
+				this.updateWorkedBeforeWarning(callsign);
 
-			this.applyCallsignFilter();
+				this.applyCallsignFilter();
 
-			// Trigger SCP search if component is available
+				// Trigger SCP search if component is available
 				if (this.scpComponent && callsign.length >= 1) {
 					this.scpComponent.searchCallsign(callsign);
 				} else if (this.scpComponent && callsign.length === 0) {
@@ -940,6 +940,26 @@ class QsoFormComponent {
 			}
 		}
 		return false;
+	}
+
+	// Set of callsigns (raw, uppercased) already worked on the current band and
+	// mode. SCP uses this to mark worked entries red. Mirrors checkWorkedBefore()
+	// but batched into one pass per render instead of one pass per call.
+	getWorkedCallsignsCurrentBandMode() {
+		const set = new Set();
+		if (!this.dataStore || !this.radioComponent) return set;
+		const currentBand = this.radioComponent.getBand();
+		const currentMode = this.radioComponent.getMode()?.toUpperCase();
+		if (!currentBand || !currentMode) return set;
+		for (const qso of this.dataStore.getPattern('qso.*').values()) {
+			const qsoBand = qso.band || this.convertQrgToBand(parseInt(qso.frequency));
+			const qsoMode = qso.submode?.toUpperCase() || qso.mode?.toUpperCase() || null;
+			if (qsoBand === currentBand && qsoMode === currentMode) {
+				const c = callsignToRaw(qso.callsign || '').toUpperCase();
+				if (c) set.add(c);
+			}
+		}
+		return set;
 	}
 
 	updateWorkedBeforeWarning(callsign) {
