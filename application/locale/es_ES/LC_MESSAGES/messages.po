@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-11 18:58+0000\n"
+"POT-Creation-Date: 2026-07-12 09:07+0000\n"
 "PO-Revision-Date: 2026-07-04 18:16+0000\n"
 "Last-Translator: David Quental <ct1drb72@gmail.com>\n"
 "Language-Team: Spanish <https://translate.wavelog.org/projects/wavelog/main-"
@@ -150,7 +150,7 @@ msgstr "Ducting troposférico"
 #: application/controllers/Contest_admin.php:13
 #: application/controllers/Contestcalendar.php:7
 #: application/controllers/Contesting.php:38
-#: application/controllers/Contesting.php:1018
+#: application/controllers/Contesting.php:1023
 #: application/controllers/Contesting_import.php:10
 #: application/controllers/Contesting_import.php:26
 #: application/controllers/Contesting_import.php:56
@@ -1062,24 +1062,24 @@ msgid "There was an error deleting the contest session. Please try again."
 msgstr ""
 "Hubo un error al crear la sesión del concurso. Por favor, inténtalo de nuevo."
 
-#: application/controllers/Contesting.php:960
+#: application/controllers/Contesting.php:965
 msgid "Operator switching is disabled."
 msgstr "El cambio de operador está desactivado."
 
-#: application/controllers/Contesting.php:980
+#: application/controllers/Contesting.php:985
 msgid "Operator switching is only available in club stations."
 msgstr "El cambio de operador solo está disponible en estaciones de club."
 
-#: application/controllers/Contesting.php:990
+#: application/controllers/Contesting.php:995
 msgid "Access denied"
 msgstr "Acceso denegado"
 
-#: application/controllers/Contesting.php:998
+#: application/controllers/Contesting.php:1003
 #: application/controllers/User.php:1434
 msgid "Incorrect username or password!"
 msgstr "¡Nombre de usuario o contraseña incorrectos!"
 
-#: application/controllers/Contesting.php:1007
+#: application/controllers/Contesting.php:1012
 msgid "A club account cannot be used as an operator."
 msgstr "Una cuenta de club no puede usarse como operador."
 
@@ -1841,7 +1841,7 @@ msgstr "Todas las búsquedas de callbook fallaron o no obtuvieron resultados."
 #: application/views/bands/bandedges.php:31
 #: application/views/callstats/index.php:54
 #: application/views/components/hamsat/table.php:30
-#: application/views/contesting/logger/components/qso-form.php:149
+#: application/views/contesting/logger/components/qso-form.php:150
 #: application/views/contesting/logger/components/radio.php:73
 #: application/views/contesting/manager/export_cbr.php:106
 #: application/views/continents/index.php:44 application/views/csv/index.php:42
@@ -2171,7 +2171,7 @@ msgstr "Distancia"
 #: application/views/bandmap/list.php:601 application/views/bands/create.php:24
 #: application/views/bands/edit.php:7 application/views/bands/index.php:47
 #: application/views/callstats/index.php:12
-#: application/views/contesting/logger/components/qso-form.php:148
+#: application/views/contesting/logger/components/qso-form.php:149
 #: application/views/contesting/logger/components/radio.php:90
 #: application/views/contesting/manager/export_cbr.php:76
 #: application/views/continents/index.php:35 application/views/csv/index.php:31
@@ -2239,6 +2239,7 @@ msgstr "Banda"
 #: application/controllers/Radio.php:55 application/views/bandmap/list.php:172
 #: application/views/bandmap/list.php:562
 #: application/views/bandmap/list.php:602
+#: application/views/contesting/logger/components/qso-form.php:148
 #: application/views/contesting/logger/components/radio.php:65
 #: application/views/dashboard/index.php:17
 #: application/views/logbookadvanced/edit.php:11
@@ -2266,7 +2267,7 @@ msgstr "Frecuencia"
 
 #: application/controllers/Logbook.php:1470
 #: application/controllers/Radio.php:53
-#: application/views/contesting/logger/components/qso-form.php:156
+#: application/views/contesting/logger/components/qso-form.php:157
 #: application/views/contesting/manager/export_cbr.php:61
 #: application/views/dashboard/index.php:18
 #: application/views/logbookadvanced/edit.php:18
@@ -6045,7 +6046,7 @@ msgid "Grid Activations"
 msgstr "Activaciones de locators"
 
 #: application/views/awards/amsat_rover/index.php:221
-#: application/views/contesting/logger/components/qso-form.php:153
+#: application/views/contesting/logger/components/qso-form.php:154
 #: application/views/satellite/skedtable.php:40
 #: application/views/stationsetup/locationlist.php:14
 msgid "Grid"
@@ -10569,12 +10570,12 @@ msgid "RST R"
 msgstr "RST R"
 
 #: application/views/contesting/logger/components/qso-form.php:95
-#: application/views/contesting/logger/components/qso-form.php:151
+#: application/views/contesting/logger/components/qso-form.php:152
 msgid "Nr. S"
 msgstr "Nr. S"
 
 #: application/views/contesting/logger/components/qso-form.php:99
-#: application/views/contesting/logger/components/qso-form.php:152
+#: application/views/contesting/logger/components/qso-form.php:153
 msgid "Nr. R"
 msgstr "Nr. R"
 
@@ -10601,11 +10602,11 @@ msgstr "Exch R"
 msgid "Recent QSOs"
 msgstr "QSOs recientes"
 
-#: application/views/contesting/logger/components/qso-form.php:150
+#: application/views/contesting/logger/components/qso-form.php:151
 msgid "RST"
 msgstr "RST"
 
-#: application/views/contesting/logger/components/qso-form.php:154
+#: application/views/contesting/logger/components/qso-form.php:155
 msgid "Exch"
 msgstr "Exch"
 
