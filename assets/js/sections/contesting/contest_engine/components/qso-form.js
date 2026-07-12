@@ -133,6 +133,10 @@ class QsoFormComponent {
 	initExchangeType() {
 		const sessionInfo = window.ContestLoggerConfig?.sessionInfo ?? {};
 
+		this.serialPerBand = !!sessionInfo.serial_per_band;
+		const perBandBadge = this.container.querySelector('#qso-serial-perband-badge');
+		if (perBandBadge) perBandBadge.style.display = this.serialPerBand ? '' : 'none';
+
 		let fields = Array.isArray(sessionInfo.exchangefields) && sessionInfo.exchangefields.length > 0
 			? sessionInfo.exchangefields
 			: ['exchange'];
@@ -202,8 +206,13 @@ class QsoFormComponent {
 
 	computeNextSerial() {
 		const allQsos = Array.from(this.dataStore.getPattern('qso.*').values());
+		const currentBand = this.serialPerBand ? this.radioComponent?.getBand() : null;
 		let maxSerial = 0;
 		allQsos.forEach(qso => {
+			if (currentBand) {
+				const qsoBand = qso.band || this.convertQrgToBand(parseInt(qso.frequency));
+				if (qsoBand !== currentBand) return;
+			}
 			const s = parseInt(qso.serial_sent, 10);
 			if (Number.isFinite(s) && s > maxSerial) maxSerial = s;
 		});
@@ -294,6 +303,11 @@ class QsoFormComponent {
 		this.dataStore.subscribe('config.selected_band', () => {
 			const callsign = this.container.querySelector('#qso-callsign')?.value.trim().toUpperCase() || '';
 			this.updateWorkedBeforeWarning(callsign);
+			// Per-band serial: recompute the next number for the newly selected band
+			if (this.serialPerBand) {
+				this.nextSerialSent = this.computeNextSerial();
+				this.updateSerialSentDisplay();
+			}
 		});
 
 		// Follow the radio component's QRG unit toggle: re-render the table so the
