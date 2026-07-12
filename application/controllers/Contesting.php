@@ -787,6 +787,7 @@ class Contesting extends CI_Controller {
 			}
 
 			$this->load->model('contesting_model');
+			$this->load->is_loaded('logbook_model') ?: $this->load->model('logbook_model');
 
 			// Session ownership check
 			if (!$this->contesting_model->check_user_contest($contest_session_id)) {
@@ -844,6 +845,10 @@ class Contesting extends CI_Controller {
 					// Bands are stored lowercase (e.g. 20m, 70cm)
 					if ($key === 'band') {
 						$val = $val !== null ? strtolower(trim((string)$val)) : null;
+					}
+					// Frequency is user-editable now; normalize to an Hz integer (also accepts unit suffixes).
+					if ($key === 'frequency') {
+						$val = ($val !== null && trim((string)$val) !== '') ? $this->logbook_model->parse_frequency((string)$val) : null;
 					}
 					if (in_array($key, ['serial_sent', 'serial_rcvd']) && $val === '') {
 						$val = null;

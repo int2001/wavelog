@@ -34,7 +34,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-11 18:58+0000\n"
+"POT-Creation-Date: 2026-07-12 09:07+0000\n"
 "PO-Revision-Date: 2026-07-11 18:58+0000\n"
 "Last-Translator: 橙子木 <czm233@ypa.moe>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
@@ -167,7 +167,7 @@ msgstr "Tropospheric ducting"
 #: application/controllers/Contest_admin.php:13
 #: application/controllers/Contestcalendar.php:7
 #: application/controllers/Contesting.php:38
-#: application/controllers/Contesting.php:1018
+#: application/controllers/Contesting.php:1023
 #: application/controllers/Contesting_import.php:10
 #: application/controllers/Contesting_import.php:26
 #: application/controllers/Contesting_import.php:56
@@ -1072,24 +1072,24 @@ msgstr "竞赛会话删除成功。"
 msgid "There was an error deleting the contest session. Please try again."
 msgstr "删除竞赛会话出现错误，请重试。"
 
-#: application/controllers/Contesting.php:960
+#: application/controllers/Contesting.php:965
 msgid "Operator switching is disabled."
 msgstr "已禁用操作员切换。"
 
-#: application/controllers/Contesting.php:980
+#: application/controllers/Contesting.php:985
 msgid "Operator switching is only available in club stations."
 msgstr "操作员切换仅对俱乐部台站可用。"
 
-#: application/controllers/Contesting.php:990
+#: application/controllers/Contesting.php:995
 msgid "Access denied"
 msgstr "拒绝访问"
 
-#: application/controllers/Contesting.php:998
+#: application/controllers/Contesting.php:1003
 #: application/controllers/User.php:1434
 msgid "Incorrect username or password!"
 msgstr "用户名或密码错误！"
 
-#: application/controllers/Contesting.php:1007
+#: application/controllers/Contesting.php:1012
 msgid "A club account cannot be used as an operator."
 msgstr "俱乐部账户不能作为操作员。"
 
@@ -1831,7 +1831,7 @@ msgstr "所有呼号簿的查询均失败或没有结果。"
 #: application/views/bands/bandedges.php:31
 #: application/views/callstats/index.php:54
 #: application/views/components/hamsat/table.php:30
-#: application/views/contesting/logger/components/qso-form.php:149
+#: application/views/contesting/logger/components/qso-form.php:150
 #: application/views/contesting/logger/components/radio.php:73
 #: application/views/contesting/manager/export_cbr.php:106
 #: application/views/continents/index.php:44 application/views/csv/index.php:42
@@ -2161,7 +2161,7 @@ msgstr "距离"
 #: application/views/bandmap/list.php:601 application/views/bands/create.php:24
 #: application/views/bands/edit.php:7 application/views/bands/index.php:47
 #: application/views/callstats/index.php:12
-#: application/views/contesting/logger/components/qso-form.php:148
+#: application/views/contesting/logger/components/qso-form.php:149
 #: application/views/contesting/logger/components/radio.php:90
 #: application/views/contesting/manager/export_cbr.php:76
 #: application/views/continents/index.php:35 application/views/csv/index.php:31
@@ -2229,6 +2229,7 @@ msgstr "频段"
 #: application/controllers/Radio.php:55 application/views/bandmap/list.php:172
 #: application/views/bandmap/list.php:562
 #: application/views/bandmap/list.php:602
+#: application/views/contesting/logger/components/qso-form.php:148
 #: application/views/contesting/logger/components/radio.php:65
 #: application/views/dashboard/index.php:17
 #: application/views/logbookadvanced/edit.php:11
@@ -2256,7 +2257,7 @@ msgstr "频率"
 
 #: application/controllers/Logbook.php:1470
 #: application/controllers/Radio.php:53
-#: application/views/contesting/logger/components/qso-form.php:156
+#: application/views/contesting/logger/components/qso-form.php:157
 #: application/views/contesting/manager/export_cbr.php:61
 #: application/views/dashboard/index.php:18
 #: application/views/logbookadvanced/edit.php:18
@@ -5891,7 +5892,7 @@ msgid "Grid Activations"
 msgstr "网格激活"
 
 #: application/views/awards/amsat_rover/index.php:221
-#: application/views/contesting/logger/components/qso-form.php:153
+#: application/views/contesting/logger/components/qso-form.php:154
 #: application/views/satellite/skedtable.php:40
 #: application/views/stationsetup/locationlist.php:14
 msgid "Grid"
@@ -10205,12 +10206,12 @@ msgid "RST R"
 msgstr "RST 收"
 
 #: application/views/contesting/logger/components/qso-form.php:95
-#: application/views/contesting/logger/components/qso-form.php:151
+#: application/views/contesting/logger/components/qso-form.php:152
 msgid "Nr. S"
 msgstr "序号 发"
 
 #: application/views/contesting/logger/components/qso-form.php:99
-#: application/views/contesting/logger/components/qso-form.php:152
+#: application/views/contesting/logger/components/qso-form.php:153
 msgid "Nr. R"
 msgstr "序号 收"
 
@@ -10237,11 +10238,11 @@ msgstr "交换信息 收"
 msgid "Recent QSOs"
 msgstr "最近QSO"
 
-#: application/views/contesting/logger/components/qso-form.php:150
+#: application/views/contesting/logger/components/qso-form.php:151
 msgid "RST"
 msgstr "RST"
 
-#: application/views/contesting/logger/components/qso-form.php:154
+#: application/views/contesting/logger/components/qso-form.php:155
 msgid "Exch"
 msgstr "交换"
 
