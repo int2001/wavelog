@@ -481,7 +481,12 @@ class QsoFormComponent {
 		return String(str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 	}
 
-	/** User's preferred QRG display unit for a band. Mirrors radio.js (localStorage first, then session config). */
+	/** 
+	 * User's preferred QRG display unit for a band. Mirrors radio.js (localStorage first, then session config).
+	 * Normally data is stored via datastore-component. But since this qrgunit_ data was implemented way before 
+	 * the new contesting and is used in normal qso logging aswell we make an exception here and read it directly
+	 * from localStorage.
+	 */
 	_qrgUnit(band) {
 		// Band is always lowercase; normalize defensively so the qrgunit_<band> key always matches.
 		const b = String(band ?? '').toLowerCase();

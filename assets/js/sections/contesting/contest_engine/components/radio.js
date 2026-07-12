@@ -591,6 +591,8 @@ class RadioComponent {
 			console.log('RadioComponent: Determined band from frequency:', { freq_hz: qrg_hz, freq_khz, band: new_band });
 		}
 
+		// store the values directly in localStorage without using the datastore component
+		// so it's compatible with the normal qsl logging
 		localStorage.setItem('qrgunit_' + new_band, unit);
 
 		this.frequency.value = qrg_hz;
@@ -749,6 +751,8 @@ class RadioComponent {
 
 				const band = (this.selectedBand || 'unknown').toLowerCase();
 
+				// store the values directly in localStorage without using the datastore component
+				// so it's compatible with the normal qsl logging
 				if (this.qrgUnitElement.innerHTML == 'Hz') {
 					this.qrgUnitElement.innerHTML = 'kHz';
 					this.freqCalculated.value = this.frequency.value / 1000;
