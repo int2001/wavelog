@@ -638,7 +638,7 @@ class QsoFormComponent {
 			  edit: inp(callsignToDisplay(qso.callsign || ''), 'callsign', 'fw-bold text-uppercase') },
 			// Frequency in the user's per-band unit; editable. QRG is authoritative — on save the band is derived from it.
 			{ display: qrgDisp || '-',
-			  edit: `<div class="input-group input-group-sm flex-nowrap"><input type="text" class="form-control form-control-sm p-0 px-1" style="min-width:4rem;" name="frequency" value="${this._esc(qrgValue)}"><span class="input-group-text p-0 px-1 qrg-unit-label">${this._esc(qrgUnit)}</span></div>` },
+			  edit: `<div class="d-flex align-items-center flex-nowrap gap-1"><input type="text" class="form-control form-control-sm p-0 px-1" style="min-width:4rem;" name="frequency" value="${this._esc(qrgValue)}"><span class="small text-muted qrg-unit-label" style="cursor:default; user-select:none;">${this._esc(qrgUnit)}</span></div>` },
 			{ display: (band || '-').toLowerCase(),
 			  edit: this._buildBandSelect(band) },
 			{ display: qso.mode || '-',
