@@ -238,6 +238,7 @@ msgstr "対流圏ダクト"
 #: application/controllers/User.php:1224 application/controllers/User.php:1476
 #: application/controllers/User.php:1614 application/controllers/User.php:1834
 #: application/controllers/User.php:1850 application/controllers/User.php:1874
+#: application/controllers/Contesting.php:1043
 msgid "You're not allowed to do that!"
 msgstr "それは禁止です！"
 
@@ -1005,6 +1006,8 @@ msgstr "クイックスタートセッション： %s"
 #: application/controllers/Contesting.php:476
 #: application/controllers/Contesting.php:666
 #: application/controllers/Contesting.php:722
+#: application/controllers/Contesting.php:676
+#: application/controllers/Contesting.php:742
 msgid "Contest session not found."
 msgstr "コンテストセッションが見つかりませんでした。"
 
@@ -1028,10 +1031,12 @@ msgid "You are not authorized to access this contest session."
 msgstr "このコンテストセッションにアクセスする権限がありません。"
 
 #: application/controllers/Contesting.php:641
+#: application/controllers/Contesting.php:651
 msgid "Contest session created successfully."
 msgstr "コンテストセッションが正常に作成されました。"
 
 #: application/controllers/Contesting.php:643
+#: application/controllers/Contesting.php:653
 msgid "There was an error creating the contest session. Please try again."
 msgstr ""
 "コンテストセッションの作成中にエラーが発生しました。もう一度お試しください。"
@@ -1039,39 +1044,49 @@ msgstr ""
 #: application/controllers/Contesting.php:649
 #: application/controllers/Contesting.php:705
 #: application/controllers/Contesting.php:752
+#: application/controllers/Contesting.php:659
+#: application/controllers/Contesting.php:725
+#: application/controllers/Contesting.php:772
 msgid "Invalid request method."
 msgstr "無効なリクエストメソッドです。"
 
 #: application/controllers/Contesting.php:697
+#: application/controllers/Contesting.php:717
 msgid "Contest session updated successfully."
 msgstr "コンテストセッションの更新に成功しました。"
 
 #: application/controllers/Contesting.php:699
+#: application/controllers/Contesting.php:719
 msgid "There was an error updating the contest session. Please try again."
 msgstr ""
 "コンテストセッションの更新中にエラーが発生しました。もう一度お試しください。"
 
 #: application/controllers/Contesting.php:744
+#: application/controllers/Contesting.php:764
 msgid "Contest session deleted successfully."
 msgstr "コンテストセッションは正常に削除されました。"
 
 #: application/controllers/Contesting.php:746
+#: application/controllers/Contesting.php:766
 msgid "There was an error deleting the contest session. Please try again."
 msgstr ""
 "コンテストセッションの削除中にエラーが発生しました。もう一度お試しください。"
 
 #: application/controllers/Contesting.php:960
 #: application/controllers/Contesting.php:965
+#: application/controllers/Contesting.php:985
 msgid "Operator switching is disabled."
 msgstr "オペレーターの切り替えは無効になっています。"
 
 #: application/controllers/Contesting.php:980
 #: application/controllers/Contesting.php:985
+#: application/controllers/Contesting.php:1005
 msgid "Operator switching is only available in club stations."
 msgstr "オペレーターの切り替えは、クラブシャック でのみ利用可能です。"
 
 #: application/controllers/Contesting.php:990
 #: application/controllers/Contesting.php:995
+#: application/controllers/Contesting.php:1015
 msgid "Access denied"
 msgstr "アクセスが拒否されました"
 
@@ -1079,11 +1094,13 @@ msgstr "アクセスが拒否されました"
 #: application/controllers/User.php:1434
 #: application/controllers/Contesting.php:1003
 #: application/controllers/User.php:1432
+#: application/controllers/Contesting.php:1023
 msgid "Incorrect username or password!"
 msgstr "ユーザー名またはパスワードが間違っています!"
 
 #: application/controllers/Contesting.php:1007
 #: application/controllers/Contesting.php:1012
+#: application/controllers/Contesting.php:1032
 msgid "A club account cannot be used as an operator."
 msgstr "クラブアカウントはオペレーターとして使用できません。"
 
@@ -4072,10 +4089,12 @@ msgstr ""
 "(ADIF: %s, 年: %d)"
 
 #: application/models/Contesting_model.php:154
+#: application/models/Contesting_model.php:179
 msgid "Officers must edit contests."
 msgstr "管理者はコンテストを編集しなければなりません。"
 
 #: application/models/Contesting_model.php:188
+#: application/models/Contesting_model.php:213
 msgid "Only clubstation officers can delete."
 msgstr "クラブシャック の役員のみが削除できます。"
 
@@ -9715,6 +9734,7 @@ msgstr "はい、切り替えます！"
 #: application/views/satellite/pass.php:184
 #: application/views/user/modals/admin_impersonate_modal.php:45
 #: application/views/user/modals/stop_impersonate_modal.php:14
+#: application/views/contesting/manager/components/session_modal.php:152
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -11155,22 +11175,27 @@ msgstr ""
 "す。ログデータは常に優先されます。"
 
 #: application/views/contesting/manager/components/session_modal.php:138
+#: application/views/contesting/manager/components/session_modal.php:146
 msgid "Session Notes"
 msgstr "セッションノート"
 
 #: application/views/contesting/manager/components/session_modal.php:139
+#: application/views/contesting/manager/components/session_modal.php:147
 msgid "Add any additional information about this session..."
 msgstr "このセッションに関する追加情報があれば追加してください。"
 
 #: application/views/contesting/manager/components/session_modal.php:140
+#: application/views/contesting/manager/components/session_modal.php:148
 msgid "Optional: Any additional details or notes"
 msgstr "オプション：その他の詳細情報やメモ"
 
 #: application/views/contesting/manager/components/session_modal.php:146
+#: application/views/contesting/manager/components/session_modal.php:154
 msgid "Create Session"
 msgstr "セッションを作成する"
 
 #: application/views/contesting/manager/components/session_modal.php:146
+#: application/views/contesting/manager/components/session_modal.php:154
 msgid "Update Session"
 msgstr "セッションの更新"
 
@@ -22286,6 +22311,24 @@ msgstr ""
 msgid ""
 "Type a wildcard to take manual control of the match; without wildcards the "
 "default search behaviour is kept."
+msgstr ""
+
+#: application/views/contesting/logger/components/qso-form.php:95
+msgctxt ""
+"Count serial number in contesting per Band; is an option in contesting "
+"manager."
+msgid "per band"
+msgstr ""
+
+#: application/views/contesting/manager/components/session_modal.php:141
+msgid "Count serial number per band"
+msgstr ""
+
+#: application/views/contesting/manager/components/session_modal.php:143
+msgid ""
+"When enabled, the sent serial number starts at 1 on each band instead of "
+"running continuously across the whole contest (required by some multi-op "
+"categories)."
 msgstr ""
 
 #~ msgid "Available"

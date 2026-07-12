@@ -634,8 +634,18 @@ class Contesting extends CI_Controller {
 				$copyexchangeto = $this->input->post('copyexchangeto', true) ?? '';
 				$callbook_lookup  = (bool) $this->input->post('callbook_lookup', true);
 				$custom_name    = trim($this->input->post('custom_name', true) ?? '');
+				$serial_per_band = (bool) $this->input->post('serial_per_band', true);
 
-				$result = $this->contesting_model->create_contest_session($contest_adif_id, $session_start, $session_end, $station_location, $session_notes, false, $exchangetype, $copyexchangeto, $exchangefields, $callbook_lookup, $custom_name);
+				$parameter_array = [
+					'exchangetype'    => $exchangetype,
+					'copyexchangeto'  => $copyexchangeto,
+					'exchangefields'  => $exchangefields,
+					'callbook_lookup' => $callbook_lookup,
+					'custom_name'     => $custom_name,
+					'serial_per_band' => $serial_per_band,
+				];
+
+				$result = $this->contesting_model->create_contest_session($contest_adif_id, $session_start, $session_end, $station_location, $session_notes, false, $parameter_array);
 
 				if ($result) {
 					$this->session->set_flashdata('success', __("Contest session created successfully."));
@@ -686,8 +696,18 @@ class Contesting extends CI_Controller {
 				$copyexchangeto = $this->input->post('copyexchangeto', true) ?? '';
 				$callbook_lookup  = (bool) $this->input->post('callbook_lookup', true);
 				$custom_name    = trim($this->input->post('custom_name', true) ?? '');
+				$serial_per_band = (bool) $this->input->post('serial_per_band', true);
 
-				$result = $this->contesting_model->update_contest_session($contest_session_id, $contest_id, $time_start, $time_end, $station_id, $notes, $exchangetype, $copyexchangeto, $exchangefields, $callbook_lookup, $custom_name);
+				$parameter_array = [
+					'exchangetype'    => $exchangetype,
+					'copyexchangeto'  => $copyexchangeto,
+					'exchangefields'  => $exchangefields,
+					'callbook_lookup' => $callbook_lookup,
+					'custom_name'     => $custom_name,
+					'serial_per_band' => $serial_per_band,
+				];
+
+				$result = $this->contesting_model->update_contest_session($contest_session_id, $contest_id, $time_start, $time_end, $station_id, $notes, $parameter_array);
 
 				if ($result) {
 					$this->cache->delete(self::CACHE_KEY_SESSION_SETTINGS . $contest_session_id); // Clear session cache to reflect changes immediately

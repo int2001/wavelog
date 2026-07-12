@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-12 09:55+0000\n"
+"POT-Creation-Date: 2026-07-12 12:08+0000\n"
 "PO-Revision-Date: 2024-11-01 08:53+0000\n"
 "Last-Translator: Plamen Panteleev <lz1ppl@abv.bg>\n"
 "Language-Team: Bulgarian <https://translate.wavelog.org/projects/wavelog/"
@@ -139,7 +139,7 @@ msgstr ""
 #: application/controllers/Contest_admin.php:13
 #: application/controllers/Contestcalendar.php:7
 #: application/controllers/Contesting.php:38
-#: application/controllers/Contesting.php:1023
+#: application/controllers/Contesting.php:1043
 #: application/controllers/Contesting_import.php:10
 #: application/controllers/Contesting_import.php:26
 #: application/controllers/Contesting_import.php:56
@@ -988,8 +988,8 @@ msgstr ""
 #: application/controllers/Contesting.php:125
 #: application/controllers/Contesting.php:157
 #: application/controllers/Contesting.php:476
-#: application/controllers/Contesting.php:666
-#: application/controllers/Contesting.php:722
+#: application/controllers/Contesting.php:676
+#: application/controllers/Contesting.php:742
 msgid "Contest session not found."
 msgstr ""
 
@@ -1012,54 +1012,54 @@ msgstr ""
 msgid "You are not authorized to access this contest session."
 msgstr ""
 
-#: application/controllers/Contesting.php:641
+#: application/controllers/Contesting.php:651
 msgid "Contest session created successfully."
 msgstr ""
 
-#: application/controllers/Contesting.php:643
+#: application/controllers/Contesting.php:653
 msgid "There was an error creating the contest session. Please try again."
 msgstr ""
 
-#: application/controllers/Contesting.php:649
-#: application/controllers/Contesting.php:705
-#: application/controllers/Contesting.php:752
+#: application/controllers/Contesting.php:659
+#: application/controllers/Contesting.php:725
+#: application/controllers/Contesting.php:772
 msgid "Invalid request method."
 msgstr ""
 
-#: application/controllers/Contesting.php:697
+#: application/controllers/Contesting.php:717
 msgid "Contest session updated successfully."
 msgstr ""
 
-#: application/controllers/Contesting.php:699
+#: application/controllers/Contesting.php:719
 msgid "There was an error updating the contest session. Please try again."
 msgstr ""
 
-#: application/controllers/Contesting.php:744
+#: application/controllers/Contesting.php:764
 msgid "Contest session deleted successfully."
 msgstr ""
 
-#: application/controllers/Contesting.php:746
+#: application/controllers/Contesting.php:766
 msgid "There was an error deleting the contest session. Please try again."
 msgstr ""
 
-#: application/controllers/Contesting.php:965
+#: application/controllers/Contesting.php:985
 msgid "Operator switching is disabled."
 msgstr ""
 
-#: application/controllers/Contesting.php:985
+#: application/controllers/Contesting.php:1005
 msgid "Operator switching is only available in club stations."
 msgstr ""
 
-#: application/controllers/Contesting.php:995
+#: application/controllers/Contesting.php:1015
 msgid "Access denied"
 msgstr ""
 
-#: application/controllers/Contesting.php:1003
+#: application/controllers/Contesting.php:1023
 #: application/controllers/User.php:1432
 msgid "Incorrect username or password!"
 msgstr ""
 
-#: application/controllers/Contesting.php:1012
+#: application/controllers/Contesting.php:1032
 msgid "A club account cannot be used as an operator."
 msgstr ""
 
@@ -3954,11 +3954,11 @@ msgid ""
 "(ADIF: %s, Year: %d)"
 msgstr ""
 
-#: application/models/Contesting_model.php:154
+#: application/models/Contesting_model.php:179
 msgid "Officers must edit contests."
 msgstr ""
 
-#: application/models/Contesting_model.php:188
+#: application/models/Contesting_model.php:213
 msgid "Only clubstation officers can delete."
 msgstr ""
 
@@ -9246,7 +9246,7 @@ msgstr ""
 #: application/views/contesting/logger/components/qso-form.php:40
 #: application/views/contesting/logger/index.php:188
 #: application/views/contesting/manager/components/confirm_delete.php:24
-#: application/views/contesting/manager/components/session_modal.php:144
+#: application/views/contesting/manager/components/session_modal.php:152
 #: application/views/contesting/manager/import_legacy.php:75
 #: application/views/cron/edit.php:74
 #: application/views/interface_assets/footer.php:43
@@ -9973,6 +9973,13 @@ msgstr ""
 msgid "Nr. S"
 msgstr ""
 
+#: application/views/contesting/logger/components/qso-form.php:95
+msgctxt ""
+"Count serial number in contesting per Band; is an option in contesting "
+"manager."
+msgid "per band"
+msgstr ""
+
 #: application/views/contesting/logger/components/qso-form.php:99
 #: application/views/contesting/logger/components/qso-form.php:153
 msgid "Nr. R"
@@ -10634,23 +10641,34 @@ msgid ""
 "Log data is always prioritized."
 msgstr ""
 
-#: application/views/contesting/manager/components/session_modal.php:138
+#: application/views/contesting/manager/components/session_modal.php:141
+msgid "Count serial number per band"
+msgstr ""
+
+#: application/views/contesting/manager/components/session_modal.php:143
+msgid ""
+"When enabled, the sent serial number starts at 1 on each band instead of "
+"running continuously across the whole contest (required by some multi-op "
+"categories)."
+msgstr ""
+
+#: application/views/contesting/manager/components/session_modal.php:146
 msgid "Session Notes"
 msgstr ""
 
-#: application/views/contesting/manager/components/session_modal.php:139
+#: application/views/contesting/manager/components/session_modal.php:147
 msgid "Add any additional information about this session..."
 msgstr ""
 
-#: application/views/contesting/manager/components/session_modal.php:140
+#: application/views/contesting/manager/components/session_modal.php:148
 msgid "Optional: Any additional details or notes"
 msgstr ""
 
-#: application/views/contesting/manager/components/session_modal.php:146
+#: application/views/contesting/manager/components/session_modal.php:154
 msgid "Create Session"
 msgstr ""
 
-#: application/views/contesting/manager/components/session_modal.php:146
+#: application/views/contesting/manager/components/session_modal.php:154
 msgid "Update Session"
 msgstr ""
 
