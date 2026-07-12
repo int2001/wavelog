@@ -942,6 +942,26 @@ class QsoFormComponent {
 		return false;
 	}
 
+	// Set of callsigns (raw, uppercased) already worked on the current band and
+	// mode. SCP uses this to mark worked entries red. Mirrors checkWorkedBefore()
+	// but batched into one pass per render instead of one pass per call.
+	getWorkedCallsignsCurrentBandMode() {
+		const set = new Set();
+		if (!this.dataStore || !this.radioComponent) return set;
+		const currentBand = this.radioComponent.getBand();
+		const currentMode = this.radioComponent.getMode()?.toUpperCase();
+		if (!currentBand || !currentMode) return set;
+		for (const qso of this.dataStore.getPattern('qso.*').values()) {
+			const qsoBand = qso.band || this.convertQrgToBand(parseInt(qso.frequency));
+			const qsoMode = qso.submode?.toUpperCase() || qso.mode?.toUpperCase() || null;
+			if (qsoBand === currentBand && qsoMode === currentMode) {
+				const c = callsignToRaw(qso.callsign || '').toUpperCase();
+				if (c) set.add(c);
+			}
+		}
+		return set;
+	}
+
 	updateWorkedBeforeWarning(callsign) {
 		const warning = this.container?.querySelector('#qso-worked-before-warning');
 		const qsoinput = this.container?.querySelector('#qso-callsign');
