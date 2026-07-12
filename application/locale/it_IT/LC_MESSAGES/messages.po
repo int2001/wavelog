@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-12 09:07+0000\n"
+"POT-Creation-Date: 2026-07-12 09:55+0000\n"
 "PO-Revision-Date: 2026-07-10 07:55+0000\n"
 "Last-Translator: iv3cvn <ricentis@gmail.com>\n"
 "Language-Team: Italian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -223,10 +223,10 @@ msgstr "Canalizzazioni troposferiche"
 #: application/controllers/User.php:61 application/controllers/User.php:108
 #: application/controllers/User.php:125 application/controllers/User.php:148
 #: application/controllers/User.php:406 application/controllers/User.php:407
-#: application/controllers/User.php:1162 application/controllers/User.php:1180
-#: application/controllers/User.php:1226 application/controllers/User.php:1478
-#: application/controllers/User.php:1616 application/controllers/User.php:1836
-#: application/controllers/User.php:1852 application/controllers/User.php:1876
+#: application/controllers/User.php:1160 application/controllers/User.php:1178
+#: application/controllers/User.php:1224 application/controllers/User.php:1476
+#: application/controllers/User.php:1614 application/controllers/User.php:1834
+#: application/controllers/User.php:1850 application/controllers/User.php:1874
 #: application/controllers/User_options.php:8
 #: application/controllers/Usermode.php:14
 #: application/controllers/Webadif.php:10
@@ -1071,7 +1071,7 @@ msgid "Access denied"
 msgstr "Accesso negato"
 
 #: application/controllers/Contesting.php:1003
-#: application/controllers/User.php:1434
+#: application/controllers/User.php:1432
 msgid "Incorrect username or password!"
 msgstr "Username o password non validi!"
 
@@ -1474,7 +1474,7 @@ msgid "User not found."
 msgstr "Utente non trovato."
 
 #: application/controllers/Header_auth.php:110
-#: application/controllers/User.php:1424
+#: application/controllers/User.php:1422
 msgid ""
 "You can't login to a clubstation directly. Use your personal account instead."
 msgstr ""
@@ -2179,7 +2179,7 @@ msgstr "Distanza"
 #: application/views/logbookadvanced/checkresult.php:389
 #: application/views/logbookadvanced/dupesearchdialog.php:32
 #: application/views/logbookadvanced/edit.php:10
-#: application/views/logbookadvanced/help.php:41
+#: application/views/logbookadvanced/help.php:58
 #: application/views/logbookadvanced/index.php:414
 #: application/views/logbookadvanced/index.php:555
 #: application/views/logbookadvanced/index.php:964
@@ -3163,7 +3163,7 @@ msgstr "Crea postazione"
 
 #: application/controllers/Station.php:74
 #: application/controllers/Station.php:99 application/controllers/User.php:269
-#: application/controllers/User.php:1017 application/controllers/User.php:1198
+#: application/controllers/User.php:1017 application/controllers/User.php:1196
 msgid "Invalid security token"
 msgstr "Token di sicurezza non valido"
 
@@ -3197,7 +3197,7 @@ msgid "Duplicate Station Location:"
 msgstr "Duplica postazione:"
 
 #: application/controllers/Station.php:233
-#: application/controllers/User.php:1499 application/controllers/User.php:1752
+#: application/controllers/User.php:1497 application/controllers/User.php:1750
 #, php-format
 msgid "Please check value for grid locator (%s)"
 msgstr "Prego verifica il locatore (%s)"
@@ -3633,33 +3633,33 @@ msgstr ""
 msgid "Edit User"
 msgstr "Modifica utente"
 
-#: application/controllers/User.php:1094 application/controllers/User.php:1097
+#: application/controllers/User.php:1092 application/controllers/User.php:1095
 #, php-format
 msgid "User %s edited"
 msgstr "Utente %s modificato"
 
-#: application/controllers/User.php:1165
+#: application/controllers/User.php:1163
 msgid "Profile"
 msgstr "Profilo"
 
-#: application/controllers/User.php:1188
+#: application/controllers/User.php:1186
 #: application/views/club/permissions.php:365
 msgid "Delete User"
 msgstr "Elimina utente"
 
-#: application/controllers/User.php:1204
+#: application/controllers/User.php:1202
 msgid "User deleted"
 msgstr "Utente eliminato"
 
-#: application/controllers/User.php:1207
+#: application/controllers/User.php:1205
 msgid "Could not delete user!"
 msgstr "Impossibile eliminare l'utente!"
 
-#: application/controllers/User.php:1207
+#: application/controllers/User.php:1205
 msgid "Database error:"
 msgstr "Errore del database:"
 
-#: application/controllers/User.php:1281
+#: application/controllers/User.php:1279
 msgid ""
 "Congrats! Wavelog was successfully installed. You can now login for the "
 "first time."
@@ -3667,22 +3667,22 @@ msgstr ""
 "Congratulazioni! Wavelog è stato installato con successo. Ora puoi "
 "effettuare il primo accesso."
 
-#: application/controllers/User.php:1319
+#: application/controllers/User.php:1317
 msgid "This is not allowed!"
 msgstr "Questo non è consentito!"
 
-#: application/controllers/User.php:1356 application/controllers/User.php:1369
+#: application/controllers/User.php:1354 application/controllers/User.php:1367
 msgid "Login failed. Try again."
 msgstr "Accesso non riuscito. Riprova."
 
-#: application/controllers/User.php:1377
+#: application/controllers/User.php:1375
 #: application/views/interface_assets/header.php:423
 #: application/views/user/login.php:91
 #: application/views/visitor/layout/header.php:87
 msgid "Login"
 msgstr "Accesso"
 
-#: application/controllers/User.php:1427
+#: application/controllers/User.php:1425
 msgid ""
 "Your account is locked, due to too many failed login-attempts. Please reset "
 "your password."
@@ -3690,7 +3690,7 @@ msgstr ""
 "Il tuo account è stato bloccato a causa di troppi tentativi di accesso non "
 "riusciti. Ti preghiamo di reimpostare la tua password."
 
-#: application/controllers/User.php:1431
+#: application/controllers/User.php:1429
 msgid ""
 "Sorry. This instance is currently in maintenance mode. If this message "
 "appears unexpectedly or keeps showing up, please contact an administrator. "
@@ -3701,18 +3701,18 @@ msgstr ""
 "un amministratore. Al momento solo gli amministratori possono effettuare "
 "l'accesso."
 
-#: application/controllers/User.php:1458
+#: application/controllers/User.php:1456
 #, php-format
 msgid "User %s logged out."
 msgstr "Utente %s scollegato."
 
-#: application/controllers/User.php:1481
+#: application/controllers/User.php:1479
 #: application/views/oqrs/request_grouped.php:18
 #: application/views/user/modals/first_login_wizard.php:26
 msgid "Station Name"
 msgstr "Nome della stazione"
 
-#: application/controllers/User.php:1482 application/views/debug/index.php:804
+#: application/controllers/User.php:1480 application/views/debug/index.php:804
 #: application/views/public_search/result.php:17
 #: application/views/station_profile/create.php:60
 #: application/views/station_profile/edit.php:77
@@ -3722,27 +3722,27 @@ msgstr "Nome della stazione"
 msgid "Station Callsign"
 msgstr "Nominativo di stazione"
 
-#: application/controllers/User.php:1483
+#: application/controllers/User.php:1481
 #: application/views/station_profile/create.php:82
 #: application/views/station_profile/edit.php:99
 #: application/views/user/modals/first_login_wizard.php:42
 msgid "Station DXCC"
 msgstr "DXCC della stazione"
 
-#: application/controllers/User.php:1484
+#: application/controllers/User.php:1482
 msgid "Station CQ Zone"
 msgstr "Zona CQ della stazione"
 
-#: application/controllers/User.php:1485
+#: application/controllers/User.php:1483
 msgid "Station ITU Zone"
 msgstr "Zona ITU della stazione"
 
-#: application/controllers/User.php:1486
+#: application/controllers/User.php:1484
 #: application/views/user/modals/first_login_wizard.php:93
 msgid "Station Locator"
 msgstr "Locatore della stazione"
 
-#: application/controllers/User.php:1507
+#: application/controllers/User.php:1505
 #, php-format
 msgid ""
 "Station created successfully! Welcome to Wavelog! To complete your station "
@@ -3751,36 +3751,36 @@ msgstr ""
 "Stazione creata con successo! Benvenuto su Wavelog! Per completare la "
 "configurazione della tua stazione, clicca %squi%s."
 
-#: application/controllers/User.php:1510
+#: application/controllers/User.php:1508
 msgid "Station setup failed! Please set up your station manually."
 msgstr ""
 "Impostazione della stazione non riuscita! Impostare manualmente la stazione."
 
-#: application/controllers/User.php:1527
+#: application/controllers/User.php:1525
 msgid "Password Reset is disabled on the Demo!"
 msgstr "La reimpostazione della password è disabilitata nella versione demo!"
 
-#: application/controllers/User.php:1541
+#: application/controllers/User.php:1539
 msgid "Forgot Password"
 msgstr "Password dimenticata"
 
-#: application/controllers/User.php:1591
+#: application/controllers/User.php:1589
 #: application/views/user/modals/more_actions_modal.php:88
 msgid "Email settings are incorrect."
 msgstr "Le impostazioni dell'e-mail non sono corrette."
 
-#: application/controllers/User.php:1595 application/controllers/User.php:1600
+#: application/controllers/User.php:1593 application/controllers/User.php:1598
 msgid "Password Reset Processed."
 msgstr "Reimpostazione password completata."
 
-#: application/controllers/User.php:1706
+#: application/controllers/User.php:1704
 #: application/views/user/forgot_password.php:51
 #: application/views/user/reset_password.php:8
 #: application/views/user/reset_password.php:35
 msgid "Reset Password"
 msgstr "Reimposta password"
 
-#: application/controllers/User.php:1726
+#: application/controllers/User.php:1724
 #, php-format
 msgid ""
 "Couldn't set account to this username. Please try another one than \"%s\"."
@@ -3788,7 +3788,7 @@ msgstr ""
 "Impossibile impostare l'account con questo nome utente. Prova con un nome "
 "diverso da “%s”."
 
-#: application/controllers/User.php:1735
+#: application/controllers/User.php:1733
 #, php-format
 msgid ""
 "Couldn't set account to this email. Please try another address than \"%s\"."
@@ -3796,7 +3796,7 @@ msgstr ""
 "Impossibile impostare l'account con questo nome utente. Prova con un nome "
 "diverso da “%s”."
 
-#: application/controllers/User.php:1774
+#: application/controllers/User.php:1772
 #, php-format
 msgid ""
 "You currently can't impersonate another user. You need to set %s to %s in "
@@ -3805,7 +3805,7 @@ msgstr ""
 "Al momento non è possibile impersonare un altro utente. È necessario "
 "impostare %s su %s nel file config.php!"
 
-#: application/controllers/User.php:1785
+#: application/controllers/User.php:1783
 #: application/views/user/modals/admin_impersonate_modal.php:36
 msgid ""
 "You currently can't impersonate another user. Please change the "
@@ -3814,15 +3814,15 @@ msgstr ""
 "You currently can't impersonate another user. Please change the "
 "encryption_key in your config.php file first!"
 
-#: application/controllers/User.php:1792
+#: application/controllers/User.php:1790
 msgid "Invalid Hash"
 msgstr "Hash non valido"
 
-#: application/controllers/User.php:1805
+#: application/controllers/User.php:1803
 msgid "The impersonation hash is too old. Please try again."
 msgstr "L'hash di impersonificazione è troppo vecchio. Riprova."
 
-#: application/controllers/User.php:1812
+#: application/controllers/User.php:1810
 msgid ""
 "You can't impersonate another user while you're not logged in as the source "
 "user"
@@ -3830,15 +3830,15 @@ msgstr ""
 "Non è possibile impersonare un altro utente se non si è connessi come utente "
 "di origine"
 
-#: application/controllers/User.php:1818
+#: application/controllers/User.php:1816
 msgid "There was a problem with your session. Please try again."
 msgstr "Si è verificato un problema con la tua sessione. Riprova."
 
-#: application/controllers/User.php:1825
+#: application/controllers/User.php:1823
 msgid "The requested user to impersonate does not exist"
 msgstr "L'utente richiesto da impersonare non esiste"
 
-#: application/controllers/User.php:1846
+#: application/controllers/User.php:1844
 msgid ""
 "Could not determine the correct permission level for the clubstation. Try "
 "again after re-login."
@@ -3846,14 +3846,14 @@ msgstr ""
 "Impossibile determinare il livello di autorizzazione corretto per la "
 "clubstation. Riprova dopo aver effettuato nuovamente l'accesso."
 
-#: application/controllers/User.php:1887 application/controllers/User.php:1899
-#: application/controllers/User.php:1905 application/controllers/User.php:1914
-#: application/controllers/User.php:1922
+#: application/controllers/User.php:1885 application/controllers/User.php:1897
+#: application/controllers/User.php:1903 application/controllers/User.php:1912
+#: application/controllers/User.php:1920
 msgid "Ups.. Something went wrong. Try to log back in."
 msgstr ""
 "Ops... Qualcosa è andato storto. Prova a effettuare nuovamente l'accesso."
 
-#: application/controllers/User.php:1928
+#: application/controllers/User.php:1926
 msgid ""
 "The ability to return quickly has been disabled after the security hash "
 "expired. Please log in again."
@@ -3861,7 +3861,7 @@ msgstr ""
 "La possibilità di tornare rapidamente è stata disabilitata dopo la scadenza "
 "dell'hash di sicurezza. Effettua nuovamente l'accesso."
 
-#: application/controllers/User.php:1944
+#: application/controllers/User.php:1942
 #, php-format
 msgid ""
 "You have been logged out of the account %s. Welcome back, %s, to your "
@@ -4256,13 +4256,13 @@ msgstr "QSO aggiornato"
 msgid "Bearing"
 msgstr "Direzione"
 
-#: application/models/Logbookadvanced_model.php:1839
+#: application/models/Logbookadvanced_model.php:1857
 msgid "VuccGrids table is empty. Please import the VUCC grids data first."
 msgstr ""
 "La tabella VuccGrids è vuota. Per favore, importa prima i dati dei locatori "
 "VUCC."
 
-#: application/models/Logbookadvanced_model.php:2459
+#: application/models/Logbookadvanced_model.php:2477
 msgid ""
 "Invalid primary QSO ID, or you do not have permission to access one of the "
 "QSOs"
@@ -4270,16 +4270,16 @@ msgstr ""
 "ID QSO primario non valido, oppure non hai il permesso di accedere a uno dei "
 "QSO"
 
-#: application/models/Logbookadvanced_model.php:2469
+#: application/models/Logbookadvanced_model.php:2487
 #: application/views/view_log/qso.php:866
 msgid "QSO not found"
 msgstr "QSO non trovato"
 
-#: application/models/Logbookadvanced_model.php:2555
+#: application/models/Logbookadvanced_model.php:2573
 msgid "No fields selected for merge or no differences between QSOs"
 msgstr "Nessun campo selezionato per l'unione o nessuna differenza tra i QSO"
 
-#: application/models/Logbookadvanced_model.php:2568
+#: application/models/Logbookadvanced_model.php:2586
 msgid "QSOs merged successfully"
 msgstr "QSOs uniti con successo"
 
@@ -4661,7 +4661,7 @@ msgstr "Locatori attivati"
 #: application/views/interface_assets/header.php:214
 #: application/views/logbookadvanced/dupesearchdialog.php:41
 #: application/views/logbookadvanced/edit.php:22
-#: application/views/logbookadvanced/help.php:42
+#: application/views/logbookadvanced/help.php:59
 #: application/views/logbookadvanced/index.php:425
 #: application/views/qso/award_tabs.php:69
 #: application/views/satellite/flightpath.php:43
@@ -4835,7 +4835,7 @@ msgstr "Non ho trovato nulla!"
 #: application/views/logbookadvanced/checkresult.php:316
 #: application/views/logbookadvanced/checkresult.php:387
 #: application/views/logbookadvanced/dbtoolsdialog.php:22
-#: application/views/logbookadvanced/help.php:38
+#: application/views/logbookadvanced/help.php:55
 #: application/views/logbookadvanced/qslcarousel.php:30
 #: application/views/logbookadvanced/showUpdateResult.php:43
 #: application/views/lotw_views/index.php:42
@@ -5051,7 +5051,7 @@ msgid "DCL QSL Status"
 msgstr "Stato QSL DCL"
 
 #: application/views/adif/import.php:49
-#: application/views/logbookadvanced/help.php:108
+#: application/views/logbookadvanced/help.php:125
 msgid "ADIF Export"
 msgstr "Esporta ADIF"
 
@@ -8716,7 +8716,7 @@ msgid "minutes"
 msgstr "minuti"
 
 #: application/views/bandmap/list.php:82
-#: application/views/logbookadvanced/help.php:45
+#: application/views/logbookadvanced/help.php:62
 msgid "seconds"
 msgstr "secondi"
 
@@ -10075,7 +10075,7 @@ msgstr "Nome del profilo"
 
 #: application/views/clublog/export.php:35
 #: application/views/hrdlog/export.php:35
-#: application/views/logbookadvanced/help.php:40
+#: application/views/logbookadvanced/help.php:57
 #: application/views/oqrs/showrequests.php:96
 #: application/views/qrz/export.php:40 application/views/webadif/export.php:42
 msgid "Station callsign"
@@ -15415,7 +15415,7 @@ msgid "Match QSOs using the same satellite"
 msgstr "Collega i QSO utilizzando lo stesso satellite"
 
 #: application/views/logbookadvanced/edit.php:3
-#: application/views/logbookadvanced/help.php:97
+#: application/views/logbookadvanced/help.php:114
 msgid ""
 "Not all columns are available for batch editing. If you can't find the "
 "column you are looking for, use the regular QSO edit (click the callsign, "
@@ -15748,64 +15748,88 @@ msgstr "Cerca dove la colonna è vuota"
 msgid "Search where column is not empty"
 msgstr "Cerca dove la colonna non è vuota"
 
-#: application/views/logbookadvanced/help.php:33
+#: application/views/logbookadvanced/help.php:26
+msgid ""
+"Wildcards (in Callsign, State, DOK, County, QSL via, SOTA, POTA, WWFF, "
+"Operator, Gridsquare, Comment and Contest):"
+msgstr ""
+
+#: application/views/logbookadvanced/help.php:30
+msgid "Matches any number of characters"
+msgstr ""
+
+#: application/views/logbookadvanced/help.php:34
+msgid "Matches a single character"
+msgstr ""
+
+#: application/views/logbookadvanced/help.php:38
+msgid "SQL wildcards (any chars / single char) are passed through directly"
+msgstr ""
+
+#: application/views/logbookadvanced/help.php:41
+msgid ""
+"Type a wildcard to take manual control of the match; without wildcards the "
+"default search behaviour is kept."
+msgstr ""
+
+#: application/views/logbookadvanced/help.php:50
 #: application/views/logbookadvanced/index.php:74
 msgid "Duplicate Search"
 msgstr "Ricerca duplicati"
 
-#: application/views/logbookadvanced/help.php:36
+#: application/views/logbookadvanced/help.php:53
 msgid "The dupe search checks for duplicate QSOs with the same:"
 msgstr "La ricerca di duplicati controlla i QSO con lo stesso:"
 
-#: application/views/logbookadvanced/help.php:39
+#: application/views/logbookadvanced/help.php:56
 msgid "Mode / Submode"
 msgstr "Modo/ Submodo"
 
-#: application/views/logbookadvanced/help.php:45
+#: application/views/logbookadvanced/help.php:62
 msgid "Time window:"
 msgstr "Finestra di tempo:"
 
-#: application/views/logbookadvanced/help.php:54
+#: application/views/logbookadvanced/help.php:71
 msgid "Invalid Search"
 msgstr "Ricerca non valida"
 
-#: application/views/logbookadvanced/help.php:57
+#: application/views/logbookadvanced/help.php:74
 msgid "Checks for the following conditions:"
 msgstr "Controlla le seguenti condizioni:"
 
-#: application/views/logbookadvanced/help.php:59
+#: application/views/logbookadvanced/help.php:76
 msgid "Mode is blank or set to 0"
 msgstr "Il modo è vuoto o impostato su 0"
 
-#: application/views/logbookadvanced/help.php:60
+#: application/views/logbookadvanced/help.php:77
 msgid "Band is blank"
 msgstr "La banda è vuota"
 
-#: application/views/logbookadvanced/help.php:61
+#: application/views/logbookadvanced/help.php:78
 msgid "Callsign is blank"
 msgstr "Il nominativo è vuoto"
 
-#: application/views/logbookadvanced/help.php:62
+#: application/views/logbookadvanced/help.php:79
 msgid "Time and date is not set"
 msgstr "Ora e data non sono impostate"
 
-#: application/views/logbookadvanced/help.php:63
+#: application/views/logbookadvanced/help.php:80
 msgid "Date is set to 1970-01-01"
 msgstr "La data è impostata su 1970-01-01"
 
-#: application/views/logbookadvanced/help.php:64
+#: application/views/logbookadvanced/help.php:81
 msgid "Continent is invalid (not AF, AN, AS, EU, NA, OC, or SA)"
 msgstr "Il continente non è valido (non è AF, AN, AS, EU, NA, OC o SA)"
 
-#: application/views/logbookadvanced/help.php:74
+#: application/views/logbookadvanced/help.php:91
 msgid "Map View"
 msgstr "Vista mappa"
 
-#: application/views/logbookadvanced/help.php:77
+#: application/views/logbookadvanced/help.php:94
 msgid "The map uses the same search criteria as the normal search."
 msgstr "La mappa utilizza gli stessi criteri di ricerca della ricerca normale."
 
-#: application/views/logbookadvanced/help.php:78
+#: application/views/logbookadvanced/help.php:95
 msgid ""
 "All QSOs in the search result will be mapped, unless you have checked one or "
 "more QSOs."
@@ -15813,17 +15837,17 @@ msgstr ""
 "Tutti i QSO nei risultati di ricerca saranno mappati, a meno che non sia "
 "stato selezionato uno o più QSO."
 
-#: application/views/logbookadvanced/help.php:78
-#: application/views/logbookadvanced/help.php:99
-#: application/views/logbookadvanced/help.php:112
+#: application/views/logbookadvanced/help.php:95
+#: application/views/logbookadvanced/help.php:116
+#: application/views/logbookadvanced/help.php:129
 msgid "Note:"
 msgstr "Nota:"
 
-#: application/views/logbookadvanced/help.php:87
+#: application/views/logbookadvanced/help.php:104
 msgid "Batch Edit"
 msgstr "Modifica in blocco"
 
-#: application/views/logbookadvanced/help.php:90
+#: application/views/logbookadvanced/help.php:107
 msgid ""
 "Batch edit allows you to modify a single column across all checked QSOs at "
 "once."
@@ -15831,23 +15855,23 @@ msgstr ""
 "La modifica in blocco ti permette di modificare una singola colonna su tutti "
 "i QSO selezionati contemporaneamente."
 
-#: application/views/logbookadvanced/help.php:91
+#: application/views/logbookadvanced/help.php:108
 msgid "Available edit categories:"
 msgstr "Categorie di modifica disponibili:"
 
-#: application/views/logbookadvanced/help.php:93
+#: application/views/logbookadvanced/help.php:110
 msgid "QSO Details:"
 msgstr "Dettagli QSO:"
 
-#: application/views/logbookadvanced/help.php:94
+#: application/views/logbookadvanced/help.php:111
 msgid "Awards:"
 msgstr "Diplomi:"
 
-#: application/views/logbookadvanced/help.php:95
+#: application/views/logbookadvanced/help.php:112
 msgid "Confirmations:"
 msgstr "Conferme:"
 
-#: application/views/logbookadvanced/help.php:99
+#: application/views/logbookadvanced/help.php:116
 msgid ""
 "You must check one or more QSOs before using batch edit. For complex "
 "changes, use the regular QSO edit instead."
@@ -15855,13 +15879,13 @@ msgstr ""
 "Devi selezionare uno o più QSO prima di utilizzare la modifica in blocco. "
 "Per modifiche complesse, utilizza invece la normale modifica QSO."
 
-#: application/views/logbookadvanced/help.php:111
+#: application/views/logbookadvanced/help.php:128
 msgid "The ADIF export uses the same search criteria as the normal search."
 msgstr ""
 "L'esportazione ADIF utilizza gli stessi criteri di ricerca della ricerca "
 "normale."
 
-#: application/views/logbookadvanced/help.php:112
+#: application/views/logbookadvanced/help.php:129
 msgid ""
 "All QSOs will be exported (all for selected location), unless you have "
 "checked one or more QSOs."
