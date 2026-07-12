@@ -35,10 +35,10 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-12 12:08+0000\n"
-"PO-Revision-Date: 2026-07-11 18:58+0000\n"
-"Last-Translator: 橙子木 <czm233@ypa.moe>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
-"org/projects/wavelog/main-translation/zh_Hans/>\n"
+"PO-Revision-Date: 2026-07-13 04:31+0000\n"
+"Last-Translator: \"Luoyu (BG7QBL)\" <i@luotianyi.eu>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translate.wavelog.org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -10882,7 +10882,7 @@ msgstr ""
 
 #: application/views/contesting/manager/components/session_modal.php:141
 msgid "Count serial number per band"
-msgstr ""
+msgstr "按每波段计序号"
 
 #: application/views/contesting/manager/components/session_modal.php:143
 msgid ""
@@ -10890,6 +10890,8 @@ msgid ""
 "running continuously across the whole contest (required by some multi-op "
 "categories)."
 msgstr ""
+"开启后，发送的序号会在每个波段从 1 开始，而不是整个比赛中连续运行（一些多操作"
+"类别要求如此）。"
 
 #: application/views/contesting/manager/components/session_modal.php:146
 msgid "Session Notes"
