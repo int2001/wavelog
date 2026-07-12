@@ -329,11 +329,11 @@ class QsoFormComponent {
 					this.updateDxccInfoDisplay(null);
 				}
 
-			this.updateWorkedBeforeWarning(callsign);
+				this.updateWorkedBeforeWarning(callsign);
 
-			this.applyCallsignFilter();
+				this.applyCallsignFilter();
 
-			// Trigger SCP search if component is available
+				// Trigger SCP search if component is available
 				if (this.scpComponent && callsign.length >= 1) {
 					this.scpComponent.searchCallsign(callsign);
 				} else if (this.scpComponent && callsign.length === 0) {
