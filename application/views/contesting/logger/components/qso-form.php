@@ -145,6 +145,7 @@ $config = [
 									<th class="fw-bold"><?= __("Date"); ?></th>
 									<th class="fw-bold"><?= __("Time"); ?></th>
 									<th class="fw-bold"><?= __("Callsign"); ?></th>
+									<th class="fw-bold"><?= __("Frequency"); ?></th>
 									<th class="fw-bold"><?= __("Band"); ?></th>
 									<th class="fw-bold"><?= __("Mode"); ?></th>
 									<th class="fw-bold"><?= __("RST"); ?></th>

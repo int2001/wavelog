@@ -296,6 +296,10 @@ class QsoFormComponent {
 			this.updateWorkedBeforeWarning(callsign);
 		});
 
+		// Follow the radio component's QRG unit toggle: re-render the table so the
+		// displayed frequencies switch to the newly selected unit for that band.
+		window.addEventListener('qrgUnitChanged', () => this.rerenderVisibleRows());
+
 		// Live map preview: re-emit location when the received gridsquare changes, so the
 		// map can plot the exact grid (with the current DXCC info as fallback).
 		const gridRcvd = this.container.querySelector('#qso-gridsquare-received');
@@ -451,6 +455,22 @@ class QsoFormComponent {
 			this._renderQsoRow(row, qso);
 		});
 
+		// Band changed → snap the QRG field to the band's default frequency (in that band's unit).
+		// "QRG first, Band follows": the reverse (QRG → band) is resolved in saveEdit.
+		const bandSelect = row.querySelector('[name="band"]');
+		const freqInput  = row.querySelector('[name="frequency"]');
+		if (bandSelect && freqInput) {
+			bandSelect.addEventListener('change', () => {
+				const band = bandSelect.value;
+				const mode = row.querySelector('[name="mode"]')?.value || qso.mode;
+				const unit = this._qrgUnit(band);
+				const hz   = this._bandDefaultHz(band, mode);
+				if (hz) freqInput.value = this._hzToUnit(hz, unit);
+				const unitLabel = row.querySelector('.qrg-unit-label');
+				if (unitLabel) unitLabel.textContent = unit;
+			});
+		}
+
 		row.addEventListener('keydown', (e) => {
 			if (e.key === 'Enter') { e.preventDefault(); this.saveEdit(row, qso); }
 			if (e.key === 'Escape') { e.preventDefault(); row.querySelector('.contest-qso-cancel-btn').click(); }
@@ -459,6 +479,71 @@ class QsoFormComponent {
 
 	_esc(str) {
 		return String(str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+	}
+
+	/** 
+	 * User's preferred QRG display unit for a band. Mirrors radio.js (localStorage first, then session config).
+	 * Normally data is stored via datastore-component. But since this qrgunit_ data was implemented way before 
+	 * the new contesting and is used in normal qso logging aswell we make an exception here and read it directly
+	 * from localStorage.
+	 */
+	_qrgUnit(band) {
+		// Band is always lowercase; normalize defensively so the qrgunit_<band> key always matches.
+		const b = String(band ?? '').toLowerCase();
+		return localStorage.getItem('qrgunit_' + b)
+			|| window.ContestLoggerConfig?.qrgUnits?.[b]
+			|| 'kHz';
+	}
+
+	/** Hz → value in the given unit (raw, no rounding, for a lossless round-trip). */
+	_hzToUnit(hz, unit) {
+		const n = parseInt(hz);
+		if (!n || isNaN(n)) return '';
+		switch (unit) {
+			case 'Hz':  return n;
+			case 'MHz': return n / 1e6;
+			case 'GHz': return n / 1e9;
+			case 'kHz':
+			default:    return n / 1e3;
+		}
+	}
+
+	/** value in the given unit → Hz (integer). */
+	_unitToHz(value, unit) {
+		const n = parseFloat(value);
+		if (isNaN(n)) return null;
+		switch (unit) {
+			case 'Hz':  return Math.round(n);
+			case 'MHz': return Math.round(n * 1e6);
+			case 'GHz': return Math.round(n * 1e9);
+			case 'kHz':
+			default:    return Math.round(n * 1e3);
+		}
+	}
+
+	/**
+	 * Parse a QRG input string to Hz. Accepts an inline unit suffix (hz/khz/mhz/ghz),
+	 * otherwise uses defaultUnit. Mirrors radio.js set_new_qrg(). Returns Hz or null.
+	 */
+	_parseQrgInput(raw, defaultUnit) {
+		const s = String(raw ?? '').trim();
+		if (s === '') return null;
+		let unit = defaultUnit;
+		if (/^\d+(\.\d+)?\s*(hz|h)$/i.test(s))       unit = 'Hz';
+		else if (/^\d+(\.\d+)?\s*(khz|k)$/i.test(s)) unit = 'kHz';
+		else if (/^\d+(\.\d+)?\s*(mhz|m)$/i.test(s)) unit = 'MHz';
+		else if (/^\d+(\.\d+)?\s*(ghz|g)$/i.test(s)) unit = 'GHz';
+		const num = parseFloat(s);
+		if (isNaN(num) || !isFinite(num) || num <= 0) return null;
+		return this._unitToHz(num, unit);
+	}
+
+	/** Default frequency (Hz) for a band/mode from the configured band defaults. */
+	_bandDefaultHz(band, mode) {
+		const m = (mode || 'SSB').toUpperCase();
+		const modeKey = ['SSB', 'CW', 'DATA'].includes(m) ? m : 'SSB';
+		const defaults = window.ContestLoggerConfig?.bandDefaults?.[band];
+		return defaults?.[modeKey] || defaults?.['SSB'] || null;
 	}
 
 	/**
@@ -525,8 +610,11 @@ class QsoFormComponent {
 		const hasGridsquare   = fields.includes('gridsquare');
 		const isClubStation   = !!(window.ContestLoggerConfig?.isClubStation);
 
-		const band    = qso.band || this.convertQrgToBand(parseInt(qso.frequency));
-		const qrg_mhz = qso.frequency ? (parseInt(qso.frequency) / 1e6).toFixed(3) + ' MHz' : '';
+		const bandRaw  = qso.band || this.convertQrgToBand(parseInt(qso.frequency));
+		const band     = bandRaw ? bandRaw.toLowerCase() : bandRaw;
+		const qrgUnit  = this._qrgUnit(band);
+		const qrgValue = qso.frequency ? this._hzToUnit(qso.frequency, qrgUnit) : '';
+		const qrgDisp  = qso.frequency ? `${qrgValue} ${qrgUnit}` : '';
 		const isoDate = qso.date || (qso.time_on ? qso.time_on.split(' ')[0] : '');
 		const dateStr = this._formatDate(isoDate);
 		const timeStr = (qso.time || '').substring(0, 8);
@@ -546,8 +634,10 @@ class QsoFormComponent {
 			{ cls: editMode ? 'callsign-col' : 'callsign-col fw-bold',
 			  display: callsignToDisplay(qso.callsign || ''),
 			  edit: inp(callsignToDisplay(qso.callsign || ''), 'callsign', 'fw-bold text-uppercase') },
-			{ title: editMode ? '' : qrg_mhz,
-			  display: (band || '-').toLowerCase(),
+			// Frequency in the user's per-band unit; editable. QRG is authoritative — on save the band is derived from it.
+			{ display: qrgDisp || '-',
+			  edit: `<div class="input-group input-group-sm flex-nowrap"><input type="text" class="form-control form-control-sm p-0 px-1" style="min-width:4rem;" name="frequency" value="${this._esc(qrgValue)}"><span class="input-group-text p-0 px-1 qrg-unit-label">${this._esc(qrgUnit)}</span></div>` },
+			{ display: (band || '-').toLowerCase(),
 			  edit: this._buildBandSelect(band) },
 			{ display: qso.mode || '-',
 			  edit: this._buildModeSelect(qso.mode) },
@@ -601,7 +691,7 @@ class QsoFormComponent {
 			// Skip inputs inside hidden cells — their empty values would overwrite DB data
 			if (input.closest('td')?.offsetParent !== null) {
 				let val = input.value.trim();
-				if (input.name !== 'band') val = val.toUpperCase();
+				if (input.name !== 'band' && input.name !== 'frequency') val = val.toUpperCase();
 				if (input.name === 'callsign') val = callsignToRaw(val);
 				data[input.name] = val;
 			}
@@ -633,13 +723,20 @@ class QsoFormComponent {
 		// date_on is folded into time_on above; it is not a server column.
 		delete data.date_on;
 
-		// Update frequency when band changed, using the configured default for the current mode
-		if (data.band !== undefined && data.band !== (qso.band || '')) {
-			const mode = (data.mode || qso.mode || 'SSB').toUpperCase();
-			const modeKey = ['SSB', 'CW', 'DATA'].includes(mode) ? mode : 'SSB';
-			const defaults = window.ContestLoggerConfig?.bandDefaults?.[data.band];
-			const freq = defaults?.[modeKey] || defaults?.['SSB'];
-			if (freq) data.frequency = freq;
+		// QRG is authoritative: parse the entered frequency to Hz and derive the band from it.
+		if (data.frequency !== undefined) {
+			const selBand = data.band || qso.band || '';
+			const unit = row.querySelector('.qrg-unit-label')?.textContent?.trim() || this._qrgUnit(selBand);
+			const hz = this._parseQrgInput(data.frequency, unit);
+			const derivedBand = (hz && hz > 0) ? this.convertQrgToBand(hz) : null;
+			if (derivedBand && derivedBand !== '??') {
+				data.frequency = String(hz);
+				data.band = derivedBand;
+			} else {
+				const freq = this._bandDefaultHz(selBand, data.mode || qso.mode);
+				if (freq) data.frequency = String(freq);
+				else delete data.frequency;
+			}
 		}
 
 		const sessionInfo = window.ContestLoggerConfig?.sessionInfo ?? {};
@@ -1057,6 +1154,26 @@ class QsoFormComponent {
 		tbody.insertBefore(row, tbody.firstChild);
 	}
 
+	/**
+	 * Re-render the currently displayed rows in place (e.g. after the QRG unit changed).
+	 * Preserves row order and scroll, and skips rows the user is editing.
+	 */
+	rerenderVisibleRows() {
+		const tbody = this.container?.querySelector('#qso-tbody');
+		if (!tbody) return;
+
+		const byId = new Map();
+		for (const qso of this.dataStore.getPattern('qso.*').values()) {
+			byId.set(String(qso.tmpId || qso.serverId), qso);
+		}
+
+		tbody.querySelectorAll('tr').forEach(row => {
+			if (row.dataset.editing === 'true') return;
+			const qso = byId.get(row.dataset.qsoId);
+			if (qso) this._renderQsoRow(row, qso);
+		});
+	}
+
 	updateQSOInTable(qso) {
 		if (!this.container) return;
 
@@ -1286,7 +1403,8 @@ class QsoFormComponent {
 			frequency: freq,
 			mode: sq.mode,
 			submode: sq.submode,
-			band: sq.band,
+			// Band is always stored/compared lowercase (server data can arrive uppercased).
+			band: sq.band ? sq.band.toLowerCase() : sq.band,
 			date: sq.date || datePart,
 			time: sq.time || timePart,
 			time_on: sq.time_on,
