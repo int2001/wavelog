@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-12 09:07+0000\n"
+"POT-Creation-Date: 2026-07-12 09:49+0000\n"
 "PO-Revision-Date: 2026-03-21 17:42+0000\n"
 "Last-Translator: Dariusz Koryto <dariusz@koryto.eu>\n"
 "Language-Team: Serbian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -2161,7 +2161,7 @@ msgstr "Udaljenost"
 #: application/views/logbookadvanced/checkresult.php:389
 #: application/views/logbookadvanced/dupesearchdialog.php:32
 #: application/views/logbookadvanced/edit.php:10
-#: application/views/logbookadvanced/help.php:41
+#: application/views/logbookadvanced/help.php:58
 #: application/views/logbookadvanced/index.php:414
 #: application/views/logbookadvanced/index.php:555
 #: application/views/logbookadvanced/index.php:964
@@ -4188,26 +4188,26 @@ msgstr "QSO ажуриран"
 msgid "Bearing"
 msgstr "Смер"
 
-#: application/models/Logbookadvanced_model.php:1839
+#: application/models/Logbookadvanced_model.php:1857
 msgid "VuccGrids table is empty. Please import the VUCC grids data first."
 msgstr "VUCCGrids табела је празна. Молимо прво увезите VUCC податке мреже."
 
-#: application/models/Logbookadvanced_model.php:2459
+#: application/models/Logbookadvanced_model.php:2477
 msgid ""
 "Invalid primary QSO ID, or you do not have permission to access one of the "
 "QSOs"
 msgstr ""
 
-#: application/models/Logbookadvanced_model.php:2469
+#: application/models/Logbookadvanced_model.php:2487
 #: application/views/view_log/qso.php:866
 msgid "QSO not found"
 msgstr "QSO није пронађен"
 
-#: application/models/Logbookadvanced_model.php:2555
+#: application/models/Logbookadvanced_model.php:2573
 msgid "No fields selected for merge or no differences between QSOs"
 msgstr ""
 
-#: application/models/Logbookadvanced_model.php:2568
+#: application/models/Logbookadvanced_model.php:2586
 msgid "QSOs merged successfully"
 msgstr ""
 
@@ -4590,7 +4590,7 @@ msgstr "Aktivirana polja"
 #: application/views/interface_assets/header.php:214
 #: application/views/logbookadvanced/dupesearchdialog.php:41
 #: application/views/logbookadvanced/edit.php:22
-#: application/views/logbookadvanced/help.php:42
+#: application/views/logbookadvanced/help.php:59
 #: application/views/logbookadvanced/index.php:425
 #: application/views/qso/award_tabs.php:69
 #: application/views/satellite/flightpath.php:43
@@ -4764,7 +4764,7 @@ msgstr "Ништа није пронађено!"
 #: application/views/logbookadvanced/checkresult.php:316
 #: application/views/logbookadvanced/checkresult.php:387
 #: application/views/logbookadvanced/dbtoolsdialog.php:22
-#: application/views/logbookadvanced/help.php:38
+#: application/views/logbookadvanced/help.php:55
 #: application/views/logbookadvanced/qslcarousel.php:30
 #: application/views/logbookadvanced/showUpdateResult.php:43
 #: application/views/lotw_views/index.php:42
@@ -4978,7 +4978,7 @@ msgid "DCL QSL Status"
 msgstr "Статус DCL QSL"
 
 #: application/views/adif/import.php:49
-#: application/views/logbookadvanced/help.php:108
+#: application/views/logbookadvanced/help.php:125
 msgid "ADIF Export"
 msgstr "ADIF извоз"
 
@@ -8436,7 +8436,7 @@ msgid "minutes"
 msgstr "минута"
 
 #: application/views/bandmap/list.php:82
-#: application/views/logbookadvanced/help.php:45
+#: application/views/logbookadvanced/help.php:62
 msgid "seconds"
 msgstr "секунди"
 
@@ -9754,7 +9754,7 @@ msgstr "Naziv profila"
 
 #: application/views/clublog/export.php:35
 #: application/views/hrdlog/export.php:35
-#: application/views/logbookadvanced/help.php:40
+#: application/views/logbookadvanced/help.php:57
 #: application/views/oqrs/showrequests.php:96
 #: application/views/qrz/export.php:40 application/views/webadif/export.php:42
 msgid "Station callsign"
@@ -14957,7 +14957,7 @@ msgid "Match QSOs using the same satellite"
 msgstr "Поклапај QSOе који користе исти сателит"
 
 #: application/views/logbookadvanced/edit.php:3
-#: application/views/logbookadvanced/help.php:97
+#: application/views/logbookadvanced/help.php:114
 msgid ""
 "Not all columns are available for batch editing. If you can't find the "
 "column you are looking for, use the regular QSO edit (click the callsign, "
@@ -15285,112 +15285,136 @@ msgstr ""
 msgid "Search where column is not empty"
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:33
+#: application/views/logbookadvanced/help.php:26
+msgid ""
+"Wildcards (in Callsign, State, DOK, County, QSL via, SOTA, POTA, WWFF, "
+"Operator, Gridsquare, Comment and Contest):"
+msgstr ""
+
+#: application/views/logbookadvanced/help.php:30
+msgid "Matches any number of characters"
+msgstr ""
+
+#: application/views/logbookadvanced/help.php:34
+msgid "Matches a single character"
+msgstr ""
+
+#: application/views/logbookadvanced/help.php:38
+msgid "SQL wildcards (any chars / single char) are passed through directly"
+msgstr ""
+
+#: application/views/logbookadvanced/help.php:41
+msgid ""
+"Type a wildcard to take manual control of the match; without wildcards the "
+"default search behaviour is kept."
+msgstr ""
+
+#: application/views/logbookadvanced/help.php:50
 #: application/views/logbookadvanced/index.php:74
 msgid "Duplicate Search"
 msgstr "Претрага дупликата"
 
-#: application/views/logbookadvanced/help.php:36
+#: application/views/logbookadvanced/help.php:53
 msgid "The dupe search checks for duplicate QSOs with the same:"
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:39
+#: application/views/logbookadvanced/help.php:56
 msgid "Mode / Submode"
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:45
+#: application/views/logbookadvanced/help.php:62
 msgid "Time window:"
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:54
+#: application/views/logbookadvanced/help.php:71
 msgid "Invalid Search"
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:57
+#: application/views/logbookadvanced/help.php:74
 msgid "Checks for the following conditions:"
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:59
+#: application/views/logbookadvanced/help.php:76
 msgid "Mode is blank or set to 0"
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:60
+#: application/views/logbookadvanced/help.php:77
 msgid "Band is blank"
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:61
+#: application/views/logbookadvanced/help.php:78
 msgid "Callsign is blank"
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:62
+#: application/views/logbookadvanced/help.php:79
 msgid "Time and date is not set"
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:63
+#: application/views/logbookadvanced/help.php:80
 msgid "Date is set to 1970-01-01"
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:64
+#: application/views/logbookadvanced/help.php:81
 msgid "Continent is invalid (not AF, AN, AS, EU, NA, OC, or SA)"
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:74
+#: application/views/logbookadvanced/help.php:91
 msgid "Map View"
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:77
+#: application/views/logbookadvanced/help.php:94
 msgid "The map uses the same search criteria as the normal search."
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:78
+#: application/views/logbookadvanced/help.php:95
 msgid ""
 "All QSOs in the search result will be mapped, unless you have checked one or "
 "more QSOs."
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:78
-#: application/views/logbookadvanced/help.php:99
-#: application/views/logbookadvanced/help.php:112
+#: application/views/logbookadvanced/help.php:95
+#: application/views/logbookadvanced/help.php:116
+#: application/views/logbookadvanced/help.php:129
 msgid "Note:"
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:87
+#: application/views/logbookadvanced/help.php:104
 msgid "Batch Edit"
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:90
+#: application/views/logbookadvanced/help.php:107
 msgid ""
 "Batch edit allows you to modify a single column across all checked QSOs at "
 "once."
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:91
+#: application/views/logbookadvanced/help.php:108
 msgid "Available edit categories:"
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:93
+#: application/views/logbookadvanced/help.php:110
 msgid "QSO Details:"
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:94
+#: application/views/logbookadvanced/help.php:111
 msgid "Awards:"
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:95
+#: application/views/logbookadvanced/help.php:112
 msgid "Confirmations:"
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:99
+#: application/views/logbookadvanced/help.php:116
 msgid ""
 "You must check one or more QSOs before using batch edit. For complex "
 "changes, use the regular QSO edit instead."
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:111
+#: application/views/logbookadvanced/help.php:128
 msgid "The ADIF export uses the same search criteria as the normal search."
 msgstr ""
 
-#: application/views/logbookadvanced/help.php:112
+#: application/views/logbookadvanced/help.php:129
 msgid ""
 "All QSOs will be exported (all for selected location), unless you have "
 "checked one or more QSOs."
