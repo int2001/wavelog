@@ -145,7 +145,7 @@ body.dark td.day.empty { background-color: transparent; }
                 $titleCount = (int) $cell['n'];
                 $titleText = $titleCount === 0
                     ? $titleDate . ': ' . __("No QSOs")
-                    : $titleDate . ': ' . $titleCount . ' ' . ($titleCount === 1 ? __("QSO") : __("QSOs"));
+                    : $titleDate . ': ' . $titleCount . ' ' . _ngettext("QSO", "QSOs", $titleCount);
                 ?>
                 <td class="day"<?php echo $col > 0 ? ' data-col="' . $col . '"' : ''; ?> title="<?php echo $titleText; ?>"></td>
               <?php endif; ?>
