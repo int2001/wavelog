@@ -104,7 +104,7 @@ body.dark td.day.empty { background-color: transparent; }
 <div class="pc-container">
   <div class="pc-header">
     <?= __("QSOs per Year"); ?> <?php echo htmlspecialchars($yr, ENT_QUOTES); ?>
-    <span class="pc-quantity"><?php echo (int) $total; ?> <?= __("QSOs"); ?></span>
+    <span class="pc-quantity"><?php echo (int) $total; ?> <?= _ngettext("QSO", "QSOs", $total); ?></span>
   </div>
   <div class="pc-body">
     <table class="pc">
