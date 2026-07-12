@@ -66,6 +66,13 @@
 	text-underline-offset: 2px;
 }
 
+/* Call already worked on the current band/mode — whole call turns red. */
+.scp-result-item.scp-worked .scp-callsign,
+.scp-result-item.scp-worked .scp-highlight,
+.scp-result-item.scp-worked .scp-wildcard {
+	color: var(--bs-danger, #dc3545);
+}
+
 /* Loading spinner */
 .scp-loading {
 	display: flex;
