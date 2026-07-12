@@ -133,6 +133,10 @@ class QsoFormComponent {
 	initExchangeType() {
 		const sessionInfo = window.ContestLoggerConfig?.sessionInfo ?? {};
 
+		this.serialPerBand = !!sessionInfo.serial_per_band;
+		const perBandBadge = this.container.querySelector('#qso-serial-perband-badge');
+		if (perBandBadge) perBandBadge.style.display = this.serialPerBand ? '' : 'none';
+
 		let fields = Array.isArray(sessionInfo.exchangefields) && sessionInfo.exchangefields.length > 0
 			? sessionInfo.exchangefields
 			: ['exchange'];
@@ -202,8 +206,13 @@ class QsoFormComponent {
 
 	computeNextSerial() {
 		const allQsos = Array.from(this.dataStore.getPattern('qso.*').values());
+		const currentBand = this.serialPerBand ? this.radioComponent?.getBand() : null;
 		let maxSerial = 0;
 		allQsos.forEach(qso => {
+			if (currentBand) {
+				const qsoBand = qso.band || this.convertQrgToBand(parseInt(qso.frequency));
+				if (qsoBand !== currentBand) return;
+			}
 			const s = parseInt(qso.serial_sent, 10);
 			if (Number.isFinite(s) && s > maxSerial) maxSerial = s;
 		});
@@ -294,6 +303,11 @@ class QsoFormComponent {
 		this.dataStore.subscribe('config.selected_band', () => {
 			const callsign = this.container.querySelector('#qso-callsign')?.value.trim().toUpperCase() || '';
 			this.updateWorkedBeforeWarning(callsign);
+			// Per-band serial: recompute the next number for the newly selected band
+			if (this.serialPerBand) {
+				this.nextSerialSent = this.computeNextSerial();
+				this.updateSerialSentDisplay();
+			}
 		});
 
 		// Follow the radio component's QRG unit toggle: re-render the table so the
@@ -638,7 +652,7 @@ class QsoFormComponent {
 			  edit: inp(callsignToDisplay(qso.callsign || ''), 'callsign', 'fw-bold text-uppercase') },
 			// Frequency in the user's per-band unit; editable. QRG is authoritative — on save the band is derived from it.
 			{ display: qrgDisp || '-',
-			  edit: `<div class="input-group input-group-sm flex-nowrap"><input type="text" class="form-control form-control-sm p-0 px-1" style="min-width:4rem;" name="frequency" value="${this._esc(qrgValue)}"><span class="input-group-text p-0 px-1 qrg-unit-label">${this._esc(qrgUnit)}</span></div>` },
+			  edit: `<div class="d-flex align-items-center flex-nowrap gap-1"><input type="text" class="form-control form-control-sm p-0 px-1" style="min-width:4rem;" name="frequency" value="${this._esc(qrgValue)}"><span class="small text-muted qrg-unit-label" style="cursor:default; user-select:none;">${this._esc(qrgUnit)}</span></div>` },
 			{ display: (band || '-').toLowerCase(),
 			  edit: this._buildBandSelect(band) },
 			{ display: qso.mode || '-',
@@ -1596,7 +1610,11 @@ class QsoFormComponent {
 		const serialSent = this.container.querySelector('#qso-serial-sent')?.value || null;
 		const serialRcvd = this.container.querySelector('#qso-serial-received')?.value || null;
 		const gridsquareSent = this.container.querySelector('#qso-gridsquare-sent')?.value.trim().toUpperCase() || null;
-		const gridsquareRcvd = this.container.querySelector('#qso-gridsquare-received')?.value.trim().toUpperCase() || null;
+		const hasGridExchange = this.exchangeFields?.includes('gridsquare');
+		const gridsquareRcvd = (hasGridExchange
+			? this.container.querySelector('#qso-gridsquare-received')?.value
+			: this.container.querySelector('#qso-callbook-grid')?.value
+		)?.trim().toUpperCase() || null;
 		const dxccAdif = this.container.querySelector('#qso-dxcc-adif')?.value.trim();
 		const dxccCont = this.container.querySelector('#qso-dxcc-cont')?.value.trim();
 		const dxccEntity = this.container.querySelector('#qso-dxcc-entity')?.value.trim();

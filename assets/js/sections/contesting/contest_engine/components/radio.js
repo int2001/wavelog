@@ -117,21 +117,24 @@ class RadioComponent {
 	}
 
 	/**
-	 * Restore the last selected radio from the DataStore (config namespace).
+	 * Restore the last selected radio from the DataStore por selected session radio (config namespace).
 	 * Only applies if the stored radio still exists as an option.
 	 */
 	restoreSelectedRadio() {
 		if (!this.radioSelect) return;
 
-		const saved = this.dataStore.get('config.selected_radio');
-		if (!saved || saved === '0') return;
+		let target = this.dataStore.get('config.selected_radio');
+		if (target === undefined || target === null) {
+			target = this.radioSelect.value;
+		}
+		if (!target || target === '0') return;
 
-		// Skip if the stored radio is no longer available in the dropdown
-		const optionExists = Array.from(this.radioSelect.options).some(o => o.value === saved);
+		// Skip if the target radio is no longer available in the dropdown
+		const optionExists = Array.from(this.radioSelect.options).some(o => o.value === target);
 		if (!optionExists) return;
 
-		this.radioSelect.value = saved;
-		this.setRadio(saved);
+		this.radioSelect.value = target;
+		this.setRadio(target);
 	}
 
 	/**
