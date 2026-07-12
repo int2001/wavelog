@@ -17,11 +17,28 @@
 							<span class="badge bg-secondary me-4 fs-6 p-2">blank</span>
 							<span><?= __("Search where column is empty"); ?></span>
 						</li>
-						<li>
-							<span class="badge bg-secondary me-4 fs-6 p-2">!empty</span>
-							<span><?= __("Search where column is not empty"); ?></span>
-						</li>
-					</ul>
+					<li>
+						<span class="badge bg-secondary me-4 fs-6 p-2">!empty</span>
+						<span><?= __("Search where column is not empty"); ?></span>
+					</li>
+				</ul>
+				<hr>
+				<p class="card-text mb-2"><i class="fas fa-2x fa-info-circle text-info me-2"></i><?= __("Wildcards (in Callsign, State, DOK, County, QSL via, SOTA, POTA, WWFF, Operator, Gridsquare, Comment and Contest):"); ?></p>
+				<ul class="mb-0">
+					<li>
+						<span class="badge bg-secondary me-4 fs-6 p-2">*</span>
+						<span><?= __("Matches any number of characters"); ?></span>
+					</li>
+					<li>
+						<span class="badge bg-secondary me-4 fs-6 p-2">?</span>
+						<span><?= __("Matches a single character"); ?></span>
+					</li>
+					<li>
+						<span class="badge bg-secondary me-4 fs-6 p-2">% _</span>
+						<span><?= __("SQL wildcards (any chars / single char) are passed through directly"); ?></span>
+					</li>
+				</ul>
+				<p class="card-text text-muted small mt-2 mb-0"><?= __("Type a wildcard to take manual control of the match; without wildcards the default search behaviour is kept."); ?></p>
 				</div>
 			</div>
 		</div>
