@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-12 12:08+0000\n"
+"POT-Creation-Date: 2026-07-13 04:31+0000\n"
 "PO-Revision-Date: 2026-06-22 08:05+0000\n"
 "Last-Translator: F5MQU <f5mqu.p@gmail.com>\n"
 "Language-Team: French <https://translate.wavelog.org/projects/wavelog/main-"
@@ -261,7 +261,7 @@ msgstr "Carte des Locator activés"
 #: application/controllers/Awards.php:1162
 #: application/controllers/Awards.php:1198
 #: application/controllers/Gridmap.php:34
-#: application/controllers/Visitor.php:418
+#: application/controllers/Visitor.php:533
 #: application/views/activators/index.php:107
 #: application/views/contesting/logger/index.php:57
 #: application/views/interface_assets/footer.php:52
@@ -272,13 +272,13 @@ msgstr "Locators"
 
 #: application/controllers/Activated_gridmap.php:34
 #: application/controllers/Gridmap.php:35
-#: application/controllers/Visitor.php:419
+#: application/controllers/Visitor.php:534
 msgid "Gridsquares confirmed"
 msgstr "Locators confirmés"
 
 #: application/controllers/Activated_gridmap.php:35
 #: application/controllers/Gridmap.php:36
-#: application/controllers/Visitor.php:420
+#: application/controllers/Visitor.php:535
 msgid "Gridsquares not confirmed"
 msgstr "Locators non confirmés"
 
@@ -288,26 +288,26 @@ msgstr "Total des Locators activés"
 
 #: application/controllers/Activated_gridmap.php:38
 #: application/controllers/Gridmap.php:39
-#: application/controllers/Visitor.php:423
+#: application/controllers/Visitor.php:538
 #: application/views/qslpostcard/designer.php:149
 msgid "Fields"
 msgstr "Carré"
 
 #: application/controllers/Activated_gridmap.php:39
 #: application/controllers/Gridmap.php:40
-#: application/controllers/Visitor.php:424
+#: application/controllers/Visitor.php:539
 msgid "Fields confirmed"
 msgstr "Carrés Locator confirmés"
 
 #: application/controllers/Activated_gridmap.php:40
 #: application/controllers/Gridmap.php:41
-#: application/controllers/Visitor.php:425
+#: application/controllers/Visitor.php:540
 msgid "Fields not confirmed"
 msgstr "Carrés Locator non confirmés"
 
 #: application/controllers/Activated_gridmap.php:41
 #: application/controllers/Gridmap.php:42
-#: application/controllers/Visitor.php:426
+#: application/controllers/Visitor.php:541
 msgid "Total fields worked"
 msgstr "Nombre total de carrés locator travaillés"
 
@@ -1198,7 +1198,7 @@ msgid "SOTA CSV Export"
 msgstr "SOTA - Export CSV"
 
 #: application/controllers/Dashboard.php:177
-#: application/controllers/Visitor.php:129
+#: application/controllers/Visitor.php:131
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
@@ -1463,7 +1463,7 @@ msgid "Gridsquare Map"
 msgstr "Carte des Locator"
 
 #: application/controllers/Gridmap.php:37
-#: application/controllers/Visitor.php:421
+#: application/controllers/Visitor.php:536
 msgid "Total gridsquares worked"
 msgstr "Total des Locator réalisés"
 
@@ -2693,15 +2693,18 @@ msgstr "Version Info ne sera pas montré à aucun utilisateur"
 #: application/controllers/Oqrs.php:39 application/controllers/Staticmap.php:20
 #: application/controllers/Staticmap.php:25
 #: application/controllers/Staticmap.php:202
-#: application/controllers/Visitor.php:46
-#: application/controllers/Visitor.php:75
-#: application/controllers/Visitor.php:142
-#: application/controllers/Visitor.php:154
-#: application/controllers/Visitor.php:178
-#: application/controllers/Visitor.php:204
-#: application/controllers/Visitor.php:229
-#: application/controllers/Visitor.php:263
-#: application/controllers/Visitor.php:520
+#: application/controllers/Visitor.php:48
+#: application/controllers/Visitor.php:77
+#: application/controllers/Visitor.php:144
+#: application/controllers/Visitor.php:156
+#: application/controllers/Visitor.php:180
+#: application/controllers/Visitor.php:206
+#: application/controllers/Visitor.php:218
+#: application/controllers/Visitor.php:242
+#: application/controllers/Visitor.php:318
+#: application/controllers/Visitor.php:344
+#: application/controllers/Visitor.php:378
+#: application/controllers/Visitor.php:635
 #: application/controllers/Widgets.php:67
 msgid "Unknown Public Page."
 msgstr "Page publique inconnue."
@@ -3169,11 +3172,12 @@ msgid "Simple Fast Log Entry"
 msgstr "Saisie de journal simple et rapide"
 
 #: application/controllers/Staticmap.php:198
-#: application/controllers/Visitor.php:71
-#: application/controllers/Visitor.php:174
-#: application/controllers/Visitor.php:225
-#: application/controllers/Visitor.php:259
-#: application/controllers/Visitor.php:516
+#: application/controllers/Visitor.php:73
+#: application/controllers/Visitor.php:176
+#: application/controllers/Visitor.php:238
+#: application/controllers/Visitor.php:340
+#: application/controllers/Visitor.php:374
+#: application/controllers/Visitor.php:631
 #: application/controllers/Widgets.php:63
 msgid "Empty Logbook"
 msgstr "Carnet vide"
@@ -3372,8 +3376,12 @@ msgstr "Station active"
 #: application/views/stationsetup/stationsetup.php:196
 #: application/views/user/index.php:82 application/views/user/index.php:86
 #: application/views/user/index.php:193 application/views/user/index.php:195
+#: application/views/visitor/punchcard.php:107
+#: application/views/visitor/punchcard.php:148
 msgid "QSO"
-msgstr "QSO"
+msgid_plural "QSOs"
+msgstr[0] "QSO"
+msgstr[1] "QSO"
 
 #: application/controllers/Stationsetup.php:405
 #: application/views/stationsetup/stationsetup.php:220
@@ -3892,20 +3900,20 @@ msgstr ""
 "Vous avez été déconnecté du compte %s. Content de vous revoir sur votre "
 "compte personnel %s !"
 
-#: application/controllers/Visitor.php:268
+#: application/controllers/Visitor.php:383
 msgid "No public slug found."
 msgstr ""
 
-#: application/controllers/Visitor.php:274
+#: application/controllers/Visitor.php:389
 msgid "Satellite Gridsquare Map"
 msgstr "Carte des carrés de grille satellite"
 
-#: application/controllers/Visitor.php:454
+#: application/controllers/Visitor.php:569
 #: application/views/stationsetup/stationsetup.php:48
 msgid "Public Search"
 msgstr "Recherche publique"
 
-#: application/controllers/Visitor.php:487
+#: application/controllers/Visitor.php:602
 msgid "Export Map"
 msgstr "Exporter la carte"
 
@@ -12441,20 +12449,25 @@ msgid "QSOs breakdown by month of the year"
 msgstr "Répartition des QSO par mois de l'année"
 
 #: application/views/dayswithqso/index.php:92
+#: application/views/visitor/punchcard.php:7
+#: application/views/visitor/punchcard.php:106
 msgid "QSOs per Year"
 msgstr "QSO par an"
 
 #: application/views/dayswithqso/index.php:100
 #: application/views/timeplotter/index.php:152
+#: application/views/visitor/punchcard.php:160
 msgid "Less"
 msgstr "Moins"
 
 #: application/views/dayswithqso/index.php:105
 #: application/views/timeplotter/index.php:158
+#: application/views/visitor/punchcard.php:167
 msgid "More"
 msgstr "Plus"
 
 #: application/views/dayswithqso/index.php:107
+#: application/views/visitor/punchcard.php:169
 msgid "Calendar with QSOs"
 msgstr "Calendrier avec QSO"
 
@@ -22387,6 +22400,10 @@ msgstr "Merci d’entrer un indicatif !"
 #: application/views/visitor/mini.php:214
 msgid "No QSOs yet"
 msgstr "Aucun QSO pour l'instant"
+
+#: application/views/visitor/punchcard.php:147
+msgid "No QSOs"
+msgstr ""
 
 #: application/views/webadif/export.php:22
 msgid ""

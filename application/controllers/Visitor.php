@@ -27,6 +27,8 @@ class Visitor extends CI_Controller {
 		} else {
 			if (!empty($params) && $params[0] == "mini") {
 				$this->mini($method);
+			} elseif (!empty($params) && $params[0] == "punchcard") {
+				$this->punchcard($method);
 			} else {
 				$this->index($method);
 			}
@@ -205,6 +207,119 @@ class Visitor extends CI_Controller {
 			}
 		}
 	}
+
+	public function punchcard($public_slug) {
+
+		// Check slug passed and is valid
+		if ($this->security->xss_clean($public_slug, TRUE) === FALSE) {
+
+			// Public Slug failed the XSS test
+			log_message('error', '[Visitor] XSS Attack detected on public_slug ' . $public_slug);
+			show_404(__("Unknown Public Page."));
+		} else {
+
+			// Checked slug passed and clean
+			log_message('info', '[Visitor] public_slug ' . $public_slug . ' loaded (punchcard)');
+
+			// Load necessary models
+			$this->load->model('logbooks_model');
+
+			if ($this->logbooks_model->public_slug_exists($public_slug)) {
+
+				// Load the public view
+				$logbook_id = $this->logbooks_model->public_slug_exists_logbook_id($public_slug);
+
+				if ($logbook_id != false) {
+
+					// Get associated station locations for mysql queries
+					$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($logbook_id);
+
+					if ($logbooks_locations_array[0] === -1) {
+						show_404(__("Empty Logbook"));
+					}
+				} else {
+					log_message('error', $public_slug . ' has no associated station locations');
+					show_404(__("Unknown Public Page."));
+					die;
+				}
+
+				$yr = (int) date('Y');
+
+				$this->load->model('dayswithqso_model');
+				$raw = $this->dayswithqso_model->getPunchvals($yr, $logbooks_locations_array);
+
+				// Bucket counts into color levels and index by date key
+				$counts = [];
+				$total = 0;
+				if ($raw) {
+					foreach ($raw as $p) {
+						$n = (int) $p->qsos;
+						$col = $n <= 0 ? 0 : ($n <= 3 ? 3 : ($n <= 6 ? 6 : ($n <= 12 ? 12 : ($n <= 24 ? 24 : 48))));
+						$key = $p->date;
+						$counts[$key] = ['n' => $n, 'col' => $col];
+						$total += $n;
+					}
+				}
+
+				// Build 53-week (Mon-start) continuous grid for the year
+				$weeks = [];
+				$monthLabels = [];
+				$start = new DateTime($yr . '-01-01');
+				$end = new DateTime($yr . '-12-31');
+				$isoDays = (int) $start->format('N'); // 1=Mon .. 7=Sun
+				$cursor = clone $start;
+				$cursor->modify('-' . ($isoDays - 1) . ' days'); // back up to Monday
+				$lastMonth = -1;
+				$weekIdx = 0;
+				while ($cursor <= $end) {
+					for ($d = 1; $d <= 7; $d++) {
+						if ($cursor < $start || $cursor > $end) {
+							$weeks[$weekIdx][$d] = null;
+						} else {
+							$key = $cursor->format('Y-n-j');
+							$cell = $counts[$key] ?? null;
+							// In-range day always emits a cell; no-QSO days fall back to
+							// the zero bucket so they render as the lowest gray.
+							$weeks[$weekIdx][$d] = [
+								'date'  => $cursor->format('Y-m-d'),
+								'n'     => $cell['n'] ?? 0,
+								'col'   => $cell['col'] ?? 0,
+							];
+
+							$curMonth = (int) $cursor->format('n');
+							if ($d <= 4 && $curMonth !== $lastMonth) {
+								$monthLabels[$weekIdx] = $curMonth;
+								$lastMonth = $curMonth;
+							}
+						}
+						$cursor->modify('+1 day');
+					}
+					$weekIdx++;
+				}
+
+				// Theme resolution (?theme=<folder>, validated; defaults to light)
+				$this->load->model('themes_model');
+				$reqTheme = $this->input->get('theme', TRUE);
+				$mode = 'light';
+				if ($reqTheme !== null && ($this->themes_model->get_theme_mode($reqTheme) ?? '') === 'dark') {
+					$mode = 'dark';
+				}
+
+				$data['slug'] = $public_slug;
+				$data['weeks'] = $weeks;
+				$data['monthLabels'] = $monthLabels;
+				$data['total'] = $total;
+				$data['mode'] = $mode;
+				$data['yr'] = $yr;
+
+				$this->load->view('visitor/punchcard', $data);
+			} else {
+				log_message('error', '[Visitor] Public slug not found: ' . $public_slug);
+				show_404(__("Unknown Public Page."));
+			}
+		}
+	}
+
 
 	public function map() {
 		$this->load->model('logbook_model');
