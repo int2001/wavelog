@@ -186,12 +186,16 @@ class Dayswithqso_model extends CI_Model
         return $query->result();
     }
 
-    function getPunchvals($yr) {
-	    $this->load->model('logbooks_model');
-	    $logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
+    function getPunchvals($yr, $locations = null) {
+	    if ($locations === null) {
+		    $this->load->model('logbooks_model');
+		    $logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
 
-	    if ($logbooks_locations_array[0] === -1) {
-		    return null;
+		    if ($logbooks_locations_array[0] === -1) {
+			    return null;
+		    }
+	    } else {
+		    $logbooks_locations_array = $locations;
 	    }
 
 	    $location_list = "'".implode("','",$logbooks_locations_array)."'";
