@@ -26,9 +26,9 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-13 07:17+0000\n"
-"PO-Revision-Date: 2026-07-12 12:40+0000\n"
-"Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
+"POT-Creation-Date: 2026-07-13 04:31+0000\n"
+"PO-Revision-Date: 2026-07-13 07:17+0000\n"
+"Last-Translator: Jörg Dorgeist <wavelog@dj7nt.de>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
 "Language: de_DE\n"
@@ -1264,31 +1264,32 @@ msgstr "(leer)"
 msgid "Debug"
 msgstr "Debug"
 
-#: application/controllers/Debug.php:183
+#: application/controllers/Debug.php:182 application/controllers/Debug.php:183
 msgid "Migrate data now"
 msgstr "Daten jetzt migrieren"
 
-#: application/controllers/Debug.php:186
+#: application/controllers/Debug.php:185 application/controllers/Debug.php:186
 msgid "Migration already done. Run again?"
 msgstr "Migration wurde bereits durchgeführt. Nochmal ausführen?"
 
-#: application/controllers/Debug.php:190
+#: application/controllers/Debug.php:189 application/controllers/Debug.php:190
 msgid "No data to migrate"
 msgstr "Keine Daten die migriert werden müssen"
 
+#: application/controllers/Debug.php:193 application/controllers/Debug.php:198
 #: application/controllers/Debug.php:194 application/controllers/Debug.php:199
 msgid "No migration possible"
 msgstr "Migration nicht möglich"
 
-#: application/controllers/Debug.php:264
+#: application/controllers/Debug.php:263 application/controllers/Debug.php:264
 msgid "Wavelog was updated successfully!"
 msgstr "Wavelog wurde erfolgreich aktualisiert!"
 
-#: application/controllers/Debug.php:282
+#: application/controllers/Debug.php:281 application/controllers/Debug.php:282
 msgid "Selfupdate() not available. Check the Error Log."
 msgstr "Selfupdate() nicht verfügbar. Überprüfe das Fehlerprotokoll."
 
-#: application/controllers/Debug.php:341
+#: application/controllers/Debug.php:340 application/controllers/Debug.php:341
 msgid ""
 "File Migration was successful, but please check also manually. If everything "
 "seems right you can delete the folders 'assets/qslcard' and 'images/"
@@ -1298,7 +1299,7 @@ msgstr ""
 "Sofern keine Probleme ersichtlich sind, kannst du die beiden Ordner 'assets/"
 "qslcard' und 'images/eqsl_card_images' löschen."
 
-#: application/controllers/Debug.php:344
+#: application/controllers/Debug.php:343 application/controllers/Debug.php:344
 msgid "File Migration failed. Please check the Error Log."
 msgstr "Datenmigration fehlgeschlagen! Bitte das Fehlerprotokoll prüfen."
 
@@ -2834,8 +2835,8 @@ msgid ""
 "Please compare your current config.php with the latest config.sample.php and "
 "update accordingly."
 msgstr ""
-"Bitte vergleiche deine aktuelle config.php mit der neuesten config.sample."
-"php und aktualisiere sie entsprechend."
+"Bitte vergleiche deine aktuelle config.php mit der neuesten "
+"config.sample.php und aktualisiere sie entsprechend."
 
 #: application/controllers/Qslpostcard.php:34
 #: application/views/interface_assets/header.php:560
@@ -3384,7 +3385,7 @@ msgstr "Aktive Station"
 msgid "QSO"
 msgid_plural "QSOs"
 msgstr[0] "QSO"
-msgstr[1] "QSO"
+msgstr[1] "QSOs"
 
 #: application/controllers/Stationsetup.php:405
 #: application/views/stationsetup/stationsetup.php:220
@@ -13709,8 +13710,8 @@ msgstr ""
 #: application/views/eqsl/export.php:37
 msgid "Clicking 'Upload QSOs' will send QSO information to eQSL.cc."
 msgstr ""
-"Wenn du auf 'QSOs hochladen' klickst, sendest du QSO-Informationen an eQSL."
-"cc."
+"Wenn du auf 'QSOs hochladen' klickst, sendest du QSO-Informationen an "
+"eQSL.cc."
 
 #: application/views/eqsl/export.php:46
 msgid "The following QSOs were sent to eQSL."
@@ -17491,8 +17492,8 @@ msgstr "E-Mail Adresse"
 msgid ""
 "The email address from which the emails are sent, e.g. 'wavelog@example.com'"
 msgstr ""
-"Die E-Mail Adresse von der die Mails versendet werden, z.B. 'wavelog@example."
-"com'"
+"Die E-Mail Adresse von der die Mails versendet werden, z.B. "
+"'wavelog@example.com'"
 
 #: application/views/options/email.php:46
 msgid "SMTP Host"
@@ -19917,9 +19918,9 @@ msgid ""
 msgstr ""
 "Um zu beginnen, stelle sicher, dass du die Felder auf der linken Seite "
 "bereits mit Datum, Stationsrufzeichen/-standort und Rufzeichen des Operators "
-"ausgefüllt hast. Die wichtigsten Daten umfassen das Band (oder QRG in MHz, z."
-"B. '7.145'), Mode und Zeit. Nach der Zeit gibst du das erste QSO an, was im "
-"wesentlichen das Rufzeichen ist."
+"ausgefüllt hast. Die wichtigsten Daten umfassen das Band (oder QRG in MHz, "
+"z.B. '7.145'), Mode und Zeit. Nach der Zeit gibst du das erste QSO an, was "
+"im wesentlichen das Rufzeichen ist."
 
 #: application/views/simplefle/syntax_help.php:9
 msgid "For example, a QSO that started at 21:34 (UTC) with 4W7EST on 20m SSB."
@@ -20895,9 +20896,9 @@ msgid ""
 "Create a new folder in 'assets/css/' and upload a 'bootstrap.min.css' file "
 "which contains basic styling rules. We use the themes from %s"
 msgstr ""
-"Erstelle einen neuen Ordner in 'assets/css/' und lade eine 'bootstrap.min."
-"css' Datei hoch, welche die grundlegende Styling-Regeln enthält. Wir "
-"verwenden die Themes von %s"
+"Erstelle einen neuen Ordner in 'assets/css/' und lade eine "
+"'bootstrap.min.css' Datei hoch, welche die grundlegende Styling-Regeln "
+"enthält. Wir verwenden die Themes von %s"
 
 #: application/views/themes/index.php:50
 msgid "2. Step"
@@ -22406,7 +22407,7 @@ msgstr "Noch keine QSOs"
 
 #: application/views/visitor/punchcard.php:147
 msgid "No QSOs"
-msgstr ""
+msgstr "Keine QSOs"
 
 #: application/views/webadif/export.php:22
 msgid ""
