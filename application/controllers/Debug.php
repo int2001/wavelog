@@ -140,6 +140,7 @@ class Debug extends CI_Controller
 			$debug_topic = 'worker.status';
 			$data['worker_status_topic'] = $debug_topic;
 			$data['worker_status_token'] = $this->worker->create_token($debug_topic);
+			$this->worker->register_topic($debug_topic,$data['worker_status_token']);
 		}
 
 		$this->load->view('interface_assets/header', $data);
