@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-13 04:31+0000\n"
-"PO-Revision-Date: 2026-07-10 07:55+0000\n"
+"POT-Creation-Date: 2026-07-13 07:17+0000\n"
+"PO-Revision-Date: 2026-07-13 09:35+0000\n"
 "Last-Translator: iv3cvn <ricentis@gmail.com>\n"
 "Language-Team: Italian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/it/>\n"
@@ -1245,31 +1245,31 @@ msgstr "(vuoto)"
 msgid "Debug"
 msgstr "Debug"
 
-#: application/controllers/Debug.php:182
+#: application/controllers/Debug.php:183
 msgid "Migrate data now"
 msgstr "Esegui migrazione ora"
 
-#: application/controllers/Debug.php:185
+#: application/controllers/Debug.php:186
 msgid "Migration already done. Run again?"
 msgstr "Migrazione già effettuata. Eseguirla ancora?"
 
-#: application/controllers/Debug.php:189
+#: application/controllers/Debug.php:190
 msgid "No data to migrate"
 msgstr "Nessun dato da migrare"
 
-#: application/controllers/Debug.php:193 application/controllers/Debug.php:198
+#: application/controllers/Debug.php:194 application/controllers/Debug.php:199
 msgid "No migration possible"
 msgstr "Nessuna migrazione da fare"
 
-#: application/controllers/Debug.php:263
+#: application/controllers/Debug.php:264
 msgid "Wavelog was updated successfully!"
 msgstr "Wavelog aggiornato con successo!"
 
-#: application/controllers/Debug.php:281
+#: application/controllers/Debug.php:282
 msgid "Selfupdate() not available. Check the Error Log."
 msgstr "Selfupdate() non disponibile. Controllare il log errori."
 
-#: application/controllers/Debug.php:340
+#: application/controllers/Debug.php:341
 msgid ""
 "File Migration was successful, but please check also manually. If everything "
 "seems right you can delete the folders 'assets/qslcard' and 'images/"
@@ -1279,7 +1279,7 @@ msgstr ""
 "controllare anche manualmente. Se tutto sembra a posto, puoi eliminare le "
 "cartelle “assets/qslcard” e “images/eqsl_card_images”."
 
-#: application/controllers/Debug.php:343
+#: application/controllers/Debug.php:344
 msgid "File Migration failed. Please check the Error Log."
 msgstr "Migrazione files fallita. Prego controllare il log errori."
 
@@ -2710,7 +2710,7 @@ msgstr "Richieste OQRS"
 
 #: application/controllers/Oqrs.php:286
 msgid "Invalid time format. Please use HH:MM (e.g. 08:31)."
-msgstr ""
+msgstr "Formato orario non valido. Per favore, usa HH:MM (ad esempio 08:31)."
 
 #: application/controllers/Oqrs.php:409
 msgid "QSO match deleted successfully."
@@ -11243,7 +11243,7 @@ msgstr ""
 
 #: application/views/contesting/manager/components/session_modal.php:141
 msgid "Count serial number per band"
-msgstr ""
+msgstr "Contare il numero seriale per banda"
 
 #: application/views/contesting/manager/components/session_modal.php:143
 msgid ""
@@ -11251,6 +11251,9 @@ msgid ""
 "running continuously across the whole contest (required by some multi-op "
 "categories)."
 msgstr ""
+"Quando abilitato, il numero seriale inviato inizia da 1 su ogni banda invece "
+"di continuare in modo consecutivo per l'intero contest (richiesto da alcune "
+"categorie multioperatore)."
 
 #: application/views/contesting/manager/components/session_modal.php:146
 msgid "Session Notes"
@@ -12814,7 +12817,7 @@ msgstr "Clients"
 
 #: application/views/debug/index.php:150
 msgid "Cluster nodes"
-msgstr ""
+msgstr "Nodi del cluster"
 
 #: application/views/debug/index.php:151
 msgid "Uptime"
@@ -13155,7 +13158,7 @@ msgstr "Tutto ok"
 
 #: application/views/debug/index.php:876
 msgid "Degraded"
-msgstr ""
+msgstr "Degradato"
 
 #: application/views/debug/index.php:877
 msgid "Worker backend is not configured."
@@ -13171,13 +13174,15 @@ msgstr "Il worker è configurato ma non ha risposto."
 
 #: application/views/debug/index.php:879
 msgid "Outdated"
-msgstr ""
+msgstr "Obsoleto"
 
 #: application/views/debug/index.php:879
 msgid ""
 "Please update your Wavelog Worker to version 0.2.0 or newer to see the "
 "status."
 msgstr ""
+"Aggiorna per favore il tuo Wavelog Worker alla versione 0.2.0 o successiva "
+"per vedere lo stato."
 
 #: application/views/debug/index.php:898
 msgid "Albanian"
@@ -13901,13 +13906,15 @@ msgstr "Attenzione"
 
 #: application/views/interface_assets/footer.php:40
 msgid "Session expired"
-msgstr ""
+msgstr "Sessione scaduta"
 
 #: application/views/interface_assets/footer.php:41
 msgid ""
 "Your live connection has expired. Please reload the page to keep receiving "
 "live updates."
 msgstr ""
+"La tua connessione in diretta è scaduta. Ricarica la pagina per continuare a "
+"ricevere aggiornamenti in tempo reale."
 
 #: application/views/interface_assets/footer.php:46
 msgid "Warning! Are you sure you want delete QSO with "
@@ -15784,24 +15791,31 @@ msgid ""
 "Wildcards (in Callsign, State, DOK, County, QSL via, SOTA, POTA, WWFF, "
 "Operator, Gridsquare, Comment and Contest):"
 msgstr ""
+"Jolly (nel nominativo, stato, DOK, contea, QSL via, SOTA, POTA, WWFF, "
+"operatore, griglia, commento e contest):"
 
 #: application/views/logbookadvanced/help.php:30
 msgid "Matches any number of characters"
-msgstr ""
+msgstr "Corrisponde a qualsiasi numero di caratteri"
 
 #: application/views/logbookadvanced/help.php:34
 msgid "Matches a single character"
-msgstr ""
+msgstr "Corrisponde a un singolo carattere"
 
 #: application/views/logbookadvanced/help.php:38
 msgid "SQL wildcards (any chars / single char) are passed through directly"
 msgstr ""
+"Caratteri jolly SQL (qualsiasi carattere / singolo carattere) vengono "
+"passati direttamente"
 
 #: application/views/logbookadvanced/help.php:41
 msgid ""
 "Type a wildcard to take manual control of the match; without wildcards the "
 "default search behaviour is kept."
 msgstr ""
+"Digita un carattere jolly per prendere il controllo manuale della ricerca; "
+"senza caratteri jolly viene mantenuto il comportamento di ricerca "
+"predefinito."
 
 #: application/views/logbookadvanced/help.php:50
 #: application/views/logbookadvanced/index.php:74
@@ -17712,7 +17726,7 @@ msgstr "Procedi"
 #: application/views/oqrs/request.php:1
 #: application/views/oqrs/request_grouped.php:1
 msgid "Request failed. Please try again."
-msgstr ""
+msgstr "Richiesta fallita. Per favore riprova."
 
 #: application/views/oqrs/notinlogform.php:3
 msgid ""
@@ -18175,15 +18189,15 @@ msgstr "Seleziona un modello da eliminare."
 
 #: application/views/qslpostcard/designer.php:43
 msgid "Copy failed"
-msgstr ""
+msgstr "Copia fallita"
 
 #: application/views/qslpostcard/designer.php:44
 msgid "Template copied."
-msgstr ""
+msgstr "Modello copiato."
 
 #: application/views/qslpostcard/designer.php:45
 msgid "Please select a template to copy."
-msgstr ""
+msgstr "Seleziona un modello da copiare."
 
 #: application/views/qslpostcard/designer.php:48
 msgid "selected"
@@ -18191,21 +18205,23 @@ msgstr "selezionato"
 
 #: application/views/qslpostcard/designer.php:49
 msgid "Unsaved changes"
-msgstr ""
+msgstr "Modifiche non salvate"
 
 #: application/views/qslpostcard/designer.php:50
 msgid ""
 "Your current design has unsaved changes. Loading a different template will "
 "replace it. Continue?"
 msgstr ""
+"Il tuo design attuale ha modifiche non salvate. Caricando un modello diverso "
+"verrà sostituito. Continuare?"
 
 #: application/views/qslpostcard/designer.php:51
 msgid "Discard changes"
-msgstr ""
+msgstr "Elimina modifiche"
 
 #: application/views/qslpostcard/designer.php:52
 msgid "Keep editing"
-msgstr ""
+msgstr "Continua a modificare"
 
 #: application/views/qslpostcard/designer.php:68
 msgid "(new)"
@@ -18221,7 +18237,7 @@ msgstr "Salva modello"
 
 #: application/views/qslpostcard/designer.php:77
 msgid "Copy Template"
-msgstr ""
+msgstr "Copia modello"
 
 #: application/views/qslpostcard/designer.php:80
 msgid "Delete Template"
@@ -18421,11 +18437,11 @@ msgstr "Centra nella pagina (verticale)"
 
 #: application/views/qslprint/index.php:4
 msgid "Please select at least one row"
-msgstr ""
+msgstr "Seleziona almeno una riga"
 
 #: application/views/qslprint/index.php:6
 msgid "Print QSLcard"
-msgstr ""
+msgstr "Stampa cartolina QSL"
 
 #: application/views/qslprint/index.php:7
 #: application/views/qslprint/qslprint.php:91
@@ -18440,7 +18456,7 @@ msgstr "Rimuovi"
 
 #: application/views/qslprint/index.php:11
 msgid "Are you sure you want to mark ALL requested QSLs as sent?"
-msgstr ""
+msgstr "Sei sicuro di voler segnare TUTTE le QSL richieste come inviate?"
 
 #: application/views/qslprint/index.php:29
 msgid "Export Requested QSLs for Printing"
@@ -18456,7 +18472,7 @@ msgstr "Banda e Frequenza"
 
 #: application/views/qslprint/index.php:55
 msgid "Mark"
-msgstr ""
+msgstr "Segna"
 
 #: application/views/qslprint/index.php:57
 msgid "Mark selected QSOs as sent"
@@ -18464,7 +18480,7 @@ msgstr "Contrassegna i QSO selezionati come inviati"
 
 #: application/views/qslprint/index.php:59
 msgid "Mark ALL requested QSLs as sent"
-msgstr ""
+msgstr "Segna TUTTE le QSL richieste come inviate"
 
 #: application/views/qslprint/index.php:67
 msgid "Export selected QSOs to ADIF-file"
@@ -18488,11 +18504,11 @@ msgstr "Stampa cartoline per tutti i QSO"
 
 #: application/views/qslprint/index.php:83
 msgid "Print Selected QSL Labels"
-msgstr ""
+msgstr "Stampa le etichette QSL selezionate"
 
 #: application/views/qslprint/index.php:85
 msgid "Print Labels for all QSOs"
-msgstr ""
+msgstr "Stampa etichette per tutti i QSO"
 
 #: application/views/qslprint/index.php:93
 msgid "Remove selected QSOs from the queue"
@@ -22345,7 +22361,7 @@ msgstr "Ancora nessun QSO"
 
 #: application/views/visitor/punchcard.php:147
 msgid "No QSOs"
-msgstr ""
+msgstr "Nessun QSO"
 
 #: application/views/webadif/export.php:22
 msgid ""
