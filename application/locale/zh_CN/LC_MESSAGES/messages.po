@@ -1266,31 +1266,32 @@ msgstr "(空)"
 msgid "Debug"
 msgstr "调试"
 
-#: application/controllers/Debug.php:182
+#: application/controllers/Debug.php:182 application/controllers/Debug.php:183
 msgid "Migrate data now"
 msgstr "立即迁移数据"
 
-#: application/controllers/Debug.php:185
+#: application/controllers/Debug.php:185 application/controllers/Debug.php:186
 msgid "Migration already done. Run again?"
 msgstr "数据迁移已完成，是否重新运行？"
 
-#: application/controllers/Debug.php:189
+#: application/controllers/Debug.php:189 application/controllers/Debug.php:190
 msgid "No data to migrate"
 msgstr "没有可迁移的数据"
 
 #: application/controllers/Debug.php:193 application/controllers/Debug.php:198
+#: application/controllers/Debug.php:194 application/controllers/Debug.php:199
 msgid "No migration possible"
 msgstr "无法迁移"
 
-#: application/controllers/Debug.php:263
+#: application/controllers/Debug.php:263 application/controllers/Debug.php:264
 msgid "Wavelog was updated successfully!"
 msgstr "Wavelog 更新成功！"
 
-#: application/controllers/Debug.php:281
+#: application/controllers/Debug.php:281 application/controllers/Debug.php:282
 msgid "Selfupdate() not available. Check the Error Log."
 msgstr "自动更新不可用。请检查错误日志。"
 
-#: application/controllers/Debug.php:340
+#: application/controllers/Debug.php:340 application/controllers/Debug.php:341
 msgid ""
 "File Migration was successful, but please check also manually. If everything "
 "seems right you can delete the folders 'assets/qslcard' and 'images/"
@@ -1299,7 +1300,7 @@ msgstr ""
 "文件迁移成功，请手动检查。若一切正常，你可以删除文件夹“assets/"
 "qslcard”和“images/eqsl_card_images”。"
 
-#: application/controllers/Debug.php:343
+#: application/controllers/Debug.php:343 application/controllers/Debug.php:344
 msgid "File Migration failed. Please check the Error Log."
 msgstr "文件迁移失败。请检查错误日志。"
 
@@ -3350,6 +3351,7 @@ msgstr "启用"
 #: application/views/user/index.php:193 application/views/user/index.php:195
 #: application/views/visitor/punchcard.php:107
 #: application/views/visitor/punchcard.php:148
+#, fuzzy
 msgid "QSO"
 msgstr "QSO"
 
