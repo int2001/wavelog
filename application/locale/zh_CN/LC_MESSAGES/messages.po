@@ -35,11 +35,11 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-12 12:08+0000\n"
+"POT-Creation-Date: 2026-07-13 07:17+0000\n"
 "PO-Revision-Date: 2026-07-13 09:35+0000\n"
 "Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
-"Language-Team: Chinese (Simplified Han script) <https://"
-"translate.wavelog.org/projects/wavelog/main-translation/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
+"org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -275,26 +275,23 @@ msgstr "已激活网格地图"
 #: application/controllers/Awards.php:1162
 #: application/controllers/Awards.php:1198
 #: application/controllers/Gridmap.php:34
-#: application/controllers/Visitor.php:418
+#: application/controllers/Visitor.php:533
 #: application/views/activators/index.php:107
 #: application/views/contesting/logger/index.php:57
 #: application/views/interface_assets/footer.php:52
 #: application/views/visitor/layout/footer.php:12
 #: application/views/visitor/layout/header.php:68
-#: application/controllers/Visitor.php:533
 msgid "Gridsquares"
 msgstr "网格代码"
 
 #: application/controllers/Activated_gridmap.php:34
 #: application/controllers/Gridmap.php:35
-#: application/controllers/Visitor.php:419
 #: application/controllers/Visitor.php:534
 msgid "Gridsquares confirmed"
 msgstr "已确认网格"
 
 #: application/controllers/Activated_gridmap.php:35
 #: application/controllers/Gridmap.php:36
-#: application/controllers/Visitor.php:420
 #: application/controllers/Visitor.php:535
 msgid "Gridsquares not confirmed"
 msgstr "未确认网格"
@@ -305,29 +302,25 @@ msgstr "总激活网格"
 
 #: application/controllers/Activated_gridmap.php:38
 #: application/controllers/Gridmap.php:39
-#: application/controllers/Visitor.php:423
-#: application/views/qslpostcard/designer.php:149
 #: application/controllers/Visitor.php:538
+#: application/views/qslpostcard/designer.php:149
 msgid "Fields"
 msgstr "区块"
 
 #: application/controllers/Activated_gridmap.php:39
 #: application/controllers/Gridmap.php:40
-#: application/controllers/Visitor.php:424
 #: application/controllers/Visitor.php:539
 msgid "Fields confirmed"
 msgstr "已确认的区块"
 
 #: application/controllers/Activated_gridmap.php:40
 #: application/controllers/Gridmap.php:41
-#: application/controllers/Visitor.php:425
 #: application/controllers/Visitor.php:540
 msgid "Fields not confirmed"
 msgstr "未确认的区块"
 
 #: application/controllers/Activated_gridmap.php:41
 #: application/controllers/Gridmap.php:42
-#: application/controllers/Visitor.php:426
 #: application/controllers/Visitor.php:541
 msgid "Total fields worked"
 msgstr "全部的区块"
@@ -1205,7 +1198,6 @@ msgid "SOTA CSV Export"
 msgstr "SOTA CSV 导出"
 
 #: application/controllers/Dashboard.php:177
-#: application/controllers/Visitor.php:129
 #: application/controllers/Visitor.php:131
 msgid "Dashboard"
 msgstr "仪表盘"
@@ -1267,32 +1259,31 @@ msgstr "(空)"
 msgid "Debug"
 msgstr "调试"
 
-#: application/controllers/Debug.php:182 application/controllers/Debug.php:183
+#: application/controllers/Debug.php:183
 msgid "Migrate data now"
 msgstr "立即迁移数据"
 
-#: application/controllers/Debug.php:185 application/controllers/Debug.php:186
+#: application/controllers/Debug.php:186
 msgid "Migration already done. Run again?"
 msgstr "数据迁移已完成，是否重新运行？"
 
-#: application/controllers/Debug.php:189 application/controllers/Debug.php:190
+#: application/controllers/Debug.php:190
 msgid "No data to migrate"
 msgstr "没有可迁移的数据"
 
-#: application/controllers/Debug.php:193 application/controllers/Debug.php:198
 #: application/controllers/Debug.php:194 application/controllers/Debug.php:199
 msgid "No migration possible"
 msgstr "无法迁移"
 
-#: application/controllers/Debug.php:263 application/controllers/Debug.php:264
+#: application/controllers/Debug.php:264
 msgid "Wavelog was updated successfully!"
 msgstr "Wavelog 更新成功！"
 
-#: application/controllers/Debug.php:281 application/controllers/Debug.php:282
+#: application/controllers/Debug.php:282
 msgid "Selfupdate() not available. Check the Error Log."
 msgstr "自动更新不可用。请检查错误日志。"
 
-#: application/controllers/Debug.php:340 application/controllers/Debug.php:341
+#: application/controllers/Debug.php:341
 msgid ""
 "File Migration was successful, but please check also manually. If everything "
 "seems right you can delete the folders 'assets/qslcard' and 'images/"
@@ -1301,7 +1292,7 @@ msgstr ""
 "文件迁移成功，请手动检查。若一切正常，你可以删除文件夹“assets/"
 "qslcard”和“images/eqsl_card_images”。"
 
-#: application/controllers/Debug.php:343 application/controllers/Debug.php:344
+#: application/controllers/Debug.php:344
 msgid "File Migration failed. Please check the Error Log."
 msgstr "文件迁移失败。请检查错误日志。"
 
@@ -1469,7 +1460,6 @@ msgid "Gridsquare Map"
 msgstr "网格地图"
 
 #: application/controllers/Gridmap.php:37
-#: application/controllers/Visitor.php:421
 #: application/controllers/Visitor.php:536
 msgid "Total gridsquares worked"
 msgstr "已通联网格总数"
@@ -2669,16 +2659,6 @@ msgstr "版本信息不再会向用户显示"
 #: application/controllers/Oqrs.php:39 application/controllers/Staticmap.php:20
 #: application/controllers/Staticmap.php:25
 #: application/controllers/Staticmap.php:202
-#: application/controllers/Visitor.php:46
-#: application/controllers/Visitor.php:75
-#: application/controllers/Visitor.php:142
-#: application/controllers/Visitor.php:154
-#: application/controllers/Visitor.php:178
-#: application/controllers/Visitor.php:204
-#: application/controllers/Visitor.php:229
-#: application/controllers/Visitor.php:263
-#: application/controllers/Visitor.php:520
-#: application/controllers/Widgets.php:67
 #: application/controllers/Visitor.php:48
 #: application/controllers/Visitor.php:77
 #: application/controllers/Visitor.php:144
@@ -2691,6 +2671,7 @@ msgstr "版本信息不再会向用户显示"
 #: application/controllers/Visitor.php:344
 #: application/controllers/Visitor.php:378
 #: application/controllers/Visitor.php:635
+#: application/controllers/Widgets.php:67
 msgid "Unknown Public Page."
 msgstr "未知的公开页面。"
 
@@ -3143,18 +3124,13 @@ msgid "Simple Fast Log Entry"
 msgstr "快速记录 QSO"
 
 #: application/controllers/Staticmap.php:198
-#: application/controllers/Visitor.php:71
-#: application/controllers/Visitor.php:174
-#: application/controllers/Visitor.php:225
-#: application/controllers/Visitor.php:259
-#: application/controllers/Visitor.php:516
-#: application/controllers/Widgets.php:63
 #: application/controllers/Visitor.php:73
 #: application/controllers/Visitor.php:176
 #: application/controllers/Visitor.php:238
 #: application/controllers/Visitor.php:340
 #: application/controllers/Visitor.php:374
 #: application/controllers/Visitor.php:631
+#: application/controllers/Widgets.php:63
 msgid "Empty Logbook"
 msgstr "日志为空"
 
@@ -3353,7 +3329,8 @@ msgstr "启用"
 #: application/views/visitor/punchcard.php:107
 #: application/views/visitor/punchcard.php:148
 msgid "QSO"
-msgstr "QSO"
+msgid_plural "QSOs"
+msgstr[0] "QSO"
 
 #: application/controllers/Stationsetup.php:405
 #: application/views/stationsetup/stationsetup.php:220
@@ -3843,23 +3820,19 @@ msgid ""
 "personal account!"
 msgstr "你已经登出 %s 。欢迎回到你的私人账户，%s ！"
 
-#: application/controllers/Visitor.php:268
 #: application/controllers/Visitor.php:383
 msgid "No public slug found."
 msgstr "未找到外部链接。"
 
-#: application/controllers/Visitor.php:274
 #: application/controllers/Visitor.php:389
 msgid "Satellite Gridsquare Map"
 msgstr "卫星网格地图"
 
-#: application/controllers/Visitor.php:454
-#: application/views/stationsetup/stationsetup.php:48
 #: application/controllers/Visitor.php:569
+#: application/views/stationsetup/stationsetup.php:48
 msgid "Public Search"
 msgstr "公开搜索"
 
-#: application/controllers/Visitor.php:487
 #: application/controllers/Visitor.php:602
 msgid "Export Map"
 msgstr "导出地图"
@@ -7590,8 +7563,8 @@ msgid ""
 "any kind of 'Special Interest Group Award' for awards that are not "
 "implemented in Wavelog."
 msgstr ""
-"SIG 或特别兴趣小组类别（Special Interest Group Category）允许用户使用任意的"
-"“特别兴趣小组奖”来奖励未在当前 Wavelog 实现的奖。"
+"SIG 或特别兴趣小组类别（Special Interest Group Category）允许用户使用任意"
+"的“特别兴趣小组奖”来奖励未在当前 Wavelog 实现的奖。"
 
 #: application/views/awards/sig/index.php:8
 msgid ""
@@ -20171,8 +20144,8 @@ msgid ""
 "Click here on 'Add a Theme' and type in the necessary data. Type in the "
 "filenames for the logos %swithout%s the file extension '.png'"
 msgstr ""
-"在这里添加主题，Logo 文件请输入 png 文件的文件名部分（ %s不带有%s 后缀 "
-"'.png'）"
+"在这里添加主题，Logo 文件请输入 png 文件的文件名部分（ %s不带有%s 后缀 '."
+"png'）"
 
 #: application/views/themes/index.php:83
 msgid "Foldername"
@@ -21548,6 +21521,10 @@ msgstr "请输入呼号！"
 msgid "No QSOs yet"
 msgstr "还没有 QSO"
 
+#: application/views/visitor/punchcard.php:147
+msgid "No QSOs"
+msgstr "没有 QSO"
+
 #: application/views/webadif/export.php:22
 msgid ""
 "Here you can see and upload all QSOs which have not been previously uploaded "
@@ -21700,10 +21677,6 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
-
-#: application/views/visitor/punchcard.php:147
-msgid "No QSOs"
-msgstr "没有 QSO"
 
 #~ msgid "Available"
 #~ msgstr "可用"
@@ -23034,8 +23007,8 @@ msgstr "没有 QSO"
 #~ "Click here on 'Add a Theme' and type in the necessary data. Type in the "
 #~ "filenames for the logos <b>without</b> the file extension '.png'"
 #~ msgstr ""
-#~ "在这里点击 '添加主题'，输入必要的信息，填写 Logo 的文件名（<b>不要带"
-#~ "有 .png 后缀名</b>）"
+#~ "在这里点击 '添加主题'，输入必要的信息，填写 Logo 的文件名（<b>不要带有 ."
+#~ "png 后缀名</b>）"
 
 #, php-format
 #~ msgid ""
