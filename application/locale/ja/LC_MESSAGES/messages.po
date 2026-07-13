@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-13 04:31+0000\n"
+"POT-Creation-Date: 2026-07-13 07:17+0000\n"
 "PO-Revision-Date: 2026-07-12 09:07+0000\n"
 "Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
@@ -1242,31 +1242,31 @@ msgstr "（空の）"
 msgid "Debug"
 msgstr "デバッグ"
 
-#: application/controllers/Debug.php:182
+#: application/controllers/Debug.php:183
 msgid "Migrate data now"
 msgstr "今すぐデータを移行する"
 
-#: application/controllers/Debug.php:185
+#: application/controllers/Debug.php:186
 msgid "Migration already done. Run again?"
 msgstr "移行はすでに完了しています。もう一度実行しますか?"
 
-#: application/controllers/Debug.php:189
+#: application/controllers/Debug.php:190
 msgid "No data to migrate"
 msgstr "移行するデータがありません"
 
-#: application/controllers/Debug.php:193 application/controllers/Debug.php:198
+#: application/controllers/Debug.php:194 application/controllers/Debug.php:199
 msgid "No migration possible"
 msgstr "移行はできません"
 
-#: application/controllers/Debug.php:263
+#: application/controllers/Debug.php:264
 msgid "Wavelog was updated successfully!"
 msgstr "Wavelogが正常に更新されました！"
 
-#: application/controllers/Debug.php:281
+#: application/controllers/Debug.php:282
 msgid "Selfupdate() not available. Check the Error Log."
 msgstr "Selfupdate() が利用できません。エラーログを確認してください。"
 
-#: application/controllers/Debug.php:340
+#: application/controllers/Debug.php:341
 msgid ""
 "File Migration was successful, but please check also manually. If everything "
 "seems right you can delete the folders 'assets/qslcard' and 'images/"
@@ -1275,7 +1275,7 @@ msgstr ""
 "ファイルの移行は成功しましたが、手動でもご確認ください。問題がなければ、"
 "「assets/qslcard」と「images/eqsl_card_images」フォルダを削除してください。"
 
-#: application/controllers/Debug.php:343
+#: application/controllers/Debug.php:344
 msgid "File Migration failed. Please check the Error Log."
 msgstr "ファイルの移行に失敗しました。エラーログを確認してください。"
 

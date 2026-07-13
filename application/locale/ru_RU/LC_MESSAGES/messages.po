@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-13 04:31+0000\n"
+"POT-Creation-Date: 2026-07-13 07:17+0000\n"
 "PO-Revision-Date: 2026-07-08 19:20+0000\n"
 "Last-Translator: Michael Skolsky <r1blh@yandex.ru>\n"
 "Language-Team: Russian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -1243,31 +1243,31 @@ msgstr "(пусто)"
 msgid "Debug"
 msgstr "Отладка"
 
-#: application/controllers/Debug.php:182
+#: application/controllers/Debug.php:183
 msgid "Migrate data now"
 msgstr "Переносите данные сейчас"
 
-#: application/controllers/Debug.php:185
+#: application/controllers/Debug.php:186
 msgid "Migration already done. Run again?"
 msgstr "Миграция уже выполнена. Запустить снова?"
 
-#: application/controllers/Debug.php:189
+#: application/controllers/Debug.php:190
 msgid "No data to migrate"
 msgstr "Нет данных для миграции"
 
-#: application/controllers/Debug.php:193 application/controllers/Debug.php:198
+#: application/controllers/Debug.php:194 application/controllers/Debug.php:199
 msgid "No migration possible"
 msgstr "Миграция невозможна"
 
-#: application/controllers/Debug.php:263
+#: application/controllers/Debug.php:264
 msgid "Wavelog was updated successfully!"
 msgstr "Wavelog был успешно обновлен!"
 
-#: application/controllers/Debug.php:281
+#: application/controllers/Debug.php:282
 msgid "Selfupdate() not available. Check the Error Log."
 msgstr "Selfupdate() недоступен. Проверьте журнал ошибок."
 
-#: application/controllers/Debug.php:340
+#: application/controllers/Debug.php:341
 msgid ""
 "File Migration was successful, but please check also manually. If everything "
 "seems right you can delete the folders 'assets/qslcard' and 'images/"
@@ -1277,7 +1277,7 @@ msgstr ""
 "Если все в порядке, то можете удалить папки 'assets/qslcard' и 'images/"
 "eqsl_card_images'."
 
-#: application/controllers/Debug.php:343
+#: application/controllers/Debug.php:344
 msgid "File Migration failed. Please check the Error Log."
 msgstr ""
 "Не удалось выполнить миграцию файлов. Пожалуйста, проверьте журнал ошибок."

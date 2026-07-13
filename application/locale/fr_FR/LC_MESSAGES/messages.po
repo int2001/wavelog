@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-13 04:31+0000\n"
+"POT-Creation-Date: 2026-07-13 07:17+0000\n"
 "PO-Revision-Date: 2026-06-22 08:05+0000\n"
 "Last-Translator: F5MQU <f5mqu.p@gmail.com>\n"
 "Language-Team: French <https://translate.wavelog.org/projects/wavelog/main-"
@@ -1259,31 +1259,31 @@ msgstr "(vide)"
 msgid "Debug"
 msgstr "Debug"
 
-#: application/controllers/Debug.php:182
+#: application/controllers/Debug.php:183
 msgid "Migrate data now"
 msgstr "Migrer les données maintenant"
 
-#: application/controllers/Debug.php:185
+#: application/controllers/Debug.php:186
 msgid "Migration already done. Run again?"
 msgstr "Migration déjà effectuée. Recommencer ?"
 
-#: application/controllers/Debug.php:189
+#: application/controllers/Debug.php:190
 msgid "No data to migrate"
 msgstr "Aucune donnée à migrer"
 
-#: application/controllers/Debug.php:193 application/controllers/Debug.php:198
+#: application/controllers/Debug.php:194 application/controllers/Debug.php:199
 msgid "No migration possible"
 msgstr "Aucune migration possible"
 
-#: application/controllers/Debug.php:263
+#: application/controllers/Debug.php:264
 msgid "Wavelog was updated successfully!"
 msgstr "Wavelog a été mis à jour avec succès !"
 
-#: application/controllers/Debug.php:281
+#: application/controllers/Debug.php:282
 msgid "Selfupdate() not available. Check the Error Log."
 msgstr "Selfupdate() non disponible. Vérifiez le journal des erreurs."
 
-#: application/controllers/Debug.php:340
+#: application/controllers/Debug.php:341
 msgid ""
 "File Migration was successful, but please check also manually. If everything "
 "seems right you can delete the folders 'assets/qslcard' and 'images/"
@@ -1293,7 +1293,7 @@ msgstr ""
 "manuellement. Si tout vous semble correct, vous pouvez supprimer les "
 "dossiers 'assets/qslcard' et 'images/eqsl_card_images'."
 
-#: application/controllers/Debug.php:343
+#: application/controllers/Debug.php:344
 msgid "File Migration failed. Please check the Error Log."
 msgstr ""
 "La migration des fichiers a échoué. Veuillez vérifier le journal des erreurs."
