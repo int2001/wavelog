@@ -15,6 +15,8 @@ class Cabrillo extends CI_Controller {
 		//load user stations
 		$this->load->model('stations');
 		$data['station_profile'] = $this->stations->all_of_user();
+		$data['allowed_tabs'] = ['import', 'export', 'lotw', 'dcl', 'pota', 'cbr'];
+		$data['stations_active_log_only'] = !empty($this->session->userdata('user_stations_active_log_only'));
 
 		//set page title and target tab
 		$data['page_title'] = __("Cabrillo Import");

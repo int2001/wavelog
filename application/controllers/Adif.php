@@ -311,6 +311,7 @@ class adif extends CI_Controller {
 
 		// Pass allowed tabs to view
 		$data['allowed_tabs'] = $this->get_allowed_tabs();
+		$data['stations_active_log_only'] = !empty($this->session->userdata('user_stations_active_log_only'));
 
 		$this->load->model('contest_admin_model');
 		$data['contests'] = $this->contest_admin_model->getActiveContests();
@@ -486,6 +487,7 @@ class adif extends CI_Controller {
 
 		// Pass allowed tabs to view
 		$data['allowed_tabs'] = $this->get_allowed_tabs();
+		$data['stations_active_log_only'] = !empty($this->session->userdata('user_stations_active_log_only'));
 
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = 'adi|ADI|adif|ADIF';
@@ -561,6 +563,7 @@ class adif extends CI_Controller {
 
 		// Pass allowed tabs to view
 		$data['allowed_tabs'] = $this->get_allowed_tabs();
+		$data['stations_active_log_only'] = !empty($this->session->userdata('user_stations_active_log_only'));
 
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = 'adi|ADI|adif|ADIF';
