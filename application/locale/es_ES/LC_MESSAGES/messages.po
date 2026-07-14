@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-13 07:17+0000\n"
-"PO-Revision-Date: 2026-07-04 18:16+0000\n"
+"PO-Revision-Date: 2026-07-14 09:47+0000\n"
 "Last-Translator: David Quental <ct1drb72@gmail.com>\n"
 "Language-Team: Spanish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/es/>\n"
@@ -2718,7 +2718,7 @@ msgstr "Solicitudes OQRS"
 
 #: application/controllers/Oqrs.php:286
 msgid "Invalid time format. Please use HH:MM (e.g. 08:31)."
-msgstr ""
+msgstr "Formato de hora no válido. Por favor, usa HH:MM (por ejemplo, 08:31)."
 
 #: application/controllers/Oqrs.php:409
 msgid "QSO match deleted successfully."
@@ -3371,7 +3371,7 @@ msgstr "Estación Activa"
 msgid "QSO"
 msgid_plural "QSOs"
 msgstr[0] "QSO"
-msgstr[1] "QSO"
+msgstr[1] "QSOs"
 
 #: application/controllers/Stationsetup.php:405
 #: application/views/stationsetup/stationsetup.php:220
@@ -3893,7 +3893,7 @@ msgstr ""
 
 #: application/controllers/Visitor.php:383
 msgid "No public slug found."
-msgstr ""
+msgstr "No se encontró ningún slug público."
 
 #: application/controllers/Visitor.php:389
 msgid "Satellite Gridsquare Map"
@@ -4332,7 +4332,7 @@ msgstr ""
 #: application/models/Qslpostcard_model.php:440
 msgctxt "QSL Card Designer; No mailable address found"
 msgid "!!! NO MAILABLE ADDRESS FOUND !!!"
-msgstr ""
+msgstr "!!! NO SE ENCONTRÓ DIRECCIÓN ENVIABLE !!!"
 
 #: application/models/Update_model.php:349
 msgid "Newer release available:"
@@ -10587,7 +10587,7 @@ msgctxt ""
 "Count serial number in contesting per Band; is an option in contesting "
 "manager."
 msgid "per band"
-msgstr ""
+msgstr "por banda"
 
 #: application/views/contesting/logger/components/qso-form.php:99
 #: application/views/contesting/logger/components/qso-form.php:153
@@ -11277,7 +11277,7 @@ msgstr ""
 
 #: application/views/contesting/manager/components/session_modal.php:141
 msgid "Count serial number per band"
-msgstr ""
+msgstr "Cuenta el número de serie por banda"
 
 #: application/views/contesting/manager/components/session_modal.php:143
 msgid ""
@@ -11285,6 +11285,9 @@ msgid ""
 "running continuously across the whole contest (required by some multi-op "
 "categories)."
 msgstr ""
+"Cuando está habilitado, el número de serie enviado comienza en 1 en cada "
+"banda en lugar de correr continuamente a lo largo de todo el concurso "
+"(requerido por algunas categorías multi-op)."
 
 #: application/views/contesting/manager/components/session_modal.php:146
 msgid "Session Notes"
@@ -12189,7 +12192,7 @@ msgstr "Indicativos únicos"
 
 #: application/views/dashboard/index.php:369
 msgid "View QSO"
-msgstr ""
+msgstr "Ver QSO"
 
 #: application/views/dashboard/index.php:384
 #: application/views/qso/index.php:921
@@ -12211,7 +12214,7 @@ msgstr "Fechas"
 
 #: application/views/dashboard/index.php:435
 msgid "Lookup DXCC"
-msgstr ""
+msgstr "Buscar DXCC"
 
 #: application/views/dashboard/index.php:455
 #: application/views/user/edit.php:818
@@ -12856,7 +12859,7 @@ msgstr "Clientes"
 
 #: application/views/debug/index.php:150
 msgid "Cluster nodes"
-msgstr ""
+msgstr "Nodos del clúster"
 
 #: application/views/debug/index.php:151
 msgid "Uptime"
@@ -13198,7 +13201,7 @@ msgstr "Todo bien"
 
 #: application/views/debug/index.php:876
 msgid "Degraded"
-msgstr ""
+msgstr "Degradado"
 
 #: application/views/debug/index.php:877
 msgid "Worker backend is not configured."
@@ -13214,13 +13217,15 @@ msgstr "El trabajo está configurado pero no respondió."
 
 #: application/views/debug/index.php:879
 msgid "Outdated"
-msgstr ""
+msgstr "Desactualizado"
 
 #: application/views/debug/index.php:879
 msgid ""
 "Please update your Wavelog Worker to version 0.2.0 or newer to see the "
 "status."
 msgstr ""
+"Por favor, actualiza tu Wavelog Worker a la versión 0.2.0 o una más reciente "
+"para ver el estado."
 
 #: application/views/debug/index.php:898
 msgid "Albanian"
@@ -13945,13 +13950,15 @@ msgstr "Atención"
 
 #: application/views/interface_assets/footer.php:40
 msgid "Session expired"
-msgstr ""
+msgstr "Sesión expirada"
 
 #: application/views/interface_assets/footer.php:41
 msgid ""
 "Your live connection has expired. Please reload the page to keep receiving "
 "live updates."
 msgstr ""
+"Tu conexión en vivo ha expirado. Por favor, recarga la página para seguir "
+"recibiendo actualizaciones en vivo."
 
 #: application/views/interface_assets/footer.php:46
 msgid "Warning! Are you sure you want delete QSO with "
@@ -14523,11 +14530,11 @@ msgstr "Condados trabajados para el estado:"
 
 #: application/views/interface_assets/header.php:95
 msgid "Skip to content"
-msgstr ""
+msgstr "Saltar al contenido"
 
 #: application/views/interface_assets/header.php:98
 msgid "Wavelog home"
-msgstr ""
+msgstr "Inicio de Wavelog"
 
 #: application/views/interface_assets/header.php:100
 msgid "Developer Mode"
@@ -14816,7 +14823,7 @@ msgstr "Cerrar sesión"
 
 #: application/views/interface_assets/header.php:617
 msgid "Station locations and logbooks"
-msgstr ""
+msgstr "Ubicaciones de estaciones y cuadernos de registro"
 
 #: application/views/interface_assets/header.php:619
 msgid "Select a Location"
@@ -15834,24 +15841,30 @@ msgid ""
 "Wildcards (in Callsign, State, DOK, County, QSL via, SOTA, POTA, WWFF, "
 "Operator, Gridsquare, Comment and Contest):"
 msgstr ""
+"Comodines (en Indicativo, Estado, DOK, Condado, QSL vía, SOTA, POTA, WWFF, "
+"Operador, Cuadrícula, Comentario y Concurso):"
 
 #: application/views/logbookadvanced/help.php:30
 msgid "Matches any number of characters"
-msgstr ""
+msgstr "Coincide con cualquier número de caracteres"
 
 #: application/views/logbookadvanced/help.php:34
 msgid "Matches a single character"
-msgstr ""
+msgstr "Coincide con un solo carácter"
 
 #: application/views/logbookadvanced/help.php:38
 msgid "SQL wildcards (any chars / single char) are passed through directly"
 msgstr ""
+"Los comodines de SQL (cualquier carácter / un solo carácter) se pasan "
+"directamente"
 
 #: application/views/logbookadvanced/help.php:41
 msgid ""
 "Type a wildcard to take manual control of the match; without wildcards the "
 "default search behaviour is kept."
 msgstr ""
+"Escribe un comodín para tomar control manual de la coincidencia; sin "
+"comodines se mantiene el comportamiento de búsqueda predeterminado."
 
 #: application/views/logbookadvanced/help.php:50
 #: application/views/logbookadvanced/index.php:74
@@ -17763,7 +17776,7 @@ msgstr "Continuar"
 #: application/views/oqrs/request.php:1
 #: application/views/oqrs/request_grouped.php:1
 msgid "Request failed. Please try again."
-msgstr ""
+msgstr "Solicitud fallida. Por favor, intenta de nuevo."
 
 #: application/views/oqrs/notinlogform.php:3
 msgid ""
@@ -18228,15 +18241,15 @@ msgstr "Por favor, selecciona una plantilla para eliminar."
 
 #: application/views/qslpostcard/designer.php:43
 msgid "Copy failed"
-msgstr ""
+msgstr "Copia fallida"
 
 #: application/views/qslpostcard/designer.php:44
 msgid "Template copied."
-msgstr ""
+msgstr "Plantilla copiada."
 
 #: application/views/qslpostcard/designer.php:45
 msgid "Please select a template to copy."
-msgstr ""
+msgstr "Por favor, selecciona una plantilla para copiar."
 
 #: application/views/qslpostcard/designer.php:48
 msgid "selected"
@@ -18244,21 +18257,23 @@ msgstr "seleccionado"
 
 #: application/views/qslpostcard/designer.php:49
 msgid "Unsaved changes"
-msgstr ""
+msgstr "Cambios no guardados"
 
 #: application/views/qslpostcard/designer.php:50
 msgid ""
 "Your current design has unsaved changes. Loading a different template will "
 "replace it. Continue?"
 msgstr ""
+"Tu diseño actual tiene cambios no guardados. Cargar una plantilla diferente "
+"lo reemplazará. ¿Continuar?"
 
 #: application/views/qslpostcard/designer.php:51
 msgid "Discard changes"
-msgstr ""
+msgstr "Descartar cambios"
 
 #: application/views/qslpostcard/designer.php:52
 msgid "Keep editing"
-msgstr ""
+msgstr "Sigue editando"
 
 #: application/views/qslpostcard/designer.php:68
 msgid "(new)"
@@ -18274,7 +18289,7 @@ msgstr "Guardar plantilla"
 
 #: application/views/qslpostcard/designer.php:77
 msgid "Copy Template"
-msgstr ""
+msgstr "Copiar plantilla"
 
 #: application/views/qslpostcard/designer.php:80
 msgid "Delete Template"
@@ -18379,11 +18394,11 @@ msgstr "Texto"
 
 #: application/views/qslpostcard/designer.php:249
 msgid "Frequency format"
-msgstr ""
+msgstr "Formato de frecuencia"
 
 #: application/views/qslpostcard/designer.php:257
 msgid "Omit unit"
-msgstr ""
+msgstr "Omitir unidad"
 
 #: application/views/qslpostcard/designer.php:263
 msgid "X"
@@ -18473,11 +18488,11 @@ msgstr "Centrar en la página (vertical)"
 
 #: application/views/qslprint/index.php:4
 msgid "Please select at least one row"
-msgstr ""
+msgstr "Por favor, selecciona al menos una fila"
 
 #: application/views/qslprint/index.php:6
 msgid "Print QSLcard"
-msgstr ""
+msgstr "Imprimir tarjeta QSL"
 
 #: application/views/qslprint/index.php:7
 #: application/views/qslprint/qslprint.php:91
@@ -18493,6 +18508,7 @@ msgstr "Remover"
 #: application/views/qslprint/index.php:11
 msgid "Are you sure you want to mark ALL requested QSLs as sent?"
 msgstr ""
+"¿Estás seguro de que deseas marcar TODAS las QSLs solicitadas como enviadas?"
 
 #: application/views/qslprint/index.php:29
 msgid "Export Requested QSLs for Printing"
@@ -18508,7 +18524,7 @@ msgstr "Banda y Frecuencia"
 
 #: application/views/qslprint/index.php:55
 msgid "Mark"
-msgstr ""
+msgstr "Mark"
 
 #: application/views/qslprint/index.php:57
 msgid "Mark selected QSOs as sent"
@@ -18516,7 +18532,7 @@ msgstr "Marcar QSOs seleccionados como enviados"
 
 #: application/views/qslprint/index.php:59
 msgid "Mark ALL requested QSLs as sent"
-msgstr ""
+msgstr "Marca TODAS las QSLs solicitadas como enviadas"
 
 #: application/views/qslprint/index.php:67
 msgid "Export selected QSOs to ADIF-file"
@@ -18540,11 +18556,11 @@ msgstr "Imprime postales para todos los QSOs"
 
 #: application/views/qslprint/index.php:83
 msgid "Print Selected QSL Labels"
-msgstr ""
+msgstr "Imprimir etiquetas de QSL seleccionadas"
 
 #: application/views/qslprint/index.php:85
 msgid "Print Labels for all QSOs"
-msgstr ""
+msgstr "Imprimir etiquetas para todos los QSOs"
 
 #: application/views/qslprint/index.php:93
 msgid "Remove selected QSOs from the queue"
@@ -19033,7 +19049,7 @@ msgstr "Satélite"
 
 #: application/views/qso/index.php:119
 msgid "Favourites"
-msgstr ""
+msgstr "Favoritos"
 
 #: application/views/qso/index.php:121
 msgid "Add to Favs"
@@ -19046,7 +19062,7 @@ msgstr "Hora inicio"
 #: application/views/qso/index.php:165 application/views/qso/index.php:167
 #: application/views/qso/index.php:201
 msgid "Reset start time"
-msgstr ""
+msgstr "Restablecer hora de inicio"
 
 #: application/views/qso/index.php:173
 msgid "Time off"
@@ -19054,7 +19070,7 @@ msgstr "Hora fin"
 
 #: application/views/qso/index.php:177
 msgid "Reset end time"
-msgstr ""
+msgstr "Restablecer hora de finalización"
 
 #: application/views/qso/index.php:216
 msgid "Search DXCluster for latest Spot"
@@ -19130,7 +19146,7 @@ msgstr "Mensaje QSL"
 
 #: application/views/qso/index.php:757
 msgid "More options"
-msgstr ""
+msgstr "Más opciones"
 
 #: application/views/qso/index.php:759
 msgid "Reset to Default"
@@ -21788,11 +21804,11 @@ msgstr "Guardar Cambios de la Cuenta"
 
 #: application/views/user/edit.php:1329
 msgid "Search settings"
-msgstr ""
+msgstr "Configuración de búsqueda"
 
 #: application/views/user/edit.php:1331
 msgid "No settings match your search."
-msgstr ""
+msgstr "No hay configuraciones que coincidan con tu búsqueda."
 
 #: application/views/user/forgot_password.php:33
 msgid "Forgot Password?"
@@ -22228,7 +22244,7 @@ msgstr ""
 #: application/views/view_log/qso.php:131
 #: application/views/view_log/qso.php:193
 msgid "Calculate distance/bearing"
-msgstr ""
+msgstr "Calcular distancia/rumbo"
 
 #: application/views/view_log/partial/log_ajax.php:138
 msgid "Result"
@@ -22411,7 +22427,7 @@ msgstr "Todavía no hay QSOs"
 
 #: application/views/visitor/punchcard.php:147
 msgid "No QSOs"
-msgstr ""
+msgstr "Sin QSOs"
 
 #: application/views/webadif/export.php:22
 msgid ""
