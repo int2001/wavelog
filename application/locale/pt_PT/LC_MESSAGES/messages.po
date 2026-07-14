@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-13 07:17+0000\n"
-"PO-Revision-Date: 2026-07-14 09:47+0000\n"
+"PO-Revision-Date: 2026-07-14 09:52+0000\n"
 "Last-Translator: David Quental <ct1drb72@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) <https://translate.wavelog.org/projects/"
 "wavelog/main-translation/pt_PT/>\n"
@@ -3358,8 +3358,8 @@ msgstr "Estação ativa"
 #: application/views/visitor/punchcard.php:148
 msgid "QSO"
 msgid_plural "QSOs"
-msgstr[0] "Contacto"
-msgstr[1] "Contacto"
+msgstr[0] "QSO"
+msgstr[1] "QSOs"
 
 #: application/controllers/Stationsetup.php:405
 #: application/views/stationsetup/stationsetup.php:220
@@ -18431,7 +18431,7 @@ msgstr "Por favor, selecione pelo menos uma linha"
 
 #: application/views/qslprint/index.php:6
 msgid "Print QSLcard"
-msgstr ""
+msgstr "Imprimir QSLcard"
 
 #: application/views/qslprint/index.php:7
 #: application/views/qslprint/qslprint.php:91
@@ -18447,6 +18447,7 @@ msgstr "Remover"
 #: application/views/qslprint/index.php:11
 msgid "Are you sure you want to mark ALL requested QSLs as sent?"
 msgstr ""
+"Tem a certeza de que deseja marcar TODAS as QSLs solicitadas como enviadas?"
 
 #: application/views/qslprint/index.php:29
 msgid "Export Requested QSLs for Printing"
@@ -18462,7 +18463,7 @@ msgstr "Banda e Frequência"
 
 #: application/views/qslprint/index.php:55
 msgid "Mark"
-msgstr ""
+msgstr "Mark"
 
 #: application/views/qslprint/index.php:57
 msgid "Mark selected QSOs as sent"
@@ -18470,7 +18471,7 @@ msgstr "Marcar contactos selecionados como enviados"
 
 #: application/views/qslprint/index.php:59
 msgid "Mark ALL requested QSLs as sent"
-msgstr ""
+msgstr "Marca TODAS as QSLs solicitadas como enviadas"
 
 #: application/views/qslprint/index.php:67
 msgid "Export selected QSOs to ADIF-file"
@@ -18494,11 +18495,11 @@ msgstr "Imprimir Cartões Postais para todos os QSOs"
 
 #: application/views/qslprint/index.php:83
 msgid "Print Selected QSL Labels"
-msgstr ""
+msgstr "Imprimir Etiquetas de QSL Selecionadas"
 
 #: application/views/qslprint/index.php:85
 msgid "Print Labels for all QSOs"
-msgstr ""
+msgstr "Imprimir etiquetas para todos os QSOs"
 
 #: application/views/qslprint/index.php:93
 msgid "Remove selected QSOs from the queue"
@@ -18986,7 +18987,7 @@ msgstr "Satélite"
 
 #: application/views/qso/index.php:119
 msgid "Favourites"
-msgstr ""
+msgstr "Favoritos"
 
 #: application/views/qso/index.php:121
 msgid "Add to Favs"
@@ -18999,7 +19000,7 @@ msgstr "Tempo ligado"
 #: application/views/qso/index.php:165 application/views/qso/index.php:167
 #: application/views/qso/index.php:201
 msgid "Reset start time"
-msgstr ""
+msgstr "Reiniciar hora de início"
 
 #: application/views/qso/index.php:173
 msgid "Time off"
@@ -19007,7 +19008,7 @@ msgstr "Tempo desligado"
 
 #: application/views/qso/index.php:177
 msgid "Reset end time"
-msgstr ""
+msgstr "Redefinir tempo de fim"
 
 #: application/views/qso/index.php:216
 msgid "Search DXCluster for latest Spot"
@@ -19083,7 +19084,7 @@ msgstr "MSG QSL"
 
 #: application/views/qso/index.php:757
 msgid "More options"
-msgstr ""
+msgstr "Mais opções"
 
 #: application/views/qso/index.php:759
 msgid "Reset to Default"
@@ -21730,11 +21731,11 @@ msgstr "Guardar conta"
 
 #: application/views/user/edit.php:1329
 msgid "Search settings"
-msgstr ""
+msgstr "Configurações de pesquisa"
 
 #: application/views/user/edit.php:1331
 msgid "No settings match your search."
-msgstr ""
+msgstr "Nenhuma definição corresponde à sua pesquisa."
 
 #: application/views/user/forgot_password.php:33
 msgid "Forgot Password?"
@@ -22164,7 +22165,7 @@ msgstr ""
 #: application/views/view_log/qso.php:131
 #: application/views/view_log/qso.php:193
 msgid "Calculate distance/bearing"
-msgstr ""
+msgstr "Calcular distância/rumo"
 
 #: application/views/view_log/partial/log_ajax.php:138
 msgid "Result"
@@ -22346,7 +22347,7 @@ msgstr "Ainda sem QSOs"
 
 #: application/views/visitor/punchcard.php:147
 msgid "No QSOs"
-msgstr ""
+msgstr "Sem QSOs"
 
 #: application/views/webadif/export.php:22
 msgid ""
