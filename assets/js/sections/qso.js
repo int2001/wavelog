@@ -1531,7 +1531,7 @@ $("#callsign").on("focusout", function () {
 						iota: result.callsign_iota,
 						state: result.callsign_state,
 						us_county: result.callsign_us_county,
-						bearing: result.bearing,
+						bearing: ($("#sat_name").val() != "") ? null : result.bearing,
 						distance: result.callsign_distance,
 						lotw_member: result.lotw_member,
 						lotw_days: result.lotw_days,
