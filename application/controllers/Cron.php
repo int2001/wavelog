@@ -166,6 +166,9 @@ class cron extends CI_Controller {
 			echo json_encode(['success' => false, 'messagecategory' => 'error', 'message' => __("You're not allowed to do that!")]);
 			return;
 		}
+		// Release the session lock: the job runs synchronously and would otherwise
+		// block every other request of this user (with the file session driver) until it finishes.
+		session_write_close();
 
 		$cron = $this->cron_model->cron($this->input->post('id', true))->row();
 		if ($cron === null) {
@@ -337,14 +340,20 @@ class cron extends CI_Controller {
 		}
 
 		// Prevent manual and scheduled executions of the same cronjob from overlapping.
-		$lock_handle = fopen(sys_get_temp_dir() . '/wavelog_cron_' . md5(FCPATH . ':' . $cron->id) . '.lock', 'c');
-		if ($lock_handle === false) {
-			return ['success' => false, 'locked' => false, 'response' => '', 'error' => 'Unable to acquire cronjob lock.', 'url' => $url];
-		}
-		if (!flock($lock_handle, LOCK_EX | LOCK_NB)) {
-			fclose($lock_handle);
+		// Load cache driver for locking mechanism.
+		$this->load->driver('cache', [
+			'adapter' => $this->config->item('cache_adapter') ?? 'file',
+			'backup' => $this->config->item('cache_backup') ?? 'file',
+			'key_prefix' => $this->config->item('cache_key_prefix') ?? ''
+		]);
+		$lock_key = 'cron_lock_' . md5($cron->id);
+		if ($this->cache->get($lock_key)) {
 			return ['success' => false, 'locked' => true, 'response' => '', 'error' => '', 'url' => $url];
 		}
+
+		// Lock for 12 hours to prevent overlapping executions of the same cronjob.
+		// some big instances have really really long cron runs
+		$this->cache->save($lock_key, time(), 43200);
 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
@@ -357,8 +366,8 @@ class cron extends CI_Controller {
 		$response = curl_exec($ch);
 		$error = $response === false ? curl_error($ch) : '';
 
-		flock($lock_handle, LOCK_UN);
-		fclose($lock_handle);
+		// invalidate the cache so the job can run next time
+		$this->cache->delete($lock_key);
 		return [
 			'success' => $response !== false,
 			'locked' => false,
