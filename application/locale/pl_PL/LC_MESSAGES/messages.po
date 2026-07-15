@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-15 12:02+0000\n"
+"POT-Creation-Date: 2026-07-15 13:17+0000\n"
 "PO-Revision-Date: 2026-04-01 23:44+0000\n"
 "Last-Translator: Bartek <achtachtel@gmail.com>\n"
 "Language-Team: Polish <https://translate.wavelog.org/projects/wavelog/main-"
@@ -146,7 +146,6 @@ msgstr "Dukty troposferyczne"
 #: application/controllers/Club.php:131 application/controllers/Club.php:159
 #: application/controllers/Club.php:185 application/controllers/Clublog.php:82
 #: application/controllers/Clublog.php:140
-#: application/controllers/Components.php:12
 #: application/controllers/Contest_admin.php:13
 #: application/controllers/Contestcalendar.php:7
 #: application/controllers/Contesting.php:38
@@ -337,7 +336,7 @@ msgid "ADIF Import / Export"
 msgstr "Import / Eksport ADIF"
 
 #: application/controllers/Adif.php:309 application/views/adif/import.php:43
-#: application/views/dcl_views/import.php:3 application/views/lotw/import.php:3
+#: application/views/lotw/import.php:3
 msgid "ADIF Import"
 msgstr "Import ADIF"
 
@@ -487,7 +486,6 @@ msgstr "DOK"
 #: application/views/logbookadvanced/index.php:372
 #: application/views/logbookadvanced/index.php:1006
 #: application/views/logbookadvanced/qslcarousel.php:35
-#: application/views/logbookadvanced/showMissingDxccQsos.php:25
 #: application/views/logbookadvanced/showStateQsos.php:27
 #: application/views/logbookadvanced/statecheckresult.php:11
 #: application/views/logbookadvanced/useroptions.php:175
@@ -1198,8 +1196,7 @@ msgstr "Dni z wykonanymi QSO"
 msgid "DCL Key Import"
 msgstr "Importowanie klucza DCL"
 
-#: application/controllers/Dcl.php:61 application/views/dcl_views/import.php:3
-#: application/views/dcl_views/index.php:3
+#: application/controllers/Dcl.php:61 application/views/dcl_views/index.php:3
 #: application/views/logbookadvanced/index.php:997
 #: application/views/logbookadvanced/useroptions.php:148
 #: application/views/qso/edit_ajax.php:420
@@ -1831,7 +1828,6 @@ msgstr ""
 #: application/views/bandmap/list.php:603
 #: application/views/bands/bandedges.php:31
 #: application/views/callstats/index.php:54
-#: application/views/components/hamsat/table.php:30
 #: application/views/contesting/logger/components/qso-form.php:150
 #: application/views/contesting/logger/components/radio.php:73
 #: application/views/contesting/manager/export_cbr.php:106
@@ -1860,7 +1856,6 @@ msgstr ""
 #: application/views/logbookadvanced/mergedialog.php:29
 #: application/views/logbookadvanced/mergedialog.php:52
 #: application/views/logbookadvanced/qslcarousel.php:32
-#: application/views/logbookadvanced/showMissingDxccQsos.php:21
 #: application/views/logbookadvanced/showStateQsos.php:23
 #: application/views/logbookadvanced/useroptions.php:46
 #: application/views/mode/index.php:40
@@ -1895,7 +1890,6 @@ msgstr ""
 #: application/views/user/edit.php:297 application/views/user/edit.php:320
 #: application/views/user/edit.php:343 application/views/user/edit.php:366
 #: application/views/user/edit.php:390 application/views/usermode/index.php:38
-#: application/views/view_log/partial/log.php:9
 #: application/views/view_log/partial/log_ajax.php:5
 #: application/views/view_log/qso.php:114 application/views/visitor/index.php:6
 #: application/views/visitor/mini.php:185 application/views/widgets/qsos.php:18
@@ -1923,7 +1917,6 @@ msgstr "Emisja"
 #: application/views/user/edit.php:298 application/views/user/edit.php:321
 #: application/views/user/edit.php:344 application/views/user/edit.php:367
 #: application/views/user/edit.php:391
-#: application/views/view_log/partial/log.php:10
 #: application/views/view_log/partial/log_ajax.php:6
 #: application/views/view_log/qso.php:119 application/views/visitor/index.php:9
 msgid "RST (S)"
@@ -1950,7 +1943,6 @@ msgstr "RST (S)"
 #: application/views/user/edit.php:299 application/views/user/edit.php:322
 #: application/views/user/edit.php:345 application/views/user/edit.php:368
 #: application/views/user/edit.php:392
-#: application/views/view_log/partial/log.php:11
 #: application/views/view_log/partial/log_ajax.php:7
 #: application/views/view_log/qso.php:124
 #: application/views/visitor/index.php:12
@@ -1971,7 +1963,6 @@ msgstr "RST (R)"
 #: application/views/timeline/index.php:193 application/views/user/edit.php:300
 #: application/views/user/edit.php:323 application/views/user/edit.php:346
 #: application/views/user/edit.php:369 application/views/user/edit.php:393
-#: application/views/view_log/partial/log.php:13
 #: application/views/view_log/partial/log_ajax.php:8
 #: application/views/view_log/qso.php:290
 #: application/views/view_log/qso.php:646
@@ -2023,7 +2014,6 @@ msgstr "IOTA"
 #: application/views/logbookadvanced/index.php:393
 #: application/views/logbookadvanced/index.php:1009
 #: application/views/logbookadvanced/qslcarousel.php:36
-#: application/views/logbookadvanced/showMissingDxccQsos.php:23
 #: application/views/logbookadvanced/showStateQsos.php:25
 #: application/views/logbookadvanced/useroptions.php:181
 #: application/views/qslcard/searchresult.php:18
@@ -2060,7 +2050,6 @@ msgstr "Stan"
 #: application/views/logbookadvanced/index.php:399
 #: application/views/logbookadvanced/index.php:970
 #: application/views/logbookadvanced/qslcarousel.php:39
-#: application/views/logbookadvanced/showMissingDxccQsos.php:24
 #: application/views/logbookadvanced/showStateQsos.php:26
 #: application/views/logbookadvanced/showUpdateResult.php:44
 #: application/views/logbookadvanced/useroptions.php:85
@@ -2185,7 +2174,6 @@ msgstr "Odległość"
 #: application/views/logbookadvanced/mergedialog.php:30
 #: application/views/logbookadvanced/mergedialog.php:53
 #: application/views/logbookadvanced/qslcarousel.php:33
-#: application/views/logbookadvanced/showMissingDxccQsos.php:22
 #: application/views/logbookadvanced/showStateQsos.php:24
 #: application/views/logbookadvanced/useroptions.php:64
 #: application/views/oqrs/notinlogform.php:11
@@ -2219,7 +2207,6 @@ msgstr "Odległość"
 #: application/views/user/edit.php:295 application/views/user/edit.php:318
 #: application/views/user/edit.php:341 application/views/user/edit.php:364
 #: application/views/user/edit.php:388
-#: application/views/view_log/partial/log.php:12
 #: application/views/view_log/partial/log_ajax.php:16
 #: application/views/view_log/qso.php:94 application/views/visitor/index.php:33
 #: application/views/visitor/mini.php:184 application/views/widgets/qsos.php:21
@@ -2331,7 +2318,6 @@ msgstr "Szybkie wyszukiwanie"
 
 #: application/controllers/Lotw.php:63 application/controllers/Lotw.php:94
 #: application/controllers/Lotw.php:133
-#: application/views/dcl_views/upload_cert.php:3
 #: application/views/interface_assets/header.php:566
 #: application/views/lotw/import.php:3
 #: application/views/lotw_views/index.php:19
@@ -2546,7 +2532,6 @@ msgstr ""
 #: application/views/options/appearance.php:2
 #: application/views/options/dxcluster.php:2
 #: application/views/options/email.php:2 application/views/options/hon.php:2
-#: application/views/options/index.php:2
 #: application/views/options/maptiles.php:2
 #: application/views/options/radios.php:2
 #: application/views/options/version_dialog.php:2
@@ -3179,7 +3164,6 @@ msgstr "Edytuj lokalizację stacji: "
 #: application/views/labels/index.php:125
 #: application/views/logbookadvanced/dbtoolsdialog.php:16
 #: application/views/logbookadvanced/edit.php:23
-#: application/views/logbookadvanced/showMissingDxccQsos.php:26
 #: application/views/qslprint/index.php:34 application/views/qso/index.php:137
 #: application/views/qso/index.php:400
 #: application/views/search/search_result_ajax.php:18
@@ -4454,7 +4438,6 @@ msgstr "Różnica"
 #: application/views/csv/index.php:33 application/views/csv/index.php:44
 #: application/views/csv/index.php:60 application/views/csv/index.php:82
 #: application/views/csv/index.php:94 application/views/dashboard/index.php:666
-#: application/views/dcl_views/import.php:43
 #: application/views/distances/index.php:25
 #: application/views/distances/index.php:40
 #: application/views/distances/index.php:50
@@ -4640,7 +4623,6 @@ msgstr "Aktywowane lokatory"
 #: application/views/awards/wae/index.php:141
 #: application/views/awards/wpx/index.php:95
 #: application/views/callstats/index.php:26
-#: application/views/components/hamsat/table.php:29
 #: application/views/distancerecords/index.php:18
 #: application/views/distances/index.php:38
 #: application/views/gridmap/index.php:107
@@ -4806,7 +4788,6 @@ msgstr "Nie znaleziono!"
 #: application/views/calltester/comparison_result.php:132
 #: application/views/calltester/result.php:22
 #: application/views/club/permissions.php:275
-#: application/views/components/hamsat/table.php:27
 #: application/views/contesting/logger/components/qso-form.php:66
 #: application/views/contesting/logger/components/qso-form.php:147
 #: application/views/csv/index.php:23 application/views/dashboard/index.php:343
@@ -4926,7 +4907,6 @@ msgstr ""
 #: application/views/awards/pota/index.php:38
 #: application/views/awards/sota/index.php:37
 #: application/views/awards/wwff/index.php:38
-#: application/views/components/hamsat/table.php:25
 #: application/views/contesting/logger/components/qso-form.php:145
 #: application/views/dashboard/index.php:339
 #: application/views/debug/index.php:799
@@ -4959,7 +4939,6 @@ msgstr ""
 #: application/views/timeline/index.php:305
 #: application/views/timeline/index.php:343
 #: application/views/timeline/index.php:377
-#: application/views/view_log/partial/log.php:4
 #: application/views/view_log/partial/log_ajax.php:143
 #: application/views/visitor/index.php:151
 #: application/views/visitor/mini.php:182 application/views/widgets/qsos.php:16
@@ -4973,7 +4952,6 @@ msgstr "Data"
 #: application/views/awards/sota/index.php:38
 #: application/views/awards/wwff/index.php:39
 #: application/views/bandmap/list.php:142
-#: application/views/components/hamsat/table.php:26
 #: application/views/contesting/logger/components/qso-form.php:146
 #: application/views/contesting/manager/export_cbr.php:158
 #: application/views/dashboard/index.php:341
@@ -4996,7 +4974,6 @@ msgstr "Data"
 #: application/views/statistics/initialresult.php:16
 #: application/views/timeline/index.php:378
 #: application/views/timeplotter/index.php:5
-#: application/views/view_log/partial/log.php:6
 #: application/views/view_log/partial/log_ajax.php:145
 #: application/views/visitor/index.php:154
 msgid "Time"
@@ -5013,13 +4990,11 @@ msgstr "Godzina"
 #: application/views/eqsl/download.php:38 application/views/eqsl/result.php:35
 #: application/views/logbookadvanced/mergedialog.php:28
 #: application/views/logbookadvanced/mergedialog.php:51
-#: application/views/logbookadvanced/showMissingDxccQsos.php:19
 #: application/views/logbookadvanced/showStateQsos.php:21
 #: application/views/public_search/result.php:14
 #: application/views/qslcard/searchresult.php:8
 #: application/views/qso/components/previous_contacts.php:7
 #: application/views/search/search_result_ajax.php:93
-#: application/views/view_log/partial/log.php:8
 #: application/views/view_log/partial/log_ajax.php:147
 #: application/views/visitor/index.php:156
 #: application/views/widgets/qsos.php:17
@@ -5254,7 +5229,6 @@ msgstr ""
 
 #: application/views/adif/import.php:289
 #: application/views/clublog/export.php:73 application/views/csv/index.php:104
-#: application/views/dcl_views/import.php:27
 #: application/views/dxatlas/index.php:103
 #: application/views/hrdlog/export.php:77 application/views/kml/index.php:88
 #: application/views/lotw/import.php:39 application/views/qrz/export.php:78
@@ -7793,7 +7767,6 @@ msgstr "Referencja"
 #: application/views/logbookadvanced/mergedialog.php:27
 #: application/views/logbookadvanced/mergedialog.php:50
 #: application/views/logbookadvanced/qslcarousel.php:31
-#: application/views/logbookadvanced/showMissingDxccQsos.php:20
 #: application/views/logbookadvanced/showStateQsos.php:22
 #: application/views/logbookadvanced/useroptions.php:22
 #: application/views/qso/components/previous_contacts.php:6
@@ -8365,28 +8338,6 @@ msgstr ""
 msgid "WWFF Reference"
 msgstr "Podmiot WWFF"
 
-#: application/views/backup/adif_view.php:7
-msgid ""
-"The backup of your log completed successfully. The output can be found at"
-msgstr ""
-"Kopia zapasowa Twojego logu została wykonana pomyślnie. Wynik można znaleźć "
-"pod adresem"
-
-#: application/views/backup/adif_view.php:9
-#: application/views/backup/notes_view.php:9
-msgid "You could automate this process by making it a cronjob."
-msgstr "Można zautomatyzować ten proces, tworząc zadanie cron."
-
-#: application/views/backup/adif_view.php:13
-#: application/views/backup/notes_view.php:13
-msgid ""
-"Something went wrong during the backup process. Check that the backup folder "
-"exists and is writeable by your web server user / group."
-msgstr ""
-"Coś poszło nie tak podczas procesu tworzenia kopii zapasowej. Sprawdź, czy "
-"folder kopii zapasowej istnieje i czy jest zapisywalny przez użytkownika/"
-"grupę serwera www."
-
 #: application/views/backup/main.php:17
 msgid ""
 "Some of the data stored in Wavelog can be exported so that you can keep a "
@@ -8414,6 +8365,19 @@ msgid ""
 msgstr ""
 "Kopia zapasowa notatek została pomyślnie zakończona. Wynik można znaleźć pod "
 "adresem"
+
+#: application/views/backup/notes_view.php:9
+msgid "You could automate this process by making it a cronjob."
+msgstr "Można zautomatyzować ten proces, tworząc zadanie cron."
+
+#: application/views/backup/notes_view.php:13
+msgid ""
+"Something went wrong during the backup process. Check that the backup folder "
+"exists and is writeable by your web server user / group."
+msgstr ""
+"Coś poszło nie tak podczas procesu tworzenia kopii zapasowej. Sprawdź, czy "
+"folder kopii zapasowej istnieje i czy jest zapisywalny przez użytkownika/"
+"grupę serwera www."
 
 #: application/views/bandmap/list.php:16
 msgid "Click to prepare logging."
@@ -8864,7 +8828,6 @@ msgid "Spotter"
 msgstr "Spoter"
 
 #: application/views/bandmap/list.php:140
-#: application/views/components/hamsat/table.php:28
 #: application/views/contesting/manager/index.php:34
 #: application/views/hamsat/index.php:36
 #: application/views/logbookadvanced/attachContest.php:16
@@ -10207,51 +10170,6 @@ msgstr "Poczekaj %s sekund(y) przed ponownym przełączeniem DX Waterfall."
 msgid "DX Waterfall Help"
 msgstr "Pomoc DX Waterfall"
 
-#: application/views/components/hamsat/table.php:3
-#: application/views/hamsat/index.php:6
-msgid "Hamsat - Satellite Rovers"
-msgstr "Hamsat - Satellite Rovers"
-
-#: application/views/components/hamsat/table.php:4
-#: application/views/contestcalendar/index.php:10
-#: application/views/dxcalendar/index.php:3
-#: application/views/hamsat/index.php:13
-msgid "This data comes from"
-msgstr "Dane pochodzą z"
-
-#: application/views/components/hamsat/table.php:11
-msgid "Show All Passes"
-msgstr "Pokazuj wszystkie przeloty"
-
-#: application/views/components/hamsat/table.php:14
-msgid "Private feed key empty. Please set the feed key in your profile."
-msgstr ""
-"Klucz prywatnego kanału jest pusty. Należy ustawić klucz kanału w profilu "
-"użytkownika."
-
-#: application/views/components/hamsat/table.php:19
-msgid "No upcoming activations found. Please check back later."
-msgstr "Brak nadchodzących aktywacji. Należy sprawdzić ponownie później."
-
-#: application/views/components/hamsat/table.php:31
-#: application/views/hamsat/index.php:39
-msgid "Gridsquare(s)"
-msgstr "Lokator(y)"
-
-#: application/views/components/hamsat/table.php:32
-#: application/views/hamsat/index.php:40
-msgid "Workable"
-msgstr "Możliwe"
-
-#: application/views/components/hamsat/table.php:134
-msgctxt "Hamsat - Track Satellites"
-msgid "Track"
-msgstr "Śledź"
-
-#: application/views/components/hamsat/table.php:146
-msgid "Sked"
-msgstr "Sked"
-
 #: application/views/components/radio_display_table.php:5
 msgid "Radio Status"
 msgstr "Status radiostacji"
@@ -10369,6 +10287,12 @@ msgstr "Nazwa ADIF zawodów"
 #: application/views/contest_admin/edit.php:52
 msgid "Set to active if to be listed in Contest-list"
 msgstr "Ustaw jako aktywne, aby pojawiło się na liście zawodów"
+
+#: application/views/contestcalendar/index.php:10
+#: application/views/dxcalendar/index.php:3
+#: application/views/hamsat/index.php:13
+msgid "This data comes from"
+msgstr "Dane pochodzą z"
 
 #: application/views/contestcalendar/index.php:15
 msgid "No Contests"
@@ -10795,7 +10719,6 @@ msgstr "Ścieżka"
 #: application/views/search/lotw_unconfirmed_result.php:11
 #: application/views/search/search_result_ajax.php:130
 #: application/views/user/edit.php:632
-#: application/views/view_log/partial/log.php:22
 #: application/views/view_log/partial/log_ajax.php:175
 #: application/views/view_log/qso.php:621
 #: application/views/view_log/qso.php:623
@@ -12377,35 +12300,6 @@ msgstr ""
 msgid "No current streak found!"
 msgstr "Brak aktualnej serii!"
 
-#: application/views/dcl_views/import.php:12
-#: application/views/lotw/import.php:12
-msgid "Import Options"
-msgstr "Opcje wysyłania"
-
-#: application/views/dcl_views/import.php:25
-msgid "Pull DCL data for me"
-msgstr "Pobierz dane DCL"
-
-#: application/views/dcl_views/import.php:36
-msgid "Select callsign to pull DCL confirmations for."
-msgstr "Wybierz znak wywoławczy, aby pobrać dla niego potwierdzenia DCL."
-
-#: application/views/dcl_views/import.php:50
-msgid ""
-"Wavelog will use the DCL Keys stored in your user profile to download a "
-"report from DCL for you. The report Wavelog downloads will have all "
-"confirmations since chosen date, or since your last DCL confirmation "
-"(fetched from your log), up until now."
-msgstr ""
-"Wavelog użyje kluczy DCL zapisanych w profilu użytkownika, aby pobrać raport "
-"z DCL. Raport pobrany przez Wavelog będzie zawierał wszystkie potwierdzenia "
-"od wybranej daty lub od ostatniego potwierdzenia DCL (pobrane z dziennika), "
-"aż do teraz."
-
-#: application/views/dcl_views/import.php:54
-msgid "Import DCL Matches"
-msgstr "Importuj dopasowania DCL"
-
 #: application/views/dcl_views/index.php:8
 msgid "Delete Keys"
 msgstr "Usuwanie kluczy"
@@ -12481,55 +12375,6 @@ msgid "Received an invalid DCL-Key. Please check your DCL-Login, and try again"
 msgstr ""
 "Otrzymano nieprawidłowy klucz DCL. Należy sprawdzić login DCL i spróbować "
 "ponownie"
-
-#: application/views/dcl_views/upload_cert.php:8
-#: application/views/dcl_views/upload_cert.php:33
-#: application/views/lotw_views/upload_cert.php:8
-#: application/views/lotw_views/upload_cert.php:34
-msgid "Upload Logbook of the World .p12 Certificate"
-msgstr "Wyślij certyfikat .p12 Logbook of the World"
-
-#: application/views/dcl_views/upload_cert.php:19
-#: application/views/lotw_views/upload_cert.php:19
-msgid "Export .p12 File Instructions"
-msgstr "Pobierz instrukcje pliku .p12"
-
-#: application/views/dcl_views/upload_cert.php:22
-#: application/views/lotw_views/upload_cert.php:22
-msgid "Use at least version 2.7 of TQSL"
-msgstr "Należy korzystać z ostatniej wersji 2.7 TQSL"
-
-#: application/views/dcl_views/upload_cert.php:23
-#: application/views/lotw_views/upload_cert.php:23
-msgid "Open TQSL and go to the Callsign Certificates Tab"
-msgstr ""
-"Należy otworzyć aplikacje TQSL i przejść do zakładki \"Callsign "
-"Certificates\""
-
-#: application/views/dcl_views/upload_cert.php:24
-#: application/views/lotw_views/upload_cert.php:24
-msgid "Right click on desired Callsign"
-msgstr "Nacisnąć prawym klawiszem myszy na żądanym znaku"
-
-#: application/views/dcl_views/upload_cert.php:25
-#: application/views/lotw_views/upload_cert.php:25
-msgid "Click 'Save Callsign Certificate File'"
-msgstr "Nacisnąć \"Save Callsign Certificate File\""
-
-#: application/views/dcl_views/upload_cert.php:26
-#: application/views/lotw_views/upload_cert.php:26
-msgid "Do not add a password"
-msgstr "Nie dodawaj hasła"
-
-#: application/views/dcl_views/upload_cert.php:27
-#: application/views/lotw_views/upload_cert.php:27
-msgid "Upload File below"
-msgstr "Przesłać plik poniżej"
-
-#: application/views/dcl_views/upload_cert.php:37
-#: application/views/lotw_views/upload_cert.php:38
-msgid "Upload File"
-msgstr "Wyślij plik"
 
 #: application/views/debug/index.php:2
 msgid "Are you sure you want to clear the cache?"
@@ -13665,6 +13510,10 @@ msgstr ""
 msgid "Empty"
 msgstr "Pusta"
 
+#: application/views/hamsat/index.php:6
+msgid "Hamsat - Satellite Rovers"
+msgstr "Hamsat - Satellite Rovers"
+
 #: application/views/hamsat/index.php:10
 msgid "Satellite Rovers"
 msgstr ""
@@ -13681,6 +13530,14 @@ msgstr ""
 #: application/views/hamsat/index.php:27
 msgid "your profile"
 msgstr "twój profil"
+
+#: application/views/hamsat/index.php:39
+msgid "Gridsquare(s)"
+msgstr "Lokator(y)"
+
+#: application/views/hamsat/index.php:40
+msgid "Workable"
+msgstr "Możliwe"
 
 #: application/views/hrdlog/export.php:13 application/views/qrz/export.php:18
 #: application/views/webadif/export.php:13
@@ -13750,7 +13607,6 @@ msgstr "QSO zostały oznaczone jako wyeksportowane do dziennika HRDLog."
 
 #: application/views/interface_assets/footer.php:32
 #: application/views/search/search_result_ajax.php:456
-#: application/views/view_log/partial/log.php:136
 #: application/views/view_log/partial/log_ajax.php:617
 #: application/views/view_log/qso.php:551
 msgid "Edit QSO"
@@ -15017,7 +14873,6 @@ msgid "Continent Check Results"
 msgstr "Wyniki Sprawdzenia Kontynentu"
 
 #: application/views/logbookadvanced/checkresult.php:62
-#: application/views/logbookadvanced/continentdialog.php:2
 msgid ""
 "Update all QSOs with the continent based on the DXCC country of the QSO."
 msgstr ""
@@ -15025,12 +14880,10 @@ msgstr ""
 "danego QSO."
 
 #: application/views/logbookadvanced/checkresult.php:63
-#: application/views/logbookadvanced/continentdialog.php:3
 msgid "This is useful if you have imported QSOs without continent information."
 msgstr "Przydatne, jeśli zaimportowałeś QSO bez informacji o kontynencie."
 
 #: application/views/logbookadvanced/checkresult.php:64
-#: application/views/logbookadvanced/continentdialog.php:4
 msgid ""
 "Update will only set the continent for QSOs where the continent is empty."
 msgstr ""
@@ -16607,21 +16460,15 @@ msgstr "Poprzednia"
 msgid "Next"
 msgstr "Następne"
 
-#: application/views/logbookadvanced/showMissingDxccQsos.php:14
-#, php-format
-msgid "Found %s QSO(s) missing DXCC information."
-msgstr "Znaleziono %s QSO z brakującymi informacjami o DXCC."
-
-#: application/views/logbookadvanced/showMissingDxccQsos.php:47
-#: application/views/logbookadvanced/showStateQsos.php:49
-msgid "No Issues Found"
-msgstr "Nie znaleziono problemów"
-
 #: application/views/logbookadvanced/showStateQsos.php:16
 #, php-format
 msgid "Found %s QSO(s) missing state information for DXCC %s."
 msgstr ""
 "Znaleziono %s QSO z brakującymi informacjami o województwie dla DXCC %s."
+
+#: application/views/logbookadvanced/showStateQsos.php:49
+msgid "No Issues Found"
+msgstr "Nie znaleziono problemów"
 
 #: application/views/logbookadvanced/showUpdateResult.php:22
 msgid "Results for state update:"
@@ -16823,6 +16670,10 @@ msgstr ""
 "Nie zaimportowano danych. Należy sprawdzić wybraną datę. Musi być w "
 "przeszłości!"
 
+#: application/views/lotw/import.php:12
+msgid "Import Options"
+msgstr "Opcje wysyłania"
+
 #: application/views/lotw/import.php:22
 msgid "Upload a File"
 msgstr "Prześlij plik"
@@ -16960,6 +16811,41 @@ msgstr "Należy przesłać certyfikat .p12 aby używać tej funkcji."
 msgid "The next automatic sync with LoTW will happen at: "
 msgstr "Następna automatyczna synchronizacja z LoTW nastąpi: "
 
+#: application/views/lotw_views/upload_cert.php:8
+#: application/views/lotw_views/upload_cert.php:34
+msgid "Upload Logbook of the World .p12 Certificate"
+msgstr "Wyślij certyfikat .p12 Logbook of the World"
+
+#: application/views/lotw_views/upload_cert.php:19
+msgid "Export .p12 File Instructions"
+msgstr "Pobierz instrukcje pliku .p12"
+
+#: application/views/lotw_views/upload_cert.php:22
+msgid "Use at least version 2.7 of TQSL"
+msgstr "Należy korzystać z ostatniej wersji 2.7 TQSL"
+
+#: application/views/lotw_views/upload_cert.php:23
+msgid "Open TQSL and go to the Callsign Certificates Tab"
+msgstr ""
+"Należy otworzyć aplikacje TQSL i przejść do zakładki \"Callsign "
+"Certificates\""
+
+#: application/views/lotw_views/upload_cert.php:24
+msgid "Right click on desired Callsign"
+msgstr "Nacisnąć prawym klawiszem myszy na żądanym znaku"
+
+#: application/views/lotw_views/upload_cert.php:25
+msgid "Click 'Save Callsign Certificate File'"
+msgstr "Nacisnąć \"Save Callsign Certificate File\""
+
+#: application/views/lotw_views/upload_cert.php:26
+msgid "Do not add a password"
+msgstr "Nie dodawaj hasła"
+
+#: application/views/lotw_views/upload_cert.php:27
+msgid "Upload File below"
+msgstr "Przesłać plik poniżej"
+
 #: application/views/lotw_views/upload_cert.php:28
 #, php-format
 msgid ""
@@ -16967,6 +16853,10 @@ msgid ""
 "Wiki"
 msgstr ""
 "Aby uzyskać więcej informacji, odwiedź stronę %sLoTW FAQ%s w Wiki Wavelog"
+
+#: application/views/lotw_views/upload_cert.php:38
+msgid "Upload File"
+msgstr "Wyślij plik"
 
 #: application/views/map/qso_map.php:15
 msgid "Select Country:"
@@ -17340,15 +17230,6 @@ msgstr "Wiki"
 #, php-format
 msgid "URL of the Hams Of Note List. e.g. %s"
 msgstr "Adres URL listy Hams Of Note. np. %s"
-
-#: application/views/options/index.php:6
-msgid ""
-"Wavelog Options are global settings used for all users of the installation, "
-"which are overridden if there's a setting on a user level."
-msgstr ""
-"Opcje Wavelog to ustawienia globalne używane dla wszystkich użytkowników "
-"instalacji, które są nadpisywane, jeśli istnieje ustawienie na poziomie "
-"użytkownika."
 
 #: application/views/options/maptiles.php:13
 #, php-format
@@ -18698,7 +18579,6 @@ msgstr "Wymiana (S)"
 
 #: application/views/qso/edit_ajax.php:714
 #: application/views/search/search_result_ajax.php:488
-#: application/views/view_log/partial/log.php:159
 #: application/views/view_log/partial/log_ajax.php:649
 msgid "Delete QSO"
 msgstr "Usuń QSO"
@@ -19385,47 +19265,40 @@ msgid "Source callbook"
 msgstr "Źródło bazy abonentów"
 
 #: application/views/search/search_result_ajax.php:463
-#: application/views/view_log/partial/log.php:142
 #: application/views/view_log/partial/log_ajax.php:624
 msgid "Mark QSL Sent (Bureau)"
 msgstr "Zaznacz QSL jako wysłaną (Biuro)"
 
 #: application/views/search/search_result_ajax.php:464
-#: application/views/view_log/partial/log.php:143
 #: application/views/view_log/partial/log_ajax.php:625
 msgid "Mark QSL Sent (Direct)"
 msgstr "Zaznacz QSL jako wysłaną (Bezpośrednio)"
 
 #: application/views/search/search_result_ajax.php:471
-#: application/views/view_log/partial/log.php:150
 #: application/views/view_log/partial/log_ajax.php:635
 #: application/views/view_log/qso.php:777
 msgid "Mark QSL Received (Bureau)"
 msgstr "Zaznacz QSL jako odebraną przez (Biuro)"
 
 #: application/views/search/search_result_ajax.php:472
-#: application/views/view_log/partial/log.php:151
 #: application/views/view_log/partial/log_ajax.php:636
 #: application/views/view_log/qso.php:779
 msgid "Mark QSL Received (Direct)"
 msgstr "Zaznacz QSL jako odebraną przez (Bezpośrednio)"
 
 #: application/views/search/search_result_ajax.php:473
-#: application/views/view_log/partial/log.php:152
 #: application/views/view_log/partial/log_ajax.php:626
 #: application/views/view_log/qso.php:787
 msgid "Mark QSL Card Requested (Bureau)"
 msgstr "Zaznacz QSL jako zażądaną (Biuro)"
 
 #: application/views/search/search_result_ajax.php:474
-#: application/views/view_log/partial/log.php:153
 #: application/views/view_log/partial/log_ajax.php:627
 #: application/views/view_log/qso.php:789
 msgid "Mark QSL Card Requested (Direct)"
 msgstr "Zaznacz QSL jako zażądaną (Bezpośrednio)"
 
 #: application/views/search/search_result_ajax.php:475
-#: application/views/view_log/partial/log.php:154
 #: application/views/view_log/partial/log_ajax.php:628
 #: application/views/view_log/qso.php:791
 msgid "Mark QSL Card Not Required"
@@ -22300,6 +22173,62 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#~ msgid ""
+#~ "The backup of your log completed successfully. The output can be found at"
+#~ msgstr ""
+#~ "Kopia zapasowa Twojego logu została wykonana pomyślnie. Wynik można "
+#~ "znaleźć pod adresem"
+
+#~ msgid "Show All Passes"
+#~ msgstr "Pokazuj wszystkie przeloty"
+
+#~ msgid "Private feed key empty. Please set the feed key in your profile."
+#~ msgstr ""
+#~ "Klucz prywatnego kanału jest pusty. Należy ustawić klucz kanału w profilu "
+#~ "użytkownika."
+
+#~ msgid "No upcoming activations found. Please check back later."
+#~ msgstr "Brak nadchodzących aktywacji. Należy sprawdzić ponownie później."
+
+#~ msgctxt "Hamsat - Track Satellites"
+#~ msgid "Track"
+#~ msgstr "Śledź"
+
+#~ msgid "Sked"
+#~ msgstr "Sked"
+
+#~ msgid "Pull DCL data for me"
+#~ msgstr "Pobierz dane DCL"
+
+#~ msgid "Select callsign to pull DCL confirmations for."
+#~ msgstr "Wybierz znak wywoławczy, aby pobrać dla niego potwierdzenia DCL."
+
+#~ msgid ""
+#~ "Wavelog will use the DCL Keys stored in your user profile to download a "
+#~ "report from DCL for you. The report Wavelog downloads will have all "
+#~ "confirmations since chosen date, or since your last DCL confirmation "
+#~ "(fetched from your log), up until now."
+#~ msgstr ""
+#~ "Wavelog użyje kluczy DCL zapisanych w profilu użytkownika, aby pobrać "
+#~ "raport z DCL. Raport pobrany przez Wavelog będzie zawierał wszystkie "
+#~ "potwierdzenia od wybranej daty lub od ostatniego potwierdzenia DCL "
+#~ "(pobrane z dziennika), aż do teraz."
+
+#~ msgid "Import DCL Matches"
+#~ msgstr "Importuj dopasowania DCL"
+
+#, php-format
+#~ msgid "Found %s QSO(s) missing DXCC information."
+#~ msgstr "Znaleziono %s QSO z brakującymi informacjami o DXCC."
+
+#~ msgid ""
+#~ "Wavelog Options are global settings used for all users of the "
+#~ "installation, which are overridden if there's a setting on a user level."
+#~ msgstr ""
+#~ "Opcje Wavelog to ustawienia globalne używane dla wszystkich użytkowników "
+#~ "instalacji, które są nadpisywane, jeśli istnieje ustawienie na poziomie "
+#~ "użytkownika."
 
 #~ msgid "Mark QSOs for a certain QSL Method:"
 #~ msgstr "Oznacz QSO dla danej metody QSL:"
