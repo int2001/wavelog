@@ -35,7 +35,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-15 12:02+0000\n"
+"POT-Creation-Date: 2026-07-15 13:17+0000\n"
 "PO-Revision-Date: 2026-07-13 09:35+0000\n"
 "Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
@@ -164,7 +164,6 @@ msgstr "Tropospheric ducting"
 #: application/controllers/Club.php:131 application/controllers/Club.php:159
 #: application/controllers/Club.php:185 application/controllers/Clublog.php:82
 #: application/controllers/Clublog.php:140
-#: application/controllers/Components.php:12
 #: application/controllers/Contest_admin.php:13
 #: application/controllers/Contestcalendar.php:7
 #: application/controllers/Contesting.php:38
@@ -355,7 +354,7 @@ msgid "ADIF Import / Export"
 msgstr "ADIF 导入/导出"
 
 #: application/controllers/Adif.php:309 application/views/adif/import.php:43
-#: application/views/dcl_views/import.php:3 application/views/lotw/import.php:3
+#: application/views/lotw/import.php:3
 msgid "ADIF Import"
 msgstr "ADIF 导入"
 
@@ -505,7 +504,6 @@ msgstr "DOK"
 #: application/views/logbookadvanced/index.php:372
 #: application/views/logbookadvanced/index.php:1006
 #: application/views/logbookadvanced/qslcarousel.php:35
-#: application/views/logbookadvanced/showMissingDxccQsos.php:25
 #: application/views/logbookadvanced/showStateQsos.php:27
 #: application/views/logbookadvanced/statecheckresult.php:11
 #: application/views/logbookadvanced/useroptions.php:175
@@ -1214,8 +1212,7 @@ msgstr "QSO 天数"
 msgid "DCL Key Import"
 msgstr "DCL密钥导入"
 
-#: application/controllers/Dcl.php:61 application/views/dcl_views/import.php:3
-#: application/views/dcl_views/index.php:3
+#: application/controllers/Dcl.php:61 application/views/dcl_views/index.php:3
 #: application/views/logbookadvanced/index.php:997
 #: application/views/logbookadvanced/useroptions.php:148
 #: application/views/qso/edit_ajax.php:420
@@ -1831,7 +1828,6 @@ msgstr "所有呼号簿的查询均失败或没有结果。"
 #: application/views/bandmap/list.php:603
 #: application/views/bands/bandedges.php:31
 #: application/views/callstats/index.php:54
-#: application/views/components/hamsat/table.php:30
 #: application/views/contesting/logger/components/qso-form.php:150
 #: application/views/contesting/logger/components/radio.php:73
 #: application/views/contesting/manager/export_cbr.php:106
@@ -1860,7 +1856,6 @@ msgstr "所有呼号簿的查询均失败或没有结果。"
 #: application/views/logbookadvanced/mergedialog.php:29
 #: application/views/logbookadvanced/mergedialog.php:52
 #: application/views/logbookadvanced/qslcarousel.php:32
-#: application/views/logbookadvanced/showMissingDxccQsos.php:21
 #: application/views/logbookadvanced/showStateQsos.php:23
 #: application/views/logbookadvanced/useroptions.php:46
 #: application/views/mode/index.php:40
@@ -1895,7 +1890,6 @@ msgstr "所有呼号簿的查询均失败或没有结果。"
 #: application/views/user/edit.php:297 application/views/user/edit.php:320
 #: application/views/user/edit.php:343 application/views/user/edit.php:366
 #: application/views/user/edit.php:390 application/views/usermode/index.php:38
-#: application/views/view_log/partial/log.php:9
 #: application/views/view_log/partial/log_ajax.php:5
 #: application/views/view_log/qso.php:114 application/views/visitor/index.php:6
 #: application/views/visitor/mini.php:185 application/views/widgets/qsos.php:18
@@ -1923,7 +1917,6 @@ msgstr "模式"
 #: application/views/user/edit.php:298 application/views/user/edit.php:321
 #: application/views/user/edit.php:344 application/views/user/edit.php:367
 #: application/views/user/edit.php:391
-#: application/views/view_log/partial/log.php:10
 #: application/views/view_log/partial/log_ajax.php:6
 #: application/views/view_log/qso.php:119 application/views/visitor/index.php:9
 msgid "RST (S)"
@@ -1950,7 +1943,6 @@ msgstr "我收对方"
 #: application/views/user/edit.php:299 application/views/user/edit.php:322
 #: application/views/user/edit.php:345 application/views/user/edit.php:368
 #: application/views/user/edit.php:392
-#: application/views/view_log/partial/log.php:11
 #: application/views/view_log/partial/log_ajax.php:7
 #: application/views/view_log/qso.php:124
 #: application/views/visitor/index.php:12
@@ -1971,7 +1963,6 @@ msgstr "对方收我"
 #: application/views/timeline/index.php:193 application/views/user/edit.php:300
 #: application/views/user/edit.php:323 application/views/user/edit.php:346
 #: application/views/user/edit.php:369 application/views/user/edit.php:393
-#: application/views/view_log/partial/log.php:13
 #: application/views/view_log/partial/log_ajax.php:8
 #: application/views/view_log/qso.php:290
 #: application/views/view_log/qso.php:646
@@ -2023,7 +2014,6 @@ msgstr "IOTA"
 #: application/views/logbookadvanced/index.php:393
 #: application/views/logbookadvanced/index.php:1009
 #: application/views/logbookadvanced/qslcarousel.php:36
-#: application/views/logbookadvanced/showMissingDxccQsos.php:23
 #: application/views/logbookadvanced/showStateQsos.php:25
 #: application/views/logbookadvanced/useroptions.php:181
 #: application/views/qslcard/searchresult.php:18
@@ -2060,7 +2050,6 @@ msgstr "州"
 #: application/views/logbookadvanced/index.php:399
 #: application/views/logbookadvanced/index.php:970
 #: application/views/logbookadvanced/qslcarousel.php:39
-#: application/views/logbookadvanced/showMissingDxccQsos.php:24
 #: application/views/logbookadvanced/showStateQsos.php:26
 #: application/views/logbookadvanced/showUpdateResult.php:44
 #: application/views/logbookadvanced/useroptions.php:85
@@ -2185,7 +2174,6 @@ msgstr "距离"
 #: application/views/logbookadvanced/mergedialog.php:30
 #: application/views/logbookadvanced/mergedialog.php:53
 #: application/views/logbookadvanced/qslcarousel.php:33
-#: application/views/logbookadvanced/showMissingDxccQsos.php:22
 #: application/views/logbookadvanced/showStateQsos.php:24
 #: application/views/logbookadvanced/useroptions.php:64
 #: application/views/oqrs/notinlogform.php:11
@@ -2219,7 +2207,6 @@ msgstr "距离"
 #: application/views/user/edit.php:295 application/views/user/edit.php:318
 #: application/views/user/edit.php:341 application/views/user/edit.php:364
 #: application/views/user/edit.php:388
-#: application/views/view_log/partial/log.php:12
 #: application/views/view_log/partial/log_ajax.php:16
 #: application/views/view_log/qso.php:94 application/views/visitor/index.php:33
 #: application/views/visitor/mini.php:184 application/views/widgets/qsos.php:21
@@ -2331,7 +2318,6 @@ msgstr "快速查找"
 
 #: application/controllers/Lotw.php:63 application/controllers/Lotw.php:94
 #: application/controllers/Lotw.php:133
-#: application/views/dcl_views/upload_cert.php:3
 #: application/views/interface_assets/header.php:566
 #: application/views/lotw/import.php:3
 #: application/views/lotw_views/index.php:19
@@ -2537,7 +2523,6 @@ msgstr "不合法的呼号"
 #: application/views/options/appearance.php:2
 #: application/views/options/dxcluster.php:2
 #: application/views/options/email.php:2 application/views/options/hon.php:2
-#: application/views/options/index.php:2
 #: application/views/options/maptiles.php:2
 #: application/views/options/radios.php:2
 #: application/views/options/version_dialog.php:2
@@ -3156,7 +3141,6 @@ msgstr "修改台站地址： "
 #: application/views/labels/index.php:125
 #: application/views/logbookadvanced/dbtoolsdialog.php:16
 #: application/views/logbookadvanced/edit.php:23
-#: application/views/logbookadvanced/showMissingDxccQsos.php:26
 #: application/views/qslprint/index.php:34 application/views/qso/index.php:137
 #: application/views/qso/index.php:400
 #: application/views/search/search_result_ajax.php:18
@@ -4396,7 +4380,6 @@ msgstr "差异"
 #: application/views/csv/index.php:33 application/views/csv/index.php:44
 #: application/views/csv/index.php:60 application/views/csv/index.php:82
 #: application/views/csv/index.php:94 application/views/dashboard/index.php:666
-#: application/views/dcl_views/import.php:43
 #: application/views/distances/index.php:25
 #: application/views/distances/index.php:40
 #: application/views/distances/index.php:50
@@ -4582,7 +4565,6 @@ msgstr "激活的网格"
 #: application/views/awards/wae/index.php:141
 #: application/views/awards/wpx/index.php:95
 #: application/views/callstats/index.php:26
-#: application/views/components/hamsat/table.php:29
 #: application/views/distancerecords/index.php:18
 #: application/views/distances/index.php:38
 #: application/views/gridmap/index.php:107
@@ -4748,7 +4730,6 @@ msgstr "未找到！"
 #: application/views/calltester/comparison_result.php:132
 #: application/views/calltester/result.php:22
 #: application/views/club/permissions.php:275
-#: application/views/components/hamsat/table.php:27
 #: application/views/contesting/logger/components/qso-form.php:66
 #: application/views/contesting/logger/components/qso-form.php:147
 #: application/views/csv/index.php:23 application/views/dashboard/index.php:343
@@ -4867,7 +4848,6 @@ msgstr ""
 #: application/views/awards/pota/index.php:38
 #: application/views/awards/sota/index.php:37
 #: application/views/awards/wwff/index.php:38
-#: application/views/components/hamsat/table.php:25
 #: application/views/contesting/logger/components/qso-form.php:145
 #: application/views/dashboard/index.php:339
 #: application/views/debug/index.php:799
@@ -4900,7 +4880,6 @@ msgstr ""
 #: application/views/timeline/index.php:305
 #: application/views/timeline/index.php:343
 #: application/views/timeline/index.php:377
-#: application/views/view_log/partial/log.php:4
 #: application/views/view_log/partial/log_ajax.php:143
 #: application/views/visitor/index.php:151
 #: application/views/visitor/mini.php:182 application/views/widgets/qsos.php:16
@@ -4914,7 +4893,6 @@ msgstr "日期"
 #: application/views/awards/sota/index.php:38
 #: application/views/awards/wwff/index.php:39
 #: application/views/bandmap/list.php:142
-#: application/views/components/hamsat/table.php:26
 #: application/views/contesting/logger/components/qso-form.php:146
 #: application/views/contesting/manager/export_cbr.php:158
 #: application/views/dashboard/index.php:341
@@ -4937,7 +4915,6 @@ msgstr "日期"
 #: application/views/statistics/initialresult.php:16
 #: application/views/timeline/index.php:378
 #: application/views/timeplotter/index.php:5
-#: application/views/view_log/partial/log.php:6
 #: application/views/view_log/partial/log_ajax.php:145
 #: application/views/visitor/index.php:154
 msgid "Time"
@@ -4954,13 +4931,11 @@ msgstr "时间"
 #: application/views/eqsl/download.php:38 application/views/eqsl/result.php:35
 #: application/views/logbookadvanced/mergedialog.php:28
 #: application/views/logbookadvanced/mergedialog.php:51
-#: application/views/logbookadvanced/showMissingDxccQsos.php:19
 #: application/views/logbookadvanced/showStateQsos.php:21
 #: application/views/public_search/result.php:14
 #: application/views/qslcard/searchresult.php:8
 #: application/views/qso/components/previous_contacts.php:7
 #: application/views/search/search_result_ajax.php:93
-#: application/views/view_log/partial/log.php:8
 #: application/views/view_log/partial/log_ajax.php:147
 #: application/views/visitor/index.php:156
 #: application/views/widgets/qsos.php:17
@@ -5184,7 +5159,6 @@ msgstr "“全部”仅限绑定到已激活日志簿的台站地址"
 
 #: application/views/adif/import.php:289
 #: application/views/clublog/export.php:73 application/views/csv/index.php:104
-#: application/views/dcl_views/import.php:27
 #: application/views/dxatlas/index.php:103
 #: application/views/hrdlog/export.php:77 application/views/kml/index.php:88
 #: application/views/lotw/import.php:39 application/views/qrz/export.php:78
@@ -7624,7 +7598,6 @@ msgstr "编号"
 #: application/views/logbookadvanced/mergedialog.php:27
 #: application/views/logbookadvanced/mergedialog.php:50
 #: application/views/logbookadvanced/qslcarousel.php:31
-#: application/views/logbookadvanced/showMissingDxccQsos.php:20
 #: application/views/logbookadvanced/showStateQsos.php:22
 #: application/views/logbookadvanced/useroptions.php:22
 #: application/views/qso/components/previous_contacts.php:6
@@ -8160,25 +8133,6 @@ msgstr "WWFF QSO 列表"
 msgid "WWFF Reference"
 msgstr "WWFF 编号"
 
-#: application/views/backup/adif_view.php:7
-msgid ""
-"The backup of your log completed successfully. The output can be found at"
-msgstr "你的日志备份已成功完成。输出结果在"
-
-#: application/views/backup/adif_view.php:9
-#: application/views/backup/notes_view.php:9
-msgid "You could automate this process by making it a cronjob."
-msgstr "你可以通过将其设置为计划任务来自动化此过程。"
-
-#: application/views/backup/adif_view.php:13
-#: application/views/backup/notes_view.php:13
-msgid ""
-"Something went wrong during the backup process. Check that the backup folder "
-"exists and is writeable by your web server user / group."
-msgstr ""
-"备份过程中出现错误。请检查备份文件夹是否存在并且你的 Web 服务器用户/组有写入"
-"权限。"
-
 #: application/views/backup/main.php:17
 msgid ""
 "Some of the data stored in Wavelog can be exported so that you can keep a "
@@ -8202,6 +8156,18 @@ msgstr "备份笔记"
 msgid ""
 "The backup of your notes completed successfully. The output can be found at"
 msgstr "你的笔记备份已成功完成。输出可在以下位置找到"
+
+#: application/views/backup/notes_view.php:9
+msgid "You could automate this process by making it a cronjob."
+msgstr "你可以通过将其设置为计划任务来自动化此过程。"
+
+#: application/views/backup/notes_view.php:13
+msgid ""
+"Something went wrong during the backup process. Check that the backup folder "
+"exists and is writeable by your web server user / group."
+msgstr ""
+"备份过程中出现错误。请检查备份文件夹是否存在并且你的 Web 服务器用户/组有写入"
+"权限。"
 
 #: application/views/bandmap/list.php:16
 msgid "Click to prepare logging."
@@ -8641,7 +8607,6 @@ msgid "Spotter"
 msgstr "Spotter"
 
 #: application/views/bandmap/list.php:140
-#: application/views/components/hamsat/table.php:28
 #: application/views/contesting/manager/index.php:34
 #: application/views/hamsat/index.php:36
 #: application/views/logbookadvanced/attachContest.php:16
@@ -9961,49 +9926,6 @@ msgstr "请等待 %s 秒再重新开启 DX 瀑布图。"
 msgid "DX Waterfall Help"
 msgstr "DX 瀑布帮助"
 
-#: application/views/components/hamsat/table.php:3
-#: application/views/hamsat/index.php:6
-msgid "Hamsat - Satellite Rovers"
-msgstr "Hamsat - 卫星漫游"
-
-#: application/views/components/hamsat/table.php:4
-#: application/views/contestcalendar/index.php:10
-#: application/views/dxcalendar/index.php:3
-#: application/views/hamsat/index.php:13
-msgid "This data comes from"
-msgstr "该数据来自"
-
-#: application/views/components/hamsat/table.php:11
-msgid "Show All Passes"
-msgstr "查看所有过境"
-
-#: application/views/components/hamsat/table.php:14
-msgid "Private feed key empty. Please set the feed key in your profile."
-msgstr "Private Feed Key 为空。请在个人资料中设置。"
-
-#: application/views/components/hamsat/table.php:19
-msgid "No upcoming activations found. Please check back later."
-msgstr "未找到即将进行的激活。 请稍后再回来查看。"
-
-#: application/views/components/hamsat/table.php:31
-#: application/views/hamsat/index.php:39
-msgid "Gridsquare(s)"
-msgstr "网格"
-
-#: application/views/components/hamsat/table.php:32
-#: application/views/hamsat/index.php:40
-msgid "Workable"
-msgstr "可通联的"
-
-#: application/views/components/hamsat/table.php:134
-msgctxt "Hamsat - Track Satellites"
-msgid "Track"
-msgstr "追踪"
-
-#: application/views/components/hamsat/table.php:146
-msgid "Sked"
-msgstr "计划表"
-
 #: application/views/components/radio_display_table.php:5
 msgid "Radio Status"
 msgstr "电台状态"
@@ -10119,6 +10041,12 @@ msgstr "竞赛 ADIF 名称"
 #: application/views/contest_admin/edit.php:52
 msgid "Set to active if to be listed in Contest-list"
 msgstr "如果要列在竞赛列表中，则设置为启用"
+
+#: application/views/contestcalendar/index.php:10
+#: application/views/dxcalendar/index.php:3
+#: application/views/hamsat/index.php:13
+msgid "This data comes from"
+msgstr "该数据来自"
 
 #: application/views/contestcalendar/index.php:15
 msgid "No Contests"
@@ -10545,7 +10473,6 @@ msgstr "卫星路径"
 #: application/views/search/lotw_unconfirmed_result.php:11
 #: application/views/search/search_result_ajax.php:130
 #: application/views/user/edit.php:632
-#: application/views/view_log/partial/log.php:22
 #: application/views/view_log/partial/log_ajax.php:175
 #: application/views/view_log/qso.php:621
 #: application/views/view_log/qso.php:623
@@ -12100,34 +12027,6 @@ msgstr "如果你今天进行 QSO，连续天数将会增加，否则当前的�
 msgid "No current streak found!"
 msgstr "没有找到连续的天数！"
 
-#: application/views/dcl_views/import.php:12
-#: application/views/lotw/import.php:12
-msgid "Import Options"
-msgstr "导入选项"
-
-#: application/views/dcl_views/import.php:25
-msgid "Pull DCL data for me"
-msgstr "为我拉取 DCL 数据"
-
-#: application/views/dcl_views/import.php:36
-msgid "Select callsign to pull DCL confirmations for."
-msgstr "选择呼号以拉取 DCL 确认。"
-
-#: application/views/dcl_views/import.php:50
-msgid ""
-"Wavelog will use the DCL Keys stored in your user profile to download a "
-"report from DCL for you. The report Wavelog downloads will have all "
-"confirmations since chosen date, or since your last DCL confirmation "
-"(fetched from your log), up until now."
-msgstr ""
-"Wavelog 将使用存储在你用户配置文件中的 DCL 密钥为你从 DCL 下载报告。Wavelog "
-"下载的报告将包含自选定日期以来或自你上次 DCL 确认（从你的日志中获取）到当前的"
-"所有确认。"
-
-#: application/views/dcl_views/import.php:54
-msgid "Import DCL Matches"
-msgstr "导入 DCL 匹配"
-
 #: application/views/dcl_views/index.php:8
 msgid "Delete Keys"
 msgstr "删除密钥"
@@ -12200,53 +12099,6 @@ msgstr "呼叫记录"
 #: application/views/dcl_views/key_import.php:63
 msgid "Received an invalid DCL-Key. Please check your DCL-Login, and try again"
 msgstr "获取到无效的 DCL 密钥。请检查你的 DCL 登录，然后重试"
-
-#: application/views/dcl_views/upload_cert.php:8
-#: application/views/dcl_views/upload_cert.php:33
-#: application/views/lotw_views/upload_cert.php:8
-#: application/views/lotw_views/upload_cert.php:34
-msgid "Upload Logbook of the World .p12 Certificate"
-msgstr "上传 LoTW .p12 证书"
-
-#: application/views/dcl_views/upload_cert.php:19
-#: application/views/lotw_views/upload_cert.php:19
-msgid "Export .p12 File Instructions"
-msgstr "导出 .p12 文件流程"
-
-#: application/views/dcl_views/upload_cert.php:22
-#: application/views/lotw_views/upload_cert.php:22
-msgid "Use at least version 2.7 of TQSL"
-msgstr "TQSL 版本最低为 2.7"
-
-#: application/views/dcl_views/upload_cert.php:23
-#: application/views/lotw_views/upload_cert.php:23
-msgid "Open TQSL and go to the Callsign Certificates Tab"
-msgstr "打开 TQSL，选择 呼号证书 选项卡"
-
-#: application/views/dcl_views/upload_cert.php:24
-#: application/views/lotw_views/upload_cert.php:24
-msgid "Right click on desired Callsign"
-msgstr "右键选择目标呼号"
-
-#: application/views/dcl_views/upload_cert.php:25
-#: application/views/lotw_views/upload_cert.php:25
-msgid "Click 'Save Callsign Certificate File'"
-msgstr "点击“保存呼号证书到文件…”"
-
-#: application/views/dcl_views/upload_cert.php:26
-#: application/views/lotw_views/upload_cert.php:26
-msgid "Do not add a password"
-msgstr "保存过程中不要创建密码"
-
-#: application/views/dcl_views/upload_cert.php:27
-#: application/views/lotw_views/upload_cert.php:27
-msgid "Upload File below"
-msgstr "在下面上传呼号证书文件"
-
-#: application/views/dcl_views/upload_cert.php:37
-#: application/views/lotw_views/upload_cert.php:38
-msgid "Upload File"
-msgstr "上传文件"
 
 #: application/views/debug/index.php:2
 msgid "Are you sure you want to clear the cache?"
@@ -13348,6 +13200,10 @@ msgstr "查看已通联 / 已确认网格地图"
 msgid "Empty"
 msgstr "空"
 
+#: application/views/hamsat/index.php:6
+msgid "Hamsat - Satellite Rovers"
+msgstr "Hamsat - 卫星漫游"
+
 #: application/views/hamsat/index.php:10
 msgid "Satellite Rovers"
 msgstr "卫星漫游者"
@@ -13362,6 +13218,14 @@ msgstr "筛选可通联的过境必须提供 Private Feed Key，请在 %s 设置
 #: application/views/hamsat/index.php:27
 msgid "your profile"
 msgstr "你的个人资料"
+
+#: application/views/hamsat/index.php:39
+msgid "Gridsquare(s)"
+msgstr "网格"
+
+#: application/views/hamsat/index.php:40
+msgid "Workable"
+msgstr "可通联的"
 
 #: application/views/hrdlog/export.php:13 application/views/qrz/export.php:18
 #: application/views/webadif/export.php:13
@@ -13425,7 +13289,6 @@ msgstr "QSO 已标记为导出至 HRDLog Logbook。"
 
 #: application/views/interface_assets/footer.php:32
 #: application/views/search/search_result_ajax.php:456
-#: application/views/view_log/partial/log.php:136
 #: application/views/view_log/partial/log_ajax.php:617
 #: application/views/view_log/qso.php:551
 msgid "Edit QSO"
@@ -14666,18 +14529,15 @@ msgid "Continent Check Results"
 msgstr "大洲检查结果"
 
 #: application/views/logbookadvanced/checkresult.php:62
-#: application/views/logbookadvanced/continentdialog.php:2
 msgid ""
 "Update all QSOs with the continent based on the DXCC country of the QSO."
 msgstr "根据通联的 DXCC 国家更新所有通联的洲。"
 
 #: application/views/logbookadvanced/checkresult.php:63
-#: application/views/logbookadvanced/continentdialog.php:3
 msgid "This is useful if you have imported QSOs without continent information."
 msgstr "如果你导入的 QSO 没有大洲信息，这将很有用。"
 
 #: application/views/logbookadvanced/checkresult.php:64
-#: application/views/logbookadvanced/continentdialog.php:4
 msgid ""
 "Update will only set the continent for QSOs where the continent is empty."
 msgstr "只会为空白大洲的 QSO 更新设置大洲。"
@@ -16236,20 +16096,14 @@ msgstr "前一项"
 msgid "Next"
 msgstr "后一项"
 
-#: application/views/logbookadvanced/showMissingDxccQsos.php:14
-#, php-format
-msgid "Found %s QSO(s) missing DXCC information."
-msgstr "发现 %s QSO 缺少 DXCC 信息。"
-
-#: application/views/logbookadvanced/showMissingDxccQsos.php:47
-#: application/views/logbookadvanced/showStateQsos.php:49
-msgid "No Issues Found"
-msgstr "未发现问题"
-
 #: application/views/logbookadvanced/showStateQsos.php:16
 #, php-format
 msgid "Found %s QSO(s) missing state information for DXCC %s."
 msgstr "发现%s QSO(s) 缺少 DXCC %s 的状态信息。"
+
+#: application/views/logbookadvanced/showStateQsos.php:49
+msgid "No Issues Found"
+msgstr "未发现问题"
 
 #: application/views/logbookadvanced/showUpdateResult.php:22
 msgid "Results for state update:"
@@ -16438,6 +16292,10 @@ msgstr "此网格存在在下列 DXCC："
 msgid "No data imported. please check selected date. Must be in the past!"
 msgstr "未导入数据，请检查选择的日期！"
 
+#: application/views/lotw/import.php:12
+msgid "Import Options"
+msgstr "导入选项"
+
 #: application/views/lotw/import.php:22
 msgid "Upload a File"
 msgstr "上传文件"
@@ -16572,12 +16430,49 @@ msgstr "你需要上传 LoTW p12 证书以使用该功能。"
 msgid "The next automatic sync with LoTW will happen at: "
 msgstr "LoTW 下次自动同步时间： "
 
+#: application/views/lotw_views/upload_cert.php:8
+#: application/views/lotw_views/upload_cert.php:34
+msgid "Upload Logbook of the World .p12 Certificate"
+msgstr "上传 LoTW .p12 证书"
+
+#: application/views/lotw_views/upload_cert.php:19
+msgid "Export .p12 File Instructions"
+msgstr "导出 .p12 文件流程"
+
+#: application/views/lotw_views/upload_cert.php:22
+msgid "Use at least version 2.7 of TQSL"
+msgstr "TQSL 版本最低为 2.7"
+
+#: application/views/lotw_views/upload_cert.php:23
+msgid "Open TQSL and go to the Callsign Certificates Tab"
+msgstr "打开 TQSL，选择 呼号证书 选项卡"
+
+#: application/views/lotw_views/upload_cert.php:24
+msgid "Right click on desired Callsign"
+msgstr "右键选择目标呼号"
+
+#: application/views/lotw_views/upload_cert.php:25
+msgid "Click 'Save Callsign Certificate File'"
+msgstr "点击“保存呼号证书到文件…”"
+
+#: application/views/lotw_views/upload_cert.php:26
+msgid "Do not add a password"
+msgstr "保存过程中不要创建密码"
+
+#: application/views/lotw_views/upload_cert.php:27
+msgid "Upload File below"
+msgstr "在下面上传呼号证书文件"
+
 #: application/views/lotw_views/upload_cert.php:28
 #, php-format
 msgid ""
 "For further information please visit the %sLoTW FAQ page%s in the Wavelog "
 "Wiki"
 msgstr "如需了解更多信息，请访问 Wavelog Wiki 中的 %sLoTW FAQ 页面%s"
+
+#: application/views/lotw_views/upload_cert.php:38
+msgid "Upload File"
+msgstr "上传文件"
 
 #: application/views/map/qso_map.php:15
 msgid "Select Country:"
@@ -16931,12 +16826,6 @@ msgstr "Wiki"
 #, php-format
 msgid "URL of the Hams Of Note List. e.g. %s"
 msgstr "Hams Of Note 的列表地址。例如 %s"
-
-#: application/views/options/index.php:6
-msgid ""
-"Wavelog Options are global settings used for all users of the installation, "
-"which are overridden if there's a setting on a user level."
-msgstr "本设置是针对所有用户的全局设置，会覆盖对于单个用户的设置。"
 
 #: application/views/options/maptiles.php:13
 #, php-format
@@ -18248,7 +18137,6 @@ msgstr "交换报告（S）"
 
 #: application/views/qso/edit_ajax.php:714
 #: application/views/search/search_result_ajax.php:488
-#: application/views/view_log/partial/log.php:159
 #: application/views/view_log/partial/log_ajax.php:649
 msgid "Delete QSO"
 msgstr "删除 QSO"
@@ -18917,47 +18805,40 @@ msgid "Source callbook"
 msgstr "源呼号簿"
 
 #: application/views/search/search_result_ajax.php:463
-#: application/views/view_log/partial/log.php:142
 #: application/views/view_log/partial/log_ajax.php:624
 msgid "Mark QSL Sent (Bureau)"
 msgstr "标记 已发送卡片(卡片局)"
 
 #: application/views/search/search_result_ajax.php:464
-#: application/views/view_log/partial/log.php:143
 #: application/views/view_log/partial/log_ajax.php:625
 msgid "Mark QSL Sent (Direct)"
 msgstr "标记 已发送卡片(直邮)"
 
 #: application/views/search/search_result_ajax.php:471
-#: application/views/view_log/partial/log.php:150
 #: application/views/view_log/partial/log_ajax.php:635
 #: application/views/view_log/qso.php:777
 msgid "Mark QSL Received (Bureau)"
 msgstr "标记 已收到卡片(卡片局)"
 
 #: application/views/search/search_result_ajax.php:472
-#: application/views/view_log/partial/log.php:151
 #: application/views/view_log/partial/log_ajax.php:636
 #: application/views/view_log/qso.php:779
 msgid "Mark QSL Received (Direct)"
 msgstr "标记 已收到卡片(直邮)"
 
 #: application/views/search/search_result_ajax.php:473
-#: application/views/view_log/partial/log.php:152
 #: application/views/view_log/partial/log_ajax.php:626
 #: application/views/view_log/qso.php:787
 msgid "Mark QSL Card Requested (Bureau)"
 msgstr "标记 被请求发送卡片(卡片局)"
 
 #: application/views/search/search_result_ajax.php:474
-#: application/views/view_log/partial/log.php:153
 #: application/views/view_log/partial/log_ajax.php:627
 #: application/views/view_log/qso.php:789
 msgid "Mark QSL Card Requested (Direct)"
 msgstr "标记 被请求发送卡片(直邮)"
 
 #: application/views/search/search_result_ajax.php:475
-#: application/views/view_log/partial/log.php:154
 #: application/views/view_log/partial/log_ajax.php:628
 #: application/views/view_log/qso.php:791
 msgid "Mark QSL Card Not Required"
@@ -21677,6 +21558,54 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#~ msgid ""
+#~ "The backup of your log completed successfully. The output can be found at"
+#~ msgstr "你的日志备份已成功完成。输出结果在"
+
+#~ msgid "Show All Passes"
+#~ msgstr "查看所有过境"
+
+#~ msgid "Private feed key empty. Please set the feed key in your profile."
+#~ msgstr "Private Feed Key 为空。请在个人资料中设置。"
+
+#~ msgid "No upcoming activations found. Please check back later."
+#~ msgstr "未找到即将进行的激活。 请稍后再回来查看。"
+
+#~ msgctxt "Hamsat - Track Satellites"
+#~ msgid "Track"
+#~ msgstr "追踪"
+
+#~ msgid "Sked"
+#~ msgstr "计划表"
+
+#~ msgid "Pull DCL data for me"
+#~ msgstr "为我拉取 DCL 数据"
+
+#~ msgid "Select callsign to pull DCL confirmations for."
+#~ msgstr "选择呼号以拉取 DCL 确认。"
+
+#~ msgid ""
+#~ "Wavelog will use the DCL Keys stored in your user profile to download a "
+#~ "report from DCL for you. The report Wavelog downloads will have all "
+#~ "confirmations since chosen date, or since your last DCL confirmation "
+#~ "(fetched from your log), up until now."
+#~ msgstr ""
+#~ "Wavelog 将使用存储在你用户配置文件中的 DCL 密钥为你从 DCL 下载报告。"
+#~ "Wavelog 下载的报告将包含自选定日期以来或自你上次 DCL 确认（从你的日志中获"
+#~ "取）到当前的所有确认。"
+
+#~ msgid "Import DCL Matches"
+#~ msgstr "导入 DCL 匹配"
+
+#, php-format
+#~ msgid "Found %s QSO(s) missing DXCC information."
+#~ msgstr "发现 %s QSO 缺少 DXCC 信息。"
+
+#~ msgid ""
+#~ "Wavelog Options are global settings used for all users of the "
+#~ "installation, which are overridden if there's a setting on a user level."
+#~ msgstr "本设置是针对所有用户的全局设置，会覆盖对于单个用户的设置。"
 
 #~ msgid "Available"
 #~ msgstr "可用"
