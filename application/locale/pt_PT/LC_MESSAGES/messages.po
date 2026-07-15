@@ -335,37 +335,39 @@ msgstr "Importação / Exportação ADIF"
 msgid "ADIF Import"
 msgstr "Importação ADIF"
 
-#: application/controllers/Adif.php:365
+#: application/controllers/Adif.php:365 application/controllers/Adif.php:366
 msgid "Unsupported Filetype"
 msgstr "Tipo de ficheiro não suportado"
 
 #: application/controllers/Adif.php:446
 #: application/views/adif/import_failed.php:12
+#: application/controllers/Adif.php:447
 msgid "ADIF Import failed!"
 msgstr "Falha na importação do ADIF!"
 
-#: application/controllers/Adif.php:460
+#: application/controllers/Adif.php:460 application/controllers/Adif.php:461
 msgid "Station Profile not valid for User"
 msgstr "Perfil da estação não é válido para o utilizador"
 
 #: application/controllers/Adif.php:470
 #: application/views/adif/import_success.php:12
+#: application/controllers/Adif.php:471
 msgid "ADIF Imported"
 msgstr "ADIF Importado"
 
-#: application/controllers/Adif.php:484
+#: application/controllers/Adif.php:484 application/controllers/Adif.php:485
 msgid "DCL Import"
 msgstr "Importação DCL"
 
-#: application/controllers/Adif.php:545
+#: application/controllers/Adif.php:545 application/controllers/Adif.php:551
 msgid "DCL Data Imported"
 msgstr "Dados DCL importados"
 
-#: application/controllers/Adif.php:559
+#: application/controllers/Adif.php:559 application/controllers/Adif.php:565
 msgid "POTA Import"
 msgstr "Importação POTA"
 
-#: application/controllers/Adif.php:619
+#: application/controllers/Adif.php:619 application/controllers/Adif.php:630
 msgid "POTA Data Imported"
 msgstr "Dados POTA importados"
 
@@ -805,10 +807,12 @@ msgid "DXCluster"
 msgstr "DXCluster"
 
 #: application/controllers/Cabrillo.php:20
+#: application/controllers/Cabrillo.php:26
 msgid "Cabrillo Import"
 msgstr "Importar Cabrillo"
 
 #: application/controllers/Cabrillo.php:119
+#: application/controllers/Cabrillo.php:125
 #, php-format
 msgid ""
 "QSO %d not found or more than 1 QSO found that match the criteria of the CBR "
@@ -818,6 +822,7 @@ msgstr ""
 "aos critérios do arquivo CBR. A ignorar como medida de segurança."
 
 #: application/controllers/Cabrillo.php:179
+#: application/controllers/Cabrillo.php:185
 msgid "CBR Data Imported"
 msgstr "Dados CBR Importados"
 
@@ -2811,8 +2816,8 @@ msgid ""
 "Please compare your current config.php with the latest config.sample.php and "
 "update accordingly."
 msgstr ""
-"Por favor, compare o seu atual config.php com o mais recente config.sample."
-"php e atualize em conformidade."
+"Por favor, compare o seu atual config.php com o mais recente "
+"config.sample.php e atualize em conformidade."
 
 #: application/controllers/Qslpostcard.php:34
 #: application/views/interface_assets/header.php:560
@@ -8345,8 +8350,8 @@ msgid ""
 "and STATE (Must contain a valid U.S. state abbreviation!)"
 msgstr ""
 "Campos considerados para este diploma: DXCC (Deve ser um dos E.U.A., Alasca "
-"ou Havai) e ESTADO (Deve conter uma abreviatura válida de um estado dos E.U."
-"A.!)"
+"ou Havai) e ESTADO (Deve conter uma abreviatura válida de um estado dos "
+"E.U.A.!)"
 
 #: application/views/awards/was/index.php:55
 msgid "Show WAS Map"
@@ -14178,8 +14183,8 @@ msgstr "Formatação de quadrícula"
 msgid ""
 "Enter multiple (4-digit) grids separated with commas. For example: IO77,IO78"
 msgstr ""
-"Digite várias grelhas (4 dígitos) separadas por vírgulas. Por exemplo: IO77,"
-"IO78"
+"Digite várias grelhas (4 dígitos) separadas por vírgulas. Por exemplo: "
+"IO77,IO78"
 
 #: application/views/interface_assets/footer.php:118
 msgid "live"
@@ -17453,8 +17458,8 @@ msgid ""
 "The hostname of the mail server, e.g. 'mail.example.com' (without 'ssl://' "
 "or 'tls://')"
 msgstr ""
-"O nome do anfitrião do servidor de correio, por exemplo, “mail.example."
-"com” (sem 'ssl://' ou 'tls://')"
+"O nome do anfitrião do servidor de correio, por exemplo, “mail.example.com” "
+"(sem 'ssl://' ou 'tls://')"
 
 #: application/views/options/email.php:54
 msgid "SMTP Port"
@@ -20843,8 +20848,9 @@ msgid ""
 "Create a new folder in 'assets/css/' and upload a 'bootstrap.min.css' file "
 "which contains basic styling rules. We use the themes from %s"
 msgstr ""
-"Crie uma nova pasta em 'assets/css/' e carregue um ficheiro 'bootstrap.min."
-"css' que contém regras de estilo básicas. Utilizamos os temas de %s"
+"Crie uma nova pasta em 'assets/css/' e carregue um ficheiro "
+"'bootstrap.min.css' que contém regras de estilo básicas. Utilizamos os temas "
+"de %s"
 
 #: application/views/themes/index.php:50
 msgid "2. Step"
@@ -21183,8 +21189,8 @@ msgid ""
 "Show profile picture of QSO partner from qrz.com/hamqth.com profile in the "
 "log QSO section."
 msgstr ""
-"Mostrar a imagem de perfil do parceiro de contacto do perfil QRZ.com/HamQTH."
-"com na secção de registo de contacto."
+"Mostrar a imagem de perfil do parceiro de contacto do perfil QRZ.com/"
+"HamQTH.com na secção de registo de contacto."
 
 #: application/views/user/edit.php:466
 msgid ""

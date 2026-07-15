@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-13 07:17+0000\n"
+"POT-Creation-Date: 2026-07-15 04:34+0000\n"
 "PO-Revision-Date: 2026-06-27 14:16+0000\n"
 "Last-Translator: PE1PQX <Andre@pe1pqx.eu>\n"
 "Language-Team: Dutch <https://translate.wavelog.org/projects/wavelog/main-"
@@ -334,37 +334,37 @@ msgstr "ADIF Import / Export"
 msgid "ADIF Import"
 msgstr "ADIF Import"
 
-#: application/controllers/Adif.php:365
+#: application/controllers/Adif.php:366
 msgid "Unsupported Filetype"
 msgstr "Bestandstype niet ondersteund"
 
-#: application/controllers/Adif.php:446
+#: application/controllers/Adif.php:447
 #: application/views/adif/import_failed.php:12
 msgid "ADIF Import failed!"
 msgstr "ADIF importeren gefaald!"
 
-#: application/controllers/Adif.php:460
+#: application/controllers/Adif.php:461
 msgid "Station Profile not valid for User"
 msgstr "Stations profiel niet geldig voor gebruiker"
 
-#: application/controllers/Adif.php:470
+#: application/controllers/Adif.php:471
 #: application/views/adif/import_success.php:12
 msgid "ADIF Imported"
 msgstr "ADIF geimporteerd"
 
-#: application/controllers/Adif.php:484
+#: application/controllers/Adif.php:485
 msgid "DCL Import"
 msgstr "DCL import"
 
-#: application/controllers/Adif.php:545
+#: application/controllers/Adif.php:551
 msgid "DCL Data Imported"
 msgstr "DCL Data geimporteerd"
 
-#: application/controllers/Adif.php:559
+#: application/controllers/Adif.php:565
 msgid "POTA Import"
 msgstr "POTA importeren"
 
-#: application/controllers/Adif.php:619
+#: application/controllers/Adif.php:630
 msgid "POTA Data Imported"
 msgstr "POTA-gegevens geïmporteerd"
 
@@ -803,11 +803,11 @@ msgstr "Band bewerken"
 msgid "DXCluster"
 msgstr "DX-Cluster"
 
-#: application/controllers/Cabrillo.php:20
+#: application/controllers/Cabrillo.php:26
 msgid "Cabrillo Import"
 msgstr "Cabrillo importeren"
 
-#: application/controllers/Cabrillo.php:119
+#: application/controllers/Cabrillo.php:125
 #, php-format
 msgid ""
 "QSO %d not found or more than 1 QSO found that match the criteria of the CBR "
@@ -816,7 +816,7 @@ msgstr ""
 "QSO %d niet gevonden of meer dan 1 QSO gevonden die aan de criteria van het "
 "CBR-bestand voldoen. Wordt overgeslagen als veiligheidsmaatregel."
 
-#: application/controllers/Cabrillo.php:179
+#: application/controllers/Cabrillo.php:185
 msgid "CBR Data Imported"
 msgstr "CBR-gegevens geïmporteerd"
 

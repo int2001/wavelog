@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-13 07:17+0000\n"
+"POT-Creation-Date: 2026-07-15 04:34+0000\n"
 "PO-Revision-Date: 2026-03-21 17:42+0000\n"
 "Last-Translator: Dariusz Koryto <dariusz@koryto.eu>\n"
 "Language-Team: Serbian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -334,37 +334,37 @@ msgstr "ADIF uvoz/izvoz"
 msgid "ADIF Import"
 msgstr "Uvoz ADIF"
 
-#: application/controllers/Adif.php:365
+#: application/controllers/Adif.php:366
 msgid "Unsupported Filetype"
 msgstr "Nepodržana vrsta datoteke"
 
-#: application/controllers/Adif.php:446
+#: application/controllers/Adif.php:447
 #: application/views/adif/import_failed.php:12
 msgid "ADIF Import failed!"
 msgstr "Uvoz ADIF podataka nije uspelo!"
 
-#: application/controllers/Adif.php:460
+#: application/controllers/Adif.php:461
 msgid "Station Profile not valid for User"
 msgstr "Profil stanice nije validan za ovog korisnika"
 
-#: application/controllers/Adif.php:470
+#: application/controllers/Adif.php:471
 #: application/views/adif/import_success.php:12
 msgid "ADIF Imported"
 msgstr "ADIF uvezen"
 
-#: application/controllers/Adif.php:484
+#: application/controllers/Adif.php:485
 msgid "DCL Import"
 msgstr "Uvoz DCL"
 
-#: application/controllers/Adif.php:545
+#: application/controllers/Adif.php:551
 msgid "DCL Data Imported"
 msgstr "DCL podaci uvezeni"
 
-#: application/controllers/Adif.php:559
+#: application/controllers/Adif.php:565
 msgid "POTA Import"
 msgstr "Увоз POTA"
 
-#: application/controllers/Adif.php:619
+#: application/controllers/Adif.php:630
 msgid "POTA Data Imported"
 msgstr "POTA подаци увезени"
 
@@ -803,18 +803,18 @@ msgstr "Uredi opseg"
 msgid "DXCluster"
 msgstr "DX klaster"
 
-#: application/controllers/Cabrillo.php:20
+#: application/controllers/Cabrillo.php:26
 msgid "Cabrillo Import"
 msgstr "Увоз Cabrillo"
 
-#: application/controllers/Cabrillo.php:119
+#: application/controllers/Cabrillo.php:125
 #, php-format
 msgid ""
 "QSO %d not found or more than 1 QSO found that match the criteria of the CBR "
 "file. Skipping as a safety measure."
 msgstr ""
 
-#: application/controllers/Cabrillo.php:179
+#: application/controllers/Cabrillo.php:185
 msgid "CBR Data Imported"
 msgstr "CBR подаци увезени"
 

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-13 07:17+0000\n"
+"POT-Creation-Date: 2026-07-15 04:34+0000\n"
 "PO-Revision-Date: 2025-11-28 09:48+0000\n"
 "Last-Translator: Mathias Regner <mabregner@gmail.com>\n"
 "Language-Team: Hungarian <https://translate.wavelog.org/projects/wavelog/"
@@ -331,37 +331,37 @@ msgstr "ADIF import / export"
 msgid "ADIF Import"
 msgstr "ADIF import"
 
-#: application/controllers/Adif.php:365
+#: application/controllers/Adif.php:366
 msgid "Unsupported Filetype"
 msgstr "Nem támogatott fájltípus"
 
-#: application/controllers/Adif.php:446
+#: application/controllers/Adif.php:447
 #: application/views/adif/import_failed.php:12
 msgid "ADIF Import failed!"
 msgstr "ADIF importálás sikertelen!"
 
-#: application/controllers/Adif.php:460
+#: application/controllers/Adif.php:461
 msgid "Station Profile not valid for User"
 msgstr "Az állomásprofil nem érvényes a felhasználó számára"
 
-#: application/controllers/Adif.php:470
+#: application/controllers/Adif.php:471
 #: application/views/adif/import_success.php:12
 msgid "ADIF Imported"
 msgstr "ADIF importálva"
 
-#: application/controllers/Adif.php:484
+#: application/controllers/Adif.php:485
 msgid "DCL Import"
 msgstr "DCL importálás"
 
-#: application/controllers/Adif.php:545
+#: application/controllers/Adif.php:551
 msgid "DCL Data Imported"
 msgstr "DCL-adatok importálva"
 
-#: application/controllers/Adif.php:559
+#: application/controllers/Adif.php:565
 msgid "POTA Import"
 msgstr "POTA adatok importálása"
 
-#: application/controllers/Adif.php:619
+#: application/controllers/Adif.php:630
 msgid "POTA Data Imported"
 msgstr "POTA adatok importálva"
 
@@ -800,11 +800,11 @@ msgstr "Sáv szerkesztése"
 msgid "DXCluster"
 msgstr "DXCluster"
 
-#: application/controllers/Cabrillo.php:20
+#: application/controllers/Cabrillo.php:26
 msgid "Cabrillo Import"
 msgstr "Cabrillo importálás"
 
-#: application/controllers/Cabrillo.php:119
+#: application/controllers/Cabrillo.php:125
 #, php-format
 msgid ""
 "QSO %d not found or more than 1 QSO found that match the criteria of the CBR "
@@ -813,7 +813,7 @@ msgstr ""
 "QSO %d nem található, vagy több mint 1 QSO-t találtak, amelyek megfelelnek a "
 "CBR fájl kritériumainak. Biztonsági okokból kihagyás."
 
-#: application/controllers/Cabrillo.php:179
+#: application/controllers/Cabrillo.php:185
 msgid "CBR Data Imported"
 msgstr "CBR adatok importálva"
 
