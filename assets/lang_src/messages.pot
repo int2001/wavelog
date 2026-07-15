@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-15 04:34+0000\n"
+"POT-Creation-Date: 2026-07-15 12:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -186,11 +186,11 @@ msgstr ""
 #: application/controllers/Qslpostcard.php:15
 #: application/controllers/Qslprint.php:22
 #: application/controllers/Qslprint.php:156 application/controllers/Qso.php:7
-#: application/controllers/Qso.php:20 application/controllers/Qso.php:325
-#: application/controllers/Qso.php:491 application/controllers/Qso.php:513
-#: application/controllers/Qso.php:535 application/controllers/Qso.php:839
-#: application/controllers/Radio.php:39 application/controllers/Radio.php:209
-#: application/controllers/Radio.php:234 application/controllers/Radio.php:249
+#: application/controllers/Qso.php:20 application/controllers/Qso.php:460
+#: application/controllers/Qso.php:482 application/controllers/Qso.php:504
+#: application/controllers/Qso.php:808 application/controllers/Radio.php:39
+#: application/controllers/Radio.php:209 application/controllers/Radio.php:234
+#: application/controllers/Radio.php:249
 #: application/controllers/Satellite.php:12
 #: application/controllers/Satellite.php:16
 #: application/controllers/Satellite.php:47
@@ -384,7 +384,7 @@ msgid "API Key %s description has been updated."
 msgstr ""
 
 #: application/controllers/Api.php:109 application/controllers/Api.php:143
-#: application/controllers/Qso.php:630
+#: application/controllers/Qso.php:599
 msgid "Invalid request method"
 msgstr ""
 
@@ -2825,15 +2825,15 @@ msgstr ""
 msgid "Add QSO"
 msgstr ""
 
-#: application/controllers/Qso.php:899
+#: application/controllers/Qso.php:868
 msgid "You have to be logged in to access this URL."
 msgstr ""
 
-#: application/controllers/Qso.php:905
+#: application/controllers/Qso.php:874
 msgid "Call Transfer"
 msgstr ""
 
-#: application/controllers/Qso.php:912
+#: application/controllers/Qso.php:881
 msgid "No callsign provided."
 msgstr ""
 

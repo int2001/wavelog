@@ -237,7 +237,9 @@ msgstr "Ducting troposférico"
 #: application/controllers/Webadif.php:10
 #: application/controllers/Webadif.php:99
 #: application/controllers/Zonechecker.php:16
-#: application/models/Club_model.php:51
+#: application/models/Club_model.php:51 application/controllers/Qso.php:460
+#: application/controllers/Qso.php:482 application/controllers/Qso.php:504
+#: application/controllers/Qso.php:808
 msgid "You're not allowed to do that!"
 msgstr "¡No está permitido hacer eso!"
 
@@ -399,7 +401,7 @@ msgid "API Key %s description has been updated."
 msgstr "La descripción de la API Key %s se ha actualizado."
 
 #: application/controllers/Api.php:109 application/controllers/Api.php:143
-#: application/controllers/Qso.php:630
+#: application/controllers/Qso.php:630 application/controllers/Qso.php:599
 msgid "Invalid request method"
 msgstr "Método de solicitud no válido"
 
@@ -2904,15 +2906,15 @@ msgstr "Imprimir QSLs solicitadas"
 msgid "Add QSO"
 msgstr "Agregar QSO"
 
-#: application/controllers/Qso.php:899
+#: application/controllers/Qso.php:899 application/controllers/Qso.php:868
 msgid "You have to be logged in to access this URL."
 msgstr "Debes tener sesión iniciada para acceder a esta URL."
 
-#: application/controllers/Qso.php:905
+#: application/controllers/Qso.php:905 application/controllers/Qso.php:874
 msgid "Call Transfer"
 msgstr "Transferencia de llamada"
 
-#: application/controllers/Qso.php:912
+#: application/controllers/Qso.php:912 application/controllers/Qso.php:881
 msgid "No callsign provided."
 msgstr "No se proporcionó indicativo."
 
