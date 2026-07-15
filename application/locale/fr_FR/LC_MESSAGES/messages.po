@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-13 07:17+0000\n"
+"POT-Creation-Date: 2026-07-15 04:34+0000\n"
 "PO-Revision-Date: 2026-07-13 09:35+0000\n"
 "Last-Translator: Telectroboy <telectroboy@hotmail.com>\n"
 "Language-Team: French <https://translate.wavelog.org/projects/wavelog/main-"
@@ -345,37 +345,37 @@ msgstr "Importer / Exporter ADIF"
 msgid "ADIF Import"
 msgstr "Importer ADIF"
 
-#: application/controllers/Adif.php:365
+#: application/controllers/Adif.php:366
 msgid "Unsupported Filetype"
 msgstr "Type de fichier non pris en charge"
 
-#: application/controllers/Adif.php:446
+#: application/controllers/Adif.php:447
 #: application/views/adif/import_failed.php:12
 msgid "ADIF Import failed!"
 msgstr "Échec de l'import ADIF !"
 
-#: application/controllers/Adif.php:460
+#: application/controllers/Adif.php:461
 msgid "Station Profile not valid for User"
 msgstr "Profil de station non valide pour l'utilisateur"
 
-#: application/controllers/Adif.php:470
+#: application/controllers/Adif.php:471
 #: application/views/adif/import_success.php:12
 msgid "ADIF Imported"
 msgstr "ADIF importé"
 
-#: application/controllers/Adif.php:484
+#: application/controllers/Adif.php:485
 msgid "DCL Import"
 msgstr "Import DCL"
 
-#: application/controllers/Adif.php:545
+#: application/controllers/Adif.php:551
 msgid "DCL Data Imported"
 msgstr "Données DCL importées"
 
-#: application/controllers/Adif.php:559
+#: application/controllers/Adif.php:565
 msgid "POTA Import"
 msgstr "Importation des POTA"
 
-#: application/controllers/Adif.php:619
+#: application/controllers/Adif.php:630
 msgid "POTA Data Imported"
 msgstr "Données des POTA importées"
 
@@ -814,11 +814,11 @@ msgstr "Modifier la bande"
 msgid "DXCluster"
 msgstr "DXCluster"
 
-#: application/controllers/Cabrillo.php:20
+#: application/controllers/Cabrillo.php:26
 msgid "Cabrillo Import"
 msgstr "Importation Cabrillo"
 
-#: application/controllers/Cabrillo.php:119
+#: application/controllers/Cabrillo.php:125
 #, php-format
 msgid ""
 "QSO %d not found or more than 1 QSO found that match the criteria of the CBR "
@@ -827,7 +827,7 @@ msgstr ""
 "QSO %d introuvable ou plus d'un QSO trouvé correspondant aux critères du "
 "fichier CBR. Ignoré par mesure de sécurité."
 
-#: application/controllers/Cabrillo.php:179
+#: application/controllers/Cabrillo.php:185
 msgid "CBR Data Imported"
 msgstr "Données CBR importées"
 
@@ -11301,8 +11301,8 @@ msgstr ""
 #: application/views/contesting/manager/components/session_modal.php:147
 msgid "Add any additional information about this session..."
 msgstr ""
-"Ajouter n’importe quelle information supplémentaire à propos de cette session"
-"…"
+"Ajouter n’importe quelle information supplémentaire à propos de cette "
+"session…"
 
 #: application/views/contesting/manager/components/session_modal.php:148
 msgid "Optional: Any additional details or notes"
