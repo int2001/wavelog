@@ -69,6 +69,7 @@ function modalEventListener() {
 	});
 }
 
+var message_timer;
 function displayMessages(category, message) {
 	var html_class;
 	var message_area = $('#cron_message_area');
@@ -83,11 +84,12 @@ function displayMessages(category, message) {
 		html_class = 'alert alert-info';
 	}
 
-	message_area.show();
-	message_area.addClass(html_class);
+	message_area.stop(true).css('opacity', '').show();
+	message_area.attr('class', html_class);	// replace, don't add: earlier categories must not linger
 	message_area.text(message);
 
-	setTimeout(function () {
+	clearTimeout(message_timer);
+	message_timer = setTimeout(function () {
 		message_area.fadeOut();
 	}, 7000);
 }
