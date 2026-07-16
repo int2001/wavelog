@@ -775,6 +775,42 @@ class Contesting extends CI_Controller {
 	}
 
 	/**
+	 * Deletes multiple contest sessions at once.
+	 * Endpoint: POST /contesting/batch_delete_sessions
+	 * POST: ids = comma-separated contest_session ids, delete_qsos = optional flag
+	 */
+	public function batch_delete_sessions() {
+		if ($this->input->method() !== 'post') {
+			$this->session->set_flashdata('error', __("Invalid request method."));
+			redirect('contesting');
+		}
+
+		if (!clubaccess_check(9)) {
+			$this->session->set_flashdata('error', __("Only clubstation officers can delete."));
+			redirect('contesting');
+		}
+
+		$ids = array_filter(array_map('intval', explode(',', (string)$this->input->post('ids', true))));
+		$delete_qsos = (bool) $this->input->post('delete_qsos', true);
+
+		if (empty($ids)) {
+			$this->session->set_flashdata('error', __("No contest sessions selected."));
+			redirect('contesting');
+		}
+
+		$this->load->is_loaded('contesting_model') ?: $this->load->model('contesting_model');
+		$deleted = $this->contesting_model->batch_delete_sessions($ids, $delete_qsos);
+
+		if ($deleted > 0) {
+			$this->session->set_flashdata('success', sprintf(_ngettext("%d contest session deleted.", "%d contest sessions deleted.", $deleted), $deleted));
+		} else {
+			$this->session->set_flashdata('error', __("There was an error deleting the contest sessions. Please try again."));
+		}
+
+		redirect('contesting');
+	}
+
+	/**
 	 * Inline QSO edit endpoint.
 	 * Endpoint: POST /contesting/update_qso
 	 *
