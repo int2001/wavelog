@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-15 13:17+0000\n"
+"POT-Creation-Date: 2026-07-16 07:20+0000\n"
 "PO-Revision-Date: 2026-06-27 14:16+0000\n"
 "Last-Translator: PE1PQX <Andre@pe1pqx.eu>\n"
 "Language-Team: Dutch <https://translate.wavelog.org/projects/wavelog/main-"
@@ -4104,20 +4104,20 @@ msgstr "HRDlog: Geen stationprofielen met HRDlog-gegevens gevonden."
 msgid "Station not accessible"
 msgstr "Station niet toegankelijk"
 
-#: application/models/Logbook_model.php:1434
+#: application/models/Logbook_model.php:1385
 msgid "Station ID not allowed"
 msgstr "Station-ID niet toegestaan"
 
-#: application/models/Logbook_model.php:1439
+#: application/models/Logbook_model.php:1390
 msgid "No Call given"
 msgstr "Geen roepnaam gegeven"
 
-#: application/models/Logbook_model.php:1509
-#: application/models/Logbook_model.php:1713
+#: application/models/Logbook_model.php:1460
+#: application/models/Logbook_model.php:1664
 msgid "DXCC has to be Numeric"
 msgstr "DXCC moet numeriek zijn"
 
-#: application/models/Logbook_model.php:4958
+#: application/models/Logbook_model.php:4251
 #, php-format
 msgid ""
 "Differing station callsign %s while importing QSO with %s for %s: SKIPPED"
@@ -4125,7 +4125,7 @@ msgstr ""
 "Verkeerde stationsroepnaam %s bij het importeren van QSO met %s voor %s: "
 "OVERGESLAGEN"
 
-#: application/models/Logbook_model.php:4966
+#: application/models/Logbook_model.php:4259
 #, php-format
 msgid ""
 "Differing locator %s while importing QSO with %s for station locator %s: "
@@ -4134,7 +4134,7 @@ msgstr ""
 "Verschillend locatorvak %s bij het importeren van QSO met %s voor station "
 "locator %s: OVERGESLAGEN"
 
-#: application/models/Logbook_model.php:4982
+#: application/models/Logbook_model.php:4275
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
@@ -4142,11 +4142,11 @@ msgstr ""
 "Je hebt geprobeerd een QSO te importeren zonder geldige datum. Deze QSO is "
 "niet geïmporteerd. Het is ongeldig"
 
-#: application/models/Logbook_model.php:4992
+#: application/models/Logbook_model.php:4285
 msgid "QSO on"
 msgstr "QSO vanaf"
 
-#: application/models/Logbook_model.php:4992
+#: application/models/Logbook_model.php:4285
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
@@ -4154,7 +4154,7 @@ msgstr ""
 "Je hebt geprobeerd een QSO te importeren zonder een opgegeven CALL. Dit QSO "
 "is niet geïmporteerd. Het is ongeldig"
 
-#: application/models/Logbook_model.php:5042
+#: application/models/Logbook_model.php:4335
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
@@ -4163,63 +4163,63 @@ msgstr ""
 "QSO op %s: Je hebt geprobeerd een QSO te importeren zonder een opgegeven "
 "band. Dit QSO is niet geïmporteerd. Het is ongeldig"
 
-#: application/models/Logbook_model.php:5316
+#: application/models/Logbook_model.php:4609
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "de qslrdate is ongeldig (JJJJMMDD)"
 
-#: application/models/Logbook_model.php:5327
+#: application/models/Logbook_model.php:4620
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "de qslsdatum is ongeldig (JJJJMMDD)"
 
-#: application/models/Logbook_model.php:5388
+#: application/models/Logbook_model.php:4681
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "de clublog_qso_upload_date is ongeldig (JJJJMMDD)"
 
-#: application/models/Logbook_model.php:5759
+#: application/models/Logbook_model.php:5052
 #: application/views/simplefle/index.php:41
 msgid "Duplicate for"
 msgstr "Duplicaat voor"
 
-#: application/models/Logbook_model.php:5826
-#: application/models/Logbook_model.php:5926
+#: application/models/Logbook_model.php:5119
+#: application/models/Logbook_model.php:5219
 msgid "QSO could not be matched"
 msgstr "QSO kon niet worden gekoppeld"
 
-#: application/models/Logbook_model.php:5834
+#: application/models/Logbook_model.php:5127
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "bevestigd door LoTW/Clublog/eQSL/Contest"
 
-#: application/models/Logbook_model.php:5840
+#: application/models/Logbook_model.php:5133
 msgid "confirmed by award manager"
 msgstr "Bevestigd door award manager"
 
-#: application/models/Logbook_model.php:5844
+#: application/models/Logbook_model.php:5137
 msgid "confirmed by cross-check of DCL data"
 msgstr "bevestigd door kruiscontrole van DCL-gegevens"
 
-#: application/models/Logbook_model.php:5848
+#: application/models/Logbook_model.php:5141
 msgid "confirmation pending"
 msgstr "bevestiging in afwachting"
 
-#: application/models/Logbook_model.php:5851
+#: application/models/Logbook_model.php:5144
 msgid "unconfirmed"
 msgstr "onbevestigd"
 
-#: application/models/Logbook_model.php:5854
+#: application/models/Logbook_model.php:5147
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 msgid "unknown"
 msgstr "onbekend"
 
-#: application/models/Logbook_model.php:5929
+#: application/models/Logbook_model.php:5222
 msgid "POTA reference already in log"
 msgstr "POTA-referentie al in logboek"
 
-#: application/models/Logbook_model.php:5932
+#: application/models/Logbook_model.php:5225
 msgid "QSO updated"
 msgstr "QSO bijgewerkt"
 
-#: application/models/Logbook_model.php:6337
+#: application/models/Logbook_model.php:5630
 #: application/views/activated_gridmap/index.php:109
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:57

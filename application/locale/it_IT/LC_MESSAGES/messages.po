@@ -2797,8 +2797,8 @@ msgid ""
 "Please compare your current config.php with the latest config.sample.php and "
 "update accordingly."
 msgstr ""
-"Per favore, confronta il tuo attuale config.php con l'ultimo config.sample."
-"php e aggiornalo di conseguenza."
+"Per favore, confronta il tuo attuale config.php con l'ultimo "
+"config.sample.php e aggiornalo di conseguenza."
 
 #: application/controllers/Qslpostcard.php:34
 #: application/views/interface_assets/header.php:560
@@ -4119,19 +4119,24 @@ msgid "Station not accessible"
 msgstr "Stazione non accessibile"
 
 #: application/models/Logbook_model.php:1434
+#: application/models/Logbook_model.php:1385
 msgid "Station ID not allowed"
 msgstr "ID stazione non consentito"
 
 #: application/models/Logbook_model.php:1439
+#: application/models/Logbook_model.php:1390
 msgid "No Call given"
 msgstr "Nessun nominatio fornito"
 
 #: application/models/Logbook_model.php:1509
 #: application/models/Logbook_model.php:1713
+#: application/models/Logbook_model.php:1460
+#: application/models/Logbook_model.php:1664
 msgid "DXCC has to be Numeric"
 msgstr "DXCC deve essere numerico"
 
 #: application/models/Logbook_model.php:4958
+#: application/models/Logbook_model.php:4251
 #, php-format
 msgid ""
 "Differing station callsign %s while importing QSO with %s for %s: SKIPPED"
@@ -4140,6 +4145,7 @@ msgstr ""
 "per %s: SALTATO"
 
 #: application/models/Logbook_model.php:4966
+#: application/models/Logbook_model.php:4259
 #, php-format
 msgid ""
 "Differing locator %s while importing QSO with %s for station locator %s: "
@@ -4149,6 +4155,7 @@ msgstr ""
 "della stazione %s: SALTATO"
 
 #: application/models/Logbook_model.php:4982
+#: application/models/Logbook_model.php:4275
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
@@ -4157,10 +4164,12 @@ msgstr ""
 "stato importato. Non è valido"
 
 #: application/models/Logbook_model.php:4992
+#: application/models/Logbook_model.php:4285
 msgid "QSO on"
 msgstr "QSO alle"
 
 #: application/models/Logbook_model.php:4992
+#: application/models/Logbook_model.php:4285
 msgid ""
 "You tried to import a QSO without any given CALL. This QSO wasn't imported. "
 "It's invalid"
@@ -4169,6 +4178,7 @@ msgstr ""
 "QSO non è stato importato perchè non valido"
 
 #: application/models/Logbook_model.php:5042
+#: application/models/Logbook_model.php:4335
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
@@ -4178,58 +4188,72 @@ msgstr ""
 "Questo QSO non è stato importato. È non valido"
 
 #: application/models/Logbook_model.php:5316
+#: application/models/Logbook_model.php:4609
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "La data di ricezione QSL non è valida (AAAAMMGG)"
 
 #: application/models/Logbook_model.php:5327
+#: application/models/Logbook_model.php:4620
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "La data di invio QSL non è valida (AAAAMMGG)"
 
 #: application/models/Logbook_model.php:5388
+#: application/models/Logbook_model.php:4681
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "La data di upload Clublog non è valida (AAAAMMGG)"
 
 #: application/models/Logbook_model.php:5759
 #: application/views/simplefle/index.php:41
+#: application/models/Logbook_model.php:5052
 msgid "Duplicate for"
 msgstr "Duplicata"
 
 #: application/models/Logbook_model.php:5826
 #: application/models/Logbook_model.php:5926
+#: application/models/Logbook_model.php:5119
+#: application/models/Logbook_model.php:5219
 msgid "QSO could not be matched"
 msgstr "Impossibile abbinare QSO"
 
 #: application/models/Logbook_model.php:5834
+#: application/models/Logbook_model.php:5127
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "confermato da LoTW/Clublog/eQSL/Contest"
 
 #: application/models/Logbook_model.php:5840
+#: application/models/Logbook_model.php:5133
 msgid "confirmed by award manager"
 msgstr "confermato dal responsabile del diploma"
 
 #: application/models/Logbook_model.php:5844
+#: application/models/Logbook_model.php:5137
 msgid "confirmed by cross-check of DCL data"
 msgstr "confermato dal controllo incrociato dei dati DCL"
 
 #: application/models/Logbook_model.php:5848
+#: application/models/Logbook_model.php:5141
 msgid "confirmation pending"
 msgstr "Conferma in sospeso"
 
 #: application/models/Logbook_model.php:5851
+#: application/models/Logbook_model.php:5144
 msgid "unconfirmed"
 msgstr "Non confermato"
 
 #: application/models/Logbook_model.php:5854
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
+#: application/models/Logbook_model.php:5147
 msgid "unknown"
 msgstr "sconosciuto"
 
 #: application/models/Logbook_model.php:5929
+#: application/models/Logbook_model.php:5222
 msgid "POTA reference already in log"
 msgstr "Riferimento POTA già presente nel registro di stazione"
 
 #: application/models/Logbook_model.php:5932
+#: application/models/Logbook_model.php:5225
 msgid "QSO updated"
 msgstr "QSO aggiornato"
 
@@ -4245,6 +4269,7 @@ msgstr "QSO aggiornato"
 #: application/views/user/edit.php:333 application/views/user/edit.php:356
 #: application/views/user/edit.php:379 application/views/user/edit.php:404
 #: application/views/view_log/partial/log_ajax.php:21
+#: application/models/Logbook_model.php:5630
 msgid "Bearing"
 msgstr "Direzione"
 
@@ -20728,8 +20753,9 @@ msgid ""
 "Create a new folder in 'assets/css/' and upload a 'bootstrap.min.css' file "
 "which contains basic styling rules. We use the themes from %s"
 msgstr ""
-"Crea una nuova cartella in 'assets/css/' e carica un file 'bootstrap.min."
-"css' che contiene regole di stile di base. Utilizziamo i temi di %s"
+"Crea una nuova cartella in 'assets/css/' e carica un file "
+"'bootstrap.min.css' che contiene regole di stile di base. Utilizziamo i temi "
+"di %s"
 
 #: application/views/themes/index.php:50
 msgid "2. Step"
