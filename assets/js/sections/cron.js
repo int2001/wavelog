@@ -5,6 +5,10 @@ $(document).ready(function () {
 		editCronDialog(e);
 	});
 
+	$(document).on('click', '.runCron', async function (e) {	// Dynamic binding, since element doesn't exists when loading this JS
+		runCron(e.currentTarget);
+	});
+
 	$(document).on('click', '.enableCronSwitch', async function (e) {	// Dynamic binding, since element doesn't exists when loading this JS
 		toggleEnableCronSwitch(e.currentTarget.id, this);
 	});
@@ -65,6 +69,7 @@ function modalEventListener() {
 	});
 }
 
+var message_timer;
 function displayMessages(category, message) {
 	var html_class;
 	var message_area = $('#cron_message_area');
@@ -79,11 +84,12 @@ function displayMessages(category, message) {
 		html_class = 'alert alert-info';
 	}
 
-	message_area.show();
-	message_area.addClass(html_class);
+	message_area.stop(true).css('opacity', '').show();
+	message_area.attr('class', html_class);	// replace, don't add: earlier categories must not linger
 	message_area.text(message);
 
-	setTimeout(function () {
+	clearTimeout(message_timer);
+	message_timer = setTimeout(function () {
 		message_area.fadeOut();
 	}, 7000);
 }
@@ -140,6 +146,31 @@ function editCron() {
 		}
 	});
 
+}
+
+function runCron(button) {
+	var $button = $(button);
+	$button.prop('disabled', true);
+
+	$.ajax({
+		url: base_url + 'index.php/cron/runNow',
+		type: 'post',
+		dataType: 'json',
+		data: {
+			id: button.id
+		},
+		success: function (response) {
+			displayMessages(response.messagecategory, response.message);
+			reloadCrons();
+		},
+		error: function (response) {
+			var message = response.responseJSON && response.responseJSON.message ? response.responseJSON.message : 'The query failed for a unknown reason';
+			displayMessages('error', message);
+		},
+		complete: function () {
+			$button.prop('disabled', false);
+		}
+	});
 }
 
 function humanReadableInEditDialog() {
@@ -234,6 +265,7 @@ function loadCronTable(rows) {
 		data.push(cron.cron_last_run);
 		data.push(cron.cron_next_run);
 		data.push(cron.cron_edit);
+		data.push(cron.cron_run);
 		data.push(cron.cron_enabled);
 
 		let createdRow = table.row.add(data).index();
@@ -241,4 +273,3 @@ function loadCronTable(rows) {
 	table.draw();
 	init_expression_tooltips();
 }
-
