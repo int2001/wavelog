@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-16 08:26+0000\n"
-"PO-Revision-Date: 2026-07-13 07:17+0000\n"
-"Last-Translator: Jörg Dorgeist <wavelog@dj7nt.de>\n"
+"PO-Revision-Date: 2026-07-16 09:51+0000\n"
+"Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
 "Language: de_DE\n"
@@ -1134,23 +1134,23 @@ msgstr "Cron-Manager"
 
 #: application/controllers/Cron.php:176
 msgid "Cronjob not found."
-msgstr ""
+msgstr "Cronjob nicht gefunden."
 
 #: application/controllers/Cron.php:182
 msgid "Disabled cronjobs cannot be run."
-msgstr ""
+msgstr "Deaktivierte Cronjobs können nicht ausgeführt werden."
 
 #: application/controllers/Cron.php:190
 msgid "Cronjob is already running."
-msgstr ""
+msgstr "Cronjob läuft bereits."
 
 #: application/controllers/Cron.php:195
 msgid "Cronjob triggered."
-msgstr ""
+msgstr "Cronjob ausgelöst."
 
 #: application/controllers/Cron.php:198
 msgid "Cronjob execution failed."
-msgstr ""
+msgstr "Ausführung des Cronjobs fehlgeschlagen."
 
 #: application/controllers/Cron.php:210 application/views/cron/edit.php:5
 msgid "Edit Cronjob"
@@ -1190,7 +1190,7 @@ msgstr "ausgeschaltet"
 #: application/controllers/Cron.php:320 application/views/cron/index.php:81
 #: application/views/cron/index.php:113
 msgid "Run Now"
-msgstr ""
+msgstr "Jetzt ausführen"
 
 #: application/controllers/Cron.php:394
 #: application/views/interface_assets/footer.php:44
