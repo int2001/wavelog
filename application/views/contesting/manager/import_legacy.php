@@ -99,7 +99,7 @@ document.getElementById('import-legacy-form').addEventListener('submit', functio
 		alert(decodeHtml("<?= __("Please select at least one contest to import.") ?>"));
 		return;
 	}
-	if (!confirm(decodeHtml("<?= __("Are you sure you want to import the selected contest sessions? This cannot be undone.") ?>"))) {
+	if (!confirm(decodeHtml("<?= __("Are you sure you want to import the selected contest sessions?") ?>"))) {
 		e.preventDefault();
 	}
 });
