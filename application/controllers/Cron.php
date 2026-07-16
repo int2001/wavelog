@@ -369,6 +369,7 @@ class cron extends CI_Controller {
 		curl_setopt($ch, CURLOPT_HEADER, false);
 		curl_setopt($ch, CURLOPT_USERAGENT, 'Wavelog Updater');
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
 
 		$last_renew = time();
 		curl_setopt($ch, CURLOPT_NOPROGRESS, false);
