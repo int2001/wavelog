@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-16 09:56+0000\n"
+"POT-Creation-Date: 2026-07-16 12:33+0000\n"
 "PO-Revision-Date: 2026-03-17 22:16+0000\n"
 "Last-Translator: Dariusz Koryto <dariusz@koryto.eu>\n"
 "Language-Team: Czech <https://translate.wavelog.org/projects/wavelog/main-"
@@ -947,7 +947,7 @@ msgstr "Žádný uživatel nenakonfiguroval Clublog."
 #: application/views/timeline/index.php:74
 #: application/views/update/index.php:16 application/views/user/edit.php:739
 #: application/views/user/edit.php:1037
-#: application/views/view_log/partial/log_ajax.php:169
+#: application/views/view_log/partial/log_ajax.php:156
 #: application/views/view_log/qso.php:524
 #: application/views/view_log/qso.php:529
 msgid "Clublog"
@@ -1224,7 +1224,7 @@ msgstr "Import klíče DCL"
 #: application/views/qso/edit_ajax.php:420
 #: application/views/search/search_result_ajax.php:127
 #: application/views/user/edit.php:740 application/views/user/edit.php:1045
-#: application/views/view_log/partial/log_ajax.php:172
+#: application/views/view_log/partial/log_ajax.php:159
 #: application/views/view_log/qso.php:534
 #: application/views/view_log/qso.php:539
 msgid "DCL"
@@ -4935,7 +4935,7 @@ msgstr ""
 #: application/views/timeline/index.php:305
 #: application/views/timeline/index.php:343
 #: application/views/timeline/index.php:377
-#: application/views/view_log/partial/log_ajax.php:143
+#: application/views/view_log/partial/log_ajax.php:130
 #: application/views/visitor/index.php:151
 #: application/views/visitor/mini.php:182 application/views/widgets/qsos.php:16
 msgid "Date"
@@ -4970,7 +4970,7 @@ msgstr "Datum"
 #: application/views/statistics/initialresult.php:16
 #: application/views/timeline/index.php:378
 #: application/views/timeplotter/index.php:5
-#: application/views/view_log/partial/log_ajax.php:145
+#: application/views/view_log/partial/log_ajax.php:132
 #: application/views/visitor/index.php:154
 msgid "Time"
 msgstr "Čas"
@@ -4991,7 +4991,7 @@ msgstr "Čas"
 #: application/views/qslcard/searchresult.php:8
 #: application/views/qso/components/previous_contacts.php:7
 #: application/views/search/search_result_ajax.php:93
-#: application/views/view_log/partial/log_ajax.php:147
+#: application/views/view_log/partial/log_ajax.php:134
 #: application/views/visitor/index.php:156
 #: application/views/widgets/qsos.php:17
 msgid "Call"
@@ -5675,8 +5675,8 @@ msgstr "Oprávnění"
 #: application/views/notes/main.php:77 application/views/qrz/export.php:44
 #: application/views/qslprint/qslprint.php:47
 #: application/views/user/index.php:33 application/views/user/index.php:160
-#: application/views/view_log/partial/log_ajax.php:177
-#: application/views/view_log/partial/log_ajax.php:611
+#: application/views/view_log/partial/log_ajax.php:164
+#: application/views/view_log/partial/log_ajax.php:598
 #: application/views/webadif/export.php:45
 msgid "Actions"
 msgstr "Akce"
@@ -7340,7 +7340,7 @@ msgstr ""
 #: application/views/awards/jcc/index.php:35
 #: application/views/public_search/empty.php:2
 #: application/views/public_search/result.php:2
-#: application/views/view_log/partial/log_ajax.php:138
+#: application/views/view_log/partial/log_ajax.php:125
 msgid "Results"
 msgstr "Výsledky"
 
@@ -10661,7 +10661,7 @@ msgstr "Cesta"
 #: application/views/search/lotw_unconfirmed_result.php:11
 #: application/views/search/search_result_ajax.php:130
 #: application/views/user/edit.php:632
-#: application/views/view_log/partial/log_ajax.php:175
+#: application/views/view_log/partial/log_ajax.php:162
 #: application/views/view_log/qso.php:621
 #: application/views/view_log/qso.php:623
 #: application/views/view_log/qso.php:625
@@ -11957,12 +11957,12 @@ msgstr "Zbývá"
 #: application/views/search/search_result_ajax.php:335
 #: application/views/search/search_result_ajax.php:371
 #: application/views/search/search_result_ajax.php:407
-#: application/views/view_log/partial/log_ajax.php:229
-#: application/views/view_log/partial/log_ajax.php:313
-#: application/views/view_log/partial/log_ajax.php:380
-#: application/views/view_log/partial/log_ajax.php:442
-#: application/views/view_log/partial/log_ajax.php:499
-#: application/views/view_log/partial/log_ajax.php:552
+#: application/views/view_log/partial/log_ajax.php:216
+#: application/views/view_log/partial/log_ajax.php:300
+#: application/views/view_log/partial/log_ajax.php:367
+#: application/views/view_log/partial/log_ajax.php:429
+#: application/views/view_log/partial/log_ajax.php:486
+#: application/views/view_log/partial/log_ajax.php:539
 #: application/views/visitor/index.php:291
 #: application/views/visitor/index.php:314
 #: application/views/visitor/index.php:332
@@ -11995,12 +11995,12 @@ msgstr "Odesláno"
 #: application/views/search/search_result_ajax.php:354
 #: application/views/search/search_result_ajax.php:390
 #: application/views/search/search_result_ajax.php:426
-#: application/views/view_log/partial/log_ajax.php:267
-#: application/views/view_log/partial/log_ajax.php:344
-#: application/views/view_log/partial/log_ajax.php:411
-#: application/views/view_log/partial/log_ajax.php:473
-#: application/views/view_log/partial/log_ajax.php:530
-#: application/views/view_log/partial/log_ajax.php:575
+#: application/views/view_log/partial/log_ajax.php:254
+#: application/views/view_log/partial/log_ajax.php:331
+#: application/views/view_log/partial/log_ajax.php:398
+#: application/views/view_log/partial/log_ajax.php:460
+#: application/views/view_log/partial/log_ajax.php:517
+#: application/views/view_log/partial/log_ajax.php:562
 #: application/views/visitor/index.php:296
 #: application/views/visitor/index.php:319
 #: application/views/visitor/index.php:337 src/QSLManager/QSO.php:465
@@ -12039,14 +12039,14 @@ msgstr "Přijato"
 #: application/views/qso/edit_ajax.php:632 application/views/qso/index.php:712
 #: application/views/search/search_result_ajax.php:189
 #: application/views/search/search_result_ajax.php:231
-#: application/views/view_log/partial/log_ajax.php:235
-#: application/views/view_log/partial/log_ajax.php:273
-#: application/views/view_log/partial/log_ajax.php:323
-#: application/views/view_log/partial/log_ajax.php:354
-#: application/views/view_log/partial/log_ajax.php:390
-#: application/views/view_log/partial/log_ajax.php:421
-#: application/views/view_log/partial/log_ajax.php:558
-#: application/views/view_log/partial/log_ajax.php:581
+#: application/views/view_log/partial/log_ajax.php:222
+#: application/views/view_log/partial/log_ajax.php:260
+#: application/views/view_log/partial/log_ajax.php:310
+#: application/views/view_log/partial/log_ajax.php:341
+#: application/views/view_log/partial/log_ajax.php:377
+#: application/views/view_log/partial/log_ajax.php:408
+#: application/views/view_log/partial/log_ajax.php:545
+#: application/views/view_log/partial/log_ajax.php:568
 #: application/views/visitor/index.php:301 src/QSLManager/QSO.php:426
 #: src/QSLManager/QSO.php:471 src/QSLManager/QSO.php:533
 #: src/QSLManager/QSO.php:556 src/QSLManager/QSO.php:670
@@ -13537,7 +13537,7 @@ msgstr "QSO jsou označena jako exportovaná do deníku HRDLog."
 
 #: application/views/interface_assets/footer.php:32
 #: application/views/search/search_result_ajax.php:456
-#: application/views/view_log/partial/log_ajax.php:617
+#: application/views/view_log/partial/log_ajax.php:604
 #: application/views/view_log/qso.php:551
 msgid "Edit QSO"
 msgstr "Upravit QSO"
@@ -15246,14 +15246,14 @@ msgstr "Neplatné"
 #: application/views/qso/edit_ajax.php:621 application/views/qso/index.php:713
 #: application/views/search/search_result_ajax.php:186
 #: application/views/search/search_result_ajax.php:228
-#: application/views/view_log/partial/log_ajax.php:232
-#: application/views/view_log/partial/log_ajax.php:270
-#: application/views/view_log/partial/log_ajax.php:328
-#: application/views/view_log/partial/log_ajax.php:395
-#: application/views/view_log/partial/log_ajax.php:452
-#: application/views/view_log/partial/log_ajax.php:509
-#: application/views/view_log/partial/log_ajax.php:555
-#: application/views/view_log/partial/log_ajax.php:578
+#: application/views/view_log/partial/log_ajax.php:219
+#: application/views/view_log/partial/log_ajax.php:257
+#: application/views/view_log/partial/log_ajax.php:315
+#: application/views/view_log/partial/log_ajax.php:382
+#: application/views/view_log/partial/log_ajax.php:439
+#: application/views/view_log/partial/log_ajax.php:496
+#: application/views/view_log/partial/log_ajax.php:542
+#: application/views/view_log/partial/log_ajax.php:565
 #: src/QSLManager/QSO.php:423 src/QSLManager/QSO.php:468
 #: src/QSLManager/QSO.php:529 src/QSLManager/QSO.php:592
 #: src/QSLManager/QSO.php:667 src/QSLManager/QSO.php:694
@@ -15282,8 +15282,8 @@ msgstr "Ověřeno"
 #: application/views/qso/edit_ajax.php:476 application/views/qso/index.php:724
 #: application/views/search/search_result_ajax.php:205
 #: application/views/search/search_result_ajax.php:247
-#: application/views/view_log/partial/log_ajax.php:254
-#: application/views/view_log/partial/log_ajax.php:292
+#: application/views/view_log/partial/log_ajax.php:241
+#: application/views/view_log/partial/log_ajax.php:279
 #: src/QSLManager/QSO.php:449 src/QSLManager/QSO.php:492
 msgid "Direct"
 msgstr "Přímá"
@@ -15303,8 +15303,8 @@ msgstr "Přímá"
 #: application/views/qso/edit_ajax.php:477 application/views/qso/index.php:725
 #: application/views/search/search_result_ajax.php:202
 #: application/views/search/search_result_ajax.php:244
-#: application/views/view_log/partial/log_ajax.php:251
-#: application/views/view_log/partial/log_ajax.php:289
+#: application/views/view_log/partial/log_ajax.php:238
+#: application/views/view_log/partial/log_ajax.php:276
 #: src/QSLManager/QSO.php:446 src/QSLManager/QSO.php:489
 msgid "Bureau"
 msgstr "Bureau"
@@ -15322,8 +15322,8 @@ msgstr "Bureau"
 #: application/views/qso/edit_ajax.php:478 application/views/qso/index.php:726
 #: application/views/search/search_result_ajax.php:211
 #: application/views/search/search_result_ajax.php:253
-#: application/views/view_log/partial/log_ajax.php:260
-#: application/views/view_log/partial/log_ajax.php:298
+#: application/views/view_log/partial/log_ajax.php:247
+#: application/views/view_log/partial/log_ajax.php:285
 #: src/QSLManager/QSO.php:455 src/QSLManager/QSO.php:498
 msgid "Electronic"
 msgstr "Elektronická"
@@ -15336,7 +15336,7 @@ msgstr "Elektronická"
 #: application/views/qso/edit_ajax.php:446
 #: application/views/qso/edit_ajax.php:479 application/views/qso/index.php:727
 #: application/views/search/search_result_ajax.php:250
-#: application/views/view_log/partial/log_ajax.php:295
+#: application/views/view_log/partial/log_ajax.php:282
 msgid "Manager"
 msgstr "Správce"
 
@@ -15987,18 +15987,18 @@ msgstr "QSL odesláno"
 #: application/views/search/search_result_ajax.php:234
 #: application/views/search/search_result_ajax.php:308
 #: application/views/search/search_result_ajax.php:323
-#: application/views/view_log/partial/log_ajax.php:238
-#: application/views/view_log/partial/log_ajax.php:276
-#: application/views/view_log/partial/log_ajax.php:318
-#: application/views/view_log/partial/log_ajax.php:349
-#: application/views/view_log/partial/log_ajax.php:385
-#: application/views/view_log/partial/log_ajax.php:416
-#: application/views/view_log/partial/log_ajax.php:447
-#: application/views/view_log/partial/log_ajax.php:478
-#: application/views/view_log/partial/log_ajax.php:504
-#: application/views/view_log/partial/log_ajax.php:535
-#: application/views/view_log/partial/log_ajax.php:561
-#: application/views/view_log/partial/log_ajax.php:584
+#: application/views/view_log/partial/log_ajax.php:225
+#: application/views/view_log/partial/log_ajax.php:263
+#: application/views/view_log/partial/log_ajax.php:305
+#: application/views/view_log/partial/log_ajax.php:336
+#: application/views/view_log/partial/log_ajax.php:372
+#: application/views/view_log/partial/log_ajax.php:403
+#: application/views/view_log/partial/log_ajax.php:434
+#: application/views/view_log/partial/log_ajax.php:465
+#: application/views/view_log/partial/log_ajax.php:491
+#: application/views/view_log/partial/log_ajax.php:522
+#: application/views/view_log/partial/log_ajax.php:548
+#: application/views/view_log/partial/log_ajax.php:571
 #: src/QSLManager/QSO.php:429 src/QSLManager/QSO.php:474
 #: src/QSLManager/QSO.php:525 src/QSLManager/QSO.php:552
 #: src/QSLManager/QSO.php:584 src/QSLManager/QSO.php:633
@@ -17388,7 +17388,7 @@ msgstr "Odeslat požadavek 'není v logu'"
 #: application/views/qslprint/qsolist.php:109
 #: application/views/qso/index.php:733
 #: application/views/search/search_result_ajax.php:208
-#: application/views/view_log/partial/log_ajax.php:257
+#: application/views/view_log/partial/log_ajax.php:244
 #: src/QSLManager/QSO.php:452
 msgid "Via"
 msgstr "Přes"
@@ -18459,8 +18459,8 @@ msgid "Note: Not editable. Only displayed here."
 msgstr "Poznámka: Nelze upravit. Zobrazuje se pouze zde."
 
 #: application/views/qso/edit_ajax.php:569
-#: application/views/view_log/partial/log_ajax.php:457
-#: application/views/view_log/partial/log_ajax.php:514
+#: application/views/view_log/partial/log_ajax.php:444
+#: application/views/view_log/partial/log_ajax.php:501
 #: src/QSLManager/QSO.php:600 src/QSLManager/QSO.php:746
 msgid "Modified"
 msgstr "Upraveno"
@@ -18487,7 +18487,7 @@ msgstr "Výměna (S)"
 
 #: application/views/qso/edit_ajax.php:714
 #: application/views/search/search_result_ajax.php:488
-#: application/views/view_log/partial/log_ajax.php:649
+#: application/views/view_log/partial/log_ajax.php:636
 msgid "Delete QSO"
 msgstr "Smazat QSO"
 
@@ -19169,52 +19169,52 @@ msgid "Source callbook"
 msgstr "Zdrojový callbook"
 
 #: application/views/search/search_result_ajax.php:463
-#: application/views/view_log/partial/log_ajax.php:624
+#: application/views/view_log/partial/log_ajax.php:611
 msgid "Mark QSL Sent (Bureau)"
 msgstr "Označit QSL odesláno (Bureau)"
 
 #: application/views/search/search_result_ajax.php:464
-#: application/views/view_log/partial/log_ajax.php:625
+#: application/views/view_log/partial/log_ajax.php:612
 msgid "Mark QSL Sent (Direct)"
 msgstr "Označit QSL odesláno (Přímá)"
 
 #: application/views/search/search_result_ajax.php:471
-#: application/views/view_log/partial/log_ajax.php:635
+#: application/views/view_log/partial/log_ajax.php:622
 #: application/views/view_log/qso.php:777
 msgid "Mark QSL Received (Bureau)"
 msgstr "Označit QSL přijato (Bureau)"
 
 #: application/views/search/search_result_ajax.php:472
-#: application/views/view_log/partial/log_ajax.php:636
+#: application/views/view_log/partial/log_ajax.php:623
 #: application/views/view_log/qso.php:779
 msgid "Mark QSL Received (Direct)"
 msgstr "Označit QSL přijato (Přímá)"
 
 #: application/views/search/search_result_ajax.php:473
-#: application/views/view_log/partial/log_ajax.php:626
+#: application/views/view_log/partial/log_ajax.php:613
 #: application/views/view_log/qso.php:787
 msgid "Mark QSL Card Requested (Bureau)"
 msgstr "Označit QSL kartu požadováno (Bureau)"
 
 #: application/views/search/search_result_ajax.php:474
-#: application/views/view_log/partial/log_ajax.php:627
+#: application/views/view_log/partial/log_ajax.php:614
 #: application/views/view_log/qso.php:789
 msgid "Mark QSL Card Requested (Direct)"
 msgstr "Označit QSL lístek jak odeslaný (Direct)"
 
 #: application/views/search/search_result_ajax.php:475
-#: application/views/view_log/partial/log_ajax.php:628
+#: application/views/view_log/partial/log_ajax.php:615
 #: application/views/view_log/qso.php:791
 msgid "Mark QSL Card Not Required"
 msgstr "Označit QSL lístek není vyžadován"
 
 #: application/views/search/search_result_ajax.php:482
-#: application/views/view_log/partial/log_ajax.php:643
+#: application/views/view_log/partial/log_ajax.php:630
 msgid "Lookup on QRZ.com"
 msgstr "Vyhledat na QRZ.com"
 
 #: application/views/search/search_result_ajax.php:484
-#: application/views/view_log/partial/log_ajax.php:645
+#: application/views/view_log/partial/log_ajax.php:632
 msgid "Lookup on HamQTH"
 msgstr "Vyhledat na HamQTH"
 
@@ -21676,19 +21676,12 @@ msgid ""
 msgstr ""
 "Zobrazení všech QSO lokací stanic, které jsou propojeny s tímto deníkem"
 
-#: application/views/view_log/partial/log_ajax.php:116
-#: application/views/view_log/partial/log_ajax.php:119
-#: application/views/view_log/qso.php:131
-#: application/views/view_log/qso.php:193
-msgid "Calculate distance/bearing"
-msgstr ""
-
-#: application/views/view_log/partial/log_ajax.php:138
+#: application/views/view_log/partial/log_ajax.php:125
 msgid "Result"
 msgstr "Výsledek"
 
-#: application/views/view_log/partial/log_ajax.php:457
-#: application/views/view_log/partial/log_ajax.php:514
+#: application/views/view_log/partial/log_ajax.php:444
+#: application/views/view_log/partial/log_ajax.php:501
 #: src/QSLManager/QSO.php:604 src/QSLManager/QSO.php:750
 msgid "last sent"
 msgstr "naposledy odesláno"
@@ -21704,6 +21697,11 @@ msgstr "Správa QSL"
 #: application/views/view_log/qso.php:86
 msgid "View note for this callsign"
 msgstr "Zobrazit poznámku pro tuto značku"
+
+#: application/views/view_log/qso.php:131
+#: application/views/view_log/qso.php:193
+msgid "Calculate distance/bearing"
+msgstr ""
 
 #: application/views/view_log/qso.php:138
 msgid "Total Distance"
