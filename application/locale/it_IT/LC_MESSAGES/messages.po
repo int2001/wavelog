@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-16 12:33+0000\n"
+"POT-Creation-Date: 2026-07-16 12:49+0000\n"
 "PO-Revision-Date: 2026-07-13 09:35+0000\n"
 "Last-Translator: iv3cvn <ricentis@gmail.com>\n"
 "Language-Team: Italian <https://translate.wavelog.org/projects/wavelog/main-"
@@ -144,7 +144,7 @@ msgstr "Canalizzazioni troposferiche"
 #: application/controllers/Contest_admin.php:13
 #: application/controllers/Contestcalendar.php:7
 #: application/controllers/Contesting.php:38
-#: application/controllers/Contesting.php:1043
+#: application/controllers/Contesting.php:1079
 #: application/controllers/Contesting_import.php:10
 #: application/controllers/Contesting_import.php:26
 #: application/controllers/Contesting_import.php:56
@@ -1033,6 +1033,7 @@ msgstr ""
 #: application/controllers/Contesting.php:659
 #: application/controllers/Contesting.php:725
 #: application/controllers/Contesting.php:772
+#: application/controllers/Contesting.php:784
 msgid "Invalid request method."
 msgstr "Metodo di richiesta non valido."
 
@@ -1056,24 +1057,44 @@ msgstr ""
 "Si è verificato un errore durante l'eliminazione della sessione del contest. "
 "Per favore, riprova."
 
-#: application/controllers/Contesting.php:985
+#: application/controllers/Contesting.php:789
+#: application/models/Contesting_model.php:213
+msgid "Only clubstation officers can delete."
+msgstr "Solo i gestori della clubstation possono eliminare."
+
+#: application/controllers/Contesting.php:797
+msgid "No contest sessions selected."
+msgstr ""
+
+#: application/controllers/Contesting.php:805
+#, php-format
+msgid "%d contest session deleted."
+msgid_plural "%d contest sessions deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: application/controllers/Contesting.php:807
+msgid "There was an error deleting the contest sessions. Please try again."
+msgstr ""
+
+#: application/controllers/Contesting.php:1021
 msgid "Operator switching is disabled."
 msgstr "Il cambio operatore è disabilitato."
 
-#: application/controllers/Contesting.php:1005
+#: application/controllers/Contesting.php:1041
 msgid "Operator switching is only available in club stations."
 msgstr "Il cambio operatore è disponibile solo nelle stazioni di club."
 
-#: application/controllers/Contesting.php:1015
+#: application/controllers/Contesting.php:1051
 msgid "Access denied"
 msgstr "Accesso negato"
 
-#: application/controllers/Contesting.php:1023
+#: application/controllers/Contesting.php:1059
 #: application/controllers/User.php:1432
 msgid "Incorrect username or password!"
 msgstr "Username o password non validi!"
 
-#: application/controllers/Contesting.php:1032
+#: application/controllers/Contesting.php:1068
 msgid "A club account cannot be used as an operator."
 msgstr "Un account di club non può essere utilizzato come operatore."
 
@@ -2471,7 +2492,7 @@ msgid "Add Notes"
 msgstr "Aggiungi nota"
 
 #: application/controllers/Notes.php:97
-#: application/views/contesting/manager/import_legacy.php:38
+#: application/views/contesting/manager/import_legacy.php:43
 #: application/views/oqrs/showrequests.php:98
 msgid "Note"
 msgstr "Note"
@@ -2973,7 +2994,7 @@ msgstr "ultimo aggiornamento"
 #: application/views/club/permissions.php:303
 #: application/views/contest_admin/add.php:68
 #: application/views/contesting/logger/components/qso-form.php:38
-#: application/views/contesting/manager/index.php:71
+#: application/views/contesting/manager/index.php:74
 #: application/views/cron/index.php:80
 #: application/views/interface_assets/footer.php:689
 #: application/views/interface_assets/footer.php:698
@@ -2996,7 +3017,7 @@ msgstr "Modifica"
 #: application/views/club/permissions.php:382
 #: application/views/contest_admin/add.php:71
 #: application/views/contesting/logger/components/qso-form.php:39
-#: application/views/contesting/manager/index.php:78
+#: application/views/contesting/manager/index.php:81
 #: application/views/interface_assets/footer.php:69
 #: application/views/interface_assets/footer.php:2652
 #: application/views/interface_assets/footer.php:2670
@@ -3242,7 +3263,7 @@ msgstr "Non permesso"
 #: application/controllers/Stationsetup.php:478
 #: application/views/contesting/logger/components/qso-form.php:31
 #: application/views/contesting/logger/components/qso-form.php:34
-#: application/views/contesting/manager/index.php:119
+#: application/views/contesting/manager/index.php:154
 #: application/views/qslpostcard/designer.php:47
 #: application/views/qso/index.php:763 application/views/simplefle/index.php:39
 #: application/views/widgets/on_air.php:181
@@ -4066,7 +4087,7 @@ msgstr "Livello di autorizzazione non valido!"
 msgid "Error adding Club Member!"
 msgstr "Errore durante l'aggiunta del membro del club!"
 
-#: application/models/Contesting_import_model.php:145
+#: application/models/Contesting_import_model.php:219
 #, php-format
 msgid ""
 "Imported from logbook\n"
@@ -4075,7 +4096,7 @@ msgstr ""
 "Importato dal logbook\n"
 "(ADIF: %s, Anno: %d) [Originale: %s]"
 
-#: application/models/Contesting_import_model.php:147
+#: application/models/Contesting_import_model.php:221
 #, php-format
 msgid ""
 "Imported from logbook\n"
@@ -4087,10 +4108,6 @@ msgstr ""
 #: application/models/Contesting_model.php:179
 msgid "Officers must edit contests."
 msgstr "I gestori devono modificare i contest."
-
-#: application/models/Contesting_model.php:213
-msgid "Only clubstation officers can delete."
-msgstr "Solo i gestori della clubstation possono eliminare."
 
 #: application/models/Eqslmethods_model.php:291
 msgid "Your eQSL username and/or password is incorrect."
@@ -4402,7 +4419,7 @@ msgid "Accumulated number of WAJA worked"
 msgstr "Numero totale di WAJA collegate"
 
 #: application/views/accumulate/index.php:8
-#: application/views/contesting/manager/import_legacy.php:33
+#: application/views/contesting/manager/import_legacy.php:38
 #: application/views/dayswithqso/index.php:47
 #: application/views/dayswithqso/index.php:87
 #: application/views/statistics/index.php:21
@@ -5579,7 +5596,7 @@ msgstr "Referenze POTA in ADIF"
 #: application/views/adif/pota_success.php:36
 #: application/views/api/index.php:37
 #: application/views/awards/amsat_rover/index.php:159
-#: application/views/contesting/manager/index.php:29
+#: application/views/contesting/manager/index.php:31
 #: application/views/cron/index.php:76
 #: application/views/dashboard/index.php:515
 #: application/views/dashboard/index.php:549
@@ -5737,7 +5754,7 @@ msgstr "Autorizzazioni"
 #: application/views/awards/pl_polska/index.php:375
 #: application/views/club/permissions.php:279
 #: application/views/clublog/export.php:39
-#: application/views/contesting/manager/index.php:36
+#: application/views/contesting/manager/index.php:38
 #: application/views/hrdlog/export.php:39
 #: application/views/logbookadvanced/index.php:828
 #: application/views/notes/main.php:77 application/views/qrz/export.php:44
@@ -8803,8 +8820,8 @@ msgstr "Spot recenti (<5 minuti)"
 #: application/views/contestcalendar/index.php:20
 #: application/views/contesting/logger/index.php:101
 #: application/views/contesting/manager/components/session_modal.php:28
-#: application/views/contesting/manager/import_legacy.php:31
-#: application/views/contesting/manager/index.php:32
+#: application/views/contesting/manager/import_legacy.php:36
+#: application/views/contesting/manager/index.php:34
 #: application/views/interface_assets/header.php:143
 #: application/views/logbookadvanced/attachContest.php:14
 #: application/views/logbookadvanced/edit.php:13
@@ -8921,7 +8938,7 @@ msgid "Spotter"
 msgstr "Segnalatore"
 
 #: application/views/bandmap/list.php:140
-#: application/views/contesting/manager/index.php:34
+#: application/views/contesting/manager/index.php:36
 #: application/views/hamsat/index.php:36
 #: application/views/logbookadvanced/attachContest.php:16
 #: application/views/logbookadvanced/edit.php:12
@@ -9541,6 +9558,7 @@ msgstr "Crea una banda"
 #: application/views/contesting/logger/index.php:93
 #: application/views/contesting/manager/components/confirm_delete.php:6
 #: application/views/contesting/manager/components/session_modal.php:12
+#: application/views/contesting/manager/index.php:126
 #: application/views/interface_assets/footer.php:54
 #: application/views/logbookadvanced/index.php:55
 #: application/views/simplefle/index.php:21
@@ -9609,12 +9627,12 @@ msgid "#QSOs"
 msgstr "#QSO"
 
 #: application/views/callstats/index.php:141
-#: application/views/contesting/manager/import_legacy.php:35
+#: application/views/contesting/manager/import_legacy.php:40
 msgid "First QSO"
 msgstr "Primo QSO"
 
 #: application/views/callstats/index.php:142
-#: application/views/contesting/manager/import_legacy.php:36
+#: application/views/contesting/manager/import_legacy.php:41
 #: application/views/stationsetup/stationsetup.php:159
 msgid "Last QSO"
 msgstr "Ultimo QSO"
@@ -9776,7 +9794,8 @@ msgstr "Sì, passa!"
 #: application/views/contesting/logger/index.php:188
 #: application/views/contesting/manager/components/confirm_delete.php:24
 #: application/views/contesting/manager/components/session_modal.php:152
-#: application/views/contesting/manager/import_legacy.php:75
+#: application/views/contesting/manager/import_legacy.php:80
+#: application/views/contesting/manager/index.php:140
 #: application/views/cron/edit.php:74
 #: application/views/interface_assets/footer.php:44
 #: application/views/logbookadvanced/index.php:88
@@ -10299,7 +10318,7 @@ msgstr ""
 
 #: application/views/contest_admin/add.php:23
 #: application/views/contest_admin/add.php:26
-#: application/views/contesting/manager/index.php:118
+#: application/views/contesting/manager/index.php:153
 msgid "Add a Contest"
 msgstr "Aggiungi un contest"
 
@@ -10408,13 +10427,13 @@ msgid "No Contests"
 msgstr "Nessun contest"
 
 #: application/views/contestcalendar/index.php:21
-#: application/views/contesting/manager/index.php:30
+#: application/views/contesting/manager/index.php:32
 #: application/views/logbookadvanced/attachContest.php:12
 msgid "Start"
 msgstr "Inizio"
 
 #: application/views/contestcalendar/index.php:22
-#: application/views/contesting/manager/index.php:31
+#: application/views/contesting/manager/index.php:33
 #: application/views/logbookadvanced/attachContest.php:13
 msgid "End"
 msgstr "Fine"
@@ -10817,8 +10836,8 @@ msgstr "Percorso"
 
 #: application/views/contesting/logger/index.php:55
 #: application/views/contesting/manager/export_cbr.php:132
-#: application/views/contesting/manager/import_legacy.php:34
-#: application/views/contesting/manager/index.php:33
+#: application/views/contesting/manager/import_legacy.php:39
+#: application/views/contesting/manager/index.php:35
 #: application/views/logbookadvanced/attachContest.php:15
 #: application/views/logbookadvanced/checkresult.php:249
 #: application/views/logbookadvanced/checkresult.php:325
@@ -11650,46 +11669,56 @@ msgstr ""
 "importare e clicca \"Importa selezionati\"."
 
 #: application/views/contesting/manager/import_legacy.php:17
+msgid "How grouping works:"
+msgstr ""
+
+#: application/views/contesting/manager/import_legacy.php:18
+msgid ""
+"QSOs are grouped by contest and station. Consecutive QSOs end up in the same "
+"session if they are less than 72 hours apart or fall into the same ISO "
+"calendar week (Monday-Sunday). This keeps week-long activity events together "
+"as one session, while weekly or monthly contest series are imported as "
+"separate sessions."
+msgstr ""
+
+#: application/views/contesting/manager/import_legacy.php:22
 msgid "Admin mode:"
 msgstr "Modalità amministratore:"
 
-#: application/views/contesting/manager/import_legacy.php:18
+#: application/views/contesting/manager/import_legacy.php:23
 msgid "This will import contests for all users of this instance."
 msgstr "Questo importerà i contest per tutti gli utenti di questa istanza."
 
-#: application/views/contesting/manager/import_legacy.php:30
+#: application/views/contesting/manager/import_legacy.php:35
+#: application/views/contesting/manager/index.php:29
 msgid "Select all"
 msgstr "Seleziona tutto"
 
-#: application/views/contesting/manager/import_legacy.php:32
+#: application/views/contesting/manager/import_legacy.php:37
 msgid "ADIF ID"
 msgstr "ID ADIF"
 
-#: application/views/contesting/manager/import_legacy.php:37
-#: application/views/contesting/manager/index.php:35
+#: application/views/contesting/manager/import_legacy.php:42
+#: application/views/contesting/manager/index.php:37
 #: application/views/logbookadvanced/attachContest.php:17
 msgid "#QSO"
 msgstr "#QSO"
 
-#: application/views/contesting/manager/import_legacy.php:61
+#: application/views/contesting/manager/import_legacy.php:66
 msgid "Unknown → Other"
 msgstr "Sconosciuto → Altro"
 
-#: application/views/contesting/manager/import_legacy.php:72
+#: application/views/contesting/manager/import_legacy.php:77
 msgid "Import Selected"
 msgstr "Importa selezionati"
 
-#: application/views/contesting/manager/import_legacy.php:94
+#: application/views/contesting/manager/import_legacy.php:99
 msgid "Please select at least one contest to import."
 msgstr "Seleziona almeno un contest da importare."
 
-#: application/views/contesting/manager/import_legacy.php:97
-msgid ""
-"Are you sure you want to import the selected contest sessions? This cannot "
-"be undone."
+#: application/views/contesting/manager/import_legacy.php:102
+msgid "Are you sure you want to import the selected contest sessions?"
 msgstr ""
-"Sei sicuro di voler importare le sessioni di contest selezionate? Questa "
-"azione non può essere annullata."
 
 #: application/views/contesting/manager/index.php:17
 #: application/views/interface_assets/header.php:341
@@ -11713,42 +11742,74 @@ msgstr "Crea nuovo contest"
 msgid "Quick Start"
 msgstr "Avvio rapido"
 
-#: application/views/contesting/manager/index.php:49
+#: application/views/contesting/manager/index.php:23
+msgid "Delete Selected"
+msgstr ""
+
+#: application/views/contesting/manager/index.php:23
+msgid "Delete selected contest sessions"
+msgstr ""
+
+#: application/views/contesting/manager/index.php:51
 #: application/views/logbookadvanced/attachContest.php:28
 msgid "Coming Up"
 msgstr "In arrivo"
 
-#: application/views/contesting/manager/index.php:51
+#: application/views/contesting/manager/index.php:53
 #: application/views/logbookadvanced/attachContest.php:30
 msgid "In Progress"
 msgstr "In corso"
 
-#: application/views/contesting/manager/index.php:53
+#: application/views/contesting/manager/index.php:55
 #: application/views/logbookadvanced/attachContest.php:32
 msgid "Completed"
 msgstr "Completato"
 
-#: application/views/contesting/manager/index.php:59
+#: application/views/contesting/manager/index.php:62
 msgid "START"
 msgstr "INIZIO"
 
-#: application/views/contesting/manager/index.php:94
+#: application/views/contesting/manager/index.php:97
 msgid "Export ADIF"
 msgstr "Esporta ADIF"
 
-#: application/views/contesting/manager/index.php:97
+#: application/views/contesting/manager/index.php:100
 msgid "Export CBR"
 msgstr "Esporta CBR"
 
-#: application/views/contesting/manager/index.php:100
+#: application/views/contesting/manager/index.php:103
 msgid "Export EDI"
 msgstr "Esporta EDI"
 
-#: application/views/contesting/manager/index.php:149
+#: application/views/contesting/manager/index.php:125
+msgid "Delete Contest Sessions"
+msgstr ""
+
+#: application/views/contesting/manager/index.php:130
+msgid "Do you really want to delete the selected contest sessions?"
+msgstr ""
+
+#: application/views/contesting/manager/index.php:131
+msgid "Selected sessions: "
+msgstr ""
+
+#: application/views/contesting/manager/index.php:135
+msgid "Also delete all QSOs logged in these sessions from the logbook"
+msgstr ""
+
+#: application/views/contesting/manager/index.php:142
+msgid "Delete Sessions"
+msgstr ""
+
+#: application/views/contesting/manager/index.php:155
+msgid "Please select at least one contest session."
+msgstr ""
+
+#: application/views/contesting/manager/index.php:185
 msgid "Import historical contests from logbook"
 msgstr "Importa contest storici dal logbook"
 
-#: application/views/contesting/manager/index.php:152
+#: application/views/contesting/manager/index.php:188
 msgid ""
 "Import for all users of this instance. You can do that because you are an "
 "administrator."
@@ -22434,6 +22495,13 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#~ msgid ""
+#~ "Are you sure you want to import the selected contest sessions? This "
+#~ "cannot be undone."
+#~ msgstr ""
+#~ "Sei sicuro di voler importare le sessioni di contest selezionate? Questa "
+#~ "azione non può essere annullata."
 
 #~ msgid ""
 #~ "The backup of your log completed successfully. The output can be found at"
