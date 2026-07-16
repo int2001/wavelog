@@ -37,6 +37,7 @@ class cron extends CI_Controller {
 		$data['page_title'] = __("Cron Manager");
 		$data['crons'] = $this->cron_model->get_crons();
 		$data['cron_allow_insecure'] = $this->config->item('cron_allow_insecure') ?? false;
+		$data['cron_disable_run_now'] = ($this->config->item('cron_disable_run_now') ?? false) == true;
 
 		$mastercron = array();
 		$mastercron = $this->get_mastercron_status();
@@ -166,6 +167,12 @@ class cron extends CI_Controller {
 			echo json_encode(['success' => false, 'messagecategory' => 'error', 'message' => __("You're not allowed to do that!")]);
 			return;
 		}
+
+		if (($this->config->item('cron_disable_run_now') ?? false) == true) {
+			header("Content-type: application/json");
+			echo json_encode(['success' => false, 'messagecategory' => 'warning', 'message' => __('Manual execution of cronjobs is disabled.')]);
+			return;
+		}
 		// Release the session lock: the job runs synchronously and would otherwise
 		// block every other request of this user (with the file session driver) until it finishes.
 		session_write_close();
@@ -192,8 +199,10 @@ class cron extends CI_Controller {
 		}
 
 		if ($cron_result['success']) {
-			echo json_encode(['success' => true, 'messagecategory' => 'success', 'message' => __('Cronjob triggered.')]);
+			$this->cron_model->set_status($cron->id, 'healthy');
+			echo json_encode(['success' => true, 'messagecategory' => 'success', 'message' => __('Cronjob executed successfully.')]);
 		} else {
+			$this->cron_model->set_status($cron->id, 'failed');
 			log_message('error', 'CRON: Manual execution of ' . $cron->id . ' failed: ' . $cron_result['error']);
 			echo json_encode(['success' => false, 'messagecategory' => 'error', 'message' => __('Cronjob execution failed.')]);
 		}
@@ -351,15 +360,28 @@ class cron extends CI_Controller {
 			return ['success' => false, 'locked' => true, 'response' => '', 'error' => '', 'url' => $url];
 		}
 
-		// Lock for 12 hours to prevent overlapping executions of the same cronjob.
-		// some big instances have really really long cron runs
-		$this->cache->save($lock_key, time(), 43200);
+		// we lock only for 3 minutes since the curl progressfunction renews the lock by itself every 30s
+		$lock_ttl = 180;
+		$this->cache->save($lock_key, time(), $lock_ttl);
 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_HEADER, false);
 		curl_setopt($ch, CURLOPT_USERAGENT, 'Wavelog Updater');
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
+
+		$last_renew = time();
+		curl_setopt($ch, CURLOPT_NOPROGRESS, false);
+		curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, function ($ch, $dltotal, $dlnow, $ultotal, $ulnow) use ($lock_key, $lock_ttl, &$last_renew) {
+			// make sure the progressfunction is called not more than once every 30s
+			if (time() - $last_renew >= 30) {
+				$this->cache->save($lock_key, time(), $lock_ttl);
+				$last_renew = time();
+			}
+			return 0;
+		});
+
 		if ($this->config->item('cron_allow_insecure') ?? false == true) {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 		}
