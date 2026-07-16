@@ -231,6 +231,32 @@ class Contesting_model extends CI_Model {
 	}
 
 	/**
+	 * Deletes multiple contest sessions for the current user.
+	 * Ownership is verified before any QSO links are touched.
+	 *
+	 * @param array $contest_session_ids IDs of the contest sessions to delete.
+	 * @param bool  $delete_qsos Also delete the linked QSOs from the logbook.
+	 * @return int Number of sessions deleted.
+	 */
+	function batch_delete_sessions(array $contest_session_ids, $delete_qsos = false) {
+		$user_id = $this->session->userdata('user_id');
+
+		// Only keep sessions actually owned by the current user
+		$placeholders = implode(',', array_fill(0, count($contest_session_ids), '?'));
+		$query = $this->db->query(
+			"SELECT id FROM contest_session WHERE id IN ({$placeholders}) AND user_id = ?",
+			array_merge($contest_session_ids, [$user_id])
+		);
+
+		$deleted = 0;
+		foreach ($query->result() as $row) {
+			$this->delete_contest_session($row->id, $delete_qsos);
+			$deleted++;
+		}
+		return $deleted;
+	}
+
+	/**
 	 * Delete a QSO from a contest. Does not delete QSO from main logbook.
 	 *
 	 * @param int $qso_id The ID of the QSO.
