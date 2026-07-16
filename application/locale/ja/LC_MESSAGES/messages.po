@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-16 08:26+0000\n"
-"PO-Revision-Date: 2026-07-13 09:35+0000\n"
+"PO-Revision-Date: 2026-07-16 09:51+0000\n"
 "Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ja/>\n"
@@ -1112,23 +1112,23 @@ msgstr "Cronマネージャー"
 
 #: application/controllers/Cron.php:176
 msgid "Cronjob not found."
-msgstr ""
+msgstr "cronジョブが見つかりません。"
 
 #: application/controllers/Cron.php:182
 msgid "Disabled cronjobs cannot be run."
-msgstr ""
+msgstr "無効化されたcronジョブは実行できません。"
 
 #: application/controllers/Cron.php:190
 msgid "Cronjob is already running."
-msgstr ""
+msgstr "クロンジョブは既に実行中です。"
 
 #: application/controllers/Cron.php:195
 msgid "Cronjob triggered."
-msgstr ""
+msgstr "クロンジョブが実行されました。"
 
 #: application/controllers/Cron.php:198
 msgid "Cronjob execution failed."
-msgstr ""
+msgstr "クロンジョブの実行に失敗しました。"
 
 #: application/controllers/Cron.php:210 application/views/cron/edit.php:5
 msgid "Edit Cronjob"
@@ -1168,7 +1168,7 @@ msgstr "無効"
 #: application/controllers/Cron.php:320 application/views/cron/index.php:81
 #: application/views/cron/index.php:113
 msgid "Run Now"
-msgstr ""
+msgstr "今すぐ実行"
 
 #: application/controllers/Cron.php:394
 #: application/views/interface_assets/footer.php:44
