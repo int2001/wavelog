@@ -192,7 +192,7 @@ class cron extends CI_Controller {
 		}
 
 		if ($cron_result['success']) {
-			echo json_encode(['success' => true, 'messagecategory' => 'success', 'message' => __('Cronjob triggered.')]);
+			echo json_encode(['success' => true, 'messagecategory' => 'success', 'message' => __('Cronjob executed successfully.')]);
 		} else {
 			log_message('error', 'CRON: Manual execution of ' . $cron->id . ' failed: ' . $cron_result['error']);
 			echo json_encode(['success' => false, 'messagecategory' => 'error', 'message' => __('Cronjob execution failed.')]);
