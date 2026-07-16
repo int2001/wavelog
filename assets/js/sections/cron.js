@@ -35,6 +35,8 @@ function init_expression_tooltips() {
 }
 
 function init_datatable() {
+	var disableRunNow = $('.crontable').data('disable-run-now') == 1;
+
 	$('.crontable').DataTable({
 		"pageLength": 25,
 		responsive: true,
@@ -43,6 +45,7 @@ function init_datatable() {
 		"paging": false,
 		"scrollX": true,
 		"autoWidth": false,
+		columnDefs: disableRunNow ? [{ targets: 7, visible: false }] : [],
 		"language": {
 			url: getDataTablesLanguageUrl(),
 		},
@@ -67,31 +70,6 @@ function modalEventListener() {
 	$('#edit_cron_expression_dropdown').change(function () {
 		humanReadableInEditDialog()
 	});
-}
-
-var message_timer;
-function displayMessages(category, message) {
-	var html_class;
-	var message_area = $('#cron_message_area');
-
-	if (category == 'success') {
-		html_class = 'alert alert-success';
-	} else if (category == 'warning') {
-		html_class = 'alert alert-warning';
-	} else if (category == 'error') {
-		html_class = 'alert alert-danger';
-	} else {
-		html_class = 'alert alert-info';
-	}
-
-	message_area.stop(true).css('opacity', '').show();
-	message_area.attr('class', html_class);	// replace, don't add: earlier categories must not linger
-	message_area.text(message);
-
-	clearTimeout(message_timer);
-	message_timer = setTimeout(function () {
-		message_area.fadeOut();
-	}, 7000);
 }
 
 function editCronDialog(e) {
@@ -136,13 +114,13 @@ function editCron() {
 		success: function (response) {
 			if (response.success) {
 				reloadCrons();
-				displayMessages(response.messagecategory, response.message);
+				showToast(lang_general_word_success, response.message, 'bg-success text-white', 5000);
 			} else {
-				displayMessages(response.messagecategory, response.message);
+				showToast(lang_general_word_error, response.message, 'bg-danger text-white', 5000);
 			}
 		},
 		error: function (response) {
-			displayMessages('error', 'The query failed for a unknown reason');
+			showToast(lang_general_word_error, lang_general_word_query_failed_unkown, 'bg-danger text-white', 5000);
 		}
 	});
 
@@ -150,7 +128,7 @@ function editCron() {
 
 function runCron(button) {
 	var $button = $(button);
-	$button.prop('disabled', true);
+	$button.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
 
 	$.ajax({
 		url: base_url + 'index.php/cron/runNow',
@@ -160,15 +138,20 @@ function runCron(button) {
 			id: button.id
 		},
 		success: function (response) {
-			displayMessages(response.messagecategory, response.message);
-			reloadCrons();
+			if (response.success) {
+				showToast(lang_general_word_success, response.message, 'bg-success text-white', 5000);
+			} else if (response.messagecategory == 'error') {
+				showToast(lang_general_word_error, response.message, 'bg-danger text-white', 5000);
+			} else {
+				showToast(lang_general_word_warning, response.message, 'bg-warning text-white', 5000);
+			}
 		},
 		error: function (response) {
-			var message = response.responseJSON && response.responseJSON.message ? response.responseJSON.message : 'The query failed for a unknown reason';
-			displayMessages('error', message);
+			var message = response.responseJSON && response.responseJSON.message ? response.responseJSON.message : lang_general_word_query_failed_unkown;
+			showToast(lang_general_word_error, message, 'bg-danger text-white', 5000);
 		},
 		complete: function () {
-			$button.prop('disabled', false);
+			reloadCrons();
 		}
 	});
 }
