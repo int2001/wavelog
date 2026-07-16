@@ -12,6 +12,11 @@
 					<p class="card-text">
 						<?= __("The following contest groups were found in your logbook but are not yet linked to a contest session. Select the ones you want to import and click \"Import Selected\".") ?>
 					</p>
+					<p class="alert alert-info">
+						<i class="fas fa-info-circle me-1"></i>
+						<?= __("How grouping works:"); ?><br>
+						<?= __("QSOs are grouped by contest and station. Consecutive QSOs end up in the same session if they are less than 72 hours apart or fall into the same ISO calendar week (Monday-Sunday). This keeps week-long activity events together as one session, while weekly or monthly contest series are imported as separate sessions.") ?>
+					</p>
 					<?php if (!empty($all_users)): ?>
 						<div class="alert alert-warning">
 							<strong><?= __("Admin mode:") ?></strong>
