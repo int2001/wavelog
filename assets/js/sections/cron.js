@@ -125,7 +125,7 @@ function editCron() {
 
 function runCron(button) {
 	var $button = $(button);
-	$button.prop('disabled', true);
+	$button.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
 
 	$.ajax({
 		url: base_url + 'index.php/cron/runNow',
@@ -136,14 +136,13 @@ function runCron(button) {
 		},
 		success: function (response) {
 			showToast(lang_general_word_success, response.message, 'bg-success text-white', 5000);
-			reloadCrons();
 		},
 		error: function (response) {
 			var message = response.responseJSON && response.responseJSON.message ? response.responseJSON.message : lang_general_word_query_failed_unkown;
 			showToast(lang_general_word_error, message, 'bg-danger text-white', 5000);
 		},
 		complete: function () {
-			$button.prop('disabled', false);
+			reloadCrons();
 		}
 	});
 }
