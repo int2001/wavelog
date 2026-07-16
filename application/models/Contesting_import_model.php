@@ -5,7 +5,8 @@ class Contesting_import_model extends CI_Model {
 	 * Returns historical contest QSO groups not yet linked to any contest session,
 	 * scoped to the current user's stations. Groups by (COL_CONTEST_ID, station_id)
 	 * and splits into separate sessions wherever consecutive QSOs are at least
-	 * 72 hours apart. QSOs without a valid COL_TIME_ON are excluded.
+	 * 72 hours apart and not within the same ISO calendar week (see
+	 * _segment_qsos). QSOs without a valid COL_TIME_ON are excluded.
 	 *
 	 * @return array
 	 */
@@ -137,7 +138,11 @@ class Contesting_import_model extends CI_Model {
 
 	/**
 	 * Splits a time-ordered list of QSOs into segments. A new segment starts
-	 * whenever two consecutive QSOs are at least 72h apart.
+	 * whenever two consecutive QSOs are at least 72h apart — unless both QSOs
+	 * fall into the same ISO calendar week (Mon-Sun). This keeps week-long
+	 * activity events with sparse QSOs (e.g. one QSO on Monday, one on Friday)
+	 * in a single session, while weekly series (same weekday every week) always
+	 * cross a week boundary and are still split.
 	 *
 	 * @param array $qsos QSO rows ordered by COL_TIME_ON ascending
 	 * @return array Array of segments, each an array of QSO rows
@@ -149,7 +154,7 @@ class Contesting_import_model extends CI_Model {
 
 		foreach ($qsos as $qso) {
 			$ts = strtotime($qso['COL_TIME_ON']);
-			if ($prev_ts !== null && ($ts - $prev_ts) >= 72 * 3600) {
+			if ($prev_ts !== null && ($ts - $prev_ts) >= 72 * 3600 && date('oW', $ts) !== date('oW', $prev_ts)) {
 				$segments[] = $current;
 				$current = [];
 			}
