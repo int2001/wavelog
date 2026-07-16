@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-16 08:26+0000\n"
-"PO-Revision-Date: 2026-07-16 12:49+0000\n"
+"PO-Revision-Date: 2026-07-16 13:03+0000\n"
 "Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
@@ -22790,22 +22790,24 @@ msgstr "Die Abfrage ist aus einem unbekannten Grund fehlgeschlagen."
 
 #: application/controllers/Contesting.php:797
 msgid "No contest sessions selected."
-msgstr ""
+msgstr "Keine Contest-Sessions ausgewählt."
 
 #: application/controllers/Contesting.php:805
 #, php-format
 msgid "%d contest session deleted."
 msgid_plural "%d contest sessions deleted."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d Contest Session gelöscht."
+msgstr[1] "%d Contest Sessions gelöscht."
 
 #: application/controllers/Contesting.php:807
 msgid "There was an error deleting the contest sessions. Please try again."
 msgstr ""
+"Beim Löschen der Contest-Session ist ein Fehler aufgetreten. Bitte erneut "
+"versuchen."
 
 #: application/views/contesting/manager/import_legacy.php:17
 msgid "How grouping works:"
-msgstr ""
+msgstr "Wie Gruppierung funktioniert:"
 
 #: application/views/contesting/manager/import_legacy.php:18
 msgid ""
@@ -22815,42 +22817,49 @@ msgid ""
 "as one session, while weekly or monthly contest series are imported as "
 "separate sessions."
 msgstr ""
+"QSOs werden nach Contest und Station gruppiert. Aufeinanderfolgende QSOs "
+"landen in derselben Session, wenn sie weniger als 72 Stunden auseinander "
+"liegen oder in die gleiche ISO-Kalenderwoche (Montag-Sonntag) fallen. Dies "
+"hält Activity Weeks als eine Sessions zusammen, während wöchentliche oder "
+"monatliche Contest-Serien als separate Sessions importiert werden."
 
 #: application/views/contesting/manager/import_legacy.php:102
 msgid "Are you sure you want to import the selected contest sessions?"
 msgstr ""
+"Bist du sicher, dass du die ausgewählten Contest-Sessions importieren "
+"möchtest?"
 
 #: application/views/contesting/manager/index.php:23
 msgid "Delete Selected"
-msgstr ""
+msgstr "Ausgewählte löschen"
 
 #: application/views/contesting/manager/index.php:23
 msgid "Delete selected contest sessions"
-msgstr ""
+msgstr "Ausgewählte Contest-Sessions löschen"
 
 #: application/views/contesting/manager/index.php:125
 msgid "Delete Contest Sessions"
-msgstr ""
+msgstr "Contest-Session löschen"
 
 #: application/views/contesting/manager/index.php:130
 msgid "Do you really want to delete the selected contest sessions?"
-msgstr ""
+msgstr "Möchtest du wirklich die ausgewählten Contest-Session löschen?"
 
 #: application/views/contesting/manager/index.php:131
 msgid "Selected sessions: "
-msgstr ""
+msgstr "Ausgewählte Sessions: "
 
 #: application/views/contesting/manager/index.php:135
 msgid "Also delete all QSOs logged in these sessions from the logbook"
-msgstr ""
+msgstr "Lösche außerdem alle in dieser Session geloggten QSOs aus dem Logbuch"
 
 #: application/views/contesting/manager/index.php:142
 msgid "Delete Sessions"
-msgstr ""
+msgstr "Sessions löschen"
 
 #: application/views/contesting/manager/index.php:155
 msgid "Please select at least one contest session."
-msgstr ""
+msgstr "Bitte wählen Sie mindestens eine Contest-Session aus."
 
 #~ msgid ""
 #~ "The backup of your log completed successfully. The output can be found at"
