@@ -351,15 +351,27 @@ class cron extends CI_Controller {
 			return ['success' => false, 'locked' => true, 'response' => '', 'error' => '', 'url' => $url];
 		}
 
-		// Lock for 12 hours to prevent overlapping executions of the same cronjob.
-		// some big instances have really really long cron runs
-		$this->cache->save($lock_key, time(), 43200);
+		// we lock only for 3 minutes since the curl progressfunction renews the lock by itself every 30s
+		$lock_ttl = 180;
+		$this->cache->save($lock_key, time(), $lock_ttl);
 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_HEADER, false);
 		curl_setopt($ch, CURLOPT_USERAGENT, 'Wavelog Updater');
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		$last_renew = time();
+		curl_setopt($ch, CURLOPT_NOPROGRESS, false);
+		curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, function ($ch, $dltotal, $dlnow, $ultotal, $ulnow) use ($lock_key, $lock_ttl, &$last_renew) {
+			// make sure the progressfunction is called not more than once every 30s
+			if (time() - $last_renew >= 30) {
+				$this->cache->save($lock_key, time(), $lock_ttl);
+				$last_renew = time();
+			}
+			return 0;
+		});
+
 		if ($this->config->item('cron_allow_insecure') ?? false == true) {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 		}
