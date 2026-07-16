@@ -42,9 +42,9 @@
 									<?php foreach ($groups as $row):
 										$is_other = (empty($row['contest_table_id']) || ($row['contest_table_id'] == 1 && $row['adif_name'] !== 'Other'));
 										if (!empty($all_users)) {
-											$key = $row['adif_name'] . '|' . $row['station_id'] . '|' . $row['contest_year'] . '|' . $row['owner_user_id'];
+											$key = $row['adif_name'] . '|' . $row['station_id'] . '|' . $row['segment_start'] . '|' . $row['owner_user_id'];
 										} else {
-											$key = $row['adif_name'] . '|' . $row['station_id'] . '|' . $row['contest_year'];
+											$key = $row['adif_name'] . '|' . $row['station_id'] . '|' . $row['segment_start'];
 										}
 									?>
 									<tr>

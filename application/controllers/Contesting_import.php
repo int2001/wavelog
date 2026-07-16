@@ -49,7 +49,7 @@ class Contesting_import extends CI_Controller {
 
 	/**
 	 * Processes the legacy contest import for the current user.
-	 * POST: groups[] = "adif_name|station_id|year"
+	 * POST: groups[] = "adif_name|station_id|segment_start"
 	 */
 	public function do_import() {
 		if (!clubaccess_check(9)) {
@@ -67,11 +67,11 @@ class Contesting_import extends CI_Controller {
 			$parts = explode('|', $key);
 			if (count($parts) !== 3) continue;
 
-			[$adif_name, $station_id, $year] = $parts;
+			[$adif_name, $station_id, $segment_start] = $parts;
 			$linked = $this->contesting_import_model->import_legacy_contest_group(
 				$adif_name,
 				(int)$station_id,
-				(int)$year
+				(int)$segment_start
 			);
 			if ($linked > 0) {
 				$sessions++;
@@ -117,7 +117,7 @@ class Contesting_import extends CI_Controller {
 
 	/**
 	 * Admin-only: processes the legacy contest import for all users.
-	 * POST: groups[] = "adif_name|station_id|year|user_id"
+	 * POST: groups[] = "adif_name|station_id|segment_start|user_id"
 	 */
 	public function do_import_all() {
 		if (!$this->user_model->authorize(99)) {
@@ -135,11 +135,11 @@ class Contesting_import extends CI_Controller {
 			$parts = explode('|', $key);
 			if (count($parts) !== 4) continue;
 
-			[$adif_name, $station_id, $year, $user_id] = $parts;
+			[$adif_name, $station_id, $segment_start, $user_id] = $parts;
 			$linked = $this->contesting_import_model->import_legacy_contest_group_as_user(
 				$adif_name,
 				(int)$station_id,
-				(int)$year,
+				(int)$segment_start,
 				(int)$user_id
 			);
 			if ($linked > 0) {
