@@ -233,6 +233,7 @@ msgstr "対流圏ダクト"
 #: application/controllers/Zonechecker.php:16
 #: application/models/Club_model.php:51 application/controllers/Cron.php:167
 #: application/controllers/Cron.php:213 application/controllers/Cron.php:226
+#: application/controllers/Contesting.php:1079
 msgid "You're not allowed to do that!"
 msgstr "それは禁止です！"
 
@@ -1035,6 +1036,7 @@ msgstr ""
 #: application/controllers/Contesting.php:659
 #: application/controllers/Contesting.php:725
 #: application/controllers/Contesting.php:772
+#: application/controllers/Contesting.php:784
 msgid "Invalid request method."
 msgstr "無効なリクエストメソッドです。"
 
@@ -1057,23 +1059,28 @@ msgstr ""
 "コンテストセッションの削除中にエラーが発生しました。もう一度お試しください。"
 
 #: application/controllers/Contesting.php:985
+#: application/controllers/Contesting.php:1021
 msgid "Operator switching is disabled."
 msgstr "オペレーターの切り替えは無効になっています。"
 
 #: application/controllers/Contesting.php:1005
+#: application/controllers/Contesting.php:1041
 msgid "Operator switching is only available in club stations."
 msgstr "オペレーターの切り替えは、クラブシャック でのみ利用可能です。"
 
 #: application/controllers/Contesting.php:1015
+#: application/controllers/Contesting.php:1051
 msgid "Access denied"
 msgstr "アクセスが拒否されました"
 
 #: application/controllers/Contesting.php:1023
 #: application/controllers/User.php:1432
+#: application/controllers/Contesting.php:1059
 msgid "Incorrect username or password!"
 msgstr "ユーザー名またはパスワードが間違っています!"
 
 #: application/controllers/Contesting.php:1032
+#: application/controllers/Contesting.php:1068
 msgid "A club account cannot be used as an operator."
 msgstr "クラブアカウントはオペレーターとして使用できません。"
 
@@ -2479,6 +2486,7 @@ msgstr "メモを追加"
 #: application/controllers/Notes.php:97
 #: application/views/contesting/manager/import_legacy.php:38
 #: application/views/oqrs/showrequests.php:98
+#: application/views/contesting/manager/import_legacy.php:43
 msgid "Note"
 msgstr "メモ"
 
@@ -2988,6 +2996,7 @@ msgstr "最終更新日"
 #: application/views/user/index.php:203
 #: application/views/interface_assets/footer.php:689
 #: application/views/interface_assets/footer.php:698
+#: application/views/contesting/manager/index.php:74
 msgid "Edit"
 msgstr "編集"
 
@@ -3027,6 +3036,7 @@ msgstr "編集"
 #: application/views/interface_assets/footer.php:2670
 #: application/views/interface_assets/footer.php:2689
 #: application/views/interface_assets/footer.php:2707
+#: application/views/contesting/manager/index.php:81
 msgid "Delete"
 msgstr "削除"
 
@@ -3253,6 +3263,7 @@ msgstr "許可されていません"
 #: application/views/qso/index.php:763 application/views/simplefle/index.php:39
 #: application/views/widgets/on_air.php:181
 #: application/views/widgets/on_air.php:243
+#: application/views/contesting/manager/index.php:154
 msgid "Error"
 msgstr "エラー"
 
@@ -4063,6 +4074,7 @@ msgid "Error adding Club Member!"
 msgstr "クラブメンバーの追加中にエラーが発生しました!"
 
 #: application/models/Contesting_import_model.php:145
+#: application/models/Contesting_import_model.php:219
 #, php-format
 msgid ""
 "Imported from logbook\n"
@@ -4072,6 +4084,7 @@ msgstr ""
 "(ADIF: %s, 年: %d) [元データ: %s]"
 
 #: application/models/Contesting_import_model.php:147
+#: application/models/Contesting_import_model.php:221
 #, php-format
 msgid ""
 "Imported from logbook\n"
@@ -4085,6 +4098,7 @@ msgid "Officers must edit contests."
 msgstr "管理者はコンテストを編集しなければなりません。"
 
 #: application/models/Contesting_model.php:213
+#: application/controllers/Contesting.php:789
 msgid "Only clubstation officers can delete."
 msgstr "クラブシャック の役員のみが削除できます。"
 
@@ -4399,6 +4413,7 @@ msgstr "WAJAの累計交信数"
 #: application/views/statistics/index.php:21
 #: application/views/timeline/index.php:98
 #: application/views/visitor/index.php:250
+#: application/views/contesting/manager/import_legacy.php:38
 msgid "Year"
 msgstr "年"
 
@@ -5591,6 +5606,7 @@ msgstr "ADIFにおけるPOTA参照"
 #: application/views/stationsetup/stationsetup.php:44
 #: application/views/timeline/index.php:197
 #: application/views/usermode/index.php:41
+#: application/views/contesting/manager/index.php:31
 msgid "Status"
 msgstr "状態"
 
@@ -5744,6 +5760,7 @@ msgstr "権限"
 #: application/views/webadif/export.php:45
 #: application/views/view_log/partial/log_ajax.php:164
 #: application/views/view_log/partial/log_ajax.php:598
+#: application/views/contesting/manager/index.php:38
 msgid "Actions"
 msgstr "アクション"
 
@@ -8751,6 +8768,8 @@ msgstr "新しいスポット（5分未満）"
 #: application/views/logbookadvanced/useroptions.php:296
 #: application/views/qso/edit_ajax.php:42
 #: application/views/simplefle/index.php:84
+#: application/views/contesting/manager/import_legacy.php:36
+#: application/views/contesting/manager/index.php:34
 msgid "Contest"
 msgstr "コンテスト"
 
@@ -8867,6 +8886,7 @@ msgstr "スポッター"
 #: application/views/logbookadvanced/useroptions.php:284
 #: application/views/qso/edit_ajax.php:183 application/views/qso/index.php:388
 #: application/views/view_log/qso.php:240
+#: application/views/contesting/manager/index.php:36
 msgid "Comment"
 msgstr "コメント"
 
@@ -9483,6 +9503,7 @@ msgstr "バンドを作る"
 #: application/views/user/modals/more_actions_modal.php:166
 #: application/views/version_dialog/index.php:79
 #: application/views/interface_assets/footer.php:54
+#: application/views/contesting/manager/index.php:126
 msgid "Close"
 msgstr "閉じる"
 
@@ -9542,12 +9563,14 @@ msgstr "#QSO"
 
 #: application/views/callstats/index.php:141
 #: application/views/contesting/manager/import_legacy.php:35
+#: application/views/contesting/manager/import_legacy.php:40
 msgid "First QSO"
 msgstr "最初のQSO"
 
 #: application/views/callstats/index.php:142
 #: application/views/contesting/manager/import_legacy.php:36
 #: application/views/stationsetup/stationsetup.php:159
+#: application/views/contesting/manager/import_legacy.php:41
 msgid "Last QSO"
 msgstr "Last QSO"
 
@@ -9718,6 +9741,8 @@ msgstr "はい、切り替えます！"
 #: application/views/user/modals/admin_impersonate_modal.php:45
 #: application/views/user/modals/stop_impersonate_modal.php:14
 #: application/views/interface_assets/footer.php:44
+#: application/views/contesting/manager/import_legacy.php:80
+#: application/views/contesting/manager/index.php:140
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -10224,6 +10249,7 @@ msgstr ""
 #: application/views/contest_admin/add.php:23
 #: application/views/contest_admin/add.php:26
 #: application/views/contesting/manager/index.php:118
+#: application/views/contesting/manager/index.php:153
 msgid "Add a Contest"
 msgstr "コンテストを追加する"
 
@@ -10334,12 +10360,14 @@ msgstr "コンテストなし"
 #: application/views/contestcalendar/index.php:21
 #: application/views/contesting/manager/index.php:30
 #: application/views/logbookadvanced/attachContest.php:12
+#: application/views/contesting/manager/index.php:32
 msgid "Start"
 msgstr "開始"
 
 #: application/views/contestcalendar/index.php:22
 #: application/views/contesting/manager/index.php:31
 #: application/views/logbookadvanced/attachContest.php:13
+#: application/views/contesting/manager/index.php:33
 msgid "End"
 msgstr "終わり"
 
@@ -10773,6 +10801,8 @@ msgstr "パス"
 #: application/views/view_log/qso.php:702
 #: application/views/view_log/qso.php:707
 #: application/views/view_log/partial/log_ajax.php:162
+#: application/views/contesting/manager/import_legacy.php:39
+#: application/views/contesting/manager/index.php:35
 msgid "Station"
 msgstr "無線局"
 
@@ -11577,40 +11607,50 @@ msgstr ""
 "のをインポート」をクリックしてください。"
 
 #: application/views/contesting/manager/import_legacy.php:17
+#: application/views/contesting/manager/import_legacy.php:22
 msgid "Admin mode:"
 msgstr "管理者モード:"
 
 #: application/views/contesting/manager/import_legacy.php:18
+#: application/views/contesting/manager/import_legacy.php:23
 msgid "This will import contests for all users of this instance."
 msgstr ""
 "これにより、このインスタンスのすべてのユーザーのコンテストがインポートされま"
 "す。"
 
 #: application/views/contesting/manager/import_legacy.php:30
+#: application/views/contesting/manager/import_legacy.php:35
+#: application/views/contesting/manager/index.php:29
 msgid "Select all"
 msgstr "すべて選択"
 
 #: application/views/contesting/manager/import_legacy.php:32
+#: application/views/contesting/manager/import_legacy.php:37
 msgid "ADIF ID"
 msgstr "ADIF ID"
 
 #: application/views/contesting/manager/import_legacy.php:37
 #: application/views/contesting/manager/index.php:35
 #: application/views/logbookadvanced/attachContest.php:17
+#: application/views/contesting/manager/import_legacy.php:42
+#: application/views/contesting/manager/index.php:37
 msgid "#QSO"
 msgstr "#QSO"
 
 #: application/views/contesting/manager/import_legacy.php:61
+#: application/views/contesting/manager/import_legacy.php:66
 msgid "Unknown → Other"
 msgstr ""
 "この場合、「Other」は名前です。「Other」の翻訳または英語の単語を使用してくだ"
 "さい"
 
 #: application/views/contesting/manager/import_legacy.php:72
+#: application/views/contesting/manager/import_legacy.php:77
 msgid "Import Selected"
 msgstr "選択した項目をインポート"
 
 #: application/views/contesting/manager/import_legacy.php:94
+#: application/views/contesting/manager/import_legacy.php:99
 msgid "Please select at least one contest to import."
 msgstr "インポートするコンテストを少なくとも1つ選択してください。"
 
@@ -11646,40 +11686,49 @@ msgstr "クイックスタート"
 
 #: application/views/contesting/manager/index.php:49
 #: application/views/logbookadvanced/attachContest.php:28
+#: application/views/contesting/manager/index.php:51
 msgid "Coming Up"
 msgstr "予定"
 
 #: application/views/contesting/manager/index.php:51
 #: application/views/logbookadvanced/attachContest.php:30
+#: application/views/contesting/manager/index.php:53
 msgid "In Progress"
 msgstr "進行中"
 
 #: application/views/contesting/manager/index.php:53
 #: application/views/logbookadvanced/attachContest.php:32
+#: application/views/contesting/manager/index.php:55
 msgid "Completed"
 msgstr "完了"
 
 #: application/views/contesting/manager/index.php:59
+#: application/views/contesting/manager/index.php:62
 msgid "START"
 msgstr "スタート"
 
 #: application/views/contesting/manager/index.php:94
+#: application/views/contesting/manager/index.php:97
 msgid "Export ADIF"
 msgstr "ADIFをエクスポート"
 
 #: application/views/contesting/manager/index.php:97
+#: application/views/contesting/manager/index.php:100
 msgid "Export CBR"
 msgstr "CBRのエキスポート"
 
 #: application/views/contesting/manager/index.php:100
+#: application/views/contesting/manager/index.php:103
 msgid "Export EDI"
 msgstr "EDIエクスポート"
 
 #: application/views/contesting/manager/index.php:149
+#: application/views/contesting/manager/index.php:185
 msgid "Import historical contests from logbook"
 msgstr "過去のコンテストログのインポート"
 
 #: application/views/contesting/manager/index.php:152
+#: application/views/contesting/manager/index.php:188
 msgid ""
 "Import for all users of this instance. You can do that because you are an "
 "administrator."
@@ -22422,6 +22471,69 @@ msgstr ""
 
 #: application/views/interface_assets/footer.php:36
 msgid "The query failed for a unknown reason"
+msgstr ""
+
+#: application/controllers/Contesting.php:797
+msgid "No contest sessions selected."
+msgstr ""
+
+#: application/controllers/Contesting.php:805
+#, php-format
+msgid "%d contest session deleted."
+msgid_plural "%d contest sessions deleted."
+msgstr[0] ""
+
+#: application/controllers/Contesting.php:807
+msgid "There was an error deleting the contest sessions. Please try again."
+msgstr ""
+
+#: application/views/contesting/manager/import_legacy.php:17
+msgid "How grouping works:"
+msgstr ""
+
+#: application/views/contesting/manager/import_legacy.php:18
+msgid ""
+"QSOs are grouped by contest and station. Consecutive QSOs end up in the same "
+"session if they are less than 72 hours apart or fall into the same ISO "
+"calendar week (Monday-Sunday). This keeps week-long activity events together "
+"as one session, while weekly or monthly contest series are imported as "
+"separate sessions."
+msgstr ""
+
+#: application/views/contesting/manager/import_legacy.php:102
+msgid "Are you sure you want to import the selected contest sessions?"
+msgstr ""
+
+#: application/views/contesting/manager/index.php:23
+msgid "Delete Selected"
+msgstr ""
+
+#: application/views/contesting/manager/index.php:23
+msgid "Delete selected contest sessions"
+msgstr ""
+
+#: application/views/contesting/manager/index.php:125
+msgid "Delete Contest Sessions"
+msgstr ""
+
+#: application/views/contesting/manager/index.php:130
+msgid "Do you really want to delete the selected contest sessions?"
+msgstr ""
+
+#: application/views/contesting/manager/index.php:131
+msgid "Selected sessions: "
+msgstr ""
+
+#: application/views/contesting/manager/index.php:135
+msgid "Also delete all QSOs logged in these sessions from the logbook"
+msgstr ""
+
+#: application/views/contesting/manager/index.php:142
+msgid "Delete Sessions"
+msgstr ""
+
+#: application/views/contesting/manager/index.php:155
+msgid "Please select at least one contest session."
 msgstr ""
 
 #~ msgid ""
