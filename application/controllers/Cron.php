@@ -199,8 +199,10 @@ class cron extends CI_Controller {
 		}
 
 		if ($cron_result['success']) {
+			$this->cron_model->set_status($cron->id, 'healthy');
 			echo json_encode(['success' => true, 'messagecategory' => 'success', 'message' => __('Cronjob executed successfully.')]);
 		} else {
+			$this->cron_model->set_status($cron->id, 'failed');
 			log_message('error', 'CRON: Manual execution of ' . $cron->id . ' failed: ' . $cron_result['error']);
 			echo json_encode(['success' => false, 'messagecategory' => 'error', 'message' => __('Cronjob execution failed.')]);
 		}
