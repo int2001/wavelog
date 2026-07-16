@@ -68,7 +68,7 @@
                     </div>
                 <?php } ?>
                     <div class="table-responsive">
-                        <table id="cron_table" style="width:100%" class="crontable table table-sm table-striped">
+                        <table id="cron_table" style="width:100%" class="crontable table table-sm table-striped" data-disable-run-now="<?php echo !empty($cron_disable_run_now) ? '1' : '0'; ?>">
                             <thead>
                                 <tr>
                                     <th><?= __("ID"); ?></th>
@@ -78,7 +78,7 @@
                                     <th><?= __("Last Run"); ?></th>
                                     <th><?= __("Next Run"); ?></th>
                                     <th><?= __("Edit"); ?></th>
-                                    <th><?= __("Run Now"); ?></th>
+                                    <th<?php if (!empty($cron_disable_run_now)) { echo ' style="display:none;"'; } ?>><?= __("Run Now"); ?></th>
                                     <th>I/O</th>
                                 </tr>
                             </thead>
@@ -110,7 +110,7 @@
                                                                                 echo __("never");
                                                                             } ?></td>
                                         <td style="vertical-align: middle;"><button id="<?php echo $cron->id; ?>" class="editCron btn btn-outline-primary btn-sm"><i class="fas fa-edit"></i></button></td>
-                                        <td style="vertical-align: middle;"><button id="<?php echo $cron->id; ?>" class="runCron btn btn-outline-success btn-sm" <?php if ($cron->enabled != '1') { echo 'disabled'; } ?>><?= __("Run Now"); ?></button></td>
+                                        <td style="vertical-align: middle;<?php if (!empty($cron_disable_run_now)) { echo 'display:none;'; } ?>"><button id="<?php echo $cron->id; ?>" class="runCron btn btn-outline-success btn-sm" <?php if ($cron->enabled != '1') { echo 'disabled'; } ?>><?= __("Run Now"); ?></button></td>
                                         <td style="vertical-align: middle;">
                                             <div class="form-check form-switch"><input name="cron_enable_switch" class="form-check-input enableCronSwitch" type="checkbox" role="switch" id="<?php echo $cron->id; ?>" <?php if ($cron->enabled ?? '0') {
                                                                                                                                                                                                                             echo 'checked';

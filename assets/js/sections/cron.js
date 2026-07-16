@@ -35,6 +35,8 @@ function init_expression_tooltips() {
 }
 
 function init_datatable() {
+	var disableRunNow = $('.crontable').data('disable-run-now') == 1;
+
 	$('.crontable').DataTable({
 		"pageLength": 25,
 		responsive: true,
@@ -43,6 +45,7 @@ function init_datatable() {
 		"paging": false,
 		"scrollX": true,
 		"autoWidth": false,
+		columnDefs: disableRunNow ? [{ targets: 7, visible: false }] : [],
 		"language": {
 			url: getDataTablesLanguageUrl(),
 		},
@@ -135,7 +138,13 @@ function runCron(button) {
 			id: button.id
 		},
 		success: function (response) {
-			showToast(lang_general_word_success, response.message, 'bg-success text-white', 5000);
+			if (response.success) {
+				showToast(lang_general_word_success, response.message, 'bg-success text-white', 5000);
+			} else if (response.messagecategory == 'error') {
+				showToast(lang_general_word_error, response.message, 'bg-danger text-white', 5000);
+			} else {
+				showToast(lang_general_word_warning, response.message, 'bg-warning text-white', 5000);
+			}
 		},
 		error: function (response) {
 			var message = response.responseJSON && response.responseJSON.message ? response.responseJSON.message : lang_general_word_query_failed_unkown;

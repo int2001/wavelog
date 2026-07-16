@@ -37,6 +37,7 @@ class cron extends CI_Controller {
 		$data['page_title'] = __("Cron Manager");
 		$data['crons'] = $this->cron_model->get_crons();
 		$data['cron_allow_insecure'] = $this->config->item('cron_allow_insecure') ?? false;
+		$data['cron_disable_run_now'] = ($this->config->item('cron_disable_run_now') ?? false) == true;
 
 		$mastercron = array();
 		$mastercron = $this->get_mastercron_status();
@@ -164,6 +165,12 @@ class cron extends CI_Controller {
 		if (!$this->user_model->authorize(99)) {
 			header("Content-type: application/json");
 			echo json_encode(['success' => false, 'messagecategory' => 'error', 'message' => __("You're not allowed to do that!")]);
+			return;
+		}
+
+		if (($this->config->item('cron_disable_run_now') ?? false) == true) {
+			header("Content-type: application/json");
+			echo json_encode(['success' => false, 'messagecategory' => 'warning', 'message' => __('Manual execution of cronjobs is disabled.')]);
 			return;
 		}
 		// Release the session lock: the job runs synchronously and would otherwise
