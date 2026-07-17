@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-17 05:34+0000\n"
-"PO-Revision-Date: 2026-07-10 12:46+0000\n"
+"POT-Creation-Date: 2026-07-16 12:49+0000\n"
+"PO-Revision-Date: 2026-07-17 05:34+0000\n"
 "Last-Translator: \"Jorgen Dahl, NU1T\" <sm6srw@arrl.net>\n"
 "Language-Team: Swedish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/sv/>\n"
@@ -1055,18 +1055,18 @@ msgstr "Endast klubbstationsansvariga kan radera."
 
 #: application/controllers/Contesting.php:797
 msgid "No contest sessions selected."
-msgstr ""
+msgstr "Inga tävlingssessioner valda."
 
 #: application/controllers/Contesting.php:805
 #, php-format
 msgid "%d contest session deleted."
 msgid_plural "%d contest sessions deleted."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d tävlingssession raderad."
+msgstr[1] "%d tävlingssessioner raderade."
 
 #: application/controllers/Contesting.php:807
 msgid "There was an error deleting the contest sessions. Please try again."
-msgstr ""
+msgstr "Det uppstod ett fel vid raderingen av tävlingssessionen. Försök igen."
 
 #: application/controllers/Contesting.php:1021
 msgid "Operator switching is disabled."
@@ -1127,27 +1127,27 @@ msgstr "Cronhanterare"
 
 #: application/controllers/Cron.php:173
 msgid "Manual execution of cronjobs is disabled."
-msgstr ""
+msgstr "Manuell körning av cronjobb är inaktiverad."
 
 #: application/controllers/Cron.php:183
 msgid "Cronjob not found."
-msgstr ""
+msgstr "Cronjobb hittades inte."
 
 #: application/controllers/Cron.php:189
 msgid "Disabled cronjobs cannot be run."
-msgstr ""
+msgstr "Inaktiverade cronjobb kan inte köras."
 
 #: application/controllers/Cron.php:197
 msgid "Cronjob is already running."
-msgstr ""
+msgstr "Cronjob kör redan."
 
 #: application/controllers/Cron.php:203
 msgid "Cronjob executed successfully."
-msgstr ""
+msgstr "Cronjobb kördes framgångsrikt."
 
 #: application/controllers/Cron.php:207
 msgid "Cronjob execution failed."
-msgstr ""
+msgstr "Cronjob körning misslyckades."
 
 #: application/controllers/Cron.php:219 application/views/cron/edit.php:5
 msgid "Edit Cronjob"
@@ -1187,7 +1187,7 @@ msgstr "inaktiverad"
 #: application/controllers/Cron.php:329 application/views/cron/index.php:81
 #: application/views/cron/index.php:113
 msgid "Run Now"
-msgstr ""
+msgstr "Kör nu"
 
 #: application/controllers/Cron.php:416
 #: application/views/interface_assets/footer.php:45
@@ -2731,7 +2731,7 @@ msgstr "OQRS Förfrågningar"
 
 #: application/controllers/Oqrs.php:286
 msgid "Invalid time format. Please use HH:MM (e.g. 08:31)."
-msgstr ""
+msgstr "Ogiltigt tidsformat. Vänligen använd HH:MM (t.ex. 08:31)."
 
 #: application/controllers/Oqrs.php:409
 msgid "QSO match deleted successfully."
@@ -3379,7 +3379,7 @@ msgstr "Aktiv station"
 msgid "QSO"
 msgid_plural "QSOs"
 msgstr[0] "QSO"
-msgstr[1] "QSO"
+msgstr[1] "QSOs"
 
 #: application/controllers/Stationsetup.php:405
 #: application/views/stationsetup/stationsetup.php:220
@@ -4185,13 +4185,7 @@ msgstr ""
 "Du försökte importera ett QSO utan angivet CALL. Detta QSO importerades "
 "inte. Det är ogiltigt"
 
-#: application/models/Logbook_model.php:4355
-#, php-format
-msgid ""
-"QSO on %s: Band '%s' is not in the band configuration. This QSO wasn't "
-"imported."
-msgstr ""
-
+#: application/models/Logbook_model.php:4335
 #: application/models/Logbook_model.php:4362
 #, php-format
 msgid ""
@@ -4201,63 +4195,77 @@ msgstr ""
 "QSO på %s: Du försökte importera ett QSO utan angivet band. Detta QSO "
 "importerades inte. Det är ogiltigt"
 
+#: application/models/Logbook_model.php:4609
 #: application/models/Logbook_model.php:4636
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "qslrdate är ogiltigt (ÅÅÅÅMMDD)"
 
+#: application/models/Logbook_model.php:4620
 #: application/models/Logbook_model.php:4647
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "qslsdate är ogiltigt (ÅÅÅÅMMDD)"
 
+#: application/models/Logbook_model.php:4681
 #: application/models/Logbook_model.php:4708
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "clublog_qso_upload_date är ogiltigt (ÅÅÅÅMMDD)"
 
-#: application/models/Logbook_model.php:5079
+#: application/models/Logbook_model.php:5052
 #: application/views/simplefle/index.php:41
+#: application/models/Logbook_model.php:5079
 msgid "Duplicate for"
 msgstr "Dubblett för"
 
+#: application/models/Logbook_model.php:5119
+#: application/models/Logbook_model.php:5219
 #: application/models/Logbook_model.php:5146
 #: application/models/Logbook_model.php:5246
 msgid "QSO could not be matched"
 msgstr "QSO kunde inte matchas"
 
+#: application/models/Logbook_model.php:5127
 #: application/models/Logbook_model.php:5154
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "bekräftad av LoTW/Clublog/eQSL/Tävling"
 
+#: application/models/Logbook_model.php:5133
 #: application/models/Logbook_model.php:5160
 msgid "confirmed by award manager"
 msgstr "bekräftad av diplomansvarig"
 
+#: application/models/Logbook_model.php:5137
 #: application/models/Logbook_model.php:5164
 msgid "confirmed by cross-check of DCL data"
 msgstr "bekräftat genom korskontroll av DCL-data"
 
+#: application/models/Logbook_model.php:5141
 #: application/models/Logbook_model.php:5168
 msgid "confirmation pending"
 msgstr "bekräftelse väntar"
 
+#: application/models/Logbook_model.php:5144
 #: application/models/Logbook_model.php:5171
 msgid "unconfirmed"
 msgstr "obekräftad"
 
-#: application/models/Logbook_model.php:5174
+#: application/models/Logbook_model.php:5147
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
+#: application/models/Logbook_model.php:5174
 msgid "unknown"
 msgstr "Okänd"
 
+#: application/models/Logbook_model.php:5222
 #: application/models/Logbook_model.php:5249
 msgid "POTA reference already in log"
 msgstr "POTA-referens redan i loggen"
 
+#: application/models/Logbook_model.php:5225
 #: application/models/Logbook_model.php:5252
 msgid "QSO updated"
 msgstr "QSO uppdaterad"
 
-#: application/models/Logbook_model.php:5657
+#: application/models/Logbook_model.php:5630
 #: application/views/activated_gridmap/index.php:109
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:57
@@ -4269,6 +4277,7 @@ msgstr "QSO uppdaterad"
 #: application/views/user/edit.php:333 application/views/user/edit.php:356
 #: application/views/user/edit.php:379 application/views/user/edit.php:404
 #: application/views/view_log/partial/log_ajax.php:21
+#: application/models/Logbook_model.php:5657
 msgid "Bearing"
 msgstr "Bäring"
 
@@ -8236,8 +8245,8 @@ msgid ""
 "State (ADIF: DXCC and STATE)"
 msgstr ""
 "Fält som använts för detta diplom: DXCC (måste vara ett av Kina/318, "
-"HongKong/321, Macao/152, Taiwan/386, Pratas Isl./505 eller Scarborough "
-"Reef/506) och giltig stat (ADIF: DXCC och STATE)"
+"HongKong/321, Macao/152, Taiwan/386, Pratas Isl./505 eller Scarborough Reef/"
+"506) och giltig stat (ADIF: DXCC och STATE)"
 
 #: application/views/awards/wapc/index.php:55
 msgid "Show WAPC Map"
@@ -10441,7 +10450,7 @@ msgctxt ""
 "Count serial number in contesting per Band; is an option in contesting "
 "manager."
 msgid "per band"
-msgstr ""
+msgstr "per band"
 
 #: application/views/contesting/logger/components/qso-form.php:99
 #: application/views/contesting/logger/components/qso-form.php:153
@@ -11125,7 +11134,7 @@ msgstr ""
 
 #: application/views/contesting/manager/components/session_modal.php:141
 msgid "Count serial number per band"
-msgstr ""
+msgstr "Räkna serienummer per band"
 
 #: application/views/contesting/manager/components/session_modal.php:143
 msgid ""
@@ -11133,6 +11142,9 @@ msgid ""
 "running continuously across the whole contest (required by some multi-op "
 "categories)."
 msgstr ""
+"När aktiverat startar det skickade serienumret på 1 på varje band istället "
+"för att fortsätta kontinuerligt genom hela tävlingen (krävs av vissa multi-"
+"op-kategorier)."
 
 #: application/views/contesting/manager/components/session_modal.php:146
 msgid "Session Notes"
@@ -11572,7 +11584,7 @@ msgstr ""
 
 #: application/views/contesting/manager/import_legacy.php:17
 msgid "How grouping works:"
-msgstr ""
+msgstr "Hur gruppering fungerar:"
 
 #: application/views/contesting/manager/import_legacy.php:18
 msgid ""
@@ -11582,6 +11594,11 @@ msgid ""
 "as one session, while weekly or monthly contest series are imported as "
 "separate sessions."
 msgstr ""
+"QSOs grupperas efter tävling och station. På varandra följande QSOs hamnar i "
+"samma session om de är mindre än 72 timmar isär eller faller in i samma ISO-"
+"kalendervecka (måndag-söndag). Detta håller veckolånga aktivitetsävenemang "
+"tillsammans som en session, medan veckovisa eller månatliga tävlingsserier "
+"importeras som separata sessioner."
 
 #: application/views/contesting/manager/import_legacy.php:22
 msgid "Admin mode:"
@@ -11621,7 +11638,7 @@ msgstr "Vänligen välj minst en tävling att importera."
 
 #: application/views/contesting/manager/import_legacy.php:102
 msgid "Are you sure you want to import the selected contest sessions?"
-msgstr ""
+msgstr "Är du säker på att du vill importera de valda tävlingssessionerna?"
 
 #: application/views/contesting/manager/index.php:17
 #: application/views/interface_assets/header.php:341
@@ -11647,11 +11664,11 @@ msgstr "Snabbstart"
 
 #: application/views/contesting/manager/index.php:23
 msgid "Delete Selected"
-msgstr ""
+msgstr "Ta bort markerade"
 
 #: application/views/contesting/manager/index.php:23
 msgid "Delete selected contest sessions"
-msgstr ""
+msgstr "Ta bort valda tävlingssessioner"
 
 #: application/views/contesting/manager/index.php:51
 #: application/views/logbookadvanced/attachContest.php:28
@@ -11686,27 +11703,27 @@ msgstr "Exportera EDI"
 
 #: application/views/contesting/manager/index.php:125
 msgid "Delete Contest Sessions"
-msgstr ""
+msgstr "Ta bort tävlingssession"
 
 #: application/views/contesting/manager/index.php:130
 msgid "Do you really want to delete the selected contest sessions?"
-msgstr ""
+msgstr "Vill du verkligen radera de valda tävlingssessionerna?"
 
 #: application/views/contesting/manager/index.php:131
 msgid "Selected sessions: "
-msgstr ""
+msgstr "Valda sessioner: "
 
 #: application/views/contesting/manager/index.php:135
 msgid "Also delete all QSOs logged in these sessions from the logbook"
-msgstr ""
+msgstr "Ta även bort alla QSOs loggade i denna session från loggboken"
 
 #: application/views/contesting/manager/index.php:142
 msgid "Delete Sessions"
-msgstr ""
+msgstr "Ta bort sessioner"
 
 #: application/views/contesting/manager/index.php:155
 msgid "Please select at least one contest session."
-msgstr ""
+msgstr "Välj minst en tävlingssession."
 
 #: application/views/contesting/manager/index.php:185
 msgid "Import historical contests from logbook"
@@ -12658,7 +12675,7 @@ msgstr "Klienter"
 
 #: application/views/debug/index.php:150
 msgid "Cluster nodes"
-msgstr ""
+msgstr "Klusternoder"
 
 #: application/views/debug/index.php:151
 msgid "Uptime"
@@ -12992,7 +13009,7 @@ msgstr "Allt okej"
 
 #: application/views/debug/index.php:876
 msgid "Degraded"
-msgstr ""
+msgstr "Nedsatt"
 
 #: application/views/debug/index.php:877
 msgid "Worker backend is not configured."
@@ -13008,13 +13025,15 @@ msgstr "Worker backend är konfigurerad men svarade inte."
 
 #: application/views/debug/index.php:879
 msgid "Outdated"
-msgstr ""
+msgstr "Föråldrad"
 
 #: application/views/debug/index.php:879
 msgid ""
 "Please update your Wavelog Worker to version 0.2.0 or newer to see the "
 "status."
 msgstr ""
+"Uppdatera din Wavelog Worker till version 0.2.0 eller nyare för att se "
+"statusen."
 
 #: application/views/debug/index.php:898
 msgid "Albanian"
@@ -13737,7 +13756,7 @@ msgstr "FEL"
 
 #: application/views/interface_assets/footer.php:36
 msgid "The query failed for a unknown reason"
-msgstr ""
+msgstr "Frågan misslyckades av en okänd anledning"
 
 #: application/views/interface_assets/footer.php:37
 msgid "Attention"
@@ -13745,13 +13764,15 @@ msgstr "Uppmärksamhet"
 
 #: application/views/interface_assets/footer.php:41
 msgid "Session expired"
-msgstr ""
+msgstr "Sessionen har löpt ut"
 
 #: application/views/interface_assets/footer.php:42
 msgid ""
 "Your live connection has expired. Please reload the page to keep receiving "
 "live updates."
 msgstr ""
+"Din liveanslutning har upphört. Ladda om sidan för att fortsätta ta emot "
+"liveuppdateringar."
 
 #: application/views/interface_assets/footer.php:47
 msgid "Warning! Are you sure you want delete QSO with "
@@ -14949,8 +14970,8 @@ msgid ""
 "We’ll keep the original value and add a more precise locator (e.g., JO90AB "
 "or JO90AB12) when a match is confident."
 msgstr ""
-"Vi behåller det ursprungliga värdet och lägger till en mer exakt lokator (t."
-"ex. JO90AB eller JO90AB12) när en matchning är säker."
+"Vi behåller det ursprungliga värdet och lägger till en mer exakt lokator "
+"(t.ex. JO90AB eller JO90AB12) när en matchning är säker."
 
 #: application/views/logbookadvanced/checkresult.php:42
 msgid "Distance Check Results"
@@ -15615,24 +15636,29 @@ msgid ""
 "Wildcards (in Callsign, State, DOK, County, QSL via, SOTA, POTA, WWFF, "
 "Operator, Gridsquare, Comment and Contest):"
 msgstr ""
+"Wildcards (i Anropssignal, Stat, DOK, Län, QSL via, SOTA, POTA, WWFF, "
+"Operatör, Lokatorruta, Kommentar och Tävling):"
 
 #: application/views/logbookadvanced/help.php:30
 msgid "Matches any number of characters"
-msgstr ""
+msgstr "Matchar vilket antal tecken som helst"
 
 #: application/views/logbookadvanced/help.php:34
 msgid "Matches a single character"
-msgstr ""
+msgstr "Matchar ett enda tecken"
 
 #: application/views/logbookadvanced/help.php:38
 msgid "SQL wildcards (any chars / single char) are passed through directly"
 msgstr ""
+"SQL-wildcards (vilka tecken som helst / enstaka tecken) passerar direkt"
 
 #: application/views/logbookadvanced/help.php:41
 msgid ""
 "Type a wildcard to take manual control of the match; without wildcards the "
 "default search behaviour is kept."
 msgstr ""
+"Skriv ett wildcard för att ta manuell kontroll över matchningen; utan "
+"wildcards behålls det förinställda sökbeteendet."
 
 #: application/views/logbookadvanced/help.php:50
 #: application/views/logbookadvanced/index.php:74
@@ -17552,7 +17578,7 @@ msgstr "Fortsätt"
 #: application/views/oqrs/request.php:1
 #: application/views/oqrs/request_grouped.php:1
 msgid "Request failed. Please try again."
-msgstr ""
+msgstr "Begäran misslyckades. Vänligen försök igen."
 
 #: application/views/oqrs/notinlogform.php:3
 msgid ""
@@ -18009,15 +18035,15 @@ msgstr "Välj en mall att radera."
 
 #: application/views/qslpostcard/designer.php:43
 msgid "Copy failed"
-msgstr ""
+msgstr "Kopieringen misslyckades"
 
 #: application/views/qslpostcard/designer.php:44
 msgid "Template copied."
-msgstr ""
+msgstr "Mall kopierad."
 
 #: application/views/qslpostcard/designer.php:45
 msgid "Please select a template to copy."
-msgstr ""
+msgstr "Vänligen välj en mall att kopiera."
 
 #: application/views/qslpostcard/designer.php:48
 msgid "selected"
@@ -18025,21 +18051,23 @@ msgstr "vald"
 
 #: application/views/qslpostcard/designer.php:49
 msgid "Unsaved changes"
-msgstr ""
+msgstr "Osparade ändringar"
 
 #: application/views/qslpostcard/designer.php:50
 msgid ""
 "Your current design has unsaved changes. Loading a different template will "
 "replace it. Continue?"
 msgstr ""
+"Din nuvarande design har ändringar som inte är sparade. Om du laddar en "
+"annan mall kommer den att ersättas. Fortsätt?"
 
 #: application/views/qslpostcard/designer.php:51
 msgid "Discard changes"
-msgstr ""
+msgstr "Kassera ändringar"
 
 #: application/views/qslpostcard/designer.php:52
 msgid "Keep editing"
-msgstr ""
+msgstr "Fortsätt redigera"
 
 #: application/views/qslpostcard/designer.php:68
 msgid "(new)"
@@ -18055,7 +18083,7 @@ msgstr "Spara mall"
 
 #: application/views/qslpostcard/designer.php:77
 msgid "Copy Template"
-msgstr ""
+msgstr "Kopiera mall"
 
 #: application/views/qslpostcard/designer.php:80
 msgid "Delete Template"
@@ -18254,11 +18282,11 @@ msgstr "Centrera på sidan (vertikalt)"
 
 #: application/views/qslprint/index.php:4
 msgid "Please select at least one row"
-msgstr ""
+msgstr "Vänligen välj minst en rad"
 
 #: application/views/qslprint/index.php:6
 msgid "Print QSLcard"
-msgstr ""
+msgstr "Skriv ut QSL-kort"
 
 #: application/views/qslprint/index.php:7
 #: application/views/qslprint/qslprint.php:91
@@ -18273,7 +18301,7 @@ msgstr "Ta bort"
 
 #: application/views/qslprint/index.php:11
 msgid "Are you sure you want to mark ALL requested QSLs as sent?"
-msgstr ""
+msgstr "Är du säker på att du vill markera ALLA efterfrågade QSL som skickade?"
 
 #: application/views/qslprint/index.php:29
 msgid "Export Requested QSLs for Printing"
@@ -18289,7 +18317,7 @@ msgstr "Band & Frekvens"
 
 #: application/views/qslprint/index.php:55
 msgid "Mark"
-msgstr ""
+msgstr "Markera"
 
 #: application/views/qslprint/index.php:57
 msgid "Mark selected QSOs as sent"
@@ -18297,7 +18325,7 @@ msgstr "Markera valda QSOs som skickade"
 
 #: application/views/qslprint/index.php:59
 msgid "Mark ALL requested QSLs as sent"
-msgstr ""
+msgstr "Markera ALLA begärda QSL som skickade"
 
 #: application/views/qslprint/index.php:67
 msgid "Export selected QSOs to ADIF-file"
@@ -18321,11 +18349,11 @@ msgstr "Skriv ut vykort för alla QSOs"
 
 #: application/views/qslprint/index.php:83
 msgid "Print Selected QSL Labels"
-msgstr ""
+msgstr "Skriv ut valda QSL-etiketter"
 
 #: application/views/qslprint/index.php:85
 msgid "Print Labels for all QSOs"
-msgstr ""
+msgstr "Skriv ut etiketter för alla QSOs"
 
 #: application/views/qslprint/index.php:93
 msgid "Remove selected QSOs from the queue"
@@ -20670,8 +20698,8 @@ msgid ""
 "Only PNG files are allowed, and they should have a pixel ratio of 1:1 (e.g., "
 "1000px height and 1000px width)."
 msgstr ""
-"Endast PNG-filer är tillåtna, och de bör ha ett pixel-förhållande på 1:1 (t."
-"ex. 1000px höjd och 1000px bredd)."
+"Endast PNG-filer är tillåtna, och de bör ha ett pixel-förhållande på 1:1 "
+"(t.ex. 1000px höjd och 1000px bredd)."
 
 #: application/views/themes/index.php:64
 msgid "Place the two logo files in the folder 'assets/logo/'"
@@ -22123,7 +22151,7 @@ msgstr "Inga QSOs ännu"
 
 #: application/views/visitor/punchcard.php:147
 msgid "No QSOs"
-msgstr ""
+msgstr "Inga QSOs"
 
 #: application/views/webadif/export.php:22
 msgid ""
@@ -22289,6 +22317,13 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#: application/models/Logbook_model.php:4355
+#, php-format
+msgid ""
+"QSO on %s: Band '%s' is not in the band configuration. This QSO wasn't "
+"imported."
+msgstr ""
 
 #~ msgid ""
 #~ "Are you sure you want to import the selected contest sessions? This "
