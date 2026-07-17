@@ -1071,7 +1071,8 @@ msgstr[0] "%d件の コンテストセッションが削除されました。"
 
 #: application/controllers/Contesting.php:807
 msgid "There was an error deleting the contest sessions. Please try again."
-msgstr "コンテストセッションの削除中にエラーが発生しました。もう一度お試しください。"
+msgstr ""
+"コンテストセッションの削除中にエラーが発生しました。もう一度お試しください。"
 
 #: application/controllers/Contesting.php:1021
 msgid "Operator switching is disabled."
@@ -3769,8 +3770,8 @@ msgid ""
 "Station created successfully! Welcome to Wavelog! To complete your station "
 "setup, click %shere%s."
 msgstr ""
-"無線局が正常に作成されました！Wavelogへようこそ！無線局の設定を完了するに"
-"は、%shere%sをクリックしてください。"
+"無線局が正常に作成されました！Wavelogへようこそ！無線局の設定を完了するには、"
+"%shere%sをクリックしてください。"
 
 #: application/controllers/User.php:1508
 msgid "Station setup failed! Please set up your station manually."
@@ -4188,6 +4189,7 @@ msgstr ""
 "されませんでした。無効です"
 
 #: application/models/Logbook_model.php:4335
+#: application/models/Logbook_model.php:4362
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
@@ -4197,58 +4199,72 @@ msgstr ""
 "はインポートされませんでした。無効です"
 
 #: application/models/Logbook_model.php:4609
+#: application/models/Logbook_model.php:4636
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "qslrdate が無効です (YYYYMMDD)"
 
 #: application/models/Logbook_model.php:4620
+#: application/models/Logbook_model.php:4647
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "qslsdate が無効です (YYYYMMDD)"
 
 #: application/models/Logbook_model.php:4681
+#: application/models/Logbook_model.php:4708
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "clublog_qso_upload_date が無効です (YYYYMMDD)"
 
 #: application/models/Logbook_model.php:5052
 #: application/views/simplefle/index.php:41
+#: application/models/Logbook_model.php:5079
 msgid "Duplicate for"
 msgstr "複製用"
 
 #: application/models/Logbook_model.php:5119
 #: application/models/Logbook_model.php:5219
+#: application/models/Logbook_model.php:5146
+#: application/models/Logbook_model.php:5246
 msgid "QSO could not be matched"
 msgstr "QSOが一致しませんでした"
 
 #: application/models/Logbook_model.php:5127
+#: application/models/Logbook_model.php:5154
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "LoTW/Clublog/eQSL/コンテストで確認済み"
 
 #: application/models/Logbook_model.php:5133
+#: application/models/Logbook_model.php:5160
 msgid "confirmed by award manager"
 msgstr "賞の管理者によって確認された"
 
 #: application/models/Logbook_model.php:5137
+#: application/models/Logbook_model.php:5164
 msgid "confirmed by cross-check of DCL data"
 msgstr "DCLデータのクロスチェックによって確認された"
 
 #: application/models/Logbook_model.php:5141
+#: application/models/Logbook_model.php:5168
 msgid "confirmation pending"
 msgstr "確認中"
 
 #: application/models/Logbook_model.php:5144
+#: application/models/Logbook_model.php:5171
 msgid "unconfirmed"
 msgstr "未確認"
 
 #: application/models/Logbook_model.php:5147
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
+#: application/models/Logbook_model.php:5174
 msgid "unknown"
 msgstr "不明"
 
 #: application/models/Logbook_model.php:5222
+#: application/models/Logbook_model.php:5249
 msgid "POTA reference already in log"
 msgstr "POTA 参照。既にログに存在します"
 
 #: application/models/Logbook_model.php:5225
+#: application/models/Logbook_model.php:5252
 msgid "QSO updated"
 msgstr "QSOが更新されました"
 
@@ -4264,6 +4280,7 @@ msgstr "QSOが更新されました"
 #: application/views/user/edit.php:333 application/views/user/edit.php:356
 #: application/views/user/edit.php:379 application/views/user/edit.php:404
 #: application/views/view_log/partial/log_ajax.php:21
+#: application/models/Logbook_model.php:5657
 msgid "Bearing"
 msgstr "方位"
 
@@ -11561,9 +11578,9 @@ msgid ""
 msgstr ""
 "交信データはコンテストと局ごとにグループ化されます。連続する交信データは、72"
 "時間以内の間隔で行われた場合、または同じISOカレンダー週（月曜日～日曜日）に該"
-"当する場合、同じセッションにまとめられます。これにより、1週間にわたる活動"
-"イベントは1つのセッションとして保持され、週単位または月単位の"
-"コンテストシリーズは個別のセッションとしてインポートされます。"
+"当する場合、同じセッションにまとめられます。これにより、1週間にわたる活動イベ"
+"ントは1つのセッションとして保持され、週単位または月単位のコンテストシリーズは"
+"個別のセッションとしてインポートされます。"
 
 #: application/views/contesting/manager/import_legacy.php:22
 msgid "Admin mode:"
@@ -11683,7 +11700,8 @@ msgstr "厳選されたセッション： "
 
 #: application/views/contesting/manager/index.php:135
 msgid "Also delete all QSOs logged in these sessions from the logbook"
-msgstr "また、これらのセッションで記録されたすべてのQSOをログブックから削除します"
+msgstr ""
+"また、これらのセッションで記録されたすべてのQSOをログブックから削除します"
 
 #: application/views/contesting/manager/index.php:142
 msgid "Delete Sessions"
@@ -22225,6 +22243,13 @@ msgstr "CQz"
 msgid "CQz geojson"
 msgstr "CQz geojson"
 
+#: application/models/Logbook_model.php:4355
+#, php-format
+msgid ""
+"QSO on %s: Band '%s' is not in the band configuration. This QSO wasn't "
+"imported."
+msgstr ""
+
 #~ msgid "Cronjob triggered."
 #~ msgstr "クロンジョブが実行されました。"
 
@@ -22899,9 +22924,9 @@ msgstr "CQz geojson"
 #~ "processed. %s Please make sure you export the LoTW certificate from tqsl "
 #~ "application without password! %s"
 #~ msgstr ""
-#~ "ファイル %s 内の証明書にはパスワードが含まれており、処理できませ"
-#~ "ん。%stqsl アプリケーションから LoTW 証明書をエクスポートする際は、パス"
-#~ "ワードなしで実行してください！%s"
+#~ "ファイル %s 内の証明書にはパスワードが含まれており、処理できません。"
+#~ "%stqsl アプリケーションから LoTW 証明書をエクスポートする際は、パスワード"
+#~ "なしで実行してください！%s"
 
 #~ msgid "Column"
 #~ msgstr "カラム"
@@ -23235,8 +23260,8 @@ msgstr "CQz geojson"
 #~ "Your active Station Location isn't linked to your Logbook. Click %shere%s "
 #~ "to do it."
 #~ msgstr ""
-#~ "現在のステーション位置がログブックとリンクされていません。リンクするに"
-#~ "は、%shere%s をクリックしてください。"
+#~ "現在のステーション位置がログブックとリンクされていません。リンクするには、"
+#~ "%shere%s をクリックしてください。"
 
 #, php-format
 #~ msgctxt "Dashboard Warning"
