@@ -4273,8 +4273,8 @@ class Logbook_model extends CI_Model {
 			$band = $record['band'] ?? '';
 			log_message("Error", "Trying to import QSO with invalid date: " . $qso_date. " for station_id " . $station_id . ". Call: " . $call . " Mode: " . $mode . " Band: " . $band);
 			$returner['error']=__("You tried to import a QSO without valid date. This QSO wasn't imported. It's invalid") . ". Call: " . $call . ", Mode: " . $mode . ", Band: " . $band . "<br>";
-			return($returner);
 			$returner['error_category'] = 'validation';
+			return($returner);
 		}
 
 		// Join date+time
@@ -4283,8 +4283,8 @@ class Logbook_model extends CI_Model {
 		if (($record['call'] ?? '') == '') {
 			log_message("Error", "Trying to import QSO without Call for station_id " . $station_id . ". QSO Date/Time: " . $time_on . " Mode: " . ($record['mode'] ?? '') . " Band: " . ($record['band'] ?? ''));
 			$returner['error']=__("QSO on")." ".$time_on.": ".__("You tried to import a QSO without any given CALL. This QSO wasn't imported. It's invalid") . "<br>";
-			return($returner);
 			$returner['error_category'] = 'validation';
+			return($returner);
 		}
 
 		if (isset($record['time_off'])) {
@@ -4334,8 +4334,8 @@ class Logbook_model extends CI_Model {
 			log_message("Error", "Trying to import QSO without Band for station_id " . $station_id . ". QSO Date/Time: " . $time_on . " at ".($record['freq'] ?? 'N/A')." Mode: " . ($record['mode'] ?? '') . " Call: " . ($record['call'] ?? ''));
 			$returner['error']=sprintf(__("QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't imported. It's invalid"), $time_on) . '<br>';
 
-			return($returner);
 			$returner['error_category'] = 'validation';
+			return($returner);
 		}
 
 		if (isset($record['band_rx'])) {
