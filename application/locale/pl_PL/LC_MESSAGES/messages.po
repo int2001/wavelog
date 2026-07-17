@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-17 05:34+0000\n"
 "PO-Revision-Date: 2026-07-18 05:25+0000\n"
-"Last-Translator: Limes <github@limes.com.pl>\n"
+"Last-Translator: Bartek <achtachtel@gmail.com>\n"
 "Language-Team: Polish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/pl/>\n"
 "Language: pl_PL\n"
@@ -1050,44 +1050,44 @@ msgstr "Wystąpił błąd podczas aktualizacji tej sesji zawodów. Spróbuj pono
 
 #: application/controllers/Contesting.php:764
 msgid "Contest session deleted successfully."
-msgstr ""
+msgstr "Sesja zawodów usunięta pomyślnie."
 
 #: application/controllers/Contesting.php:766
 msgid "There was an error deleting the contest session. Please try again."
-msgstr ""
+msgstr "Wystąpił błąd podczas usuwania sesji zawodów. Spróbuj ponownie."
 
 #: application/controllers/Contesting.php:789
 #: application/models/Contesting_model.php:213
 msgid "Only clubstation officers can delete."
-msgstr ""
+msgstr "Tylko uprawnieni klubowicze mają uprawnienia, aby usuwać."
 
 #: application/controllers/Contesting.php:797
 msgid "No contest sessions selected."
-msgstr ""
+msgstr "Nie wybrano sesji zawodów."
 
 #: application/controllers/Contesting.php:805
 #, php-format
 msgid "%d contest session deleted."
 msgid_plural "%d contest sessions deleted."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d sesja zawodów usunięta."
+msgstr[1] "%d sesji zawodów usuniętych."
+msgstr[2] "%d sesji zawodów usuniętych."
 
 #: application/controllers/Contesting.php:807
 msgid "There was an error deleting the contest sessions. Please try again."
-msgstr ""
+msgstr "Wystąpił błąd podczas usuwania sesji zawodów. Spróbuj ponownie."
 
 #: application/controllers/Contesting.php:1021
 msgid "Operator switching is disabled."
-msgstr ""
+msgstr "Przełączanie operatorów jest wyłączone."
 
 #: application/controllers/Contesting.php:1041
 msgid "Operator switching is only available in club stations."
-msgstr ""
+msgstr "Przełączanie operatorów jest dostępne tylko dla stacji klubowych."
 
 #: application/controllers/Contesting.php:1051
 msgid "Access denied"
-msgstr ""
+msgstr "Dostęp zabroniony"
 
 #: application/controllers/Contesting.php:1059
 #: application/controllers/User.php:1432
@@ -1096,30 +1096,31 @@ msgstr "Niepoprawna nazwa użytkownika lub hasło!"
 
 #: application/controllers/Contesting.php:1068
 msgid "A club account cannot be used as an operator."
-msgstr ""
+msgstr "Konto klubowe nie może być użyte jako operator."
 
 #: application/controllers/Contesting_import.php:14
 msgid "This feature is disabled."
-msgstr ""
+msgstr "Ta funkcja jest wyłączona."
 
 #: application/controllers/Contesting_import.php:36
 #: application/controllers/Contesting_import.php:104
 msgid "No historical contests found that could be imported."
 msgstr ""
+"Nie znaleziono historycznych sesji zawodów, które mogą być zaimportowane."
 
 #: application/controllers/Contesting_import.php:40
 msgid "Import Historical Contests"
-msgstr ""
+msgstr "Importuj Historyczne Zawody"
 
 #: application/controllers/Contesting_import.php:83
 #: application/controllers/Contesting_import.php:152
 #, php-format
 msgid "%d session(s) created, %d QSO(s) linked."
-msgstr ""
+msgstr "%d sesji utworzonych, %d QSO połączonych."
 
 #: application/controllers/Contesting_import.php:108
 msgid "Import Historical Contests (All Users)"
-msgstr ""
+msgstr "Importuj Historyczne Zawody (Wszyscy Użytkownicy)"
 
 #: application/controllers/Continents.php:25
 #: application/views/awards/dxcc/index.php:146
@@ -1136,27 +1137,27 @@ msgstr "Menedżer Cron"
 
 #: application/controllers/Cron.php:173
 msgid "Manual execution of cronjobs is disabled."
-msgstr ""
+msgstr "Ręczne wykonywanie zadań crona jest wyłączone."
 
 #: application/controllers/Cron.php:183
 msgid "Cronjob not found."
-msgstr ""
+msgstr "Zadanie cron nie odnalezione."
 
 #: application/controllers/Cron.php:189
 msgid "Disabled cronjobs cannot be run."
-msgstr ""
+msgstr "Wyłączone zadania cron nie mogą być wykonywane."
 
 #: application/controllers/Cron.php:197
 msgid "Cronjob is already running."
-msgstr ""
+msgstr "Zadanie cron jest w trakcie przetwarzania."
 
 #: application/controllers/Cron.php:203
 msgid "Cronjob executed successfully."
-msgstr ""
+msgstr "Zadanie cron wykonane prawidłowo."
 
 #: application/controllers/Cron.php:207
 msgid "Cronjob execution failed."
-msgstr ""
+msgstr "Wykonywanie zadania cron nie powiodło się."
 
 #: application/controllers/Cron.php:219 application/views/cron/edit.php:5
 msgid "Edit Cronjob"
@@ -1196,7 +1197,7 @@ msgstr "wyłączone"
 #: application/controllers/Cron.php:329 application/views/cron/index.php:81
 #: application/views/cron/index.php:113
 msgid "Run Now"
-msgstr ""
+msgstr "Uruchom Teraz"
 
 #: application/controllers/Cron.php:416
 #: application/views/interface_assets/footer.php:45
@@ -1437,7 +1438,7 @@ msgstr "Nie udało się pobrać obrazu eQSL"
 
 #: application/controllers/Eqsl.php:419 application/controllers/Eqsl.php:576
 msgid "Not enough free disk space to store the eQSL card"
-msgstr ""
+msgstr "Brak miejsca na dysku, aby zapisać kartę eQSL"
 
 #: application/controllers/Eqsl.php:443
 msgid "Failed to load cached eQSL image"
@@ -1474,15 +1475,15 @@ msgstr "Wszystkie eQSL zaznaczone jako przesłane"
 
 #: application/controllers/Errors.php:22
 msgid "Page Not Found"
-msgstr ""
+msgstr "Strona Nie Odnaleziona"
 
 #: application/controllers/Errors.php:23
 msgid "QRZ? ... no reply."
-msgstr ""
+msgstr "QRZ? ... brak odpowiedzi."
 
 #: application/controllers/Errors.php:24
 msgid "Nobody is transmitting on this frequency."
-msgstr ""
+msgstr "Nikt nie nadaje na tej częstotliwości."
 
 #: application/controllers/Generic_qsl.php:17
 #: application/views/awards/amsat_rover/index.php:43
@@ -1513,7 +1514,7 @@ msgstr "Uwierzytelnianie SSO jest wyłączone. Sprawdź ustawienia."
 
 #: application/controllers/Header_auth.php:88
 msgid "Sorry. This instance is currently in maintenance mode."
-msgstr ""
+msgstr "Przykro nam. Ta instancja jest w trybie serwisowym."
 
 #: application/controllers/Header_auth.php:95
 msgid "User not found."
@@ -2565,7 +2566,7 @@ msgstr ""
 #: application/controllers/Operator.php:30
 #: application/views/contesting/logger/components/qso-form.php:43
 msgid "Invalid callsign"
-msgstr ""
+msgstr "Nieprawidłowy znak"
 
 #: application/controllers/Options.php:25
 #: application/controllers/Options.php:41
@@ -2746,7 +2747,7 @@ msgstr "Żądania OQRS"
 
 #: application/controllers/Oqrs.php:286
 msgid "Invalid time format. Please use HH:MM (e.g. 08:31)."
-msgstr ""
+msgstr "Nieprawidłowy format czasu. Proszę użyć formatu HH:MM (np. 08:31)."
 
 #: application/controllers/Oqrs.php:409
 msgid "QSO match deleted successfully."
@@ -2831,45 +2832,49 @@ msgstr "Prześlij karty QSL"
 
 #: application/controllers/Qsl.php:93 application/controllers/Qsl.php:140
 msgid "Not enough free disk space to store the QSL card."
-msgstr ""
+msgstr "Brak miejsca na dysku, aby zapisać kartę eQSL."
 
 #: application/controllers/Qsl.php:110 application/controllers/Qsl.php:157
 #: application/controllers/Qslpostcard.php:86
 msgid "The uploaded file is not a valid image."
-msgstr ""
+msgstr "Wgrany plik nie jest prawidłowym plikiem obrazu."
 
 #: application/controllers/Qslpostcard.php:29
 msgid ""
 "QSL Postcard Designer is unavailable because the 'userdata' config option is "
 "not set. Your config is outdated."
 msgstr ""
+"Projektant pocztówek QSL jest niedostępny, ponieważ opcja konfiguracji „"
+"userdata” nie jest ustawiona. Twoja konfiguracja jest nieaktualna."
 
 #: application/controllers/Qslpostcard.php:30
 msgid ""
 "Please compare your current config.php with the latest config.sample.php and "
 "update accordingly."
 msgstr ""
+"Porównaj aktualny plik config.php z najnowszą wersją pliku config.sample.php "
+"i zaktualizuj go."
 
 #: application/controllers/Qslpostcard.php:34
 #: application/views/interface_assets/header.php:560
 msgid "QSL Postcard Designer"
-msgstr ""
+msgstr "Projektant Kart QSL"
 
 #: application/controllers/Qslpostcard.php:61
 msgid "Not enough free disk space to store the QSL Background."
-msgstr ""
+msgstr "Brakuje miejsca na dysku, aby zapisać tło karty QSL."
 
 #: application/controllers/Qslpostcard.php:183
 #: application/controllers/Qslpostcard.php:240
 #: application/controllers/Qslpostcard.php:299
 msgid "Template not found"
-msgstr ""
+msgstr "Template nie odnaleziony"
 
 #: application/controllers/Qslpostcard.php:189
 #: application/controllers/Qslpostcard.php:246
 #: application/controllers/Qslpostcard.php:305
 msgid "Template JSON is invalid"
-msgstr ""
+msgstr "Template JSON jest nieprawidłowy"
 
 #: application/controllers/Qslpostcard.php:204
 msgid "No QSOs returned by get_sample_qsos()"
