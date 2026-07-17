@@ -4305,18 +4305,37 @@ class Logbook_model extends CI_Model {
 
 		// Store Freq
 		// Check if 'freq' is defined in the import?
+		$band_conversion_failed = false;
 		if (isset($record['freq'])) { // record[freq] in MHz
 			$freq = floatval($record['freq']) * 1E6; // store in Hz
 		} else {
 			$freq = 0;
+			// Derive from band if possible (mirrors QSO form JS: qso/band_to_freq)
+			if (isset($record['band'])) {
+				$mode_raw = isset($record['mode']) ? strtoupper(trim($record['mode'])) : 'SSB';
+				$derived  = $this->frequency->convert_band(strtolower($record['band']), $mode_raw);
+				if ($derived !== null && $derived !== '' && $derived !== false) {
+					$freq = (int)$derived;
+				} else {
+					$band_conversion_failed = true; // unknown band -> reject below
+				}
+			}
 		}
 
 		// Check for RX Freq
-		// Check if 'freq' is defined in the import?
-		if (isset($record['freq_rx'])) { // record[freq] in MHz
+		// Derive freq_rx from band_rx ONLY if band_rx exists and freq_rx is missing
+		if (isset($record['freq_rx'])) { // record[freq_rx] in MHz
 			$freqRX = floatval($record['freq_rx']) * 1E6; // store in Hz
 		} else {
 			$freqRX = NULL;
+			if (isset($record['band_rx'])) {
+				$mode_raw = isset($record['mode']) ? strtoupper(trim($record['mode'])) : 'SSB';
+				$derived  = $this->frequency->convert_band(strtolower($record['band_rx']), $mode_raw);
+				if ($derived !== null && $derived !== '' && $derived !== false) {
+					$freqRX = (int)$derived;
+				}
+				// unknown band_rx -> silent NULL (RX is optional)
+			}
 		}
 
 		// Store Band
@@ -4328,6 +4347,14 @@ class Logbook_model extends CI_Model {
 					$band = $this->frequency->GetBand($freq) ?? '';
 				}
 			}
+		}
+
+		// Reject QSO with unknown (unconfigured) TX band
+		if ($band_conversion_failed) {
+			log_message("Error", "Unknown band '" . ($record['band'] ?? '') . "' on import for station_id " . $station_id . ". QSO Date/Time: " . $time_on . " Mode: " . ($record['mode'] ?? '') . " Call: " . ($record['call'] ?? ''));
+			$returner['error']=sprintf(__("QSO on %s: Band '%s' is not in the band configuration. This QSO wasn't imported."), $time_on, ($record['band'] ?? '')) . '<br>';
+			$returner['error_category'] = 'validation';
+			return($returner);
 		}
 
 		if (($band ?? '') == '') {
