@@ -6,7 +6,7 @@
 # Maciej SP2FE <wavelog@sp2fe.eu>, 2024, 2025.
 # Bartek <achtachtel@gmail.com>, 2024, 2026.
 # Stanisław Korzeń <stasiek.linux@outlook.com>, 2024.
-# Limes <github@limes.com.pl>, 2024.
+# Limes <github@limes.com.pl>, 2024, 2026.
 # Artur Greficz <sq7acp@gmail.com>, 2025.
 # Fabian Berg <fabian.berg@hb9hil.org>, 2025.
 # Szymon Porwolik <szporwolik@gmail.com>, 2025.
@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-17 05:34+0000\n"
-"PO-Revision-Date: 2026-04-01 23:44+0000\n"
-"Last-Translator: Bartek <achtachtel@gmail.com>\n"
+"PO-Revision-Date: 2026-07-18 05:25+0000\n"
+"Last-Translator: Limes <github@limes.com.pl>\n"
 "Language-Team: Polish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/pl/>\n"
 "Language: pl_PL\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.16.2\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #: application/config/adif_propmodes.php:7
 msgctxt "Propagation Mode"
@@ -77,7 +77,7 @@ msgstr "Odbicie F2"
 #: application/config/adif_propmodes.php:16
 msgctxt "Propagation Mode"
 msgid "Ground Wave"
-msgstr ""
+msgstr "Fala Przyziemna"
 
 #: application/config/adif_propmodes.php:17
 msgctxt "Propagation Mode"
@@ -98,6 +98,7 @@ msgstr "IRLP"
 msgctxt "Propagation Mode"
 msgid "Line of Sight (includes transmission through obstacles such as walls)"
 msgstr ""
+"Linia widoczności (uwzględnia transmisję przez przeszkody, takie jak ściany)"
 
 #: application/config/adif_propmodes.php:21
 msgctxt "Propagation Mode"
@@ -774,7 +775,7 @@ msgstr "Dyplom \"Polska\""
 
 #: application/controllers/Awards.php:2779
 msgid "Awards - AMSAT Rover"
-msgstr ""
+msgstr "Nagrody - AMSAT Rover"
 
 #: application/controllers/Backup.php:14 application/views/backup/main.php:14
 #: application/views/interface_assets/header.php:347
@@ -966,7 +967,7 @@ msgstr "Import QSL z ClubLogu"
 
 #: application/controllers/Contest_admin.php:42
 msgid "Contests Administration"
-msgstr ""
+msgstr "Administracja Zawodami"
 
 #: application/controllers/Contest_admin.php:56
 msgid "Update Contest"
@@ -985,7 +986,7 @@ msgstr "Kalendarz zawodów nie jest dostępny. Należy spróbować ponownie pó�
 #: application/views/contesting/manager/export_cbr.php:15
 #: application/views/contesting/manager/export_edi.php:15
 msgid "Contest Management"
-msgstr ""
+msgstr "Zarządzanie Zawodami"
 
 #: application/controllers/Contesting.php:92
 #: application/controllers/Contesting.php:624
@@ -995,7 +996,7 @@ msgstr ""
 #: application/controllers/Contesting.php:109
 #, php-format
 msgid "Quickstart Session: %s"
-msgstr ""
+msgstr "Szybki start sesji: %s"
 
 #: application/controllers/Contesting.php:125
 #: application/controllers/Contesting.php:157
@@ -1003,49 +1004,49 @@ msgstr ""
 #: application/controllers/Contesting.php:676
 #: application/controllers/Contesting.php:742
 msgid "Contest session not found."
-msgstr ""
+msgstr "Sesja zawodów nie znaleziona."
 
 #: application/controllers/Contesting.php:136
 #, php-format
 msgid "CBR Export: %s"
-msgstr ""
+msgstr "Eksport CBR: %s"
 
 #: application/controllers/Contesting.php:169
 #, php-format
 msgid "Export: %s"
-msgstr ""
+msgstr "Eksport: %s"
 
 #: application/controllers/Contesting.php:443
 msgid "Invalid logging token."
-msgstr ""
+msgstr "Nieprawidłowy token logowania."
 
 #: application/controllers/Contesting.php:450
 #: application/controllers/Contesting.php:455
 msgid "You are not authorized to access this contest session."
-msgstr ""
+msgstr "Nie jesteś uprawniony aby uzyskać dostęp do tej sesji zawodów."
 
 #: application/controllers/Contesting.php:651
 msgid "Contest session created successfully."
-msgstr ""
+msgstr "Sesja zawodów utworzona pomyślnie."
 
 #: application/controllers/Contesting.php:653
 msgid "There was an error creating the contest session. Please try again."
-msgstr ""
+msgstr "Wystąpił błąd podczas tworzenia sesji zawodów. Spróbuj ponownie."
 
 #: application/controllers/Contesting.php:659
 #: application/controllers/Contesting.php:725
 #: application/controllers/Contesting.php:772
 #: application/controllers/Contesting.php:784
 msgid "Invalid request method."
-msgstr ""
+msgstr "Nieprawidłowa metoda żądania."
 
 #: application/controllers/Contesting.php:717
 msgid "Contest session updated successfully."
-msgstr ""
+msgstr "Sesja zawodów zaktualizowana pomyślnie."
 
 #: application/controllers/Contesting.php:719
 msgid "There was an error updating the contest session. Please try again."
-msgstr ""
+msgstr "Wystąpił błąd podczas aktualizacji tej sesji zawodów. Spróbuj ponownie."
 
 #: application/controllers/Contesting.php:764
 msgid "Contest session deleted successfully."
