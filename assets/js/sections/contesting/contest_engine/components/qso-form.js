@@ -813,9 +813,9 @@ class QsoFormComponent {
 	 * @param {string} callsign already trimmed + uppercased
 	 * @returns {boolean}
 	 */
-	isValidCallsign(callsign) {
-		if (!callsign || callsign.length < 3) return false;
-		if (!/^[A-Z0-9/]+$/.test(callsign)) return false;      // no "?" / wildcards
+	isCallsignLookupReady(callsign) {
+		if (!window.wlIsValidCallsign(callsign)) return false; // shared save-format rule
+		if (callsign.length < 3) return false;
 		if (!/[A-Z]/.test(callsign)) return false;             // at least one letter
 		if (!/[0-9]/.test(callsign)) return false;             // at least one digit
 		// A bare 3-char string ending in a digit is a prefix, not a call (e.g. "ZL3")
@@ -845,7 +845,7 @@ class QsoFormComponent {
 		}
 
 		// Skip the lookup silently for malformed calls (too short, wildcards, ...)
-		if (!this.isValidCallsign(callsign)) {
+		if (!this.isCallsignLookupReady(callsign)) {
 			this.resetLookupState();
 			return;
 		}
@@ -1636,6 +1636,15 @@ class QsoFormComponent {
 
 		// A "?" wildcard is fine while searching but must be resolved before saving.
 		if (callsign.includes('?')) {
+			this.windowmanager.showToast(lang_error, lang_invalid_callsign, 'bg-danger text-white', 5000);
+			this.container.querySelector('#qso-callsign')?.focus();
+			return;
+		}
+
+		// Callsign format gate — identical to the server (wlIsValidCallsign mirrors
+		// Logbook_model::is_valid_callsign). callsignToRaw() first, since create_qso()
+		// applies the same Ø→0 replacement before validating.
+		if (!window.wlIsValidCallsign(callsignToRaw(callsign))) {
 			this.windowmanager.showToast(lang_error, lang_invalid_callsign, 'bg-danger text-white', 5000);
 			this.container.querySelector('#qso-callsign')?.focus();
 			return;

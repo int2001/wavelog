@@ -1791,6 +1791,8 @@ class Logbook_model extends CI_Model {
 	 * This is rather a soft check to catch malicious input, not a full validation of the callsign. 
 	 * (e.g. dashes are allowed, even though they are not valid, but they are used by the people and
 	 * we simply don't want too many support tickets).
+	 * 
+	 * Make sure matches assets/js/sections/callsign_validation.js
 	 */
 	function is_valid_callsign($call) {
 		return (bool) preg_match('/^[A-Z0-9\/\-]{1,30}$/', strtoupper(trim((string) $call)));

@@ -334,6 +334,12 @@ $("#qso_input").off('submit').on('submit', function (e) {
 		return false;
 	}
 
+	var _cs = $("#callsign").val().trim().toUpperCase().replaceAll('Ø', '0');
+	if (_cs !== '' && !window.wlIsValidCallsign(_cs)) {
+		showToast(lang_general_word_error, lang_invalid_callsign, 'bg-danger text-white', 5000);
+		return false;
+	}
+
 	var _submit = true;
 	if ((typeof qso_manual !== "undefined") && (qso_manual == "1")) {
 		if ($('#qso_input input[name="end_time"]').length == 1) { _submit = testTimeOffConsistency(); }
