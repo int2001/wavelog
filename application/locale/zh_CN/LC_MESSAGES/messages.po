@@ -36,8 +36,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-17 05:34+0000\n"
-"PO-Revision-Date: 2026-07-13 09:35+0000\n"
-"Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
+"PO-Revision-Date: 2026-07-17 05:34+0000\n"
+"Last-Translator: \"Luoyu (BG7QBL)\" <i@luotianyi.eu>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
 "org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -1154,7 +1154,7 @@ msgstr ""
 
 #: application/controllers/Cron.php:183
 msgid "Cronjob not found."
-msgstr ""
+msgstr "未找到计划任务。"
 
 #: application/controllers/Cron.php:189
 msgid "Disabled cronjobs cannot be run."
@@ -1162,15 +1162,15 @@ msgstr ""
 
 #: application/controllers/Cron.php:197
 msgid "Cronjob is already running."
-msgstr ""
+msgstr "计划任务已在运行中。"
 
 #: application/controllers/Cron.php:203
 msgid "Cronjob executed successfully."
-msgstr ""
+msgstr "计划任务执行成功。"
 
 #: application/controllers/Cron.php:207
 msgid "Cronjob execution failed."
-msgstr ""
+msgstr "计划任务执行失败。"
 
 #: application/controllers/Cron.php:219 application/views/cron/edit.php:5
 msgid "Edit Cronjob"
@@ -11382,11 +11382,11 @@ msgstr "快速开始"
 
 #: application/views/contesting/manager/index.php:23
 msgid "Delete Selected"
-msgstr ""
+msgstr "删除所选"
 
 #: application/views/contesting/manager/index.php:23
 msgid "Delete selected contest sessions"
-msgstr ""
+msgstr "删除所选的竞赛会话"
 
 #: application/views/contesting/manager/index.php:51
 #: application/views/logbookadvanced/attachContest.php:28
@@ -11421,11 +11421,11 @@ msgstr "导出 EDI"
 
 #: application/views/contesting/manager/index.php:125
 msgid "Delete Contest Sessions"
-msgstr ""
+msgstr "删除竞赛会话"
 
 #: application/views/contesting/manager/index.php:130
 msgid "Do you really want to delete the selected contest sessions?"
-msgstr ""
+msgstr "你确定要删除所选的竞赛会话吗?"
 
 #: application/views/contesting/manager/index.php:131
 msgid "Selected sessions: "
@@ -11441,7 +11441,7 @@ msgstr ""
 
 #: application/views/contesting/manager/index.php:155
 msgid "Please select at least one contest session."
-msgstr ""
+msgstr "请选择至少一个竞赛会话。"
 
 #: application/views/contesting/manager/index.php:185
 msgid "Import historical contests from logbook"
