@@ -1258,7 +1258,7 @@ class Contesting extends CI_Controller {
 				$save_result = $this->logbook_model->create_qso($qso_data, false);
 
 				// Link QSO to contest session
-				if ($save_result['qso_id']) {
+				if (is_array($save_result) && !empty($save_result['qso_id'])) {
 					$this->contesting_model->link_qso($save_result['qso_id'], $session_info['contest_session_id']);
 					// Notify worker clients about new QSO if worker is available
 					if ($this->worker_available) {

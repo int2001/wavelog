@@ -218,6 +218,16 @@ class QSO extends CI_Controller {
 			$_POST = [];
 			$this->form_validation->reset_validation();
 
+			if (!is_array($saveresult) || empty($saveresult['qso_id'])) {
+				$returner = [
+					'message' => 'error',
+					'errors'  => is_string($saveresult) ? $saveresult : __("QSO could not be saved"),
+				];
+				header('Content-Type: application/json; charset=utf-8');
+				echo json_encode($returner);
+				return;
+			}
+
 			$returner=[];
 			$actstation=$this->stations->find_active() ?? '';
 			$returner['activeStationId'] = $actstation;
