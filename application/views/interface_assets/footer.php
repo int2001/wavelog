@@ -1071,6 +1071,7 @@ $($('#callsign')).on('keypress',function(e) {
 
 <?php if ($this->uri->segment(1) == "qso") { ?>
 
+<script src="<?php echo $this->paths->cache_buster('/assets/js/sections/callsign_validation.js'); ?>"></script>
 <script src="<?php echo $this->paths->cache_buster('/assets/js/sections/qso.js'); ?>"></script>
 <script src="<?php echo $this->paths->cache_buster('/assets/js/sections/satellite_functions.js'); ?>"></script>
 <script src="<?php echo $this->paths->cache_buster('/assets/js/bootstrap-multiselect.js'); ?>"></script>

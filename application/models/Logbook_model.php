@@ -67,6 +67,10 @@ class Logbook_model extends CI_Model {
 		$end_time   = $qso_data['end_time'];   // e.g., "00:05:00" (optional)
 
 		$callsign = trim(str_replace('Ø', '0', $qso_data['callsign']));
+
+		if (!$this->is_valid_callsign($callsign)) {
+			return __("Invalid callsign");
+		}
 		// Parse datetime using createFromFormat
 		$datetime_obj = DateTime::createFromFormat("$date_format $time_format", "$start_date $start_time");
 
@@ -1391,6 +1395,11 @@ class Logbook_model extends CI_Model {
 			return $retvals;
 		}
 
+		if (!$this->is_valid_callsign($this->input->post('callsign'))) {
+			$retvals['detail']=__('Invalid callsign');
+			return $retvals;
+		}
+
 		$station_profile = $this->stations->profile_clean($stationId);
 		$stationCallsign = trim($station_profile->station_callsign);
 		$iotaRef = $station_profile->station_iota ?? '';
@@ -1775,6 +1784,18 @@ class Logbook_model extends CI_Model {
 		} finally {
 			return($retvals);
 		}
+	}
+
+	/*
+	 * Whether $call is a syntactically valid amateur radio callsign.
+	 * This is rather a soft check to catch malicious input, not a full validation of the callsign. 
+	 * (e.g. dashes are allowed, even though they are not valid, but they are used by the people and
+	 * we simply don't want too many support tickets).
+	 * 
+	 * Make sure matches assets/js/sections/callsign_validation.js
+	 */
+	function is_valid_callsign($call) {
+		return (bool) preg_match('/^[A-Z0-9\/\-]{1,30}$/', strtoupper(trim((string) $call)));
 	}
 
 	/* Show custom number of qsos */
@@ -4282,7 +4303,14 @@ class Logbook_model extends CI_Model {
 
 		if (($record['call'] ?? '') == '') {
 			log_message("Error", "Trying to import QSO without Call for station_id " . $station_id . ". QSO Date/Time: " . $time_on . " Mode: " . ($record['mode'] ?? '') . " Band: " . ($record['band'] ?? ''));
-			$returner['error']=__("QSO on")." ".$time_on.": ".__("You tried to import a QSO without any given CALL. This QSO wasn't imported. It's invalid") . "<br>";
+			$returner['error'] = sprintf(__("QSO on %s: You tried to import a QSO without any given CALL. This QSO wasn't imported. It's invalid.")."<br>", $time_on);
+			$returner['error_category'] = 'validation';
+			return($returner);
+		}
+
+		if (!$this->is_valid_callsign($record['call'])) {
+			log_message("error", "Trying to import QSO with invalid Call \"" . $record['call'] . "\" for station_id " . $station_id . ". QSO Date/Time: " . $time_on);
+			$returner['error'] = sprintf(__("QSO on %s: You tried to import a QSO with an invalid CALL. This QSO wasn't imported. The invalid input is '%s'.")."<br>", $time_on, htmlentities($record['call']));
 			$returner['error_category'] = 'validation';
 			return($returner);
 		}
