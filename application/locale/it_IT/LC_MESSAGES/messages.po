@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-19 08:05+0000\n"
-"PO-Revision-Date: 2026-07-19 20:01+0000\n"
+"PO-Revision-Date: 2026-07-19 20:07+0000\n"
 "Last-Translator: iv3cvn <ricentis@gmail.com>\n"
 "Language-Team: Italian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/it/>\n"
@@ -1076,6 +1076,8 @@ msgstr[1] "%d sessioni di contest eliminate."
 #: application/controllers/Contesting.php:807
 msgid "There was an error deleting the contest sessions. Please try again."
 msgstr ""
+"Si è verificato un errore durante l'eliminazione della sessione del contest. "
+"Per favore, riprova."
 
 #: application/controllers/Contesting.php:1021
 msgid "Operator switching is disabled."
@@ -1136,27 +1138,27 @@ msgstr "Gestione Cron"
 
 #: application/controllers/Cron.php:173
 msgid "Manual execution of cronjobs is disabled."
-msgstr ""
+msgstr "L'esecuzione manuale dei cronjob è disabilitata."
 
 #: application/controllers/Cron.php:183
 msgid "Cronjob not found."
-msgstr ""
+msgstr "Cronjob non trovato."
 
 #: application/controllers/Cron.php:189
 msgid "Disabled cronjobs cannot be run."
-msgstr ""
+msgstr "I cronjob disabilitati non possono essere eseguiti."
 
 #: application/controllers/Cron.php:197
 msgid "Cronjob is already running."
-msgstr ""
+msgstr "Il cronjob è già in esecuzione."
 
 #: application/controllers/Cron.php:203
 msgid "Cronjob executed successfully."
-msgstr ""
+msgstr "Il cronjob è stato eseguito con successo."
 
 #: application/controllers/Cron.php:207
 msgid "Cronjob execution failed."
-msgstr ""
+msgstr "L'esecuzione del cronjob è fallita."
 
 #: application/controllers/Cron.php:219 application/views/cron/edit.php:5
 msgid "Edit Cronjob"
@@ -1196,7 +1198,7 @@ msgstr "disabilitato"
 #: application/controllers/Cron.php:329 application/views/cron/index.php:81
 #: application/views/cron/index.php:113
 msgid "Run Now"
-msgstr ""
+msgstr "Esegui ora"
 
 #: application/controllers/Cron.php:416
 #: application/views/interface_assets/footer.php:45
@@ -2927,7 +2929,7 @@ msgstr "Aggiungi QSO"
 
 #: application/controllers/Qso.php:224
 msgid "QSO could not be saved"
-msgstr ""
+msgstr "Il QSO non può essere salvato"
 
 #: application/controllers/Qso.php:878
 msgid "You have to be logged in to access this URL."
@@ -4215,6 +4217,8 @@ msgid ""
 "QSO on %s: You tried to import a QSO without any given CALL. This QSO wasn't "
 "imported. It's invalid."
 msgstr ""
+"QSO su %s: Hai cercato di importare un QSO senza alcun CALL specificato. "
+"Questo QSO non è stato importato. Non è valido."
 
 #: application/models/Logbook_model.php:4313
 #, php-format
