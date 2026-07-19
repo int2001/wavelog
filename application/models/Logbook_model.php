@@ -4858,6 +4858,9 @@ class Logbook_model extends CI_Model {
 				$input_qrzcom_qso_upload_status = (!empty($record['qrzcom_qso_upload_status'])) ? $record['qrzcom_qso_upload_status'] : '';
 			}
 
+			$input_qrzcom_qso_download_date = (!empty($record['qrzcom_qso_download_date'])) ? $record['qrzcom_qso_download_date'] : null;
+			$input_qrzcom_qso_download_status = (!empty($record['qrzcom_qso_download_status'])) ? $record['qrzcom_qso_download_status'] : '';
+
 			if ($markDcl != null) {
 				$input_dcl_qso_upload_status = 'Y';
 				$input_dcl_qso_upload_date = date("Y-m-d H:i:s", strtotime("now"));
@@ -4988,6 +4991,8 @@ class Logbook_model extends CI_Model {
 				'COL_HRDLOG_QSO_UPLOAD_STATUS' => $input_hrdlog_qso_upload_status,
 				'COL_QRZCOM_QSO_UPLOAD_DATE' => $input_qrzcom_qso_upload_date,
 				'COL_QRZCOM_QSO_UPLOAD_STATUS' => $input_qrzcom_qso_upload_status,
+				'COL_QRZCOM_QSO_DOWNLOAD_DATE' => $input_qrzcom_qso_download_date,
+				'COL_QRZCOM_QSO_DOWNLOAD_STATUS' => $input_qrzcom_qso_download_status,
 				'COL_DCL_QSLSDATE' => $input_dcl_qso_upload_date,
 				'COL_DCL_QSL_SENT' => $input_dcl_qso_upload_status,
 				'COL_DCL_QSLRDATE' => (!empty($record['dcl_qslrdate'])) ? $record['dcl_qslrdate'] : null,
