@@ -4230,45 +4230,56 @@ msgstr "clublog_qso_upload_date är ogiltigt (ÅÅÅÅMMDD)"
 
 #: application/models/Logbook_model.php:5107
 #: application/views/simplefle/index.php:41
+#: application/models/Logbook_model.php:5112
 msgid "Duplicate for"
 msgstr "Dubblett för"
 
 #: application/models/Logbook_model.php:5174
 #: application/models/Logbook_model.php:5274
+#: application/models/Logbook_model.php:5179
+#: application/models/Logbook_model.php:5279
 msgid "QSO could not be matched"
 msgstr "QSO kunde inte matchas"
 
 #: application/models/Logbook_model.php:5182
+#: application/models/Logbook_model.php:5187
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "bekräftad av LoTW/Clublog/eQSL/Tävling"
 
 #: application/models/Logbook_model.php:5188
+#: application/models/Logbook_model.php:5193
 msgid "confirmed by award manager"
 msgstr "bekräftad av diplomansvarig"
 
 #: application/models/Logbook_model.php:5192
+#: application/models/Logbook_model.php:5197
 msgid "confirmed by cross-check of DCL data"
 msgstr "bekräftat genom korskontroll av DCL-data"
 
 #: application/models/Logbook_model.php:5196
+#: application/models/Logbook_model.php:5201
 msgid "confirmation pending"
 msgstr "bekräftelse väntar"
 
 #: application/models/Logbook_model.php:5199
+#: application/models/Logbook_model.php:5204
 msgid "unconfirmed"
 msgstr "obekräftad"
 
 #: application/models/Logbook_model.php:5202
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
+#: application/models/Logbook_model.php:5207
 msgid "unknown"
 msgstr "Okänd"
 
 #: application/models/Logbook_model.php:5277
+#: application/models/Logbook_model.php:5282
 msgid "POTA reference already in log"
 msgstr "POTA-referens redan i loggen"
 
 #: application/models/Logbook_model.php:5280
+#: application/models/Logbook_model.php:5285
 msgid "QSO updated"
 msgstr "QSO uppdaterad"
 
@@ -4284,6 +4295,7 @@ msgstr "QSO uppdaterad"
 #: application/views/user/edit.php:333 application/views/user/edit.php:356
 #: application/views/user/edit.php:379 application/views/user/edit.php:404
 #: application/views/view_log/partial/log_ajax.php:21
+#: application/models/Logbook_model.php:5690
 msgid "Bearing"
 msgstr "Bäring"
 
@@ -8251,8 +8263,8 @@ msgid ""
 "State (ADIF: DXCC and STATE)"
 msgstr ""
 "Fält som använts för detta diplom: DXCC (måste vara ett av Kina/318, "
-"HongKong/321, Macao/152, Taiwan/386, Pratas Isl./505 eller Scarborough "
-"Reef/506) och giltig stat (ADIF: DXCC och STATE)"
+"HongKong/321, Macao/152, Taiwan/386, Pratas Isl./505 eller Scarborough Reef/"
+"506) och giltig stat (ADIF: DXCC och STATE)"
 
 #: application/views/awards/wapc/index.php:55
 msgid "Show WAPC Map"
@@ -14976,8 +14988,8 @@ msgid ""
 "We’ll keep the original value and add a more precise locator (e.g., JO90AB "
 "or JO90AB12) when a match is confident."
 msgstr ""
-"Vi behåller det ursprungliga värdet och lägger till en mer exakt lokator (t."
-"ex. JO90AB eller JO90AB12) när en matchning är säker."
+"Vi behåller det ursprungliga värdet och lägger till en mer exakt lokator "
+"(t.ex. JO90AB eller JO90AB12) när en matchning är säker."
 
 #: application/views/logbookadvanced/checkresult.php:42
 msgid "Distance Check Results"
@@ -20716,8 +20728,8 @@ msgid ""
 "Only PNG files are allowed, and they should have a pixel ratio of 1:1 (e.g., "
 "1000px height and 1000px width)."
 msgstr ""
-"Endast PNG-filer är tillåtna, och de bör ha ett pixel-förhållande på 1:1 (t."
-"ex. 1000px höjd och 1000px bredd)."
+"Endast PNG-filer är tillåtna, och de bör ha ett pixel-förhållande på 1:1 "
+"(t.ex. 1000px höjd och 1000px bredd)."
 
 #: application/views/themes/index.php:64
 msgid "Place the two logo files in the folder 'assets/logo/'"
