@@ -253,6 +253,17 @@ function loadQSOTable(rows) {
 								columns: ':visible:not(:eq(0))', // export all visible except column 4
 								format: {
 									body: function (data, row, column, node) {
+									// QSL badge cell: extract sent + received status text from title attrs
+									if (typeof data === 'string' && (data.includes('&#9650') || data.includes('&#9660'))) {
+										const titles = [];
+										const titleRe = /title="([^"]*)"/g;
+										let m;
+										while ((m = titleRe.exec(data)) !== null) titles.push(m[1]);
+										const cleaned = titles
+											.map(t => t.replace(/\s+\d.*$/, '').trim())
+											.filter(t => t !== '');
+										return cleaned.join(' / ');
+									}
 										// strip HTML tags first (like DataTables does by default)
 										if (typeof data === 'string' && data.includes('<br />')) {
 												data = data.replace(/<br \/>/g, '');

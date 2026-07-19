@@ -140,8 +140,33 @@
             <div class="card">
                 <div class="card-header"><?= __("Wavelog Worker Backend"); ?></div>
                 <div class="card-body">
+                    <div id="worker-status" style="display: none;">
+                        <table class="table table-sm mb-0">
+                            <thead><tr>
+                                <th><?= __("Worker"); ?></th>
+                                <th><?= __("Topics"); ?></th>
+                                <th><?= __("Clients"); ?></th>
+                                <th><?= __("Version"); ?></th>
+                                <th id="ws-cluster-head" style="display: none;"><?= __("Cluster nodes"); ?></th>
+                                <th><?= __("Uptime"); ?></th>
+                            </tr></thead>
+                            <tbody><tr>
+                                <td>
+                                    <span id="ws-badge" class="badge rounded-pill text-bg-success">
+                                        <i id="ws-live-dot" class="fas fa-circle fa-fade" style="display: none; font-size: 0.6em; vertical-align: middle;"></i> <span id="ws-state"><?= __("Online"); ?></span>
+                                    </span>&nbsp;&nbsp;<span id="ws-url"></span>
+                                </td>
+                                <td id="ws-topics">—</td>
+                                <td id="ws-clients">—</td>
+                                <td id="ws-version">—</td>
+                                <td id="ws-cluster" style="display: none;">—</td>
+                                <td id="ws-uptime" style="white-space: nowrap;">—</td>
+                            </tr></tbody>
+                        </table>
+                    </div>
                     <div id="worker-status-container">
-                        <span class="text-muted"><?= __("Loading..."); ?></span>
+                        <span class="spinner-border spinner-border-sm text-muted align-middle" role="status" aria-hidden="true"></span>
+                        <span class="text-muted align-middle"><?= __("Loading..."); ?></span>
                     </div>
                 </div>
             </div>
@@ -534,7 +559,7 @@
                                 </div>
                             <?php } else { ?>
                                 <div class="alert alert-danger mt-2 mb-0" role="alert">
-                                    <?= __("Cache does not work! Currently the system is using a %s adapter. Check your file permissions, PHP extensions and/or your network connection to the services (if using redis/memcached). You can continue using Wavelog, but no values will be cached (which is bad).", "'dummy'"); ?>
+                                    <?= sprintf(__("Cache does not work! Currently the system is using a %s adapter. Check your file permissions, PHP extensions and/or your network connection to the services (if using redis/memcached). You can continue using Wavelog, but no values will be cached (which is bad)."), "'dummy'"); ?>
                                 </div>
                             <?php } ?>
                         </div>
@@ -580,6 +605,7 @@
                         $commitDate = trim(exec('git log --pretty="%ci" -n1 HEAD'));
                         $line = trim(exec('git log -n 1 --pretty=%D HEAD'));
                         $pieces = explode(', ', $line);
+                        $pieceCount = count($pieces);
                         $lastFetch = trim(exec('stat -c %Y ' . realpath(APPPATH . '../') . '/.git/FETCH_HEAD'));
                         //Below is a failsafe for systems without the stat command
                         try {
@@ -587,8 +613,8 @@
                         } catch (Exception $e) {
                             $dt = new DateTime(date("Y-m-d H:i:s"));
                         }
-                        if (isset($pieces[1])) {
-                            $remote = substr($pieces[1], 0, strpos($pieces[1], '/'));
+                        if (isset($pieces[$pieceCount - 1])) {
+                            $remote = substr($pieces[$pieceCount - 1], 0, strpos($pieces[$pieceCount - 1], '/'));
                             $branch = trim(exec('git rev-parse --abbrev-ref HEAD')); // Get ONLY Name of the Branch we're on
                             $url = trim(exec('git remote get-url ' . $remote));
                             if (strpos($url, 'https://github.com') !== false) {
@@ -839,65 +865,26 @@
 </div>
 
 <script>
+    window.workerStatusLive = <?php echo json_encode([
+        'enabled'     => (bool)($worker_enabled ?? false),
+        'topic'       => $worker_status_topic ?? '',
+        'token'       => $worker_status_token ?? '',
+        'nodesTotal'  => (int)($worker_nodes_total ?? 0),
+        'snapshotUrl' => site_url('debug/worker_status'),
+        'msg'         => [
+            'online'      => __("Online"),
+            'degraded'    => __("Degraded"),
+            'disabled'    => '<span class="badge rounded-pill text-bg-secondary">' . __("Disabled") . '</span> ' . __("Worker backend is not configured."),
+            'unreachable' => '<span class="badge rounded-pill text-bg-danger">' . __("Unreachable") . '</span> ' . __("Worker is configured but did not respond."),
+            'update'      => '<span class="badge rounded-pill text-bg-warning">' . __("Outdated") . '</span> ' . __("Please update your Wavelog Worker to version 0.2.0 or newer to see the status."),
+        ],
+    ]); ?>;
+
     <?php if (file_exists(realpath(APPPATH . '../') . '/.git')) { ?>
         var local_branch = '<?php echo $branch; ?>';
     <?php } else { ?>
         var local_branch = 'n/a';
     <?php } ?>
-
-    (function () {
-        fetch('<?= site_url('debug/worker_status'); ?>')
-            .then(r => r.json())
-            .then(function (data) {
-                var container = document.getElementById('worker-status-container');
-                if (!data.success) { return; }
-                if (data.disabled) {
-                    container.innerHTML = '<span class="badge rounded-pill text-bg-secondary"><?= __("Disabled"); ?></span> <?= __("Worker backend is not configured."); ?>';
-                    return;
-                }
-                if (!data.workers || data.workers.length === 0) {
-                    container.innerHTML = '<span class="badge rounded-pill text-bg-warning"><?= __("Unreachable"); ?></span> <?= __("Worker is configured but did not respond."); ?>';
-                    return;
-                }
-
-                var html = '';
-
-                if (data.vip) {
-                    var vipBadge = data.vip.alive
-                        ? '<span class="badge rounded-pill text-bg-success"><?= __("Available"); ?></span>'
-                        : '<span class="badge rounded-pill text-bg-danger"><?= __("Offline"); ?></span>';
-                    html += '<div class="mb-2">'
-                        + '<strong>VIP</strong>&nbsp;&nbsp;' + vipBadge + '&nbsp;&nbsp;<code>' + data.vip.url + '</code>'
-                        + '</div>';
-                }
-
-                var rows = data.workers.map(function (w) {
-                    var badge = w.alive
-                        ? '<span class="badge rounded-pill text-bg-success"><?= __("Online"); ?></span>'
-                        : '<span class="badge rounded-pill text-bg-danger"><?= __("Offline"); ?></span>';
-                    return '<tr>'
-                        + '<td>' + badge + '&nbsp;&nbsp;' + w.public_url + '</td>'
-                        + '<td>' + (w.active_topics     !== null ? w.active_topics     : '—') + '</td>'
-                        + '<td>' + (w.connected_clients !== null ? w.connected_clients : '—') + '</td>'
-                        + '<td>' + (w.version           !== null ? w.version           : '—') + '</td>'
-                        + '<td>' + (w.worker_uptime     !== null ? w.worker_uptime     : '—') + '</td>'
-                        + '</tr>';
-                });
-                var thead = '<thead><tr>'
-                    + '<th><?= __("Worker"); ?></th>'
-                    + '<th><?= __("Topics"); ?></th>'
-                    + '<th><?= __("Clients"); ?></th>'
-                    + '<th><?= __("Version"); ?></th>'
-                    + '<th><?= __("Uptime"); ?></th>'
-                    + '</tr></thead>';
-                html += '<table class="table table-sm mb-0">' + thead + '<tbody>' + rows.join('') + '</tbody></table>';
-                container.innerHTML = html;
-            })
-            .catch(function () {
-                document.getElementById('worker-status-container').innerHTML =
-                    '<span class="badge rounded-pill text-bg-warning"><?= __("Error"); ?></span> <?= __("Could not fetch worker status."); ?>';
-            });
-    })();
 </script>
 
 <?php

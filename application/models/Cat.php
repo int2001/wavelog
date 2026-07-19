@@ -33,18 +33,14 @@
 
 			if ( (isset($result['power'])) && ($result['power'] != "NULL") && ($result['power'] != '') && (is_numeric($result['power']))) {
 				$data['power'] = $result['power'];
-			} else {
-				unset($data['power']);	// Do not update power since it isn't provided or not numeric
-			}
+			} // else we do not set power as it is not provided or not numeric
 
 			if ( (isset($result['frequency'])) && ($result['frequency'] != "NULL") && ($result['frequency'] != '') && (is_numeric($result['frequency']))) {
 				$data['frequency'] = $result['frequency'];
 			} else {
 				if ( (isset($result['uplink_freq'])) && ($result['uplink_freq'] != "NULL") && ($result['uplink_freq'] != '') && (is_numeric($result['uplink_freq'])) ) {
 					$data['frequency'] = $result['uplink_freq'];
-				} else {
-					unset($data['frequency']);	// Do not update Frequency since it wasn't provided
-				}
+				} // else we do not set frequency as it is not provided at all
 			}
 
 			if (isset($result['mode']) && $result['mode'] != "NULL") {
@@ -106,15 +102,25 @@
 
 			$this->load->library('worker');
 			if (!empty($radio_ids) && $this->worker->is_enabled()) {
-				$radio_status = [
-					'frequency'           => isset($data['frequency']) && is_numeric($data['frequency']) ? (float) $data['frequency'] : null,
-					'mode'                => $data['mode'] ?? null,
-					'timestamp'           => (int) round(microtime(true) * 1000),
-					'updated_minutes_ago' => 0,
-				];
 				foreach ($radio_ids as $id) {
+					$row = $this->db->get_where('cat', ['id' => $id, 'user_id' => $user_id])->row();
+					if (!$row) {
+						log_message('error', "There was a radio update for radio id $id, but the row was not found in the cat table for user_id $user_id. This should not happen.");
+						continue;
+					}
+					// Same shape as radio/json, plus a ms timestamp for client-side staleness
+					$radio_status = $this->format_status($row);
+					$radio_status['timestamp'] = (int) round(microtime(true) * 1000);
+					// Per-radio topic — for single-radio views (QSO entry, bandmap, contesting)
 					$this->worker->publish('radio.' . $id, [
 						'type'         => 'radio_updated',
+						'radio_status' => $radio_status,
+					]);
+					// Per-user topic — carries all of the user's radios for multi-radio
+					// views (dashboard, hardware interfaces); radio_id routes the update.
+					$this->worker->publish('radios_user.' . $user_id, [
+						'type'         => 'radio_updated',
+						'radio_id'     => (int) $id,
 						'radio_status' => $radio_status,
 					]);
 				}
@@ -122,7 +128,130 @@
 		}
 
 		/**
-		 * Get CAT radios statuses for given user ID 
+		 * Shape a cat table row into the canonical radio status array.
+		 * Single source of truth for both the radio/json endpoint and the worker
+		 * push payload, so both always carry the identical structure. Null values
+		 * are omitted (not sent as null), matching the historic radio/json output.
+		 *
+		 * @param object $row  A cat table row (from radio_status()->row()).
+		 * @return array
+		 */
+		function format_status($row) {
+			$a_ret = [];
+
+			// Check Mode
+			if (isset($row->mode) && ($row->mode != null)) {
+				$mode = strtoupper($row->mode);
+				if ($mode == "FMN") {
+					$mode = "FM";
+				}
+			} else {
+				$mode = null;
+			}
+
+			if ($row->prop_mode == "SAT") {
+				// Get Satellite Name
+				if ($row->sat_name == "AO-07") {
+					$sat_name = "AO-7";
+				} elseif ($row->sat_name == "LILACSAT") {
+					$sat_name = "CAS-3H";
+				} else {
+					$sat_name = strtoupper($row->sat_name);
+				}
+
+				// Get Satellite Mode
+				$sat_mode_uplink = $this->get_mode_designator($row->frequency);
+				$sat_mode_downlink = $this->get_mode_designator($row->frequency_rx);
+
+				if (empty($sat_mode_uplink)) {
+					$sat_mode = "";
+				} elseif ($sat_mode_uplink !== $sat_mode_downlink) {
+					$sat_mode = $sat_mode_uplink . "/" . $sat_mode_downlink;
+				} else {
+					$sat_mode = $sat_mode_uplink;
+				}
+			} else {
+				$sat_name = "";
+				$sat_mode = "";
+			}
+
+			// Calculate how old the data is in minutes
+			$datetime1 = new DateTime("now", new DateTimeZone('UTC'));
+			$datetime2 = new DateTime($row->timestamp, new DateTimeZone('UTC'));
+			$interval = $datetime1->diff($datetime2);
+			$minutes = $interval->days * 24 * 60;
+			$minutes += $interval->h * 60;
+			$minutes += $interval->i;
+
+			$a_ret['frequency'] = $row->frequency;
+			$a_ret['frequency_formatted'] = $this->frequency->qrg_conversion($row->frequency);
+			if (!empty($row->frequency_rx)) {
+				$a_ret['frequency_rx'] = $row->frequency_rx;
+				$a_ret['frequency_rx_formatted'] = $this->frequency->qrg_conversion($row->frequency_rx);
+			}
+			if (isset($mode) && ($mode != null)) {
+				$a_ret['mode'] = $mode;
+			}
+			if (isset($row->mode_rx) && ($row->mode_rx != null) && ($row->mode_rx != 'non')) {
+				$a_ret['mode_rx'] = strtoupper($row->mode_rx);
+			}
+			if (isset($sat_mode) && ($sat_mode != null)) {
+				$a_ret['satmode'] = $sat_mode;
+			}
+			if (isset($sat_name) && ($sat_name != null)) {
+				$a_ret['satname'] = $sat_name;
+			}
+			if (isset($row->power) && ($row->power != null)) {
+				$a_ret['power'] = $row->power;
+			}
+			if (isset($row->prop_mode) && ($row->prop_mode != null)) {
+				$a_ret['prop_mode'] = $row->prop_mode;
+			}
+			if (isset($row->cat_url) && ($row->cat_url != null)) {
+				$a_ret['cat_url'] = $row->cat_url;
+			}
+			if (isset($row->radio) && ($row->radio != null)) {
+				$a_ret['radio'] = $row->radio;
+			}
+
+			$a_ret['updated_minutes_ago'] = $minutes;
+
+			return $a_ret;
+		}
+
+		/**
+		 * Map a frequency (Hz) to its satellite band mode designator (H/A/V/U/...).
+		 * Used only for satellite QSOs when building the status shape.
+		 */
+		private function get_mode_designator($frequency) {
+			if ($frequency > 21000000 && $frequency < 22000000)
+				return "H";
+			if ($frequency > 28000000 && $frequency < 30000000)
+				return "A";
+			if ($frequency > 144000000 && $frequency < 147000000)
+				return "V";
+			if ($frequency > 432000000 && $frequency < 438000000)
+				return "U";
+			if ($frequency > 1240000000 && $frequency < 1300000000)
+				return "L";
+			if ($frequency > 2320000000 && $frequency < 2450000000)
+				return "S";
+			if ($frequency > 3400000000 && $frequency < 3475000000)
+				return "S2";
+			if ($frequency > 5650000000 && $frequency < 5850000000)
+				return "C";
+			if ($frequency > 10000000000 && $frequency < 10500000000)
+				return "X";
+			if ($frequency > 24000000000 && $frequency < 24250000000)
+				return "K";
+			if ($frequency > 47000000000 && $frequency < 47200000000)
+				return "R";
+
+			return "";
+		}
+
+		/**
+		 * Get CAT radios statuses for given user ID
 		 *
 		 * @param int|string $user_id
 		 * @return object

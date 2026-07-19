@@ -466,6 +466,39 @@ class User extends CI_Controller {
 
 		$data['page_title'] = __("Edit User");
 
+		// [MAP Custom] GET user options //
+		$options_object = $this->user_options_model->get_options('map_custom')->result();
+		if (count($options_object)>0) {
+			foreach ($options_object as $row) {
+				if ($row->option_name=='icon') {
+					$option_value = json_decode($row->option_value,true);
+					foreach ($option_value as $ktype => $vtype) {
+						if($this->input->post('user_map_'.$row->option_key.'_icon')) {
+							$data['user_map_'.$row->option_key.'_'.$ktype] = $this->input->post('user_map_'.$row->option_key.'_'.$ktype, true);
+						} else {
+							$data['user_map_'.$row->option_key.'_'.$ktype] = $vtype;
+						}
+					}
+				} else {
+					$data['user_map_'.$row->option_name.'_'.$row->option_key] = $row->option_value;
+				}
+			}
+		} else {
+			$data['user_map_qso_icon'] = "fas fa-dot-circle";
+			$data['user_map_qso_color'] = "#FF0000";
+			$data['user_map_station_icon'] = "0";
+			$data['user_map_station_color'] = "#0000FF";
+			$data['user_map_qsoconfirm_icon'] = "0";
+			$data['user_map_qsoconfirm_color'] = "#00AA00";
+			$data['user_map_unworked_color'] = "#FF0000";
+			$data['user_map_gridsquare_show'] = "0";
+			$data['user_map_tile_style'] = "map-follow";
+		}
+		$data['map_icon_select'] = array(
+			'station'=>array('0', 'fas fa-home', 'fas fa-broadcast-tower', 'fas fa-user', 'fas fa-dot-circle' ),
+			'qso'=>array('fas fa-broadcast-tower', 'fas fa-user', 'fas fa-dot-circle' ),
+			'qsoconfirm'=>array('0', 'fas fa-broadcast-tower', 'fas fa-user', 'fas fa-dot-circle', 'fas fa-check-circle' ));
+
 		if ($this->form_validation->run() == FALSE)
 		{
 			// Prepare data and render the user options view
@@ -962,39 +995,6 @@ class User extends CI_Controller {
 				$data['user_stations_active_log_only'] = (count($dkey_opt)>0) ? $dkey_opt[0]->option_value : false;
 			}
 
-			// [MAP Custom] GET user options //
-			$options_object = $this->user_options_model->get_options('map_custom')->result();
-			if (count($options_object)>0) {
-				foreach ($options_object as $row) {
-					if ($row->option_name=='icon') {
-						$option_value = json_decode($row->option_value,true);
-						foreach ($option_value as $ktype => $vtype) {
-							if($this->input->post('user_map_'.$row->option_key.'_icon')) {
-								$data['user_map_'.$row->option_key.'_'.$ktype] = $this->input->post('user_map_'.$row->option_key.'_'.$ktype, true);
-							} else {
-								$data['user_map_'.$row->option_key.'_'.$ktype] = $vtype;
-							}
-						}
-					} else {
-						$data['user_map_'.$row->option_name.'_'.$row->option_key] = $row->option_value;
-					}
-				}
-			} else {
-				$data['user_map_qso_icon'] = "fas fa-dot-circle";
-				$data['user_map_qso_color'] = "#FF0000";
-				$data['user_map_station_icon'] = "0";
-				$data['user_map_station_color'] = "#0000FF";
-				$data['user_map_qsoconfirm_icon'] = "0";
-				$data['user_map_qsoconfirm_color'] = "#00AA00";
-				$data['user_map_unworked_color'] = "#FF0000";
-				$data['user_map_gridsquare_show'] = "0";
-				$data['user_map_tile_style'] = "map-follow";
-			}
-			$data['map_icon_select'] = array(
-				'station'=>array('0', 'fas fa-home', 'fas fa-broadcast-tower', 'fas fa-user', 'fas fa-dot-circle' ),
-				'qso'=>array('fas fa-broadcast-tower', 'fas fa-user', 'fas fa-dot-circle' ),
-				'qsoconfirm'=>array('0', 'fas fa-broadcast-tower', 'fas fa-user', 'fas fa-dot-circle', 'fas fa-check-circle' ));
-
 			$data['user_locations_quickswitch'] = ($this->user_options_model->get_options('header_menu', array('option_name'=>'locations_quickswitch'), $this->uri->segment(3))->row()->option_value ?? 'false');
 			$data['user_utc_headermenu'] = ($this->user_options_model->get_options('header_menu', array('option_name'=>'utc_headermenu'), $this->uri->segment(3))->row()->option_value ?? 'false');
 			$data['user_quick_theme_switcher'] = ($this->user_options_model->get_options('header_menu', array('option_name'=>'quick_theme_switcher'), $this->uri->segment(3))->row()->option_value ?? 'true');
@@ -1018,8 +1018,6 @@ class User extends CI_Controller {
 				redirect('user/edit/'.$this->uri->segment(3));
 				return;
 			}
-
-			unset($data);
 
 			// SSO / OIDC: Override submitted values for fields managed by the IdP
 			$post_data = $this->input->post();
@@ -1153,8 +1151,8 @@ class User extends CI_Controller {
 			$data['oqrs_delivery_method'] = $this->input->post('oqrs_delivery_method', true);
 			$data['user_qso_db_search_priority'] = $this->input->post('user_qso_db_search_priority', true);
 
-			$this->load->view('user/edit');
-			$this->load->view('interface_assets/footer');
+			$this->load->view('user/edit', $data);
+			$this->load->view('interface_assets/footer', $footerData);
 		}
 	}
 
@@ -1360,7 +1358,7 @@ class User extends CI_Controller {
 				}
 			} catch (Exception $e) {
 				// Something went wrong with the cookie
-				log_message('error', "User ID: [".$uid."]; 'Keep Login' failed. Cookie deleted. Message: ".$e);
+				log_message('error', "User ID: [".($uid ?? 'unknown')."]; 'Keep Login' failed. Cookie deleted. Message: ".$e);
 
 				// Delete keep_login cookie
 				$this->input->set_cookie('keep_login', '', -3600, '');

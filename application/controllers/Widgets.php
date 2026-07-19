@@ -55,8 +55,7 @@ class Widgets extends CI_Controller {
 		if($this->logbooks_model->public_slug_exists($logbook_slug)) {
 
 			$logbook_id = $this->logbooks_model->public_slug_exists_logbook_id($logbook_slug);
-			if($logbook_id != false)
-			{
+			if($logbook_id != false) {
 				// Get associated station locations for mysql queries
 				$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($logbook_id);
 
@@ -66,6 +65,7 @@ class Widgets extends CI_Controller {
 			} else {
 				log_message('error', $logbook_slug.' has no associated station locations');
 				show_404(__("Unknown Public Page."));
+				die;
 			}
 
 			// Get widget settings
@@ -450,7 +450,7 @@ class Widgets extends CI_Controller {
 	 * Prepare text "last seen" text
 	 *
 	 * @param int $last_seen_days_ago
-	 * @return void
+	 * @return string
 	 */
 	private function prepare_last_seen_text($last_seen_days_ago) {
 		if ($last_seen_days_ago === 0) {

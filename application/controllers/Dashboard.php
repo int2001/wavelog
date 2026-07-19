@@ -97,6 +97,15 @@ class Dashboard extends CI_Controller {
 
 		$data['radio_status'] = $this->cat->recent_status();
 
+		$this->load->is_loaded('worker') ?: $this->load->library('worker');
+		$data['worker_enabled'] = $this->worker->is_enabled(); // without this line the worker.js is not loaded!
+		$data['radios_user_worker'] = null;
+		if ($this->worker->is_enabled()) {
+			$topic = 'radios_user.' . $this->session->userdata('user_id');
+			$this->worker->register_topic($topic);
+			$data['radios_user_worker'] = ['topic' => $topic, 'token' => $this->worker->create_token($topic)];
+		}
+
 		$qso_counts = $this->logbook_model->get_qso_counts($logbooks_locations_array);
 		$data['todays_qsos'] = $qso_counts['today'];
 		$data['total_qsos'] = $qso_counts['total'];

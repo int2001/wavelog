@@ -91,15 +91,37 @@ class Contesting_model extends CI_Model {
 			$row['exchangetype']    = $settings['exchangetype']    ?? 'Exchange';
 			$row['callbook_lookup'] = $settings['callbook_lookup'] ?? true;
 			$row['custom_name']     = $settings['custom_name']     ?? '';
+			$row['serial_per_band'] = $settings['serial_per_band'] ?? false;
 		} else {
 			$row['copyexchangeto']  = '';
 			$row['exchangefields']  = ['exchange'];
 			$row['exchangetype']    = 'Exchange';
 			$row['callbook_lookup'] = true;
 			$row['custom_name']     = '';
+			$row['serial_per_band'] = false;
 		}
 		unset($row['settings']);
 		return $row;
+	}
+
+	/**
+	 * Merges the given session settings with their defaults and returns the JSON
+	 * representation stored in the contest_session.settings column.
+	 *
+	 * @param array $parameter_array Session settings, missing keys fall back to defaults.
+	 * @return string JSON encoded settings.
+	 */
+	private function build_session_settings($parameter_array = []) {
+		$defaults = [
+			'exchangetype'    => 'Serial',
+			'copyexchangeto'  => '',
+			'exchangefields'  => ['serial'],
+			'callbook_lookup' => true,
+			'custom_name'     => '',
+			'serial_per_band' => false,
+		];
+
+		return json_encode(array_merge($defaults, $parameter_array));
 	}
 
 	/**
@@ -110,12 +132,14 @@ class Contesting_model extends CI_Model {
 	 * @param string $session_end The end time of the session.
 	 * @param int $station_location The station location (station_id).
 	 * @param string $session_notes Notes for the session.
+	 * @param bool $return_id If true, returns the inserted session ID instead of a boolean.
+	 * @param array $parameter_array Session settings (exchangetype, copyexchangeto, exchangefields, callbook_lookup, custom_name, serial_per_band). Missing keys fall back to defaults.
 	 * @return bool True on success, false on failure. If $return_id is true, returns the inserted session ID instead.
 	 */
-	function create_contest_session($contest_adif_id, $session_start, $session_end, $station_location, $session_notes, $return_id = false, $exchangetype = 'Serial', $copyexchangeto = '', $exchangefields = ["serial"], $callbook_lookup = true, $custom_name = '') {
+	function create_contest_session($contest_adif_id, $session_start, $session_end, $station_location, $session_notes, $return_id = false, $parameter_array = []) {
 		$user_id = $this->session->userdata('user_id');
 
-		$settings = json_encode(['exchangetype' => $exchangetype, 'copyexchangeto' => $copyexchangeto, 'exchangefields' => $exchangefields, 'callbook_lookup' => $callbook_lookup, 'custom_name' => $custom_name]);
+		$settings = $this->build_session_settings($parameter_array);
 
 		$sql = "INSERT INTO contest_session (user_id, contest_adif_id, time_start, time_end, station_id, comment, settings)
 				VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -147,16 +171,17 @@ class Contesting_model extends CI_Model {
 	 * @param string $time_end The end time of the session.
 	 * @param int $station_id The station location (station_id).
 	 * @param string $notes Notes for the session.
+	 * @param array $parameter_array Session settings (exchangetype, copyexchangeto, exchangefields, callbook_lookup, custom_name, serial_per_band). Missing keys fall back to defaults.
 	 * @return bool True on success, false on failure.
 	 */
-	function update_contest_session($contest_session_id, $contest_id, $time_start, $time_end, $station_id, $notes, $exchangetype = 'Serial', $copyexchangeto = '', $exchangefields = ["serial"], $callbook_lookup = true, $custom_name = '') {
+	function update_contest_session($contest_session_id, $contest_id, $time_start, $time_end, $station_id, $notes, $parameter_array = []) {
 		if (!clubaccess_check(9)) {
 			$this->session->set_flashdata('error', __("Officers must edit contests."));
 			redirect('contesting');
 		}
 		$user_id = $this->session->userdata('user_id');
 
-		$settings = json_encode(['exchangetype' => $exchangetype, 'copyexchangeto' => $copyexchangeto, 'exchangefields' => $exchangefields, 'callbook_lookup' => $callbook_lookup, 'custom_name' => $custom_name]);
+		$settings = $this->build_session_settings($parameter_array);
 
 		$sql = "UPDATE contest_session
 				SET contest_adif_id = ?, time_start = ?, time_end = ?, station_id = ?, comment = ?, settings = ?
@@ -203,6 +228,32 @@ class Contesting_model extends CI_Model {
 
 		$this->db->query("DELETE FROM contest_session WHERE id = ? AND user_id = ?", [$contest_session_id, $user_id]);
 		return true;
+	}
+
+	/**
+	 * Deletes multiple contest sessions for the current user.
+	 * Ownership is verified before any QSO links are touched.
+	 *
+	 * @param array $contest_session_ids IDs of the contest sessions to delete.
+	 * @param bool  $delete_qsos Also delete the linked QSOs from the logbook.
+	 * @return int Number of sessions deleted.
+	 */
+	function batch_delete_sessions(array $contest_session_ids, $delete_qsos = false) {
+		$user_id = $this->session->userdata('user_id');
+
+		// Only keep sessions actually owned by the current user
+		$placeholders = implode(',', array_fill(0, count($contest_session_ids), '?'));
+		$query = $this->db->query(
+			"SELECT id FROM contest_session WHERE id IN ({$placeholders}) AND user_id = ?",
+			array_merge($contest_session_ids, [$user_id])
+		);
+
+		$deleted = 0;
+		foreach ($query->result() as $row) {
+			$this->delete_contest_session($row->id, $delete_qsos);
+			$deleted++;
+		}
+		return $deleted;
 	}
 
 	/**

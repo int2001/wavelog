@@ -152,7 +152,7 @@ class Stations extends CI_Model {
 			'hrdlogrealtime' => xss_clean($this->input->post('hrdlogrealtime', true)),
 			'clublogignore' => xss_clean($this->input->post('clublogignore', true)),
 			'clublogrealtime' => xss_clean($this->input->post('clublogrealtime', true)),
-			'qrzapikey' => xss_clean($this->input->post('qrzapikey', true)),
+			'qrzapikey' => trim(xss_clean($this->input->post('qrzapikey', true))),
 			'qrzrealtime' => xss_clean($this->input->post('qrzrealtime', true)),
 			'oqrs' => xss_clean($this->input->post('oqrs', true) ?? '0'),
 			'oqrs_email' => xss_clean($this->input->post('oqrsemail', true) ?? '0'),
@@ -232,7 +232,7 @@ class Stations extends CI_Model {
 			'hrdlogrealtime' => xss_clean($this->input->post('hrdlogrealtime', true)),
 			'clublogignore' => xss_clean($this->input->post('clublogignore', true)),
 			'clublogrealtime' => xss_clean($this->input->post('clublogrealtime', true)),
-			'qrzapikey' => xss_clean($this->input->post('qrzapikey', true)),
+			'qrzapikey' => trim(xss_clean($this->input->post('qrzapikey', true))),
 			'qrzrealtime' => xss_clean($this->input->post('qrzrealtime', true)),
 			'oqrs' => xss_clean($this->input->post('oqrs', true) ?? '0'),
 			'oqrs_email' => xss_clean($this->input->post('oqrsemail', true) ?? '0'),
@@ -452,15 +452,6 @@ class Stations extends CI_Model {
 
     }
 
-    function profile_exists() {
-	    $query = $this->db->get('station_profile');
-		if($query->num_rows() >= 1) {
-	    	return 1;
-	    } else {
-	    	return 0;
-	    }
-    }
-
     function stations_with_hrdlog_code() {
        $sql = "SELECT station_profile.station_id, station_profile.station_profile_name, station_profile.station_callsign, modc.modcount, notc.notcount, totc.totcount
                 FROM station_profile
@@ -607,17 +598,6 @@ class Stations extends CI_Model {
 	public function check_station_against_user($stationid, $userid) {
 		$this->db->select('station_id');
 		$this->db->where('user_id', $userid);
-		$this->db->where('station_id', $stationid);
-		$query = $this->db->get('station_profile');
-		if ($query->num_rows() == 1) {
-			return true;
-		}
-		return false;
-	}
-
-	public function check_station_against_callsign($stationid, $callsign) {
-		$this->db->select('station_id');
-		$this->db->where('station_callsign', $callsign);
 		$this->db->where('station_id', $stationid);
 		$query = $this->db->get('station_profile');
 		if ($query->num_rows() == 1) {

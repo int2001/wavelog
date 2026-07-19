@@ -634,8 +634,18 @@ class Contesting extends CI_Controller {
 				$copyexchangeto = $this->input->post('copyexchangeto', true) ?? '';
 				$callbook_lookup  = (bool) $this->input->post('callbook_lookup', true);
 				$custom_name    = trim($this->input->post('custom_name', true) ?? '');
+				$serial_per_band = (bool) $this->input->post('serial_per_band', true);
 
-				$result = $this->contesting_model->create_contest_session($contest_adif_id, $session_start, $session_end, $station_location, $session_notes, false, $exchangetype, $copyexchangeto, $exchangefields, $callbook_lookup, $custom_name);
+				$parameter_array = [
+					'exchangetype'    => $exchangetype,
+					'copyexchangeto'  => $copyexchangeto,
+					'exchangefields'  => $exchangefields,
+					'callbook_lookup' => $callbook_lookup,
+					'custom_name'     => $custom_name,
+					'serial_per_band' => $serial_per_band,
+				];
+
+				$result = $this->contesting_model->create_contest_session($contest_adif_id, $session_start, $session_end, $station_location, $session_notes, false, $parameter_array);
 
 				if ($result) {
 					$this->session->set_flashdata('success', __("Contest session created successfully."));
@@ -686,8 +696,18 @@ class Contesting extends CI_Controller {
 				$copyexchangeto = $this->input->post('copyexchangeto', true) ?? '';
 				$callbook_lookup  = (bool) $this->input->post('callbook_lookup', true);
 				$custom_name    = trim($this->input->post('custom_name', true) ?? '');
+				$serial_per_band = (bool) $this->input->post('serial_per_band', true);
 
-				$result = $this->contesting_model->update_contest_session($contest_session_id, $contest_id, $time_start, $time_end, $station_id, $notes, $exchangetype, $copyexchangeto, $exchangefields, $callbook_lookup, $custom_name);
+				$parameter_array = [
+					'exchangetype'    => $exchangetype,
+					'copyexchangeto'  => $copyexchangeto,
+					'exchangefields'  => $exchangefields,
+					'callbook_lookup' => $callbook_lookup,
+					'custom_name'     => $custom_name,
+					'serial_per_band' => $serial_per_band,
+				];
+
+				$result = $this->contesting_model->update_contest_session($contest_session_id, $contest_id, $time_start, $time_end, $station_id, $notes, $parameter_array);
 
 				if ($result) {
 					$this->cache->delete(self::CACHE_KEY_SESSION_SETTINGS . $contest_session_id); // Clear session cache to reflect changes immediately
@@ -755,6 +775,42 @@ class Contesting extends CI_Controller {
 	}
 
 	/**
+	 * Deletes multiple contest sessions at once.
+	 * Endpoint: POST /contesting/batch_delete_sessions
+	 * POST: ids = comma-separated contest_session ids, delete_qsos = optional flag
+	 */
+	public function batch_delete_sessions() {
+		if ($this->input->method() !== 'post') {
+			$this->session->set_flashdata('error', __("Invalid request method."));
+			redirect('contesting');
+		}
+
+		if (!clubaccess_check(9)) {
+			$this->session->set_flashdata('error', __("Only clubstation officers can delete."));
+			redirect('contesting');
+		}
+
+		$ids = array_filter(array_map('intval', explode(',', (string)$this->input->post('ids', true))));
+		$delete_qsos = (bool) $this->input->post('delete_qsos', true);
+
+		if (empty($ids)) {
+			$this->session->set_flashdata('error', __("No contest sessions selected."));
+			redirect('contesting');
+		}
+
+		$this->load->is_loaded('contesting_model') ?: $this->load->model('contesting_model');
+		$deleted = $this->contesting_model->batch_delete_sessions($ids, $delete_qsos);
+
+		if ($deleted > 0) {
+			$this->session->set_flashdata('success', sprintf(_ngettext("%d contest session deleted.", "%d contest sessions deleted.", $deleted), $deleted));
+		} else {
+			$this->session->set_flashdata('error', __("There was an error deleting the contest sessions. Please try again."));
+		}
+
+		redirect('contesting');
+	}
+
+	/**
 	 * Inline QSO edit endpoint.
 	 * Endpoint: POST /contesting/update_qso
 	 *
@@ -787,6 +843,7 @@ class Contesting extends CI_Controller {
 			}
 
 			$this->load->model('contesting_model');
+			$this->load->is_loaded('logbook_model') ?: $this->load->model('logbook_model');
 
 			// Session ownership check
 			if (!$this->contesting_model->check_user_contest($contest_session_id)) {
@@ -844,6 +901,10 @@ class Contesting extends CI_Controller {
 					// Bands are stored lowercase (e.g. 20m, 70cm)
 					if ($key === 'band') {
 						$val = $val !== null ? strtolower(trim((string)$val)) : null;
+					}
+					// Frequency is user-editable now; normalize to an Hz integer (also accepts unit suffixes).
+					if ($key === 'frequency') {
+						$val = ($val !== null && trim((string)$val) !== '') ? $this->logbook_model->parse_frequency((string)$val) : null;
 					}
 					if (in_array($key, ['serial_sent', 'serial_rcvd']) && $val === '') {
 						$val = null;
@@ -1187,6 +1248,7 @@ class Contesting extends CI_Controller {
 					'dxcc_id' => $command['data']['dxcc_id'] ?? NULL,
 					'cqz' => $command['data']['cqz'] ?? NULL,
 					'operator_callsign' => strtoupper(trim($this->session->userdata('operator_callsign') ?: $this->session->userdata('user_callsign'))),
+					'station_profile' => $session_info['station_id'],
 					'contestname' => $session_info['contest_adifname'],
 					'exchangetype' => $session_info['exchangetype'] ?? 'Exchange',
 					'copyexchangeto' => $session_info['copyexchangeto'] ?? NULL
@@ -1196,7 +1258,7 @@ class Contesting extends CI_Controller {
 				$save_result = $this->logbook_model->create_qso($qso_data, false);
 
 				// Link QSO to contest session
-				if ($save_result['qso_id']) {
+				if (is_array($save_result) && !empty($save_result['qso_id'])) {
 					$this->contesting_model->link_qso($save_result['qso_id'], $session_info['contest_session_id']);
 					// Notify worker clients about new QSO if worker is available
 					if ($this->worker_available) {
@@ -1630,7 +1692,7 @@ class Contesting extends CI_Controller {
 
 		// Local DXCC lookup — always available, no network needed
 		$date    = date("Y-m-d");
-		$dxccobj = new Dxcc($date);
+		$dxccobj = new Dxcc();
 		$dxcc    = $dxccobj->dxcc_lookup($call, $date);
 
 		$payload = [

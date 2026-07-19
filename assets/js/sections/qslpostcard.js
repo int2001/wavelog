@@ -240,6 +240,8 @@
 			wrap_w_in: 2.6,
 			repeat_per_qso: false,
 			no_snap: false,
+			freq_format: 'MHz',
+			freq_no_unit: false,
 		};
 		if (type === 'field') item.field = value;
 		else item.text = value;
@@ -450,6 +452,13 @@
 		document.getElementById('propPosRow').style.display = multi ? 'none' : '';
 		document.getElementById('propTextRow').style.display = (!multi && isText) ? 'block' : 'none';
 
+		const isFreq = !multi && !isText && item.field === 'qso.freq';
+		document.getElementById('propFreqFormatRow').style.display = isFreq ? '' : 'none';
+		if (isFreq) {
+			document.getElementById('propFreqFormat').value = item.freq_format || 'MHz';
+			document.getElementById('propFreqNoUnit').checked = !!item.freq_no_unit;
+		}
+
 		if (multi) {
 			document.getElementById('propTypeBadge').textContent = selectedIds.length;
 			document.getElementById('propTypeLabel').textContent = LANG.selected;
@@ -512,6 +521,8 @@
 	wireProp('propWrap', (item, n) => { item.wrap_w_in = Math.max(0.2, dispToIn(parseFloat(n.value || '2.6'))); });
 	wireProp('propRepeat', (item, n) => { item.repeat_per_qso = n.checked; renderGhosts(item); });
 	wireProp('propNoSnap', (item, n) => { item.no_snap = n.checked; });
+	wireProp('propFreqFormat', (item, n) => { item.freq_format = n.value; });
+	wireProp('propFreqNoUnit', (item, n) => { item.freq_no_unit = n.checked; });
 
 	document.getElementById('btnDuplicate').addEventListener('click', duplicateSelected);
 	document.getElementById('btnDeleteElem').addEventListener('click', deleteSelected);
@@ -961,7 +972,7 @@
 		}
 	}
 
-	document.getElementById('btnUploadPreview').addEventListener('click', async () => {
+	async function uploadPreview() {
 		const fileInput = document.getElementById('previewImageFile');
 		if (!fileInput.files.length) {
 			showToast(LANG.error, LANG.pleaseChooseImage, 'bg-warning text-dark', 4000);
@@ -981,7 +992,9 @@
 		previewImageUrl = out.url;
 		setBackground(previewImageUrl);
 		showToast(LANG.success, LANG.previewUploaded, 'bg-success text-white', 4000);
-	});
+	}
+
+	document.getElementById('previewImageFile').addEventListener('change', uploadPreview);
 
 	// ===================================================================
 	//  Template load / save / delete
@@ -1034,6 +1047,8 @@
 			wrap_w_in: el.wrap_w_in ?? 2.6,
 			repeat_per_qso: !!el.repeat_per_qso,
 			no_snap: !!el.no_snap,
+			freq_format: el.freq_format || 'MHz',
+			freq_no_unit: !!el.freq_no_unit,
 		}));
 
 		history.length = 0;
@@ -1043,8 +1058,31 @@
 		renderAll();
 	}
 
-	tplSelect.addEventListener('change', async e => {
-		const id = e.target.value;
+	// ===== Work-in-progress (dirty) tracking =====
+	// Snapshot of the layout in its last "clean" state — right after being loaded,
+	// saved, or reset to blank. The canvas has unsaved changes whenever its current
+	// state diverges from this snapshot. That stops an accidental template dropdown
+	// selection from silently discarding in-progress work (see change handler below).
+	function currentLayoutSig() {
+		return JSON.stringify({
+			elements: elements,
+			offX: dispToIn(parseFloat(offXInput.value || '0')),
+			offY: dispToIn(parseFloat(offYInput.value || '0')),
+			options: tplOptions,
+			preview_image: previewImagePath,
+		});
+	}
+	let cleanLayoutSig = currentLayoutSig();
+	function markClean() { cleanLayoutSig = currentLayoutSig(); }
+	function hasUnsavedChanges() { return currentLayoutSig() !== cleanLayoutSig; }
+
+	// The template id currently reflected on the canvas. If the user cancels a
+	// "discard unsaved changes?" prompt we revert the dropdown back to this value.
+	let confirmedTplId = '';
+
+	// Apply a dropdown selection (blank or a saved template), bypassing the
+	// unsaved-WIP guard. The canvas ends in a clean state, so we markClean() here.
+	async function applyTemplateSelection(id) {
 		prefSet('tpl', id);
 		if (!id) {
 			// "(new)" — start a blank canvas
@@ -1060,12 +1098,37 @@
 			history.length = 0; future.length = 0; updateHistoryButtons();
 			deselect();
 			renderAll();
+		} else {
+			document.getElementById('tplName').value = tplSelect.options[tplSelect.selectedIndex].text;
+			document.getElementById('btnPdf').href = base_url + 'index.php/qslpostcard/pdf/' + id;
+			document.getElementById('btnPdfSave').href = base_url + 'index.php/qslpostcard/pdf/' + id + '?download=1';
+			await loadTemplate(id);
+		}
+		confirmedTplId = String(id);
+		markClean();
+	}
+
+	tplSelect.addEventListener('change', e => {
+		const id = e.target.value;
+		// An accidental selection here would silently discard unsaved work — confirm first.
+		if (hasUnsavedChanges()) {
+			BootstrapDialog.confirm({
+				title: LANG.unsavedChangesTitle,
+				message: LANG.unsavedChangesConfirm,
+				type: BootstrapDialog.TYPE_WARNING,
+				closable: true,
+				draggable: true,
+				btnOKClass: 'btn-warning',
+				btnOKLabel: LANG.discardChanges,
+				btnCancelLabel: LANG.keepEditing,
+				callback: result => {
+					if (!result) { tplSelect.value = confirmedTplId; return; } // revert dropdown, keep WIP
+					applyTemplateSelection(id);
+				},
+			});
 			return;
 		}
-		document.getElementById('tplName').value = e.target.options[e.target.selectedIndex].text;
-		document.getElementById('btnPdf').href = base_url + 'index.php/qslpostcard/pdf/' + id;
-		document.getElementById('btnPdfSave').href = base_url + 'index.php/qslpostcard/pdf/' + id + '?download=1';
-		await loadTemplate(id);
+		applyTemplateSelection(id);
 	});
 
 	document.getElementById('btnSave').addEventListener('click', async () => {
@@ -1093,6 +1156,8 @@
 		tplSelect.value = newId;
 		document.getElementById('btnPdf').href = base_url + 'index.php/qslpostcard/pdf/' + newId;
 		document.getElementById('btnPdfSave').href = base_url + 'index.php/qslpostcard/pdf/' + newId + '?download=1';
+		confirmedTplId = String(newId);
+		markClean(); // saved state matches the canvas
 		showToast(LANG.success, LANG.saved, 'bg-success text-white', 4000);
 	});
 
@@ -1118,9 +1183,40 @@
 				showToast(LANG.success, LANG.deleteSuccess, 'bg-success text-white', 5000);
 				tplSelect.querySelector('option[value="' + id + '"]')?.remove();
 				tplSelect.value = '';
+				confirmedTplId = '';
+				markClean(); // deletion already confirmed — don't re-prompt on the blank reset
 				tplSelect.dispatchEvent(new Event('change'));
 			},
 		});
+	});
+
+	document.getElementById('btnCopy').addEventListener('click', async () => {
+		const id = parseInt(tplSelect.value || '0', 10);
+		if (!id) { showToast(LANG.error, LANG.selectTemplateToCopy, 'bg-danger text-white', 5000); return; }
+
+		const r = await fetch(base_url + 'index.php/qslpostcard/copy_template', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ id: id }),
+		});
+		const out = await r.json();
+		if (!out.ok) { showToast(LANG.error, out.error || LANG.copyFailed, 'bg-danger text-white', 5000); return; }
+
+		// Reflect the new copy in the dropdown (appended; list re-sorts by
+		// updated_at on next page load).
+		const opt = document.createElement('option');
+		opt.value = out.id;
+		opt.textContent = out.name || '(copy)';
+		tplSelect.appendChild(opt);
+
+		// If the canvas has no unsaved work, switch to the copy so the user can
+		// edit it right away. With dirty work in progress, leave the canvas alone
+		// — switching would silently drop those edits.
+		if (!hasUnsavedChanges()) {
+			tplSelect.value = out.id;
+			await applyTemplateSelection(out.id);
+		}
+		showToast(LANG.success, LANG.copySuccess, 'bg-success text-white', 4000);
 	});
 
 	// ===================================================================
@@ -1139,4 +1235,56 @@
 		tplSelect.value = savedTpl;
 		tplSelect.dispatchEvent(new Event('change'));
 	}
+
+	// ===== Leave-with-unsaved-changes guard =====
+	// Two layers, because the browser won't wait on an async modal during
+	// beforeunload:
+	//  1. A translated BootstrapDialog intercepts clicks on in-app links (the
+	//     normal way people leave this page) — that we *can* block via
+	//     preventDefault and resolve async.
+	//  2. A native beforeunload fallback still catches tab close, refresh, and
+	//     URL-bar edits, which a custom modal physically cannot intercept.
+	let leaving = false;
+
+	function confirmLeavePage(href) {
+		BootstrapDialog.confirm({
+			title: LANG.unsavedChangesTitle,
+			message: LANG.unsavedLeaveConfirm,
+			type: BootstrapDialog.TYPE_WARNING,
+			closable: true,
+			draggable: true,
+			btnOKClass: 'btn-warning',
+			btnOKLabel: LANG.leavePage,
+			btnCancelLabel: LANG.keepEditing,
+			callback: result => {
+				if (!result) return;
+				leaving = true; // suppress the native fallback below
+				window.location.href = href;
+			},
+		});
+	}
+
+	// Intercept clicks on links that leave the designer (header nav, logo, etc.).
+	// Skip new-tab/modifier opens, downloads, target=_blank, and links that stay
+	// on this page — none of those unload the canvas.
+	document.addEventListener('click', e => {
+		if (leaving || e.defaultPrevented || !hasUnsavedChanges()) return;
+		if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+		const a = e.target.closest('a');
+		if (!a || !a.href || a.target === '_blank' || a.hasAttribute('download')) return;
+		let url;
+		try { url = new URL(a.href, window.location.href); } catch (_) { return; }
+		if (url.pathname === window.location.pathname && url.search === window.location.search) return;
+		e.preventDefault();
+		confirmLeavePage(a.href);
+	});
+
+	// Fallback for tab close, refresh, and URL-bar navigation — the only unload
+	// paths a custom modal can't intercept. Browsers show their own generic
+	// "leave site?" wording and ignore custom text here.
+	window.addEventListener('beforeunload', e => {
+		if (leaving || !hasUnsavedChanges()) return;
+		e.preventDefault();
+		e.returnValue = '';
+	});
 })();

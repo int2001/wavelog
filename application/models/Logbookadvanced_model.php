@@ -143,6 +143,22 @@ class Logbookadvanced_model extends CI_Model {
 		return $this->db->query($sql, $binding);
 	}
 
+	private function wildcardPattern($value, $default) {
+		if ($value === null) {
+			return '';
+		}
+		if (strpos($value, '*') !== false || strpos($value, '?') !== false) {
+			return str_replace(['*', '?'], ['%', '_'], $value);
+		}
+		if ($default === 'both') {
+			return '%' . $value . '%';
+		}
+		if ($default === 'prefix') {
+			return $value . '%';
+		}
+		return $value;
+	}
+
 	public function searchDb($searchCriteria) {
 		// Load all satellites once for PHP-side join (much faster than SQL COALESCE)
 		$satellites = [];
@@ -266,7 +282,7 @@ class Logbookadvanced_model extends CI_Model {
 				$conditions[] = "COL_CALL <> ''";
 			} else {
 				$conditions[] = "COL_CALL like ?";
-				$binding[] = '%' . trim($searchCriteria['dx']) . '%';
+				$binding[] = $this->wildcardPattern(trim($searchCriteria['dx']), 'none');
 			}
 		}
 		if ($searchCriteria['dx'] == '') {
@@ -433,7 +449,7 @@ class Logbookadvanced_model extends CI_Model {
 				$conditions[] = "COL_STATE <> ''";
 			} else {
 				$conditions[] = "COL_STATE like ?";
-				$binding[] = $searchCriteria['state'];
+				$binding[] = $this->wildcardPattern($searchCriteria['state'], 'none');
 			}
 		}
 		if ($searchCriteria['state'] == '') {
@@ -445,7 +461,7 @@ class Logbookadvanced_model extends CI_Model {
 				$conditions[] = "COL_DARC_DOK <> ''";
 			} else {
 				$conditions[] = "COL_DARC_DOK like ?";
-				$binding[] = $searchCriteria['dok'];
+				$binding[] = $this->wildcardPattern($searchCriteria['dok'], 'none');
 			}
 		}
 		if ($searchCriteria['dok'] == '') {
@@ -457,7 +473,7 @@ class Logbookadvanced_model extends CI_Model {
 				$conditions[] = "COL_CNTY <> ''";
 			} else {
 				$conditions[] = "COL_CNTY like ?";
-				$binding[] = '%' . $searchCriteria['county'] . '%';
+				$binding[] = $this->wildcardPattern($searchCriteria['county'], 'both');
 			}
 		}
 		if ($searchCriteria['county'] == '') {
@@ -487,7 +503,7 @@ class Logbookadvanced_model extends CI_Model {
 				$conditions[] = "COL_QSL_VIA <> ''";
 			} else {
 				$conditions[] = "COL_QSL_VIA like ?";
-				$binding[] = $searchCriteria['qslvia'].'%';
+				$binding[] = $this->wildcardPattern($searchCriteria['qslvia'], 'prefix');
 			}
 		}
 
@@ -500,7 +516,7 @@ class Logbookadvanced_model extends CI_Model {
 				$conditions[] = "COL_SOTA_REF <> ''";
 			} else {
 				$conditions[] = "COL_SOTA_REF like ?";
-				$binding[] = $searchCriteria['sota'].'%';
+				$binding[] = $this->wildcardPattern($searchCriteria['sota'], 'prefix');
 			}
 		}
 		if ($searchCriteria['sota'] == '') {
@@ -513,7 +529,7 @@ class Logbookadvanced_model extends CI_Model {
 				$conditions[] = "COL_COMMENT <> ''";
 			} else {
 				$conditions[] = "COL_COMMENT like ?";
-				$binding[] = '%' . $searchCriteria['comment'].'%';
+				$binding[] = $this->wildcardPattern($searchCriteria['comment'], 'both');
 			}
 		}
 		if ($searchCriteria['comment'] == '') {
@@ -525,7 +541,7 @@ class Logbookadvanced_model extends CI_Model {
 				$conditions[] = "COL_POTA_REF <> ''";
 			} else {
 				$conditions[] = "COL_POTA_REF like ?";
-				$binding[] = $searchCriteria['pota'].'%';
+				$binding[] = $this->wildcardPattern($searchCriteria['pota'], 'prefix');
 			}
 		}
 		if ($searchCriteria['pota'] == '') {
@@ -537,7 +553,7 @@ class Logbookadvanced_model extends CI_Model {
 				$conditions[] = "COL_WWFF_REF <> ''";
 			} else {
 				$conditions[] = "COL_WWFF_REF like ?";
-				$binding[] = $searchCriteria['wwff'].'%';
+				$binding[] = $this->wildcardPattern($searchCriteria['wwff'], 'prefix');
 			}
 		}
 		if ($searchCriteria['wwff'] == '') {
@@ -549,7 +565,7 @@ class Logbookadvanced_model extends CI_Model {
 				$conditions[] = "COL_OPERATOR <> ''";
 			} else {
 				$conditions[] = "COL_OPERATOR like ?";
-				$binding[] = $searchCriteria['operator'].'%';
+				$binding[] = $this->wildcardPattern($searchCriteria['operator'], 'prefix');
 			}
 		}
 		if ($searchCriteria['operator'] == '') {
@@ -560,9 +576,10 @@ class Logbookadvanced_model extends CI_Model {
 			if (strtolower($searchCriteria['gridsquare']) == '!empty') {
 				$conditions[] = "(COL_GRIDSQUARE <> '' or COL_VUCC_GRIDS <> '')";
 			} else {
+				$gridPattern = $this->wildcardPattern($searchCriteria['gridsquare'], 'both');
 				$conditions[] = "(COL_GRIDSQUARE like ? or COL_VUCC_GRIDS like ?)";
-				$binding[] = '%' . $searchCriteria['gridsquare'] . '%';
-				$binding[] = '%' . $searchCriteria['gridsquare'] . '%';
+				$binding[] = $gridPattern;
+				$binding[] = $gridPattern;
 			}
         }
 
@@ -606,9 +623,10 @@ class Logbookadvanced_model extends CI_Model {
 			if (strtolower($searchCriteria['contest']) == '!empty') {
 				$conditions[] = "(COL_CONTEST_ID <> '' OR contest.name <> '')";
 			} else {
+				$contestPattern = $this->wildcardPattern($searchCriteria['contest'], 'both');
 				$conditions[] = "(COL_CONTEST_ID <> '' OR contest.name <> '')";$conditions[] = "(COL_CONTEST_ID like ? OR contest.name like ?)";
-				$binding[] = '%'.$searchCriteria['contest'].'%';
-				$binding[] = '%'.$searchCriteria['contest'].'%';
+				$binding[] = $contestPattern;
+				$binding[] = $contestPattern;
 			}
 		}
 
@@ -1248,10 +1266,9 @@ class Logbookadvanced_model extends CI_Model {
 
 			$query = $this->db->query($sql, array($value, $value2, $band, $bandRx, json_decode($ids, true), $this->session->userdata('user_id')));
 		} else if ($column == 'COL_GRIDSQUARE') {
-			if ($value == '') {
-				$grid_value = null;
-				$vucc_value = null;
-			} else {
+			$grid_value = null;
+			$vucc_value = null;
+			if ($value != '') {
 				if(!$this->load->is_loaded('Qra')) {
 					$this->load->library('Qra');
 				}

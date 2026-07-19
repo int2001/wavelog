@@ -102,6 +102,7 @@ function echo_table_header_col($name) {
 
 <script>
 	let user_map_custom = JSON.parse('<?php echo $user_map_custom; ?>');
+	window.radiosUserWorker = <?php echo json_encode($radios_user_worker ?? null); ?>;
 </script>
 
 <div class="container dashboard px-3 px-lg-4 mt-3 mb-3" id="main-content">
@@ -397,7 +398,8 @@ function echo_table_header_col($name) {
 		</div>
 		<?php } ?>
 
-		<div id="radio_display" hx-get="<?php echo site_url('dashboard/radio_display_component'); ?>" hx-trigger="load, every 5s"></div>
+		<!-- radio status component -->
+		<div id="radio_display"></div>
 
 
 			<?php if (($dashboard_solar ?? 'N') === 'top') { $this->load->view('dashboard/solar_data'); } ?>

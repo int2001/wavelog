@@ -1,3 +1,4 @@
+<script> var lang_oqrs_request_failed = "<?= __("Request failed. Please try again."); ?>"; </script>
 
 <?php if ($qslinfo != '') {
     echo '<br />QSL information <br /><br />';

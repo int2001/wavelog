@@ -55,6 +55,7 @@ class Timeplotter_model extends CI_Model
         $tEnd = strtotime($end);
         $tNow = $tStart;
         $i = 0;
+        $dataarray = [];
 
         // Initialize time slots
         while($tNow <= $tEnd){

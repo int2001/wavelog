@@ -548,7 +548,7 @@
                     <?php if(($this->config->item('use_auth') && ($this->session->userdata('user_type') >= 2)) || $this->config->item('use_auth') === FALSE) { ?>
                         <br>
                             <?php if (clubaccess_check(3, $row->COL_PRIMARY_KEY)) { ?>
-                            <div style="display: inline-block;"><p class="editButton"><a class="btn btn-primary" href="<?php echo site_url('qso/edit'); ?>/<?php echo $row->COL_PRIMARY_KEY; ?>"><i class="fas fa-edit" aria-hidden="true"></i> <?= __("Edit QSO"); ?></a></p></div>
+                            <div style="display: inline-block;"><p class="editButton"><a class="btn btn-primary" id="edit_qso" href="javascript:qso_edit(<?php echo $row->COL_PRIMARY_KEY; ?>)"><i class="fas fa-edit" aria-hidden="true"></i> <?= __("Edit QSO"); ?></a></p></div>
                             <?php } ?>
                             <div style="display: inline-block;"><form method="POST" action="<?php echo site_url('search'); ?>"><input type="hidden" value="<?php echo strtoupper($row->COL_CALL); ?>" name="callsign"><button class="btn btn-primary" type="submit"><i class="fas fa-eye"></i> <?= __("More QSOs"); ?></button></form></div>
                     <?php } ?>
@@ -819,29 +819,8 @@
          $lng = $stn_loc[1];
       }
    } else if ($row->COL_VUCC_GRIDS != null) {
-      $grids = explode(",", $row->COL_VUCC_GRIDS);
-      if (count($grids) == 2) {
-         $grid1 = $this->qra->qra2latlong(trim($grids[0]));
-         $grid2 = $this->qra->qra2latlong(trim($grids[1]));
-
-         $coords[]=array('lat' => $grid1[0],'lng'=> $grid1[1]);
-         $coords[]=array('lat' => $grid2[0],'lng'=> $grid2[1]);
-
-         $midpoint = $this->qra->get_midpoint($coords);
-         $lat = $midpoint[0];
-         $lng = $midpoint[1];
-      } else if (count($grids) == 4) {
-         $grid1 = $this->qra->qra2latlong(trim($grids[0]));
-         $grid2 = $this->qra->qra2latlong(trim($grids[1]));
-         $grid3 = $this->qra->qra2latlong(trim($grids[2]));
-         $grid4 = $this->qra->qra2latlong(trim($grids[3]));
-
-         $coords[]=array('lat' => $grid1[0],'lng'=> $grid1[1]);
-         $coords[]=array('lat' => $grid2[0],'lng'=> $grid2[1]);
-         $coords[]=array('lat' => $grid3[0],'lng'=> $grid3[1]);
-         $coords[]=array('lat' => $grid4[0],'lng'=> $grid4[1]);
-
-         $midpoint = $this->qra->get_midpoint($coords);
+      $midpoint = $this->qra->qra2latlong($row->COL_VUCC_GRIDS);
+      if ($midpoint) {
          $lat = $midpoint[0];
          $lng = $midpoint[1];
       } else {

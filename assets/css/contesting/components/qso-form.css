@@ -65,6 +65,12 @@
 	font-family: 'Courier New', monospace;
 }
 
+/* Edit-mode row: .form-select-sm has no min-height (unlike .form-control-sm), so the
+   p-0 band/mode dropdowns render shorter than the inputs. Match the input min-height. */
+#qso-tbody select.form-select-sm {
+	min-height: calc(1.5em + 0.5rem + calc(var(--bs-border-width) * 2));
+}
+
 #qso-tbody td.callsign-col,
 #qso-tbody td.serial-col,
 #qso-tbody td.gridsquare-col,

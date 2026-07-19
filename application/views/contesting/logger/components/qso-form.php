@@ -92,7 +92,7 @@ $config = [
 
 							<!-- Serial Sent / Received (shown only when exchangetype has serial) -->
 							<div class="serial-field col-field" style="display:none;">
-								<label for="qso-serial-sent" class="form-label fw-bold mb-1 small text-uppercase"><?= __("Nr. S"); ?></label>
+								<label for="qso-serial-sent" class="form-label fw-bold mb-1 small text-uppercase"><?= __("Nr. S"); ?><span id="qso-serial-perband-badge" class="badge bg-secondary ms-1 text-lowercase" style="display:none;"><?= _pgettext("Count serial number in contesting per Band; is an option in contesting manager.","per band"); ?></span></label>
 								<input type="number" id="qso-serial-sent" name="serial_sent" class="form-control text-center fw-bold no-spinner" min="1" tabindex="-1">
 							</div>
 							<div class="serial-field col-field" style="display:none;">
@@ -145,6 +145,7 @@ $config = [
 									<th class="fw-bold"><?= __("Date"); ?></th>
 									<th class="fw-bold"><?= __("Time"); ?></th>
 									<th class="fw-bold"><?= __("Callsign"); ?></th>
+									<th class="fw-bold"><?= __("Frequency"); ?></th>
 									<th class="fw-bold"><?= __("Band"); ?></th>
 									<th class="fw-bold"><?= __("Mode"); ?></th>
 									<th class="fw-bold"><?= __("RST"); ?></th>

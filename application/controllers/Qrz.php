@@ -26,7 +26,7 @@ class Qrz extends CI_Controller {
 	 */
 
 	public function qrz_apitest() {
-		$apikey = xss_clean($this->input->post('APIKEY'));
+		$apikey = trim(xss_clean($this->input->post('APIKEY')));
 		$url = 'https://logbook.qrz.com/api'; // TODO: Move this to database
   
 		$post_data['KEY'] = $apikey;
@@ -42,6 +42,8 @@ class Qrz extends CI_Controller {
 		curl_setopt( $ch, CURLOPT_USERAGENT, 'Wavelog/'.$this->optionslib->get_option('version'));
 		
 		$content = curl_exec($ch);
+		
+		$result = [];
 
 		if ($content){
 			if (stristr($content,'RESULT=OK')) {

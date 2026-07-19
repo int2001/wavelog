@@ -44,6 +44,27 @@ class QSO extends CI_Controller {
 		$data['radios'] = $this->cat->radios(true);
 		$data['radio_last_updated'] = $this->cat->last_updated()->row();
 		$data['query'] = $this->logbook_model->last_custom($this->session->userdata('qso_page_last_qso_count'));
+
+		$this->load->is_loaded('worker') ?: $this->load->library('worker');
+		$data['worker_enabled'] = $this->worker->is_enabled(); // without this line the worker.js is not loaded!
+		$data['past_contacts_worker'] = null;
+		$user_id = $this->session->userdata('user_id') ?? null;
+		if ($this->worker->is_enabled() && $user_id) {
+			// qso past contacts (last 5) component
+			$topic = 'qso.' . $user_id;
+			$this->worker->register_topic($topic);
+			$data['past_contacts_worker'] = ['topic' => $topic, 'token' => $this->worker->create_token($topic)];
+
+			// radio polling: keyed by radio id so cat.js can look up the selected radio
+			$radio_worker_topics = [];
+			foreach ($data['radios']->result() as $radio) {
+				$topic = 'radio.' . $radio->id;
+				$this->worker->register_topic($topic);
+				$radio_worker_topics[$radio->id] = ['topic' => $topic, 'token' => $this->worker->create_token($topic)];
+			}
+			$data['radio_worker_topics'] = $radio_worker_topics;
+		}
+
 		$data['dxcc'] = $this->logbook_model->fetchDxcc();
 		$data['iota'] = $this->logbook_model->fetchIota();
 		$data['modes'] = $this->usermodes->active();
@@ -197,6 +218,16 @@ class QSO extends CI_Controller {
 			$_POST = [];
 			$this->form_validation->reset_validation();
 
+			if (!is_array($saveresult) || empty($saveresult['qso_id'])) {
+				$returner = [
+					'message' => 'error',
+					'errors'  => is_string($saveresult) ? $saveresult : __("QSO could not be saved"),
+				];
+				header('Content-Type: application/json; charset=utf-8');
+				echo json_encode($returner);
+				return;
+			}
+
 			$returner=[];
 			$actstation=$this->stations->find_active() ?? '';
 			$returner['activeStationId'] = $actstation;
@@ -239,7 +270,6 @@ class QSO extends CI_Controller {
 			'prop_mode' => $this->input->post('prop_mode', TRUE) ?? '',
 			'email' => $this->input->post('email', TRUE) ?? NULL,
 			'region' => $this->input->post('region', TRUE) ?? NULL,
-			'sat_name' => $this->input->post('sat_name', TRUE) ?? NULL,
 			'exchangetype' => $this->input->post('exchangetype', TRUE) ?? NULL,
 			'exch_rcvd' => $this->input->post('exch_rcvd', TRUE) ?? NULL,
 			'exch_sent' => $this->input->post('exch_sent', TRUE) ?? NULL,
@@ -296,37 +326,6 @@ class QSO extends CI_Controller {
 		$result = $this->logbook_model->create_qso($qso_data);
 
 		return json_encode($result, JSON_PRETTY_PRINT);
-	}
-
-	function edit() {
-
-		$this->load->model('logbook_model');
-		$this->load->model('modes');
-		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
-		$query = $this->logbook_model->qso_info($this->uri->segment(3));
-
-		$this->load->library('form_validation');
-
-		$this->form_validation->set_rules('time_on', 'Start Date', 'required');
-		$this->form_validation->set_rules('time_off', 'End Date', 'required');
-		$this->form_validation->set_rules('callsign', 'Callsign', 'required');
-
-		$data['qso'] = $query->row();
-		$data['dxcc'] = $this->logbook_model->fetchDxcc();
-		$data['iota'] = $this->logbook_model->fetchIota();
-		$data['modes'] = $this->modes->all();
-
-		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('qso/edit', $data);
-		} else {
-			$edit_result=$this->logbook_model->edit();
-			if ($edit_result['success']) {
-				$this->session->set_flashdata('notice', 'Record Updated');
-			} else {
-				$this->session->set_flashdata('notice', 'Record not Updated');
-			}
-			$this->load->view('qso/edit_done');
-		}
 	}
 
 	function winkeysettings() {

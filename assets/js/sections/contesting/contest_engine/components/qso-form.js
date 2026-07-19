@@ -133,6 +133,10 @@ class QsoFormComponent {
 	initExchangeType() {
 		const sessionInfo = window.ContestLoggerConfig?.sessionInfo ?? {};
 
+		this.serialPerBand = !!sessionInfo.serial_per_band;
+		const perBandBadge = this.container.querySelector('#qso-serial-perband-badge');
+		if (perBandBadge) perBandBadge.style.display = this.serialPerBand ? '' : 'none';
+
 		let fields = Array.isArray(sessionInfo.exchangefields) && sessionInfo.exchangefields.length > 0
 			? sessionInfo.exchangefields
 			: ['exchange'];
@@ -202,8 +206,13 @@ class QsoFormComponent {
 
 	computeNextSerial() {
 		const allQsos = Array.from(this.dataStore.getPattern('qso.*').values());
+		const currentBand = this.serialPerBand ? this.radioComponent?.getBand() : null;
 		let maxSerial = 0;
 		allQsos.forEach(qso => {
+			if (currentBand) {
+				const qsoBand = qso.band || this.convertQrgToBand(parseInt(qso.frequency));
+				if (qsoBand !== currentBand) return;
+			}
 			const s = parseInt(qso.serial_sent, 10);
 			if (Number.isFinite(s) && s > maxSerial) maxSerial = s;
 		});
@@ -294,7 +303,16 @@ class QsoFormComponent {
 		this.dataStore.subscribe('config.selected_band', () => {
 			const callsign = this.container.querySelector('#qso-callsign')?.value.trim().toUpperCase() || '';
 			this.updateWorkedBeforeWarning(callsign);
+			// Per-band serial: recompute the next number for the newly selected band
+			if (this.serialPerBand) {
+				this.nextSerialSent = this.computeNextSerial();
+				this.updateSerialSentDisplay();
+			}
 		});
+
+		// Follow the radio component's QRG unit toggle: re-render the table so the
+		// displayed frequencies switch to the newly selected unit for that band.
+		window.addEventListener('qrgUnitChanged', () => this.rerenderVisibleRows());
 
 		// Live map preview: re-emit location when the received gridsquare changes, so the
 		// map can plot the exact grid (with the current DXCC info as fallback).
@@ -317,11 +335,14 @@ class QsoFormComponent {
 		const callsignInput = this.container.querySelector('#qso-callsign');
 		if (callsignInput) {
 			callsignInput.addEventListener('input', (e) => {
+				const el = e.target;
 				// Only A-Z/0-9 and the special chars "/", "?" are allowed.
 				// Strip anything else as the user types (Ø is the display form of 0).
-				const filtered = e.target.value.toUpperCase().trim().replace(/[^A-Z0-9Ø/?]/g, '');
-				e.target.value = callsignToDisplay(filtered);
-				const callsign = e.target.value;
+				const clean = (s) => callsignToDisplay(s.toUpperCase().replace(/[^A-Z0-9Ø/?]/g, ''));
+				const caret = clean(el.value.slice(0, el.selectionStart)).length;
+				el.value = clean(el.value);
+				el.setSelectionRange(caret, caret);
+				const callsign = el.value;
 
 				if (this.lastDxccCallsign && callsignToRaw(callsign) !== this.lastDxccCallsign) {
 					this.lastDxccCallsign = null;
@@ -330,6 +351,8 @@ class QsoFormComponent {
 				}
 
 				this.updateWorkedBeforeWarning(callsign);
+
+				this.applyCallsignFilter();
 
 				// Trigger SCP search if component is available
 				if (this.scpComponent && callsign.length >= 1) {
@@ -451,6 +474,22 @@ class QsoFormComponent {
 			this._renderQsoRow(row, qso);
 		});
 
+		// Band changed → snap the QRG field to the band's default frequency (in that band's unit).
+		// "QRG first, Band follows": the reverse (QRG → band) is resolved in saveEdit.
+		const bandSelect = row.querySelector('[name="band"]');
+		const freqInput  = row.querySelector('[name="frequency"]');
+		if (bandSelect && freqInput) {
+			bandSelect.addEventListener('change', () => {
+				const band = bandSelect.value;
+				const mode = row.querySelector('[name="mode"]')?.value || qso.mode;
+				const unit = this._qrgUnit(band);
+				const hz   = this._bandDefaultHz(band, mode);
+				if (hz) freqInput.value = this._hzToUnit(hz, unit);
+				const unitLabel = row.querySelector('.qrg-unit-label');
+				if (unitLabel) unitLabel.textContent = unit;
+			});
+		}
+
 		row.addEventListener('keydown', (e) => {
 			if (e.key === 'Enter') { e.preventDefault(); this.saveEdit(row, qso); }
 			if (e.key === 'Escape') { e.preventDefault(); row.querySelector('.contest-qso-cancel-btn').click(); }
@@ -459,6 +498,71 @@ class QsoFormComponent {
 
 	_esc(str) {
 		return String(str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+	}
+
+	/** 
+	 * User's preferred QRG display unit for a band. Mirrors radio.js (localStorage first, then session config).
+	 * Normally data is stored via datastore-component. But since this qrgunit_ data was implemented way before 
+	 * the new contesting and is used in normal qso logging aswell we make an exception here and read it directly
+	 * from localStorage.
+	 */
+	_qrgUnit(band) {
+		// Band is always lowercase; normalize defensively so the qrgunit_<band> key always matches.
+		const b = String(band ?? '').toLowerCase();
+		return localStorage.getItem('qrgunit_' + b)
+			|| window.ContestLoggerConfig?.qrgUnits?.[b]
+			|| 'kHz';
+	}
+
+	/** Hz → value in the given unit (raw, no rounding, for a lossless round-trip). */
+	_hzToUnit(hz, unit) {
+		const n = parseInt(hz);
+		if (!n || isNaN(n)) return '';
+		switch (unit) {
+			case 'Hz':  return n;
+			case 'MHz': return n / 1e6;
+			case 'GHz': return n / 1e9;
+			case 'kHz':
+			default:    return n / 1e3;
+		}
+	}
+
+	/** value in the given unit → Hz (integer). */
+	_unitToHz(value, unit) {
+		const n = parseFloat(value);
+		if (isNaN(n)) return null;
+		switch (unit) {
+			case 'Hz':  return Math.round(n);
+			case 'MHz': return Math.round(n * 1e6);
+			case 'GHz': return Math.round(n * 1e9);
+			case 'kHz':
+			default:    return Math.round(n * 1e3);
+		}
+	}
+
+	/**
+	 * Parse a QRG input string to Hz. Accepts an inline unit suffix (hz/khz/mhz/ghz),
+	 * otherwise uses defaultUnit. Mirrors radio.js set_new_qrg(). Returns Hz or null.
+	 */
+	_parseQrgInput(raw, defaultUnit) {
+		const s = String(raw ?? '').trim();
+		if (s === '') return null;
+		let unit = defaultUnit;
+		if (/^\d+(\.\d+)?\s*(hz|h)$/i.test(s))       unit = 'Hz';
+		else if (/^\d+(\.\d+)?\s*(khz|k)$/i.test(s)) unit = 'kHz';
+		else if (/^\d+(\.\d+)?\s*(mhz|m)$/i.test(s)) unit = 'MHz';
+		else if (/^\d+(\.\d+)?\s*(ghz|g)$/i.test(s)) unit = 'GHz';
+		const num = parseFloat(s);
+		if (isNaN(num) || !isFinite(num) || num <= 0) return null;
+		return this._unitToHz(num, unit);
+	}
+
+	/** Default frequency (Hz) for a band/mode from the configured band defaults. */
+	_bandDefaultHz(band, mode) {
+		const m = (mode || 'SSB').toUpperCase();
+		const modeKey = ['SSB', 'CW', 'DATA'].includes(m) ? m : 'SSB';
+		const defaults = window.ContestLoggerConfig?.bandDefaults?.[band];
+		return defaults?.[modeKey] || defaults?.['SSB'] || null;
 	}
 
 	/**
@@ -525,8 +629,11 @@ class QsoFormComponent {
 		const hasGridsquare   = fields.includes('gridsquare');
 		const isClubStation   = !!(window.ContestLoggerConfig?.isClubStation);
 
-		const band    = qso.band || this.convertQrgToBand(parseInt(qso.frequency));
-		const qrg_mhz = qso.frequency ? (parseInt(qso.frequency) / 1e6).toFixed(3) + ' MHz' : '';
+		const bandRaw  = qso.band || this.convertQrgToBand(parseInt(qso.frequency));
+		const band     = bandRaw ? bandRaw.toLowerCase() : bandRaw;
+		const qrgUnit  = this._qrgUnit(band);
+		const qrgValue = qso.frequency ? this._hzToUnit(qso.frequency, qrgUnit) : '';
+		const qrgDisp  = qso.frequency ? `${qrgValue} ${qrgUnit}` : '';
 		const isoDate = qso.date || (qso.time_on ? qso.time_on.split(' ')[0] : '');
 		const dateStr = this._formatDate(isoDate);
 		const timeStr = (qso.time || '').substring(0, 8);
@@ -546,8 +653,10 @@ class QsoFormComponent {
 			{ cls: editMode ? 'callsign-col' : 'callsign-col fw-bold',
 			  display: callsignToDisplay(qso.callsign || ''),
 			  edit: inp(callsignToDisplay(qso.callsign || ''), 'callsign', 'fw-bold text-uppercase') },
-			{ title: editMode ? '' : qrg_mhz,
-			  display: (band || '-').toLowerCase(),
+			// Frequency in the user's per-band unit; editable. QRG is authoritative — on save the band is derived from it.
+			{ display: qrgDisp || '-',
+			  edit: `<div class="d-flex align-items-center flex-nowrap gap-1"><input type="text" class="form-control form-control-sm p-0 px-1" style="min-width:4rem;" name="frequency" value="${this._esc(qrgValue)}"><span class="small text-muted qrg-unit-label" style="cursor:default; user-select:none;">${this._esc(qrgUnit)}</span></div>` },
+			{ display: (band || '-').toLowerCase(),
 			  edit: this._buildBandSelect(band) },
 			{ display: qso.mode || '-',
 			  edit: this._buildModeSelect(qso.mode) },
@@ -581,6 +690,7 @@ class QsoFormComponent {
 	_renderQsoRow(row, qso) {
 		row.dataset.qsoId = qso.tmpId || qso.serverId;
 		if (qso.serverId) row.dataset.serverId = qso.serverId;
+		row.dataset.callsign = callsignToRaw(qso.callsign || '').toUpperCase();
 		row.dataset.sig = this._qsoRowSignature(qso);
 
 		const qsoOperator = (qso.operator ?? '').toUpperCase();
@@ -601,7 +711,7 @@ class QsoFormComponent {
 			// Skip inputs inside hidden cells — their empty values would overwrite DB data
 			if (input.closest('td')?.offsetParent !== null) {
 				let val = input.value.trim();
-				if (input.name !== 'band') val = val.toUpperCase();
+				if (input.name !== 'band' && input.name !== 'frequency') val = val.toUpperCase();
 				if (input.name === 'callsign') val = callsignToRaw(val);
 				data[input.name] = val;
 			}
@@ -633,13 +743,20 @@ class QsoFormComponent {
 		// date_on is folded into time_on above; it is not a server column.
 		delete data.date_on;
 
-		// Update frequency when band changed, using the configured default for the current mode
-		if (data.band !== undefined && data.band !== (qso.band || '')) {
-			const mode = (data.mode || qso.mode || 'SSB').toUpperCase();
-			const modeKey = ['SSB', 'CW', 'DATA'].includes(mode) ? mode : 'SSB';
-			const defaults = window.ContestLoggerConfig?.bandDefaults?.[data.band];
-			const freq = defaults?.[modeKey] || defaults?.['SSB'];
-			if (freq) data.frequency = freq;
+		// QRG is authoritative: parse the entered frequency to Hz and derive the band from it.
+		if (data.frequency !== undefined) {
+			const selBand = data.band || qso.band || '';
+			const unit = row.querySelector('.qrg-unit-label')?.textContent?.trim() || this._qrgUnit(selBand);
+			const hz = this._parseQrgInput(data.frequency, unit);
+			const derivedBand = (hz && hz > 0) ? this.convertQrgToBand(hz) : null;
+			if (derivedBand && derivedBand !== '??') {
+				data.frequency = String(hz);
+				data.band = derivedBand;
+			} else {
+				const freq = this._bandDefaultHz(selBand, data.mode || qso.mode);
+				if (freq) data.frequency = String(freq);
+				else delete data.frequency;
+			}
 		}
 
 		const sessionInfo = window.ContestLoggerConfig?.sessionInfo ?? {};
@@ -696,9 +813,9 @@ class QsoFormComponent {
 	 * @param {string} callsign already trimmed + uppercased
 	 * @returns {boolean}
 	 */
-	isValidCallsign(callsign) {
-		if (!callsign || callsign.length < 3) return false;
-		if (!/^[A-Z0-9/]+$/.test(callsign)) return false;      // no "?" / wildcards
+	isCallsignLookupReady(callsign) {
+		if (!window.wlIsValidCallsign(callsign)) return false; // shared save-format rule
+		if (callsign.length < 3) return false;
 		if (!/[A-Z]/.test(callsign)) return false;             // at least one letter
 		if (!/[0-9]/.test(callsign)) return false;             // at least one digit
 		// A bare 3-char string ending in a digit is a prefix, not a call (e.g. "ZL3")
@@ -728,7 +845,7 @@ class QsoFormComponent {
 		}
 
 		// Skip the lookup silently for malformed calls (too short, wildcards, ...)
-		if (!this.isValidCallsign(callsign)) {
+		if (!this.isCallsignLookupReady(callsign)) {
 			this.resetLookupState();
 			return;
 		}
@@ -939,6 +1056,26 @@ class QsoFormComponent {
 		return false;
 	}
 
+	// Set of callsigns (raw, uppercased) already worked on the current band and
+	// mode. SCP uses this to mark worked entries red. Mirrors checkWorkedBefore()
+	// but batched into one pass per render instead of one pass per call.
+	getWorkedCallsignsCurrentBandMode() {
+		const set = new Set();
+		if (!this.dataStore || !this.radioComponent) return set;
+		const currentBand = this.radioComponent.getBand();
+		const currentMode = this.radioComponent.getMode()?.toUpperCase();
+		if (!currentBand || !currentMode) return set;
+		for (const qso of this.dataStore.getPattern('qso.*').values()) {
+			const qsoBand = qso.band || this.convertQrgToBand(parseInt(qso.frequency));
+			const qsoMode = qso.submode?.toUpperCase() || qso.mode?.toUpperCase() || null;
+			if (qsoBand === currentBand && qsoMode === currentMode) {
+				const c = callsignToRaw(qso.callsign || '').toUpperCase();
+				if (c) set.add(c);
+			}
+		}
+		return set;
+	}
+
 	updateWorkedBeforeWarning(callsign) {
 		const warning = this.container?.querySelector('#qso-worked-before-warning');
 		const qsoinput = this.container?.querySelector('#qso-callsign');
@@ -997,6 +1134,8 @@ class QsoFormComponent {
 
 		// Listen for full resync events (server -> client) to refresh table
 		this.dataStore.on('qsos_resynced', (eventData) => this.handleQSOsResynced(eventData));
+
+		this.applyCallsignFilter();
 	}
 
 	handleQSOsResynced(eventData) {
@@ -1021,6 +1160,7 @@ class QsoFormComponent {
 		const sorted = this.sortQsosByNewest(allQsos);
 		sorted.forEach(qso => this.addQSOToTable(qso));
 		this.updateQSOCount();
+		this.applyCallsignFilter();
 
 		this.nextSerialSent = this.computeNextSerial();
 		this.updateSerialSentDisplay();
@@ -1055,6 +1195,26 @@ class QsoFormComponent {
 		const row = document.createElement('tr');
 		this._renderQsoRow(row, qso);
 		tbody.insertBefore(row, tbody.firstChild);
+	}
+
+	/**
+	 * Re-render the currently displayed rows in place (e.g. after the QRG unit changed).
+	 * Preserves row order and scroll, and skips rows the user is editing.
+	 */
+	rerenderVisibleRows() {
+		const tbody = this.container?.querySelector('#qso-tbody');
+		if (!tbody) return;
+
+		const byId = new Map();
+		for (const qso of this.dataStore.getPattern('qso.*').values()) {
+			byId.set(String(qso.tmpId || qso.serverId), qso);
+		}
+
+		tbody.querySelectorAll('tr').forEach(row => {
+			if (row.dataset.editing === 'true') return;
+			const qso = byId.get(row.dataset.qsoId);
+			if (qso) this._renderQsoRow(row, qso);
+		});
 	}
 
 	updateQSOInTable(qso) {
@@ -1123,6 +1283,19 @@ class QsoFormComponent {
 		}
 	}
 
+	// Instant prefix search: hide rows whose callsign does not start with the
+	// current #qso-callsign value. Single source of truth = the input field, so
+	// call this (no args) after any rebuild or input change. Empty/ESC shows all.
+	applyCallsignFilter() {
+		const tbody = this.container?.querySelector('#qso-tbody');
+		if (!tbody) return;
+		const raw = callsignToRaw(this.container.querySelector('#qso-callsign')?.value || '')
+			.toUpperCase().replace(/[^A-Z0-9/]/g, '');
+		tbody.querySelectorAll('tr[data-qso-id]').forEach(row => {
+			row.style.display = (!raw || (row.dataset.callsign || '').startsWith(raw)) ? '' : 'none';
+		});
+	}
+
 	getLastExchangeSent() {
 		const allQsos = Array.from(this.dataStore.getPattern('qso.*').values());
 		if (!allQsos.length) return '';
@@ -1149,6 +1322,8 @@ class QsoFormComponent {
 
 		const gridsquareRcvdInput = this.container.querySelector('#qso-gridsquare-received');
 		if (gridsquareRcvdInput) gridsquareRcvdInput.value = '';
+
+		this.applyCallsignFilter();
 
 		this.lastDxccCallsign = null;
 		this.lastDxccInfo = null;
@@ -1286,7 +1461,8 @@ class QsoFormComponent {
 			frequency: freq,
 			mode: sq.mode,
 			submode: sq.submode,
-			band: sq.band,
+			// Band is always stored/compared lowercase (server data can arrive uppercased).
+			band: sq.band ? sq.band.toLowerCase() : sq.band,
 			date: sq.date || datePart,
 			time: sq.time || timePart,
 			time_on: sq.time_on,
@@ -1437,7 +1613,11 @@ class QsoFormComponent {
 		const serialSent = this.container.querySelector('#qso-serial-sent')?.value || null;
 		const serialRcvd = this.container.querySelector('#qso-serial-received')?.value || null;
 		const gridsquareSent = this.container.querySelector('#qso-gridsquare-sent')?.value.trim().toUpperCase() || null;
-		const gridsquareRcvd = this.container.querySelector('#qso-gridsquare-received')?.value.trim().toUpperCase() || null;
+		const hasGridExchange = this.exchangeFields?.includes('gridsquare');
+		const gridsquareRcvd = (hasGridExchange
+			? this.container.querySelector('#qso-gridsquare-received')?.value
+			: this.container.querySelector('#qso-callbook-grid')?.value
+		)?.trim().toUpperCase() || null;
 		const dxccAdif = this.container.querySelector('#qso-dxcc-adif')?.value.trim();
 		const dxccCont = this.container.querySelector('#qso-dxcc-cont')?.value.trim();
 		const dxccEntity = this.container.querySelector('#qso-dxcc-entity')?.value.trim();
@@ -1456,6 +1636,15 @@ class QsoFormComponent {
 
 		// A "?" wildcard is fine while searching but must be resolved before saving.
 		if (callsign.includes('?')) {
+			this.windowmanager.showToast(lang_error, lang_invalid_callsign, 'bg-danger text-white', 5000);
+			this.container.querySelector('#qso-callsign')?.focus();
+			return;
+		}
+
+		// Callsign format gate — identical to the server (wlIsValidCallsign mirrors
+		// Logbook_model::is_valid_callsign). callsignToRaw() first, since create_qso()
+		// applies the same Ø→0 replacement before validating.
+		if (!window.wlIsValidCallsign(callsignToRaw(callsign))) {
 			this.windowmanager.showToast(lang_error, lang_invalid_callsign, 'bg-danger text-white', 5000);
 			this.container.querySelector('#qso-callsign')?.focus();
 			return;

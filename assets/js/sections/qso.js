@@ -334,6 +334,12 @@ $("#qso_input").off('submit').on('submit', function (e) {
 		return false;
 	}
 
+	var _cs = $("#callsign").val().trim().toUpperCase().replaceAll('Ø', '0');
+	if (_cs !== '' && !window.wlIsValidCallsign(_cs)) {
+		showToast(lang_general_word_error, lang_invalid_callsign, 'bg-danger text-white', 5000);
+		return false;
+	}
+
 	var _submit = true;
 	if ((typeof qso_manual !== "undefined") && (qso_manual == "1")) {
 		if ($('#qso_input input[name="end_time"]').length == 1) { _submit = testTimeOffConsistency(); }
@@ -427,9 +433,16 @@ $("#qso_input").off('submit').on('submit', function (e) {
 	return false;
 });
 
+// Load the "Previous Contacts" table (was htmx hx-get on #qso-last-table).
+// Also called from prepare_next_qso() after saving a QSO (was the qso_event trigger).
+function refreshPastContacts() {
+	const table = document.getElementById('qso-last-table');
+	if (table) wlLoadInto(table.dataset.pastContactsUrl, table);
+}
+
 function prepare_next_qso(saveQsoButtonText) {
 	reset_fields();
-	htmx.trigger("#qso-last-table", "qso_event")
+	refreshPastContacts();
 	$("#saveQso").html(saveQsoButtonText).prop("disabled", false);
 	$("#callsign").val("");
 	var triggerEl = document.querySelector('#myTab a[href="#qso"]')
@@ -1524,7 +1537,7 @@ $("#callsign").on("focusout", function () {
 						iota: result.callsign_iota,
 						state: result.callsign_state,
 						us_county: result.callsign_us_county,
-						bearing: result.bearing,
+						bearing: ($("#sat_name").val() != "") ? null : result.bearing,
 						distance: result.callsign_distance,
 						lotw_member: result.lotw_member,
 						lotw_days: result.lotw_days,
@@ -3449,6 +3462,51 @@ $(document).ready(function () {
 			});
 	});
 
+	// Previous Contacts table: initial load + periodic refresh
+	// (replaces the former htmx hx-get / hx-trigger on #qso-last-table).
+	const pastContactsTable = document.getElementById('qso-last-table');
+	refreshPastContacts();
+
+	var pending = null;
+	var missed = false;
+	function throttleRefreshPastContacts() {
+		// Load at most once every 4 seconds. If more pushes arrive during the
+		// lockout, refresh once afterwards so no update is lost.
+		if (pending) {
+			missed = true;
+			return;
+		}
+		refreshPastContacts();
+		pending = setTimeout(function () {
+			pending = null;
+			if (missed) {
+				missed = false;
+				throttleRefreshPastContacts();
+			}
+		}, 4000);
+	}
+
+	if (pastContactsTable.dataset.workerTopic && window.WavelogWorker && WavelogWorker.isAvailable()) {
+		WavelogWorker.subscribe({
+			topic: pastContactsTable.dataset.workerTopic,
+			token: pastContactsTable.dataset.workerToken,
+			onMessage: function (frame) {
+				if (frame.type === 'push' && frame.payload && frame.payload.type === 'qso_changed') {
+					throttleRefreshPastContacts();
+				}
+			},
+			onReconnect: function () {
+				throttleRefreshPastContacts();
+			}
+		});
+	} else if (pastContactsTable.dataset.autoRefresh === '1') {
+		setInterval(refreshPastContacts, 15000);
+	}
+
 	// everything loaded and ready 2 go
-	bc.postMessage('ready');
+	// bc only exists in live mode (qso_manual == 0); guard against manual mode
+	// where the BroadcastChannel is never created.
+	if (qso_manual == 0) {
+		bc.postMessage('ready');
+	}
 });

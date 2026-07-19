@@ -164,7 +164,7 @@ class Labels extends CI_Controller {
 		$mycall = $this->input->post('mycall') ?? 0;
 		$opcall = $this->input->post('opcall') ?? 0;
 		$this->load->model('stations');
-		if ($this->stations->check_station_is_accessible($station_id)) {
+		if ($station_id === 'All' || $this->stations->check_station_is_accessible($station_id)) {
 			$this->load->model('labels_model');
 			$result = $this->labels_model->export_printrequested($clean_id);
 
@@ -235,6 +235,11 @@ class Labels extends CI_Controller {
 				redirect('labels');
 			}
 		}
+		// Reached only on the success path above; guard so static analysis knows $pdf/$ptype are set
+		if (!isset($pdf, $ptype)) {
+			return;
+		}
+
 		define('FPDF_FONTPATH', './src/Label/font/');
 
 		$pdf->AddPage($ptype->orientation);

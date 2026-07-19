@@ -36,6 +36,7 @@ switch ($date_format) {
   var lang_lotw_upload_day_ago = "<?= __("LoTW User. Last upload was 1 day ago."); ?>";
   var lang_lotw_upload_days_ago = "<?= __("LoTW User. Last upload was %x days ago."); ?>"; // due to the way the string is built (PHP to JS), %x is replaced with the number of days
   var lang_invalid_ant_el = "<?= __("Invalid value for antenna elevation:"); ?>";
+  var lang_invalid_callsign = "<?= __("Invalid callsign"); ?>";
   var lang_qso_wait_before_saving = "<?= __("Please wait before saving another QSO"); ?>";
   var latlng=[<?php echo $lat.','.$lng;?>];
   var user_date_format = "<?php echo $date_format; ?>"; // Pass the user's date format to JavaScript
@@ -905,14 +906,17 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
 
         <div id="partial_view" style="font-size: 0.95rem;" aria-live="polite" aria-atomic="true"></div>
 
-		<?php
-		$result = $this->optionslib->get_option('disable_refresh_past_contacts');
-		if($result === null) { ?>
-			<div id="qso-last-table" hx-get="<?php echo site_url('/qso/component_past_contacts'); ?>" hx-trigger="load, qso_event, every 15s" aria-live="polite" aria-atomic="true">
-		<?php } else { ?>
-			<div id="qso-last-table" hx-get="<?php echo site_url('/qso/component_past_contacts'); ?>" hx-trigger="load, qso_event" aria-live="polite" aria-atomic="true">
-		<?php } ?>
-
+		<?php $result = $this->optionslib->get_option('disable_refresh_past_contacts'); ?>
+			  <div 
+          id="qso-last-table" 
+          data-past-contacts-url="<?php echo site_url('/qso/component_past_contacts'); ?>" 
+          data-auto-refresh="<?php echo $result === null ? '1' : '0'; ?>"
+          <?php if (!empty($past_contacts_worker)) { ?> 
+            data-worker-topic="<?php echo html_escape($past_contacts_worker['topic']); ?>" 
+            data-worker-token="<?php echo html_escape($past_contacts_worker['token']); ?>"
+          <?php } ?> 
+          aria-live="polite" 
+          aria-atomic="true">
         </div>
       </div>
       <small style="float: right;"><?= sprintf(_ngettext("Max. %d previous contact is shown", "Max. %d previous contacts are shown", intval($qso_count)), intval($qso_count)); ?></small>
@@ -927,4 +931,5 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
 
 <script>
 	var station_callsign = "<?php echo $station_callsign; ?>";
+  window.radioWorkerTopics = <?php echo json_encode($radio_worker_topics ?? []); ?>;
 </script>

@@ -1410,13 +1410,15 @@ function shareModal(qso_data) {
 
 
 // Show Bootstrap Toast
-function showToast(title, text, type = 'bg-success text-white', delay = 3000) {
+function showToast(title, text, type = 'bg-success text-white', delay = 3000, autohide = true) {
 	/*
 	Examples:
 	showToast('Saved', 'Your data was saved!', 'bg-success text-white', 3000);
 	showToast('Error', 'Failed to connect to server.', 'bg-danger text-white', 5000);
 	showToast('Warning', 'Please check your input.', 'bg-warning text-dark', 4000);
 	showToast('Info', 'System will restart soon.', 'bg-info text-dark', 4000);
+	// Persistent toast (stays until manually dismissed):
+	showToast('Error', 'Connection lost.', 'bg-danger text-white', 0, false);
 	*/
 
 	const container = document.getElementById('toast-container');
@@ -1427,6 +1429,7 @@ function showToast(title, text, type = 'bg-success text-white', delay = 3000) {
 	toastEl.setAttribute('role', 'alert');
 	toastEl.setAttribute('aria-live', 'assertive');
 	toastEl.setAttribute('aria-atomic', 'true');
+	toastEl.setAttribute('data-bs-autohide', autohide ? 'true' : 'false');
 	toastEl.setAttribute('data-bs-delay', delay);
 
 	// Toast inner HTML
@@ -1554,6 +1557,20 @@ function LatLng2Loc(y, x, num) {
 	if (num >= 10) qthloc+=String.fromCharCode(yn[8] + 0x61) + String.fromCharCode(yn[9] + 0x61);
 	return qthloc;
 }
+
+// Fetch an HTML fragment and swap it into a target element, then reinit tooltips.
+// Replaces the former htmx hx-get / hx-target mechanism.
+window.wlLoadInto = function (url, target) {
+    const el = (typeof target === 'string') ? document.querySelector(target) : target;
+    if (!el) return Promise.resolve();
+    return fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(r => r.text())
+        .then(html => {
+            el.innerHTML = html;
+            // reinit Bootstrap tooltips on freshly swapped content (was htmx:afterSwap)
+            $('[data-bs-toggle="tooltip"]', el).tooltip();
+        });
+};
 
 // DO NOT DELETE: This message is intentional and serves as developer recruitment/engagement
 console.log("Ready to unleash your coding prowess and join the fun?\n\n" +

@@ -135,6 +135,14 @@
                         <small class="text-muted d-block mt-1"><?= __("Lookup callbook data in the configured online callbook service. If disabled, only existing log data from previous qsos with this callsign will be used. Log data is always prioritized.") ?></small>
                     </div>
                     <div class="mb-4">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="serial_per_band" name="serial_per_band" value="1"
+                                <?php if (isset($session_info) && ($session_info['serial_per_band'] ?? false)) echo 'checked'; ?>>
+                            <label class="form-check-label" for="serial_per_band"><?= __("Count serial number per band") ?></label>
+                        </div>
+                        <small class="text-muted d-block mt-1"><?= __("When enabled, the sent serial number starts at 1 on each band instead of running continuously across the whole contest (required by some multi-op categories).") ?></small>
+                    </div>
+                    <div class="mb-4">
                         <label for="session_notes" class="form-label"><?= __("Session Notes") ?></label>
                         <textarea class="form-control" id="session_notes" name="session_notes" rows="3" placeholder="<?= __("Add any additional information about this session..."); ?>"><?php if (isset($session_info)) echo htmlspecialchars($session_info['comment'] ?? ''); ?></textarea>
                         <small class="text-muted d-block mt-2"><?= __("Optional: Any additional details or notes"); ?></small>

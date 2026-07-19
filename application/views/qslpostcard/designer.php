@@ -5,7 +5,7 @@ $qsl_field_groups = [
 	__("Address")             => ['addr.name', 'addr.addr1', 'addr.addr2', 'addr.city_state_zip', 'addr.country'],
 	__("QSO Core")            => ['qso.call', 'qso.band', 'qso.mode', 'qso.sat_name', 'qso.sat_mode', 'qso.freq', 'qso.rst_sent', 'qso.r_sent', 'qso.s_sent', 'qso.t_sent', 'qso.rst_rcvd', 'qso.summary'],
 	__("Date & Time")         => ['qso.qso_date', 'qso.time_on', 'qso.time', 'qso.time_utc', 'qso.day', 'qso.month', 'qso.month_name', 'qso.year'],
-	__("Station & Equipment") => ['qso.tx_power'], //['qso.rig', 'qso.my_rig', 'qso.antenna', 'qso.rx_power'], Implement later if there's demand
+	__("Station & Equipment") => ['qso.station_callsign', 'qso.operator', 'qso.tx_power'], //['qso.rig', 'qso.my_rig', 'qso.antenna', 'qso.rx_power'], Implement later if there's demand
 	__("My References")       => ['qso.my_pota_ref', 'qso.pota_line', 'qso.my_sota_ref', 'qso.sota_line', 'qso.my_iota_ref', 'qso.iota_line', 'qso.my_grid'],
 	__("Markers")             => ['qso.pse_qsl', 'qso.tnx_qsl', 'qso.pse_qsl_tnx_text','qso.portable', 'qso.mobile'],
 	__("Other")               => ['qso.comment', 'qso.qsl_message', 'qso.qsl_via'],
@@ -40,9 +40,18 @@ $_step_pitch = $_metric ? '0.1'  : '0.05';   // row pitch
 		deleteFailed: <?= json_encode(__("Delete failed")); ?>,
 		deleteSuccess: <?= json_encode(__("Template deleted successfully!")); ?>,
 		selectTemplateToDelete: <?= json_encode(__("Please select a template to delete.")); ?>,
+		copyFailed: <?= json_encode(__("Copy failed")); ?>,
+		copySuccess: <?= json_encode(__("Template copied.")); ?>,
+		selectTemplateToCopy: <?= json_encode(__("Please select a template to copy.")); ?>,
 		success: <?= json_encode(__("Success")); ?>,
 		error: <?= json_encode(__("Error")); ?>,
 		selected: <?= json_encode(__("selected")); ?>,
+		unsavedChangesTitle: <?= json_encode(__("Unsaved changes")); ?>,
+		unsavedChangesConfirm: <?= json_encode(__("Your current design has unsaved changes. Loading a different template will replace it. Continue?")); ?>,
+		unsavedLeaveConfirm: <?= json_encode(__("Your current design has unsaved changes. If you leave the page, those changes will be lost. Leave anyway?")); ?>,
+		discardChanges: <?= json_encode(__("Discard changes")); ?>,
+		keepEditing: <?= json_encode(__("Keep editing")); ?>,
+		leavePage: <?= json_encode(__("Leave page")); ?>,
 	};
 </script>
 
@@ -67,6 +76,9 @@ $_step_pitch = $_metric ? '0.1'  : '0.05';   // row pitch
 						<button id="btnSave" class="btn btn-sm btn-success text-nowrap" title="<?= __("Save Template"); ?>">
 							<i class="fas fa-save me-1"></i><?= __("Save"); ?>
 						</button>
+						<button id="btnCopy" class="btn btn-sm btn-outline-primary text-nowrap" title="<?= __("Copy Template"); ?>">
+							<i class="fas fa-copy"></i>
+						</button>
 						<button id="btnDelete" class="btn btn-sm btn-outline-danger text-nowrap" title="<?= __("Delete Template"); ?>">
 							<i class="fas fa-trash"></i>
 						</button>
@@ -78,9 +90,6 @@ $_step_pitch = $_metric ? '0.1'  : '0.05';   // row pitch
 					<label class="qsl-tb-label"><?= __("Background image"); ?></label>
 					<div class="d-flex gap-2 align-items-center">
 						<input type="file" id="previewImageFile" class="form-control form-control-sm" style="max-width:275px;" accept=".jpg,.jpeg,.png,.JPG,.JPEG,.PNG">
-						<button type="button" id="btnUploadPreview" class="btn btn-sm btn-primary" title="<?= __("Upload Preview Image"); ?>">
-							<i class="fas fa-upload"></i>
-						</button>
 					<div class="btn-group btn-group-sm" role="group">
 						<a id="btnPdf" class="btn btn-primary" href="#" target="_blank" title="<?= __("Generate PDF (demo)"); ?>">
 							<i class="fas fa-file-pdf me-1"></i><?= __("PDF"); ?>
@@ -233,10 +242,23 @@ $_step_pitch = $_metric ? '0.1'  : '0.05';   // row pitch
 						<span class="fw-bold ms-1" id="propTypeLabel"></span>
 					</div>
 
-					<div class="mb-2" id="propTextRow" style="display:none;">
-						<label class="form-label small mb-1"><?= __("Text"); ?></label>
-						<input id="propText" class="form-control form-control-sm">
+				<div class="mb-2" id="propTextRow" style="display:none;">
+					<label class="form-label small mb-1"><?= __("Text"); ?></label>
+					<input id="propText" class="form-control form-control-sm">
+				</div>
+
+				<div class="mb-2" id="propFreqFormatRow" style="display:none;">
+					<label class="form-label small mb-1"><?= __("Frequency format"); ?></label>
+					<select id="propFreqFormat" class="form-select form-select-sm">
+						<option value="MHz">MHz</option>
+						<option value="kHz">kHz</option>
+						<option value="Hz">Hz</option>
+					</select>
+					<div class="form-check mt-1">
+						<input class="form-check-input" type="checkbox" id="propFreqNoUnit">
+						<label class="form-check-label small" for="propFreqNoUnit"><?= __("Omit unit"); ?></label>
 					</div>
+				</div>
 
 					<div class="row g-2 mb-2" id="propPosRow">
 						<div class="col-6">

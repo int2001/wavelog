@@ -389,8 +389,8 @@ class Staticmap_model extends CI_Model {
                 $lweight = 1;
                 $pcolor = $cqz_color . 'FF'; // FF = 100% opacity as hex
 
+                $cqzones_polygon_array = [];
                 if (isset($data['features'])) {
-                    $cqzones_polygon_array = [];
                     foreach ($data['features'] as $feature) {
                         $one_cqzpolygon = new Wavelog\StaticMapImage\Polygon($lcolor, $lweight, $pcolor, !$continentEnabled);
                         $coordinates = $feature['geometry']['coordinates'];
@@ -467,8 +467,8 @@ class Staticmap_model extends CI_Model {
                 $lweight = 1;
                 $pcolor = $ituz_color . 'FF'; // FF = 100% opacity as hex
 
+                $ituzones_polygon_array = [];
                 if (isset($data['features'])) {
-                    $ituzones_polygon_array = [];
                     foreach ($data['features'] as $feature) { // one zone
                         $one_ituzpolygon = new Wavelog\StaticMapImage\Polygon($lcolor, $lweight, $pcolor, !$continentEnabled);
                         $coordinates = $feature['geometry']['coordinates'];
@@ -704,6 +704,9 @@ class Staticmap_model extends CI_Model {
             }
 
             return true; // Success
+        } else {
+            log_message('error', "Neither a station ID nor a logbook ID was provided. Exiting...");
+            return false;
         }
     }
 

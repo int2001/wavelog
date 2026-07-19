@@ -10,6 +10,8 @@ class adif_data extends CI_Model {
 				$this->api_model->update_last_used($api_key);
 				$user_id = $this->api_model->key_userid($api_key);
 				$logbooks_locations_array = $this->list_station_locations($user_id, $backup);
+			} else {
+				return;
 			}
 		} else {
 			$this->load->model('stations');
@@ -52,6 +54,8 @@ class adif_data extends CI_Model {
 				$this->api_model->update_last_used($api_key);
 				$user_id = $this->api_model->key_userid($api_key);
 				$logbooks_locations_array = $this->list_station_locations($user_id);
+			} else {
+				return;
 			}
 		} else {
 			$this->load->model('stations');

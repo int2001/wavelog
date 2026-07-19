@@ -160,6 +160,10 @@ class Frequency {
 
 		$result = $db->get()->row();
 
+		if ($result === null) {
+			return null;
+		}
+
 		$mode = strtolower($mode);
 
 		return $result->$mode;
@@ -246,7 +250,7 @@ class Frequency {
 	 *                            		Possible values: 'Hz', 'kHz', 'MHz', 'GHz'. 
 	 *                            		If not provided, the unit is determined based on session data (function qrg_unit()).
 	 *
-	 * @return string 	The converted frequency in the specified format.
+	 * @return string|null 	The converted frequency in the specified format, or null.
 	 * 
 	 * To change the number of decimals shown per unit, add in your config.php
 	 * 
@@ -290,6 +294,7 @@ class Frequency {
 		}
 	
 		// Convert the frequency to the target unit
+		$decimals = 0; // fallback for unknown units
 		switch ($target_unit) {
 			case 'Hz':
 				$decimals = $CI->config->item('qrg_hz_dec') ?? 0;

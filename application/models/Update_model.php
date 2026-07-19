@@ -299,7 +299,9 @@ class Update_model extends CI_Model {
         } while ($data = fgetcsv($f, 1000, ",", '"', '\\'));
         fclose($f);
 
-        $this->db->insert_batch('lotw_users', $lotwdata);
+		if (isset($lotwdata) && count($lotwdata) > 0) {
+        	$this->db->insert_batch('lotw_users', $lotwdata);
+		}
 
         $mtime = microtime();
         $mtime = explode(" ", $mtime);
@@ -657,7 +659,7 @@ class Update_model extends CI_Model {
 						}
 					}
 				}
-				if ($i>0) {	// Leftovers?
+				if ($i>0 && isset($hon)) {	// Leftovers?
 					$this->db->insert_batch('hams_of_note', $hon);
 				}
 			} else {

@@ -33,10 +33,14 @@
     var lang_general_share_qso = "<?= __("Share QSO"); ?>";
     var lang_general_word_danger = "<?= __("DANGER"); ?>";
     var lang_general_word_error = "<?= __("ERROR"); ?>";
+    var lang_general_word_query_failed_unkown = "<?= __("The query failed for a unknown reason"); ?>";
     var lang_general_word_attention = "<?= __("Attention"); ?>";
     var lang_general_word_warning = "<?= __("Warning"); ?>";
     var lang_general_word_success = "<?= __("Success"); ?>";
     var lang_general_word_info = "<?= __("Info"); ?>";
+    var lang_worker_token_expired_title = "<?= __("Session expired"); ?>";
+    var lang_worker_token_expired_msg = "<?= __("Your live connection has expired. Please reload the page to keep receiving live updates."); ?>";
+    var lang_worker_reload_now = "<?= __("Reload now"); ?>";
     var lang_general_word_cancel = "<?= __("Cancel"); ?>";
     var lang_general_word_ok = "<?= __("OK"); ?>";
     var lang_general_word_search = "<?= __("Search"); ?>";
@@ -169,14 +173,12 @@
 		polyfillCountryFlagEmojis();
 </script>
 
-<script src="<?php echo $this->paths->cache_buster('/assets/js/htmx.min.js'); ?>"></script>
 
-<script>
-    // Reinitialize tooltips after new content has been loaded
-    document.addEventListener('htmx:afterSwap', function(event) {
-        $('[data-bs-toggle="tooltip"]').tooltip();
-    });
-</script>
+<?php if ($worker_enabled ?? false) { ?>
+    <!-- Wavelog Worker JS -->
+    <script>window.WavelogWorker = <?php echo json_encode(['url' => $this->worker->client_url()]); ?>;</script>
+	<script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/worker.js'); ?>"></script>
+<?php } ?>
 
 
 <!-- DATATABLES LANGUAGE -->
@@ -1069,6 +1071,7 @@ $($('#callsign')).on('keypress',function(e) {
 
 <?php if ($this->uri->segment(1) == "qso") { ?>
 
+<script src="<?php echo $this->paths->cache_buster('/assets/js/sections/callsign_validation.js'); ?>"></script>
 <script src="<?php echo $this->paths->cache_buster('/assets/js/sections/qso.js'); ?>"></script>
 <script src="<?php echo $this->paths->cache_buster('/assets/js/sections/satellite_functions.js'); ?>"></script>
 <script src="<?php echo $this->paths->cache_buster('/assets/js/bootstrap-multiselect.js'); ?>"></script>

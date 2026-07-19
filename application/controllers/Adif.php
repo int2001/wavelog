@@ -311,6 +311,7 @@ class adif extends CI_Controller {
 
 		// Pass allowed tabs to view
 		$data['allowed_tabs'] = $this->get_allowed_tabs();
+		$data['stations_active_log_only'] = !empty($this->session->userdata('user_stations_active_log_only'));
 
 		$this->load->model('contest_admin_model');
 		$data['contests'] = $this->contest_admin_model->getActiveContests();
@@ -465,7 +466,7 @@ class adif extends CI_Controller {
 			$data['structured_errors'] = $custom_errors['structured_errors'] ?? [];
 			$data['qsocount'] = $custom_errors['qsocount'] ?? 0;
 			$data['skip_dupes'] = $this->input->post('skipDuplicate');
-			$data['imported_contests'] = $contest_qso_infos;
+			$data['imported_contests'] = $contest_qso_infos ?? [];
 
 			$data['page_title'] = __("ADIF Imported");
 			$this->load->view('interface_assets/header', $data);
@@ -486,6 +487,11 @@ class adif extends CI_Controller {
 
 		// Pass allowed tabs to view
 		$data['allowed_tabs'] = $this->get_allowed_tabs();
+		$data['stations_active_log_only'] = !empty($this->session->userdata('user_stations_active_log_only'));
+		$data['cd_p_level'] = ($this->session->userdata('cd_p_level') ?? 0);
+		$this->load->model('contest_admin_model');
+		$data['contests'] = $this->contest_admin_model->getActiveContests();
+		$data['active_station_id'] = $this->stations->find_active();
 
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = 'adi|ADI|adif|ADIF';
@@ -561,6 +567,11 @@ class adif extends CI_Controller {
 
 		// Pass allowed tabs to view
 		$data['allowed_tabs'] = $this->get_allowed_tabs();
+		$data['stations_active_log_only'] = !empty($this->session->userdata('user_stations_active_log_only'));
+		$data['cd_p_level'] = ($this->session->userdata('cd_p_level') ?? 0);
+		$this->load->model('contest_admin_model');
+		$data['contests'] = $this->contest_admin_model->getActiveContests();
+		$data['active_station_id'] = $this->stations->find_active();
 
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = 'adi|ADI|adif|ADIF';
