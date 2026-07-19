@@ -591,6 +591,10 @@
 		$sats = $this->get_sats($dateFrom, $dateTo);
 		$modes = $this->get_sat_modes($dateFrom, $dateTo);
 
+		if ($sats === null) {
+			return ['qsoView' => [], 'sattotal' => [], 'modetotal' => [], 'modes' => []];
+		}
+
 		$sattotal = array();
 		$modetotal = array();
 		// Generating the band/mode table
@@ -628,6 +632,10 @@
 
 		$bands = $this->get_bands($dateFrom, $dateTo);
 		$modes = $this->get_modes($dateFrom, $dateTo);
+
+		if ($bands === null) {
+			return ['qsoView' => [], 'bandtotal' => [], 'modetotal' => []];
+		}
 
 		$bandtotal = array();
 		$modetotal = array();
@@ -669,6 +677,10 @@
 
 		$sats = $this->get_sats($dateFrom, $dateTo);
 		$satmodes = $this->get_sat_modes($dateFrom, $dateTo);
+
+		if ($bands === null) {
+			return ['qsoView' => [], 'qsoSatView' => []];
+		}
 
 		// Generating the band/mode table
 		foreach ($bands as $band) {
