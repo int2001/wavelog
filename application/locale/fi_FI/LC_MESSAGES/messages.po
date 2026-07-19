@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-18 12:06+0000\n"
+"POT-Creation-Date: 2026-07-19 08:05+0000\n"
 "PO-Revision-Date: 2026-06-29 12:11+0000\n"
 "Last-Translator: \"Juuso W.\" <oh1jw@tuta.io>\n"
 "Language-Team: Finnish <https://translate.wavelog.org/projects/wavelog/main-"
@@ -4223,51 +4223,51 @@ msgstr "qslsdate on virheellinen (YYYYMMDD)"
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "the clublog_qso_upload_date on virheellinen (YYYYMMDD)"
 
-#: application/models/Logbook_model.php:5107
+#: application/models/Logbook_model.php:5112
 #: application/views/simplefle/index.php:41
 msgid "Duplicate for"
 msgstr "Kaksoiskappale"
 
-#: application/models/Logbook_model.php:5174
-#: application/models/Logbook_model.php:5274
+#: application/models/Logbook_model.php:5179
+#: application/models/Logbook_model.php:5279
 msgid "QSO could not be matched"
 msgstr "QSOa ei voitu yhdistää"
 
-#: application/models/Logbook_model.php:5182
+#: application/models/Logbook_model.php:5187
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "vahvistettu LoTW:n/Clublogin/eQSL:n/kilpailun kautta"
 
-#: application/models/Logbook_model.php:5188
+#: application/models/Logbook_model.php:5193
 msgid "confirmed by award manager"
 msgstr "vahvistettu awardimanagerin toimesta"
 
-#: application/models/Logbook_model.php:5192
+#: application/models/Logbook_model.php:5197
 msgid "confirmed by cross-check of DCL data"
 msgstr "varmistettu DCL-datan ristivertailulla"
 
-#: application/models/Logbook_model.php:5196
+#: application/models/Logbook_model.php:5201
 msgid "confirmation pending"
 msgstr "vahvistus odottaa"
 
-#: application/models/Logbook_model.php:5199
+#: application/models/Logbook_model.php:5204
 msgid "unconfirmed"
 msgstr "vahvistamaton"
 
-#: application/models/Logbook_model.php:5202
+#: application/models/Logbook_model.php:5207
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 msgid "unknown"
 msgstr "tuntematon"
 
-#: application/models/Logbook_model.php:5277
+#: application/models/Logbook_model.php:5282
 msgid "POTA reference already in log"
 msgstr "POTA-referenssi on jo lokissa"
 
-#: application/models/Logbook_model.php:5280
+#: application/models/Logbook_model.php:5285
 msgid "QSO updated"
 msgstr "QSO päivitetty"
 
-#: application/models/Logbook_model.php:5685
+#: application/models/Logbook_model.php:5690
 #: application/views/activated_gridmap/index.php:109
 #: application/views/awards/ffma/index.php:42
 #: application/views/awards/gridmaster/index.php:57
