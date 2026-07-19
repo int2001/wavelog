@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-19 08:05+0000\n"
-"PO-Revision-Date: 2026-07-18 10:48+0000\n"
+"PO-Revision-Date: 2026-07-19 09:16+0000\n"
 "Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ja/>\n"
@@ -2915,7 +2915,7 @@ msgstr "QSOを追加"
 
 #: application/controllers/Qso.php:224
 msgid "QSO could not be saved"
-msgstr ""
+msgstr "交信を保存できませんでした"
 
 #: application/controllers/Qso.php:878
 msgid "You have to be logged in to access this URL."
@@ -4189,6 +4189,8 @@ msgid ""
 "QSO on %s: You tried to import a QSO without any given CALL. This QSO wasn't "
 "imported. It's invalid."
 msgstr ""
+"交信は %s : コールサインを指定せずにQSOをインポートしようとしました。このQSO"
+"はインポートされませんでした。無効です。"
 
 #: application/models/Logbook_model.php:4313
 #, php-format
@@ -4196,6 +4198,8 @@ msgid ""
 "QSO on %s: You tried to import a QSO with an invalid CALL. This QSO wasn't "
 "imported. The invalid input is '%s'."
 msgstr ""
+"交信は %s : 無効なコールサインで QSO をインポートしようとしました。この QSO "
+"はインポートされませんでした。無効な入力は '%s '。"
 
 #: application/models/Logbook_model.php:4383
 #, php-format
