@@ -26,7 +26,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-19 08:05+0000\n"
+"POT-Creation-Date: 2026-07-20 12:32+0000\n"
 "PO-Revision-Date: 2026-07-19 13:34+0000\n"
 "Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
@@ -19901,50 +19901,55 @@ msgstr "Lösche QSO-Daten"
 msgid "No Options yet"
 msgstr "Noch keine Optionen"
 
-#: application/views/simplefle/syntax_help.php:1
+#: application/views/simplefle/syntax_help.php:10
+msgid "Getting started"
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:11
 msgid "Before starting to log a QSO, please note the basic rules."
 msgstr "Bevor du ein QSO loggst, beachte bitte die grundlegenden Regeln."
 
-#: application/views/simplefle/syntax_help.php:2
+#: application/views/simplefle/syntax_help.php:13
 msgid "- Each new QSO should be on a new line."
 msgstr "- Jedes neue QSO sollte in einer neuen Zeile stehen."
 
-#: application/views/simplefle/syntax_help.php:3
+#: application/views/simplefle/syntax_help.php:14
 msgid ""
 "- On each new line, only write data that has changed from the previous QSO."
 msgstr ""
 "- In jeder neuen Zeile schreibst du nur Daten, die sich vom vorherigen QSO "
 "geändert haben."
 
-#: application/views/simplefle/syntax_help.php:4
+#: application/views/simplefle/syntax_help.php:17
+msgid "The first QSO"
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:18
+#, php-format
 msgid ""
 "To begin, ensure you have already filled in the form on the left with the "
 "date, station call, and operator's call. The main data includes the band (or "
-"QRG in MHz, e.g., '7.145'), mode, and time. After the time, you provide the "
-"first QSO, which is essentially the callsign."
+"QRG in MHz, e.g., %s), mode, and time. After the time, you provide the first "
+"QSO, which is essentially the callsign."
 msgstr ""
-"Um zu beginnen, stelle sicher, dass du die Felder auf der linken Seite "
-"bereits mit Datum, Stationsrufzeichen/-standort und Rufzeichen des Operators "
-"ausgefüllt hast. Die wichtigsten Daten umfassen das Band (oder QRG in MHz, z."
-"B. '7.145'), Mode und Zeit. Nach der Zeit gibst du das erste QSO an, was im "
-"wesentlichen das Rufzeichen ist."
 
-#: application/views/simplefle/syntax_help.php:9
+#: application/views/simplefle/syntax_help.php:23
 msgid "For example, a QSO that started at 21:34 (UTC) with 4W7EST on 20m SSB."
 msgstr "Zum Beispiel ein QSO um 21:34 Uhr (UTC) mit 4W7EST auf 20m SSB."
 
-#: application/views/simplefle/syntax_help.php:10
-msgid ""
-"If you don't provide any RST information, the syntax will use 59 (599 for "
-"data). Our next QSO wasn't 59 on both sides, so we provide the information "
-"with the sent RST first. It was 2 minutes later than the first QSO."
+#: application/views/simplefle/syntax_help.php:25
+msgid "Signal reports (RST)"
 msgstr ""
-"Wenn du keine RST-Informationen angibst, verwendet die Syntax 59 (599 für "
-"Daten). Unser nächstes QSO war nicht auf beiden Seiten 59, also geben wir "
-"die Informationen zuerst mit gesendeter RST an. Es war 2 Minuten später als "
-"das erste QSO."
 
-#: application/views/simplefle/syntax_help.php:16
+#: application/views/simplefle/syntax_help.php:26
+msgid ""
+"If you don't provide any RST information, the syntax will use 59 for phone, "
+"599 for CW and +0 dB for digital data modes. Our next QSO wasn't 59 on both "
+"sides, so we provide the information with the sent RST first. It was 2 "
+"minutes later than the first QSO."
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:32
 msgid ""
 "The first QSO was at 21:34, and the second one 2 minutes later at 21:36. We "
 "write down 6 because this is the only data that changed here. The "
@@ -19955,7 +19960,11 @@ msgstr ""
 "geänderte Information ist. Die Eingaben zum Band und Mode haben sich nicht "
 "geändert, daher entfallen diese Daten hier."
 
-#: application/views/simplefle/syntax_help.php:17
+#: application/views/simplefle/syntax_help.php:34
+msgid "Date and time"
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:35
 msgid ""
 "For our next QSO at 21:40 on 14th May, 2021, we changed the band to 40m but "
 "still on SSB. If no RST information is given, the syntax will use 59 for "
@@ -19968,62 +19977,27 @@ msgstr ""
 "wir ein weiteres QSO hinzufügen welches um die exakt selbe Zeit zwei Tage "
 "später stattfand. Das Datum muss im Format YYYY-MM-DD eingegeben werden."
 
-#: application/views/simplefle/syntax_help.php:28
+#: application/views/simplefle/syntax_help.php:47
+msgid "Additional information"
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:48
 msgid "Additional informations can be submitted in the following way:"
 msgstr "Zusätzliche Informationen können wie folgt hinzugefügt werden:"
 
-#: application/views/simplefle/syntax_help.php:29
+#: application/views/simplefle/syntax_help.php:49
 msgid "Notes:"
 msgstr "Notizen:"
 
-#: application/views/simplefle/syntax_help.php:33
+#: application/views/simplefle/syntax_help.php:53
 msgid "Operator Name:"
 msgstr "Name Operator:"
 
-#: application/views/simplefle/syntax_help.php:37
+#: application/views/simplefle/syntax_help.php:57
 msgid "QSL-message (Caution! Not visible in wavelog currently!):"
 msgstr "QSL-Nachricht (Achtung! Derzeit in Wavelog nicht sichtbar!):"
 
-#: application/views/simplefle/syntax_help.php:41
-msgid "Contest exchange; serials or other exchange - or even both:"
-msgstr ""
-"Contest-Exchange; Seriennummer oder anderer Exchange - oder auch beides:"
-
-#: application/views/simplefle/syntax_help.php:48
-msgid ""
-"Received exchange has to be prefixed with a dot '.', sent exchange with a "
-"comma ','. The last two lines are equivalent - i.e. spaces don't matter as "
-"the order doesn't as well. Exchange you have sent will automatically be "
-"included in the next QSO, if it contains received exchange, or if you use a "
-"single comma ','. To automatically increment the sent serial, use ',++' and "
-"give an initial sent exchange. To deactivate, use ',+0':"
-msgstr ""
-"Der empfangene Exchange benötigen einen Punkt '.' als Präfix, der gesendete "
-"Exchange ein Komma ','. Die letzten beiden Zeilen sind gleichwertig, d.h. "
-"Leerzeichen und Reihenfolge sind nicht relevant. Gesendete Exchange werden "
-"automatisch in das nächste QSO übernommen sofern es empfangene Exchange "
-"enthält oder wenn du ein einzelnes Komma ',' verwendest. Um die Seriennummer "
-"automatisch zu erhöhen benutze '++' und gib einen Startwert an. Um dies zu "
-"deaktivieren benutze '+0':"
-
-#: application/views/simplefle/syntax_help.php:54
-msgid ""
-"Here, the first qso uses the set serial 1, and the second will use 2 as the "
-"serial. If you want to wipe your sent exchange, use ',-':"
-msgstr ""
-"Hier wird für das erste QSO die Seriennummer 1 verwendet, für das zweite QSO "
-"die Nummer 2. Wenn du den gesendeten Exchange löschen willst benutze '-':"
-
-#: application/views/simplefle/syntax_help.php:59
-msgid ""
-"First, all previous exchange is wiped, then only a serial is set. Otherwise "
-"the previous exchange 'D23' would have been set also."
-msgstr ""
-"Zuerst werden alle vorherigen Exchange entfernt, anschließend wird lediglich "
-"die Seriennummer gesetzt. Ansonsten würde der vorherige Exchange 'D23' "
-"ebenfalls gesetzt werden."
-
-#: application/views/simplefle/syntax_help.php:60
+#: application/views/simplefle/syntax_help.php:61
 msgid ""
 "You may use the comment syntax, to fill adif-fields supported by the Wavelog-"
 "Import:"
@@ -20031,7 +20005,60 @@ msgstr ""
 "Du kannst die Kommentar-Syntax nutzen, um ADIF-Felder zu füllen, die vom "
 "Wavelog-Import unterstützt werden:"
 
-#: application/views/simplefle/syntax_help.php:64
+#: application/views/simplefle/syntax_help.php:66
+msgid "Contest exchange"
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:67
+msgid "Contest exchange; serials or other exchange - or even both:"
+msgstr ""
+"Contest-Exchange; Seriennummer oder anderer Exchange - oder auch beides:"
+
+#: application/views/simplefle/syntax_help.php:74
+#, php-format
+msgid ""
+"Received exchange has to be prefixed with a dot %s, sent exchange with a "
+"comma %s. The last two lines are equivalent - i.e. spaces don't matter as "
+"the order doesn't as well. Each of the four lines above simply illustrates "
+"one type of exchange (serial only, text only, or both); note that the sent "
+"exchange is 'sticky': once set, it is automatically carried into the "
+"following QSOs (whenever the next line contains a received exchange or a "
+"single comma %s) until you change or wipe it. To automatically increment the "
+"sent serial, add %s to a QSO line together with an initial sent exchange (it "
+"does not work on its own line). To deactivate, use %s:"
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:79
+#, php-format
+msgid ""
+"Here, the first qso uses the set serial 1, and the second will use 2 as the "
+"serial. If you want to wipe your sent exchange, use %s:"
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:84
+#, php-format
+msgid ""
+"First, all previous exchange is wiped, then only a serial is set. Otherwise "
+"the previous exchange %s would have been set also."
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:86
+msgid "Time zone"
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:87
+#, php-format
+msgid ""
+"If you log in local time instead of UTC, declare your offset once with %s "
+"(or the short form %s) followed by the signed hour offset. All following QSO "
+"times are then converted to UTC until you change the offset again:"
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:92
+msgid "Here, the QSO logged at 14:00 local time is stored as 12:00 UTC."
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:95
 #, php-format
 msgid ""
 "A full summary of all commands and the necessary syntax can be found in "
@@ -22578,6 +22605,61 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#~ msgid ""
+#~ "To begin, ensure you have already filled in the form on the left with the "
+#~ "date, station call, and operator's call. The main data includes the band "
+#~ "(or QRG in MHz, e.g., '7.145'), mode, and time. After the time, you "
+#~ "provide the first QSO, which is essentially the callsign."
+#~ msgstr ""
+#~ "Um zu beginnen, stelle sicher, dass du die Felder auf der linken Seite "
+#~ "bereits mit Datum, Stationsrufzeichen/-standort und Rufzeichen des "
+#~ "Operators ausgefüllt hast. Die wichtigsten Daten umfassen das Band (oder "
+#~ "QRG in MHz, z.B. '7.145'), Mode und Zeit. Nach der Zeit gibst du das "
+#~ "erste QSO an, was im wesentlichen das Rufzeichen ist."
+
+#~ msgid ""
+#~ "If you don't provide any RST information, the syntax will use 59 (599 for "
+#~ "data). Our next QSO wasn't 59 on both sides, so we provide the "
+#~ "information with the sent RST first. It was 2 minutes later than the "
+#~ "first QSO."
+#~ msgstr ""
+#~ "Wenn du keine RST-Informationen angibst, verwendet die Syntax 59 (599 für "
+#~ "Daten). Unser nächstes QSO war nicht auf beiden Seiten 59, also geben wir "
+#~ "die Informationen zuerst mit gesendeter RST an. Es war 2 Minuten später "
+#~ "als das erste QSO."
+
+#~ msgid ""
+#~ "Received exchange has to be prefixed with a dot '.', sent exchange with a "
+#~ "comma ','. The last two lines are equivalent - i.e. spaces don't matter "
+#~ "as the order doesn't as well. Exchange you have sent will automatically "
+#~ "be included in the next QSO, if it contains received exchange, or if you "
+#~ "use a single comma ','. To automatically increment the sent serial, use ',"
+#~ "++' and give an initial sent exchange. To deactivate, use ',+0':"
+#~ msgstr ""
+#~ "Der empfangene Exchange benötigen einen Punkt '.' als Präfix, der "
+#~ "gesendete Exchange ein Komma ','. Die letzten beiden Zeilen sind "
+#~ "gleichwertig, d.h. Leerzeichen und Reihenfolge sind nicht relevant. "
+#~ "Gesendete Exchange werden automatisch in das nächste QSO übernommen "
+#~ "sofern es empfangene Exchange enthält oder wenn du ein einzelnes Komma "
+#~ "',' verwendest. Um die Seriennummer automatisch zu erhöhen benutze '++' "
+#~ "und gib einen Startwert an. Um dies zu deaktivieren benutze '+0':"
+
+#~ msgid ""
+#~ "Here, the first qso uses the set serial 1, and the second will use 2 as "
+#~ "the serial. If you want to wipe your sent exchange, use ',-':"
+#~ msgstr ""
+#~ "Hier wird für das erste QSO die Seriennummer 1 verwendet, für das zweite "
+#~ "QSO die Nummer 2. Wenn du den gesendeten Exchange löschen willst benutze "
+#~ "'-':"
+
+#~ msgid ""
+#~ "First, all previous exchange is wiped, then only a serial is set. "
+#~ "Otherwise the previous exchange 'D23' would have been set also."
+#~ msgstr ""
+#~ "Zuerst werden alle vorherigen Exchange entfernt, anschließend wird "
+#~ "lediglich die Seriennummer gesetzt. Ansonsten würde der vorherige "
+#~ "Exchange 'D23' ebenfalls gesetzt werden."
 
 #~ msgid "QSO on"
 #~ msgstr "QSO am"
