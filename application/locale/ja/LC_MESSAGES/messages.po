@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-19 08:05+0000\n"
-"PO-Revision-Date: 2026-07-19 09:16+0000\n"
+"POT-Creation-Date: 2026-07-20 12:32+0000\n"
+"PO-Revision-Date: 2026-07-20 06:03+0000\n"
 "Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ja/>\n"
@@ -1287,7 +1287,7 @@ msgstr "（空の）"
 
 #: application/controllers/Debug.php:131
 msgid "Debug"
-msgstr "デバッグ"
+msgstr "デバッグ情報"
 
 #: application/controllers/Debug.php:183
 msgid "Migrate data now"
@@ -3456,7 +3456,7 @@ msgstr "衛星QSO"
 #: application/controllers/Statistics.php:387
 #: application/views/interface_assets/header.php:186
 msgid "EME Initials"
-msgstr "EME Initials"
+msgstr "EMEイニシャル"
 
 #: application/controllers/Themes.php:26
 #: application/views/interface_assets/header.php:345
@@ -12556,7 +12556,7 @@ msgstr "ベースURL"
 
 #: application/views/debug/index.php:63
 msgid "Migration"
-msgstr "移住"
+msgstr "マイグレーション"
 
 #: application/views/debug/index.php:64
 msgid "There is something wrong with your Migration in Database!"
@@ -12683,9 +12683,7 @@ msgstr "フォルダ権限"
 msgid ""
 "This verifies that the folders used by Wavelog have read and write "
 "permissions by PHP."
-msgstr ""
-"これにより、Wavelog で使用されるフォルダーに PHP による読み取りおよび書き込み"
-"権限があるかどうかが確認されます。"
+msgstr "これは、PHP による読み取りと書き込みの権限を確認します。"
 
 #: application/views/debug/index.php:185 application/views/debug/index.php:196
 #: application/views/debug/index.php:207 application/views/debug/index.php:218
@@ -12725,7 +12723,7 @@ msgstr "認証モードが正しく設定されています"
 
 #: application/views/debug/index.php:256 application/views/debug/index.php:273
 msgid "Ok"
-msgstr "わかりました"
+msgstr "Ok"
 
 #: application/views/debug/index.php:263
 msgid "You use the default encryption key. You should change it!"
@@ -19638,46 +19636,53 @@ msgstr "ログセッションをクリアする"
 msgid "No Options yet"
 msgstr "オプションはまだありません"
 
-#: application/views/simplefle/syntax_help.php:1
+#: application/views/simplefle/syntax_help.php:10
+msgid "Getting started"
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:11
 msgid "Before starting to log a QSO, please note the basic rules."
 msgstr "QSO の記録を開始する前に、基本的なルールに注意してください。"
 
-#: application/views/simplefle/syntax_help.php:2
+#: application/views/simplefle/syntax_help.php:13
 msgid "- Each new QSO should be on a new line."
 msgstr "- 新しい QSO はそれぞれ新しい行に記入する必要があります。"
 
-#: application/views/simplefle/syntax_help.php:3
+#: application/views/simplefle/syntax_help.php:14
 msgid ""
 "- On each new line, only write data that has changed from the previous QSO."
 msgstr "- 新しい行ごとに、前回の QSO から変更されたデータのみを書き込みます。"
 
-#: application/views/simplefle/syntax_help.php:4
+#: application/views/simplefle/syntax_help.php:17
+msgid "The first QSO"
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:18
+#, php-format
 msgid ""
 "To begin, ensure you have already filled in the form on the left with the "
 "date, station call, and operator's call. The main data includes the band (or "
-"QRG in MHz, e.g., '7.145'), mode, and time. After the time, you provide the "
-"first QSO, which is essentially the callsign."
+"QRG in MHz, e.g., %s), mode, and time. After the time, you provide the first "
+"QSO, which is essentially the callsign."
 msgstr ""
-"まず、左側のフォームに日付、局コール、オペレーターのコールが記入済みであるこ"
-"とを確認してください。主なデータには、バンド（またはMHz単位のQRG、例："
-"『7.145』）、モード、時刻が含まれます。時刻の後に、最初のQSO（基本的にコール"
-"サイン）を記入します。"
 
-#: application/views/simplefle/syntax_help.php:9
+#: application/views/simplefle/syntax_help.php:23
 msgid "For example, a QSO that started at 21:34 (UTC) with 4W7EST on 20m SSB."
 msgstr "たとえば、20m SSB で 4W7EST と 21:34 (UTC) に開始された QSO です。"
 
-#: application/views/simplefle/syntax_help.php:10
-msgid ""
-"If you don't provide any RST information, the syntax will use 59 (599 for "
-"data). Our next QSO wasn't 59 on both sides, so we provide the information "
-"with the sent RST first. It was 2 minutes later than the first QSO."
+#: application/views/simplefle/syntax_help.php:25
+msgid "Signal reports (RST)"
 msgstr ""
-"RST情報を指定しない場合、構文では59（データの場合は599）が使用されます。次の"
-"QSOは双方とも59ではなかったため、最初に送信したRSTで情報を提供します。これは"
-"最初のQSOから2分後でした。"
 
-#: application/views/simplefle/syntax_help.php:16
+#: application/views/simplefle/syntax_help.php:26
+msgid ""
+"If you don't provide any RST information, the syntax will use 59 for phone, "
+"599 for CW and +0 dB for digital data modes. Our next QSO wasn't 59 on both "
+"sides, so we provide the information with the sent RST first. It was 2 "
+"minutes later than the first QSO."
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:32
 msgid ""
 "The first QSO was at 21:34, and the second one 2 minutes later at 21:36. We "
 "write down 6 because this is the only data that changed here. The "
@@ -19687,7 +19692,11 @@ msgstr ""
 "は6だけなので、6と記入しました。バンドとモードの情報は変更がなかったため、こ"
 "のデータは省略しています。"
 
-#: application/views/simplefle/syntax_help.php:17
+#: application/views/simplefle/syntax_help.php:34
+msgid "Date and time"
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:35
 msgid ""
 "For our next QSO at 21:40 on 14th May, 2021, we changed the band to 40m but "
 "still on SSB. If no RST information is given, the syntax will use 59 for "
@@ -19699,60 +19708,27 @@ msgstr ""
 "す。そのため、2日後の全く同じ時間に行われた別のQSOを追加できます。日付はYYYY-"
 "MM-DD形式で入力してください。"
 
-#: application/views/simplefle/syntax_help.php:28
+#: application/views/simplefle/syntax_help.php:47
+msgid "Additional information"
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:48
 msgid "Additional informations can be submitted in the following way:"
 msgstr "追加情報は以下の方法で送信できます。"
 
-#: application/views/simplefle/syntax_help.php:29
+#: application/views/simplefle/syntax_help.php:49
 msgid "Notes:"
 msgstr "注記:"
 
-#: application/views/simplefle/syntax_help.php:33
+#: application/views/simplefle/syntax_help.php:53
 msgid "Operator Name:"
 msgstr "オペレーター名:"
 
-#: application/views/simplefle/syntax_help.php:37
+#: application/views/simplefle/syntax_help.php:57
 msgid "QSL-message (Caution! Not visible in wavelog currently!):"
 msgstr "QSL メッセージ (注意! 現在 wavelog には表示されません!):"
 
-#: application/views/simplefle/syntax_help.php:41
-msgid "Contest exchange; serials or other exchange - or even both:"
-msgstr "コンテスト交換、連載またはその他の交換、あるいはその両方:"
-
-#: application/views/simplefle/syntax_help.php:48
-msgid ""
-"Received exchange has to be prefixed with a dot '.', sent exchange with a "
-"comma ','. The last two lines are equivalent - i.e. spaces don't matter as "
-"the order doesn't as well. Exchange you have sent will automatically be "
-"included in the next QSO, if it contains received exchange, or if you use a "
-"single comma ','. To automatically increment the sent serial, use ',++' and "
-"give an initial sent exchange. To deactivate, use ',+0':"
-msgstr ""
-"受信した交換メッセージにはドット「.」を、送信した交換メッセージにはカンマ"
-"「,」をそれぞれ先頭に付けます。最後の2行は同等です。つまり、スペースの有無は"
-"関係なく、順序も関係ありません。送信した交換メッセージは、受信した交換メッ"
-"セージが含まれている場合、またはカンマ「,」のみを使用している場合、次のQSOに"
-"自動的に含まれます。送信した交換メッセージを自動的に増やすには、「,++」を使用"
-"し、最初の送信交換メッセージを指定します。無効にするには、「,+0」を使用しま"
-"す。"
-
-#: application/views/simplefle/syntax_help.php:54
-msgid ""
-"Here, the first qso uses the set serial 1, and the second will use 2 as the "
-"serial. If you want to wipe your sent exchange, use ',-':"
-msgstr ""
-"ここで、最初のQSOはシリアル番号1を使用し、2番目のQSOはシリアル番号2を使用しま"
-"す。送信したQSOを消去したい場合は「,-」を使用してください。"
-
-#: application/views/simplefle/syntax_help.php:59
-msgid ""
-"First, all previous exchange is wiped, then only a serial is set. Otherwise "
-"the previous exchange 'D23' would have been set also."
-msgstr ""
-"まず、以前の交換をすべて消去し、シリアル番号のみを設定します。そうしないと、"
-"以前の交換「D23」も設定されてしまいます。"
-
-#: application/views/simplefle/syntax_help.php:60
+#: application/views/simplefle/syntax_help.php:61
 msgid ""
 "You may use the comment syntax, to fill adif-fields supported by the Wavelog-"
 "Import:"
@@ -19760,7 +19736,59 @@ msgstr ""
 "Wavelog インポートでサポートされている adif フィールドを入力するには、コメン"
 "ト構文を使用できます。"
 
-#: application/views/simplefle/syntax_help.php:64
+#: application/views/simplefle/syntax_help.php:66
+msgid "Contest exchange"
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:67
+msgid "Contest exchange; serials or other exchange - or even both:"
+msgstr "コンテスト交換、連載またはその他の交換、あるいはその両方:"
+
+#: application/views/simplefle/syntax_help.php:74
+#, php-format
+msgid ""
+"Received exchange has to be prefixed with a dot %s, sent exchange with a "
+"comma %s. The last two lines are equivalent - i.e. spaces don't matter as "
+"the order doesn't as well. Each of the four lines above simply illustrates "
+"one type of exchange (serial only, text only, or both); note that the sent "
+"exchange is 'sticky': once set, it is automatically carried into the "
+"following QSOs (whenever the next line contains a received exchange or a "
+"single comma %s) until you change or wipe it. To automatically increment the "
+"sent serial, add %s to a QSO line together with an initial sent exchange (it "
+"does not work on its own line). To deactivate, use %s:"
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:79
+#, php-format
+msgid ""
+"Here, the first qso uses the set serial 1, and the second will use 2 as the "
+"serial. If you want to wipe your sent exchange, use %s:"
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:84
+#, php-format
+msgid ""
+"First, all previous exchange is wiped, then only a serial is set. Otherwise "
+"the previous exchange %s would have been set also."
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:86
+msgid "Time zone"
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:87
+#, php-format
+msgid ""
+"If you log in local time instead of UTC, declare your offset once with %s "
+"(or the short form %s) followed by the signed hour offset. All following QSO "
+"times are then converted to UTC until you change the offset again:"
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:92
+msgid "Here, the QSO logged at 14:00 local time is stored as 12:00 UTC."
+msgstr ""
+
+#: application/views/simplefle/syntax_help.php:95
 #, php-format
 msgid ""
 "A full summary of all commands and the necessary syntax can be found in "
@@ -22260,6 +22288,57 @@ msgstr "CQz"
 #: application/views/zonechecker/result.php:59
 msgid "CQz geojson"
 msgstr "CQz geojson"
+
+#~ msgid ""
+#~ "To begin, ensure you have already filled in the form on the left with the "
+#~ "date, station call, and operator's call. The main data includes the band "
+#~ "(or QRG in MHz, e.g., '7.145'), mode, and time. After the time, you "
+#~ "provide the first QSO, which is essentially the callsign."
+#~ msgstr ""
+#~ "まず、左側のフォームに日付、局コール、オペレーターのコールが記入済みである"
+#~ "ことを確認してください。主なデータには、バンド（またはMHz単位のQRG、例："
+#~ "『7.145』）、モード、時刻が含まれます。時刻の後に、最初のQSO（基本的にコー"
+#~ "ルサイン）を記入します。"
+
+#~ msgid ""
+#~ "If you don't provide any RST information, the syntax will use 59 (599 for "
+#~ "data). Our next QSO wasn't 59 on both sides, so we provide the "
+#~ "information with the sent RST first. It was 2 minutes later than the "
+#~ "first QSO."
+#~ msgstr ""
+#~ "RST情報を指定しない場合、構文では59（データの場合は599）が使用されます。次"
+#~ "のQSOは双方とも59ではなかったため、最初に送信したRSTで情報を提供します。こ"
+#~ "れは最初のQSOから2分後でした。"
+
+#~ msgid ""
+#~ "Received exchange has to be prefixed with a dot '.', sent exchange with a "
+#~ "comma ','. The last two lines are equivalent - i.e. spaces don't matter "
+#~ "as the order doesn't as well. Exchange you have sent will automatically "
+#~ "be included in the next QSO, if it contains received exchange, or if you "
+#~ "use a single comma ','. To automatically increment the sent serial, use ',"
+#~ "++' and give an initial sent exchange. To deactivate, use ',+0':"
+#~ msgstr ""
+#~ "受信した交換メッセージにはドット「.」を、送信した交換メッセージにはカンマ"
+#~ "「,」をそれぞれ先頭に付けます。最後の2行は同等です。つまり、スペースの有無"
+#~ "は関係なく、順序も関係ありません。送信した交換メッセージは、受信した交換"
+#~ "メッセージが含まれている場合、またはカンマ「,」のみを使用している場合、次"
+#~ "のQSOに自動的に含まれます。送信した交換メッセージを自動的に増やすには、「,"
+#~ "++」を使用し、最初の送信交換メッセージを指定します。無効にするには、「,"
+#~ "+0」を使用します。"
+
+#~ msgid ""
+#~ "Here, the first qso uses the set serial 1, and the second will use 2 as "
+#~ "the serial. If you want to wipe your sent exchange, use ',-':"
+#~ msgstr ""
+#~ "ここで、最初のQSOはシリアル番号1を使用し、2番目のQSOはシリアル番号2を使用"
+#~ "します。送信したQSOを消去したい場合は「,-」を使用してください。"
+
+#~ msgid ""
+#~ "First, all previous exchange is wiped, then only a serial is set. "
+#~ "Otherwise the previous exchange 'D23' would have been set also."
+#~ msgstr ""
+#~ "まず、以前の交換をすべて消去し、シリアル番号のみを設定します。そうしない"
+#~ "と、以前の交換「D23」も設定されてしまいます。"
 
 #~ msgid "QSO on"
 #~ msgstr "QSOオン"
