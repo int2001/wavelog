@@ -10,6 +10,7 @@ function initMap() {
     let markers = [];
     let geojsonLayers = []; // Store multiple GeoJSON layers
     let allQsos = []; // Store all QSOs for filtering
+    let countryGrids = []; // Gridsquares belonging to the selected DXCC
     let legendAdded = false; // Track if legend has been added
     let legendControl = null; // Store legend control for updates
 
@@ -18,7 +19,7 @@ function initMap() {
         const countrySelected = $('#countrySelect').val();
         $('#loadMapBtn').prop('disabled', !countrySelected);
         $('#showOnlyOutside').prop('disabled', !countrySelected);
-        $('#mapContainer, #noDataMessage').hide();
+        $('#mapContainer').hide();
     });
 
     // Handle checkbox change
@@ -76,19 +77,12 @@ function initMap() {
                     return;
                 }
 
-                if (!Array.isArray(response)) {
-                    console.log('Response is not an array:', response);
-                    alert('Error: Expected an array of QSOs but received something else');
-                    return;
-                }
+                // Response is { qsos: [...], grids: [...] }; grids holds the
+                // gridsquares that belong to the selected DXCC, used to limit
+                // the maidenhead grid to that DXCC (like the gridmap).
+                allQsos = response.qsos || [];
+                countryGrids = response.grids || [];
 
-                if (response.length === 0) {
-                    $('#noDataMessage').show();
-                    return;
-                }
-
-                // Store all QSOs and initialize map
-                allQsos = response;
                 const showOnlyOutside = $('#showOnlyOutside').is(':checked');
                 filterAndDisplayMarkers(allQsos, showOnlyOutside);
             }
@@ -119,7 +113,10 @@ function initMap() {
             }).addTo(map);
         }
 
-		maidenhead = L.maidenheadqrb().addTo(map);
+		if (maidenhead) {
+			map.removeLayer(maidenhead);
+		}
+		maidenhead = L.maidenheadqrb({ grids: countryGrids }).addTo(map);
 		map.on('mousemove', onMapMove);
 		$('.cohidden').show();
 

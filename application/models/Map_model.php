@@ -3,20 +3,16 @@
 class Map_model extends CI_Model {
 
     /**
-     * Get available countries from the logbook with QSOs
+     * Get all DXCC countries that have GeoJSON boundary data,
+     * independent of whether they appear in the logbook.
      */
     public function get_available_countries($supported_country_codes) {
-		$sql = "select DISTINCT dxcc_entities.name AS dxcc_name, dxcc_entities.prefix, COL_DXCC, COUNT(*) as qso_count
-		from " . $this->config->item('table_name') . " thcv
-		join station_profile ON station_profile.station_id = thcv.station_id
-		join dxcc_entities ON dxcc_entities.adif = thcv.COL_DXCC
-		where station_profile.user_id = ?
-		and thcv.COL_DXCC IN (" . implode(',', array_fill(0, count($supported_country_codes), '?')) . ")
-		and LENGTH(thcv.COL_GRIDSQUARE) >= 6
-		group by dxcc_name, thcv.COL_DXCC, dxcc_entities.prefix
+		$sql = "select DISTINCT dxcc_entities.name AS dxcc_name, dxcc_entities.prefix, dxcc_entities.adif AS COL_DXCC
+		from dxcc_entities
+		where dxcc_entities.adif IN (" . implode(',', array_fill(0, count($supported_country_codes), '?')) . ")
 		order by prefix ASC";
 
-        $query = $this->db->query($sql, array_merge([$this->session->userdata('user_id')], $supported_country_codes));
+        $query = $this->db->query($sql, $supported_country_codes);
         return $query->result_array();
     }
 

@@ -30,12 +30,12 @@ class Map extends CI_Controller {
 		$this->load->model('Map_model');
 		$this->load->model('stations');
 
-		// Get supported DXCC countries with state data
+		// Get supported DXCC countries (those with GeoJSON boundary data)
 		$data['supported_dxccs'] = $this->geojson->getSupportedDxccs();
 
 		$supported_country_codes = array_keys($data['supported_dxccs']);
 
-		// Fetch available countries from the logbook
+		// List all GeoJSON-supported DXCC countries, independent of the logbook
 		$data['countries'] = $this->Map_model->get_available_countries($supported_country_codes);
 
 		// Fetch station profiles
@@ -82,14 +82,6 @@ class Map extends CI_Controller {
 
 		try {
 			$qsos = $this->Map_model->get_qsos_by_country($country, $station_id);
-
-			if (empty($qsos)) {
-				while (ob_get_level()) ob_end_clean();
-				$this->output
-					->set_content_type('application/json')
-					->set_output(json_encode(['error' => 'No QSOs found with 6+ character gridsquares']));
-				return;
-			}
 		} catch (Exception $e) {
 			while (ob_get_level()) ob_end_clean();
 			$this->output
@@ -159,10 +151,16 @@ class Map extends CI_Controller {
 			ob_end_clean();
 		}
 
+		// Gridsquares that belong to the selected DXCC, used to restrict the
+		// maidenhead grid to that DXCC (same source as the gridmap).
+		$this->load->model('gridmap_model');
+		$grid_dxcc = $this->input->post('dxcc', true);
+		$grids = $grid_dxcc ? $this->gridmap_model->get_grids_for_country($grid_dxcc) : [];
+
 		// Set proper content type header
 		$this->output
 			->set_content_type('application/json')
-			->set_output(json_encode($qsos));
+			->set_output(json_encode(['qsos' => $qsos, 'grids' => $grids]));
 		}
 
 	/**
