@@ -33,7 +33,8 @@
                     <select class="form-select" id="locationSelect" style="min-width: 200px;">
                         <option value="all">All</option>
                         <?php foreach ($station_profiles as $profile): ?>
-                            <option value="<?php echo htmlspecialchars($profile->station_id); ?>">
+                            <option value="<?php echo htmlspecialchars($profile->station_id); ?>"
+                                <?php echo ($profile->station_id == $active_station_id) ? 'selected' : ''; ?>>
                                 <?php echo htmlspecialchars($profile->station_profile_name); ?>
                             </option>
                         <?php endforeach; ?>

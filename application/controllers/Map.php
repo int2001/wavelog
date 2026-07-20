@@ -41,6 +41,9 @@ class Map extends CI_Controller {
 		// Fetch station profiles
 		$data['station_profiles'] = $this->stations->all_of_user()->result();
 
+		// Active station location, to pre-select in the location dropdown
+		$data['active_station_id'] = $this->stations->find_active();
+
 		$data['homegrid'] = explode(',', $this->stations->find_gridsquare());
 
 		$data['page_title'] = __("QSO Map");

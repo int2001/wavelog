@@ -163,7 +163,8 @@ function initMap() {
                 .bindPopup(qso.popup +
                     (qso.inside_geojson === false ? '<br><span style="color: red;"><strong>⚠ Outside country boundaries</strong></span>' :
                     '<br><span style="color: green;"><strong>✓ Inside country boundaries</strong></span>'))
-                .addTo(map);
+                .addTo(map)
+                .on('mouseover', function () { this.openPopup(); });
 
             markers.push(marker);
             bounds.push([qso.lat, qso.lng]);
