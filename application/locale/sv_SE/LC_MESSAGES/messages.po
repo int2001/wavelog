@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-20 12:32+0000\n"
-"PO-Revision-Date: 2026-07-18 15:55+0000\n"
+"PO-Revision-Date: 2026-07-21 13:16+0000\n"
 "Last-Translator: \"Jorgen Dahl, NU1T\" <sm6srw@arrl.net>\n"
 "Language-Team: Swedish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/sv/>\n"
@@ -19697,7 +19697,7 @@ msgstr "Inga alternativ än"
 
 #: application/views/simplefle/syntax_help.php:10
 msgid "Getting started"
-msgstr ""
+msgstr "Komma igång"
 
 #: application/views/simplefle/syntax_help.php:11
 msgid "Before starting to log a QSO, please note the basic rules."
@@ -19715,7 +19715,7 @@ msgstr ""
 
 #: application/views/simplefle/syntax_help.php:17
 msgid "The first QSO"
-msgstr ""
+msgstr "Ditt första QSO"
 
 #: application/views/simplefle/syntax_help.php:18
 #, php-format
@@ -19725,6 +19725,10 @@ msgid ""
 "QRG in MHz, e.g., %s), mode, and time. After the time, you provide the first "
 "QSO, which is essentially the callsign."
 msgstr ""
+"För att börja, säkerställ att du redan har fyllt i formuläret till vänster "
+"med datum, stationsanrop och operatöransrop. De huvudsakliga uppgifterna "
+"inkluderar bandet (eller QRG i MHz, t.ex. %s), trafiksätt och tid. Efter "
+"tiden anger du ditt första QSO, som i huvudsak är anropssignalen."
 
 #: application/views/simplefle/syntax_help.php:23
 msgid "For example, a QSO that started at 21:34 (UTC) with 4W7EST on 20m SSB."
@@ -19733,7 +19737,7 @@ msgstr ""
 
 #: application/views/simplefle/syntax_help.php:25
 msgid "Signal reports (RST)"
-msgstr ""
+msgstr "Signalrapporter (RST)"
 
 #: application/views/simplefle/syntax_help.php:26
 msgid ""
@@ -19742,6 +19746,10 @@ msgid ""
 "sides, so we provide the information with the sent RST first. It was 2 "
 "minutes later than the first QSO."
 msgstr ""
+"Om du inte tillhandahåller någon RST-information kommer syntaxen att använda "
+"59 för foni, 599 för CW och +0 dB för digitala moder. Vårt nästa QSO var "
+"inte 59 på båda sidor, så vi tillhandahåller informationen med den skickade "
+"RST först. Det var 2 minuter senare än det första QSO."
 
 #: application/views/simplefle/syntax_help.php:32
 msgid ""
@@ -19755,7 +19763,7 @@ msgstr ""
 
 #: application/views/simplefle/syntax_help.php:34
 msgid "Date and time"
-msgstr ""
+msgstr "Datum och tid"
 
 #: application/views/simplefle/syntax_help.php:35
 msgid ""
@@ -19772,7 +19780,7 @@ msgstr ""
 
 #: application/views/simplefle/syntax_help.php:47
 msgid "Additional information"
-msgstr ""
+msgstr "Ytterligare information"
 
 #: application/views/simplefle/syntax_help.php:48
 msgid "Additional informations can be submitted in the following way:"
@@ -19800,7 +19808,7 @@ msgstr ""
 
 #: application/views/simplefle/syntax_help.php:66
 msgid "Contest exchange"
-msgstr ""
+msgstr "Tävlingutbyte"
 
 #: application/views/simplefle/syntax_help.php:67
 msgid "Contest exchange; serials or other exchange - or even both:"
@@ -19820,6 +19828,16 @@ msgid ""
 "sent serial, add %s to a QSO line together with an initial sent exchange (it "
 "does not work on its own line). To deactivate, use %s:"
 msgstr ""
+"Mottaget utbyte måste föregås av en punkt %s, skickat utbyte med ett komma "
+"%s. De sista två raderna är ekvivalenta - d.v.s. mellanslag spelar ingen "
+"roll eftersom ordningen inte heller spelar någon roll. Var och en av de fyra "
+"raderna ovan illustrerar helt enkelt en typ av utbyte (endast seriell, "
+"endast text, eller båda); observera att det skickade utbytet är 'klibbigt': "
+"när det väl är inställt, förs det automatiskt vidare till följande QSOs (när "
+"nästa rad innehåller ett mottaget utbyte eller ett enda komma %s) tills du "
+"ändrar eller tar bort det. För att automatiskt öka den skickade serien, lägg "
+"till %s till en QSO-rad tillsammans med ett initialt skickat utbyte (det "
+"fungerar inte på en egen rad). För att avaktivera, använd %s:"
 
 #: application/views/simplefle/syntax_help.php:79
 #, php-format
@@ -19827,6 +19845,9 @@ msgid ""
 "Here, the first qso uses the set serial 1, and the second will use 2 as the "
 "serial. If you want to wipe your sent exchange, use %s:"
 msgstr ""
+"Här använder det första qso:t den inställda serien 1, och det andra qso:t "
+"kommer att använda 2 som serie. Om du vill ta bort ditt skickade utbyte, "
+"använd %s:"
 
 #: application/views/simplefle/syntax_help.php:84
 #, php-format
@@ -19834,10 +19855,12 @@ msgid ""
 "First, all previous exchange is wiped, then only a serial is set. Otherwise "
 "the previous exchange %s would have been set also."
 msgstr ""
+"Först rensas allt tidigare utbyte, sedan ställs endast ett serienummer in. "
+"Annars skulle den tidigare utbytet %s också ha ställts in."
 
 #: application/views/simplefle/syntax_help.php:86
 msgid "Time zone"
-msgstr ""
+msgstr "Tidszon"
 
 #: application/views/simplefle/syntax_help.php:87
 #, php-format
@@ -19846,10 +19869,13 @@ msgid ""
 "(or the short form %s) followed by the signed hour offset. All following QSO "
 "times are then converted to UTC until you change the offset again:"
 msgstr ""
+"Om du loggar i lokal tid istället för UTC, deklarera din offset en gång med "
+"%s (eller den korta formen %s) följt av den signerade timförskjutningen. "
+"Alla följande QSO-tider omvandlas sedan till UTC tills du ändrar offset igen:"
 
 #: application/views/simplefle/syntax_help.php:92
 msgid "Here, the QSO logged at 14:00 local time is stored as 12:00 UTC."
-msgstr ""
+msgstr "Här loggas QSO vid 14:00 lokal tid och sparas som 12:00 UTC."
 
 #: application/views/simplefle/syntax_help.php:95
 #, php-format
