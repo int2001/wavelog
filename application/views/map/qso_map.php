@@ -15,7 +15,7 @@
             <?= ('Plot your QSOs on a map by country and station location'); ?>
         </div>
         <div class="card-body">
-            <div class="row mb-3 align-items-end">
+            <div class="row align-items-end">
                 <div class="col-auto">
                     <label for="countrySelect" class="form-label"><?= __("Select Country:"); ?></label>
                     <select class="form-select" id="countrySelect" style="min-width: 200px;">
@@ -58,16 +58,17 @@
                     <div id="loadingText" class="ms-2 text-muted d-none"></div>
                 </div>
             </div>
-
-            <div id="mapContainer" class="mt-3" style="display: none;">
-				<div class="mb-2">
-					<small class="text-muted">
-						<i class="fas fa-info-circle"></i>
-						<?= ('Map shows QSOs with 6+ character gridsquares.') ?>
-					</small>
-				</div>
-                <div id="mapgeojson" style="border: 1px solid #ccc;"></div>
-				<div class="coordinates mt-2" style="position: static;">
+		</div>
+		<div id="mapContainer" style="display: none;">
+			<div class="ms-3 mb-2">
+				<small class="text-muted">
+					<i class="fas fa-info-circle"></i>
+					<?= ('Map shows QSOs with 6+ character gridsquares.') ?>
+				</small>
+			</div>
+			<div id="mapgeojson"></div>
+			<div class="card-body">
+				<div class="coordinates" style="position: static;">
 					<div class="cohidden coord-pair"><span><?= __("Latitude") ?>:&nbsp;</span><span class="text-success fw-bold" id="latDeg"></span></div>
 					<div class="cohidden coord-pair"><span><?= __("Longitude") ?>:&nbsp;</span><span class="text-success fw-bold" id="lngDeg"></span></div>
 					<div class="cohidden coord-pair"><span><?= __("Gridsquare") ?>:&nbsp;</span><span class="text-success fw-bold" id="locator"></span></div>
@@ -76,15 +77,14 @@
 					<div class="cohidden coord-pair"><span><?= __("CQ Zone") ?>:&nbsp;</span><span class="text-success fw-bold" id="cqzonedisplay"></span></div>
 					<div class="cohidden coord-pair"><span><?= __("ITU Zone") ?>:&nbsp;</span><span class="text-success fw-bold" id="ituzonedisplay"></span></div>
 				</div>
-            </div>
+			</div>
         </div>
     </div>
 </div>
 
 <style>
 #mapgeojson {
-    border-radius: 4px;
-    height: calc(100vh - 340px);
+    height: calc(100vh - 350px);
     width: 100% !important;
     min-height: 400px;
 }
