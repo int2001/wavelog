@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-19 08:05+0000\n"
-"PO-Revision-Date: 2026-07-19 09:16+0000\n"
+"PO-Revision-Date: 2026-07-20 06:03+0000\n"
 "Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ja/>\n"
@@ -1287,7 +1287,7 @@ msgstr "（空の）"
 
 #: application/controllers/Debug.php:131
 msgid "Debug"
-msgstr "デバッグ"
+msgstr "デバッグ情報"
 
 #: application/controllers/Debug.php:183
 msgid "Migrate data now"
@@ -3456,7 +3456,7 @@ msgstr "衛星QSO"
 #: application/controllers/Statistics.php:387
 #: application/views/interface_assets/header.php:186
 msgid "EME Initials"
-msgstr "EME Initials"
+msgstr "EMEイニシャル"
 
 #: application/controllers/Themes.php:26
 #: application/views/interface_assets/header.php:345
@@ -12556,7 +12556,7 @@ msgstr "ベースURL"
 
 #: application/views/debug/index.php:63
 msgid "Migration"
-msgstr "移住"
+msgstr "マイグレーション"
 
 #: application/views/debug/index.php:64
 msgid "There is something wrong with your Migration in Database!"
@@ -12683,9 +12683,7 @@ msgstr "フォルダ権限"
 msgid ""
 "This verifies that the folders used by Wavelog have read and write "
 "permissions by PHP."
-msgstr ""
-"これにより、Wavelog で使用されるフォルダーに PHP による読み取りおよび書き込み"
-"権限があるかどうかが確認されます。"
+msgstr "これは、PHP による読み取りと書き込みの権限を確認します。"
 
 #: application/views/debug/index.php:185 application/views/debug/index.php:196
 #: application/views/debug/index.php:207 application/views/debug/index.php:218
@@ -12725,7 +12723,7 @@ msgstr "認証モードが正しく設定されています"
 
 #: application/views/debug/index.php:256 application/views/debug/index.php:273
 msgid "Ok"
-msgstr "わかりました"
+msgstr "Ok"
 
 #: application/views/debug/index.php:263
 msgid "You use the default encryption key. You should change it!"
