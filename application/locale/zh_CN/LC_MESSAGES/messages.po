@@ -36,10 +36,10 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-19 08:05+0000\n"
-"PO-Revision-Date: 2026-07-17 05:34+0000\n"
-"Last-Translator: \"Luoyu (BG7QBL)\" <i@luotianyi.eu>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
-"org/projects/wavelog/main-translation/zh_Hans/>\n"
+"PO-Revision-Date: 2026-07-20 06:03+0000\n"
+"Last-Translator: \"Shen RuiQin(BH4FJN)\" <jerry19980425@gmail.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translate.wavelog.org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1079,17 +1079,17 @@ msgstr "只有集体台站管理员可以删除。"
 
 #: application/controllers/Contesting.php:797
 msgid "No contest sessions selected."
-msgstr ""
+msgstr "未选择竞赛会话。"
 
 #: application/controllers/Contesting.php:805
 #, php-format
 msgid "%d contest session deleted."
 msgid_plural "%d contest sessions deleted."
-msgstr[0] ""
+msgstr[0] "%d竞赛会话已删除。"
 
 #: application/controllers/Contesting.php:807
 msgid "There was an error deleting the contest sessions. Please try again."
-msgstr ""
+msgstr "删除竞赛会话时出现错误，请重试。"
 
 #: application/controllers/Contesting.php:1021
 msgid "Operator switching is disabled."
@@ -1150,7 +1150,7 @@ msgstr "计划任务管理器"
 
 #: application/controllers/Cron.php:173
 msgid "Manual execution of cronjobs is disabled."
-msgstr ""
+msgstr "已禁用手动执行计划任务。"
 
 #: application/controllers/Cron.php:183
 msgid "Cronjob not found."
@@ -1158,7 +1158,7 @@ msgstr "未找到计划任务。"
 
 #: application/controllers/Cron.php:189
 msgid "Disabled cronjobs cannot be run."
-msgstr ""
+msgstr "无法运行已禁用的cron任务。"
 
 #: application/controllers/Cron.php:197
 msgid "Cronjob is already running."
@@ -1210,7 +1210,7 @@ msgstr "禁用"
 #: application/controllers/Cron.php:329 application/views/cron/index.php:81
 #: application/views/cron/index.php:113
 msgid "Run Now"
-msgstr ""
+msgstr "立即运行"
 
 #: application/controllers/Cron.php:416
 #: application/views/interface_assets/footer.php:45
@@ -2903,7 +2903,7 @@ msgstr "添加 QSO"
 
 #: application/controllers/Qso.php:224
 msgid "QSO could not be saved"
-msgstr ""
+msgstr "QSO无法保存"
 
 #: application/controllers/Qso.php:878
 msgid "You have to be logged in to access this URL."
@@ -4142,21 +4142,21 @@ msgstr "导入QSO时使用了无效日期，该QSO未被导入。这是无效的
 msgid ""
 "QSO on %s: You tried to import a QSO without any given CALL. This QSO wasn't "
 "imported. It's invalid."
-msgstr ""
+msgstr "%s的QSO:你尝试导入一个未指定呼号的 QSO，该 QSO 未被导入因为是 无效的。"
 
 #: application/models/Logbook_model.php:4313
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO with an invalid CALL. This QSO wasn't "
 "imported. The invalid input is '%s'."
-msgstr ""
+msgstr "%s的QSO:你尝试导入一个未指定呼号的QSO，该QSO未被导入，无效内容为“%s”。"
 
 #: application/models/Logbook_model.php:4383
 #, php-format
 msgid ""
 "QSO on %s: Band '%s' is not in the band configuration. This QSO wasn't "
 "imported."
-msgstr ""
+msgstr "%s的QSO:频段“%s”不在频段配置中。该 QSO 未被导入。"
 
 #: application/models/Logbook_model.php:4390
 #, php-format
@@ -11321,7 +11321,7 @@ msgstr ""
 
 #: application/views/contesting/manager/import_legacy.php:17
 msgid "How grouping works:"
-msgstr ""
+msgstr "分组机制如下："
 
 #: application/views/contesting/manager/import_legacy.php:18
 msgid ""
@@ -11331,6 +11331,9 @@ msgid ""
 "as one session, while weekly or monthly contest series are imported as "
 "separate sessions."
 msgstr ""
+"QSO 会按竞赛和电台进行分组。如果连续的 QSO 间隔小于 72 小时，或者属于同一个 "
+"ISO 日历周（周一至周日），它们将被归入同一个会话中。这样可以将为期一周的活动"
+"事件保持为一个会话，而每周或每月的系列竞赛则会作为独立的会话导入。"
 
 #: application/views/contesting/manager/import_legacy.php:22
 msgid "Admin mode:"
@@ -11369,7 +11372,7 @@ msgstr "请至少选择一个竞赛导入。"
 
 #: application/views/contesting/manager/import_legacy.php:102
 msgid "Are you sure you want to import the selected contest sessions?"
-msgstr ""
+msgstr "你确定要导入所选的竞赛会话吗？"
 
 #: application/views/contesting/manager/index.php:17
 #: application/views/interface_assets/header.php:341
@@ -11440,15 +11443,15 @@ msgstr "你确定要删除所选的竞赛会话吗?"
 
 #: application/views/contesting/manager/index.php:131
 msgid "Selected sessions: "
-msgstr ""
+msgstr "所选的会话: "
 
 #: application/views/contesting/manager/index.php:135
 msgid "Also delete all QSOs logged in these sessions from the logbook"
-msgstr ""
+msgstr "同时从日志簿中删除记录在这些会话中的所有 QSO"
 
 #: application/views/contesting/manager/index.php:142
 msgid "Delete Sessions"
-msgstr ""
+msgstr "删除会话"
 
 #: application/views/contesting/manager/index.php:155
 msgid "Please select at least one contest session."
@@ -13414,7 +13417,7 @@ msgstr "错误"
 
 #: application/views/interface_assets/footer.php:36
 msgid "The query failed for a unknown reason"
-msgstr ""
+msgstr "未知原因查询失败"
 
 #: application/views/interface_assets/footer.php:37
 msgid "Attention"
@@ -17576,7 +17579,7 @@ msgstr "您当前的设计有未保存的更改。加载不同的模板将会替
 msgid ""
 "Your current design has unsaved changes. If you leave the page, those "
 "changes will be lost. Leave anyway?"
-msgstr ""
+msgstr "您当前的设计未保存。如果离开此页面，这些更改将会丢失，确定要离开吗？"
 
 #: application/views/qslpostcard/designer.php:52
 msgid "Discard changes"
@@ -17588,7 +17591,7 @@ msgstr "继续编辑"
 
 #: application/views/qslpostcard/designer.php:54
 msgid "Leave page"
-msgstr ""
+msgstr "离开页面"
 
 #: application/views/qslpostcard/designer.php:70
 msgid "(new)"
