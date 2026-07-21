@@ -12,7 +12,7 @@
 
     <div class="card">
         <div class="card-header">
-            <?= ('Plot your QSOs on a map by country and station location'); ?>
+            <?= ('Plot your QSOs with a 6-character gridsquare on a map to see region'); ?>
         </div>
         <div class="card-body">
             <div class="row align-items-end">
@@ -29,7 +29,7 @@
                     </select>
                 </div>
                 <div class="col-auto">
-                    <label for="locationSelect" class="form-label">Location:</label>
+                    <label for="locationSelect" class="form-label"><?= __("Location:"); ?></label>
                     <select class="form-select" id="locationSelect" style="min-width: 200px;">
                         <option value="all">All</option>
                         <?php foreach ($station_profiles as $profile): ?>
@@ -41,7 +41,7 @@
                     </select>
                 </div>
                 <div class="col-auto">
-                    <button id="loadMapBtn" class="btn btn-primary" disabled>Load Map</button>
+                    <button id="loadMapBtn" class="btn btn-primary" disabled><?= __("Load Map") ?></button>
                 </div>
                 <div class="col-auto">
                     <div class="form-check">
