@@ -228,12 +228,7 @@ function initMap() {
 
  		$('#mapContainer').show();
 
-        // Remove existing info control if it exists
-        if (info) {
-            map.removeControl(info);
-        }
-
-        // Add or update legend
+        // Add or update legend (includes the hovered-region readout)
         if (!legendAdded) {
             addLegend(insideCount, outsideCount, qsos.length, showOnlyOutside);
             legendAdded = true;
@@ -241,22 +236,6 @@ function initMap() {
             // Update existing legend counts
             updateLegend(insideCount, outsideCount, qsos.length, showOnlyOutside);
         }
-
-        // Always re-add info control after legend to ensure correct order
-        info = L.control();
-
-        info.onAdd = function (map) {
-            this._div = L.DomUtil.create('div', 'info');
-            this.update();
-            return this._div;
-        };
-
-        info.update = function (props) {
-            this._div.innerHTML = '<h4>Region</h4>' +  (props ?
-            '<b>' + props.code + ' - ' + props.name + '</b><br />' : 'Hover over a region');
-        };
-
-        info.addTo(map);
 
         // Force map to recalculate its size
         setTimeout(function() {
@@ -291,7 +270,7 @@ function initMap() {
 		});
 
 		layer.bringToFront();
-		info.update(layer.feature.properties);
+		updateLegendRegion(layer.feature.properties);
 	}
 
 	function zoomToFeature(e) {
@@ -305,7 +284,14 @@ function initMap() {
 
 	function resetHighlight(e) {
 		geojsonlayer.resetStyle(e.target);
-		info.update();
+		updateLegendRegion();
+	}
+
+	// Update the hovered-region readout inside the legend
+	function updateLegendRegion(props) {
+		var el = document.getElementById('legend-region');
+		if (!el) return;
+		el.innerHTML = props ? ('<b>' + props.code + ' - ' + props.name + '</b>') : '<em>Hover over a region</em>';
 	}
 
     function addLegend(insideCount, outsideCount, totalCount, showOnlyOutside) {
@@ -350,6 +336,12 @@ function initMap() {
                 html += '<em>Total: ' + totalCount + ' QSOs with 6+ char grids</em>';
                 html += '</div>';
             }
+
+            // Hovered region (updates when mousing over subdivisions)
+            html += '<div style="margin-top: 10px; padding-top: 8px; font-size: 14px;">';
+            html += '<h4>Region</h4>';
+            html += '<span id="legend-region"><em>Hover over a region</em></span>';
+            html += '</div>';
 
             html += '<br />';
             html += '<h4>Toggle layers</h4>';
