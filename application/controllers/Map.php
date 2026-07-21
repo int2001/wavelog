@@ -44,6 +44,9 @@ class Map extends CI_Controller {
 		// Active station location, to pre-select in the location dropdown
 		$data['active_station_id'] = $this->stations->find_active();
 
+		// User's custom map colors (worked / confirmed) for the region choropleth
+		$data['user_map_custom'] = $this->optionslib->get_map_custom();
+
 		$data['homegrid'] = explode(',', $this->stations->find_gridsquare());
 
 		$data['page_title'] = __("QSO Map");

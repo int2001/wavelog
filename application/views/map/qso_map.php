@@ -22,6 +22,11 @@
 	let lang_qso_map_region = '<?= __("Region"); ?>';
 	let lang_qso_map_hover_region = '<?= __("Hover over a region"); ?>';
 	let lang_qso_map_toggle_layers = '<?= __("Toggle layers"); ?>';
+	let lang_qso_map_region_confirmed = '<?= __("Confirmed"); ?>';
+	let lang_qso_map_region_worked = '<?= __("Worked"); ?>';
+	let lang_qso_map_region_not_worked = '<?= __("Not worked"); ?>';
+	let lang_qso_map_regions_label = '<?= __("Regions worked:"); ?>';
+	let user_map_custom = JSON.parse('<?php echo $user_map_custom; ?>');
 </script>
 
 <div class="container px-3 px-lg-4 mt-3 mb-3">
@@ -80,7 +85,7 @@
 			<div class="ms-3 mb-2">
 				<small class="text-muted">
 					<i class="fas fa-info-circle"></i>
-					<?= ('Map shows QSOs with 6+ character gridsquares.') ?>
+					<?= ('Map shows QSOs with 6+ character gridsquares. The confirmed / worked / unworked regions, are only based on QSOs with gridsquares.') ?>
 				</small>
 			</div>
 			<div id="mapgeojson"></div>

@@ -5,6 +5,34 @@ let map = null;
 let info;
 let geojsonlayer;
 
+// Region choropleth colours, taken from the user's map options (worked /
+// confirmed) with sensible fallbacks. Each subdivision is filled by status.
+function qsoMapHexToRgba(hex, alpha) {
+	if (!hex) return null;
+	hex = hex.replace(/^#/, '');
+	if (hex.length === 3) {
+		hex = hex.split('').map(function (c) { return c + c; }).join('');
+	}
+	const num = parseInt(hex, 16);
+	return 'rgba(' + ((num >> 16) & 255) + ', ' + ((num >> 8) & 255) + ', ' + (num & 255) + ', ' + alpha + ')';
+}
+let qsoMapWorkedColor = 'rgba(229, 165, 10, 0.55)';
+let qsoMapConfirmedColor = 'rgba(144, 238, 144, 0.55)';
+let qsoMapUnworkedColor = 'rgba(204, 55, 45, 0.3)'; // #CC372D fallback
+if (typeof user_map_custom !== 'undefined') {
+	if (user_map_custom.qso && user_map_custom.qso.color) {
+		qsoMapWorkedColor = qsoMapHexToRgba(user_map_custom.qso.color, 0.55);
+	}
+	if (user_map_custom.qsoconfirm && user_map_custom.qsoconfirm.color) {
+		qsoMapConfirmedColor = qsoMapHexToRgba(user_map_custom.qsoconfirm.color, 0.55);
+	}
+	if (user_map_custom.unworked && user_map_custom.unworked.color) {
+		qsoMapUnworkedColor = qsoMapHexToRgba(user_map_custom.unworked.color, 0.3);
+	}
+}
+const qsoMapIsDark = (typeof isDarkModeTheme === 'function') ? isDarkModeTheme() : false;
+const qsoMapLineColor = qsoMapIsDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.55)';
+
 // Wait for jQuery to be loaded
 function initMap() {
     let markers = [];
@@ -170,6 +198,36 @@ function initMap() {
             bounds.push([qso.lat, qso.lng]);
         });
 
+        // Build per-region worked/confirmed status from the QSO data, to drive
+        // the choropleth fill colour of each subdivision.
+        const regionStatus = {};
+        qsos.forEach(function(qso) {
+            if (qso.state_info) {
+                const key = qso.state_info.code || qso.state_info.name;
+                if (key !== undefined && key !== null && key !== '') {
+                    if (!regionStatus[key]) regionStatus[key] = { worked: false, confirmed: false };
+                    regionStatus[key].worked = true;
+                    if (qso.confirmed) regionStatus[key].confirmed = true;
+                }
+            }
+        });
+
+        function regionStyle(feature) {
+            const key = feature.properties && (feature.properties.code || feature.properties.name);
+            const status = regionStatus[key];
+            let fillColor = qsoMapUnworkedColor;
+            if (status) {
+                fillColor = status.confirmed ? qsoMapConfirmedColor : qsoMapWorkedColor;
+            }
+            return {
+                fillColor: fillColor,
+                color: qsoMapLineColor,
+                weight: 1,
+                fillOpacity: 0.6,
+                opacity: 0.8
+            };
+        }
+
         // Try to load GeoJSON for the country/countries
         if (dxcc && supportedDxccs.includes(parseInt(dxcc))) {
             // Single country GeoJSON
@@ -180,15 +238,14 @@ function initMap() {
                 success: function(geojson) {
                     if (geojson && !geojson.error) {
                         geojsonlayer = L.geoJSON(geojson, {
-                            style: {
-                                color: '#ff0000',
-                                weight: 2,
-                                opacity: 0.5,
-                                fillOpacity: 0.2
-                            },
+                            style: regionStyle,
 							onEachFeature: onEachFeature
                         }).addTo(map);
                         geojsonLayers.push(geojsonlayer);
+
+                        // Fill in the "Regions worked: X / Y" readout in the legend
+                        const totalRegions = (geojson.features || []).length;
+                        $('#legend-region-count').text(Object.keys(regionStatus).length + ' / ' + totalRegions);
 
 
 
@@ -318,13 +375,20 @@ function initMap() {
             html += '<span>' + lang_qso_map_outside_label + ' <strong>(' + outsideCount + ')</strong></span>';
             html += '</div>';
 
-            // GeoJSON boundaries
+            // Region choropleth: confirmed / worked / not worked
             html += '<div class="legend-item">';
-            html += '<div class="legend-icon">';
-            html += '<svg width="20" height="3"><line x1="0" y1="1.5" x2="20" y2="1.5" stroke="#ff0000" stroke-width="2"/></svg>';
+            html += '<div class="legend-icon"><div style="background-color: ' + qsoMapConfirmedColor + '; width: 20px; height: 12px; border: 1px solid ' + qsoMapLineColor + '; border-radius: 2px;"></div></div>';
+            html += '<span>' + lang_qso_map_region_confirmed + '</span>';
             html += '</div>';
-            html += '<span>' + lang_qso_map_boundaries + '</span>';
+            html += '<div class="legend-item">';
+            html += '<div class="legend-icon"><div style="background-color: ' + qsoMapWorkedColor + '; width: 20px; height: 12px; border: 1px solid ' + qsoMapLineColor + '; border-radius: 2px;"></div></div>';
+            html += '<span>' + lang_qso_map_region_worked + '</span>';
             html += '</div>';
+            html += '<div class="legend-item">';
+            html += '<div class="legend-icon"><div style="background-color: ' + qsoMapUnworkedColor + '; width: 20px; height: 12px; border: 1px solid ' + qsoMapLineColor + '; border-radius: 2px;"></div></div>';
+            html += '<span>' + lang_qso_map_region_not_worked + '</span>';
+            html += '</div>';
+            html += '<div style="font-size: 12px; margin: 4px 0 8px 0;"><em>' + lang_qso_map_regions_label + ' <span id="legend-region-count">-</span></em></div>';
 
             // Total QSOs (shown differently when filtering)
             if (showOnlyOutside) {

@@ -27,7 +27,7 @@ class Map_model extends CI_Model {
 			$this->load->library('DxccFlag');
 		}
 
-		$sql = "select COL_PRIMARY_KEY, COL_CALL, COL_GRIDSQUARE, COL_COUNTRY, COL_DXCC, COL_MODE, COL_BAND, COL_TIME_ON, COL_RST_SENT, COL_RST_RCVD, station_profile.station_profile_name
+		$sql = "select COL_PRIMARY_KEY, COL_CALL, COL_GRIDSQUARE, COL_COUNTRY, COL_DXCC, COL_MODE, COL_BAND, COL_TIME_ON, COL_RST_SENT, COL_RST_RCVD, COL_QSL_RCVD, COL_LOTW_QSL_RCVD, COL_EQSL_QSL_RCVD, COL_QRZCOM_QSO_DOWNLOAD_STATUS, COL_CLUBLOG_QSO_DOWNLOAD_STATUS, station_profile.station_profile_name
 		from " . $this->config->item('table_name') . "
 		join station_profile ON station_profile.station_id = " . $this->config->item('table_name') . ".station_id
 		where station_profile.user_id = ?
@@ -68,6 +68,11 @@ class Map_model extends CI_Model {
                         'time_on' => $qso['COL_TIME_ON'],
                         'rst_sent' => $qso['COL_RST_SENT'],
                         'rst_rcvd' => $qso['COL_RST_RCVD'],
+                        'confirmed' => ($qso['COL_QSL_RCVD'] ?? '') === 'Y'
+                            || ($qso['COL_LOTW_QSL_RCVD'] ?? '') === 'Y'
+                            || ($qso['COL_EQSL_QSL_RCVD'] ?? '') === 'Y'
+                            || ($qso['COL_QRZCOM_QSO_DOWNLOAD_STATUS'] ?? '') === 'Y'
+                            || ($qso['COL_CLUBLOG_QSO_DOWNLOAD_STATUS'] ?? '') === 'Y',
                         'lat' => $coords[0],
                         'lng' => $coords[1],
 						'profile' => $qso['station_profile_name'],
