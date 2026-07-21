@@ -115,10 +115,11 @@ class Map_model extends CI_Model {
 		$table .= '</td>';
 		$table .= '</tr>';
 
-		// Date/Time
+		// Date/Time (user's custom date format, falling back to the configured QSO date format)
 		$table .= '<tr>';
 		$table .= '<td>Date/Time</td>';
-		$datetime = date('Y-m-d H:i', strtotime($qso['COL_TIME_ON']));
+		$custom_date_format = $this->session->userdata('user_date_format') ?: $this->config->item('qso_date_format');
+		$datetime = date($custom_date_format . ' H:i', strtotime($qso['COL_TIME_ON']));
 		$table .= '<td>' . htmlspecialchars($datetime) . '</td>';
 		$table .= '</tr>';
 
