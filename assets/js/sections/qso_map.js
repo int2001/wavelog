@@ -37,14 +37,14 @@ function initMap() {
         if (!country) return;
 
         // Fetch QSO data
-        const loadingText = country === 'all' ? 'Loading QSOs for all countries (this may take a moment)...' : 'Loading QSO data...';
+        const loadingText = country === 'all' ? lang_qso_map_loading_all : lang_qso_map_loading;
         $('#loadingSpinner').removeClass('d-none');
         $('#loadingText').text(loadingText).removeClass('d-none');
         $('#loadMapBtn').prop('disabled', true);
 
         // Set timeout for long-running requests
         const timeout = setTimeout(function() {
-            $('#loadingText').text('Still loading... Processing large dataset, please wait...');
+            $('#loadingText').text(lang_qso_map_still_loading);
         }, 5000);
 
         $.ajax({
@@ -67,13 +67,13 @@ function initMap() {
                     try {
                         response = JSON.parse(response);
                     } catch (e) {
-                        alert('Error parsing response: ' + e.message);
+                        alert(lang_qso_map_error_parsing + ' ' + e.message);
                         return;
                     }
                 }
 
                 if (response.error) {
-                    alert('Error: ' + response.error);
+                    alert(lang_qso_map_error + ' ' + response.error);
                     return;
                 }
 
@@ -91,7 +91,7 @@ function initMap() {
             $('#loadingSpinner').addClass('d-none');
             $('#loadingText').addClass('d-none');
             $('#loadMapBtn').prop('disabled', false);
-            alert('Failed to load QSO data. Please try again.');
+            alert(lang_qso_map_load_failed);
         });
     });
 
@@ -161,8 +161,8 @@ function initMap() {
 
             marker = L.marker([qso.lat, qso.lng], { icon: icon })
                 .bindPopup(qso.popup +
-                    (qso.inside_geojson === false ? '<br><span style="color: red;"><strong>⚠ Outside country boundaries</strong></span>' :
-                    '<br><span style="color: green;"><strong>✓ Inside country boundaries</strong></span>'))
+                    (qso.inside_geojson === false ? '<br><span style="color: red;"><strong>⚠ ' + lang_qso_map_outside_boundaries + '</strong></span>' :
+                    '<br><span style="color: green;"><strong>✓ ' + lang_qso_map_inside_boundaries + '</strong></span>'))
                 .addTo(map)
                 .on('mouseover', function () { this.openPopup(); });
 
@@ -291,7 +291,7 @@ function initMap() {
 	function updateLegendRegion(props) {
 		var el = document.getElementById('legend-region');
 		if (!el) return;
-		el.innerHTML = props ? ('<b>' + props.code + ' - ' + props.name + '</b>') : '<em>Hover over a region</em>';
+		el.innerHTML = props ? ('<b>' + props.code + ' - ' + props.name + '</b>') : '<em>' + lang_qso_map_hover_region + '</em>';
 	}
 
     function addLegend(insideCount, outsideCount, totalCount, showOnlyOutside) {
@@ -300,14 +300,14 @@ function initMap() {
         legend.onAdd = function(map) {
             const div = L.DomUtil.create('div', 'legend');
 
-            let html = '<h4>Legend</h4>';
+            let html = '<h4>' + lang_qso_map_legend + '</h4>';
 
             // Inside boundaries
             html += '<div class="legend-item">';
             html += '<div class="legend-icon">';
             html += '<div style="background-color: #28a745; color: white; width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px; border: 2px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.3);">✓</div>';
             html += '</div>';
-            html += '<span>Inside boundaries <strong>(' + insideCount + ')</strong></span>';
+            html += '<span>' + lang_qso_map_inside_label + ' <strong>(' + insideCount + ')</strong></span>';
             html += '</div>';
 
             // Outside boundaries
@@ -315,7 +315,7 @@ function initMap() {
             html += '<div class="legend-icon">';
             html += '<div style="background-color: #ff0000; color: white; width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px; border: 2px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.3);">✕</div>';
             html += '</div>';
-            html += '<span>Outside boundaries <strong>(' + outsideCount + ')</strong></span>';
+            html += '<span>' + lang_qso_map_outside_label + ' <strong>(' + outsideCount + ')</strong></span>';
             html += '</div>';
 
             // GeoJSON boundaries
@@ -323,28 +323,28 @@ function initMap() {
             html += '<div class="legend-icon">';
             html += '<svg width="20" height="3"><line x1="0" y1="1.5" x2="20" y2="1.5" stroke="#ff0000" stroke-width="2"/></svg>';
             html += '</div>';
-            html += '<span>Country/State boundaries</span>';
+            html += '<span>' + lang_qso_map_boundaries + '</span>';
             html += '</div>';
 
             // Total QSOs (shown differently when filtering)
             if (showOnlyOutside) {
                 html += '<div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid #ddd; font-size: 12px;">';
-                html += '<em>Showing ' + outsideCount + ' of ' + totalCount + ' total QSOs</em>';
+                html += '<em>' + lang_qso_map_showing.replace('%s', outsideCount).replace('%s', totalCount) + '</em>';
                 html += '</div>';
             } else {
                 html += '<div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid #ddd; font-size: 12px;">';
-                html += '<em>Total: ' + totalCount + ' QSOs with 6+ char grids</em>';
+                html += '<em>' + lang_qso_map_total_qsos.replace('%s', totalCount) + '</em>';
                 html += '</div>';
             }
 
             // Hovered region (updates when mousing over subdivisions)
             html += '<div style="margin-top: 10px; padding-top: 8px; font-size: 14px;">';
-            html += '<h4>Region</h4>';
-            html += '<span id="legend-region"><em>Hover over a region</em></span>';
+            html += '<h4>' + lang_qso_map_region + '</h4>';
+            html += '<span id="legend-region"><em>' + lang_qso_map_hover_region + '</em></span>';
             html += '</div>';
 
             html += '<br />';
-            html += '<h4>Toggle layers</h4>';
+            html += '<h4>' + lang_qso_map_toggle_layers + '</h4>';
             html += '<input type="checkbox" onclick="toggleGridsquares(this.checked)" ' + (typeof gridsquare_layer !== 'undefined' && gridsquare_layer ? 'checked' : '') + ' style="outline: none;"><span> ' + lang_gen_hamradio_gridsquares + '</span><br>';
             html += '<input type="checkbox" onclick="toggleCqZones(this.checked)" ' + (typeof cqzones_layer !== 'undefined' && cqzones_layer ? 'checked' : '') + ' style="outline: none;"><span> ' + lang_gen_hamradio_cq_zones + '</span><br>';
             html += '<input type="checkbox" onclick="toggleItuZones(this.checked)" ' + (typeof ituzones_layer !== 'undefined' && ituzones_layer ? 'checked' : '') + ' style="outline: none;"><span> ' + lang_gen_hamradio_itu_zones + '</span><br>';

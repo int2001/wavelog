@@ -5,6 +5,23 @@
 	let lang_gen_hamradio_cq_zones = '<?= _pgettext("Map Options", "CQ Zones"); ?>';
     let lang_gen_hamradio_itu_zones = '<?= _pgettext("Map Options", "ITU Zones"); ?>';
 	let lang_gen_hamradio_gridsquares = '<?= _pgettext("Map Options", "Gridsquares"); ?>';
+	let lang_qso_map_loading = '<?= __("Loading QSO data..."); ?>';
+	let lang_qso_map_loading_all = '<?= __("Loading QSOs for all countries (this may take a moment)..."); ?>';
+	let lang_qso_map_still_loading = '<?= __("Still loading... Processing large dataset, please wait..."); ?>';
+	let lang_qso_map_load_failed = '<?= __("Failed to load QSO data. Please try again."); ?>';
+	let lang_qso_map_error = '<?= __("Error:"); ?>';
+	let lang_qso_map_error_parsing = '<?= __("Error parsing response:"); ?>';
+	let lang_qso_map_outside_boundaries = '<?= __("Outside country boundaries"); ?>';
+	let lang_qso_map_inside_boundaries = '<?= __("Inside country boundaries"); ?>';
+	let lang_qso_map_legend = '<?= __("Legend"); ?>';
+	let lang_qso_map_inside_label = '<?= __("Inside boundaries"); ?>';
+	let lang_qso_map_outside_label = '<?= __("Outside boundaries"); ?>';
+	let lang_qso_map_boundaries = '<?= __("Country/State boundaries"); ?>';
+	let lang_qso_map_showing = '<?= __("Showing %s of %s total QSOs"); ?>';
+	let lang_qso_map_total_qsos = '<?= __("Total: %s QSOs with 6+ char grids"); ?>';
+	let lang_qso_map_region = '<?= __("Region"); ?>';
+	let lang_qso_map_hover_region = '<?= __("Hover over a region"); ?>';
+	let lang_qso_map_toggle_layers = '<?= __("Toggle layers"); ?>';
 </script>
 
 <div class="container px-3 px-lg-4 mt-3 mb-3">
@@ -12,7 +29,7 @@
 
     <div class="card">
         <div class="card-header">
-            <?= ('Plot your QSOs with a 6-character gridsquare on a map to see region'); ?>
+            <?= ('Map your QSOs for a country against its region boundaries — and see which contacts fall outside them.'); ?>
         </div>
         <div class="card-body">
             <div class="row align-items-end">
