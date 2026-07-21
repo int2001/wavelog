@@ -15,6 +15,11 @@ class Update extends CI_Controller {
 			echo __("Maintenance Mode is active. Try again later.")."\n";
 			redirect('user/login');
 		}
+
+		$this->load->helper('cronauth');
+		if (!cronauth_allowed()) {
+			redirect('user/login');
+		}
 	}
 
 	public function index() {
