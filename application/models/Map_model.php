@@ -19,7 +19,7 @@ class Map_model extends CI_Model {
     /**
      * Get QSOs for a specific country with 6+ character grids
      */
-    public function get_qsos_by_country($country, $station_id = null) {
+    public function get_qsos_by_country($country, $station_id = null, $band = null) {
 		if (!$this->load->is_loaded('Qra')) {
 			$this->load->library('Qra');
 		}
@@ -27,7 +27,7 @@ class Map_model extends CI_Model {
 			$this->load->library('DxccFlag');
 		}
 
-		$sql = "select COL_PRIMARY_KEY, COL_CALL, COL_GRIDSQUARE, COL_COUNTRY, COL_DXCC, COL_MODE, COL_BAND, COL_TIME_ON, COL_RST_SENT, COL_RST_RCVD, COL_QSL_RCVD, COL_LOTW_QSL_RCVD, COL_EQSL_QSL_RCVD, COL_QRZCOM_QSO_DOWNLOAD_STATUS, COL_CLUBLOG_QSO_DOWNLOAD_STATUS, station_profile.station_profile_name
+		$sql = "select COL_PRIMARY_KEY, COL_CALL, COL_GRIDSQUARE, COL_COUNTRY, COL_DXCC, COL_MODE, COL_BAND, COL_PROP_MODE, COL_SAT_NAME, COL_SAT_MODE, COL_TIME_ON, COL_RST_SENT, COL_RST_RCVD, COL_QSL_RCVD, COL_LOTW_QSL_RCVD, COL_EQSL_QSL_RCVD, COL_QRZCOM_QSO_DOWNLOAD_STATUS, COL_CLUBLOG_QSO_DOWNLOAD_STATUS, station_profile.station_profile_name
 		from " . $this->config->item('table_name') . "
 		join station_profile ON station_profile.station_id = " . $this->config->item('table_name') . ".station_id
 		where station_profile.user_id = ?
@@ -40,6 +40,15 @@ class Map_model extends CI_Model {
 		if ($station_id !== null && $station_id !== '') {
 			$sql .=	" and station_profile.station_id = ?";
 			$bindings[] = $station_id;
+		}
+
+		// Add band filter if specified
+		if ($band == 'SAT') {
+			$sql .= " and COL_PROP_MODE = ?";
+			$bindings[] = $band;
+		} elseif ($band !== null && $band !== '' && $band !== 'all') {
+			$sql .= " and COL_BAND = ?";
+			$bindings[] = $band;
 		}
 
 		$sql .= "and LENGTH(COL_GRIDSQUARE) >= 6
@@ -115,7 +124,7 @@ class Map_model extends CI_Model {
 
 		// Band/Satellite
 		$table .= '<tr>';
-		if (!empty($qso['COL_SAT_NAME'])) {
+		if (($qso['COL_PROP_MODE'] ?? '') === 'SAT') {
 			$table .= '<td>Band</td>';
 			$table .= '<td>SAT ' . htmlspecialchars($qso['COL_SAT_NAME']);
 			if (!empty($qso['COL_SAT_MODE'])) {
