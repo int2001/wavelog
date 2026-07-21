@@ -43,7 +43,7 @@ function initMap() {
     let legendControl = null; // Store legend control for updates
 
     // Enable/disable load button based on country selection
-    $('#countrySelect, #locationSelect').on('change', function() {
+    $('#countrySelect, #locationSelect, #bandSelect').on('change', function() {
         const countrySelected = $('#countrySelect').val();
         $('#loadMapBtn').prop('disabled', !countrySelected);
         $('#showOnlyOutside').prop('disabled', !countrySelected);
@@ -82,7 +82,8 @@ function initMap() {
             data: {
                 country: country,
                 dxcc: dxcc,
-                station_id: stationId
+                station_id: stationId,
+                band: $('#bandSelect').val()
             },
             success: function(response) {
                 clearTimeout(timeout);

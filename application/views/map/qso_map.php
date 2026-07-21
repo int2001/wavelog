@@ -63,6 +63,15 @@
                     </select>
                 </div>
                 <div class="col-auto">
+                    <label for="bandSelect" class="form-label"><?= __("Band:"); ?></label>
+                    <select class="form-select" id="bandSelect" style="min-width: 120px;">
+                        <option value="all"><?= __("All") ?></option>
+                        <?php foreach ($bands as $band): ?>
+                            <option value="<?php echo htmlspecialchars($band); ?>"><?php echo htmlspecialchars(strtoupper($band)); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="col-auto">
                     <button id="loadMapBtn" class="btn btn-primary" disabled><?= __("Load Map") ?></button>
                 </div>
                 <div class="col-auto">

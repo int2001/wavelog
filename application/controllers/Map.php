@@ -44,6 +44,10 @@ class Map extends CI_Controller {
 		// Active station location, to pre-select in the location dropdown
 		$data['active_station_id'] = $this->stations->find_active();
 
+		// Worked bands for the band filter
+		$this->load->model('bands');
+		$data['bands'] = $this->bands->get_worked_bands();
+
 		// User's custom map colors (worked / confirmed) for the region choropleth
 		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
@@ -74,6 +78,7 @@ class Map extends CI_Controller {
 		$country = $this->input->post('country', true);
 		$dxcc = $this->input->post('dxcc', true);
 		$station_id = $this->input->post('station_id', true);
+		$band = $this->input->post('band', true);
 
 		if (empty($country)) {
 			while (ob_get_level()) ob_end_clean();
@@ -87,7 +92,7 @@ class Map extends CI_Controller {
 		$station_id = ($station_id === 'all') ? null : $station_id;
 
 		try {
-			$qsos = $this->Map_model->get_qsos_by_country($country, $station_id);
+			$qsos = $this->Map_model->get_qsos_by_country($country, $station_id, $band);
 		} catch (Exception $e) {
 			while (ob_get_level()) ob_end_clean();
 			$this->output
