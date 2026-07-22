@@ -40,7 +40,6 @@ if (!function_exists('cronauth_allowed')) {
 			'key_prefix' => $CI->config->item('cache_key_prefix') ?? ''
 		]);
 
-		log_message("Error","X:".$CI->cache->get('cron_master_active'));
 		if ($CI->cache->get('cron_master_active') === false) {
 			return true;
 		}
