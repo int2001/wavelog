@@ -165,6 +165,11 @@ function initMap() {
         let outsideCount = 0;
         let insideCount = 0;
 
+        // Count inside/outside across ALL QSOs so the legend matches the QSO lists
+        qsos.forEach(function(qso) {
+            if (qso.inside_geojson === false) { outsideCount++; } else { insideCount++; }
+        });
+
         filteredQsos.forEach(function(qso) {
             let marker;
             let icon;
@@ -177,7 +182,6 @@ function initMap() {
                     iconSize: [24, 24],
                     className: 'custom-div-icon'
                 });
-                outsideCount++;
             } else {
                 // Create green checkmark icon for QSOs inside GeoJSON
                 icon = L.divIcon({
@@ -185,7 +189,6 @@ function initMap() {
                     iconSize: [24, 24],
                     className: 'custom-div-icon'
                 });
-                insideCount++;
             }
 
             marker = L.marker([qso.lat, qso.lng], { icon: icon })
@@ -352,6 +355,55 @@ function initMap() {
 		el.innerHTML = props ? ('<b>' + props.code + ' - ' + props.name + '</b>') : '<em>' + lang_qso_map_hover_region + '</em>';
 	}
 
+    // Escape text for safe insertion into HTML
+    function escQsoHtml(s) {
+        return $('<div>').text(s == null ? '' : String(s)).html();
+    }
+
+    // Show a modal listing the QSOs inside or outside the country boundaries
+    function showQsoBoundaryList(which) {
+        var list = allQsos.filter(function(q) {
+            return which === 'outside' ? (q.inside_geojson === false) : (q.inside_geojson !== false);
+        });
+        var title = (which === 'outside' ? lang_qso_map_outside_label : lang_qso_map_inside_label) + ' (' + list.length + ')';
+        var html = '<table class="table table-sm table-striped table-hover w-100 display">' +
+            '<thead><tr>' +
+            '<th>' + lang_qso_map_th_call + '</th>' +
+            '<th>' + lang_qso_map_th_date + '</th>' +
+            '<th>' + lang_qso_map_th_band + '</th>' +
+            '<th>' + lang_qso_map_th_mode + '</th>' +
+            '<th>' + lang_qso_map_th_grid + '</th>' +
+            '</tr></thead><tbody>';
+        list.forEach(function(q) {
+            var when = q.time_formatted || '';
+            var bandDisplay = (q.prop_mode === 'SAT')
+                ? ('SAT' + (q.sat_name ? ' ' + q.sat_name : '') + (q.sat_mode ? ' (' + q.sat_mode + ')' : ''))
+                : (q.band || '');
+            html += '<tr>' +
+                '<td><a href="javascript:displayQso(' + q.id + ')">' + escQsoHtml(q.call) + '</a></td>' +
+                '<td>' + escQsoHtml(when) + '</td>' +
+                '<td>' + escQsoHtml(bandDisplay) + '</td>' +
+                '<td>' + escQsoHtml(q.mode) + '</td>' +
+                '<td>' + escQsoHtml(q.gridsquare) + '</td>' +
+                '</tr>';
+        });
+        html += '</tbody></table>';
+
+        BootstrapDialog.show({
+            title: title,
+            size: BootstrapDialog.SIZE_WIDE,
+            nl2br: false,
+            message: html,
+            onshown: function(dialog) {
+                $('table.display', dialog.getModal()).DataTable({
+                    pageLength: 25,
+                    order: [],
+                    language: { url: getDataTablesLanguageUrl() }
+                });
+            }
+        });
+    }
+
     function addLegend(insideCount, outsideCount, totalCount, showOnlyOutside) {
         const legend = L.control({ position: 'topright' });
 
@@ -365,7 +417,8 @@ function initMap() {
             html += '<div class="legend-icon">';
             html += '<div style="background-color: #28a745; color: white; width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px; border: 2px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.3);">✓</div>';
             html += '</div>';
-            html += '<span>' + lang_qso_map_inside_label + ' <strong>(' + insideCount + ')</strong></span>';
+            html += lang_qso_map_inside_label + ' <strong>(' + insideCount + ')</strong>';
+            html += '<div class="legend-action qso-map-boundary-list" data-which="inside" title="' + lang_qso_map_show_list + '"><i class="fas fa-list"></i></div>';
             html += '</div>';
 
             // Outside boundaries
@@ -373,32 +426,33 @@ function initMap() {
             html += '<div class="legend-icon">';
             html += '<div style="background-color: #ff0000; color: white; width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px; border: 2px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.3);">✕</div>';
             html += '</div>';
-            html += '<span>' + lang_qso_map_outside_label + ' <strong>(' + outsideCount + ')</strong></span>';
+            html += lang_qso_map_outside_label + ' <strong>(' + outsideCount + ')</strong>';
+            html += '<div class="legend-action qso-map-boundary-list" data-which="outside" title="' + lang_qso_map_show_list + '"><i class="fas fa-list"></i></div>';
             html += '</div>';
 
             // Region choropleth: confirmed / worked / not worked
             html += '<div class="legend-item">';
             html += '<div class="legend-icon"><div style="background-color: ' + qsoMapConfirmedColor + '; width: 20px; height: 12px; border: 1px solid ' + qsoMapLineColor + '; border-radius: 2px;"></div></div>';
-            html += '<span>' + lang_qso_map_region_confirmed + '</span>';
+            html += '<div>' + lang_qso_map_region_confirmed + '</div>';
             html += '</div>';
             html += '<div class="legend-item">';
             html += '<div class="legend-icon"><div style="background-color: ' + qsoMapWorkedColor + '; width: 20px; height: 12px; border: 1px solid ' + qsoMapLineColor + '; border-radius: 2px;"></div></div>';
-            html += '<span>' + lang_qso_map_region_worked + '</span>';
+            html += '<div>' + lang_qso_map_region_worked + '</div>';
             html += '</div>';
             html += '<div class="legend-item">';
             html += '<div class="legend-icon"><div style="background-color: ' + qsoMapUnworkedColor + '; width: 20px; height: 12px; border: 1px solid ' + qsoMapLineColor + '; border-radius: 2px;"></div></div>';
-            html += '<span>' + lang_qso_map_region_not_worked + '</span>';
+            html += '<div>' + lang_qso_map_region_not_worked + '</div>';
             html += '</div>';
-            html += '<div style="font-size: 12px; margin: 4px 0 8px 0;"><em>' + lang_qso_map_regions_label + ' <span id="legend-region-count">-</span></em></div>';
+            html += '<div style="font-size: 12px;"><div>' + lang_qso_map_regions_label + ' <span id="legend-region-count">-</span></div></div>';
 
             // Total QSOs (shown differently when filtering)
             if (showOnlyOutside) {
                 html += '<div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid #ddd; font-size: 12px;">';
-                html += '<em>' + lang_qso_map_showing.replace('%s', outsideCount).replace('%s', totalCount) + '</em>';
+                html += '<div>' + lang_qso_map_showing.replace('%s', outsideCount).replace('%s', totalCount) + '</div>';
                 html += '</div>';
             } else {
                 html += '<div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid #ddd; font-size: 12px;">';
-                html += '<em>' + lang_qso_map_total_qsos.replace('%s', totalCount) + '</em>';
+                html += '<div>' + lang_qso_map_total_qsos.replace('%s', totalCount) + '</div>';
                 html += '</div>';
             }
 
@@ -415,6 +469,16 @@ function initMap() {
             html += '<input type="checkbox" onclick="toggleItuZones(this.checked)" ' + (typeof ituzones_layer !== 'undefined' && ituzones_layer ? 'checked' : '') + ' style="outline: none;"><span> ' + lang_gen_hamradio_itu_zones + '</span><br>';
 
             div.innerHTML = html;
+
+            // QSO list popups for the inside/outside boundary markers
+            var listIcons = div.querySelectorAll('.qso-map-boundary-list');
+            for (var i = 0; i < listIcons.length; i++) {
+                listIcons[i].addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    showQsoBoundaryList(this.getAttribute('data-which'));
+                });
+            }
 
             // Prevent map events on the legend
             L.DomEvent.disableClickPropagation(div);

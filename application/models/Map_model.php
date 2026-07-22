@@ -59,6 +59,7 @@ class Map_model extends CI_Model {
 
         // Process QSOs and convert gridsquares to coordinates
         $result = [];
+        $custom_date_format = $this->session->userdata('user_date_format') ?: $this->config->item('qso_date_format');
         foreach ($qsos as $qso) {
             $gridsquare = strtoupper(trim($qso['COL_GRIDSQUARE']));
 
@@ -68,6 +69,7 @@ class Map_model extends CI_Model {
 
                 if ($coords !== false && is_array($coords) && count($coords) >= 2) {
                     $result[] = [
+                        'id' => $qso['COL_PRIMARY_KEY'],
                         'call' => $qso['COL_CALL'],
                         'gridsquare' => $gridsquare,
                         'country' => $qso['COL_COUNTRY'],
@@ -75,6 +77,10 @@ class Map_model extends CI_Model {
                         'mode' => $qso['COL_MODE'],
                         'band' => $qso['COL_BAND'],
                         'time_on' => $qso['COL_TIME_ON'],
+                        'time_formatted' => date($custom_date_format . ' H:i', strtotime($qso['COL_TIME_ON'])),
+                        'prop_mode' => $qso['COL_PROP_MODE'] ?? '',
+                        'sat_name' => $qso['COL_SAT_NAME'] ?? '',
+                        'sat_mode' => $qso['COL_SAT_MODE'] ?? '',
                         'rst_sent' => $qso['COL_RST_SENT'],
                         'rst_rcvd' => $qso['COL_RST_RCVD'],
                         'confirmed' => ($qso['COL_QSL_RCVD'] ?? '') === 'Y'

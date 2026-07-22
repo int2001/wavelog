@@ -26,6 +26,12 @@
 	let lang_qso_map_region_worked = '<?= __("Worked"); ?>';
 	let lang_qso_map_region_not_worked = '<?= __("Not worked"); ?>';
 	let lang_qso_map_regions_label = '<?= __("Regions worked:"); ?>';
+	let lang_qso_map_show_list = '<?= __("Show QSO list"); ?>';
+	let lang_qso_map_th_call = '<?= __("Callsign"); ?>';
+	let lang_qso_map_th_date = '<?= __("Date/Time"); ?>';
+	let lang_qso_map_th_band = '<?= __("Band"); ?>';
+	let lang_qso_map_th_mode = '<?= __("Mode"); ?>';
+	let lang_qso_map_th_grid = '<?= __("Gridsquare"); ?>';
 	let user_map_custom = JSON.parse('<?php echo $user_map_custom; ?>');
 </script>
 
@@ -184,7 +190,27 @@
     margin: 8px 0;
 }
 .legend-icon {
+    display: flex;
+    align-items: center;
     margin-right: 10px;
     flex-shrink: 0;
+}
+.legend-label {
+    display: flex;
+    align-items: center;
+    gap: 0.25em;
+    flex: 1 1 auto;
+}
+.legend-action {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    margin-left: 8px;
+	margin-top: 8px;
+    cursor: pointer;
+}
+#legend-region-count {
+	margin-top: 8px;
+	bottom: 0px !important;
 }
 </style>
