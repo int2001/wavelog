@@ -1939,6 +1939,7 @@ msgstr "すべてのコールブック検索が失敗したか、結果が提供
 #: application/views/view_log/partial/log_ajax.php:5
 #: application/views/view_log/qso.php:114 application/views/visitor/index.php:6
 #: application/views/visitor/mini.php:185 application/views/widgets/qsos.php:18
+#: application/views/map/qso_map.php:33
 msgid "Mode"
 msgstr "モード"
 
@@ -2126,6 +2127,7 @@ msgstr "州"
 #: application/views/view_log/qso.php:633
 #: application/views/visitor/index.php:27
 #: application/views/zonechecker/result.php:53
+#: application/views/map/qso_map.php:34 application/views/map/qso_map.php:111
 msgid "Gridsquare"
 msgstr "グリッドスクエア"
 
@@ -2156,7 +2158,7 @@ msgstr "グリッドスクエア"
 #: application/views/user/edit.php:353 application/views/user/edit.php:376
 #: application/views/user/edit.php:400
 #: application/views/view_log/partial/log_ajax.php:15
-#: application/views/visitor/index.php:30
+#: application/views/visitor/index.php:30 application/views/map/qso_map.php:112
 msgid "Distance"
 msgstr "距離"
 
@@ -2256,6 +2258,7 @@ msgstr "距離"
 #: application/views/view_log/partial/log_ajax.php:16
 #: application/views/view_log/qso.php:94 application/views/visitor/index.php:33
 #: application/views/visitor/mini.php:184 application/views/widgets/qsos.php:21
+#: application/views/map/qso_map.php:32
 msgid "Band"
 msgstr "バンド"
 
@@ -2456,7 +2459,7 @@ msgstr "LoTW ADIF インポート"
 msgid "You have not defined your ARRL LoTW credentials!"
 msgstr "ARRL LoTWの認証情報を設定していません！"
 
-#: application/controllers/Map.php:46
+#: application/controllers/Map.php:46 application/controllers/Map.php:56
 msgid "QSO Map"
 msgstr "QSOマップ"
 
@@ -3777,8 +3780,8 @@ msgid ""
 "Station created successfully! Welcome to Wavelog! To complete your station "
 "setup, click %shere%s."
 msgstr ""
-"無線局が正常に作成されました！Wavelogへようこそ！無線局の設定を完了するに"
-"は、%shere%sをクリックしてください。"
+"無線局が正常に作成されました！Wavelogへようこそ！無線局の設定を完了するには、"
+"%shere%sをクリックしてください。"
 
 #: application/controllers/User.php:1508
 msgid "Station setup failed! Please set up your station manually."
@@ -4287,6 +4290,7 @@ msgstr "QSOが更新されました"
 #: application/views/user/edit.php:333 application/views/user/edit.php:356
 #: application/views/user/edit.php:379 application/views/user/edit.php:404
 #: application/views/view_log/partial/log_ajax.php:21
+#: application/views/map/qso_map.php:113
 msgid "Bearing"
 msgstr "方位"
 
@@ -4564,6 +4568,7 @@ msgstr "違い"
 #: application/views/timeplotter/index.php:63
 #: application/views/user/edit.php:987
 #: application/views/visitor/layout/footer.php:168
+#: application/views/map/qso_map.php:74
 msgid "All"
 msgstr "全て"
 
@@ -4773,7 +4778,7 @@ msgstr "クリアマーカー"
 #: application/views/contesting/logger/components/map.php:76
 #: application/views/gridmap/index.php:224
 #: application/views/logbookadvanced/index.php:10
-#: application/views/map/qso_map.php:59
+#: application/views/map/qso_map.php:59 application/views/map/qso_map.php:109
 msgid "Latitude"
 msgstr "緯度"
 
@@ -4783,7 +4788,7 @@ msgstr "緯度"
 #: application/views/contesting/logger/components/map.php:78
 #: application/views/gridmap/index.php:225
 #: application/views/logbookadvanced/index.php:11
-#: application/views/map/qso_map.php:61
+#: application/views/map/qso_map.php:61 application/views/map/qso_map.php:110
 msgid "Longitude"
 msgstr "経度"
 
@@ -4889,6 +4894,7 @@ msgstr "何も見つかりません!"
 #: application/views/view_log/qso.php:83 application/views/view_log/qso.php:625
 #: application/views/visitor/mini.php:183
 #: application/views/zonechecker/result.php:50
+#: application/views/map/qso_map.php:30
 msgid "Callsign"
 msgstr "コールサイン"
 
@@ -6205,7 +6211,7 @@ msgstr "%s %%が 全体で確認済み"
 #: application/views/dashboard/index.php:487
 #: application/views/dashboard/index.php:671
 #: application/views/search/result.php:35
-#: application/views/visitor/index.php:266
+#: application/views/visitor/index.php:266 application/views/map/qso_map.php:26
 msgid "Worked"
 msgstr "交信済"
 
@@ -6226,7 +6232,7 @@ msgstr "交信済"
 #: application/views/dashboard/index.php:676
 #: application/views/interface_assets/footer.php:49
 #: application/views/search/result.php:32
-#: application/views/visitor/index.php:270
+#: application/views/visitor/index.php:270 application/views/map/qso_map.php:25
 msgid "Confirmed"
 msgstr "確認済み"
 
@@ -6313,6 +6319,7 @@ msgstr "交信確認済み"
 #: application/views/timeplotter/index.php:39
 #: application/views/user/modals/first_login_wizard.php:75
 #: application/views/zonechecker/index.php:17
+#: application/views/map/qso_map.php:114
 msgid "CQ Zone"
 msgstr "CQゾーン"
 
@@ -7348,6 +7355,7 @@ msgstr "削除済み"
 #: application/views/stationsetup/locationlist.php:22
 #: application/views/user/modals/first_login_wizard.php:86
 #: application/views/zonechecker/index.php:18
+#: application/views/map/qso_map.php:115
 msgid "ITU Zone"
 msgstr "ITU ゾーン"
 
@@ -7812,7 +7820,7 @@ msgstr "参照"
 #: application/views/logbookadvanced/useroptions.php:22
 #: application/views/qso/components/previous_contacts.php:6
 #: application/views/search/lotw_unconfirmed_result.php:7
-#: application/views/view_log/qso.php:72
+#: application/views/view_log/qso.php:72 application/views/map/qso_map.php:31
 msgid "Date/Time"
 msgstr "日付/時刻"
 
@@ -8682,6 +8690,7 @@ msgstr "取得中..."
 #: application/views/dashboard/index.php:429
 #: application/views/dashboard/index.php:438
 #: application/views/interface_assets/footer.php:51
+#: application/views/map/qso_map.php:27
 msgid "Not worked"
 msgstr "未交信"
 
@@ -15307,7 +15316,7 @@ msgstr "ダーク・ドック"
 #: application/views/logbookadvanced/index.php:1042
 #: application/views/logbookadvanced/useroptions.php:263
 #: application/views/qso/edit_ajax.php:313 application/views/qso/index.php:502
-#: application/views/view_log/qso.php:434
+#: application/views/view_log/qso.php:434 application/views/map/qso_map.php:22
 msgid "Region"
 msgstr "地域"
 
@@ -16982,11 +16991,11 @@ msgstr "詳細については、Wavelog Wikiの%sLoTW FAQページ%sをご覧く
 msgid "Upload File"
 msgstr "ファイルをアップロード"
 
-#: application/views/map/qso_map.php:15
+#: application/views/map/qso_map.php:15 application/views/map/qso_map.php:48
 msgid "Select Country:"
 msgstr "国を選択:"
 
-#: application/views/map/qso_map.php:17
+#: application/views/map/qso_map.php:17 application/views/map/qso_map.php:50
 msgid "Choose a country..."
 msgstr "国を選択してください..."
 
@@ -19685,10 +19694,10 @@ msgid ""
 "sides, so we provide the information with the sent RST first. It was 2 "
 "minutes later than the first QSO."
 msgstr ""
-"RST情報を提供しない場合、構文は音声モードの場合は59、CWモードの場合は599、"
-"デジタルデータモードの場合は+0 dBを使用します。次の交信では両側とも59ではなか"
-"ったので、送信したRST情報で最初にその情報を提供しました。これは最初の交信から"
-"2分後のことでした。"
+"RST情報を提供しない場合、構文は音声モードの場合は59、CWモードの場合は599、デ"
+"ジタルデータモードの場合は+0 dBを使用します。次の交信では両側とも59ではなかっ"
+"たので、送信したRST情報で最初にその情報を提供しました。これは最初の交信から2"
+"分後のことでした。"
 
 #: application/views/simplefle/syntax_help.php:32
 msgid ""
@@ -19766,12 +19775,12 @@ msgid ""
 "does not work on its own line). To deactivate, use %s:"
 msgstr ""
 "受信した交信記録にはドット %s を、送信した交信記録にはコンマ %s を先頭に付け"
-"る必要があります。最後の2行は同等です。つまり、順序もスペースも関係ありません"
-"。上記の4行は、それぞれ1つの交換形式（シリアル番号のみ、テキストのみ、または"
-"その両方）を示しているに過ぎません。送信交換は「固定」されることに注意してく"
-"ださい。一度設定されると、変更またはクリアするまで、次の行に受信交換または単"
-"一のコンマ %s が含まれる限り、自動的に以降のQSOに引き継がれます。送信シリアル"
-"番号を自動的にインクリメントするには、QSO行に初期の送信エクスチェンジととも"
+"る必要があります。最後の2行は同等です。つまり、順序もスペースも関係ありませ"
+"ん。上記の4行は、それぞれ1つの交換形式（シリアル番号のみ、テキストのみ、また"
+"はその両方）を示しているに過ぎません。送信交換は「固定」されることに注意して"
+"ください。一度設定されると、変更またはクリアするまで、次の行に受信交換または"
+"単一のコンマ %s が含まれる限り、自動的に以降のQSOに引き継がれます。送信シリア"
+"ル番号を自動的にインクリメントするには、QSO行に初期の送信エクスチェンジととも"
 "に %s を追加します（単独の行では機能しません）。無効にするには、%s を使用しま"
 "す："
 
@@ -19805,14 +19814,14 @@ msgid ""
 "times are then converted to UTC until you change the offset again:"
 msgstr ""
 "UTCではなく現地時間でログインする場合は、%s（または短縮形の%s）の後に符号付き"
-"の時オフセットを指定して、オフセットを一度だけ宣言してください。その後、"
-"オフセットを再度変更するまで、以降のすべてのQSO時刻はUTCに変換されます："
+"の時オフセットを指定して、オフセットを一度だけ宣言してください。その後、オフ"
+"セットを再度変更するまで、以降のすべてのQSO時刻はUTCに変換されます："
 
 #: application/views/simplefle/syntax_help.php:92
 msgid "Here, the QSO logged at 14:00 local time is stored as 12:00 UTC."
 msgstr ""
-"ここでは、現地時間14:00に記録された交信が、協定世界時12:00として保存されます"
-"。"
+"ここでは、現地時間14:00に記録された交信が、協定世界時12:00として保存されま"
+"す。"
 
 #: application/views/simplefle/syntax_help.php:95
 #, php-format
@@ -22315,6 +22324,92 @@ msgstr "CQz"
 msgid "CQz geojson"
 msgstr "CQz geojson"
 
+#: application/views/map/qso_map.php:8
+msgid "Loading QSO data..."
+msgstr ""
+
+#: application/views/map/qso_map.php:9
+msgid "Loading QSOs for all countries (this may take a moment)..."
+msgstr ""
+
+#: application/views/map/qso_map.php:10
+msgid "Still loading... Processing large dataset, please wait..."
+msgstr ""
+
+#: application/views/map/qso_map.php:11
+msgid "Failed to load QSO data. Please try again."
+msgstr ""
+
+#: application/views/map/qso_map.php:12
+msgid "Error:"
+msgstr ""
+
+#: application/views/map/qso_map.php:13
+msgid "Error parsing response:"
+msgstr ""
+
+#: application/views/map/qso_map.php:14
+msgid "Outside country boundaries"
+msgstr ""
+
+#: application/views/map/qso_map.php:15
+msgid "Inside country boundaries"
+msgstr ""
+
+#: application/views/map/qso_map.php:16
+msgid "Legend"
+msgstr ""
+
+#: application/views/map/qso_map.php:17
+msgid "Inside boundaries"
+msgstr ""
+
+#: application/views/map/qso_map.php:18
+msgid "Outside boundaries"
+msgstr ""
+
+#: application/views/map/qso_map.php:19
+msgid "Country/State boundaries"
+msgstr ""
+
+#: application/views/map/qso_map.php:20
+#, php-format
+msgid "Showing %s of %s total QSOs"
+msgstr ""
+
+#: application/views/map/qso_map.php:21
+#, php-format
+msgid "Total: %s QSOs with 6+ char grids"
+msgstr ""
+
+#: application/views/map/qso_map.php:23
+msgid "Hover over a region"
+msgstr ""
+
+#: application/views/map/qso_map.php:24
+msgid "Toggle layers"
+msgstr ""
+
+#: application/views/map/qso_map.php:28
+msgid "Regions worked:"
+msgstr ""
+
+#: application/views/map/qso_map.php:29
+msgid "Show QSO list"
+msgstr ""
+
+#: application/views/map/qso_map.php:60
+msgid "Location:"
+msgstr ""
+
+#: application/views/map/qso_map.php:72
+msgid "Band:"
+msgstr ""
+
+#: application/views/map/qso_map.php:81
+msgid "Load Map"
+msgstr ""
+
 #~ msgid ""
 #~ "To begin, ensure you have already filled in the form on the left with the "
 #~ "date, station call, and operator's call. The main data includes the band "
@@ -23050,9 +23145,9 @@ msgstr "CQz geojson"
 #~ "processed. %s Please make sure you export the LoTW certificate from tqsl "
 #~ "application without password! %s"
 #~ msgstr ""
-#~ "ファイル %s 内の証明書にはパスワードが含まれており、処理できませ"
-#~ "ん。%stqsl アプリケーションから LoTW 証明書をエクスポートする際は、パス"
-#~ "ワードなしで実行してください！%s"
+#~ "ファイル %s 内の証明書にはパスワードが含まれており、処理できません。"
+#~ "%stqsl アプリケーションから LoTW 証明書をエクスポートする際は、パスワード"
+#~ "なしで実行してください！%s"
 
 #~ msgid "Column"
 #~ msgstr "カラム"
@@ -23386,8 +23481,8 @@ msgstr "CQz geojson"
 #~ "Your active Station Location isn't linked to your Logbook. Click %shere%s "
 #~ "to do it."
 #~ msgstr ""
-#~ "現在のステーション位置がログブックとリンクされていません。リンクするに"
-#~ "は、%shere%s をクリックしてください。"
+#~ "現在のステーション位置がログブックとリンクされていません。リンクするには、"
+#~ "%shere%s をクリックしてください。"
 
 #, php-format
 #~ msgctxt "Dashboard Warning"
