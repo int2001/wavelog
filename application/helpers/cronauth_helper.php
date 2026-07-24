@@ -27,11 +27,11 @@ if (!function_exists('cronauth_mark_active')) {
 }
 
 if (!function_exists('cronauth_allowed')) {
-	function cronauth_allowed() {
+	function cronauth_allowed($min_user_type = 99) {
 		$CI = &get_instance();
 
 		$user_type = $CI->session->userdata('user_type');
-		if ($user_type !== null && (int)$user_type >= 99) {
+		if ($user_type !== null && (int)$user_type >= $min_user_type) {
 			return true;
 		}
 

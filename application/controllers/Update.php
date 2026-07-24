@@ -17,7 +17,7 @@ class Update extends CI_Controller {
 		}
 
 		$this->load->helper('cronauth');
-		if (!cronauth_allowed()) {
+		if (!cronauth_allowed(99)) {
 			// return a 403
 			$this->output->set_status_header(403);
 			exit();
