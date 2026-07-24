@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-20 12:32+0000\n"
+"POT-Creation-Date: 2026-07-23 19:51+0000\n"
 "PO-Revision-Date: 2026-07-24 13:03+0000\n"
 "Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
@@ -1904,7 +1904,7 @@ msgstr "すべてのコールブック検索が失敗したか、結果が提供
 #: application/views/logbookadvanced/qslcarousel.php:32
 #: application/views/logbookadvanced/showStateQsos.php:23
 #: application/views/logbookadvanced/useroptions.php:46
-#: application/views/mode/index.php:40
+#: application/views/map/qso_map.php:33 application/views/mode/index.php:40
 #: application/views/oqrs/notinlogform.php:12
 #: application/views/oqrs/qsolist.php:9 application/views/oqrs/request.php:19
 #: application/views/oqrs/request_grouped.php:13
@@ -1939,7 +1939,6 @@ msgstr "すべてのコールブック検索が失敗したか、結果が提供
 #: application/views/view_log/partial/log_ajax.php:5
 #: application/views/view_log/qso.php:114 application/views/visitor/index.php:6
 #: application/views/visitor/mini.php:185 application/views/widgets/qsos.php:18
-#: application/views/map/qso_map.php:33
 msgid "Mode"
 msgstr "モード"
 
@@ -2100,7 +2099,8 @@ msgstr "州"
 #: application/views/logbookadvanced/showStateQsos.php:26
 #: application/views/logbookadvanced/showUpdateResult.php:44
 #: application/views/logbookadvanced/useroptions.php:85
-#: application/views/lookup/index.php:6 application/views/map/qso_map.php:63
+#: application/views/lookup/index.php:6 application/views/map/qso_map.php:34
+#: application/views/map/qso_map.php:111
 #: application/views/qslcard/confirmationresult.php:19
 #: application/views/qslcard/searchresult.php:19
 #: application/views/qslcard/searchresult.php:35
@@ -2127,7 +2127,6 @@ msgstr "州"
 #: application/views/view_log/qso.php:633
 #: application/views/visitor/index.php:27
 #: application/views/zonechecker/result.php:53
-#: application/views/map/qso_map.php:34 application/views/map/qso_map.php:111
 msgid "Gridsquare"
 msgstr "グリッドスクエア"
 
@@ -2145,7 +2144,7 @@ msgstr "グリッドスクエア"
 #: application/views/logbookadvanced/index.php:542
 #: application/views/logbookadvanced/index.php:1063
 #: application/views/logbookadvanced/useroptions.php:318
-#: application/views/map/qso_map.php:65
+#: application/views/map/qso_map.php:112
 #: application/views/qslcard/searchresult.php:20
 #: application/views/qslcard/searchresult.php:36
 #: application/views/qslcard/searchresult.php:52
@@ -2158,7 +2157,7 @@ msgstr "グリッドスクエア"
 #: application/views/user/edit.php:353 application/views/user/edit.php:376
 #: application/views/user/edit.php:400
 #: application/views/view_log/partial/log_ajax.php:15
-#: application/views/visitor/index.php:30 application/views/map/qso_map.php:112
+#: application/views/visitor/index.php:30
 msgid "Distance"
 msgstr "距離"
 
@@ -2224,6 +2223,7 @@ msgstr "距離"
 #: application/views/logbookadvanced/qslcarousel.php:33
 #: application/views/logbookadvanced/showStateQsos.php:24
 #: application/views/logbookadvanced/useroptions.php:64
+#: application/views/map/qso_map.php:32
 #: application/views/oqrs/notinlogform.php:11
 #: application/views/oqrs/qsolist.php:10 application/views/oqrs/request.php:18
 #: application/views/oqrs/request_grouped.php:12
@@ -2258,7 +2258,6 @@ msgstr "距離"
 #: application/views/view_log/partial/log_ajax.php:16
 #: application/views/view_log/qso.php:94 application/views/visitor/index.php:33
 #: application/views/visitor/mini.php:184 application/views/widgets/qsos.php:21
-#: application/views/map/qso_map.php:32
 msgid "Band"
 msgstr "バンド"
 
@@ -2459,7 +2458,7 @@ msgstr "LoTW ADIF インポート"
 msgid "You have not defined your ARRL LoTW credentials!"
 msgstr "ARRL LoTWの認証情報を設定していません！"
 
-#: application/controllers/Map.php:46 application/controllers/Map.php:56
+#: application/controllers/Map.php:56
 msgid "QSO Map"
 msgstr "QSOマップ"
 
@@ -3780,8 +3779,8 @@ msgid ""
 "Station created successfully! Welcome to Wavelog! To complete your station "
 "setup, click %shere%s."
 msgstr ""
-"無線局が正常に作成されました！Wavelogへようこそ！無線局の設定を完了するには、"
-"%shere%sをクリックしてください。"
+"無線局が正常に作成されました！Wavelogへようこそ！無線局の設定を完了するに"
+"は、%shere%sをクリックしてください。"
 
 #: application/controllers/User.php:1508
 msgid "Station setup failed! Please set up your station manually."
@@ -4286,11 +4285,10 @@ msgstr "QSOが更新されました"
 #: application/views/dashboard/index.php:20
 #: application/views/gridmap/index.php:228
 #: application/views/logbookadvanced/index.php:15
-#: application/views/map/qso_map.php:67 application/views/user/edit.php:310
+#: application/views/map/qso_map.php:113 application/views/user/edit.php:310
 #: application/views/user/edit.php:333 application/views/user/edit.php:356
 #: application/views/user/edit.php:379 application/views/user/edit.php:404
 #: application/views/view_log/partial/log_ajax.php:21
-#: application/views/map/qso_map.php:113
 msgid "Bearing"
 msgstr "方位"
 
@@ -4545,7 +4543,7 @@ msgstr "違い"
 #: application/views/logbookadvanced/index.php:712
 #: application/views/logbookadvanced/index.php:735
 #: application/views/logbookadvanced/index.php:744
-#: application/views/lotw/import.php:55
+#: application/views/lotw/import.php:55 application/views/map/qso_map.php:74
 #: application/views/oqrs/showrequests.php:38
 #: application/views/oqrs/showrequests.php:54
 #: application/views/oqrs/showrequests.php:69
@@ -4568,7 +4566,6 @@ msgstr "違い"
 #: application/views/timeplotter/index.php:63
 #: application/views/user/edit.php:987
 #: application/views/visitor/layout/footer.php:168
-#: application/views/map/qso_map.php:74
 msgid "All"
 msgstr "全て"
 
@@ -4778,7 +4775,7 @@ msgstr "クリアマーカー"
 #: application/views/contesting/logger/components/map.php:76
 #: application/views/gridmap/index.php:224
 #: application/views/logbookadvanced/index.php:10
-#: application/views/map/qso_map.php:59 application/views/map/qso_map.php:109
+#: application/views/map/qso_map.php:109
 msgid "Latitude"
 msgstr "緯度"
 
@@ -4788,7 +4785,7 @@ msgstr "緯度"
 #: application/views/contesting/logger/components/map.php:78
 #: application/views/gridmap/index.php:225
 #: application/views/logbookadvanced/index.php:11
-#: application/views/map/qso_map.php:61 application/views/map/qso_map.php:110
+#: application/views/map/qso_map.php:110
 msgid "Longitude"
 msgstr "経度"
 
@@ -4871,7 +4868,7 @@ msgstr "何も見つかりません!"
 #: application/views/logbookadvanced/qslcarousel.php:30
 #: application/views/logbookadvanced/showUpdateResult.php:43
 #: application/views/lotw_views/index.php:42
-#: application/views/oqrs/qsolist.php:6
+#: application/views/map/qso_map.php:30 application/views/oqrs/qsolist.php:6
 #: application/views/oqrs/request_grouped.php:14
 #: application/views/qslcard/confirmationresult.php:15
 #: application/views/qslcard/index.php:43
@@ -4894,7 +4891,6 @@ msgstr "何も見つかりません!"
 #: application/views/view_log/qso.php:83 application/views/view_log/qso.php:625
 #: application/views/visitor/mini.php:183
 #: application/views/zonechecker/result.php:50
-#: application/views/map/qso_map.php:30
 msgid "Callsign"
 msgstr "コールサイン"
 
@@ -6210,8 +6206,8 @@ msgstr "%s %%が 全体で確認済み"
 #: application/views/dashboard/index.php:438
 #: application/views/dashboard/index.php:487
 #: application/views/dashboard/index.php:671
-#: application/views/search/result.php:35
-#: application/views/visitor/index.php:266 application/views/map/qso_map.php:26
+#: application/views/map/qso_map.php:26 application/views/search/result.php:35
+#: application/views/visitor/index.php:266
 msgid "Worked"
 msgstr "交信済"
 
@@ -6231,8 +6227,8 @@ msgstr "交信済"
 #: application/views/dashboard/index.php:491
 #: application/views/dashboard/index.php:676
 #: application/views/interface_assets/footer.php:49
-#: application/views/search/result.php:32
-#: application/views/visitor/index.php:270 application/views/map/qso_map.php:25
+#: application/views/map/qso_map.php:25 application/views/search/result.php:32
+#: application/views/visitor/index.php:270
 msgid "Confirmed"
 msgstr "確認済み"
 
@@ -6310,7 +6306,7 @@ msgstr "交信確認済み"
 #: application/views/logbookadvanced/index.php:1015
 #: application/views/logbookadvanced/qslcarousel.php:37
 #: application/views/logbookadvanced/useroptions.php:193
-#: application/views/lookup/index.php:3 application/views/map/qso_map.php:69
+#: application/views/lookup/index.php:3 application/views/map/qso_map.php:114
 #: application/views/qso/edit_ajax.php:293 application/views/qso/index.php:518
 #: application/views/station_profile/create.php:129
 #: application/views/station_profile/edit.php:154
@@ -6319,7 +6315,6 @@ msgstr "交信確認済み"
 #: application/views/timeplotter/index.php:39
 #: application/views/user/modals/first_login_wizard.php:75
 #: application/views/zonechecker/index.php:17
-#: application/views/map/qso_map.php:114
 msgid "CQ Zone"
 msgstr "CQゾーン"
 
@@ -7348,14 +7343,13 @@ msgstr "削除済み"
 #: application/views/logbookadvanced/index.php:467
 #: application/views/logbookadvanced/index.php:1018
 #: application/views/logbookadvanced/useroptions.php:199
-#: application/views/lookup/index.php:8 application/views/map/qso_map.php:71
+#: application/views/lookup/index.php:8 application/views/map/qso_map.php:115
 #: application/views/qso/edit_ajax.php:302 application/views/qso/index.php:528
 #: application/views/station_profile/create.php:144
 #: application/views/station_profile/edit.php:169
 #: application/views/stationsetup/locationlist.php:22
 #: application/views/user/modals/first_login_wizard.php:86
 #: application/views/zonechecker/index.php:18
-#: application/views/map/qso_map.php:115
 msgid "ITU Zone"
 msgstr "ITU ゾーン"
 
@@ -7818,9 +7812,10 @@ msgstr "参照"
 #: application/views/logbookadvanced/qslcarousel.php:31
 #: application/views/logbookadvanced/showStateQsos.php:22
 #: application/views/logbookadvanced/useroptions.php:22
+#: application/views/map/qso_map.php:31
 #: application/views/qso/components/previous_contacts.php:6
 #: application/views/search/lotw_unconfirmed_result.php:7
-#: application/views/view_log/qso.php:72 application/views/map/qso_map.php:31
+#: application/views/view_log/qso.php:72
 msgid "Date/Time"
 msgstr "日付/時刻"
 
@@ -14872,7 +14867,6 @@ msgstr "ラベルの種類"
 
 #: application/views/labels/index.php:82
 #: application/views/logbookadvanced/statecheckresult.php:12
-#: application/views/map/qso_map.php:21
 #: application/views/statistics/index.php:113
 #: application/views/statistics/index.php:161
 msgid "QSOs"
@@ -15315,8 +15309,8 @@ msgstr "ダーク・ドック"
 #: application/views/logbookadvanced/edit.php:36
 #: application/views/logbookadvanced/index.php:1042
 #: application/views/logbookadvanced/useroptions.php:263
-#: application/views/qso/edit_ajax.php:313 application/views/qso/index.php:502
-#: application/views/view_log/qso.php:434 application/views/map/qso_map.php:22
+#: application/views/map/qso_map.php:22 application/views/qso/edit_ajax.php:313
+#: application/views/qso/index.php:502 application/views/view_log/qso.php:434
 msgid "Region"
 msgstr "地域"
 
@@ -16991,13 +16985,101 @@ msgstr "詳細については、Wavelog Wikiの%sLoTW FAQページ%sをご覧く
 msgid "Upload File"
 msgstr "ファイルをアップロード"
 
-#: application/views/map/qso_map.php:15 application/views/map/qso_map.php:48
+#: application/views/map/qso_map.php:8
+msgid "Loading QSO data..."
+msgstr "QSOデータを読み込んでいます..."
+
+#: application/views/map/qso_map.php:9
+msgid "Loading QSOs for all countries (this may take a moment)..."
+msgstr ""
+"すべての国の交信データを読み込んでいます（少々時間がかかる場合があります）。"
+
+#: application/views/map/qso_map.php:10
+msgid "Still loading... Processing large dataset, please wait..."
+msgstr ""
+"読み込み中です… 大規模なデータセットを処理しています。しばらくお待ちください…"
+
+#: application/views/map/qso_map.php:11
+msgid "Failed to load QSO data. Please try again."
+msgstr "QSOデータの読み込みに失敗しました。もう一度お試しください。"
+
+#: application/views/map/qso_map.php:12
+msgid "Error:"
+msgstr "エラー："
+
+#: application/views/map/qso_map.php:13
+msgid "Error parsing response:"
+msgstr "レスポンスの解析エラー:"
+
+#: application/views/map/qso_map.php:14
+msgid "Outside country boundaries"
+msgstr "国境の外"
+
+#: application/views/map/qso_map.php:15
+msgid "Inside country boundaries"
+msgstr "国境内"
+
+#: application/views/map/qso_map.php:16
+msgid "Legend"
+msgstr "伝説"
+
+#: application/views/map/qso_map.php:17
+msgid "Inside boundaries"
+msgstr "境界線内"
+
+#: application/views/map/qso_map.php:18
+msgid "Outside boundaries"
+msgstr "境界外"
+
+#: application/views/map/qso_map.php:19
+msgid "Country/State boundaries"
+msgstr "国/州の境界線"
+
+#: application/views/map/qso_map.php:20
+#, php-format
+msgid "Showing %s of %s total QSOs"
+msgstr "表示中 %s 数 %s 総交信"
+
+#: application/views/map/qso_map.php:21
+#, php-format
+msgid "Total: %s QSOs with 6+ char grids"
+msgstr "合計： %s件 6文字以上のグリッドを持つQSOが"
+
+#: application/views/map/qso_map.php:23
+msgid "Hover over a region"
+msgstr "領域の上にカーソルを合わせる"
+
+#: application/views/map/qso_map.php:24
+msgid "Toggle layers"
+msgstr "レイヤーを切り替える"
+
+#: application/views/map/qso_map.php:28
+msgid "Regions worked:"
+msgstr "活動地域："
+
+#: application/views/map/qso_map.php:29
+msgid "Show QSO list"
+msgstr "QSOリストを表示"
+
+#: application/views/map/qso_map.php:48
 msgid "Select Country:"
 msgstr "国を選択:"
 
-#: application/views/map/qso_map.php:17 application/views/map/qso_map.php:50
+#: application/views/map/qso_map.php:50
 msgid "Choose a country..."
 msgstr "国を選択してください..."
+
+#: application/views/map/qso_map.php:60
+msgid "Location:"
+msgstr "位置："
+
+#: application/views/map/qso_map.php:72
+msgid "Band:"
+msgstr "バンド："
+
+#: application/views/map/qso_map.php:81
+msgid "Load Map"
+msgstr "マップをロード"
 
 #: application/views/mode/create.php:24 application/views/mode/edit.php:33
 msgctxt "Name of mode in ADIF-specification"
@@ -22324,92 +22406,6 @@ msgstr "CQz"
 msgid "CQz geojson"
 msgstr "CQz geojson"
 
-#: application/views/map/qso_map.php:8
-msgid "Loading QSO data..."
-msgstr "QSOデータを読み込んでいます..."
-
-#: application/views/map/qso_map.php:9
-msgid "Loading QSOs for all countries (this may take a moment)..."
-msgstr "すべての国の交信データを読み込んでいます（少々時間がかかる場合があります）。"
-
-#: application/views/map/qso_map.php:10
-msgid "Still loading... Processing large dataset, please wait..."
-msgstr "読み込み中です… 大規模なデータセットを処理しています。しばらくお待ちください…"
-
-#: application/views/map/qso_map.php:11
-msgid "Failed to load QSO data. Please try again."
-msgstr "QSOデータの読み込みに失敗しました。もう一度お試しください。"
-
-#: application/views/map/qso_map.php:12
-msgid "Error:"
-msgstr "エラー："
-
-#: application/views/map/qso_map.php:13
-msgid "Error parsing response:"
-msgstr "レスポンスの解析エラー:"
-
-#: application/views/map/qso_map.php:14
-msgid "Outside country boundaries"
-msgstr "国境の外"
-
-#: application/views/map/qso_map.php:15
-msgid "Inside country boundaries"
-msgstr "国境内"
-
-#: application/views/map/qso_map.php:16
-msgid "Legend"
-msgstr "伝説"
-
-#: application/views/map/qso_map.php:17
-msgid "Inside boundaries"
-msgstr "境界線内"
-
-#: application/views/map/qso_map.php:18
-msgid "Outside boundaries"
-msgstr "境界外"
-
-#: application/views/map/qso_map.php:19
-msgid "Country/State boundaries"
-msgstr "国/州の境界線"
-
-#: application/views/map/qso_map.php:20
-#, php-format
-msgid "Showing %s of %s total QSOs"
-msgstr "表示中 %s 数 %s 総交信"
-
-#: application/views/map/qso_map.php:21
-#, php-format
-msgid "Total: %s QSOs with 6+ char grids"
-msgstr "合計： %s件 6文字以上のグリッドを持つQSOが"
-
-#: application/views/map/qso_map.php:23
-msgid "Hover over a region"
-msgstr "領域の上にカーソルを合わせる"
-
-#: application/views/map/qso_map.php:24
-msgid "Toggle layers"
-msgstr "レイヤーを切り替える"
-
-#: application/views/map/qso_map.php:28
-msgid "Regions worked:"
-msgstr "活動地域："
-
-#: application/views/map/qso_map.php:29
-msgid "Show QSO list"
-msgstr "QSOリストを表示"
-
-#: application/views/map/qso_map.php:60
-msgid "Location:"
-msgstr "位置："
-
-#: application/views/map/qso_map.php:72
-msgid "Band:"
-msgstr "バンド："
-
-#: application/views/map/qso_map.php:81
-msgid "Load Map"
-msgstr "マップをロード"
-
 #~ msgid ""
 #~ "To begin, ensure you have already filled in the form on the left with the "
 #~ "date, station call, and operator's call. The main data includes the band "
@@ -23145,9 +23141,9 @@ msgstr "マップをロード"
 #~ "processed. %s Please make sure you export the LoTW certificate from tqsl "
 #~ "application without password! %s"
 #~ msgstr ""
-#~ "ファイル %s 内の証明書にはパスワードが含まれており、処理できません。"
-#~ "%stqsl アプリケーションから LoTW 証明書をエクスポートする際は、パスワード"
-#~ "なしで実行してください！%s"
+#~ "ファイル %s 内の証明書にはパスワードが含まれており、処理できませ"
+#~ "ん。%stqsl アプリケーションから LoTW 証明書をエクスポートする際は、パス"
+#~ "ワードなしで実行してください！%s"
 
 #~ msgid "Column"
 #~ msgstr "カラム"
@@ -23481,8 +23477,8 @@ msgstr "マップをロード"
 #~ "Your active Station Location isn't linked to your Logbook. Click %shere%s "
 #~ "to do it."
 #~ msgstr ""
-#~ "現在のステーション位置がログブックとリンクされていません。リンクするには、"
-#~ "%shere%s をクリックしてください。"
+#~ "現在のステーション位置がログブックとリンクされていません。リンクするに"
+#~ "は、%shere%s をクリックしてください。"
 
 #, php-format
 #~ msgctxt "Dashboard Warning"
