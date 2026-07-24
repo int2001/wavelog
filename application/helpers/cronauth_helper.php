@@ -7,6 +7,7 @@ if (!function_exists('cronauth_token')) {
 		$CI = &get_instance();
 		$key = $CI->config->item('encryption_key');
 		if ($key === null || $key === '' || $key === 'flossie1234555541') {
+			log_message('error', 'Cron auth token cannot be generated because the encryption key is not set or is the default value. Please set a proper encryption key in your config.php file.');
 			return '';
 		}
 		return hash_hmac('sha256', 'wavelog-cron-v1', $key);
