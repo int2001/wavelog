@@ -35,11 +35,11 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-23 19:51+0000\n"
-"PO-Revision-Date: 2026-07-20 06:03+0000\n"
-"Last-Translator: \"Shen RuiQin(BH4FJN)\" <jerry19980425@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
-"org/projects/wavelog/main-translation/zh_Hans/>\n"
+"POT-Creation-Date: 2026-07-20 12:32+0000\n"
+"PO-Revision-Date: 2026-07-23 07:16+0000\n"
+"Last-Translator: \"Luoyu (BG7QBL)\" <i@luotianyi.eu>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translate.wavelog.org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1907,7 +1907,7 @@ msgstr "所有呼号簿的查询均失败或没有结果。"
 #: application/views/logbookadvanced/qslcarousel.php:32
 #: application/views/logbookadvanced/showStateQsos.php:23
 #: application/views/logbookadvanced/useroptions.php:46
-#: application/views/map/qso_map.php:33 application/views/mode/index.php:40
+#: application/views/mode/index.php:40
 #: application/views/oqrs/notinlogform.php:12
 #: application/views/oqrs/qsolist.php:9 application/views/oqrs/request.php:19
 #: application/views/oqrs/request_grouped.php:13
@@ -1942,6 +1942,7 @@ msgstr "所有呼号簿的查询均失败或没有结果。"
 #: application/views/view_log/partial/log_ajax.php:5
 #: application/views/view_log/qso.php:114 application/views/visitor/index.php:6
 #: application/views/visitor/mini.php:185 application/views/widgets/qsos.php:18
+#: application/views/map/qso_map.php:33
 msgid "Mode"
 msgstr "模式"
 
@@ -2102,8 +2103,7 @@ msgstr "州"
 #: application/views/logbookadvanced/showStateQsos.php:26
 #: application/views/logbookadvanced/showUpdateResult.php:44
 #: application/views/logbookadvanced/useroptions.php:85
-#: application/views/lookup/index.php:6 application/views/map/qso_map.php:34
-#: application/views/map/qso_map.php:111
+#: application/views/lookup/index.php:6 application/views/map/qso_map.php:63
 #: application/views/qslcard/confirmationresult.php:19
 #: application/views/qslcard/searchresult.php:19
 #: application/views/qslcard/searchresult.php:35
@@ -2130,6 +2130,7 @@ msgstr "州"
 #: application/views/view_log/qso.php:633
 #: application/views/visitor/index.php:27
 #: application/views/zonechecker/result.php:53
+#: application/views/map/qso_map.php:34 application/views/map/qso_map.php:111
 msgid "Gridsquare"
 msgstr "网格坐标"
 
@@ -2147,7 +2148,7 @@ msgstr "网格坐标"
 #: application/views/logbookadvanced/index.php:542
 #: application/views/logbookadvanced/index.php:1063
 #: application/views/logbookadvanced/useroptions.php:318
-#: application/views/map/qso_map.php:112
+#: application/views/map/qso_map.php:65
 #: application/views/qslcard/searchresult.php:20
 #: application/views/qslcard/searchresult.php:36
 #: application/views/qslcard/searchresult.php:52
@@ -2160,7 +2161,7 @@ msgstr "网格坐标"
 #: application/views/user/edit.php:353 application/views/user/edit.php:376
 #: application/views/user/edit.php:400
 #: application/views/view_log/partial/log_ajax.php:15
-#: application/views/visitor/index.php:30
+#: application/views/visitor/index.php:30 application/views/map/qso_map.php:112
 msgid "Distance"
 msgstr "距离"
 
@@ -2226,7 +2227,6 @@ msgstr "距离"
 #: application/views/logbookadvanced/qslcarousel.php:33
 #: application/views/logbookadvanced/showStateQsos.php:24
 #: application/views/logbookadvanced/useroptions.php:64
-#: application/views/map/qso_map.php:32
 #: application/views/oqrs/notinlogform.php:11
 #: application/views/oqrs/qsolist.php:10 application/views/oqrs/request.php:18
 #: application/views/oqrs/request_grouped.php:12
@@ -2261,6 +2261,7 @@ msgstr "距离"
 #: application/views/view_log/partial/log_ajax.php:16
 #: application/views/view_log/qso.php:94 application/views/visitor/index.php:33
 #: application/views/visitor/mini.php:184 application/views/widgets/qsos.php:21
+#: application/views/map/qso_map.php:32
 msgid "Band"
 msgstr "频段"
 
@@ -2457,7 +2458,7 @@ msgstr "LoTW ADIF 导入"
 msgid "You have not defined your ARRL LoTW credentials!"
 msgstr "未配置 LoTW 登录信息！"
 
-#: application/controllers/Map.php:56
+#: application/controllers/Map.php:46 application/controllers/Map.php:56
 msgid "QSO Map"
 msgstr "QSO 地图"
 
@@ -4232,10 +4233,11 @@ msgstr "QSO已上传"
 #: application/views/dashboard/index.php:20
 #: application/views/gridmap/index.php:228
 #: application/views/logbookadvanced/index.php:15
-#: application/views/map/qso_map.php:113 application/views/user/edit.php:310
+#: application/views/map/qso_map.php:67 application/views/user/edit.php:310
 #: application/views/user/edit.php:333 application/views/user/edit.php:356
 #: application/views/user/edit.php:379 application/views/user/edit.php:404
 #: application/views/view_log/partial/log_ajax.php:21
+#: application/views/map/qso_map.php:113
 msgid "Bearing"
 msgstr "方位角"
 
@@ -4489,7 +4491,7 @@ msgstr "差异"
 #: application/views/logbookadvanced/index.php:712
 #: application/views/logbookadvanced/index.php:735
 #: application/views/logbookadvanced/index.php:744
-#: application/views/lotw/import.php:55 application/views/map/qso_map.php:74
+#: application/views/lotw/import.php:55
 #: application/views/oqrs/showrequests.php:38
 #: application/views/oqrs/showrequests.php:54
 #: application/views/oqrs/showrequests.php:69
@@ -4512,6 +4514,7 @@ msgstr "差异"
 #: application/views/timeplotter/index.php:63
 #: application/views/user/edit.php:987
 #: application/views/visitor/layout/footer.php:168
+#: application/views/map/qso_map.php:74
 msgid "All"
 msgstr "所有"
 
@@ -4721,7 +4724,7 @@ msgstr "清除标记"
 #: application/views/contesting/logger/components/map.php:76
 #: application/views/gridmap/index.php:224
 #: application/views/logbookadvanced/index.php:10
-#: application/views/map/qso_map.php:109
+#: application/views/map/qso_map.php:59 application/views/map/qso_map.php:109
 msgid "Latitude"
 msgstr "纬度"
 
@@ -4731,7 +4734,7 @@ msgstr "纬度"
 #: application/views/contesting/logger/components/map.php:78
 #: application/views/gridmap/index.php:225
 #: application/views/logbookadvanced/index.php:11
-#: application/views/map/qso_map.php:110
+#: application/views/map/qso_map.php:61 application/views/map/qso_map.php:110
 msgid "Longitude"
 msgstr "经度"
 
@@ -4814,7 +4817,7 @@ msgstr "未找到！"
 #: application/views/logbookadvanced/qslcarousel.php:30
 #: application/views/logbookadvanced/showUpdateResult.php:43
 #: application/views/lotw_views/index.php:42
-#: application/views/map/qso_map.php:30 application/views/oqrs/qsolist.php:6
+#: application/views/oqrs/qsolist.php:6
 #: application/views/oqrs/request_grouped.php:14
 #: application/views/qslcard/confirmationresult.php:15
 #: application/views/qslcard/index.php:43
@@ -4837,6 +4840,7 @@ msgstr "未找到！"
 #: application/views/view_log/qso.php:83 application/views/view_log/qso.php:625
 #: application/views/visitor/mini.php:183
 #: application/views/zonechecker/result.php:50
+#: application/views/map/qso_map.php:30
 msgid "Callsign"
 msgstr "呼号"
 
@@ -6105,8 +6109,8 @@ msgstr "已确认 %s%%"
 #: application/views/dashboard/index.php:438
 #: application/views/dashboard/index.php:487
 #: application/views/dashboard/index.php:671
-#: application/views/map/qso_map.php:26 application/views/search/result.php:35
-#: application/views/visitor/index.php:266
+#: application/views/search/result.php:35
+#: application/views/visitor/index.php:266 application/views/map/qso_map.php:26
 msgid "Worked"
 msgstr "已通联"
 
@@ -6126,8 +6130,8 @@ msgstr "已通联"
 #: application/views/dashboard/index.php:491
 #: application/views/dashboard/index.php:676
 #: application/views/interface_assets/footer.php:49
-#: application/views/map/qso_map.php:25 application/views/search/result.php:32
-#: application/views/visitor/index.php:270
+#: application/views/search/result.php:32
+#: application/views/visitor/index.php:270 application/views/map/qso_map.php:25
 msgid "Confirmed"
 msgstr "已确认"
 
@@ -6205,7 +6209,7 @@ msgstr "已确认的QSO"
 #: application/views/logbookadvanced/index.php:1015
 #: application/views/logbookadvanced/qslcarousel.php:37
 #: application/views/logbookadvanced/useroptions.php:193
-#: application/views/lookup/index.php:3 application/views/map/qso_map.php:114
+#: application/views/lookup/index.php:3 application/views/map/qso_map.php:69
 #: application/views/qso/edit_ajax.php:293 application/views/qso/index.php:518
 #: application/views/station_profile/create.php:129
 #: application/views/station_profile/edit.php:154
@@ -6214,6 +6218,7 @@ msgstr "已确认的QSO"
 #: application/views/timeplotter/index.php:39
 #: application/views/user/modals/first_login_wizard.php:75
 #: application/views/zonechecker/index.php:17
+#: application/views/map/qso_map.php:114
 msgid "CQ Zone"
 msgstr "CQ 分区"
 
@@ -7208,13 +7213,14 @@ msgstr "已删除"
 #: application/views/logbookadvanced/index.php:467
 #: application/views/logbookadvanced/index.php:1018
 #: application/views/logbookadvanced/useroptions.php:199
-#: application/views/lookup/index.php:8 application/views/map/qso_map.php:115
+#: application/views/lookup/index.php:8 application/views/map/qso_map.php:71
 #: application/views/qso/edit_ajax.php:302 application/views/qso/index.php:528
 #: application/views/station_profile/create.php:144
 #: application/views/station_profile/edit.php:169
 #: application/views/stationsetup/locationlist.php:22
 #: application/views/user/modals/first_login_wizard.php:86
 #: application/views/zonechecker/index.php:18
+#: application/views/map/qso_map.php:115
 msgid "ITU Zone"
 msgstr "ITU 分区"
 
@@ -7602,8 +7608,8 @@ msgid ""
 "any kind of 'Special Interest Group Award' for awards that are not "
 "implemented in Wavelog."
 msgstr ""
-"SIG 或特别兴趣小组类别（Special Interest Group Category）允许用户使用任意"
-"的“特别兴趣小组奖”来奖励未在当前 Wavelog 实现的奖。"
+"SIG 或特别兴趣小组类别（Special Interest Group Category）允许用户使用任意的"
+"“特别兴趣小组奖”来奖励未在当前 Wavelog 实现的奖。"
 
 #: application/views/awards/sig/index.php:8
 msgid ""
@@ -7665,10 +7671,9 @@ msgstr "编号"
 #: application/views/logbookadvanced/qslcarousel.php:31
 #: application/views/logbookadvanced/showStateQsos.php:22
 #: application/views/logbookadvanced/useroptions.php:22
-#: application/views/map/qso_map.php:31
 #: application/views/qso/components/previous_contacts.php:6
 #: application/views/search/lotw_unconfirmed_result.php:7
-#: application/views/view_log/qso.php:72
+#: application/views/view_log/qso.php:72 application/views/map/qso_map.php:31
 msgid "Date/Time"
 msgstr "日期/时间"
 
@@ -14523,6 +14528,7 @@ msgstr "标签类型"
 
 #: application/views/labels/index.php:82
 #: application/views/logbookadvanced/statecheckresult.php:12
+#: application/views/map/qso_map.php:21
 #: application/views/statistics/index.php:113
 #: application/views/statistics/index.php:161
 msgid "QSOs"
@@ -14950,8 +14956,8 @@ msgstr "DARC DOK"
 #: application/views/logbookadvanced/edit.php:36
 #: application/views/logbookadvanced/index.php:1042
 #: application/views/logbookadvanced/useroptions.php:263
-#: application/views/map/qso_map.php:22 application/views/qso/edit_ajax.php:313
-#: application/views/qso/index.php:502 application/views/view_log/qso.php:434
+#: application/views/qso/edit_ajax.php:313 application/views/qso/index.php:502
+#: application/views/view_log/qso.php:434 application/views/map/qso_map.php:22
 msgid "Region"
 msgstr "区"
 
@@ -16593,99 +16599,13 @@ msgstr "如需了解更多信息，请访问 Wavelog Wiki 中的 %sLoTW FAQ 页�
 msgid "Upload File"
 msgstr "上传文件"
 
-#: application/views/map/qso_map.php:8
-msgid "Loading QSO data..."
-msgstr ""
-
-#: application/views/map/qso_map.php:9
-msgid "Loading QSOs for all countries (this may take a moment)..."
-msgstr ""
-
-#: application/views/map/qso_map.php:10
-msgid "Still loading... Processing large dataset, please wait..."
-msgstr ""
-
-#: application/views/map/qso_map.php:11
-msgid "Failed to load QSO data. Please try again."
-msgstr ""
-
-#: application/views/map/qso_map.php:12
-msgid "Error:"
-msgstr ""
-
-#: application/views/map/qso_map.php:13
-msgid "Error parsing response:"
-msgstr ""
-
-#: application/views/map/qso_map.php:14
-msgid "Outside country boundaries"
-msgstr ""
-
-#: application/views/map/qso_map.php:15
-msgid "Inside country boundaries"
-msgstr ""
-
-#: application/views/map/qso_map.php:16
-msgid "Legend"
-msgstr ""
-
-#: application/views/map/qso_map.php:17
-msgid "Inside boundaries"
-msgstr ""
-
-#: application/views/map/qso_map.php:18
-msgid "Outside boundaries"
-msgstr ""
-
-#: application/views/map/qso_map.php:19
-msgid "Country/State boundaries"
-msgstr ""
-
-#: application/views/map/qso_map.php:20
-#, php-format
-msgid "Showing %s of %s total QSOs"
-msgstr ""
-
-#: application/views/map/qso_map.php:21
-#, php-format
-msgid "Total: %s QSOs with 6+ char grids"
-msgstr ""
-
-#: application/views/map/qso_map.php:23
-msgid "Hover over a region"
-msgstr ""
-
-#: application/views/map/qso_map.php:24
-msgid "Toggle layers"
-msgstr ""
-
-#: application/views/map/qso_map.php:28
-msgid "Regions worked:"
-msgstr ""
-
-#: application/views/map/qso_map.php:29
-msgid "Show QSO list"
-msgstr ""
-
-#: application/views/map/qso_map.php:48
+#: application/views/map/qso_map.php:15 application/views/map/qso_map.php:48
 msgid "Select Country:"
 msgstr "选择 DXCC 实体："
 
-#: application/views/map/qso_map.php:50
+#: application/views/map/qso_map.php:17 application/views/map/qso_map.php:50
 msgid "Choose a country..."
 msgstr "选择一个 DXCC 实体…"
-
-#: application/views/map/qso_map.php:60
-msgid "Location:"
-msgstr ""
-
-#: application/views/map/qso_map.php:72
-msgid "Band:"
-msgstr ""
-
-#: application/views/map/qso_map.php:81
-msgid "Load Map"
-msgstr ""
 
 #: application/views/mode/create.php:24 application/views/mode/edit.php:33
 msgctxt "Name of mode in ADIF-specification"
@@ -19273,7 +19193,7 @@ msgstr "在每一行上，只写与上一个 QSO 不同的数据。"
 
 #: application/views/simplefle/syntax_help.php:17
 msgid "The first QSO"
-msgstr ""
+msgstr "首个 QSO"
 
 #: application/views/simplefle/syntax_help.php:18
 #, php-format
@@ -19290,7 +19210,7 @@ msgstr "以第一个 QSO 为例，它始于 UTC 时间 21:34，于 20m SSB 与 4
 
 #: application/views/simplefle/syntax_help.php:25
 msgid "Signal reports (RST)"
-msgstr ""
+msgstr "信号报告 (RST)"
 
 #: application/views/simplefle/syntax_help.php:26
 msgid ""
@@ -19311,7 +19231,7 @@ msgstr ""
 
 #: application/views/simplefle/syntax_help.php:34
 msgid "Date and time"
-msgstr ""
+msgstr "日期和时间"
 
 #: application/views/simplefle/syntax_help.php:35
 msgid ""
@@ -19326,7 +19246,7 @@ msgstr ""
 
 #: application/views/simplefle/syntax_help.php:47
 msgid "Additional information"
-msgstr ""
+msgstr "附加信息"
 
 #: application/views/simplefle/syntax_help.php:48
 msgid "Additional informations can be submitted in the following way:"
@@ -19388,7 +19308,7 @@ msgstr ""
 
 #: application/views/simplefle/syntax_help.php:86
 msgid "Time zone"
-msgstr ""
+msgstr "时区"
 
 #: application/views/simplefle/syntax_help.php:87
 #, php-format
@@ -20273,8 +20193,8 @@ msgid ""
 "Click here on 'Add a Theme' and type in the necessary data. Type in the "
 "filenames for the logos %swithout%s the file extension '.png'"
 msgstr ""
-"在这里添加主题，Logo 文件请输入 png 文件的文件名部分（ %s不带有%s 后缀 '."
-"png'）"
+"在这里添加主题，Logo 文件请输入 png 文件的文件名部分（ %s不带有%s 后缀 "
+"'.png'）"
 
 #: application/views/themes/index.php:83
 msgid "Foldername"
@@ -21805,6 +21725,92 @@ msgstr "CQz"
 msgid "CQz geojson"
 msgstr "CQz geojson"
 
+#: application/views/map/qso_map.php:8
+msgid "Loading QSO data..."
+msgstr ""
+
+#: application/views/map/qso_map.php:9
+msgid "Loading QSOs for all countries (this may take a moment)..."
+msgstr ""
+
+#: application/views/map/qso_map.php:10
+msgid "Still loading... Processing large dataset, please wait..."
+msgstr ""
+
+#: application/views/map/qso_map.php:11
+msgid "Failed to load QSO data. Please try again."
+msgstr ""
+
+#: application/views/map/qso_map.php:12
+msgid "Error:"
+msgstr ""
+
+#: application/views/map/qso_map.php:13
+msgid "Error parsing response:"
+msgstr ""
+
+#: application/views/map/qso_map.php:14
+msgid "Outside country boundaries"
+msgstr ""
+
+#: application/views/map/qso_map.php:15
+msgid "Inside country boundaries"
+msgstr ""
+
+#: application/views/map/qso_map.php:16
+msgid "Legend"
+msgstr ""
+
+#: application/views/map/qso_map.php:17
+msgid "Inside boundaries"
+msgstr ""
+
+#: application/views/map/qso_map.php:18
+msgid "Outside boundaries"
+msgstr ""
+
+#: application/views/map/qso_map.php:19
+msgid "Country/State boundaries"
+msgstr ""
+
+#: application/views/map/qso_map.php:20
+#, php-format
+msgid "Showing %s of %s total QSOs"
+msgstr ""
+
+#: application/views/map/qso_map.php:21
+#, php-format
+msgid "Total: %s QSOs with 6+ char grids"
+msgstr ""
+
+#: application/views/map/qso_map.php:23
+msgid "Hover over a region"
+msgstr ""
+
+#: application/views/map/qso_map.php:24
+msgid "Toggle layers"
+msgstr ""
+
+#: application/views/map/qso_map.php:28
+msgid "Regions worked:"
+msgstr ""
+
+#: application/views/map/qso_map.php:29
+msgid "Show QSO list"
+msgstr ""
+
+#: application/views/map/qso_map.php:60
+msgid "Location:"
+msgstr ""
+
+#: application/views/map/qso_map.php:72
+msgid "Band:"
+msgstr ""
+
+#: application/views/map/qso_map.php:81
+msgid "Load Map"
+msgstr ""
+
 #~ msgid ""
 #~ "To begin, ensure you have already filled in the form on the left with the "
 #~ "date, station call, and operator's call. The main data includes the band "
@@ -23243,8 +23249,8 @@ msgstr "CQz geojson"
 #~ "Click here on 'Add a Theme' and type in the necessary data. Type in the "
 #~ "filenames for the logos <b>without</b> the file extension '.png'"
 #~ msgstr ""
-#~ "在这里点击 '添加主题'，输入必要的信息，填写 Logo 的文件名（<b>不要带有 ."
-#~ "png 后缀名</b>）"
+#~ "在这里点击 '添加主题'，输入必要的信息，填写 Logo 的文件名（<b>不要带"
+#~ "有 .png 后缀名</b>）"
 
 #, php-format
 #~ msgid ""
