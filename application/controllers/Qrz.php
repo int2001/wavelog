@@ -18,14 +18,14 @@ class Qrz extends CI_Controller {
 
 	// Show frontend if there is one
 	public function index() {
-		$this->config->load('config');
+		redirect('dashboard');
 	}
 
 	/* 
 	 * API Key Status Test
 	 */
-
 	public function qrz_apitest() {
+		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		$apikey = trim(xss_clean($this->input->post('APIKEY')));
 		$url = 'https://logbook.qrz.com/api'; // TODO: Move this to database
   
@@ -106,7 +106,7 @@ class Qrz extends CI_Controller {
 		}
 	}
 
-	function setOptions() {
+	private function setOptions() {
 		$this->config->load('config');
 		ini_set('memory_limit', '-1');
 		ini_set('display_errors', 1);
@@ -228,6 +228,7 @@ class Qrz extends CI_Controller {
 	 * Used for ajax-function when selecting log for upload to qrz
 	 */
 	public function upload_station() {
+		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		if (!($this->config->item('disable_manual_qrz'))) {
 			$this->setOptions();
 			$this->load->model('stations');
