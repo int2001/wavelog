@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-20 12:32+0000\n"
-"PO-Revision-Date: 2026-07-21 13:16+0000\n"
+"PO-Revision-Date: 2026-07-24 13:03+0000\n"
 "Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ja/>\n"
@@ -22326,89 +22326,89 @@ msgstr "CQz geojson"
 
 #: application/views/map/qso_map.php:8
 msgid "Loading QSO data..."
-msgstr ""
+msgstr "QSOデータを読み込んでいます..."
 
 #: application/views/map/qso_map.php:9
 msgid "Loading QSOs for all countries (this may take a moment)..."
-msgstr ""
+msgstr "すべての国の交信データを読み込んでいます（少々時間がかかる場合があります）。"
 
 #: application/views/map/qso_map.php:10
 msgid "Still loading... Processing large dataset, please wait..."
-msgstr ""
+msgstr "読み込み中です… 大規模なデータセットを処理しています。しばらくお待ちください…"
 
 #: application/views/map/qso_map.php:11
 msgid "Failed to load QSO data. Please try again."
-msgstr ""
+msgstr "QSOデータの読み込みに失敗しました。もう一度お試しください。"
 
 #: application/views/map/qso_map.php:12
 msgid "Error:"
-msgstr ""
+msgstr "エラー："
 
 #: application/views/map/qso_map.php:13
 msgid "Error parsing response:"
-msgstr ""
+msgstr "レスポンスの解析エラー:"
 
 #: application/views/map/qso_map.php:14
 msgid "Outside country boundaries"
-msgstr ""
+msgstr "国境の外"
 
 #: application/views/map/qso_map.php:15
 msgid "Inside country boundaries"
-msgstr ""
+msgstr "国境内"
 
 #: application/views/map/qso_map.php:16
 msgid "Legend"
-msgstr ""
+msgstr "伝説"
 
 #: application/views/map/qso_map.php:17
 msgid "Inside boundaries"
-msgstr ""
+msgstr "境界線内"
 
 #: application/views/map/qso_map.php:18
 msgid "Outside boundaries"
-msgstr ""
+msgstr "境界外"
 
 #: application/views/map/qso_map.php:19
 msgid "Country/State boundaries"
-msgstr ""
+msgstr "国/州の境界線"
 
 #: application/views/map/qso_map.php:20
 #, php-format
 msgid "Showing %s of %s total QSOs"
-msgstr ""
+msgstr "表示中 %s 数 %s 総交信"
 
 #: application/views/map/qso_map.php:21
 #, php-format
 msgid "Total: %s QSOs with 6+ char grids"
-msgstr ""
+msgstr "合計： %s件 6文字以上のグリッドを持つQSOが"
 
 #: application/views/map/qso_map.php:23
 msgid "Hover over a region"
-msgstr ""
+msgstr "領域の上にカーソルを合わせる"
 
 #: application/views/map/qso_map.php:24
 msgid "Toggle layers"
-msgstr ""
+msgstr "レイヤーを切り替える"
 
 #: application/views/map/qso_map.php:28
 msgid "Regions worked:"
-msgstr ""
+msgstr "活動地域："
 
 #: application/views/map/qso_map.php:29
 msgid "Show QSO list"
-msgstr ""
+msgstr "QSOリストを表示"
 
 #: application/views/map/qso_map.php:60
 msgid "Location:"
-msgstr ""
+msgstr "位置："
 
 #: application/views/map/qso_map.php:72
 msgid "Band:"
-msgstr ""
+msgstr "バンド："
 
 #: application/views/map/qso_map.php:81
 msgid "Load Map"
-msgstr ""
+msgstr "マップをロード"
 
 #~ msgid ""
 #~ "To begin, ensure you have already filled in the form on the left with the "
