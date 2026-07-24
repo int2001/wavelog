@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-07-20 12:32+0000\n"
-"PO-Revision-Date: 2026-07-19 20:07+0000\n"
+"POT-Creation-Date: 2026-07-23 19:51+0000\n"
+"PO-Revision-Date: 2026-07-24 18:04+0000\n"
 "Last-Translator: iv3cvn <ricentis@gmail.com>\n"
 "Language-Team: Italian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/it/>\n"
@@ -1911,7 +1911,7 @@ msgstr "Tutte le ricerche del nominativo non hanno prodotto alcun risultato."
 #: application/views/logbookadvanced/qslcarousel.php:32
 #: application/views/logbookadvanced/showStateQsos.php:23
 #: application/views/logbookadvanced/useroptions.php:46
-#: application/views/mode/index.php:40
+#: application/views/map/qso_map.php:33 application/views/mode/index.php:40
 #: application/views/oqrs/notinlogform.php:12
 #: application/views/oqrs/qsolist.php:9 application/views/oqrs/request.php:19
 #: application/views/oqrs/request_grouped.php:13
@@ -2106,7 +2106,8 @@ msgstr "Stato"
 #: application/views/logbookadvanced/showStateQsos.php:26
 #: application/views/logbookadvanced/showUpdateResult.php:44
 #: application/views/logbookadvanced/useroptions.php:85
-#: application/views/lookup/index.php:6 application/views/map/qso_map.php:63
+#: application/views/lookup/index.php:6 application/views/map/qso_map.php:34
+#: application/views/map/qso_map.php:111
 #: application/views/qslcard/confirmationresult.php:19
 #: application/views/qslcard/searchresult.php:19
 #: application/views/qslcard/searchresult.php:35
@@ -2150,7 +2151,7 @@ msgstr "Locatore"
 #: application/views/logbookadvanced/index.php:542
 #: application/views/logbookadvanced/index.php:1063
 #: application/views/logbookadvanced/useroptions.php:318
-#: application/views/map/qso_map.php:65
+#: application/views/map/qso_map.php:112
 #: application/views/qslcard/searchresult.php:20
 #: application/views/qslcard/searchresult.php:36
 #: application/views/qslcard/searchresult.php:52
@@ -2229,6 +2230,7 @@ msgstr "Distanza"
 #: application/views/logbookadvanced/qslcarousel.php:33
 #: application/views/logbookadvanced/showStateQsos.php:24
 #: application/views/logbookadvanced/useroptions.php:64
+#: application/views/map/qso_map.php:32
 #: application/views/oqrs/notinlogform.php:11
 #: application/views/oqrs/qsolist.php:10 application/views/oqrs/request.php:18
 #: application/views/oqrs/request_grouped.php:12
@@ -2464,7 +2466,7 @@ msgstr "Importazione ADIF LoTW"
 msgid "You have not defined your ARRL LoTW credentials!"
 msgstr "Non hai definito le tue credenziali ARRL LoTW!"
 
-#: application/controllers/Map.php:46
+#: application/controllers/Map.php:56
 msgid "QSO Map"
 msgstr "Mappa QSO"
 
@@ -4226,6 +4228,8 @@ msgid ""
 "QSO on %s: You tried to import a QSO with an invalid CALL. This QSO wasn't "
 "imported. The invalid input is '%s'."
 msgstr ""
+"QSO su %s: Hai provato a importare un QSO con un CALL non valido. Questo QSO "
+"non è stato importato. L'input non valido è '%s'."
 
 #: application/models/Logbook_model.php:4383
 #, php-format
@@ -4233,6 +4237,8 @@ msgid ""
 "QSO on %s: Band '%s' is not in the band configuration. This QSO wasn't "
 "imported."
 msgstr ""
+"QSO su %s: La banda '%s' non è nella configurazione delle bande. Questo QSO "
+"non è stato importato."
 
 #: application/models/Logbook_model.php:4390
 #, php-format
@@ -4307,7 +4313,7 @@ msgstr "QSO aggiornato"
 #: application/views/dashboard/index.php:20
 #: application/views/gridmap/index.php:228
 #: application/views/logbookadvanced/index.php:15
-#: application/views/map/qso_map.php:67 application/views/user/edit.php:310
+#: application/views/map/qso_map.php:113 application/views/user/edit.php:310
 #: application/views/user/edit.php:333 application/views/user/edit.php:356
 #: application/views/user/edit.php:379 application/views/user/edit.php:404
 #: application/views/view_log/partial/log_ajax.php:21
@@ -4569,7 +4575,7 @@ msgstr "Differenza"
 #: application/views/logbookadvanced/index.php:712
 #: application/views/logbookadvanced/index.php:735
 #: application/views/logbookadvanced/index.php:744
-#: application/views/lotw/import.php:55
+#: application/views/lotw/import.php:55 application/views/map/qso_map.php:74
 #: application/views/oqrs/showrequests.php:38
 #: application/views/oqrs/showrequests.php:54
 #: application/views/oqrs/showrequests.php:69
@@ -4801,7 +4807,7 @@ msgstr "Cancella indicatori"
 #: application/views/contesting/logger/components/map.php:76
 #: application/views/gridmap/index.php:224
 #: application/views/logbookadvanced/index.php:10
-#: application/views/map/qso_map.php:59
+#: application/views/map/qso_map.php:109
 msgid "Latitude"
 msgstr "Latitudine"
 
@@ -4811,7 +4817,7 @@ msgstr "Latitudine"
 #: application/views/contesting/logger/components/map.php:78
 #: application/views/gridmap/index.php:225
 #: application/views/logbookadvanced/index.php:11
-#: application/views/map/qso_map.php:61
+#: application/views/map/qso_map.php:110
 msgid "Longitude"
 msgstr "Longitudine"
 
@@ -4894,7 +4900,7 @@ msgstr "Non ho trovato nulla!"
 #: application/views/logbookadvanced/qslcarousel.php:30
 #: application/views/logbookadvanced/showUpdateResult.php:43
 #: application/views/lotw_views/index.php:42
-#: application/views/oqrs/qsolist.php:6
+#: application/views/map/qso_map.php:30 application/views/oqrs/qsolist.php:6
 #: application/views/oqrs/request_grouped.php:14
 #: application/views/qslcard/confirmationresult.php:15
 #: application/views/qslcard/index.php:43
@@ -6244,7 +6250,7 @@ msgstr "%s%% confermato complessivamente"
 #: application/views/dashboard/index.php:438
 #: application/views/dashboard/index.php:487
 #: application/views/dashboard/index.php:671
-#: application/views/search/result.php:35
+#: application/views/map/qso_map.php:26 application/views/search/result.php:35
 #: application/views/visitor/index.php:266
 msgid "Worked"
 msgstr "Collegato"
@@ -6265,7 +6271,7 @@ msgstr "Collegato"
 #: application/views/dashboard/index.php:491
 #: application/views/dashboard/index.php:676
 #: application/views/interface_assets/footer.php:49
-#: application/views/search/result.php:32
+#: application/views/map/qso_map.php:25 application/views/search/result.php:32
 #: application/views/visitor/index.php:270
 msgid "Confirmed"
 msgstr "Confermato"
@@ -6344,7 +6350,7 @@ msgstr "QSO confermati"
 #: application/views/logbookadvanced/index.php:1015
 #: application/views/logbookadvanced/qslcarousel.php:37
 #: application/views/logbookadvanced/useroptions.php:193
-#: application/views/lookup/index.php:3 application/views/map/qso_map.php:69
+#: application/views/lookup/index.php:3 application/views/map/qso_map.php:114
 #: application/views/qso/edit_ajax.php:293 application/views/qso/index.php:518
 #: application/views/station_profile/create.php:129
 #: application/views/station_profile/edit.php:154
@@ -7398,7 +7404,7 @@ msgstr "Eliminato"
 #: application/views/logbookadvanced/index.php:467
 #: application/views/logbookadvanced/index.php:1018
 #: application/views/logbookadvanced/useroptions.php:199
-#: application/views/lookup/index.php:8 application/views/map/qso_map.php:71
+#: application/views/lookup/index.php:8 application/views/map/qso_map.php:115
 #: application/views/qso/edit_ajax.php:302 application/views/qso/index.php:528
 #: application/views/station_profile/create.php:144
 #: application/views/station_profile/edit.php:169
@@ -7876,6 +7882,7 @@ msgstr "Riferenza"
 #: application/views/logbookadvanced/qslcarousel.php:31
 #: application/views/logbookadvanced/showStateQsos.php:22
 #: application/views/logbookadvanced/useroptions.php:22
+#: application/views/map/qso_map.php:31
 #: application/views/qso/components/previous_contacts.php:6
 #: application/views/search/lotw_unconfirmed_result.php:7
 #: application/views/view_log/qso.php:72
@@ -8782,6 +8789,7 @@ msgstr "Recuperando..."
 #: application/views/dashboard/index.php:429
 #: application/views/dashboard/index.php:438
 #: application/views/interface_assets/footer.php:51
+#: application/views/map/qso_map.php:27
 msgid "Not worked"
 msgstr "Non collegato"
 
@@ -11690,7 +11698,7 @@ msgstr ""
 
 #: application/views/contesting/manager/import_legacy.php:17
 msgid "How grouping works:"
-msgstr ""
+msgstr "Come funziona il raggruppamento:"
 
 #: application/views/contesting/manager/import_legacy.php:18
 msgid ""
@@ -11700,6 +11708,12 @@ msgid ""
 "as one session, while weekly or monthly contest series are imported as "
 "separate sessions."
 msgstr ""
+"I QSO sono raggruppati per contest e stazione. I QSO consecutivi finiscono "
+"nella stessa sessione se distano meno di 72 ore o rientrano nella stessa "
+"settimana di calendario ISO (da lunedì a domenica). Questo mantiene insieme "
+"gli eventi di attività della durata di una settimana come un'unica sessione, "
+"mentre le serie di contest settimanali o mensili vengono importate come "
+"sessioni separate."
 
 #: application/views/contesting/manager/import_legacy.php:22
 msgid "Admin mode:"
@@ -11738,7 +11752,7 @@ msgstr "Seleziona almeno un contest da importare."
 
 #: application/views/contesting/manager/import_legacy.php:102
 msgid "Are you sure you want to import the selected contest sessions?"
-msgstr ""
+msgstr "Sei sicuro di voler importare le sessioni del contest selezionate?"
 
 #: application/views/contesting/manager/index.php:17
 #: application/views/interface_assets/header.php:341
@@ -11764,11 +11778,11 @@ msgstr "Avvio rapido"
 
 #: application/views/contesting/manager/index.php:23
 msgid "Delete Selected"
-msgstr ""
+msgstr "Elimina i selezionati"
 
 #: application/views/contesting/manager/index.php:23
 msgid "Delete selected contest sessions"
-msgstr ""
+msgstr "Elimina le sessioni dei contest selezionate"
 
 #: application/views/contesting/manager/index.php:51
 #: application/views/logbookadvanced/attachContest.php:28
@@ -11803,27 +11817,27 @@ msgstr "Esporta EDI"
 
 #: application/views/contesting/manager/index.php:125
 msgid "Delete Contest Sessions"
-msgstr ""
+msgstr "Elimina sessioni del contest"
 
 #: application/views/contesting/manager/index.php:130
 msgid "Do you really want to delete the selected contest sessions?"
-msgstr ""
+msgstr "Vuoi davvero eliminare le sessioni del contest selezionate?"
 
 #: application/views/contesting/manager/index.php:131
 msgid "Selected sessions: "
-msgstr ""
+msgstr "Sessioni selezionate: "
 
 #: application/views/contesting/manager/index.php:135
 msgid "Also delete all QSOs logged in these sessions from the logbook"
-msgstr ""
+msgstr "Inoltre cancella tutti i QSO registrati in queste sessioni dal logbook"
 
 #: application/views/contesting/manager/index.php:142
 msgid "Delete Sessions"
-msgstr ""
+msgstr "Elimina sessioni"
 
 #: application/views/contesting/manager/index.php:155
 msgid "Please select at least one contest session."
-msgstr ""
+msgstr "Seleziona almeno una sessione di contest."
 
 #: application/views/contesting/manager/index.php:185
 msgid "Import historical contests from logbook"
@@ -13872,7 +13886,7 @@ msgstr "ERRORE"
 
 #: application/views/interface_assets/footer.php:36
 msgid "The query failed for a unknown reason"
-msgstr ""
+msgstr "La query non è riuscita per una ragione sconosciuta"
 
 #: application/views/interface_assets/footer.php:37
 msgid "Attention"
@@ -15006,7 +15020,6 @@ msgstr "Tipi di etichette"
 
 #: application/views/labels/index.php:82
 #: application/views/logbookadvanced/statecheckresult.php:12
-#: application/views/map/qso_map.php:21
 #: application/views/statistics/index.php:113
 #: application/views/statistics/index.php:161
 msgid "QSOs"
@@ -15457,8 +15470,8 @@ msgstr "DARC DOK"
 #: application/views/logbookadvanced/edit.php:36
 #: application/views/logbookadvanced/index.php:1042
 #: application/views/logbookadvanced/useroptions.php:263
-#: application/views/qso/edit_ajax.php:313 application/views/qso/index.php:502
-#: application/views/view_log/qso.php:434
+#: application/views/map/qso_map.php:22 application/views/qso/edit_ajax.php:313
+#: application/views/qso/index.php:502 application/views/view_log/qso.php:434
 msgid "Region"
 msgstr "Regione"
 
@@ -17151,13 +17164,102 @@ msgstr ""
 msgid "Upload File"
 msgstr "Carica File"
 
+#: application/views/map/qso_map.php:8
+msgid "Loading QSO data..."
+msgstr "Caricamento dei dati del QSO..."
+
+#: application/views/map/qso_map.php:9
+msgid "Loading QSOs for all countries (this may take a moment)..."
+msgstr ""
+"Caricamento dei QSO per tutti i country (potrebbe volerci un momento)..."
+
+#: application/views/map/qso_map.php:10
+msgid "Still loading... Processing large dataset, please wait..."
+msgstr ""
+"Caricamento in corso... Elaborazione di un grande set di dati, attendere "
+"prego..."
+
+#: application/views/map/qso_map.php:11
+msgid "Failed to load QSO data. Please try again."
+msgstr "Caricamento dei dati QSO non riuscito. Per favore riprova."
+
+#: application/views/map/qso_map.php:12
+msgid "Error:"
+msgstr "Errore:"
+
+#: application/views/map/qso_map.php:13
+msgid "Error parsing response:"
+msgstr "Errore nell'analisi della risposta:"
+
+#: application/views/map/qso_map.php:14
+msgid "Outside country boundaries"
+msgstr "Confini fuori dal country"
+
 #: application/views/map/qso_map.php:15
+msgid "Inside country boundaries"
+msgstr "Confini dentro il country"
+
+#: application/views/map/qso_map.php:16
+msgid "Legend"
+msgstr "Legenda"
+
+#: application/views/map/qso_map.php:17
+msgid "Inside boundaries"
+msgstr "Dentro i confini"
+
+#: application/views/map/qso_map.php:18
+msgid "Outside boundaries"
+msgstr "Fuori dai confini"
+
+#: application/views/map/qso_map.php:19
+msgid "Country/State boundaries"
+msgstr "Confini di paese/stato"
+
+#: application/views/map/qso_map.php:20
+#, php-format
+msgid "Showing %s of %s total QSOs"
+msgstr "Mostrando %s di %s QSOs totali"
+
+#: application/views/map/qso_map.php:21
+#, php-format
+msgid "Total: %s QSOs with 6+ char grids"
+msgstr "Totale: %s QSO con griglie di 6+ caratteri"
+
+#: application/views/map/qso_map.php:23
+msgid "Hover over a region"
+msgstr "Passa sopra una regione"
+
+#: application/views/map/qso_map.php:24
+msgid "Toggle layers"
+msgstr "Attiva/disattiva livelli"
+
+#: application/views/map/qso_map.php:28
+msgid "Regions worked:"
+msgstr "Regioni lavorate:"
+
+#: application/views/map/qso_map.php:29
+msgid "Show QSO list"
+msgstr "Mostra l'elenco QSO"
+
+#: application/views/map/qso_map.php:48
 msgid "Select Country:"
 msgstr "Seleziona Paese:"
 
-#: application/views/map/qso_map.php:17
+#: application/views/map/qso_map.php:50
 msgid "Choose a country..."
 msgstr "Scegli un paese..."
+
+#: application/views/map/qso_map.php:60
+msgid "Location:"
+msgstr "Posizione:"
+
+#: application/views/map/qso_map.php:72
+msgid "Band:"
+msgstr "Banda:"
+
+#: application/views/map/qso_map.php:81
+msgid "Load Map"
+msgstr "Carica mappa"
 
 #: application/views/mode/create.php:24 application/views/mode/edit.php:33
 msgctxt "Name of mode in ADIF-specification"
@@ -18217,6 +18319,8 @@ msgid ""
 "Your current design has unsaved changes. If you leave the page, those "
 "changes will be lost. Leave anyway?"
 msgstr ""
+"Il tuo design attuale ha modifiche non salvate. Se lasci la pagina, queste "
+"modifiche andranno perse. Uscire comunque?"
 
 #: application/views/qslpostcard/designer.php:52
 msgid "Discard changes"
@@ -18228,7 +18332,7 @@ msgstr "Continua a modificare"
 
 #: application/views/qslpostcard/designer.php:54
 msgid "Leave page"
-msgstr ""
+msgstr "Lascia la pagina"
 
 #: application/views/qslpostcard/designer.php:70
 msgid "(new)"
@@ -19854,7 +19958,7 @@ msgstr "Nessuna opzione ancora"
 
 #: application/views/simplefle/syntax_help.php:10
 msgid "Getting started"
-msgstr ""
+msgstr "Per iniziare"
 
 #: application/views/simplefle/syntax_help.php:11
 msgid "Before starting to log a QSO, please note the basic rules."
@@ -19874,16 +19978,21 @@ msgstr ""
 
 #: application/views/simplefle/syntax_help.php:17
 msgid "The first QSO"
-msgstr ""
+msgstr "Il primo QSO"
 
 #: application/views/simplefle/syntax_help.php:18
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "To begin, ensure you have already filled in the form on the left with the "
 "date, station call, and operator's call. The main data includes the band (or "
 "QRG in MHz, e.g., %s), mode, and time. After the time, you provide the first "
 "QSO, which is essentially the callsign."
 msgstr ""
+"Per iniziare, assicurati di aver già compilato il modulo a sinistra con la "
+"data, il nominativo della stazione e il nominativo dell'operatore. I dati "
+"principali comprendono la banda (o QRG in MHz, ad esempio, %s), la modalità "
+"e l'ora. Dopo l'ora, fornisci il primo QSO, che è essenzialmente il "
+"nominativo."
 
 #: application/views/simplefle/syntax_help.php:23
 msgid "For example, a QSO that started at 21:34 (UTC) with 4W7EST on 20m SSB."
@@ -19892,7 +20001,7 @@ msgstr ""
 
 #: application/views/simplefle/syntax_help.php:25
 msgid "Signal reports (RST)"
-msgstr ""
+msgstr "Rapporti di segnale (RST)"
 
 #: application/views/simplefle/syntax_help.php:26
 msgid ""
@@ -19901,6 +20010,10 @@ msgid ""
 "sides, so we provide the information with the sent RST first. It was 2 "
 "minutes later than the first QSO."
 msgstr ""
+"Se non fornisci alcuna informazione RST, la sintassi utilizzerà 59 per "
+"telefono, 599 per CW e +0 dB per le modalità dati digitali. Il nostro "
+"prossimo QSO non era 59 su entrambi i lati, quindi forniamo le informazioni "
+"con l'RST inviato per primo. Era 2 minuti dopo il primo QSO."
 
 #: application/views/simplefle/syntax_help.php:32
 msgid ""
@@ -19914,7 +20027,7 @@ msgstr ""
 
 #: application/views/simplefle/syntax_help.php:34
 msgid "Date and time"
-msgstr ""
+msgstr "Data e ora"
 
 #: application/views/simplefle/syntax_help.php:35
 msgid ""
@@ -19931,7 +20044,7 @@ msgstr ""
 
 #: application/views/simplefle/syntax_help.php:47
 msgid "Additional information"
-msgstr ""
+msgstr "Informazioni aggiuntive"
 
 #: application/views/simplefle/syntax_help.php:48
 msgid "Additional informations can be submitted in the following way:"
@@ -19959,7 +20072,7 @@ msgstr ""
 
 #: application/views/simplefle/syntax_help.php:66
 msgid "Contest exchange"
-msgstr ""
+msgstr "Contest exchange"
 
 #: application/views/simplefle/syntax_help.php:67
 msgid "Contest exchange; serials or other exchange - or even both:"
@@ -19995,7 +20108,7 @@ msgstr ""
 
 #: application/views/simplefle/syntax_help.php:86
 msgid "Time zone"
-msgstr ""
+msgstr "Fuso orario"
 
 #: application/views/simplefle/syntax_help.php:87
 #, php-format
