@@ -69,6 +69,14 @@ class Qrz extends CI_Controller {
 	 * All QSOs not previously uploaded, will then be uploaded, one at a time
 	 */
 	public function upload() {
+
+		$this->load->helper('cronauth');
+		if (!cronauth_allowed(3)) {
+			// return a 403
+			$this->output->set_status_header(403);
+			exit();
+		}
+
 		$this->setOptions();
 
 		// set the last run in cron table for the correct cron id
@@ -189,7 +197,7 @@ class Qrz extends CI_Controller {
 	/*
 	 * Function marks QSO with given primarykey as uploaded to qrz
 	 */
-	function markqso($primarykey,$state = 'Y') {
+	private function markqso($primarykey,$state = 'Y') {
 		$this->logbook_model->mark_qrz_qsos_sent($primarykey, $state);
 	}
 
@@ -300,6 +308,12 @@ class Qrz extends CI_Controller {
 	} // end function
 
 	function download($user_id_to_load = null, $lastqrz = null, $show_views = false) {
+		$this->load->helper('cronauth');
+		if (!cronauth_allowed(3)) {
+			// return a 403
+			$this->output->set_status_header(403);
+			exit();
+		}
 		$this->load->model('logbook_model');
 
 		$this->load->model('cron_model');
