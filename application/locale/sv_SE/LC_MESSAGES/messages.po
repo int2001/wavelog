@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-07-29 11:53+0000\n"
-"PO-Revision-Date: 2026-07-21 13:16+0000\n"
+"PO-Revision-Date: 2026-07-29 10:54+0000\n"
 "Last-Translator: \"Jorgen Dahl, NU1T\" <sm6srw@arrl.net>\n"
 "Language-Team: Swedish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/sv/>\n"
@@ -421,27 +421,27 @@ msgstr "API-nyckel %s har tagits bort"
 
 #: application/controllers/Api_token.php:37
 msgid "Please provide a token name"
-msgstr ""
+msgstr "Var god och ange ett token-namn"
 
 #: application/controllers/Api_token.php:46
 msgid "Please select at least one scope"
-msgstr ""
+msgstr "Var god välj minst en räckvidd"
 
 #: application/controllers/Api_token.php:68
 msgid "API Token generated"
-msgstr ""
+msgstr "API-token genererad"
 
 #: application/controllers/Api_token.php:70
 msgid "API Token could not be generated"
-msgstr ""
+msgstr "API-token kunde inte genereras"
 
 #: application/controllers/Api_token.php:90
 msgid "Invalid API Token"
-msgstr ""
+msgstr "Ogiltig API-token"
 
 #: application/controllers/Api_token.php:97
 msgid "API Token has been deleted"
-msgstr ""
+msgstr "API-token har raderats"
 
 #: application/controllers/Awards.php:30
 #: application/views/interface_assets/header.php:190
@@ -4005,11 +4005,11 @@ msgstr "Lokator Zon sökare"
 
 #: application/controllers/Zonechecker.php:477
 msgid "GeoJSON data unavailable"
-msgstr ""
+msgstr "GeoJSON-data inte tillgänglig"
 
 #: application/controllers/Zonechecker.php:483
 msgid "Invalid gridsquare"
-msgstr ""
+msgstr "Ogiltig lokator"
 
 #: application/libraries/Callbook.php:70
 msgid "Lookup not configured. Please review configuration."
@@ -4117,51 +4117,51 @@ msgstr "Stad / Ku / Gun"
 
 #: application/libraries/api_v2/Club_resource.php:27
 msgid "Read club members"
-msgstr ""
+msgstr "Läs klubbmedlemmar"
 
 #: application/libraries/api_v2/Lookup_resource.php:44
 msgid "Look up callsigns and grids"
-msgstr ""
+msgstr "Slå upp anropssignaler och lokatorrutor"
 
 #: application/libraries/api_v2/Qso_resource.php:48
 msgid "Read QSOs"
-msgstr ""
+msgstr "Läs QSOs"
 
 #: application/libraries/api_v2/Qso_resource.php:49
 msgid "Create and update QSOs"
-msgstr ""
+msgstr "Skapa och uppdatera QSOs"
 
 #: application/libraries/api_v2/Qso_resource.php:50
 msgid "Delete QSOs"
-msgstr ""
+msgstr "Radera QSOs"
 
 #: application/libraries/api_v2/Radio_resource.php:30
 msgid "Read radios"
-msgstr ""
+msgstr "Läs radioapparater"
 
 #: application/libraries/api_v2/Radio_resource.php:31
 msgid "Create and update radios"
-msgstr ""
+msgstr "Skapa och uppdatera radioapparater"
 
 #: application/libraries/api_v2/Radio_resource.php:32
 msgid "Delete radios"
-msgstr ""
+msgstr "Radera radioapparater"
 
 #: application/libraries/api_v2/Station_resource.php:45
 msgid "Read station locations"
-msgstr ""
+msgstr "Läs stationsplatser"
 
 #: application/libraries/api_v2/Station_resource.php:46
 msgid "Create and update station locations"
-msgstr ""
+msgstr "Skapa och uppdatera stationsplatser"
 
 #: application/libraries/api_v2/Station_resource.php:47
 msgid "Delete station locations"
-msgstr ""
+msgstr "Radera stationsplatser"
 
 #: application/libraries/api_v2/Statistic_resource.php:52
 msgid "Read statistics"
-msgstr ""
+msgstr "Läs statistik"
 
 #: application/models/Api_v2_model.php:77
 msgid " (min. 2.1.0)"
@@ -5737,7 +5737,7 @@ msgstr "Status"
 #: application/views/api/components/create_token_modal.php:5
 #: application/views/api/index.php:189
 msgid "Create a new API Token"
-msgstr ""
+msgstr "Skapa en ny API-token"
 
 #: application/views/api/components/create_token_modal.php:6
 #: application/views/api/components/new_token_modal.php:7
@@ -5766,34 +5766,36 @@ msgid ""
 "Create a token with granular permissions (scopes). The token is shown only "
 "once when it is created, so copy it right away."
 msgstr ""
+"Skapa en token med detaljerade behörigheter (räckvidder). Token visas bara "
+"en gång när den skapas, så kopiera den omedelbart."
 
 #: application/views/api/components/create_token_modal.php:13
 msgid "Token Name"
-msgstr ""
+msgstr "Token-namn"
 
 #: application/views/api/components/create_token_modal.php:14
 msgid "e.g. My logging tool"
-msgstr ""
+msgstr "t.ex. Mitt loggverktyg"
 
 #: application/views/api/components/create_token_modal.php:15
 msgid "A name to help you recognise this token later."
-msgstr ""
+msgstr "Ett namn som hjälper dig att känna igen denna token senare."
 
 #: application/views/api/components/create_token_modal.php:18
 msgid "Expiration"
-msgstr ""
+msgstr "Utgång"
 
 #: application/views/api/components/create_token_modal.php:20
 msgid "30 days"
-msgstr ""
+msgstr "30 dagar"
 
 #: application/views/api/components/create_token_modal.php:21
 msgid "90 days"
-msgstr ""
+msgstr "90 dagar"
 
 #: application/views/api/components/create_token_modal.php:22
 msgid "1 year"
-msgstr ""
+msgstr "1 år"
 
 #: application/views/api/components/create_token_modal.php:23
 #: application/views/api/index.php:154 application/views/api/index.php:157
@@ -5804,26 +5806,28 @@ msgstr "Aldrig"
 
 #: application/views/api/components/create_token_modal.php:25
 msgid "When the token should stop working."
-msgstr ""
+msgstr "När token ska sluta fungera."
 
 #: application/views/api/components/create_token_modal.php:27
 msgid ""
 "A token that never expires stays valid until you delete it manually. This is "
 "possible, but not recommended for security reasons."
 msgstr ""
+"En token som aldrig löper ut förblir giltig tills du tar bort den manuellt. "
+"Detta är möjligt, men inte rekommenderat av säkerhetsskäl."
 
 #: application/views/api/components/create_token_modal.php:34
 #: application/views/api/index.php:136
 msgid "Scopes"
-msgstr ""
+msgstr "Räckvidder"
 
 #: application/views/api/components/create_token_modal.php:35
 msgid "Select which parts of the API v2 this token may access."
-msgstr ""
+msgstr "Välj vilka delar av API v2 som denna token kan få åtkomst till."
 
 #: application/views/api/components/create_token_modal.php:63
 msgid "Please select at least one scope."
-msgstr ""
+msgstr "Vänligen välj minst en räckvidd."
 
 #: application/views/api/components/create_token_modal.php:67
 #: application/views/satellite/pass.php:149
@@ -5877,7 +5881,7 @@ msgstr "Avbryt"
 
 #: application/views/api/components/create_token_modal.php:89
 msgid "Create Token"
-msgstr ""
+msgstr "Skapa token"
 
 #: application/views/api/components/edit_legacy.php:15
 msgid "Editing Description for API Key"
@@ -5914,15 +5918,16 @@ msgstr "Spara"
 
 #: application/views/api/components/new_token_modal.php:6
 msgid "New API Token"
-msgstr ""
+msgstr "Ny API-token"
 
 #: application/views/api/components/new_token_modal.php:12
 msgid "Copy this token now. For security reasons it will not be shown again."
 msgstr ""
+"Kopiera denna token nu. Av säkerhetsskäl kommer den inte att visas igen."
 
 #: application/views/api/components/new_token_modal.php:14
 msgid "Your API Token"
-msgstr ""
+msgstr "Din API-token"
 
 #: application/views/api/components/new_token_modal.php:17
 #: application/views/api/index.php:19 application/views/api/index.php:54
@@ -5933,13 +5938,15 @@ msgstr "Kopiera till urklipp"
 
 #: application/views/api/index.php:8
 msgid "Legacy API Keys (API v1)"
-msgstr ""
+msgstr "Legacy API-nycklar (API v1)"
 
 #: application/views/api/index.php:11
 msgid ""
 "New integrations should use the API v2 tokens below, if the third party "
 "system supports it."
 msgstr ""
+"Nya integrationer bör använda API v2-token nedan, om tredje parts-systemet "
+"stödjer det."
 
 #: application/views/api/index.php:11
 msgid ""
@@ -5965,7 +5972,7 @@ msgstr ""
 
 #: application/views/api/index.php:13
 msgid "Links to 3rd-Party-Software which works with Wavelog API v1:"
-msgstr ""
+msgstr "Länkar till tredjepartsprogramvara som fungerar med Wavelog API v1:"
 
 #: application/views/api/index.php:16
 msgid "More Tools"
@@ -6061,7 +6068,7 @@ msgstr "Testa"
 
 #: application/views/api/index.php:79
 msgid "<noname>"
-msgstr ""
+msgstr "<namnlös>"
 
 #: application/views/api/index.php:79
 #, php-format
@@ -6082,7 +6089,7 @@ msgstr "Skapa en skrivskyddad nyckel"
 
 #: application/views/api/index.php:120
 msgid "API Tokens (API v2)"
-msgstr ""
+msgstr "API-token (API v2)"
 
 #: application/views/api/index.php:123
 msgid ""
@@ -6090,21 +6097,26 @@ msgid ""
 "(scopes). The token is shown only once when it is created, so copy it right "
 "away."
 msgstr ""
+"API-tokens ger åtkomst till REST API v2 med detaljerade behörigheter "
+"(räckvidder). Token visas endast en gång när den skapas, så kopiera den "
+"direkt."
 
 #: application/views/api/index.php:124
 #, php-format
 msgid "The API v2 documentation can be found %shere%s."
-msgstr ""
+msgstr "Dokumentationen för API v2 finns %shär%s."
 
 #: application/views/api/index.php:125
 msgid "The API v2 base URL for this Wavelog instance is"
-msgstr ""
+msgstr "API v2-bas-URL för denna Wavelog-instans är"
 
 #: application/views/api/index.php:127
 msgid ""
 "On Clubstations the API Tokens are personal and not shared. Clubstation "
 "users can only see their own tokens."
 msgstr ""
+"På klubbstationer är API-token personliga och delas inte. Användare av "
+"klubbstationer kan bara se sina egna token."
 
 #: application/views/api/index.php:135
 #: application/views/awards/iota/index.php:210
@@ -6139,7 +6151,7 @@ msgstr "Namn"
 
 #: application/views/api/index.php:138
 msgid "Expires"
-msgstr ""
+msgstr "Utgår"
 
 #: application/views/api/index.php:159
 msgid "Expired"
@@ -6148,11 +6160,11 @@ msgstr "Utgått"
 #: application/views/api/index.php:169
 #, php-format
 msgid "Are you sure you want delete the API Token %s?"
-msgstr ""
+msgstr "Är du säker på att du vill ta bort API-token %s?"
 
 #: application/views/api/index.php:184
 msgid "You have no API Tokens yet. Click on the button below to create one."
-msgstr ""
+msgstr "Du har inga API-tokens än. Klicka på knappen nedan för att skapa en."
 
 #: application/views/awards/73on73/index.php:5
 #: application/views/awards/73on73/index.php:13
@@ -9903,7 +9915,7 @@ msgstr "QSOs"
 #: application/views/calltester/call_info.php:47
 #, php-format
 msgid "No QSOs with %s found in your logbook."
-msgstr ""
+msgstr "Inga QSOs med %s hittades i din loggbok."
 
 #: application/views/calltester/call_info.php:62
 #: application/views/zonechecker/result.php:74
@@ -9937,7 +9949,7 @@ msgstr "QTH"
 
 #: application/views/calltester/call_info.php:79
 msgid "QSL card"
-msgstr ""
+msgstr "QSL-kort"
 
 #: application/views/calltester/call_info.php:91
 #: application/views/calltester/comparison_result.php:97
@@ -9957,18 +9969,18 @@ msgstr "DXCC Klassresultat"
 #: application/views/calltester/comparison_result.php:46
 #: application/views/calltester/comparison_result.php:53
 msgid "Calls tested"
-msgstr ""
+msgstr "Testade anropssignaler"
 
 #: application/views/calltester/comparison_result.php:47
 #: application/views/calltester/comparison_result.php:54
 #: application/views/calltester/result.php:6
 msgid "Execution time"
-msgstr ""
+msgstr "Exekveringstid"
 
 #: application/views/calltester/comparison_result.php:48
 #: application/views/calltester/comparison_result.php:55
 msgid "Issues found"
-msgstr ""
+msgstr "Problem hittades"
 
 #: application/views/calltester/comparison_result.php:51
 msgid "Logbook Model Results"
@@ -10041,7 +10053,7 @@ msgstr "Resultat ADIF"
 #: application/views/calltester/result.php:72
 #: application/views/zonechecker/result.php:89
 msgid "Show all QSOs with this callsign"
-msgstr ""
+msgstr "Visa alla QSO med denna anropssignal"
 
 #: application/views/calltester/comparison_result.php:120
 msgid "Issues found only in Logbook Model (not in DXCC Class):"
@@ -10080,15 +10092,16 @@ msgstr "Jämför DXCC-klass och loggboksmodell"
 
 #: application/views/calltester/result.php:5
 msgid "Callsigns tested"
-msgstr ""
+msgstr "Anropssignaler testade"
 
 #: application/views/calltester/result.php:7
 msgid "Potential wrong DXCC"
-msgstr ""
+msgstr "Potentiellt fel DXCC"
 
 #: application/views/calltester/result.php:92
 msgid "No DXCC issues found. All calls have correct DXCC information."
 msgstr ""
+"Inga DXCC-problem hittades. Alla amropssignaler har korrekt DXCC-information."
 
 #: application/views/club/clubswitch_modal.php:5
 msgid "Switch to a Clubstation"
@@ -17377,77 +17390,77 @@ msgstr "Ladda upp fil"
 
 #: application/views/map/qso_map.php:8
 msgid "Loading QSO data..."
-msgstr ""
+msgstr "Laddar QSO-data..."
 
 #: application/views/map/qso_map.php:9
 msgid "Loading QSOs for all countries (this may take a moment)..."
-msgstr ""
+msgstr "Laddar QSOs för alla entiteter (detta kan ta en stund)..."
 
 #: application/views/map/qso_map.php:10
 msgid "Still loading... Processing large dataset, please wait..."
-msgstr ""
+msgstr "Laddar fortfarande... Bearbetar stor datamängd, vänligen vänta..."
 
 #: application/views/map/qso_map.php:11
 msgid "Failed to load QSO data. Please try again."
-msgstr ""
+msgstr "Det gick inte att ladda QSO-data. Försök igen."
 
 #: application/views/map/qso_map.php:12
 msgid "Error:"
-msgstr ""
+msgstr "Fel:"
 
 #: application/views/map/qso_map.php:13
 msgid "Error parsing response:"
-msgstr ""
+msgstr "Fel vid tolkning av svar:"
 
 #: application/views/map/qso_map.php:14
 msgid "Outside country boundaries"
-msgstr ""
+msgstr "Utanför landets gränser"
 
 #: application/views/map/qso_map.php:15
 msgid "Inside country boundaries"
-msgstr ""
+msgstr "Inuti landets gränser"
 
 #: application/views/map/qso_map.php:16
 msgid "Legend"
-msgstr ""
+msgstr "Legend"
 
 #: application/views/map/qso_map.php:17
 msgid "Inside boundaries"
-msgstr ""
+msgstr "Inom gränserna"
 
 #: application/views/map/qso_map.php:18
 msgid "Outside boundaries"
-msgstr ""
+msgstr "Utanför gränserna"
 
 #: application/views/map/qso_map.php:19
 msgid "Country/State boundaries"
-msgstr ""
+msgstr "Lands-/delstatsgränser"
 
 #: application/views/map/qso_map.php:20
 #, php-format
 msgid "Showing %s of %s total QSOs"
-msgstr ""
+msgstr "Visar %s av totalt %s QSOs"
 
 #: application/views/map/qso_map.php:21
 #, php-format
 msgid "Total: %s QSOs with 6+ char grids"
-msgstr ""
+msgstr "Totalt: %s QSOs med 6+ tecken rutnät"
 
 #: application/views/map/qso_map.php:23
 msgid "Hover over a region"
-msgstr ""
+msgstr "Hovra över en region"
 
 #: application/views/map/qso_map.php:24
 msgid "Toggle layers"
-msgstr ""
+msgstr "Växla lager"
 
 #: application/views/map/qso_map.php:28
 msgid "Regions worked:"
-msgstr ""
+msgstr "Kontaktade regioner:"
 
 #: application/views/map/qso_map.php:29
 msgid "Show QSO list"
-msgstr ""
+msgstr "Visa QSO-lista"
 
 #: application/views/map/qso_map.php:48
 msgid "Select Country:"
@@ -17459,15 +17472,15 @@ msgstr "Välj ett land..."
 
 #: application/views/map/qso_map.php:60
 msgid "Location:"
-msgstr ""
+msgstr "Plats:"
 
 #: application/views/map/qso_map.php:72
 msgid "Band:"
-msgstr ""
+msgstr "Band:"
 
 #: application/views/map/qso_map.php:81
 msgid "Load Map"
-msgstr ""
+msgstr "Ladda karta"
 
 #: application/views/mode/create.php:24 application/views/mode/edit.php:33
 msgctxt "Name of mode in ADIF-specification"
@@ -22798,11 +22811,11 @@ msgstr "CQz geojson"
 
 #: application/views/zonechecker/result.php:99
 msgid "Show on map"
-msgstr ""
+msgstr "Visa på kartan"
 
 #: application/views/zonechecker/result.php:118
 msgid "No zone issues found. All QSOs have correct zone information."
-msgstr ""
+msgstr "Inga zonproblem hittades. Alla QSOs har korrekt zoninformation."
 
 #~ msgid "Links to 3rd-Party-Software which works with Wavelog:"
 #~ msgstr "Länkar till tredjepartsprogramvara som fungerar med Wavelog:"
