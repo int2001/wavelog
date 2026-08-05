@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-08-05 06:36+0000\n"
-"PO-Revision-Date: 2026-08-02 07:17+0000\n"
-"Last-Translator: Fabian Berg <fabian.berg@hb9hil.org>\n"
+"PO-Revision-Date: 2026-08-05 17:24+0000\n"
+"Last-Translator: Mathias Regner <mabregner@gmail.com>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
 "Language: de_DE\n"
@@ -4243,7 +4243,7 @@ msgstr "Clubmitglieder entfernen"
 
 #: application/libraries/api_v2/Confirmation_resource.php:54
 msgid "Read QSL confirmations"
-msgstr ""
+msgstr "QSL Bestätigungen lesen"
 
 #: application/libraries/api_v2/Lookup_resource.php:44
 msgid "Look up callsigns and grids"
@@ -12602,7 +12602,7 @@ msgstr "ID"
 
 #: application/views/cron/index.php:77
 msgid "Interval"
-msgstr ""
+msgstr "Intervall"
 
 #: application/views/cron/index.php:78
 msgid "Last Run"
@@ -14363,19 +14363,19 @@ msgstr ""
 
 #: application/views/gridlookup/index.php:15
 msgid "Locating…"
-msgstr ""
+msgstr "Standortbestimmung…"
 
 #: application/views/gridlookup/index.php:16
 msgid "Location access denied."
-msgstr ""
+msgstr "Standortzugriff verweigert."
 
 #: application/views/gridlookup/index.php:17
 msgid "Location unavailable."
-msgstr ""
+msgstr "Standort nicht verfügbar."
 
 #: application/views/gridlookup/index.php:18
 msgid "Location request timed out."
-msgstr ""
+msgstr "Standortanfrage dauerte zu lange."
 
 #: application/views/gridlookup/index.php:68
 msgid "2, 4, 6, 8 or 10 character Maidenhead locator"
@@ -14403,11 +14403,11 @@ msgstr "Los"
 
 #: application/views/gridlookup/index.php:75
 msgid "Find my location and gridsquare"
-msgstr ""
+msgstr "Finde meinen Standort und das Gridquare"
 
 #: application/views/gridlookup/index.php:75
 msgid "Locate me"
-msgstr ""
+msgstr "Orte mich"
 
 #: application/views/gridlookup/index.php:78
 #: application/views/simplefle/index.php:162
@@ -14421,7 +14421,7 @@ msgstr "Weitere Optionen"
 
 #: application/views/gridlookup/index.php:92
 msgid "Hide options"
-msgstr ""
+msgstr "Optionen ausblenden"
 
 #: application/views/gridmap/index.php:27
 msgid "View a map of worked / confirmed gridsquares"
@@ -23360,6 +23360,15 @@ msgstr ""
 
 #~ msgid "Maidenhead grid"
 #~ msgstr "Maidenhead-Locator"
+
+#~ msgid "WWFF References"
+#~ msgstr "WWFF Referenzen"
+
+#~ msgid "POTA References"
+#~ msgstr "POTA Referenzen"
+
+#~ msgid "SOTA References"
+#~ msgstr "SOTA Referenzen"
 
 #~ msgid "Invalid time format. Please use HH:MM (e.g. 08:31)."
 #~ msgstr "Ungültiges Zeitformat. Bitte verwende HH:MM (z.B. 08:31)."

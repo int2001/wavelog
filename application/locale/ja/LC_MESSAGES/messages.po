@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-08-05 06:36+0000\n"
-"PO-Revision-Date: 2026-08-02 07:17+0000\n"
+"PO-Revision-Date: 2026-08-05 17:24+0000\n"
 "Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ja/>\n"
@@ -4193,7 +4193,7 @@ msgstr "クラブメンバーを削除する"
 
 #: application/libraries/api_v2/Confirmation_resource.php:54
 msgid "Read QSL confirmations"
-msgstr ""
+msgstr "QSLカードの確認書を読む"
 
 #: application/libraries/api_v2/Lookup_resource.php:44
 msgid "Look up callsigns and grids"
@@ -10987,7 +10987,7 @@ msgctxt ""
 "Count serial number in contesting per Operator; is an option in contesting "
 "manager."
 msgid "per op"
-msgstr "1日あたり"
+msgstr "オペレーター別"
 
 #: application/views/contesting/logger/components/qso-form.php:96
 msgid "Red: preview only. Green: this number is reserved for you."
@@ -11697,7 +11697,7 @@ msgstr "シリアル番号シリーズ"
 
 #: application/views/contesting/manager/components/session_modal.php:148
 msgid "Shared by all operators"
-msgstr "すべての事業者が共有"
+msgstr "すべてのオペレーターが共有"
 
 #: application/views/contesting/manager/components/session_modal.php:149
 msgid "One series per operator"
@@ -12447,7 +12447,7 @@ msgstr "ID"
 
 #: application/views/cron/index.php:77
 msgid "Interval"
-msgstr ""
+msgstr "間隔"
 
 #: application/views/cron/index.php:78
 msgid "Last Run"
@@ -14191,19 +14191,19 @@ msgstr ""
 
 #: application/views/gridlookup/index.php:15
 msgid "Locating…"
-msgstr ""
+msgstr "検索中…"
 
 #: application/views/gridlookup/index.php:16
 msgid "Location access denied."
-msgstr ""
+msgstr "位置情報へのアクセスが拒否されました。"
 
 #: application/views/gridlookup/index.php:17
 msgid "Location unavailable."
-msgstr ""
+msgstr "場所が不明です。"
 
 #: application/views/gridlookup/index.php:18
 msgid "Location request timed out."
-msgstr ""
+msgstr "位置情報のリクエストがタイムアウトしました。"
 
 #: application/views/gridlookup/index.php:68
 msgid "2, 4, 6, 8 or 10 character Maidenhead locator"
@@ -14231,11 +14231,11 @@ msgstr "Go"
 
 #: application/views/gridlookup/index.php:75
 msgid "Find my location and gridsquare"
-msgstr ""
+msgstr "現在地とグリッドスクエアを検索"
 
 #: application/views/gridlookup/index.php:75
 msgid "Locate me"
-msgstr ""
+msgstr "私を見つけてください"
 
 #: application/views/gridlookup/index.php:78
 #: application/views/simplefle/index.php:162
@@ -14249,7 +14249,7 @@ msgstr "その他のオプション"
 
 #: application/views/gridlookup/index.php:92
 msgid "Hide options"
-msgstr ""
+msgstr "オプションを非表示にする"
 
 #: application/views/gridmap/index.php:27
 msgid "View a map of worked / confirmed gridsquares"
@@ -17674,7 +17674,7 @@ msgstr "国境内"
 
 #: application/views/map/qso_map.php:16
 msgid "Legend"
-msgstr "伝説"
+msgstr "凡例"
 
 #: application/views/map/qso_map.php:17
 msgid "Inside boundaries"
@@ -23035,6 +23035,15 @@ msgstr ""
 
 #~ msgid "Maidenhead grid"
 #~ msgstr "メイデンヘッドグリッド"
+
+#~ msgid "WWFF References"
+#~ msgstr "WWFF参考文献"
+
+#~ msgid "POTA References"
+#~ msgstr "POTAに関する参考文献"
+
+#~ msgid "SOTA References"
+#~ msgstr "SOTAの参考文献"
 
 #~ msgid "Invalid time format. Please use HH:MM (e.g. 08:31)."
 #~ msgstr "時刻の形式が無効です。HH:MM形式（例：08:31）を使用してください。"
