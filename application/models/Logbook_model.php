@@ -1669,7 +1669,7 @@ class Logbook_model extends CI_Model {
 			$clublogrdate = $qso->COL_CLUBLOG_QSO_DOWNLOAD_DATE;
 		}
 
-		if ($dcl_sent == 'N' && $qso->COL_CLUBLOG_QSO_UPLOAD_STATUS != $dcl_sent) {
+		if ($dcl_sent == 'N' && $qso->COL_DCL_QSL_SENT != $dcl_sent) {
 			$dclsdate = null;
 		} elseif (!$qso->COL_DCL_QSLSDATE || $qso->COL_DCL_QSLSDATE != $dcl_sent) {
 			$dclsdate = date('Y-m-d H:i:s');
@@ -5817,9 +5817,9 @@ class Logbook_model extends CI_Model {
 			$nameRow = '';
 		}
 
-		$data = array(
-			'COL_CONTEST_ID ' => xss_clean($nameRow),
-		);
+			$data = array(
+				'COL_CONTEST_ID' => xss_clean($nameRow),
+			);
 
 		$this->db->where(array('COL_PRIMARY_KEY' => $qso_id));
 		$this->db->update($this->config->item('table_name'), $data);
