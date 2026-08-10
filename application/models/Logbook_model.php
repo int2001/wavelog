@@ -1671,15 +1671,15 @@ class Logbook_model extends CI_Model {
 
 		if ($dcl_sent == 'N' && $qso->COL_DCL_QSL_SENT != $dcl_sent) {
 			$dclsdate = null;
-		} elseif (!$qso->COL_DCL_QSLSDATE || $qso->COL_DCL_QSLSDATE != $dcl_sent) {
+		} elseif (!$qso->COL_DCL_QSLSDATE || $qso->COL_DCL_QSL_SENT != $dcl_sent) {
 			$dclsdate = date('Y-m-d H:i:s');
 		} else {
 			$dclsdate = $qso->COL_DCL_QSLSDATE;
 		}
 
-		if ($dcl_rcvd == 'N' && $qso->COL_DCL_QSLRDATE != $dcl_rcvd) {
+		if ($dcl_rcvd == 'N' && $qso->COL_DCL_QSL_RCVD != $dcl_rcvd) {
 			$dclrdate = null;
-		} elseif (!$qso->COL_DCL_QSLRDATE || $qso->COL_DCL_QSLRDATE != $dcl_rcvd) {
+		} elseif (!$qso->COL_DCL_QSLRDATE || $qso->COL_DCL_QSL_RCVD != $dcl_rcvd) {
 			$dclrdate = date('Y-m-d H:i:s');
 		} else {
 			$dclrdate = $qso->COL_DCL_QSLRDATE;
@@ -4245,7 +4245,6 @@ class Logbook_model extends CI_Model {
 				COUNT(DISTINCT t.COL_CALL) as Unique_Callsigns,
 				COUNT(DISTINCT CASE WHEN t.COL_COUNTRY != 'Invalid' AND t.COL_DXCC > 0 THEN t.COL_DXCC END) as Countries_Worked,
 				COUNT(DISTINCT CASE WHEN t.COL_QSL_RCVD = 'Y' AND t.COL_COUNTRY != 'Invalid' AND t.COL_DXCC > 0 THEN t.COL_DXCC END) as Countries_Worked_QSL,
-				COUNT(DISTINCT CASE WHEN t.COL_EQSL_QSL_RCVD = 'Y' AND t.COL_COUNTRY != 'Invalid' AND t.COL_DXCC > 0 THEN t.COL_DXCC END) as Countries_Worked_EQSL,
 				COUNT(DISTINCT CASE WHEN t.COL_LOTW_QSL_RCVD = 'Y' AND t.COL_COUNTRY != 'Invalid' AND t.COL_DXCC > 0 THEN t.COL_DXCC END) as Countries_Worked_LOTW,
 				-- DXCC confirmed totals intentionally count only paper QSL + LoTW.
 				-- eQSL is tracked separately in the UI as display-only information.
@@ -4285,10 +4284,9 @@ class Logbook_model extends CI_Model {
 				$row = $query->row();
 				return [
 					// Country stats
-				'Unique_Callsigns' => $row->Unique_Callsigns,
+					'Unique_Callsigns' => $row->Unique_Callsigns,
 					'Countries_Worked' => $row->Countries_Worked,
 					'Countries_Worked_QSL' => $row->Countries_Worked_QSL,
-					'Countries_Worked_EQSL' => $row->Countries_Worked_EQSL,
 					'Countries_Worked_LOTW' => $row->Countries_Worked_LOTW,
 					'Countries_Worked_Confirmed' => $row->Countries_Worked_Confirmed,
 					'Countries_Current' => $row->Countries_Current,
@@ -4324,7 +4322,6 @@ class Logbook_model extends CI_Model {
 		return [
 			'Countries_Worked' => 0,
 			'Countries_Worked_QSL' => 0,
-			'Countries_Worked_EQSL' => 0,
 			'Countries_Worked_LOTW' => 0,
 			'Countries_Worked_Confirmed' => 0,
 			'Countries_Current' => 0,
