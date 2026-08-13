@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-08-12 17:38+0000\n"
-"PO-Revision-Date: 2026-08-10 13:08+0000\n"
+"PO-Revision-Date: 2026-08-12 14:57+0000\n"
 "Last-Translator: iv3cvn <ricentis@gmail.com>\n"
 "Language-Team: Italian <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/it/>\n"
@@ -1118,7 +1118,7 @@ msgstr "Sessione contest non trovata."
 #: application/controllers/Contesting.php:134
 #, php-format
 msgid "CBR Export: %s"
-msgstr "Esportazione CBR: %s"
+msgstr "Esporta CBR: %s"
 
 #: application/controllers/Contesting.php:167
 #, php-format
@@ -1669,7 +1669,7 @@ msgstr "Nessun QSO da caricare."
 #: application/views/interface_assets/header.php:532
 #: application/views/kml/index.php:3
 msgid "KML Export"
-msgstr "Esportazione KML"
+msgstr "Esporta KML"
 
 #: application/controllers/Labels.php:39 application/views/labels/index.php:31
 msgid "QSL Card Labels"
@@ -3086,12 +3086,12 @@ msgstr "Il QSO non può essere salvato"
 #: application/controllers/Qso.php:834 application/controllers/Qso.php:857
 #, php-format
 msgid "Please check value for gridsquare (%s)"
-msgstr ""
+msgstr "Si prega di controllare il valore per il gridsquare (%s)"
 
 #: application/controllers/Qso.php:846
 #, php-format
 msgid "Please check value for VUCC gridsquare (%s)"
-msgstr ""
+msgstr "Per favore controlla il valore per il gridsquare VUCC (%s)"
 
 #: application/controllers/Qso.php:875
 msgid "You have to be logged in to access this URL."
@@ -3761,11 +3761,11 @@ msgstr "Aggiornamento POTA fallito. Risultato: "
 
 #: application/controllers/Update.php:616
 msgid "POTA boundaries update complete. Result: "
-msgstr ""
+msgstr "Aggiornamento dei confini POTA completato. Risultato: "
 
 #: application/controllers/Update.php:618
 msgid "POTA boundaries update failed. Result: "
-msgstr ""
+msgstr "Aggiornamento dei confini POTA fallito. Risultato: "
 
 #: application/controllers/Update.php:635
 msgid "TLE Update complete. Result: "
@@ -4145,7 +4145,7 @@ msgstr ""
 
 #: application/controllers/Widgets.php:282
 msgid "User has disabled the LoTW upload widget"
-msgstr ""
+msgstr "L'utente ha disabilitato il widget di caricamento LoTW"
 
 #: application/controllers/Widgets.php:540
 msgid "User not found by slug"
@@ -5142,12 +5142,12 @@ msgstr "Confini dei quadrati di griglia"
 #: application/views/activationplanner/index.php:24
 #: application/views/activationplanner/index.php:76
 msgid "Nearby refs"
-msgstr ""
+msgstr "Referenze vicine"
 
 #: application/views/activationplanner/index.php:25
 #, php-format
 msgid "References within %s of the gridsquare"
-msgstr ""
+msgstr "Riferimenti all'interno di %s del gridsquare"
 
 #: application/views/activationplanner/index.php:26
 #: application/views/qslcard/confirmationresult.php:21
@@ -5268,15 +5268,15 @@ msgstr "QSO"
 
 #: application/views/activationplanner/index.php:44
 msgid "last"
-msgstr ""
+msgstr "ultimo"
 
 #: application/views/activationplanner/index.php:45
 msgid "Inactive"
-msgstr ""
+msgstr "Inattivo"
 
 #: application/views/activationplanner/index.php:46
 msgid "valid"
-msgstr ""
+msgstr "valido"
 
 #: application/views/activationplanner/index.php:48
 #: application/views/view_log/qso.php:600
@@ -12312,7 +12312,7 @@ msgstr ""
 #: application/views/contesting/manager/export_cbr.php:46
 #: application/views/interface_assets/header.php:538
 msgid "Cabrillo Export"
-msgstr "Esportazione Cabrillo"
+msgstr "Esporta Cabrillo"
 
 #: application/views/contesting/manager/export_cbr.php:50
 #: application/views/contesting/manager/export_edi.php:50
@@ -12554,7 +12554,7 @@ msgstr "Scarica Cabrillo"
 #: application/views/contesting/manager/export_edi.php:46
 #: application/views/interface_assets/header.php:540
 msgid "EDI Export"
-msgstr "Esportazione EDI"
+msgstr "Esporta EDI"
 
 #: application/views/contesting/manager/export_edi.php:57
 msgid "Header data"
@@ -14073,7 +14073,7 @@ msgstr "Download del file POTA"
 
 #: application/views/debug/index.php:741
 msgid "POTA park boundaries (GeoJSON)"
-msgstr ""
+msgstr "Confini del parco POTA (GeoJSON)"
 
 #: application/views/debug/index.php:747
 msgid "SCP file download"
@@ -14341,7 +14341,7 @@ msgstr "Selezione della banda"
 
 #: application/views/dxatlas/index.php:3
 msgid "DX Atlas Export"
-msgstr "Esportazione DX Atlas"
+msgstr "Esporta DX Atlas"
 
 #: application/views/dxatlas/index.php:7
 msgid ""
@@ -17567,7 +17567,7 @@ msgstr "Inviata (elettronica)"
 
 #: application/views/logbookadvanced/index.php:840
 msgid "Not Sent"
-msgstr "non inviata"
+msgstr "Non inviata"
 
 #: application/views/logbookadvanced/index.php:841
 msgid "QSL Not Required"
@@ -19817,11 +19817,11 @@ msgstr "Pubblica su Mastodon"
 
 #: application/views/qso/components/share_modal.php:14
 msgid "Share on Telegram"
-msgstr ""
+msgstr "Condividi su Telegram"
 
 #: application/views/qso/components/share_modal.php:17
 msgid "Share on Whatsapp"
-msgstr ""
+msgstr "Condividi su Whatsapp"
 
 #: application/views/qso/components/winkeysettings.php:15
 #: application/views/qso/components/winkeysettings.php:32
@@ -22840,7 +22840,7 @@ msgstr ""
 
 #: application/views/user/edit.php:1240
 msgid "Last LoTW Upload widget"
-msgstr ""
+msgstr "Widget dell'ultimo upload LoTW"
 
 #: application/views/user/edit.php:1269
 msgid "Miscellaneous"
@@ -23603,11 +23603,11 @@ msgstr "I QSO sono contrassegnati come esportati al QO-100 Dx Club."
 
 #: application/views/widgets/lotw_upload.php:88
 msgid "Last LoTW Uploads"
-msgstr ""
+msgstr "Ultimi caricamenti LoTW"
 
 #: application/views/widgets/lotw_upload.php:98
 msgid "Last Upload (UTC)"
-msgstr ""
+msgstr "Ultimo caricamento (UTC)"
 
 #: application/views/widgets/on_air.php:159
 #: application/views/widgets/on_air.php:217

@@ -32,12 +32,13 @@
 # "Luoyu (BG7QBL)" <i@luotianyi.eu>, 2026.
 # 橙子木 <czm233@ypa.moe>, 2026.
 # Fabian Berg <fabian.berg@hb9hil.org>, 2026.
+# Takasaka Chikuho <chikuho@gov.moe>, 2026.
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-08-12 17:38+0000\n"
-"PO-Revision-Date: 2026-08-11 09:57+0000\n"
-"Last-Translator: MCyiqiehuanying <me@sharedow.cn>\n"
+"PO-Revision-Date: 2026-08-12 09:36+0000\n"
+"Last-Translator: \"Shen RuiQin(BH4FJN)\" <jerry19980425@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
 "org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -3720,11 +3721,11 @@ msgstr "POTA 更新失败。结果为： "
 
 #: application/controllers/Update.php:616
 msgid "POTA boundaries update complete. Result: "
-msgstr ""
+msgstr "POTA 边界更新完成。结果为： "
 
 #: application/controllers/Update.php:618
 msgid "POTA boundaries update failed. Result: "
-msgstr ""
+msgstr "POTA 边界更新失败。结果为： "
 
 #: application/controllers/Update.php:635
 msgid "TLE Update complete. Result: "
@@ -4075,7 +4076,7 @@ msgstr "找不到 CAT 接口的电台。你需要至少配置一个电台接口�
 
 #: application/controllers/Widgets.php:282
 msgid "User has disabled the LoTW upload widget"
-msgstr ""
+msgstr "用户禁用了 LoTW 上传组件"
 
 #: application/controllers/Widgets.php:540
 msgid "User not found by slug"
@@ -5049,12 +5050,12 @@ msgstr "网格边框"
 #: application/views/activationplanner/index.php:24
 #: application/views/activationplanner/index.php:76
 msgid "Nearby refs"
-msgstr ""
+msgstr "附近的参考号"
 
 #: application/views/activationplanner/index.php:25
 #, php-format
 msgid "References within %s of the gridsquare"
-msgstr ""
+msgstr "此网格周边 %s 的活动编号"
 
 #: application/views/activationplanner/index.php:26
 #: application/views/qslcard/confirmationresult.php:21
@@ -5175,15 +5176,15 @@ msgstr "QSO"
 
 #: application/views/activationplanner/index.php:44
 msgid "last"
-msgstr ""
+msgstr "last"
 
 #: application/views/activationplanner/index.php:45
 msgid "Inactive"
-msgstr ""
+msgstr "不活跃"
 
 #: application/views/activationplanner/index.php:46
 msgid "valid"
-msgstr ""
+msgstr "有效的"
 
 #: application/views/activationplanner/index.php:48
 #: application/views/view_log/qso.php:600
@@ -5253,7 +5254,7 @@ msgstr "我的位置"
 #: application/views/activationplanner/index.php:79
 #: application/views/simplefle/index.php:162
 msgid "Refs"
-msgstr "对方网格"
+msgstr "参考号"
 
 #: application/views/activationplanner/index.php:92
 #: application/views/qso/index.php:758
@@ -8541,7 +8542,7 @@ msgstr "QSO 数量"
 
 #: application/views/awards/sig/index.php:27
 msgid "Number of Refs"
-msgstr "编号数量"
+msgstr "参考号数量"
 
 #: application/views/awards/sig/qso_list.php:6
 #: application/views/qslprint/index.php:9
@@ -11451,7 +11452,7 @@ msgstr "重置布局时出错"
 
 #: application/views/contesting/logger/index.php:46
 msgid "Error loading application. Please refresh the page."
-msgstr "加载应用是出错，请刷新此页面。"
+msgstr "加载应用时出错，请刷新此页面。"
 
 #: application/views/contesting/logger/index.php:48
 msgid "Initializing data store..."
@@ -13620,7 +13621,7 @@ msgstr "下载 POTA 文件"
 
 #: application/views/debug/index.php:741
 msgid "POTA park boundaries (GeoJSON)"
-msgstr ""
+msgstr "POTA 公园边界 (GeoJSON)"
 
 #: application/views/debug/index.php:747
 msgid "SCP file download"
@@ -17096,7 +17097,7 @@ msgstr "SIG 信息"
 #: application/views/logbookadvanced/index.php:1050
 #: application/views/logbookadvanced/useroptions.php:302
 msgid "My Refs"
-msgstr "电台网格"
+msgstr "我的参考号"
 
 #: application/views/logbookadvanced/index.php:1059
 msgid "Ant az"
@@ -19123,11 +19124,11 @@ msgstr "Toot on Mastodon"
 
 #: application/views/qso/components/share_modal.php:14
 msgid "Share on Telegram"
-msgstr ""
+msgstr "分享到 Telegram"
 
 #: application/views/qso/components/share_modal.php:17
 msgid "Share on Whatsapp"
-msgstr ""
+msgstr "分享到 WhatsApp"
 
 #: application/views/qso/components/winkeysettings.php:15
 #: application/views/qso/components/winkeysettings.php:32
@@ -20134,7 +20135,7 @@ msgstr "警告！你不能记录 QSO 列表，因为某些 QSO 没有定义时�
 msgid ""
 "Attention! The Data Field containes example data. First Clear Logging "
 "Session!"
-msgstr "警告！你不能记录 QSO 列表，因为你正在使用示例数据！"
+msgstr "注意！数据字段包含示例数据。请先清除日志会话！"
 
 #: application/views/simplefle/index.php:35
 msgid ""
@@ -20203,7 +20204,7 @@ msgstr "输入信息"
 #: application/views/simplefle/index.php:174
 #, php-format
 msgid "The Refs can be either %sS%sOTA, %sI%sOTA, %sP%sOTA, or %sW%sWFF"
-msgstr "标识符可为其中任意：%sS%sOTA, %sI%sOTA, %sP%sOTA, or %sW%sWFF"
+msgstr "参考号可为其中任意：%sS%sOTA, %sI%sOTA, %sP%sOTA, or %sW%sWFF"
 
 #: application/views/simplefle/index.php:181
 msgid "Reload QSO List"
@@ -21986,7 +21987,7 @@ msgstr "此设置控制 QSO 小部件中是否显示确切的通联时间。"
 
 #: application/views/user/edit.php:1240
 msgid "Last LoTW Upload widget"
-msgstr ""
+msgstr "最后上传 LoTW 插件"
 
 #: application/views/user/edit.php:1269
 msgid "Miscellaneous"
@@ -22706,11 +22707,11 @@ msgstr "QSO 已被标记成导出至 QO-100 Dx Club。"
 
 #: application/views/widgets/lotw_upload.php:88
 msgid "Last LoTW Uploads"
-msgstr ""
+msgstr "最后一次 LoTW 上传"
 
 #: application/views/widgets/lotw_upload.php:98
 msgid "Last Upload (UTC)"
-msgstr ""
+msgstr "最后上传于 (UTC)"
 
 #: application/views/widgets/on_air.php:159
 #: application/views/widgets/on_air.php:217
