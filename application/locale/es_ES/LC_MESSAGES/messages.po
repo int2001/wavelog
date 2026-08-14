@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-08-14 13:27+0000\n"
+"POT-Creation-Date: 2026-08-14 14:09+0000\n"
 "PO-Revision-Date: 2026-08-03 12:17+0000\n"
 "Last-Translator: David Quental <ct1drb72@gmail.com>\n"
 "Language-Team: Spanish <https://translate.wavelog.org/projects/wavelog/main-"
@@ -559,7 +559,8 @@ msgstr "DOK"
 #: application/views/logbookadvanced/index.php:999
 #: application/views/logbookadvanced/qslcarousel.php:35
 #: application/views/logbookadvanced/showStateQsos.php:27
-#: application/views/logbookadvanced/statecheckresult.php:11
+#: application/views/logbookadvanced/showUpdateResult.php:87
+#: application/views/logbookadvanced/statecheckresult.php:15
 #: application/views/logbookadvanced/useroptions.php:175
 #: application/views/lookup/index.php:5
 #: application/views/lotw_views/index.php:43
@@ -659,7 +660,7 @@ msgstr " y "
 
 #: application/controllers/Awards.php:713
 #: application/controllers/Logbook.php:1472
-#: application/views/activationplanner/index.php:95
+#: application/views/activationplanner/index.php:97
 #: application/views/awards/index.php:8 application/views/bandmap/list.php:335
 #: application/views/bands/index.php:57
 #: application/views/dashboard/index.php:10
@@ -690,7 +691,7 @@ msgstr "SOTA"
 
 #: application/controllers/Awards.php:811
 #: application/controllers/Logbook.php:1473
-#: application/views/activationplanner/index.php:93
+#: application/views/activationplanner/index.php:95
 #: application/views/bandmap/list.php:337 application/views/bands/index.php:64
 #: application/views/dashboard/index.php:11
 #: application/views/logbookadvanced/edit.php:40
@@ -713,7 +714,7 @@ msgstr "WWFF"
 
 #: application/controllers/Awards.php:911
 #: application/controllers/Logbook.php:1474
-#: application/views/activationplanner/index.php:94
+#: application/views/activationplanner/index.php:96
 #: application/views/adif/import.php:65 application/views/bandmap/list.php:336
 #: application/views/bands/index.php:54
 #: application/views/dashboard/index.php:12
@@ -2159,7 +2160,7 @@ msgid "Country"
 msgstr "País"
 
 #: application/controllers/Logbook.php:1471
-#: application/views/activationplanner/index.php:96
+#: application/views/activationplanner/index.php:98
 #: application/views/awards/iota/index.php:208
 #: application/views/bandmap/list.php:338 application/views/bands/index.php:52
 #: application/views/dashboard/index.php:9
@@ -2225,9 +2226,9 @@ msgstr "Estado"
 #: application/controllers/Logbook.php:1476
 #: application/views/activated_gridmap/index.php:107
 #: application/views/activationplanner/index.php:23
-#: application/views/activationplanner/index.php:69
-#: application/views/activationplanner/index.php:92
-#: application/views/activationplanner/index.php:117
+#: application/views/activationplanner/index.php:71
+#: application/views/activationplanner/index.php:94
+#: application/views/activationplanner/index.php:119
 #: application/views/awards/ffma/index.php:38
 #: application/views/awards/gridmaster/index.php:53
 #: application/views/awards/vucc/band.php:17
@@ -2248,7 +2249,8 @@ msgstr "Estado"
 #: application/views/logbookadvanced/index.php:963
 #: application/views/logbookadvanced/qslcarousel.php:39
 #: application/views/logbookadvanced/showStateQsos.php:26
-#: application/views/logbookadvanced/showUpdateResult.php:44
+#: application/views/logbookadvanced/showUpdateResult.php:47
+#: application/views/logbookadvanced/showUpdateResult.php:110
 #: application/views/logbookadvanced/useroptions.php:85
 #: application/views/lookup/index.php:6 application/views/map/qso_map.php:34
 #: application/views/map/qso_map.php:111
@@ -2511,12 +2513,12 @@ msgstr "DXCC Eliminado"
 msgid "Advanced logbook"
 msgstr "Libro de registro avanzado"
 
-#: application/controllers/Logbookadvanced.php:1002
+#: application/controllers/Logbookadvanced.php:1018
 #, php-format
 msgid "DXCC updated for %d QSO(s)."
 msgstr "DXCC actualizado por %d QSO(s)."
 
-#: application/controllers/Logbookadvanced.php:1018
+#: application/controllers/Logbookadvanced.php:1034
 #, php-format
 msgid "Map for DXCC %s and gridsquare %s."
 msgstr "Mapa para DXCC %s y gridsquare %s."
@@ -4635,7 +4637,7 @@ msgstr ""
 "La tabla VuccGrids esta vacía. Por favor importe la información de "
 "cuadriculas VUCC primero."
 
-#: application/models/Logbookadvanced_model.php:2490
+#: application/models/Logbookadvanced_model.php:2540
 msgid ""
 "Invalid primary QSO ID, or you do not have permission to access one of the "
 "QSOs"
@@ -4643,17 +4645,17 @@ msgstr ""
 "ID de QSO principal inválido, o no tienes permiso para acceder a uno de los "
 "QSOs"
 
-#: application/models/Logbookadvanced_model.php:2500
+#: application/models/Logbookadvanced_model.php:2550
 #: application/views/view_log/qso.php:868
 msgid "QSO not found"
 msgstr "QSO no encontrado"
 
-#: application/models/Logbookadvanced_model.php:2586
+#: application/models/Logbookadvanced_model.php:2636
 msgid "No fields selected for merge or no differences between QSOs"
 msgstr ""
 "No se seleccionaron campos para combinar o no hay diferencias entre los QSOs"
 
-#: application/models/Logbookadvanced_model.php:2599
+#: application/models/Logbookadvanced_model.php:2649
 msgid "QSOs merged successfully"
 msgstr "QSOs combinados con éxito"
 
@@ -5123,7 +5125,7 @@ msgid "Clear Markers"
 msgstr "Borrar marcadores"
 
 #: application/views/activated_gridmap/index.php:105
-#: application/views/activationplanner/index.php:115
+#: application/views/activationplanner/index.php:117
 #: application/views/awards/ffma/index.php:34
 #: application/views/awards/gridmaster/index.php:49
 #: application/views/contesting/logger/components/map.php:76
@@ -5134,7 +5136,7 @@ msgid "Latitude"
 msgstr "Latitud"
 
 #: application/views/activated_gridmap/index.php:106
-#: application/views/activationplanner/index.php:116
+#: application/views/activationplanner/index.php:118
 #: application/views/awards/ffma/index.php:36
 #: application/views/awards/gridmaster/index.php:51
 #: application/views/contesting/logger/components/map.php:78
@@ -5160,7 +5162,7 @@ msgid "Gridsquare borders"
 msgstr ""
 
 #: application/views/activationplanner/index.php:24
-#: application/views/activationplanner/index.php:80
+#: application/views/activationplanner/index.php:82
 msgid "Nearby refs"
 msgstr ""
 
@@ -5280,7 +5282,7 @@ msgstr ""
 #: application/views/activationplanner/index.php:43
 #: application/views/calltester/call_info.php:30
 #: application/views/labels/index.php:82
-#: application/views/logbookadvanced/statecheckresult.php:12
+#: application/views/logbookadvanced/statecheckresult.php:16
 #: application/views/statistics/index.php:113
 #: application/views/statistics/index.php:161
 msgid "QSOs"
@@ -5313,7 +5315,7 @@ msgid "📻 Planning an activation from %s"
 msgstr ""
 
 #: application/views/activationplanner/index.php:51
-#: application/views/activationplanner/index.php:85
+#: application/views/activationplanner/index.php:87
 msgid "Search references…"
 msgstr ""
 
@@ -5329,35 +5331,43 @@ msgstr ""
 msgid "References"
 msgstr ""
 
-#: application/views/activationplanner/index.php:64
+#: application/views/activationplanner/index.php:55
+msgid "Places"
+msgstr ""
+
+#: application/views/activationplanner/index.php:56
+msgid "Press Enter to search places"
+msgstr ""
+
+#: application/views/activationplanner/index.php:66
 msgid "Plan your activity here"
 msgstr ""
 
-#: application/views/activationplanner/index.php:72
+#: application/views/activationplanner/index.php:74
 msgid "2, 4, 6, 8 or 10 character Maidenhead locator"
 msgstr "Localizador Maidenhead de 2, 4, 6, 8 o 10 caracteres"
 
-#: application/views/activationplanner/index.php:72
+#: application/views/activationplanner/index.php:74
 msgid "e.g. FN31pr"
 msgstr "p. ej. FN31pr"
 
-#: application/views/activationplanner/index.php:73
+#: application/views/activationplanner/index.php:75
 msgid "to"
 msgstr "a"
 
-#: application/views/activationplanner/index.php:76
+#: application/views/activationplanner/index.php:78
 msgid "Optional second gridsquare for distance and bearing"
 msgstr "Segunda cuadrícula opcional para distancia y rumbo"
 
-#: application/views/activationplanner/index.php:76
+#: application/views/activationplanner/index.php:78
 msgid "e.g. JN58qm"
 msgstr "p. ej. JN58qm"
 
-#: application/views/activationplanner/index.php:77
+#: application/views/activationplanner/index.php:79
 msgid "Go"
 msgstr "Ir"
 
-#: application/views/activationplanner/index.php:78
+#: application/views/activationplanner/index.php:80
 #: application/views/awards/cq/index.php:70
 #: application/views/awards/dxcc/index.php:69
 #: application/views/awards/itu/index.php:72
@@ -5372,33 +5382,35 @@ msgstr "Ir"
 msgid "Clear"
 msgstr "Claro"
 
-#: application/views/activationplanner/index.php:79
+#: application/views/activationplanner/index.php:81
 msgid "Find my location and gridsquare"
 msgstr ""
 
-#: application/views/activationplanner/index.php:79
+#: application/views/activationplanner/index.php:81
 msgid "Locate me"
 msgstr ""
 
-#: application/views/activationplanner/index.php:85
-msgid "Search WWFF / POTA / SOTA / IOTA by name or reference"
+#: application/views/activationplanner/index.php:87
+msgid ""
+"Search WWFF / POTA / SOTA / IOTA by name or reference — Enter searches place "
+"names (OpenStreetMap)"
 msgstr ""
 
-#: application/views/activationplanner/index.php:90
+#: application/views/activationplanner/index.php:92
 #: application/views/simplefle/index.php:162
 msgid "Refs"
 msgstr "Referencias"
 
-#: application/views/activationplanner/index.php:103
+#: application/views/activationplanner/index.php:105
 #: application/views/qso/index.php:758
 msgid "More options"
 msgstr "Más opciones"
 
-#: application/views/activationplanner/index.php:104
+#: application/views/activationplanner/index.php:106
 msgid "Hide options"
 msgstr ""
 
-#: application/views/activationplanner/index.php:118
+#: application/views/activationplanner/index.php:120
 #: application/views/awards/cq/index.php:3
 #: application/views/awards/cq/index.php:205
 #: application/views/bandmap/list.php:569
@@ -5424,7 +5436,7 @@ msgstr ""
 msgid "CQ Zone"
 msgstr "Zona CQ"
 
-#: application/views/activationplanner/index.php:119
+#: application/views/activationplanner/index.php:121
 #: application/views/awards/itu/index.php:3
 #: application/views/awards/itu/index.php:207
 #: application/views/gridmap/index.php:230
@@ -5523,7 +5535,8 @@ msgstr "¡Nada encontrado!"
 #: application/views/logbookadvanced/dbtoolsdialog.php:22
 #: application/views/logbookadvanced/help.php:55
 #: application/views/logbookadvanced/qslcarousel.php:30
-#: application/views/logbookadvanced/showUpdateResult.php:43
+#: application/views/logbookadvanced/showUpdateResult.php:46
+#: application/views/logbookadvanced/showUpdateResult.php:109
 #: application/views/lotw_views/index.php:42
 #: application/views/map/qso_map.php:30 application/views/oqrs/qsolist.php:6
 #: application/views/oqrs/request_grouped.php:15
@@ -5604,6 +5617,7 @@ msgstr "QSOs que no concuerdan"
 #: application/views/adif/dcl_success.php:22
 #: application/views/adif/pota_success.php:22
 #: application/views/cabrillo/cbr_success.php:22
+#: application/views/logbookadvanced/showUpdateResult.php:88
 msgid "QSOs updated"
 msgstr "QSOs actualizados"
 
@@ -8035,7 +8049,7 @@ msgstr "Nombre DXCC"
 #: application/views/awards/dxcc/index.php:456
 #: application/views/awards/iota/index.php:209
 #: application/views/awards/wae/index.php:216
-#: application/views/logbookadvanced/statecheckresult.php:10
+#: application/views/logbookadvanced/statecheckresult.php:14
 #: application/views/timeline/index.php:192
 #: application/views/timeline/index.php:308
 msgid "Prefix"
@@ -10910,7 +10924,7 @@ msgstr "Permisos disponibles"
 
 #: application/views/club/permissions.php:36
 #: application/views/eqsl/download.php:45
-#: application/views/logbookadvanced/statecheckresult.php:13
+#: application/views/logbookadvanced/statecheckresult.php:17
 msgid "Action"
 msgstr "Acción"
 
@@ -17893,49 +17907,62 @@ msgstr "Encontrado(s) %s QSO(s) faltando información de estado para DXCC %s."
 msgid "No Issues Found"
 msgstr "No se encontraron problemas"
 
-#: application/views/logbookadvanced/showUpdateResult.php:22
+#: application/views/logbookadvanced/showUpdateResult.php:25
+#: application/views/logbookadvanced/showUpdateResult.php:75
 msgid "Results for state update:"
 msgstr "Resultados de la actualización del estado:"
 
-#: application/views/logbookadvanced/showUpdateResult.php:24
-#: application/views/logbookadvanced/showUpdateResult.php:26
+#: application/views/logbookadvanced/showUpdateResult.php:27
+#: application/views/logbookadvanced/showUpdateResult.php:29
 msgid "The number of QSOs updated for state/province in"
 msgstr "La cantidad de QSOs actualizados para el estado/provincia en"
 
-#: application/views/logbookadvanced/showUpdateResult.php:38
+#: application/views/logbookadvanced/showUpdateResult.php:41
+#: application/views/logbookadvanced/showUpdateResult.php:104
 msgid "These QSOs could not be updated:"
 msgstr "Estos QSOs no se pudieron actualizar:"
 
-#: application/views/logbookadvanced/showUpdateResult.php:45
+#: application/views/logbookadvanced/showUpdateResult.php:48
+#: application/views/logbookadvanced/showUpdateResult.php:111
 #: application/views/search/lotw_unconfirmed.php:28
 msgid "Station location"
 msgstr "Ubicación de la estación"
 
-#: application/views/logbookadvanced/showUpdateResult.php:46
+#: application/views/logbookadvanced/showUpdateResult.php:49
+#: application/views/logbookadvanced/showUpdateResult.php:112
 msgid "Reason"
 msgstr "Razón"
 
-#: application/views/logbookadvanced/showUpdateResult.php:69
+#: application/views/logbookadvanced/showUpdateResult.php:77
+#: application/views/logbookadvanced/showUpdateResult.php:79
+msgid "The number of QSOs updated for state/province across all DXCCs is"
+msgstr ""
+
+#: application/views/logbookadvanced/showUpdateResult.php:79
+msgid "DXCCs processed"
+msgstr ""
+
+#: application/views/logbookadvanced/showUpdateResult.php:131
 msgid "Results for continent update:"
 msgstr "Resultados para la actualización del continente:"
 
-#: application/views/logbookadvanced/showUpdateResult.php:70
+#: application/views/logbookadvanced/showUpdateResult.php:132
 msgid "The number of QSOs updated for continent is"
 msgstr "El número de QSOs actualizado para el continente es"
 
-#: application/views/logbookadvanced/showUpdateResult.php:74
+#: application/views/logbookadvanced/showUpdateResult.php:136
 msgid "Results for distance update:"
 msgstr "Resultados de la actualización de distancia:"
 
-#: application/views/logbookadvanced/showUpdateResult.php:75
+#: application/views/logbookadvanced/showUpdateResult.php:137
 msgid "The number of QSOs updated for distance is"
 msgstr "El número de QSOs actualizado para la distancia es"
 
-#: application/views/logbookadvanced/showUpdateResult.php:79
+#: application/views/logbookadvanced/showUpdateResult.php:141
 msgid "Results for gridsquare update:"
 msgstr "Resultados para la actualización del cuadrante:"
 
-#: application/views/logbookadvanced/showUpdateResult.php:80
+#: application/views/logbookadvanced/showUpdateResult.php:142
 msgid "The number of QSOs updated for gridsquare is"
 msgstr "El número de QSOs actualizados para el cuadrícula es"
 
@@ -17955,7 +17982,7 @@ msgid "Include TNX message"
 msgstr "Inclulir mensaje de gracias"
 
 #: application/views/logbookadvanced/statecheckresult.php:3
-#: application/views/logbookadvanced/statecheckresult.php:42
+#: application/views/logbookadvanced/statecheckresult.php:46
 msgid "State Check Results"
 msgstr "Resultados de la comprobación del estado"
 
@@ -17967,11 +17994,15 @@ msgstr ""
 "QSOs con estados faltantes y cuadrículas con 6 o más caracteres encontrados "
 "para los siguientes DXCCs:"
 
-#: application/views/logbookadvanced/statecheckresult.php:30
+#: application/views/logbookadvanced/statecheckresult.php:7
+msgid "Fix all DXCCs"
+msgstr ""
+
+#: application/views/logbookadvanced/statecheckresult.php:34
 msgid "Run fix"
 msgstr "Ejecutar arreglo"
 
-#: application/views/logbookadvanced/statecheckresult.php:43
+#: application/views/logbookadvanced/statecheckresult.php:47
 msgid "No QSOs were found where state information can be fixed."
 msgstr ""
 "No se encontraron QSOs donde se pueda corregir la información del estado."
