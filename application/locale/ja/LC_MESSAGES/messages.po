@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-08-17 09:04+0000\n"
-"PO-Revision-Date: 2026-08-14 22:43+0000\n"
+"PO-Revision-Date: 2026-08-17 09:04+0000\n"
 "Last-Translator: \"S.NAKAO(JG3HLX)\" <hlx.nakao@gmail.com>\n"
 "Language-Team: Japanese <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/ja/>\n"
@@ -6273,7 +6273,7 @@ msgstr "次期AOS"
 
 #: application/views/amsatstatus/index.php:115
 msgid "Hours ago (left-most: now)"
-msgstr ""
+msgstr "数時間前（左端：現在）"
 
 #: application/views/amsatstatus/index.php:135
 #, php-format
@@ -8303,7 +8303,7 @@ msgstr "確認済みQSOをエクスポートする"
 
 #: application/views/awards/jcc/index.php:46
 msgid "QSL Type"
-msgstr ""
+msgstr "QSLカードの種類"
 
 #: application/views/awards/jcc/index.php:72
 msgid "Deleted cities"
@@ -8325,17 +8325,21 @@ msgstr "未交信"
 
 #: application/views/awards/jcc/index.php:169
 msgid "JCC progress"
-msgstr ""
+msgstr "JCCの進捗状況"
 
 #: application/views/awards/jcc/index.php:179
 msgid ""
 "Attention! Wavelog does not verify whether a QSO happened before the entity "
 "deletion date."
 msgstr ""
+"注意！Wavelogは、QSOがエンティティ削除日より前に発生したかどうかを検証しませ"
+"ん。"
 
 #: application/views/awards/jcc/index.php:185
 msgid "No worked or confirmed JCC slots match the current filters."
 msgstr ""
+"現在のフィルター条件に一致する、処理済みまたは確認済みのJCCスロットはありませ"
+"ん。"
 
 #: application/views/awards/pl_polska/index.php:3
 msgid "Polish Voivodeships"
