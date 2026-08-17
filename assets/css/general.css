@@ -2491,10 +2491,97 @@ body.map-high-contrast span.grid-text-worked > font { color: rgba(0, 0, 0, 0.4) 
 	box-shadow: 0 2px 7px rgba(0,0,0,.22);
 	transform: translateY(-1px);
 }
+@media (hover: none) { .amsat-heat .cell[data-st]:hover { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .amsat-heat .cell[data-st]:hover { transform: none; } }
+
+/* ============================================================
+   JCC award (application/views/awards/jcc)
+   ============================================================ */
+
+#jccmap {
+	height: calc(100vh - 300px) !important;
+	max-height: 900px !important;
+}
+
+/* Sizing for the centered filter dropdown shared by the award pages */
+.dropdown-filters-responsive {
+	width: min(850px, 90vw);
+	min-width: 600px;
+}
+
+/* Summary legend swatches above the prefecture grid */
+.award-grid-legend-swatch {
+	width: 1rem;
+	height: 1rem;
+	display: inline-block;
+}
+
+/* Prefecture column left of each slot row */
+.award-grid-prefecture {
+	min-width: 12rem;
+}
+
+@media (max-width: 991.98px) {
+	.award-grid-prefecture {
+		min-width: 0;
+	}
+}
+
+/* Status pills. The !important beats Bootstrap's own .border !important
+   (general.css loads after the theme's bootstrap.min.css). */
+.award-grid-slot {
+	width: 3rem;
+	height: 2rem;
+	border: var(--bs-border-width) solid rgba(255, 255, 255, 0.45) !important;
+}
+
+/* Deleted-city hatch overlay */
+.award-grid-slot-deleted {
+	background-image: repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.18) 0, rgba(0, 0, 0, 0.18) 2px, transparent 2px, transparent 6px);
+}
+
+/* JCC map legend: layer toggles merged into the legend box */
+.legend .legend-layers-sep {
+	margin: 6px 0;
+	border: none;
+	border-top: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.legend .legend-layer-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	cursor: pointer;
+}
+
+.legend .legend-layer-row input {
+	margin: 0;
+	flex-shrink: 0;
 @media (hover: none) { .amsat-status .amsat-slot[data-st]:hover { transform: none; } }
 @media (prefers-reduced-motion: reduce) { .amsat-status .amsat-slot[data-st]:hover { transform: none; } }
 .amsat-grid-pill {
 	width: 3rem;
 	height: 2rem;
 	border: var(--bs-border-width) solid rgba(255, 255, 255, 0.45) !important;
+}
+
+/* Dupe search dialog: larger, high-contrast checkboxes on colored card headers */
+.dupe-search-dialog .form-check-input {
+	width: 1.5em;
+	height: 1.5em;
+	margin-top: 0.125em;
+	margin-right: 0.3em;
+	border: 2px solid rgba(255, 255, 255, 0.9);
+	background-color: rgba(255, 255, 255, 0.25);
+}
+
+.dupe-search-dialog .form-check-input:checked {
+	background-color: #fff;
+	border-color: #fff;
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23212529' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+}
+
+.dupe-search-dialog .form-check-input:focus {
+	border-color: #fff;
+	box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.5);
 }
