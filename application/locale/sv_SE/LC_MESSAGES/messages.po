@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-08-27 10:18+0000\n"
-"PO-Revision-Date: 2026-08-24 22:42+0000\n"
+"PO-Revision-Date: 2026-08-26 21:25+0000\n"
 "Last-Translator: \"Jorgen Dahl, NU1T\" <sm6srw@arrl.net>\n"
 "Language-Team: Swedish <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/sv/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17.1\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #: application/config/adif_propmodes.php:7
 msgctxt "Propagation Mode"
@@ -1888,7 +1888,7 @@ msgstr "KML-export"
 #: application/controllers/Labeldesigner.php:22
 #: application/views/labels/index.php:36
 msgid "Label Designer"
-msgstr ""
+msgstr "Etikett Designer"
 
 #: application/controllers/Labeldesigner.php:114
 #: application/controllers/Labels.php:213
@@ -1908,11 +1908,11 @@ msgstr "Mall-JSON är ogiltig"
 
 #: application/controllers/Labeldesigner.php:125
 msgid "Template has no elements"
-msgstr ""
+msgstr "Mallen har inga element"
 
 #: application/controllers/Labeldesigner.php:131
 msgid "Label type not found"
-msgstr ""
+msgstr "Etiketttypen hittades inte"
 
 #: application/controllers/Labeldesigner.php:136
 #: application/controllers/Labels.php:225
@@ -1933,13 +1933,15 @@ msgstr "PDF-filen skapades inte"
 
 #: application/controllers/Labeldesigner.php:165
 msgid "Label PDF failed: "
-msgstr ""
+msgstr "Etikett PDF misslyckades: "
 
 #: application/controllers/Labeldesigner.php:180
 msgid ""
 "The label type of this template no longer exists. Please select another one "
 "before exporting."
 msgstr ""
+"Etikettypen för denna mall finns inte längre. Välj en annan innan du "
+"exporterar."
 
 #: application/controllers/Labels.php:39 application/views/labels/index.php:31
 msgid "QSL Card Labels"
@@ -4647,15 +4649,15 @@ msgstr "Raderad"
 
 #: application/models/Labeldesigner_model.php:158
 msgid "Imported"
-msgstr ""
+msgstr "Importerad"
 
 #: application/models/Labeldesigner_model.php:182
 msgid "Imported paper"
-msgstr ""
+msgstr "Importerat papper"
 
 #: application/models/Labeldesigner_model.php:244
 msgid "Imported label type"
-msgstr ""
+msgstr "Importerad etikett typ"
 
 #: application/models/Logbook_model.php:357
 msgid "Station not accessible"
@@ -7283,11 +7285,11 @@ msgstr "Län"
 #: application/views/awards/counties/details_ajax.php:14
 #: application/views/awards/counties/state_ajax.php:26
 msgid "Not in USA-CA county list"
-msgstr ""
+msgstr "Inte i USA-CA countylista"
 
 #: application/views/awards/counties/index.php:9
 msgid "Hover over a county"
-msgstr ""
+msgstr "Håll muspekaren över en county"
 
 #: application/views/awards/counties/index.php:42
 msgid "US County Award"
@@ -7388,7 +7390,7 @@ msgstr "Karta"
 
 #: application/views/awards/counties/index.php:71
 msgid "Show Counties Map"
-msgstr ""
+msgstr "Visa countykarta"
 
 #: application/views/awards/counties/index.php:79
 #: application/views/awards/cq/index.php:61
@@ -7409,7 +7411,7 @@ msgstr ""
 #: application/views/awards/was/index.php:63
 #: application/views/awards/wpx/index.php:25
 msgid "Press 'Apply' to update the table"
-msgstr ""
+msgstr "Tryck på 'Tillämpa' för att uppdatera tabellen"
 
 #: application/views/awards/counties/index.php:110
 #: application/views/awards/cq/index.php:142
@@ -7431,7 +7433,7 @@ msgstr ""
 #: application/views/awards/wpx/index.php:79
 #: application/views/awards/wwff/index.php:128
 msgid "Band & Mode"
-msgstr ""
+msgstr "Band & Trafiksätt"
 
 #: application/views/awards/counties/index.php:130
 #: application/views/awards/cq/index.php:178
@@ -7453,7 +7455,7 @@ msgstr ""
 #: application/views/awards/wpx/index.php:142
 #: application/views/awards/wwff/index.php:156
 msgid "Apply"
-msgstr ""
+msgstr "Tillämpa"
 
 #: application/views/awards/counties/index.php:163
 msgid "Worked Counties"
@@ -7659,7 +7661,7 @@ msgstr "Visa CQ-zonkarta"
 #: application/views/awards/wae/index.php:55
 #: application/views/awards/wwff/index.php:56
 msgid "Date Range"
-msgstr ""
+msgstr "Datumintervall"
 
 #: application/views/awards/cq/index.php:67
 #: application/views/awards/dxcc/index.php:61
@@ -9649,7 +9651,7 @@ msgstr "Fält som använts för detta diplom: WWFF (ADIF: WWFF_REF)"
 
 #: application/views/awards/wwff/index.php:52
 msgid "Press ''Apply'' to update the table"
-msgstr ""
+msgstr "Tryck på ''Tillämpa'' för att uppdatera tabellen"
 
 #: application/views/azimuthal/index.php:16
 msgid ""
@@ -16231,11 +16233,11 @@ msgstr "Bekräftade counties per delstat:"
 
 #: application/views/interface_assets/footer.php:2902
 msgid "Counties in state:"
-msgstr ""
+msgstr "Counties i delstaten:"
 
 #: application/views/interface_assets/footer.php:2903
 msgid "Needed counties for state:"
-msgstr ""
+msgstr "Nödvändiga counties för delstaten:"
 
 #: application/views/interface_assets/header.php:97
 msgid "Skip to content"
@@ -16594,7 +16596,7 @@ msgstr "Anpassad text"
 
 #: application/views/labeldesigner/designer.php:46
 msgid "Line"
-msgstr ""
+msgstr "Linje"
 
 #: application/views/labeldesigner/designer.php:48
 #: application/views/qslpostcard/designer.php:35
@@ -16660,12 +16662,12 @@ msgstr "vald"
 
 #: application/views/labeldesigner/designer.php:62
 msgid "Please select a label type first."
-msgstr ""
+msgstr "Vänligen välj först en etikettyp."
 
 #: application/views/labeldesigner/designer.php:63
 msgid ""
 "The label type of this template no longer exists. Please select another one."
-msgstr ""
+msgstr "Etikettypen för denna mall finns inte längre. Välj en annan."
 
 #: application/views/labeldesigner/designer.php:64
 #: application/views/qslpostcard/designer.php:49
@@ -16707,23 +16709,23 @@ msgstr "Lämna sidan"
 
 #: application/views/labeldesigner/designer.php:70
 msgid "Import failed"
-msgstr ""
+msgstr "Importen misslyckades"
 
 #: application/views/labeldesigner/designer.php:71
 msgid "Export failed"
-msgstr ""
+msgstr "Exporten misslyckades"
 
 #: application/views/labeldesigner/designer.php:72
 msgid "Template imported."
-msgstr ""
+msgstr "Mall importerad."
 
 #: application/views/labeldesigner/designer.php:73
 msgid "Please select a template to export."
-msgstr ""
+msgstr "Vänligen välj en mall att exportera."
 
 #: application/views/labeldesigner/designer.php:74
 msgid "File is too large."
-msgstr ""
+msgstr "Filen är för stor."
 
 #: application/views/labeldesigner/designer.php:75
 #: application/views/labeldesigner/designer.php:126
@@ -16767,23 +16769,23 @@ msgstr "Radera mall"
 
 #: application/views/labeldesigner/designer.php:109
 msgid "Export Template"
-msgstr ""
+msgstr "Exportera mall"
 
 #: application/views/labeldesigner/designer.php:112
 msgid "Import Template"
-msgstr ""
+msgstr "Importera mall"
 
 #: application/views/labeldesigner/designer.php:121
 msgid "Label type"
-msgstr ""
+msgstr "Etikettyp"
 
 #: application/views/labeldesigner/designer.php:124
 msgid "(select label type)"
-msgstr ""
+msgstr "(välj etiketttyp)"
 
 #: application/views/labeldesigner/designer.php:130
 msgid "Generate sample PDF with your latest QSOs"
-msgstr ""
+msgstr "Generera prov-PDF med dina senaste QSOs"
 
 #: application/views/labeldesigner/designer.php:131
 #: application/views/qslpostcard/designer.php:95
@@ -16848,28 +16850,33 @@ msgid ""
 "Horizontal rule — enable 'Repeats per QSO' to draw a separator under every "
 "QSO row"
 msgstr ""
+"Horisontell regel — aktivera 'Upprepningar per QSO' för att rita en "
+"separator under varje QSO-rad"
 
 #: application/views/labeldesigner/designer.php:201
 msgid "Horizontal Line"
-msgstr ""
+msgstr "Horisontell linje"
 
 #: application/views/labeldesigner/designer.php:203
 msgid "Vertical rule — place at column edges to build a table grid"
 msgstr ""
+"Vertikal regel — placera vid kolumnkanterna för att bygga ett tabellnät"
 
 #: application/views/labeldesigner/designer.php:204
 msgid "Vertical Line"
-msgstr ""
+msgstr "Vertikal linje"
 
 #: application/views/labeldesigner/designer.php:208
 msgid ""
 "Table grid — drag the corner to resize, drag the column markers to adjust "
 "column widths"
 msgstr ""
+"Tabellnät — dra i hörnet för att ändra storlek, dra i kolumnmarkörerna för "
+"att justera kolumnbredder"
 
 #: application/views/labeldesigner/designer.php:209
 msgid "Add Table"
-msgstr ""
+msgstr "Lägg till tabell"
 
 #: application/views/labeldesigner/designer.php:224
 #: application/views/qslpostcard/designer.php:175
@@ -16878,11 +16885,11 @@ msgstr "Inga fält matchar din sökning."
 
 #: application/views/labeldesigner/designer.php:232
 msgid "Label Canvas"
-msgstr ""
+msgstr "Etikettduk"
 
 #: application/views/labeldesigner/designer.php:233
 msgid "drag fields onto the label"
-msgstr ""
+msgstr "dra fält till etiketten"
 
 #: application/views/labeldesigner/designer.php:254
 #: application/views/qslpostcard/designer.php:205
@@ -16891,7 +16898,7 @@ msgstr "Mallalternativ"
 
 #: application/views/labeldesigner/designer.php:258
 msgid "Number of QSOs per label"
-msgstr ""
+msgstr "Antal QSOs per etikett"
 
 #: application/views/labeldesigner/designer.php:262
 #: application/views/qslpostcard/designer.php:213
@@ -16903,14 +16910,16 @@ msgid ""
 "Draws a rule between the QSO rows automatically, like the classic label "
 "layout"
 msgstr ""
+"Drar en linje mellan QSO-raderna automatiskt, som den klassiska "
+"etikettlayouten"
 
 #: application/views/labeldesigner/designer.php:267
 msgid "Separator lines between QSO rows"
-msgstr ""
+msgstr "Separatorlinjer mellan QSO-rader"
 
 #: application/views/labeldesigner/designer.php:270
 msgid "Separator thickness"
-msgstr ""
+msgstr "Separatortjocklek"
 
 #: application/views/labeldesigner/designer.php:279
 #: application/views/qslpostcard/designer.php:230
@@ -16954,11 +16963,11 @@ msgstr "Y"
 
 #: application/views/labeldesigner/designer.php:326
 msgid "Rows"
-msgstr ""
+msgstr "Rader"
 
 #: application/views/labeldesigner/designer.php:330
 msgid "Columns"
-msgstr ""
+msgstr "Kolumner"
 
 #: application/views/labeldesigner/designer.php:336
 #: application/views/labels/index.php:45 application/views/labels/index.php:80
@@ -16973,7 +16982,7 @@ msgstr "Höjd"
 #: application/views/labeldesigner/designer.php:344
 #: application/views/labeldesigner/designer.php:360
 msgid "Thickness"
-msgstr ""
+msgstr "Tjocklek"
 
 #: application/views/labeldesigner/designer.php:349
 #: application/views/labels/index.php:48
@@ -16982,15 +16991,15 @@ msgstr "Orientering"
 
 #: application/views/labeldesigner/designer.php:351
 msgid "Horizontal"
-msgstr ""
+msgstr "Horisontell"
 
 #: application/views/labeldesigner/designer.php:352
 msgid "Vertical"
-msgstr ""
+msgstr "Vertikal"
 
 #: application/views/labeldesigner/designer.php:356
 msgid "Length"
-msgstr ""
+msgstr "Längd"
 
 #: application/views/labeldesigner/designer.php:367
 #: application/views/qslpostcard/designer.php:275
@@ -17021,7 +17030,7 @@ msgstr "Omslagsbredd"
 
 #: application/views/labeldesigner/designer.php:399
 msgid "Print this field once per QSO if a label holds multiple QSOs"
-msgstr ""
+msgstr "Skriv ut detta fält en gång per QSO om en etikett innehåller flera QSO"
 
 #: application/views/labeldesigner/designer.php:400
 #: application/views/qslpostcard/designer.php:308
@@ -17325,13 +17334,13 @@ msgstr "Visa QSOs"
 #: application/views/logbookadvanced/startatform.php:20
 #: application/views/qslprint/printlabel.php:20
 msgid "Label layout"
-msgstr ""
+msgstr "Etikettlayout"
 
 #: application/views/labels/startatform.php:24
 #: application/views/logbookadvanced/startatform.php:23
 #: application/views/qslprint/printlabel.php:23
 msgid "Standard"
-msgstr ""
+msgstr "Standard"
 
 #: application/views/labels/startatform.php:30
 #: application/views/logbookadvanced/startatform.php:29
@@ -17339,6 +17348,8 @@ msgstr ""
 msgid ""
 "Designed label templates use their own layout and ignore the options below."
 msgstr ""
+"Designade etikettmallar använder sin egen layout och ignorerar alternativen "
+"nedan."
 
 #: application/views/labels/startatform.php:41
 #: application/views/logbookadvanced/startatform.php:40
@@ -22297,20 +22308,20 @@ msgstr "Elevation"
 
 #: application/views/statistics/antennaanalytics.php:87
 msgid "Radar"
-msgstr ""
+msgstr "Radar"
 
 #: application/views/statistics/antennaanalytics.php:101
 msgid "QSOs per degree of azimuth"
-msgstr ""
+msgstr "QSOs per grad av azimut"
 
 #: application/views/statistics/antennaanalytics.php:102
 #, php-format
 msgid "25 / 50 / 75 % of peak"
-msgstr ""
+msgstr "25 / 50 / 75 % of peak"
 
 #: application/views/statistics/antennaanalytics.php:103
 msgid "Marker every 5°"
-msgstr ""
+msgstr "Markering var 5°"
 
 #: application/views/statistics/index.php:14
 #: application/views/statistics/index.php:101
@@ -24247,6 +24258,9 @@ msgstr "Clublog Loggsökning"
 #: src/QSLManager/QSO.php:921
 msgid "LoTW User. Last upload was "
 msgstr "LoTW-användare. Senaste uppladdningen var "
+
+#~ msgid "Count QSO as Confirmed via"
+#~ msgstr "Räkna QSO som bekräftad via"
 
 #~ msgid "Worked / Confirmed"
 #~ msgstr "Kontaktad / Bekräftad"

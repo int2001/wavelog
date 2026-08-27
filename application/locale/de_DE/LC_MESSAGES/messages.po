@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-08-27 10:18+0000\n"
-"PO-Revision-Date: 2026-08-24 06:33+0000\n"
-"Last-Translator: Florian Wolters <wavelog@df2et.de>\n"
+"PO-Revision-Date: 2026-08-27 11:59+0000\n"
+"Last-Translator: Jörg Dorgeist <wavelog@dj7nt.de>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
 "Language: de_DE\n"
@@ -36,7 +36,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17.1\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #: application/config/adif_propmodes.php:7
 msgctxt "Propagation Mode"
@@ -2868,7 +2868,7 @@ msgstr "QSO-Karte"
 #: application/views/statistics/qsltable.php:111
 #: application/views/usermode/index.php:25
 msgid "Modes"
-msgstr "Modes"
+msgstr "Mode"
 
 #: application/controllers/Mode.php:61
 msgid "Edit Mode"
@@ -7502,7 +7502,7 @@ msgstr "Zeige Karte der Counties"
 #: application/views/awards/was/index.php:63
 #: application/views/awards/wpx/index.php:25
 msgid "Press 'Apply' to update the table"
-msgstr ""
+msgstr "Drücke 'Anwenden' um die Tabelle zu aktualisieren"
 
 #: application/views/awards/counties/index.php:110
 #: application/views/awards/cq/index.php:142
@@ -7524,7 +7524,7 @@ msgstr ""
 #: application/views/awards/wpx/index.php:79
 #: application/views/awards/wwff/index.php:128
 msgid "Band & Mode"
-msgstr ""
+msgstr "Band & Mode"
 
 #: application/views/awards/counties/index.php:130
 #: application/views/awards/cq/index.php:178
@@ -7546,7 +7546,7 @@ msgstr ""
 #: application/views/awards/wpx/index.php:142
 #: application/views/awards/wwff/index.php:156
 msgid "Apply"
-msgstr ""
+msgstr "Anwenden"
 
 #: application/views/awards/counties/index.php:163
 msgid "Worked Counties"
@@ -7753,7 +7753,7 @@ msgstr "Zeige CQ-Zonen-Karte"
 #: application/views/awards/wae/index.php:55
 #: application/views/awards/wwff/index.php:56
 msgid "Date Range"
-msgstr ""
+msgstr "Zeitraum"
 
 #: application/views/awards/cq/index.php:67
 #: application/views/awards/dxcc/index.php:61
@@ -8779,9 +8779,9 @@ msgid ""
 "(RTTY/PSK/FSK), and individual bands (160M-2M). Classes: Basic (1 QSO/voiv), "
 "Bronze (3), Silver (7), Gold (12). All 16 voivodeships required."
 msgstr ""
-"Auszeichnungskategorien: MIXED (alle Betriebsarten/Bänder), PHONE (SSB/AM/FM/"
-"SSTV), CW, DIGI (RTTY/PSK/FSK) und einzelne Bänder (160 m–2 m). Klassen: "
-"Anfänger (1 QSO/Woiwodschaft), Bronze (3), Silber (7), Gold (12). Alle 16 "
+"Auszeichnungskategorien: MIXED (alle Mode/Bänder), PHONE (SSB/AM/FM/SSTV), "
+"CW, DIGI (RTTY/PSK/FSK) und einzelne Bänder (160 m–2 m). Klassen: Anfänger "
+"(1 QSO/Woiwodschaft), Bronze (3), Silber (7), Gold (12). Alle 16 "
 "Woiwodschaften erforderlich."
 
 #: application/views/awards/pl_polska/index.php:44
@@ -9384,9 +9384,9 @@ msgid ""
 "Digital and Mixed Modes. It is issued in five classes: WAE III, WAE II, WAE "
 "I, WAE TOP and the WAE Trophy."
 msgstr ""
-"Das WAE wird in den folgenden Betriebsarten ausgestellt: CW, SSB, Phone, "
-"RTTY, FT8, Digital und Mixed Modes. Es wird in fünf Klassen vergeben: WAE "
-"III, WAE II, WAE I, WAE TOP und die WAE Trophy."
+"Das WAE wird in den folgenden Mode ausgestellt: CW, SSB, Phone, RTTY, FT8, "
+"Digital und Mixed Übertragungsverfahren. Es wird in fünf Klassen vergeben: "
+"WAE III, WAE II, WAE I, WAE TOP und die WAE Trophy."
 
 #: application/views/awards/wae/index.php:28
 msgid "Fields taken for this Award: Region, DXCC"
@@ -9763,7 +9763,7 @@ msgstr "Für diesen Award berücksichtigte Felder: WWFF (ADIF: WWFF_REF)"
 
 #: application/views/awards/wwff/index.php:52
 msgid "Press ''Apply'' to update the table"
-msgstr ""
+msgstr "Drücke \"Anwenden\" um die Tabelle zu aktualisieren"
 
 #: application/views/azimuthal/index.php:16
 msgid ""
@@ -9985,7 +9985,7 @@ msgstr "Modi angewendet. Bandfilter erhalten (CAT-Steuerung ist aktiv)"
 
 #: application/views/bandmap/list.php:49
 msgid "Applied your favorite bands and modes"
-msgstr "Bevorzugte Bänder und Modi angewendet"
+msgstr "Bevorzugte Bänder und Mode angewendet"
 
 #: application/views/bandmap/list.php:52 application/views/bandmap/list.php:323
 #: application/views/bandmap/list.php:492
@@ -11622,7 +11622,7 @@ msgstr "Wechsele Kontinent der Spotter"
 
 #: application/views/components/dxwaterfall.php:29
 msgid "Filter by mode"
-msgstr "Filter nach Betriebsart"
+msgstr "Filter nach Mode"
 
 #: application/views/components/dxwaterfall.php:36
 msgid "Zoom out"
@@ -11646,7 +11646,7 @@ msgstr "Kommentar: "
 
 #: application/views/components/dxwaterfall.php:41
 msgid "modes:"
-msgstr "Betriebsarten:"
+msgstr "Modes:"
 
 #: application/views/components/dxwaterfall.php:42
 msgid "OUT OF BANDPLAN"
@@ -17612,8 +17612,7 @@ msgstr "QSOs innerhalb des jeweils ausgewählten Zeitfensters abgleichen"
 #: application/views/logbookadvanced/dupesearchdialog.php:39
 msgid "Match QSOs with the same mode (SSB, CW, FM, etc.)"
 msgstr ""
-"Prüfe Übereinstimmung von QSOs anhand gleicher Betriebsart (SSB, CW, FM, "
-"etc.)"
+"Prüfe Übereinstimmung von QSOs anhand gleicher Modes (SSB, CW, FM, etc.)"
 
 #: application/views/logbookadvanced/dupesearchdialog.php:54
 msgid "Match QSOs on the same band"
@@ -22876,7 +22875,7 @@ msgstr "Bestes Band"
 
 #: application/views/timeplotter/index.php:107
 msgid "Best Mode"
-msgstr "Beste Betriebsart"
+msgstr "Bester Mode"
 
 #: application/views/timeplotter/index.php:118
 msgid "Total QSOs Plotted"
@@ -23107,7 +23106,7 @@ msgstr ""
 
 #: application/views/user/edit.php:459
 msgid "Prefill fields from callbook while logging"
-msgstr ""
+msgstr "Fülle Felder beim Loggen aus dem Callbook vorab aus"
 
 #: application/views/user/edit.php:460
 msgid ""
@@ -23115,18 +23114,21 @@ msgid ""
 "when entering a callsign. DXCC lookup, the previous QSOs table and the "
 "callbook profile panel are always shown."
 msgstr ""
+"Stellt ein, wie die Felder beim Loggen eines QSO vorausgefüllt werden. Die "
+"DXCC-Ableitung findet immer statt. Das Profil aus dem Callbook wird "
+"ebenfalls immer angezeigt."
 
 #: application/views/user/edit.php:463
 msgid "Callbook and previous QSOs (default)"
-msgstr ""
+msgstr "Rufzeichendatenbank und vorherige QSOs (Standard)"
 
 #: application/views/user/edit.php:467
 msgid "Only previous QSOs"
-msgstr ""
+msgstr "Nur vorherige QSOs"
 
 #: application/views/user/edit.php:471
 msgid "No prefill"
-msgstr ""
+msgstr "Keine Vorbelegung"
 
 #: application/views/user/edit.php:483
 msgid ""
