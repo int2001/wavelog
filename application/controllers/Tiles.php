@@ -2,9 +2,6 @@
 
 class Tiles extends CI_Controller {
 
-	private const TILE_TTL = 604800;
-	private const DEFAULT_TILE_SERVER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-
 	public function _remap() {
 		$this->require_session_cookie();
 
@@ -20,30 +17,23 @@ class Tiles extends CI_Controller {
 			$this->bail(404);
 		}
 
-		$this->load->driver('cache', [
-			'adapter' => $this->config->item('cache_adapter') ?? 'file',
-			'backup' => $this->config->item('cache_backup') ?? 'file',
-			'key_prefix' => $this->config->item('cache_key_prefix') ?? '',
-		]);
-
 		$this->load->model('options_model');
-		$upstream = $this->options_model->item('map_tile_server') ?? self::DEFAULT_TILE_SERVER;
+		$this->load->library('MaptileCache');
+		$upstream = $this->options_model->item('map_tile_server') ?? MaptileCache::DEFAULT_SERVER;
 
-		$key = 'tile:' . md5($upstream) . ':' . $z . ':' . $x . ':' . $y;
-
-		$png = $this->cache->get($key);
+		$png = MaptileCache::get($upstream, $z, $x, $y);
 
 		if ($png === false) {
 			$png = $this->fetch_upstream($upstream, $x, $y, $z);
 			if ($png === null) {
 				$this->bail(404);
 			}
-			$this->cache->save($key, $png, self::TILE_TTL);
+			MaptileCache::save($upstream, $z, $x, $y, $png);
 		}
 
 		$this->output
 			->set_header('Content-Type: image/png')
-			->set_header('Cache-Control: public, max-age=' . self::TILE_TTL)
+			->set_header('Cache-Control: public, max-age=' . MaptileCache::TILE_TTL)
 			->set_output($png);
 	}
 
@@ -58,7 +48,7 @@ class Tiles extends CI_Controller {
 		$url = str_replace(['{s}', '{r}', '{x}', '{y}', '{z}'], ['a', '', $x, $y, $z], $template);
 
 		if (str_starts_with($url, base_url())) {
-			$url = str_replace(['{s}', '{r}', '{x}', '{y}', '{z}'], ['a', '', $x, $y, $z], self::DEFAULT_TILE_SERVER);
+			$url = str_replace(['{s}', '{r}', '{x}', '{y}', '{z}'], ['a', '', $x, $y, $z], MaptileCache::DEFAULT_SERVER);
 		}
 
 		$ch = curl_init($url);
