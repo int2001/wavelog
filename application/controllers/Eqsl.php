@@ -9,7 +9,7 @@ class eqsl extends CI_Controller {
 
 		$this->load->helper(array('form', 'url'));
 
-		if (ENVIRONMENT == 'maintenance' && $this->session->userdata('user_id') == '') {
+		if (MAINTENANCE_MODE && $this->session->userdata('user_id') == '') {
 			echo __("Maintenance Mode is active. Try again later.")."\n";
 			redirect('user/login');
 		}
@@ -18,7 +18,6 @@ class eqsl extends CI_Controller {
 	// Default view when loading controller.
 	public function index() {
 
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -26,7 +25,7 @@ class eqsl extends CI_Controller {
 
 		$this->load->model('eqsl_images');
 		$this->load->library('Genfunctions');
-		$folder_name = $this->eqsl_images->get_imagePath('p');
+		$folder_name = $this->paths->getUserdataPath('eqsl_card', 'p');
 		$data['storage_used'] = $this->genfunctions->sizeFormat($this->genfunctions->folderSize($folder_name));
 
 		// Pagination
@@ -61,7 +60,6 @@ class eqsl extends CI_Controller {
 	}
 
 	public function import() {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2) || !clubaccess_check(9)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -161,7 +159,6 @@ class eqsl extends CI_Controller {
 	}
 
 	public function export() {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -212,10 +209,14 @@ class eqsl extends CI_Controller {
 					log_message('error', 'eQSL Credentials-Error for '.$data['user_eqsl_name'].'. Login will be disabled!');
 					$this->eqslmethods_model->disable_eqsl_uid($this->session->userdata('user_id'));
 					$status=__("User/Pass wrong for eQSL");
+					$rows .= "<td colspan='6'>".html_escape($status)."</td></tr>";
+					break;
 				} elseif ($status == 'Nick Error') {
 					log_message('error', 'eQSL error for user '.$data['user_eqsl_name'].' with QTH Nickname '.($qsl['eqslqthnickname'] ?? '').' at station_profile '.($qsl['eqsl_station_id'] ?? '').'. eQSL QTH Nickname will be removed from station location!');
 					$this->eqslmethods_model->disable_eqsl_station_id($this->session->userdata('user_id'),$qsl['eqsl_station_id']);
 					$status=sprintf(__("No such eQSL QTH Nickname: %s"), $qsl['eqslqthnickname'] ?? '');
+					$rows .= "<td colspan='6'>".html_escape($status)."</td></tr>";
+					break;
 				}
 
 				if($status == 'Error') {
@@ -225,15 +226,15 @@ class eqsl extends CI_Controller {
 				$timestamp = strtotime($qsl['COL_TIME_ON']);
 				$rows .= "<td>" . date($custom_date_format, $timestamp) . "</td>";
 				$rows .= "<td>" . date('H:i', $timestamp) . "</td>";
-				$rows .= "<td>" . str_replace("0", "&Oslash;", $qsl['COL_CALL']) . "</td>";
-				$rows .= "<td>" . $qsl['COL_MODE'] . "</td>";
+				$rows .= "<td class='callsign'>" . html_escape($qsl['COL_CALL']) . "</td>";
+				$rows .= "<td>" . html_escape($qsl['COL_MODE']) . "</td>";
 				if (isset($qsl['COL_SUBMODE'])) {
-					$rows .= "<td>" . $qsl['COL_SUBMODE'] . "</td>";
+					$rows .= "<td>" . html_escape($qsl['COL_SUBMODE']) . "</td>";
 				} else {
 					$rows .= "<td></td>";
 				}
-				$rows .= "<td>" . $qsl['COL_BAND'] . "</td>";
-				$rows .= "<td>" . $status . "</td>";
+				$rows .= "<td>" . html_escape($qsl['COL_BAND']) . "</td>";
+				$rows .= "<td>" . html_escape($status) . "</td>";
 			}
 			$rows .= "</tr>";
 			$data['eqsl_table'] = $this->generateResultTable($custom_date_format, $rows);
@@ -250,7 +251,6 @@ class eqsl extends CI_Controller {
 	}
 
 	function generateResultTable($custom_date_format, $rows) {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -274,7 +274,6 @@ class eqsl extends CI_Controller {
 	}
 
 	function writeEqslNotSent($qslsnotsent, $custom_date_format) {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -295,16 +294,16 @@ class eqsl extends CI_Controller {
 			$timestamp = strtotime($qsl['COL_TIME_ON']);
 			$table .= "<td>" . date($custom_date_format, $timestamp) . "</td>";
 			$table .= "<td>" . date('H:i', $timestamp) . "</td>";
-			$table .= "<td><a href=\"javascript:displayQso(" . $qsl['COL_PRIMARY_KEY'] . ")\">" . str_replace("0", "&Oslash;", strtoupper($qsl['COL_CALL'])) . "</a></td>";
-			$table .= "<td>" . $qsl['COL_MODE'] . "</td>";
+			$table .= "<td><a class=\"callsign\" href=\"javascript:displayQso(" . (int) $qsl['COL_PRIMARY_KEY'] . ")\">" . html_escape(strtoupper($qsl['COL_CALL'])) . "</a></td>";
+			$table .= "<td>" . html_escape($qsl['COL_MODE']) . "</td>";
 
 			if (isset($qsl['COL_SUBMODE'])) {
-				$table .= "<td>" . $qsl['COL_SUBMODE'] . "</td>";
+				$table .= "<td>" . html_escape($qsl['COL_SUBMODE']) . "</td>";
 			} else {
 				$table .= "<td></td>";
 			}
-			$table .= "<td>" . $qsl['COL_BAND'] . "</td>";
-			$table .= "<td>" . $qsl['eqslqthnickname'] . "</td>";
+			$table .= "<td>" . html_escape($qsl['COL_BAND']) . "</td>";
+			$table .= "<td>" . html_escape($qsl['eqslqthnickname']) . "</td>";
 			$table .= "</tr>";
 		}
 		$table .= "</tbody></table>";
@@ -313,7 +312,6 @@ class eqsl extends CI_Controller {
 	}
 
 	function image($id, $width=null) {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -327,7 +325,6 @@ class eqsl extends CI_Controller {
 
 		if ($this->Eqsl_images->get_image($id) == "No Image") {
 			$this->load->model('logbook_model');
-			$this->load->model('user_model');
 			$qso_query = $this->logbook_model->get_qso($id);
 
 			// Check if QSO exists and is accessible
@@ -418,7 +415,16 @@ class eqsl extends CI_Controller {
 				}
 
 				$filename = uniqid() . '.jpg';
-				$image_path = $this->Eqsl_images->get_imagePath('p') . '/' . $filename;
+				$eqsl_path = $this->paths->getUserdataPath('eqsl_card', 'p');
+
+				// Make sure storing the downloaded card won't fill up the disk
+				$this->load->library('upload_guard');
+				if (!$this->upload_guard->has_free_space($eqsl_path, strlen($content))) {
+					show_error(__('Not enough free disk space to store the eQSL card'), 507);
+					return;
+				}
+
+				$image_path = $eqsl_path . '/' . $filename;
 				$save_result = file_put_contents($image_path, $content);
 
 				if ($save_result !== false) {
@@ -433,7 +439,7 @@ class eqsl extends CI_Controller {
 		} else {
 			// Load server-cached image if etag isn't 0
 			if ($etag != '0') {
-				$image_file = $this->Eqsl_images->get_imagePath('p') . '/' . $this->Eqsl_images->get_image($id);
+				$image_file = $this->paths->getUserdataPath('eqsl_card', 'p') . '/' . $this->Eqsl_images->get_image($id);
 				$content = file_get_contents($image_file);
 				if ($content !== false) {
 					$this->output_image_with_width($content, $width, $etag);
@@ -505,14 +511,9 @@ class eqsl extends CI_Controller {
 
 		// Output
 		imagejpeg($thumbnail, null, 90); // 90% quality
-
-		// Clean up
-		imagedestroy($original_image);
-		imagedestroy($thumbnail);
 	}
 
 	function bulk_download_image($id) {
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -520,7 +521,6 @@ class eqsl extends CI_Controller {
 		$this->load->model('Eqsl_images');
 
 		$this->load->model('logbook_model');
-		$this->load->model('user_model');
 		$qso_query = $this->logbook_model->get_qso($id);
 		$qso = $qso_query->row();
 		$qso_timestamp = strtotime($qso->COL_TIME_ON);
@@ -570,7 +570,13 @@ class eqsl extends CI_Controller {
 			}
 			$filename = uniqid() . '.jpg';
 			if ($this->Eqsl_images->get_image($id) == "No Image") {
-				if (file_put_contents($this->Eqsl_images->get_imagePath('p') . '/' . $filename, $content) !== false) {
+				$eqsl_path = $this->paths->getUserdataPath('eqsl_card', 'p');
+				$this->load->library('upload_guard');
+				if (!$this->upload_guard->has_free_space($eqsl_path, strlen($content))) {
+					$error = __('Not enough free disk space to store the eQSL card');
+					return $error;
+				}
+				if (file_put_contents($eqsl_path . '/' . $filename, $content) !== false) {
 					$this->Eqsl_images->save_image($id, $filename);
 				}
 			}
@@ -579,7 +585,6 @@ class eqsl extends CI_Controller {
 
 	public function tools() {
 		// Check logged in
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -595,7 +600,6 @@ class eqsl extends CI_Controller {
 
 	public function download() {
 		// Check logged in
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -654,7 +658,6 @@ class eqsl extends CI_Controller {
 
 	public function mark_all_sent() {
 		// Check logged in
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -673,6 +676,12 @@ class eqsl extends CI_Controller {
 	 * Used for CRON job
 	 */
 	public function sync() {
+		$this->load->helper('cronauth');
+		if (!cronauth_allowed(3)) {
+			// return a 403
+			$this->output->set_status_header(403);
+			exit();
+		}
 		// set the last run in cron table for the correct cron id
 		$this->load->model('cron_model');
 		$this->cron_model->set_last_run($this->router->class . '_' . $this->router->method);

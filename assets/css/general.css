@@ -1,3 +1,36 @@
+@font-face {
+	font-family: 'JetBrains Mono';
+	src: url('../fonts/JetBrainsMono/JetBrainsMono-Regular.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'JetBrains Mono';
+	src: url('../fonts/JetBrainsMono/JetBrainsMono-Bold.woff2') format('woff2');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+.callsign {
+	font-family: 'JetBrains Mono', 'Consolas', 'SF Mono', monospace;
+	font-variant-numeric: slashed-zero;
+}
+
+/* Callsign input fields — slashed-zero font while typing */
+input[name="callsign"],
+input[id="callsign"],
+select[name="callsign"],
+select[name="callsign"] option,
+input[name="qsl_via"],
+input[name$="_callsign"],
+input[id^="dt-search-"] {
+	font-family: 'JetBrains Mono', 'Consolas', 'SF Mono', monospace;
+	font-variant-numeric: slashed-zero;
+}
+
 body {
 	font-family: "Twemoji Country Flags", "Helvetica", "Comic Sans", sans-serif;
 }
@@ -187,10 +220,6 @@ thead > tr > td {
 
 .dashboard {
 	padding-top: none;
-}
-
-.row.logdata {
-	padding-top: 15px;
 }
 
 .statistics {
@@ -466,6 +495,23 @@ TD.lotw {
 
 .callsign-suggest .card-title {
 	margin-bottom: 0px;
+}
+
+.callsign-suggestions .scp-call {
+	display: inline-block;
+	margin: 0 4px 4px 0;
+	padding: 1px 5px;
+	cursor: pointer;
+	border-radius: 3px;
+	font-family: monospace;
+}
+
+.callsign-suggestions .scp-call:hover {
+	background: color-mix(in srgb, var(--bs-body-color) 12%, transparent);
+}
+
+.callsign-suggestions .scp-call .text-primary {
+	font-weight: bold;
 }
 
 #search_box #callsign {
@@ -991,19 +1037,36 @@ label {
     bottom: 0;
     left: 0;
     width: 100%;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 200px);
 	justify-content: center;
-    align-items: stretch;
+	gap: 0 1rem;
+}
+
+.coord-pair {
+	white-space: nowrap;
+}
+
+.coord-pair .text-success {
+	display: inline-block;
+	width: 120px;
 }
 
 .cohidden {
     display:none;
 }
 
-#latDeg, #lngDeg {
-    width: 170px;
-}
-#locator, #distance, #bearing, #ituzonedisplay, #cqzonedisplay{
-    width: 120px;
+@media (min-width: 1920px) {
+	.coordinates {
+		display: flex;
+		gap: 0 1rem;
+	}
+	#latDeg, #lngDeg {
+		width: 170px;
+	}
+	#locator, #distance, #bearing, #ituzonedisplay, #cqzonedisplay{
+		width: 120px;
+	}
 }
 
 .hamsatBgLin {
@@ -1031,7 +1094,7 @@ label {
     --bs-dropdown-link-disabled-color: initial !important;
 }
 
-#station_logbooks_table tbody td, #station_locations_table tbody td {
+#station_logbooks_table tbody td, #station_locations_table tbody td, #user_contests_table tbody td {
 	text-align: center; 
 	vertical-align: middle;
 }
@@ -1068,6 +1131,189 @@ label {
 	height: 18px;
 	float: left;
 	margin: 0 8px 0 0;
+}
+
+/* WAB award map legend */
+.legend .wab-legend-title {
+	font-size: 12px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: .08em;
+	opacity: .8;
+	margin: 2px 0 5px;
+}
+.legend .wab-legend-divider {
+	height: 1px;
+	background: rgba(255, 255, 255, .18);
+	margin: 10px 0 7px;
+}
+.legend .wab-legend-table {
+	border-collapse: separate;
+	border-spacing: 0 3px;
+}
+.legend .wab-legend-table td {
+	white-space: nowrap;
+	padding: 0;
+	line-height: 20px;
+}
+.legend .wab-legend-table td.wab-legend-lead {
+	width: 26px;
+}
+.legend .wab-legend-table td:nth-child(2) {
+	padding-left: 8px;
+}
+.legend .wab-legend-table td:last-child {
+	padding-left: 14px;
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+.legend .wab-legend-table i {
+	float: none;
+	display: inline-block;
+	vertical-align: middle;
+	width: 26px;
+	height: 18px;
+	margin: 0;
+	border-radius: 4px;
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .35);
+}
+.legend .wab-legend-pfx {
+	position: static;
+	display: block;
+	width: 26px;
+	text-align: center;
+	border: 1px solid rgba(255, 255, 255, .3);
+	border-radius: 4px;
+	background: rgba(255, 255, 255, .08);
+	font-size: 11px;
+	font-weight: 600;
+	line-height: 16px;
+}
+.legend .wab-legend-total td {
+	border-top: 1px solid rgba(255, 255, 255, .18);
+	padding-top: 5px;
+	font-weight: bold;
+}
+
+/* Permanent region labels on the activation planner zone/state overlays */
+.leaflet-tooltip.overlay-region-label {
+	background: rgba(0, 0, 0, 0.55);
+	border: none;
+	box-shadow: none;
+	color: #fff;
+	font-weight: 600;
+	font-size: 11px;
+	padding: 1px 5px;
+	border-radius: 3px;
+	max-width: 140px;
+	white-space: normal;
+	text-align: center;
+}
+.leaflet-tooltip.overlay-region-label::before {
+	display: none;
+}
+
+/* Dropdown toggle "active" state — any checkbox in the menu checked.
+ * Mirrors the advanced logbook filter button (.btn-filter-active). */
+.btn-filter-active {
+	background-color: #ffc107 !important;
+	border-color: #ffc107 !important;
+	color: #000 !important;
+}
+.btn-filter-active:hover {
+	background-color: #e0a800 !important;
+	border-color: #e0a800 !important;
+}
+
+/* SOTA/POTA/WWFF reference popups (activation planner) */
+.ref-popup { line-height: 1.4; min-width: 180px; padding-left: 10px; border-left: 5px solid #888; }
+.ref-popup-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.ref-popup-type {
+	display: inline-block;
+	font-size: 0.65rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: #fff;
+	padding: 2px 8px;
+	border-radius: 9999px;
+	line-height: 1.3;
+}
+.ref-popup-ref { font-size: 1.1rem; font-weight: 700; line-height: 1.2; }
+a.ref-popup-ref { color: inherit; text-decoration: none; }
+a.ref-popup-ref:hover { text-decoration: underline; }
+a.ref-popup-ref .fas { font-size: 0.7rem; opacity: 0.7; }
+.ref-popup-name { font-weight: 600; margin-bottom: 6px; }
+.ref-popup-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 0.85rem;
+}
+.ref-popup-row + .ref-popup-row { margin-top: 3px; }
+.ref-popup-row .fas { width: 14px; text-align: center; opacity: 0.75; }
+
+/* Coloured marker swatch in the activation planner Refs dropdown */
+.ref-menu-dot {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	flex-shrink: 0;
+	color: #fff;
+	font-size: 0.7rem;
+	font-weight: 700;
+	line-height: 1;
+}
+
+/* Reference map markers reuse the .ref-menu-dot swatch inside a divIcon */
+.ref-map-icon { background: transparent; border: none; }
+
+/* "Already activated" POTA marker: gold swatch with a check badge. */
+.ref-menu-dot.is-activated { background: #ffd60a; color: #1f1f1f; position: relative; }
+.ref-menu-dot.is-activated .ref-activated-check {
+	position: absolute;
+	right: -3px;
+	bottom: -3px;
+	font-size: 0.6rem;
+	color: #198754;
+	background: #fff;
+	border-radius: 50%;
+	padding: 1px;
+	line-height: 1;
+}
+.ref-popup-row.is-activated { color: #198754; font-weight: 600; }
+.ref-popup-row.is-activated .fas { opacity: 1; color: #198754; }
+
+/* IOTA tag labels (clickable) drawn at the centre of each rectangle overlay */
+.iota-label {
+	background: rgba(23, 162, 184, 0.9);
+	color: #fff;
+	font-size: 9px;
+	font-weight: 700;
+	line-height: 14px;
+	text-align: center;
+	border-radius: 3px;
+	border: 1px solid rgba(255, 255, 255, 0.45);
+	white-space: nowrap;
+	cursor: pointer;
+}
+
+/* Blocking loading overlay for the activation planner map */
+.gl-loading {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.35);
+	cursor: wait;
 }
 
 .info.leaflet-control {
@@ -1315,13 +1561,13 @@ svg text.month { fill: #AAA; }
     gap: 0.5em; /* Adds space between the flag and callsign */
 }
 
-.htmx-indicator {
-   opacity: 0;
+.sync-indicator {
+   display: none;
    animation: blinker 2s linear infinite;
 }
 
-.htmx-request.htmx-indicator {
-   opacity: 1;
+.sync-indicator.active {
+   display: inline;
 }
 
 @keyframes blinker {
@@ -1332,6 +1578,7 @@ svg text.month { fill: #AAA; }
 
 .spacingcell {
    background-color: transparent !important;
+   --bs-table-accent-bg: transparent !important;
    border-top-style: none !important;
    border-bottom-style: none !important;
    border-right-style: none !important;
@@ -1420,7 +1667,1152 @@ svg text.month { fill: #AAA; }
     z-index: 9999 !important;
 }
 
+.tooltip-tl { --bs-tooltip-bg: rgba(0, 0, 0, 0.75); --bs-tooltip-color: #fff; pointer-events: none; }
+
 .qso_icons {
 	user-select: none;
 }
 
+.heatmap-grid { 
+	display: grid; 
+	grid-template-columns: repeat(24, minmax(0, 1fr)); 
+	gap: 2px; 
+	max-width: 100%; 
+}
+.heatmap-header {
+	text-align: center;
+	padding: 6px 4px;
+}
+.heatmap-row-label {
+	font-weight: 600;
+	padding: 8px 4px;
+	text-align: left;
+	font-size: 0.85rem;
+}
+.heatmap-cell {
+	text-align: center;
+	padding: 8px 4px;
+	border-radius: 3px;
+	border: 1px solid #d1d5da;
+	cursor: default;
+	color: #000;
+}
+.legend-item { display: inline-flex; align-items: center; gap: 4px; font-size: 0.8rem;}
+.legend-swatch { width: 16px; height: 16px; border: 1px solid #d1d5da; border-radius: 3px; display: inline-block; }
+
+.my-div-icon {
+	white-space: nowrap;
+	background: transparent !important;
+	border: none !important;
+}
+
+#gridsquare_map {
+	height: calc(100vh - 350px) !important;
+}
+
+#wabmap {
+	height: calc(100vh - 350px) !important;
+}
+
+.lbatable thead tr th:nth-child(1),
+.lbatable tbody tr td:nth-child(1) {
+	padding-left: 10px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* ===================================================================
+   QSL Postcard Designer
+   =================================================================== */
+
+/* --- Toolbar --- */
+.qsl-toolbar .qsl-tb-group {
+	display: flex;
+	flex-direction: column;
+}
+
+.qsl-tb-label {
+	font-size: .68rem;
+	text-transform: uppercase;
+	letter-spacing: .04em;
+	opacity: .65;
+	margin-bottom: .25rem;
+}
+
+/* --- Three-pane editor grid --- */
+.qsl-editor {
+	display: grid;
+	grid-template-columns: 240px minmax(0, 1fr) 280px;
+	gap: 1rem;
+	align-items: start;
+}
+
+@media (max-width: 1199.98px) {
+	.qsl-editor {
+		grid-template-columns: 1fr;
+	}
+}
+
+.qsl-pane {
+	margin-bottom: 0;
+}
+
+/* Right column stack (template options + properties) */
+.qsl-right-stack {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+/* --- Palette (left) --- */
+.qsl-palette .card-body {
+	max-height: 78vh;
+	overflow-y: auto;
+}
+
+.qsl-cat {
+	margin-bottom: .35rem;
+}
+
+.qsl-cat > summary {
+	cursor: pointer;
+	font-weight: 600;
+	font-size: .85rem;
+	padding: .3rem .4rem;
+	border-radius: 6px;
+	user-select: none;
+}
+
+.qsl-cat > summary:hover {
+    color: var(--bs-primary-text-emphasis);
+    background: var(--bs-primary-bg-subtle);
+}
+
+
+.qsl-cat-body {
+	padding: .35rem 0 .15rem .25rem;
+}
+
+.qsl_designer_field {
+	cursor: grab;
+	user-select: none;
+	padding: 5px 8px;
+	margin-bottom: 5px;
+	border: 1px solid var(--bs-border-color);
+	border-radius: 6px;
+	background: var(--bs-body-bg);
+	color: var(--bs-body-color);
+	font-family: monospace;
+	font-size: .8rem;
+	transition: background .12s, border-color .12s;
+}
+
+.qsl_designer_field:hover {
+	color: var(--bs-emphasis-color);
+    background: var(--bs-primary-bg-subtle);
+}
+
+.qsl_designer_field:active {
+	cursor: grabbing;
+}
+
+/* WYSIWYG ghost rows for "repeats per QSO" fields (non-interactive clones) */
+.qsl_designer_ghost {
+	opacity: .35;
+	pointer-events: none;
+}
+
+/* --- Properties (right) --- */
+.qsl-props .card-body {
+	max-height: 78vh;
+	overflow-y: auto;
+}
+
+/* --- Canvas (center) --- */
+.qsl-canvas .card-body {
+	background: var(--bs-tertiary-bg, #eef0f2);
+}
+
+#stageScroll {
+	overflow: auto;
+	max-height: 80vh;
+	padding: 14px;
+}
+
+#stageZoom {
+	width: 940px;
+	height: 640px;
+}
+
+#rulerWrap {
+	position: relative;
+	width: 940px;
+	height: 640px;
+}
+
+#rulerTop,
+#rulerLeft {
+	position: absolute;
+	background: #e9ecef;
+	background: light-dark(#e9ecef, #343a40);
+	border: 1px solid #dee2e6;
+	border-color: light-dark(#dee2e6, #495057);
+	color: #212529;
+	color: light-dark(#212529, #e9ecef);
+	font-weight: 600;
+}
+
+#rulerTop {
+	left: 40px;
+	top: 0;
+	width: 900px;
+	height: 40px;
+}
+
+#rulerLeft {
+	left: 0;
+	top: 40px;
+	width: 40px;
+	height: 600px;
+}
+
+#stage {
+	position: absolute;
+	left: 40px;
+	top: 40px;
+	width: 900px;
+	height: 600px;
+	border: 1px solid var(--bs-border-color);
+	overflow: hidden;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image:
+		linear-gradient(to right, rgba(0, 0, 0, .06) 1px, transparent 1px),
+		linear-gradient(to bottom, rgba(0, 0, 0, .06) 1px, transparent 1px);
+	background-size: 37.5px 37.5px;
+	background-color: #ffffff;
+	box-shadow: 0 2px 14px rgba(0, 0, 0, .2);
+}
+
+/* Ruler tick marks */
+.ruler-tick-top {
+	position: absolute;
+	bottom: 0;
+	width: 1px;
+	background: #495057;
+	background: light-dark(#495057, #adb5bd);
+}
+
+.ruler-tick-top.major {
+	height: 18px;
+}
+
+.ruler-tick-top.minor {
+	height: 9px;
+	opacity: .55;
+}
+
+.ruler-tick-left {
+	position: absolute;
+	right: 0;
+	height: 1px;
+	background: #495057;
+	background: light-dark(#495057, #adb5bd);
+}
+
+.ruler-tick-left.major {
+	width: 18px;
+}
+
+.ruler-tick-left.minor {
+	width: 9px;
+	opacity: .55;
+}
+
+/* Ruler labels */
+.ruler-label-top {
+	position: absolute;
+	top: 3px;
+	font-size: 10px;
+	line-height: 1;
+	color: #212529;
+	color: light-dark(#212529, #e9ecef);
+	background: transparent;
+}
+
+.ruler-label-left {
+	position: absolute;
+	right: 18px;
+	font-size: 10px;
+	line-height: 1;
+	color: #212529;
+	color: light-dark(#212529, #e9ecef);
+	background: transparent;
+}
+
+/* --- Placed elements (sit on the white postcard) --- */
+.qsl_designer_placed {
+	position: absolute;
+	padding: 2px 5px;
+	border: 1px solid rgba(13, 110, 253, .5);
+	border-radius: 4px;
+	background: rgba(255, 255, 255, .92);
+	color: #111111;
+	font-weight: 600;
+	line-height: 1.25;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, .15);
+	cursor: move;
+	white-space: nowrap;
+}
+
+.qsl_designer_placed:hover {
+	border-color: var(--bs-primary);
+}
+
+.qsl_designer_placed.selected {
+	border: 1px solid #ff7a00;
+	box-shadow: 0 0 0 2px rgba(255, 122, 0, .35);
+	z-index: 50;
+}
+
+/* --- Snapping guides --- */
+.qsl-guide {
+	position: absolute;
+	pointer-events: none;
+	z-index: 60;
+}
+
+.qsl-guide-v {
+	top: 0;
+	width: 0;
+	height: 600px;
+	border-left: 1px dashed #ff3b8b;
+}
+
+.qsl-guide-h {
+	left: 0;
+	width: 900px;
+	height: 0;
+	border-top: 1px dashed #ff3b8b;
+}
+
+/* --- Marquee (rubber-band) selection --- */
+.qsl-marquee {
+	position: absolute;
+	pointer-events: none;
+	z-index: 70;
+	border: 1px solid var(--bs-primary, #0d6efd);
+	background: rgba(13, 110, 253, .12);
+}
+
+/* --- Context menu --- */
+.qsl-ctx-menu {
+	position: fixed;
+	z-index: 2000;
+	min-width: 184px;
+	padding: 4px;
+	background: var(--bs-body-bg);
+	border: 1px solid var(--bs-border-color);
+	border-radius: 8px;
+	box-shadow: 0 6px 24px rgba(0, 0, 0, .25);
+}
+
+.qsl-ctx-item {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	padding: 6px 10px;
+	border: 0;
+	border-radius: 5px;
+	background: transparent;
+	color: var(--bs-body-color);
+	font-size: .85rem;
+	text-align: left;
+}
+
+.qsl-ctx-item:hover {
+	background: rgba(127, 127, 127, .15);
+	background: color-mix(in srgb, var(--bs-body-color) 50%, transparent);
+}
+
+.qsl-ctx-item.text-danger:hover {
+	background: rgba(220, 53, 69, .15);
+	background: color-mix(in srgb, var(--bs-danger) 50%, transparent);
+}
+
+.qsl-ctx-sep {
+	height: 1px;
+	margin: 4px 6px;
+	background: var(--bs-border-color);
+}
+
+/* Context submenu (align & distribute) */
+.qsl-ctx-sub {
+	position: relative;
+}
+
+.qsl-ctx-submenu {
+	position: absolute;
+	left: 100%;
+	top: -5px;
+	display: none;
+	min-width: 232px;
+	margin-left: 2px;
+	padding: 4px;
+	background: var(--bs-body-bg);
+	border: 1px solid var(--bs-border-color);
+	border-radius: 8px;
+	box-shadow: 0 6px 24px rgba(0, 0, 0, .25);
+}
+
+.qsl-ctx-sub:hover > .qsl-ctx-submenu {
+	display: block;
+}
+
+/* ===================================================================
+   Label Designer
+   Same editor components as the postcard designer, but the canvas
+   (stage, rulers, guides) is sized dynamically from the selected
+   label type instead of the postcard's fixed 5.5 × 3.5 in. JS sets
+   the three --lbl-* custom properties; these scoped rules override
+   the fixed postcard dimensions only inside #lblDesigner.
+   =================================================================== */
+#lblDesigner {
+	--lbl-stage-w: 600px;
+	--lbl-stage-h: 300px;
+	--lbl-grid: 28.75px;
+}
+
+#lblDesigner #stageZoom,
+#lblDesigner #rulerWrap {
+	width: calc(var(--lbl-stage-w) + 40px);
+	height: calc(var(--lbl-stage-h) + 40px);
+}
+
+#lblDesigner #rulerTop {
+	width: var(--lbl-stage-w);
+}
+
+#lblDesigner #rulerLeft {
+	height: var(--lbl-stage-h);
+}
+
+#lblDesigner #stage {
+	width: var(--lbl-stage-w);
+	height: var(--lbl-stage-h);
+	background-size: var(--lbl-grid) var(--lbl-grid);
+}
+
+#lblDesigner .qsl-guide-v {
+	height: var(--lbl-stage-h);
+}
+
+#lblDesigner .qsl-guide-h {
+	width: var(--lbl-stage-w);
+}
+
+/* --- Ruled line elements (grid separators between QSO details) --- */
+/* Thin filled bars; selection/hover use outline so it doesn't change the
+   line's on-screen size (which maps to its printed thickness). */
+#lblDesigner .qsl_designer_placed.qsl-line-h,
+#lblDesigner .qsl_designer_placed.qsl-line-v {
+	padding: 0;
+	background: #000000; /* JS sets the element color inline */
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+	white-space: normal;
+}
+
+#lblDesigner .qsl_designer_placed.qsl-line-h:hover,
+#lblDesigner .qsl_designer_placed.qsl-line-v:hover,
+#lblDesigner .qsl_designer_placed.qsl-line-h.selected,
+#lblDesigner .qsl_designer_placed.qsl-line-v.selected {
+	outline: 1px solid #ff7a00;
+	outline-offset: 1px;
+}
+
+#lblDesigner .qsl_designer_ghost.qsl-line-h,
+#lblDesigner .qsl_designer_ghost.qsl-line-v {
+	opacity: .35;
+}
+
+/* Resize handle at a selected line's end (drag to change its length) */
+#lblDesigner .qsl-line-handle {
+	position: absolute;
+	width: 8px;
+	height: 8px;
+	background: #ff7a00;
+	border: 1px solid #ffffff;
+	border-radius: 2px;
+	z-index: 80;
+}
+
+#lblDesigner .qsl-line-handle.ew {
+	cursor: ew-resize;
+}
+
+#lblDesigner .qsl-line-handle.ns {
+	cursor: ns-resize;
+}
+
+/* --- Table element (rows × columns grid) --- */
+/* The container draws the outer border (JS sets color/thickness inline);
+   child divs are the internal column/row rules and never catch events. */
+#lblDesigner .qsl_designer_placed.qsl-table {
+	padding: 0;
+	background: transparent;
+	border-style: solid;
+	box-shadow: none;
+	white-space: normal;
+}
+
+#lblDesigner .qsl-table .qsl-tbl-v,
+#lblDesigner .qsl-table .qsl-tbl-h {
+	position: absolute;
+	pointer-events: none;
+}
+
+#lblDesigner .qsl-table.selected {
+	outline: 1px solid #ff7a00;
+	outline-offset: 1px;
+}
+
+/* Corner resize (whole table, one handle per corner) + column-boundary resize */
+#lblDesigner .qsl-tbl-handle {
+	position: absolute;
+	width: 8px;
+	height: 8px;
+	background: #ff7a00;
+	border: 1px solid #ffffff;
+	border-radius: 2px;
+	z-index: 80;
+}
+
+#lblDesigner .qsl-tbl-handle.qsl-tbl-nw {
+	cursor: nw-resize;
+}
+
+#lblDesigner .qsl-tbl-handle.qsl-tbl-ne {
+	cursor: ne-resize;
+}
+
+#lblDesigner .qsl-tbl-handle.qsl-tbl-sw {
+	cursor: sw-resize;
+}
+
+#lblDesigner .qsl-tbl-handle.qsl-tbl-se {
+	cursor: se-resize;
+}
+
+#lblDesigner .qsl-tbl-handle.qsl-tbl-col {
+	cursor: col-resize;
+}
+
+/* ============================================================
+   Custom map tile styles (user-selectable; override active theme)
+   Body class = user_options map_custom.tile.style (see custom_map_style_helper).
+   map-follow = no override (active theme overrides.css wins).
+   Higher specificity (body.<slug>) beats the theme's bare .leaflet-tile.
+   ============================================================ */
+
+/* Follow active theme -- intentionally empty; theme overrides.css wins */
+body.map-follow .leaflet-tile,
+body.map-follow path.grid-rectangle,
+body.map-follow span.grid-text > font,
+body.map-follow span.grid-text-unworked > font,
+body.map-follow span.grid-text-worked > font {}
+
+/* --- Light looks: cosmo / default (+ _wide) -- no tile filter --- */
+body.map-cosmo .leaflet-tile,
+body.map-cosmo_wide .leaflet-tile,
+body.map-default .leaflet-tile,
+body.map-default_wide .leaflet-tile { filter: none !important; }
+
+body.map-cosmo path.grid-rectangle,
+body.map-cosmo_wide path.grid-rectangle,
+body.map-default path.grid-rectangle,
+body.map-default_wide path.grid-rectangle { stroke: rgba(97, 97, 97, 1); }
+
+body.map-cosmo span.grid-text > font,
+body.map-cosmo_wide span.grid-text > font,
+body.map-default span.grid-text > font,
+body.map-default_wide span.grid-text > font,
+body.map-cosmo span.grid-text-unworked > font,
+body.map-cosmo_wide span.grid-text-unworked > font,
+body.map-default span.grid-text-unworked > font,
+body.map-default_wide span.grid-text-unworked > font { color: rgb(97, 97, 97) !important; font-weight: 400 !important; }
+
+body.map-cosmo span.grid-text-worked > font,
+body.map-cosmo_wide span.grid-text-worked > font,
+body.map-default span.grid-text-worked > font,
+body.map-default_wide span.grid-text-worked > font { color: rgb(255, 255, 255) !important; font-weight: 400 !important; }
+
+/* --- Dark looks: shared grid-text (identical across cyborg/darkly/superhero) --- */
+body.map-cyborg path.grid-rectangle,
+body.map-cyborg_wide path.grid-rectangle,
+body.map-darkly path.grid-rectangle,
+body.map-darkly_wide path.grid-rectangle,
+body.map-superhero path.grid-rectangle,
+body.map-superhero_wide path.grid-rectangle { stroke: rgba(200, 200, 200, 0.5); }
+
+body.map-cyborg span.grid-text > font,
+body.map-cyborg_wide span.grid-text > font,
+body.map-darkly span.grid-text > font,
+body.map-darkly_wide span.grid-text > font,
+body.map-superhero span.grid-text > font,
+body.map-superhero_wide span.grid-text > font,
+body.map-cyborg span.grid-text-worked > font,
+body.map-cyborg_wide span.grid-text-worked > font,
+body.map-darkly span.grid-text-worked > font,
+body.map-darkly_wide span.grid-text-worked > font,
+body.map-superhero span.grid-text-worked > font,
+body.map-superhero_wide span.grid-text-worked > font { color: rgba(255, 255, 255, 1) !important; font-weight: 400 !important; }
+
+body.map-cyborg span.grid-text-unworked > font,
+body.map-cyborg_wide span.grid-text-unworked > font,
+body.map-darkly span.grid-text-unworked > font,
+body.map-darkly_wide span.grid-text-unworked > font,
+body.map-superhero span.grid-text-unworked > font,
+body.map-superhero_wide span.grid-text-unworked > font { color: rgba(255, 255, 255, .4) !important; font-weight: 400 !important; }
+
+/* Dark tile filters -- the only difference between dark looks */
+body.map-cyborg .leaflet-tile,
+body.map-cyborg_wide .leaflet-tile { filter: invert() hue-rotate(180deg) grayscale(0.8) !important; }
+
+body.map-darkly .leaflet-tile,
+body.map-darkly_wide .leaflet-tile { filter: invert() hue-rotate(180deg) grayscale(0.8) brightness(1.2) !important; }
+
+body.map-superhero .leaflet-tile,
+body.map-superhero_wide .leaflet-tile { filter: invert() hue-rotate(180deg) sepia(100%) hue-rotate(180deg) !important; }
+
+/* --- Synthetic (non-theme) looks --- */
+body.map-gray .leaflet-tile { filter: contrast(1.3) grayscale(0.8) !important; }
+body.map-gray path.grid-rectangle { stroke: rgba(0, 0, 0, 0.09); }
+body.map-gray span.grid-text > font { color: rgba(0, 0, 0, 0.09) !important; font-weight: 400 !important; }
+body.map-gray span.grid-text-unworked > font { color: rgba(0, 0, 0, .4) !important; font-weight: 400 !important; }
+body.map-gray span.grid-text-worked > font { color: rgba(0, 0, 0, 1) !important; font-weight: 400 !important; }
+
+body.map-high-contrast .leaflet-tile { filter: saturate(2.2) grayscale(0.8) contrast(1.2) !important; }
+body.map-high-contrast path.grid-rectangle { stroke: rgba(0, 0, 0, 0.2); }
+body.map-high-contrast span.grid-text > font { color: rgba(0, 0, 0, 0.4) !important; font-weight: 400 !important; }
+body.map-high-contrast span.grid-text-unworked > font { color: rgba(0, 0, 0, 0.2) !important; font-weight: 400 !important; }
+body.map-high-contrast span.grid-text-worked > font { color: rgba(0, 0, 0, 0.4) !important; font-weight: 400 !important; }
+
+/* ============================================================
+   Gridsquare Lookup (gridlookup view)
+   - Mobile toolbar: secondary controls collapse behind
+     "More options" on phones (xs); full inline toolbar on sm+.
+   - Compass-style grid-border readout: a Leaflet control
+     (top-right of the map) with the current square centred
+     and N/S/E/W neighbours around it.
+   ============================================================ */
+
+/* Mobile toolbar */
+#glControls .gl-input { max-width: 150px; }
+.gl-chevron {
+	display: inline-block;
+	width: .45em;
+	height: .45em;
+	margin-right: .4em;
+	vertical-align: middle;
+	border-right: 2px solid currentColor;
+	border-top: 2px solid currentColor;
+	transform: rotate(45deg);          /* › points right when collapsed */
+	transition: transform .15s ease;
+}
+#glControls.gl-expanded .gl-chevron { transform: rotate(135deg); }  /* ∨ points down when open */
+#glControls:not(.gl-expanded) .gl-more-open,
+#glControls.gl-expanded .gl-more-closed { display: none; }
+#glControls .gl-refsrow { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+@media (max-width: 575.98px) {
+	#glControls:not(.gl-expanded) .gl-secondary { display: none !important; }
+	#glControls .gl-input { flex: 0 0 100%; max-width: 100%; }
+	#glControls .gl-refsrow { flex: 0 0 100%; }
+	#glControls .gl-search-wrap { flex: 0 0 100%; }
+	.gl-more {
+		flex: 0 0 100%;
+		border-radius: 0;
+		text-align: left;
+		padding-left: 0;
+	}
+}
+
+/* Activation planner reference search box. The input inherits its chrome from
+   Bootstrap's .form-control-sm; .gl-search-* only adds the icon, dropdown and
+   type-badge rows (the badge reuses .ref-menu-dot verbatim). */
+.gl-search-wrap {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	flex: 0 0 auto;          /* don't stretch across the toolbar */
+	width: 240px;            /* desktop width; mobile goes full-width via the media query */
+	max-width: 100%;
+}
+.gl-search-icon {
+	position: absolute;
+	top: 50%;                /* vertically centre inside the input */
+	left: .55rem;
+	transform: translateY(-50%);
+	color: var(--bs-secondary-color, #6c757d);
+	font-size: .8rem;
+	pointer-events: none;
+	z-index: 2;
+}
+/* Specificity (#id .class) beats the theme overrides.css `.form-control` padding
+   shorthand (loaded after general.css), so the icon's left padding survives. */
+#glControls .gl-search-input { padding-left: 1.75rem; }
+.gl-search-results {
+	position: absolute;
+	top: calc(100% + 2px);
+	left: 0;
+	min-width: 100%;
+	max-width: 26rem;
+	max-height: 60vh;
+	overflow-y: auto;
+	z-index: 1000;
+	background: var(--bs-body-bg, #fff);
+	color: var(--bs-body-color, #212529);
+	border: 1px solid var(--bs-border-color, #dee2e6);
+	border-radius: .375rem;
+	box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+	padding: .25rem;
+}
+.gl-search-header {
+	padding: .25rem .5rem;
+	font-size: .7rem;
+	text-transform: uppercase;
+	letter-spacing: .04em;
+	color: var(--bs-secondary-color, #6c757d);
+}
+.gl-search-item {
+	display: flex;
+	align-items: center;
+	gap: .5rem;
+	padding: .3rem .5rem;
+	border-radius: .25rem;
+	cursor: pointer;
+}
+.gl-search-item:hover,
+.gl-search-item.is-active {
+	background: var(--bs-primary, #0d6efd);
+	color: #fff;
+}
+.gl-search-item:hover .gl-search-sub,
+.gl-search-item.is-active .gl-search-sub { color: rgba(255, 255, 255, .8); }
+.gl-search-ref { font-weight: 600; white-space: nowrap; }
+.gl-search-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 auto; }
+.gl-search-sub { font-size: .72rem; color: var(--bs-secondary-color, #6c757d); white-space: nowrap; }
+.gl-search-empty,
+.gl-search-loading {
+	padding: .5rem .75rem;
+	font-size: .85rem;
+	color: var(--bs-secondary-color, #6c757d);
+}
+.gl-search-footer {
+	padding: .3rem .5rem;
+	font-size: .72rem;
+	color: var(--bs-secondary-color, #6c757d);
+	border-top: 1px solid var(--bs-border-color, #dee2e6);
+	margin-top: .25rem;
+}
+
+/* Compass grid-border readout panel (Leaflet control). Neutral rgba tints
+   read on both light and dark themes; the nearest edge uses Bootstrap green. */
+.gl-borders-control.leaflet-control {
+	position: relative;
+	padding: .5rem .6rem .6rem;
+	background: #000;
+	color: #fff;
+	border: 1px solid #fff;
+	border-radius: .55rem;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, .22);
+	max-width: 21rem;
+}
+/* Dismiss button: top-right of the panel. White to match the title on the black panel. */
+.gl-comp-close {
+	position: absolute; top: .2rem; right: .35rem;
+	background: transparent; border: 0; padding: .1rem .4rem;
+	color: #fff; font-size: 1.2rem; line-height: 1; cursor: pointer; opacity: .65;
+}
+.gl-comp-close:hover, .gl-comp-close:focus { opacity: 1; }
+.gl-comp-title {
+	font-size: 16px;
+	margin: 2px 12px 8px;
+	color: rgb(255, 255, 255) !important;
+}
+.gl-compass {
+	display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: .4rem; max-width: 30rem;
+}
+.gl-comp-edge, .gl-comp-center {
+	display: flex; flex-direction: column; align-items: center; justify-content: center;
+	gap: .12rem; padding: .45rem .2rem; border-radius: .45rem;
+	text-align: center; min-height: 3.8rem;
+}
+.gl-comp-edge { background: rgba(127, 127, 127, .16); border: 1px solid rgba(127, 127, 127, .30); }
+.gl-comp-center { border: 1px dashed rgba(127, 127, 127, .55); }
+.gl-comp-edge.gl-comp-nearest { background: rgba(25, 135, 84, .16); border-color: #198754; }
+.gl-comp-pin { font-size: .85rem; opacity: .85; }   /* crosshairs icon inside the centre badge */
+.gl-badge {
+	display: inline-flex; align-items: center; justify-content: center;
+	width: 1.5rem; height: 1.5rem; border-radius: 50%;
+	border: 1px solid currentColor; font-weight: 700; font-size: .62rem; line-height: 1; opacity: .85;
+}
+.gl-comp-edge.gl-comp-nearest .gl-badge { background: #198754; color: #fff; border-color: #198754; opacity: 1; }
+.gl-comp-grid { font-weight: 700; font-size: .92rem; }
+.gl-comp-center .gl-comp-grid { font-weight: 700;}
+.gl-comp-meta { font-size: .70rem; }
+@media (max-width: 359.98px) {                              /* let the meta line breathe on small phones */
+	.gl-comp-meta { font-size: .62rem; }
+	.gl-comp-edge, .gl-comp-center { padding: .35rem .1rem; }
+}
+
+/* On-map direction arrows (spokes + labeled tips) — the spatial alternative to
+   the corner compass; drawn at all sizes. Each tip centres on its border point. */
+.gl-arrow-anchor { background: transparent; border: 0; }
+.gl-arrow-tip {
+	transform: translate(-50%, -50%);
+	display: inline-flex; align-items: center; gap: .25rem; white-space: nowrap;
+	padding: 1px 6px; border-radius: 9px;
+	background: rgba(0, 0, 0, .72); color: #fff;
+	font-size: .70rem; font-weight: 600; line-height: 1.5;
+	border: 1px solid rgba(255, 255, 255, .45);
+}
+.gl-arrow-tip .gl-arrow-head {                       /* CSS triangle pointing north, rotated to the bearing */
+	display: inline-block; width: 0; height: 0;
+	border-left: 4px solid transparent; border-right: 4px solid transparent;
+	border-bottom: 6px solid currentColor;
+}
+.gl-arrow-tip.gl-arrow-near { background: #198754; border-color: #34c759; }
+
+/* Selection info box above the map (grid, coordinates, zones, QRB). */
+#glInfo {
+	margin: 0 0 0;
+	padding: .5rem .75rem;
+	background: rgba(127, 127, 127, .10);
+	border: 1px solid rgba(127, 127, 127, .25);
+	border-left: 3px solid #0d6efd;
+	border-radius: .45rem;
+	font-size: .85rem;
+	line-height: 1.6;
+	color: var(--bs-body-color);
+}
+#glInfo:empty { display: none; }                /* no selection yet → no empty box */
+#glInfo::before {                               /* leading info icon (FA6 circle-info) */
+	content: "\f05a";
+	font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome";
+	font-weight: 900;
+	color: #0d6efd;
+	margin-right: .45rem;
+	opacity: .9;
+	background: #fff;
+	border-radius: 50%;
+}
+#glInfo strong {                                 /* gridsquare locator → high-contrast badge */
+	display: inline-block;
+	margin: 0 .1rem;
+	padding: 0 .4rem;
+	border-radius: .3rem;
+	background: #0d6efd;
+	color: #fff;
+	font-weight: 700;
+	font-size: .8rem;
+	line-height: 1.5;
+	vertical-align: baseline;
+}
+
+/* Collapsible top card-body — rotate the header chevron when collapsed. */
+.gl-top-chevron { transition: transform .2s ease; }
+[data-bs-target="#glTopBody"].collapsed .gl-top-chevron { transform: rotate(-180deg); }
+
+/* "Locate me" active autotracking state: green button + pulsing icon. */
+#glLocate.gl-tracking {
+	color: #fff;
+	background-color: #198754;
+	border-color: #198754;
+}
+#glLocate.gl-tracking .fa { animation: gl-pulse 1.5s ease-in-out infinite; }
+@keyframes gl-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+
+/* Rich gridsquare popup (click marker + Go markers). */
+.gl-popup { min-width: 320px; font-size: 1rem; line-height: 1.45; color: #fff; padding-left: 10px; border-left: 5px solid #dc3545; }
+.gl-pop-head { margin-bottom: .4rem; }
+.gl-pop-grid { margin-bottom: .35rem; white-space: nowrap; font-size: 2.0rem; font-weight: 900; letter-spacing: .02em;}
+.gl-pop-flag { font-size: 2rem; margin-right: .2rem; }
+.gl-pop-coords { display: flex; align-items: center; gap: .35rem; font-size: .95rem; opacity: .85; margin-bottom: .35rem; }
+.gl-pop-coords .fa { opacity: .7; }
+.gl-pop-hier { display: flex; flex-wrap: nowrap; gap: .6rem; margin-bottom: .35rem; font-size: .85rem; opacity: .9; }
+.gl-pop-tier { display: inline-flex; align-items: center; gap: .28rem; }
+.gl-dot { width: .6rem; height: .6rem; border-radius: 50%; display: inline-block; background: rgba(255, 255, 255, .35); flex: none; }
+.gl-pop-tier.is-strong .gl-dot { background: #fff; }
+.gl-pop-meta { margin-top: .3rem; font-size: .85rem; opacity: .75; }
+.gl-pop-link { margin-top: .4rem; }
+.gl-pop-link a { color: inherit; }
+.gl-pop-link a:hover { text-decoration: underline !important; }
+.gl-pop-link .fas { opacity: .75; margin-right: .25rem; }
+
+/* Quick-action links at the foot of the gridsquare popup. */
+.gl-pop-actions { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .4rem; padding-top: .4rem; border-top: 1px solid rgba(255, 255, 255, .25); }
+.gl-pop-action { display: inline-flex; align-items: center; gap: .3rem; font-size: .8rem; padding: .15rem .5rem; border-radius: .3rem; background: rgba(255, 255, 255, .12); color: #fff; text-decoration: none; }
+.gl-pop-action:hover { background: rgba(255, 255, 255, .22); }
+
+/* POTA/SOTA/WWFF references found inside the clicked 6-char subsquare. */
+.gl-pop-refs { margin-top: .4rem; padding-top: .4rem; border-top: 1px solid rgba(255, 255, 255, .25); }
+.gl-pop-refs-title { font-size: .65rem; letter-spacing: .07em; text-transform: uppercase; opacity: .6; margin-bottom: .25rem; }
+.gl-pop-ref-group { display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem .4rem; margin-bottom: .25rem; font-size: .8rem; }
+.gl-pop-ref-type { display: inline-block; font-weight: 700; font-size: .65rem; padding: 0 .35rem; border-radius: .25rem; color: #fff; }
+.gl-pop-ref-group.is-pota .gl-pop-ref-type { background: #238b45; }
+.gl-pop-ref-group.is-sota .gl-pop-ref-type { background: #d95f0e; }
+.gl-pop-ref-group.is-wwff .gl-pop-ref-type { background: #2b8cbe; }
+.gl-pop-ref { line-height: 1.3; }
+.gl-pop-ref-more { opacity: .6; }
+/* Fixed column widths so every nearby-refs band table lines up. */
+.gl-nearby-table { table-layout: fixed; width: 100%; }
+
+/* Two-grid QRB: tone down every Maidenhead grid label so the two tinted
+   squares are the focus. Toggled via .gl-dim-labels on the map container. */
+.gl-dim-labels .grid-text { opacity: .5; transition: opacity .25s ease; }
+
+/* Map height: grows when the Search panel (#glTopBody) is collapsed. */
+#glMap { height: calc(100vh - 350px); min-height: 400px; }
+#glTopBody:not(.show) ~ #glMap { height: calc(100vh - 240px); }
+
+/* Phones: the corner compass panel is too big, so rely on the on-map arrows. */
+@media (max-width: 575.98px) {
+	.gl-borders-control.leaflet-control { display: none !important; }
+	.gl-coords-body { display: none !important; }
+	#glMap { height: calc(100vh - 390px); min-height: 300px; }
+	#glTopBody:not(.show) ~ #glMap { height: calc(100vh - 200px); }
+}
+
+/* ============================================================
+   AMSAT Satellite Status (application/views/amsatstatus)
+   Scoped under .amsat-status. Vivid status colors (green/amber/
+   blue/red); each pill's hue is reinforced by the icon+label
+   legend and the per-pill tooltip -- never color alone.
+   ============================================================ */
+.amsat-status {
+	--ams-heard: #22c55e;
+}
+
+/* ---- KPI tiles ---- */
+.amsat-kpis { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 1.25rem; }
+.amsat-kpi {
+	flex: 1 1 150px;
+	min-width: 150px;
+	background-color: color-mix(in srgb, var(--bs-secondary-color, #6c757d) 7%, transparent);
+	border: 1px solid var(--bs-border-color, rgba(125,125,125,.18));
+	border-radius: .55rem;
+	padding: .6rem .85rem;
+}
+.amsat-kpi-val { font-size: 1.5rem; font-weight: 650; line-height: 1.1; color: var(--bs-body-color, inherit); }
+.amsat-kpi-val small { font-size: .55em; font-weight: 500; color: var(--bs-secondary-color); }
+.amsat-kpi-lbl { font-size: .7rem; text-transform: uppercase; letter-spacing: .04em; color: var(--bs-secondary-color); margin-top: .15rem; }
+.amsat-kpi-sub { font-size: .72rem; color: var(--bs-secondary-color); }
+
+/* ---- Legend (icon + label, never color alone) ---- */
+.amsat-legend {
+	display: flex; flex-wrap: wrap; gap: .4rem 1rem; align-items: center;
+	margin-bottom: 1rem; font-size: .82rem; color: var(--bs-secondary-color);
+}
+.amsat-lgnd { display: inline-flex; align-items: center; gap: .4rem; }
+.amsat-lgnd i { font-size: .85rem; }
+
+/* Fixed-width name column so every satellite's pills start aligned */
+.amsat-status .award-grid-prefecture {
+	width: 14rem;
+	font-size: .85rem; /* name size, between the .78rem AOS line and body text */
+}
+/* Tight row rhythm: 2px above and below each satellite block */
+.amsat-status .amsat-sat {
+	padding-top: .125rem;
+	padding-bottom: .125rem;
+}
+@media (max-width: 991.98px) {
+	.amsat-status .award-grid-prefecture {
+		width: auto;
+	}
+}
+/* Pill strip: a grid that soaks up whatever width is left after the
+   name and AOS columns and spreads it between the pills. Capped at
+   56rem so wide themes only gain a little air (~5px gaps); when space
+   is tight the .1rem gap is the minimum and pills wrap onto the next
+   grid row. */
+.amsat-status .amsat-pills {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, 2rem);
+	gap: .1rem;
+	justify-content: space-between;
+	flex: 1 1 auto;
+	max-width: 56rem;
+	min-width: 0; /* allow the grid to shrink so tracks wrap, instead of overflowing */
+}
+/* Mobile: name and AOS share the first line (section wraps instead of
+   stacking); the pill strip gets its own full-width line below them */
+@media (max-width: 991.98px) {
+	.amsat-status .amsat-pills {
+		flex: 1 1 100%;
+	}
+}
+.amsat-status .amsat-sat-aos {
+	font-size: .78rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+/* AOS column between the name and the pills: fixed width so the pill
+   strips still align across satellites. The section centers its
+   columns (align-items-lg-center) so name, AOS and pills share one line. */
+@media (min-width: 992px) {
+	.amsat-status .amsat-sat-aos {
+		width: 6rem;
+	}
+}
+.amsat-status .amsat-sat-aos strong { font-weight: 600; }
+.amsat-status .amsat-sat-cnt {
+	display: inline-block; min-width: 1.3em; text-align: center;
+	font-size: .68rem; font-weight: 600; color: var(--bs-secondary-color);
+	background-color: color-mix(in srgb, var(--bs-secondary-color, #6c757d) 14%, transparent);
+	border-radius: 999px; padding: 0 .35rem;
+}
+
+/* Hour pill base: a perfect square (overrides award-grid-slot's 3x2rem).
+   The .btn class supplies radius and the body text colour; the white
+   border comes from award-grid-slot. */
+.amsat-status .amsat-slot {
+	width: 2rem;
+	height: 2rem;
+	padding: .15rem .2rem;
+	font-size: .7rem; font-weight: 600;
+	cursor: help;
+	background-color: color-mix(in srgb, var(--bs-secondary-color, #6c757d) 25%, transparent);
+}
+
+/* Status tint over the surface, lift to solid on hover */
+.amsat-status .amsat-slot[data-st] {
+	background-color: color-mix(in srgb, var(--cell) 82%, transparent);
+}
+.amsat-status .amsat-slot[data-st]:hover {
+	background-color: var(--cell);
+	box-shadow: 0 2px 7px rgba(0,0,0,.22);
+	transform: translateY(-1px);
+}
+@media (hover: none) { .amsat-heat .cell[data-st]:hover { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .amsat-heat .cell[data-st]:hover { transform: none; } }
+
+/* ============================================================
+   JCC award (application/views/awards/jcc)
+   ============================================================ */
+
+#jccmap {
+	height: calc(100vh - 300px) !important;
+	max-height: 900px !important;
+}
+
+/* ============================================================
+   JCG award (application/views/awards/jcg)
+   ============================================================ */
+
+#jcgmap {
+	height: calc(100vh - 300px) !important;
+	max-height: 900px !important;
+}
+
+/* Sizing for the centered filter dropdown shared by the award pages */
+.dropdown-filters-responsive {
+	width: min(850px, 90vw);
+	min-width: min(600px, 90vw);
+}
+
+/* Chip spacing inside award filter dropdowns */
+.filterbody .form-check-inline {
+	margin-right: 0.25rem;
+}
+
+/* Grouped sections inside award filter dropdowns */
+.filter-section {
+	background-color: rgba(var(--bs-body-color-rgb, 128,128,128), 0.05);
+	border: 1px solid rgba(var(--bs-body-color-rgb, 128,128,128), 0.15);
+	border-radius: 0.5rem;
+	padding: 0.75rem 0.75rem 0;
+	margin-bottom: 1rem;
+}
+
+/* Summary legend swatches above the prefecture grid */
+.award-grid-legend-swatch {
+	width: 1rem;
+	height: 1rem;
+	display: inline-block;
+}
+
+/* Prefecture column left of each slot row */
+.award-grid-prefecture {
+	min-width: 12rem;
+}
+
+@media (max-width: 991.98px) {
+	.award-grid-prefecture {
+		min-width: 0;
+	}
+}
+
+/* Status pills. The !important beats Bootstrap's own .border !important
+   (general.css loads after the theme's bootstrap.min.css). */
+.award-grid-slot {
+	width: 3rem;
+	height: 2rem;
+	border: var(--bs-border-width) solid rgba(255, 255, 255, 0.45) !important;
+}
+
+/* Deleted-city hatch overlay */
+.award-grid-slot-deleted {
+	background-image: repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.18) 0, rgba(0, 0, 0, 0.18) 2px, transparent 2px, transparent 6px);
+}
+
+/* JCC map legend: layer toggles merged into the legend box */
+.legend .legend-layers-sep {
+	margin: 6px 0;
+	border: none;
+	border-top: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.legend .legend-layer-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	cursor: pointer;
+}
+
+.legend .legend-layer-row input {
+	margin: 0;
+	flex-shrink: 0;
+@media (hover: none) { .amsat-status .amsat-slot[data-st]:hover { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .amsat-status .amsat-slot[data-st]:hover { transform: none; } }
+.amsat-grid-pill {
+	width: 3rem;
+	height: 2rem;
+	border: var(--bs-border-width) solid rgba(255, 255, 255, 0.45) !important;
+}
+
+/* Dupe search dialog: larger, high-contrast checkboxes on colored card headers */
+.dupe-search-dialog .form-check-input {
+	width: 1.5em;
+	height: 1.5em;
+	margin-top: 0.125em;
+	margin-right: 0.3em;
+	border: 2px solid rgba(255, 255, 255, 0.9);
+	background-color: rgba(255, 255, 255, 0.25);
+}
+
+.dupe-search-dialog .form-check-input:checked {
+	background-color: #fff;
+	border-color: #fff;
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23212529' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+}
+
+.dupe-search-dialog .form-check-input:focus {
+	border-color: #fff;
+	box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.5);
+}

@@ -138,6 +138,47 @@
             </div>
 
             <div class="card">
+                <div class="card-header"><?= __("Wavelog Worker Backend"); ?></div>
+                <div class="card-body">
+                    <?php if ($worker_legacy_config ?? false) { ?>
+                    <div class="alert alert-warning mb-3" role="alert">
+                        <p><i class="fas fa-exclamation-triangle"></i> <b><?= __("Worker configuration has changed"); ?></b></p>
+                        <p><?= sprintf(__("%s and %s are deprecated and will be removed in Wavelog Worker 1.0.0. Please set %s in your worker config instead."), '<strong>worker_vip</strong>', '<strong>worker_urls</strong>', '<strong>worker_url</strong>'); ?></p>
+                        <p class="mb-0"><?= __("Everything keeps working until then."); ?> <?= sprintf(__("Check this wiki article %shere%s for more information."), '<u><a href="https://docs.wavelog.org/wavelog-worker/wavelog-integration/#upgrading-to-worker_url" target="_blank">', '</a></u>'); ?></p>
+                    </div>
+                    <?php } ?>
+                    <div id="worker-status" style="display: none;">
+                        <table class="table table-sm mb-0">
+                            <thead><tr>
+                                <th><?= __("Worker"); ?></th>
+                                <th><?= __("Topics"); ?></th>
+                                <th><?= __("Clients"); ?></th>
+                                <th><?= __("Version"); ?></th>
+                                <th id="ws-cluster-head" style="display: none;"><?= __("Cluster nodes"); ?></th>
+                                <th><?= __("Uptime"); ?></th>
+                            </tr></thead>
+                            <tbody><tr>
+                                <td>
+                                    <span id="ws-badge" class="badge rounded-pill text-bg-success">
+                                        <i id="ws-live-dot" class="fas fa-circle fa-fade" style="display: none; font-size: 0.6em; vertical-align: middle;"></i> <span id="ws-state"><?= __("Online"); ?></span>
+                                    </span>&nbsp;&nbsp;<span id="ws-url"></span>
+                                </td>
+                                <td id="ws-topics">—</td>
+                                <td id="ws-clients">—</td>
+                                <td id="ws-version">—</td>
+                                <td id="ws-cluster" style="display: none;">—</td>
+                                <td id="ws-uptime" style="white-space: nowrap;">—</td>
+                            </tr></tbody>
+                        </table>
+                    </div>
+                    <div id="worker-status-container">
+                        <span class="spinner-border spinner-border-sm text-muted align-middle" role="status" aria-hidden="true"></span>
+                        <span class="text-muted align-middle"><?= __("Loading..."); ?></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
                 <div class="card-header"><?= __("Folder Permissions"); ?></div>
                 <div class="card-body">
                     <p><?= __("This verifies that the folders used by Wavelog have read and write permissions by PHP."); ?></p>
@@ -514,6 +555,24 @@
                                 </tr>
                             </table>
                         </div>
+                        <div class="col-md-12">
+                            <br/><p><u><?= __("Round-Trip Test (write - read - delete)"); ?></u></p>
+                            <table width="100%">
+                                <?php foreach ($cache_roundtrip as $rt_adapter => $rt) { ?>
+                                <tr>
+                                    <td width="20%"><?= htmlspecialchars(ucfirst($rt_adapter), ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td>
+                                        <?php if ($rt['ok']) { ?>
+                                            <span class="badge text-bg-success"><?= __("Working"); ?></span>
+                                        <?php } else { ?>
+                                            <span class="badge text-bg-danger"><?= __("Failed"); ?></span>
+                                            <div class="small text-danger"><?php echo htmlspecialchars($rt['error'], ENT_QUOTES, 'UTF-8'); ?></div>
+                                        <?php } ?>
+                                    </td>
+                                </tr>
+                                <?php } ?>
+                            </table>
+                        </div>
                         <div class="ms-2 me-2">
                             <?php if (!$using_backup) { ?>
                                 <div class="alert alert-success mt-2 mb-0" role="alert">
@@ -525,7 +584,7 @@
                                 </div>
                             <?php } else { ?>
                                 <div class="alert alert-danger mt-2 mb-0" role="alert">
-                                    <?= __("Cache does not work! Currently the system is using a %s adapter. Check your file permissions, PHP extensions and/or your network connection to the services (if using redis/memcached). You can continue using Wavelog, but no values will be cached (which is bad).", "'dummy'"); ?>
+                                    <?= sprintf(__("Cache does not work! Currently the system is using a %s adapter. Check your file permissions, PHP extensions and/or your network connection to the services (if using redis/memcached). You can continue using Wavelog, but no values will be cached (which is bad)."), "'dummy'"); ?>
                                 </div>
                             <?php } ?>
                         </div>
@@ -571,6 +630,7 @@
                         $commitDate = trim(exec('git log --pretty="%ci" -n1 HEAD'));
                         $line = trim(exec('git log -n 1 --pretty=%D HEAD'));
                         $pieces = explode(', ', $line);
+                        $pieceCount = count($pieces);
                         $lastFetch = trim(exec('stat -c %Y ' . realpath(APPPATH . '../') . '/.git/FETCH_HEAD'));
                         //Below is a failsafe for systems without the stat command
                         try {
@@ -578,8 +638,8 @@
                         } catch (Exception $e) {
                             $dt = new DateTime(date("Y-m-d H:i:s"));
                         }
-                        if (isset($pieces[1])) {
-                            $remote = substr($pieces[1], 0, strpos($pieces[1], '/'));
+                        if (isset($pieces[$pieceCount - 1])) {
+                            $remote = substr($pieces[$pieceCount - 1], 0, strpos($pieces[$pieceCount - 1], '/'));
                             $branch = trim(exec('git rev-parse --abbrev-ref HEAD')); // Get ONLY Name of the Branch we're on
                             $url = trim(exec('git remote get-url ' . $remote));
                             if (strpos($url, 'https://github.com') !== false) {
@@ -703,6 +763,12 @@
                             <td><a class="btn btn-sm btn-primary" href="<?php echo site_url('update/update_pota'); ?>"><?= __("Update"); ?></a></td>
                         </tr>
                         <tr>
+                            <td><?= __("POTA park boundaries (GeoJSON)"); ?></td>
+                            <?php $timestamp = strtotime($pota_boundaries_update->last_run ?? ''); ?>
+                            <td><?php echo $pota_boundaries_update->last_run ? date($custom_date_format, $timestamp).' '.date('H:i:s', $timestamp) : __("never"); ?></td>
+                            <td><a class="btn btn-sm btn-primary" href="<?php echo site_url('update/update_pota_boundaries'); ?>"><?= __("Update"); ?></a></td>
+                        </tr>
+                        <tr>
                             <td><?= __("SCP file download"); ?></td>
                             <?php $timestamp = strtotime($scp_update->last_run ?? ''); ?>
                             <td><?php echo $scp_update->last_run ? date($custom_date_format, $timestamp).' '.date('H:i:s', $timestamp) : __("never"); ?></td>
@@ -782,9 +848,9 @@
                                         echo '<td>' . date($custom_date_format, $timestamp) . '</td>';
                                         $timestamp = strtotime($qso->COL_TIME_ON);
                                         echo '<td>' . date('H:i', $timestamp) . '</td>';
-                                        echo '<td>' . $qso->COL_CALL . '</td>';
-                                        echo '<td>' . $qso->COL_MODE . '</td>';
-                                        echo '<td>' . $qso->COL_BAND . '</td>';
+                                        echo '<td>' . html_escape($qso->COL_CALL) . '</td>';
+                                        echo '<td>' . html_escape($qso->COL_MODE) . '</td>';
+                                        echo '<td>' . html_escape($qso->COL_BAND) . '</td>';
                                         echo '<td>' . $qso->COL_STATION_CALLSIGN . '</td>';
                                         echo '</tr>';
                                     } ?>
@@ -830,6 +896,20 @@
 </div>
 
 <script>
+    window.workerStatusLive = <?php echo json_encode([
+        'enabled'     => (bool)($worker_enabled ?? false),
+        'topic'       => $worker_status_topic ?? '',
+        'token'       => $worker_status_token ?? '',
+        'snapshotUrl' => site_url('debug/worker_status'),
+        'msg'         => [
+            'online'      => __("Online"),
+            'degraded'    => __("Degraded"),
+            'disabled'    => '<span class="badge rounded-pill text-bg-secondary">' . __("Disabled") . '</span> ' . __("Worker backend is not configured."),
+            'unreachable' => '<span class="badge rounded-pill text-bg-danger">' . __("Unreachable") . '</span> ' . __("Worker is configured but did not respond."),
+            'update'      => '<span class="badge rounded-pill text-bg-warning">' . __("Outdated") . '</span> ' . __("Please update your Wavelog Worker to version 0.2.0 or newer to see the status."),
+        ],
+    ]); ?>;
+
     <?php if (file_exists(realpath(APPPATH . '../') . '/.git')) { ?>
         var local_branch = '<?php echo $branch; ?>';
     <?php } else { ?>
@@ -865,8 +945,10 @@
     <?= __("Latvian"); ?>
     <?= __("Lithuanian"); ?>
     <?= __("Montenegrin"); ?>
+    <?= __("Norwegian (Bokmål)"); ?>
     <?= __("Polish"); ?>
     <?= __("Portuguese"); ?>
+    <?= __("Romanian"); ?>
     <?= __("Russian"); ?>
     <?= __("Serbian"); ?>
     <?= __("Slovak"); ?>

@@ -4,6 +4,16 @@
 		<span class="badge text-bg-info"><?= __("Important"); ?></span> <i class="fas fa-ban"></i> <?= __("Upload folder is not writable. Please contact your admin."); ?>
 	</div>
 <?php } ?>
+<?php
+	// Get Date format
+	if($this->session->userdata('user_date_format')) {
+		// If Logged in and session exists
+		$custom_date_format = $this->session->userdata('user_date_format');
+	} else {
+		// Get Default date format from /config/wavelog.php
+		$custom_date_format = $this->config->item('qso_date_format');
+	}
+?>
 <br>
 	<a class="btn btn-outline-primary btn-sm float-end" href="<?php echo site_url('/lotw/import'); ?>" role="button"><i class="fas fa-cloud-download-alt"></i> <?= __("LoTW Import"); ?></a>
 	<h2><?= __("Logbook of the World"); ?></h2>
@@ -42,16 +52,15 @@
 					</thead>
 				 
 					<tbody>
-
 						<?php $current_date = date('Y-m-d H:i:s'); ?>
 						<?php foreach ($lotw_cert_results->result() as $row) { ?>
 							<tr>
-								<td><?php echo $row->callsign; ?></td>
+								<td><span class="callsign"><?php echo $row->callsign; ?></span></td>
 								<td><?php echo $row->cert_dxcc == '' ? '- NONE -' : ucfirst($row->cert_dxcc); if ($row->cert_dxcc_end != NULL) { echo ' <span class="badge text-bg-danger">'.__("Deleted DXCC").'</span>'; } ?></td>
 								<td><?php
 									if (isset($row->qso_start_date)) {
 										$valid_qso_start = strtotime( $row->qso_start_date );
-										$new_valid_qso_start = date($this->config->item('qso_date_format'), $valid_qso_start );
+										$new_valid_qso_start = date($custom_date_format, $valid_qso_start );
 										echo $new_valid_qso_start;
 									} else {
 										echo "n/a";
@@ -60,7 +69,7 @@
 								<td><?php
 									if (isset($row->qso_end_date)) {
 										$valid_qso_end = strtotime( $row->qso_end_date );
-										$new_valid_qso_end = date($this->config->item('qso_date_format'), $valid_qso_end );
+										$new_valid_qso_end = date($custom_date_format, $valid_qso_end );
 										$qso_warning_date = date('Y-m-d H:i:s', strtotime($row->qso_end_date.'-30 days'));
 										if ($current_date > $row->qso_end_date) {
 											echo "<span class='fw-bolder text-warning'>".$new_valid_qso_end."</span>";
@@ -75,14 +84,14 @@
 								</td>
 								<td><?php
 									$valid_from = strtotime( $row->date_created );
-									$new_valid_from = date($this->config->item('qso_date_format'), $valid_from );
+									$new_valid_from = date($custom_date_format, $valid_from );
 									echo $new_valid_from; ?>
 								</td>
 								<td>
 									<?php
 									$cert_warning_date = date('Y-m-d H:i:s', strtotime($row->date_expires.'-30 days'));
 									$valid_to = strtotime( $row->date_expires );
-									$new_valid_to = date($this->config->item('qso_date_format'), $valid_to );
+									$new_valid_to = date($custom_date_format, $valid_to );
 									if ($current_date > $row->date_expires) {
 										echo "<span class='fw-bolder text-danger'>".$new_valid_to."</span>";
 									} else if ($current_date <= $row->date_expires && $current_date > $cert_warning_date) {
@@ -92,7 +101,7 @@
 									} ?>
 								</td>
 								<td>
-									<span data-bs-toggle="tooltip" data-bs-html="true" data-bs-original-title="<?= __("Serial number:")." ".((($row->serial ?? '')  != '' )? $row->serial : __("n/a")); ?><br><?= __("Last change:")." ".(date($this->config->item('qso_date_format').' H:i', strtotime($row->last_modified))); ?>">
+									<span data-bs-toggle="tooltip" data-bs-html="true" data-bs-original-title="<?= __("Serial number:")." ".((($row->serial ?? '')  != '' )? $row->serial : __("n/a")); ?><br><?= __("Last change:")." ".(date($custom_date_format.' H:i', strtotime($row->last_modified))); ?>">
 									<?php if ($row->status == 1) { ?>
 										<span class="badge text-bg-danger"><?= __("Certificate superseded"); ?></span>
 									<?php } else { ?>
@@ -114,9 +123,9 @@
 								<td>
 									<?php if ($row->last_upload) {
 										$last_upload_ts = strtotime($row->last_upload ?? '1970-01-01');
-										$last_upload = date($this->config->item('qso_date_format').' H:i:s', $last_upload_ts);
+										$last_upload = date($custom_date_format.' H:i:s', $last_upload_ts);
 										$last_upload_fail_ts = strtotime($row->last_upload_fail ?? '1970-01-01');
-										$last_upload_fail = date($this->config->item('qso_date_format').' H:i:s', $last_upload_fail_ts);
+										$last_upload_fail = date($custom_date_format.' H:i:s', $last_upload_fail_ts);
 										if ($last_upload_fail_ts > $last_upload_ts) { ?>
 											<span data-bs-toggle="tooltip" data-bs-original-title="<?php echo $row->last_upload_status;?>. <?= sprintf(__("Last success: %s"), $last_upload); ?>" class="badge text-bg-danger"><?php echo $last_upload_fail; ?></span>
 										<?php } else {
@@ -162,14 +171,27 @@
 
 		<div class="card-body">
             		<?php if (($next_run ?? '') != '') { echo "<p>".__("The next automatic sync with LoTW will happen at: ").$next_run."</p>"; } ?>
-			<button class="btn btn-outline-success" hx-on:click="document.getElementById('lotw_manual_results').innerHTML = '';" hx-get="<?php echo site_url('lotw/lotw_upload'); ?>" hx-indicator="#lotw-sync-running" hx-target="#lotw_manual_results">
+			<button id="lotw-sync-btn" class="btn btn-outline-success">
             <?= __("Manual Sync"); ?>
 			</button>
-			<span style="margin-left: 10px;" id="lotw-sync-running" class="htmx-indicator"> <?php echo __("running..."); ?></span>
+			<span style="margin-left: 10px;" id="lotw-sync-running" class="sync-indicator"> <?php echo __("running..."); ?></span>
 
 			<div id="lotw_manual_results"></div>
 		</div>
 	</div>
+	<script>
+		// Manual LoTW sync: clear old results, show indicator, load result (was htmx button).
+		document.addEventListener('DOMContentLoaded', function () {
+			document.getElementById('lotw-sync-btn').addEventListener('click', function () {
+				const results = document.getElementById('lotw_manual_results');
+				const ind = document.getElementById('lotw-sync-running');
+				results.innerHTML = '';
+				ind.classList.add('active');
+				wlLoadInto('<?php echo site_url('lotw/lotw_upload'); ?>', results)
+					.finally(() => ind.classList.remove('active'));
+			});
+		});
+	</script>
 	<?php } ?>
 
 </div>

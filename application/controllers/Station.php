@@ -11,7 +11,6 @@ class Station extends CI_Controller
 		parent::__construct();
 		$this->load->helper(array('form', 'url'));
 
-		$this->load->model('user_model');
 		if (($this->router->method == 'stationProfileCoords') && $this->user_model->authorize(2) && ((clubaccess_check(3) || clubaccess_check(6)))) { return; }	// Allow Clubmembers and Clubmembers ADIF to access list_locations
 		if (!$this->user_model->authorize(2) || !clubaccess_check(9)) { 
 			$this->session->set_flashdata('error', __("You're not allowed to do that!")); 
@@ -39,17 +38,17 @@ class Station extends CI_Controller
 			$data['station_profile_name'] = $this->input->post('station_profile_name');
 			$data['station_callsign'] = str_replace('Ø', '0', ($this->input->post('station_callsign') ?? ''));
 			$data['station_power'] = $this->input->post('station_power');
-			$data['dxcc'] = $this->input->post('dxcc');
+			$data['dxcc'] = $this->input->post('dxcc') ?? $this->input->get('dxcc');
 			$data['city'] = $this->input->post('city');
-			$data['station_state'] = $this->input->post('station_state');
+			$data['station_state'] = $this->input->post('station_state') ?? $this->input->get('station_state');
 			$data['station_cnty'] = $this->input->post('station_cnty');
-			$data['station_cq'] = $this->input->post('station_cq');
-			$data['station_itu'] = $this->input->post('station_itu');
-			$data['gridsquare'] = $this->input->post('gridsquare');
-			$data['iota'] = $this->input->post('iota');
-			$data['sota'] = $this->input->post('sota');
-			$data['wwff'] = $this->input->post('wwff');
-			$data['pota'] = $this->input->post('pota');
+			$data['station_cq'] = $this->input->post('station_cq') ?? $this->input->get('station_cq');
+			$data['station_itu'] = $this->input->post('station_itu') ?? $this->input->get('station_itu');
+			$data['gridsquare'] = $this->input->post('gridsquare') ?? $this->input->get('gridsquare');
+			$data['iota'] = $this->input->post('iota') ?? $this->input->get('iota');
+			$data['sota'] = $this->input->post('sota') ?? $this->input->get('sota');
+			$data['wwff'] = $this->input->post('wwff') ?? $this->input->get('wwff');
+			$data['pota'] = $this->input->post('pota') ?? $this->input->get('pota');
 			$data['sig'] = $this->input->post('sig');
 			$data['sig_info'] = $this->input->post('sig_info');
 			$data['eqslnickname'] = $this->input->post('eqslnickname');
@@ -103,7 +102,7 @@ class Station extends CI_Controller
 				}
 
 				if ($this->stations->edit()) {
-					$data['notice'] = __("Station Location") . $this->security->xss_clean($this->input->post('station_profile_name', true)) . " Updated";
+					$data['notice'] = sprintf(__("Station Location %s updated"), $this->input->post('station_profile_name', true));
 				}
 				// Also clean up static map images
 				if (!$this->load->is_loaded('staticmap_model')) {
@@ -227,6 +226,9 @@ class Station extends CI_Controller
 	}
 
 	function check_locator($grid = '') {
+		if ($grid == '') {
+			return true;
+		}
 		$this->load->library('Qra');
 		if ($this->qra->validate_grid($grid)) {
 			return true;

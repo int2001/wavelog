@@ -1,6 +1,6 @@
 <div class="container">
     <br>
-    <h2><?= sprintf(__("Club Permissions for %s"), str_replace('0', 'Ø', $club->user_callsign)); ?></h2>
+    <h2><?= sprintf(__("Club Permissions for %s"), '<span class="callsign">' . htmlspecialchars($club->user_callsign) . '</span>'); ?></h2>
     <!-- <a class="btn btn-primary" href="<?= site_url('user'); ?>"><i class="fas fa-arrow-left"></i> <?= __("Go back"); ?></a> -->
 
     <?php $this->load->view('layout/messages'); ?>
@@ -10,7 +10,17 @@
             <?= __("Club Permissions"); ?>
         </div>
         <div class="card-body">
-            <p><?= __("In order for users to log QSOs with this club/special callsign, they need appropriate authorizations. Add users to the table below and set the appropriate permission."); ?></p>
+            <?php if ($sso_managed == true) { ?>
+                <div class="alert alert-warning mt-2 mb-4" role="alert">
+                    <i class="fas fa-triangle-exclamation"></i>
+                    <p><?= __("This club/special callsign is managed by a single sign on / identity provider. 
+                    Permissions can be increased here, but access may be automatically removed or granted by the identity provider when users login.
+                    There may be users not listed who have permissions for this club/special callsign."); ?></p> 
+                    <p><?= __("To grant permissions above member level access: add the user to the identity provider group, then add the user to the table below with increased permissions."); ?></p>
+                </div>
+            <?php } else { ?>
+                <p><?= __("In order for users to log QSOs with this club/special callsign, they need appropriate authorizations. Add users to the table below and set the appropriate permission."); ?></p>
+            <?php } ?>
             <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#permissionsModal"><i class="fas fa-info-circle"></i> <?= __("See available Permissions"); ?></button>
             <div class="modal fade bg-black bg-opacity-50" id="permissionsModal" aria-labelledby="permissionsLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -37,7 +47,7 @@
                                             <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
                                         <tr class="empty-row">
-                                            <td colspan="3"></td>
+                                            <td colspan="4"></td>
                                         </tr>
                                         <tr>
                                             <td><?= __("Log QSOs via API"); ?></td>
@@ -46,7 +56,7 @@
                                             <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
                                         <tr class="empty-row">
-                                            <td colspan="3"></td>
+                                            <td colspan="4"></td>
                                         </tr>
                                         <tr>
                                             <td><?= __("Edit a QSO"); ?></td>
@@ -67,7 +77,7 @@
                                             <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
                                         <tr class="empty-row">
-                                            <td colspan="3"></td>
+                                            <td colspan="4"></td>
                                         </tr>
                                         <tr>
                                             <td><?= __("Delete a QSO"); ?></td>
@@ -97,7 +107,7 @@
                                             <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
                                         <tr class="empty-row">
-                                            <td colspan="3"></td>
+                                            <td colspan="4"></td>
                                         </tr>
                                         <tr>
                                             <td><?= __("Manage Third-Party services"); ?></td>
@@ -106,7 +116,7 @@
                                             <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
                                         <tr class="empty-row">
-                                            <td colspan="3"></td>
+                                            <td colspan="4"></td>
                                         </tr>
                                         <tr>
                                             <td><?= __("Import QSO per ADIF"); ?></td>
@@ -130,6 +140,22 @@
                                             <td><i class="fas fa-check text-success"></i></td>
                                             <td><i class="fas fa-check text-success"></i></td>
                                         </tr>
+                                        <tr class="empty-row">
+                                            <td colspan="4"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><?= __("Start or Create a Contest"); ?></td>
+                                            <td><i class="fas fa-times text-danger"></i></td>
+                                            <td><i class="fas fa-times text-danger"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <td><?= __("Edit a Contest"); ?></td>
+                                            <td><i class="fas fa-times text-danger"></i></td>
+                                            <td><i class="fas fa-times text-danger"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                        </tr>
+
                                         <tr class="empty-row">
                                             <td colspan="4"></td>
                                         </tr>
@@ -172,6 +198,9 @@
     <div class="card mt-3">
         <div class="card-header">
             <?= __("Users with Permissions"); ?>
+            <?php if ($sso_managed == true) { ?>
+                <span class="badge bg-light ms-1"><i class="fa fa-lock"></i> Managed by Identity Provider</span>
+            <?php } ?>
         </div>
         <div class="card-body">
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
@@ -185,9 +214,9 @@
                         </div>
                         <form action="<?= site_url('club/alter_member'); ?>" method="post">
                             <div class="modal-body">
-                                <input type="hidden" name="club_id" value="<?php echo $club->user_id; ?>">
+                                <input type="hidden" id="club_id" name="club_id" value="<?php echo $club->user_id; ?>">
                                 <p>
-                                    <?= sprintf(__("You can only add users to the %s Clubstation if they already exist on this Wavelog Server."), str_replace('0', 'Ø', $club->user_callsign)); ?>
+                                    <?= sprintf(__("You can only add users to the %s Clubstation if they already exist on this Wavelog Server."), '<span class="callsign">' . htmlspecialchars($club->user_callsign) . '</span>'); ?>
                                     <?= __("If they don't exist, please ask your Wavelog Administrator to create an account for them."); ?><br><br>
                                     <?= __("Search for the user by their callsign or first/lastname and select the permission level."); ?>
                                 </p>
@@ -237,10 +266,19 @@
                     <h5><?= __("No users currently have access to this club station."); ?></h5>
                 </div>
             <?php } else { ?>
+                <div class="mt-3">
+                    <button type="button" class="btn btn-warning btn-sm me-2" id="batchEditBtn" disabled>
+                        <i class="fas fa-edit"></i> <?= __("Edit Selected"); ?> <span class="badge bg-secondary ms-1" id="batchEditCount">0</span>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm" id="batchDeleteBtn" disabled>
+                        <i class="fas fa-trash"></i> <?= __("Delete Selected"); ?> <span class="badge bg-secondary ms-1" id="batchDeleteCount">0</span>
+                    </button>
+                </div>
                 <div class="table-responsive mt-3">
                     <table class="table table-striped table-hover" id="clubuserstable">
                         <thead>
                             <tr>
+                                <th><input type="checkbox" id="checkBoxAll"></th>
                                 <th><?= __("Firstname"); ?></th>
                                 <th><?= __("Lastname"); ?></th>
                                 <th><?= __("Callsign"); ?></th>
@@ -253,9 +291,10 @@
                         <tbody>
                             <?php foreach ($club_members as $member) { ?>
                                 <tr>
+                                    <td style="text-align: center; vertical-align: middle;"><input type="checkbox" class="row-check" value="<?php echo $member->user_id; ?>"></td>
                                     <td style="text-align: center; vertical-align: middle;"><?php echo $member->user_firstname; ?></td>
                                     <td style="text-align: center; vertical-align: middle;"><?php echo $member->user_lastname; ?></td>
-                                    <td style="text-align: center; vertical-align: middle;"><?php echo str_replace('0', 'Ø' ,$member->user_callsign); ?></td>
+                                    <td class="callsign" style="text-align: center; vertical-align: middle;"><?php echo $member->user_callsign; ?></td>
                                     <td style="text-align: center; vertical-align: middle;"><?php echo $member->user_name; ?></td>
                                     <td style="text-align: center; vertical-align: middle;"><?php echo '<a href="mailto:' . $member->user_email . '">' . $member->user_email . '</a>'; ?></td>
                                     <td style="text-align: center; vertical-align: middle;">
@@ -298,7 +337,7 @@
                                                                     <tbody>
                                                                         <tr>
                                                                             <td class="text-center pt-3">
-                                                                                <p><b><?php echo str_replace('0', 'Ø', $member->user_callsign); ?> - <?php echo $member->user_firstname . ' ' . $member->user_lastname; ?></b></p>
+                                                                                <p><b><span class="callsign"><?php echo $member->user_callsign; ?></span> - <?php echo $member->user_firstname . ' ' . $member->user_lastname; ?></b></p>
                                                                             </td>
                                                                             <td>
                                                                                 <select class="form-select" id="permission" name="permission" required>
@@ -344,7 +383,7 @@
 
                                                             <div class="mb-3">
                                                                 <p>
-                                                                    <?= sprintf(__("Callsign: %s"), str_replace('0', 'Ø', $member->user_callsign)); ?><br>
+                                                                    <?= sprintf(__("Callsign: %s"), '<span class="callsign">' . htmlspecialchars($member->user_callsign) . '</span>'); ?><br>
                                                                     <?= sprintf(__("Role: %s"), $permissions[$member->p_level]); ?>
                                                                 </p>
                                                             </div>
@@ -362,6 +401,62 @@
                             <?php } ?>
                         </tbody>
                     </table>
+
+                    <div class="modal fade" id="batchEditModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+                        <div class="modal-dialog modal-dialog-centered" style="max-width: 600px;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><?= __("Edit Selected Members"); ?></h5>
+                                </div>
+                                <form action="<?= site_url('club/batch_alter_members'); ?>" method="post">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="club_id" value="<?php echo $club->user_id; ?>">
+                                        <input type="hidden" name="ids" id="batchEditIds" value="">
+                                        <p><?= __("Set the permission level for all selected members:"); ?></p>
+                                        <div class="mb-3">
+                                            <select class="form-select" name="permission" required>
+                                                <option value="3"><?php echo $permissions[3]; ?></option>
+                                                <option value="6"><?php echo $permissions[6]; ?></option>
+                                                <option value="9"><?php echo $permissions[9]; ?></option>
+                                            </select>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="batch_notify_user" name="notify_user">
+                                            <label class="form-check-label" for="batch_notify_user">
+                                                <?= __("Notify the users via email about the change"); ?>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-success ld-ext-right"><?= __("Save"); ?><div class="ld ld-ring ld-spin"></div></button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= __("Cancel"); ?></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade bg-black bg-opacity-50" id="batchDeleteModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                        <div class="modal-dialog modal-dialog-centered modal-md">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><?= __("Delete Selected Members"); ?></h5>
+                                </div>
+                                <form action="<?= site_url('club/batch_delete_members'); ?>" method="post">
+                                    <div class="modal-body" style="text-align: center !important;">
+                                        <input type="hidden" name="club_id" value="<?php echo $club->user_id; ?>">
+                                        <input type="hidden" name="ids" id="batchDeleteIds" value="">
+                                        <p><?= __("Are you sure you want to delete the selected users from the club?"); ?></p>
+                                        <p><b><span id="batchDeleteConfirmCount">0</span></b> <?= __("user(s) will be removed."); ?></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-danger"><?= __("Delete"); ?></button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= __("Cancel"); ?></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 <?php } ?>
                 </div>
         </div>

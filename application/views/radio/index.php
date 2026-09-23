@@ -1,5 +1,7 @@
 <script>
 	var lang_edit_cat_settings = "<?= __("Edit CAT Settings"); ?>";
+	var lang_radio_last_updated = "<?= __("last updated"); ?>";
+	window.radiosUserWorker = <?php echo json_encode($radios_user_worker ?? null); ?>;
 </script>
 
 <div class="container">

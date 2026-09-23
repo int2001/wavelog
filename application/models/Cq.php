@@ -100,9 +100,6 @@ class CQ extends CI_Model{
 
 		if ($postdata['band'] == 'SAT') {
 			foreach ($cqdata_sat as $cq) {
-				if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
-					continue;
-				}
 				// Skip if this band is not in our requested bands list
 				if (!isset($validBands[$cq->col_band])) {
 					continue;
@@ -277,7 +274,7 @@ class CQ extends CI_Model{
 			$bindings[]=$postdata['dateto'] . ' 23:59:59';
 		}
 
-		$sql .= " and col_prop_mode != 'SAT'";
+		$sql .= " and (col_prop_mode != 'SAT' or col_prop_mode is NULL)";
 
 		$sql .= " GROUP BY thcv.col_cqz, thcv.col_band";
 

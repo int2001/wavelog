@@ -22,7 +22,6 @@ class Labels extends CI_Controller {
 		parent::__construct();
 		$this->load->helper(array('form', 'url', 'psr4_autoloader'));
 
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2) || !clubaccess_check(9)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 	}
 
@@ -140,6 +139,11 @@ class Labels extends CI_Controller {
 
 	public function printids() {
 		$ids = xss_clean(json_decode($this->input->post('id')));
+		if (empty($ids)) {
+			header('Content-Type: application/json');
+			echo json_encode(array('message' => __('No QSOs were selected')));
+			return;
+		}
 		$offset = xss_clean($this->input->post('startat'));
 		$grid = $this->input->post('grid') === "true" ? 1 : 0;
 		$via = $this->input->post('via') === "true" ? 1 : 0;
@@ -147,10 +151,18 @@ class Labels extends CI_Controller {
 		$tnxmsg = $this->input->post('tnxmsg') === "true" ? 1 : 0;
 		$reference = $this->input->post('reference') == "true" ? 1 : 0;
 		$mycall = $this->input->post('mycall') == "true" ? 1 : 0;
+		$opcall = $this->input->post('opcall') == "true" ? 1 : 0;
 		$this->load->model('labels_model');
 		$result = $this->labels_model->export_printrequestedids($ids);
 
-		$this->prepareLabel($result, true, $offset, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall);
+		// A Label Designer template overrides the classic text layout
+		$print_template = (int)($this->input->post('print_template') ?? 0);
+		if ($print_template > 0) {
+			$this->printDesignedLabel($print_template, $result, $offset, true);
+			return;
+		}
+
+		$this->prepareLabel($result, true, $offset, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall, $opcall);
 	}
 
 	public function print($station_id) {
@@ -162,18 +174,111 @@ class Labels extends CI_Controller {
 		$tnxmsg = xss_clean($this->input->post('tnxmsg') ?? 0);
 		$reference = xss_clean($this->input->post('reference') ?? 0);
 		$mycall = $this->input->post('mycall') ?? 0;
+		$opcall = $this->input->post('opcall') ?? 0;
 		$this->load->model('stations');
-		if ($this->stations->check_station_is_accessible($station_id)) {
+		if ($station_id === 'All' || $this->stations->check_station_is_accessible($station_id)) {
 			$this->load->model('labels_model');
 			$result = $this->labels_model->export_printrequested($clean_id);
 
-			$this->prepareLabel($result, false, $offset, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall);
+			// A Label Designer template overrides the classic text layout
+			$print_template = (int)($this->input->post('print_template') ?? 0);
+			if ($print_template > 0) {
+				$this->printDesignedLabel($print_template, $result, $offset);
+				return;
+			}
+
+			$this->prepareLabel($result, false, $offset, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall, $opcall);
 		} else {
 			redirect('labels');
 		}
 	}
 
-	function prepareLabel($qsos, $jscall = false, $offset = 1, $grid = false, $via = false, $reference = false, $qslmsg = false, $tnxmsg = true, $mycall = false) {
+	/*
+	|--------------------------------------------------------------------------
+	| Function: printDesignedLabel
+	|--------------------------------------------------------------------------
+	|
+	| Renders the pending QSOs with a Label Designer template (visual layout)
+	| instead of the classic text-based layout.
+	|
+	 */
+	// $jscall: the request came from an ajax print dialog (labels/printids) —
+	// report errors as JSON with a 500 status so the caller's error handler
+	// fires, instead of a flashdata redirect meant for form posts.
+	private function printDesignedLabel($template_id, $qsos, $offset = 1, $jscall = false) {
+		$this->load->model('Labeldesigner_model');
+		try {
+			$tpl = $this->Labeldesigner_model->get_template((int)$template_id);
+			if (!$tpl) {
+				$this->designedLabelError(__('Template not found'), $jscall);
+				return;
+			}
+
+			$layout = json_decode($tpl['layout_json'], true);
+			if (!is_array($layout)) {
+				$this->designedLabelError(__('Template JSON is invalid'), $jscall);
+				return;
+			}
+
+			$label = $this->Labeldesigner_model->get_label_with_paper($tpl['label_type_id']);
+			if (!$label || ($label->paper_id ?? '') == '') {
+				$this->designedLabelError(__('You need to assign a paperType to the label before printing'), $jscall);
+				return;
+			}
+
+			if ($qsos->num_rows() == 0) {
+				$this->designedLabelError(__('0 QSOs found for print!'), $jscall);
+				return;
+			}
+
+			$pdfPath = $this->Labeldesigner_model->render_label_pdf_from_layout($layout, $label, $qsos->result_array(), max(1, (int)$offset));
+
+			if (!$pdfPath || !file_exists($pdfPath)) {
+				$this->designedLabelError(__('Something went wrong! The label could not be generated. Check label size and font size.'), $jscall);
+				return;
+			}
+
+			$this->streamLabelPdf($pdfPath, $tpl);
+		} catch (\Throwable $th) {
+			log_message('error', 'LABELS printDesignedLabel() failed: ' . $th->getMessage());
+			$this->designedLabelError(__('Something went wrong! The label could not be generated. Check label size and font size.'), $jscall);
+		}
+	}
+
+	private function designedLabelError(string $message, bool $jscall): void {
+		if ($jscall) {
+			$this->output
+				->set_status_header(500)
+				->set_content_type('application/json')
+				->set_output(json_encode(['message' => $message]));
+			return;
+		}
+		$this->session->set_flashdata('error', $message);
+		redirect('labels');
+	}
+
+	private function streamLabelPdf(string $pdfPath, array $tpl): void {
+		session_write_close();
+
+		$name = preg_replace('/[^A-Za-z0-9_-]/', '_', $tpl['name'] ?? '');
+		if ($name === '') {
+			$name = 'tpl_' . ($tpl['id'] ?? 'x');
+		}
+		$filename = 'qsl_labels_' . $name . '_' . date('Ymd-Hi') . '.pdf';
+
+		header('Content-Type: application/pdf');
+		header('Content-Disposition: inline; filename="' . $filename . '"');
+		if (!ini_get('zlib.output_compression')) {
+			header('Content-Length: ' . filesize($pdfPath));
+		}
+		readfile($pdfPath);
+		if (!@unlink($pdfPath)) {
+			log_message('error', 'LABELS: temp PDF unlink failed: ' . $pdfPath);
+		}
+		exit;
+	}
+
+	function prepareLabel($qsos, $jscall = false, $offset = 1, $grid = false, $via = false, $reference = false, $qslmsg = false, $tnxmsg = true, $mycall = false, $opcall = false) {
 		$this->load->model('labels_model');
 		$label = $this->labels_model->getDefaultLabel();
 
@@ -234,6 +339,11 @@ class Labels extends CI_Controller {
 				redirect('labels');
 			}
 		}
+		// Reached only on the success path above; guard so static analysis knows $pdf/$ptype are set
+		if (!isset($pdf, $ptype)) {
+			return;
+		}
+
 		define('FPDF_FONTPATH', './src/Label/font/');
 
 		$pdf->AddPage($ptype->orientation);
@@ -248,9 +358,9 @@ class Labels extends CI_Controller {
 
 		if ($qsos->num_rows() > 0) {
 			if ($label->qsos == 1) {
-				$this->makeMultiQsoLabel($qsos->result(), $pdf, 1, $offset, $ptype->orientation, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall);
+				$this->makeMultiQsoLabel($qsos->result(), $pdf, 1, $offset, $ptype->orientation, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall, $opcall);
 			} else {
-				$this->makeMultiQsoLabel($qsos->result(), $pdf, $label->qsos, $offset, $ptype->orientation, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall);
+				$this->makeMultiQsoLabel($qsos->result(), $pdf, $label->qsos, $offset, $ptype->orientation, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall, $opcall);
 			}
 		} else {
 			$this->session->set_flashdata('message', __('0 QSOs found for print!'));
@@ -259,7 +369,7 @@ class Labels extends CI_Controller {
 		$pdf->Output();
 	}
 
-	function makeMultiQsoLabel($qsos, $pdf, $numberofqsos, $offset, $orientation, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall) {
+	function makeMultiQsoLabel($qsos, $pdf, $numberofqsos, $offset, $orientation, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall, $opcall = false) {
 		$text = '';
 		$current_callsign = '';
 		$current_sat = '';
@@ -276,7 +386,7 @@ class Labels extends CI_Controller {
 			( ($qso->COL_BAND_RX !== $current_sat_bandrx) && ($this->pretty_sat_mode($qso->COL_SAT_MODE) !== '')) ) {
 			   // ((($qso->COL_SAT_NAME ?? '' !== $current_sat) || ($qso->COL_CALL !== $current_callsign)) && ($qso->COL_SAT_NAME ?? '' !== '') && ($col->COL_BAND_RX ?? '' !== $current_sat_bandrx))) {
 				if (!empty($qso_data)) {
-					$this->finalizeData($pdf, $current_callsign, $qso_data, $numberofqsos, $orientation, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall);
+					$this->finalizeData($pdf, $current_callsign, $qso_data, $numberofqsos, $orientation, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall, $opcall);
 					$qso_data = [];
 				}
 				$current_callsign = $qso->COL_CALL;
@@ -297,6 +407,7 @@ class Labels extends CI_Controller {
 				'sat_band_rx' => ($qso->COL_BAND_RX ?? ''),
 				'qsl_recvd' => $qso->COL_QSL_RCVD,
 				'mycall' => $qso->COL_STATION_CALLSIGN,
+				'opcall' => $qso->COL_OPERATOR ?? '',
 				'sig' => $qso->station_sig ?? '',
 				'sig_info' => $qso->station_sig_info ?? '',
 				'sota' => $qso->station_sota ?? '',
@@ -308,7 +419,7 @@ class Labels extends CI_Controller {
 			];
 		}
 		if (!empty($qso_data)) {
-			$this->finalizeData($pdf, $current_callsign, $qso_data, $numberofqsos, $orientation, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall);
+			$this->finalizeData($pdf, $current_callsign, $qso_data, $numberofqsos, $orientation, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall, $opcall);
 		}
 	}
 	// New begin
@@ -316,7 +427,7 @@ class Labels extends CI_Controller {
 		return(strlen($sat_mode ?? '') == 2 ? (strtoupper($sat_mode[0]).'/'.strtoupper($sat_mode[1])) : strtoupper($sat_mode ?? ''));
 	}
 
-	function finalizeData($pdf, $current_callsign, &$preliminaryData, $qso_per_label,$orientation, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall) {
+	function finalizeData($pdf, $current_callsign, &$preliminaryData, $qso_per_label,$orientation, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall, $opcall = false) {
 
 		$tableData = [];
 		$count_qso = 0;
@@ -335,7 +446,7 @@ class Labels extends CI_Controller {
 			$count_qso++;
 
 			if($count_qso == $qso_per_label){
-				$this->generateLabel($pdf, $current_callsign, $tableData,$count_qso,$qso,$orientation, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall);
+				$this->generateLabel($pdf, $current_callsign, $tableData,$count_qso,$qso,$orientation, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall, $opcall);
 				$tableData = []; // reset the data
 				$count_qso = 0;  // reset the counter
 			}
@@ -343,12 +454,12 @@ class Labels extends CI_Controller {
 		}
 		// generate label for remaining QSOs
 		if($count_qso > 0){
-			$this->generateLabel($pdf, $current_callsign, $tableData,$count_qso,$qso,$orientation, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall);
+			$this->generateLabel($pdf, $current_callsign, $tableData,$count_qso,$qso,$orientation, $grid, $via, $reference, $qslmsg, $tnxmsg, $mycall, $opcall);
 			$preliminaryData = []; // reset the data
 		}
 	}
 
-	function generateLabel($pdf, $current_callsign, $tableData,$numofqsos,$qso,$orientation,$grid=true, $via=false, $reference = false, $qslmsg = false, $tnxmsg = true, $mycall = false){
+	function generateLabel($pdf, $current_callsign, $tableData,$numofqsos,$qso,$orientation,$grid=true, $via=false, $reference = false, $qslmsg = false, $tnxmsg = true, $mycall = false, $opcall = false){
 		$builder = new \AsciiTable\Builder();
 		$builder->addRows($tableData);
 			$toradio = "To Radio: ";
@@ -372,11 +483,11 @@ class Labels extends CI_Controller {
 			}
 		}
 		$text.="\n";
-		if ($mycall) { $text .= "My call: ".$qso['mycall'] . ' '; }
-		if ($mycall && !$grid) {
-			$text .= "\n";
-		}
-		if ($grid) { $text .= "Grid: ".$qso['mygrid']."\n"; }
+		$line = '';
+		if ($mycall) { $line .= "My call: ".$qso['mycall']." "; }
+		if ($opcall && !empty($qso['opcall'])) { $line .= "OP: ".$qso['opcall']." "; }
+		if ($grid) { $line .= "Grid: ".$qso['mygrid']; }
+		if ($line !== '') { $text .= rtrim($line)."\n"; }
 		if ($reference) {
 			$ref_text = "";
 			$ref_avail = false;
@@ -388,7 +499,7 @@ class Labels extends CI_Controller {
 			if ($ref_avail == true) {$text .= $ref_text."\n";}
 		}
 		if ($qslmsg) {
-		    if (!empty($qso['qslmsg'])) { $text .= $qso['qslmsg']."\n";}
+		    if (!empty($qso['qslmsg'])) { $text .= html_entity_decode($qso['qslmsg'])."\n";}
 		}
 		if ($tnxmsg) {
 		    $text .= "Thanks for the QSO".($numofqsos>1 ? 's' : '');
@@ -458,6 +569,12 @@ class Labels extends CI_Controller {
 
 	public function startAtLabel() {
 		$data['stationid'] = xss_clean($this->input->post('stationid'));
+
+		// Offer any Label Designer templates as an alternative to the classic
+		// text layout in the print dialog.
+		$this->load->model('Labeldesigner_model');
+		$data['label_templates'] = $this->Labeldesigner_model->list_templates();
+
 		$this->load->view('labels/startatform', $data);
 	}
 

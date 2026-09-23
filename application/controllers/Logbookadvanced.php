@@ -11,7 +11,6 @@ class Logbookadvanced extends CI_Controller {
 		parent::__construct();
 		$this->load->helper(array('form', 'url', 'psr4_autoloader'));
 
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
@@ -48,6 +47,8 @@ class Logbookadvanced extends CI_Controller {
 		$data['mapoptions'] = $mapoptions;
 		$data['user_map_custom'] = $this->optionslib->get_map_custom();
 
+		$data['adif_propmodes'] = $this->config->item('adif_propmodes');
+
 		$active_station_id = $this->stations->find_active();
 		$station_profile = $this->stations->profile($active_station_id);
 
@@ -58,7 +59,11 @@ class Logbookadvanced extends CI_Controller {
 		$pageData['iotaarray'] = $this->logbook_model->fetchIota();
 		$pageData['sats'] = $this->logbookadvanced_model->get_worked_sats();
 		$pageData['orbits'] = $this->bands->get_worked_orbits();
-		$pageData['station_profile'] = $this->stations->all_of_user();
+		if (!empty($this->session->userdata('user_stations_active_log_only'))) {
+			$pageData['station_profile'] = $this->logbooks_model->list_logbooks_linked($this->session->userdata('active_station_logbook'));
+		} else {
+			$pageData['station_profile'] = $this->stations->all_of_user();
+		}
 		$pageData['active_station_info'] = $station_profile->row();
 		$pageData['homegrid'] = explode(',', $this->stations->find_gridsquare());
 		$pageData['active_station_id'] = $active_station_id;
@@ -100,7 +105,6 @@ class Logbookadvanced extends CI_Controller {
 			'assets/js/leaflet/geocoding.js',
 			'assets/js/globe/globe.gl.js',
 			'assets/js/bootstrap-multiselect.js',
-			'assets/js/leaflet/L.MaidenheadColouredGridMap.js',
 		];
 
 		$this->load->view('interface_assets/header', $data);
@@ -150,6 +154,7 @@ class Logbookadvanced extends CI_Controller {
 			'dupemode' => xss_clean($this->input->post('dupemode')),
 			'dupeband' => xss_clean($this->input->post('dupeband')),
 			'dupesat' => xss_clean($this->input->post('dupesat')),
+			'dupedateval' => xss_clean($this->input->post('dupedateval')),
 			'operator' => xss_clean($this->input->post('operator')),
 			'contest' => xss_clean($this->input->post('contest')),
 			'invalid' => xss_clean($this->input->post('invalid')),
@@ -175,11 +180,7 @@ class Logbookadvanced extends CI_Controller {
 		foreach ($this->logbookadvanced_model->searchQsos($searchCriteria) as $qso) {
 			$qsoArray = $qso->toArray();
 			$flag = $this->dxccflag->get($qso->getDXCCId());
-			if ($flag != null) {
-				$qsoArray['flag'] = ' '.$flag;
-			} else {
-				$qsoArray['flag'] = '';
-			}
+			$qsoArray['flag'] = $this->flag_html($flag);
 			$qsos[] = $qsoArray;
 		}
 
@@ -216,11 +217,7 @@ class Logbookadvanced extends CI_Controller {
 		$cleaned_qso = $qsoObj->toArray();	// And back to Array for the JSON
 
 		$flag = $this->dxccflag->get($qsoObj->getDXCCId());
-		if ($flag != null) {
-			$cleaned_qso['flag'] = ' ' . $flag;
-		} else {
-			$cleaned_qso['flag'] = '';
-		}
+		$cleaned_qso['flag'] = $this->flag_html($flag);
 
 		header("Content-Type: application/json");
 		echo json_encode($cleaned_qso);
@@ -238,6 +235,7 @@ class Logbookadvanced extends CI_Controller {
 		$sortdirection = xss_clean($this->input->post('sortdirection'));
 		$user_id = (int)$this->session->userdata('user_id');
 
+		$data['reverse'] = (xss_clean($this->input->post('reverse')) == "true") ? true : false;
 		$data['qsos'] = $this->logbookadvanced_model->getQsosForAdif($ids, $user_id, $sortcolumn, $sortdirection);
 
 		$this->load->view('adif/data/exportall', $data);
@@ -283,11 +281,7 @@ class Logbookadvanced extends CI_Controller {
 		foreach ($qsos as $qso) {
 			$singleQso = $qso->toArray();
 			$flag = $this->dxccflag->get($qso->getDXCCId());
-			if ($flag != null) {
-				$singleQso['flag'] = ' '.$flag;
-			} else {
-				$singleQso['flag'] = '';
-			}
+			$singleQso['flag'] = $this->flag_html($flag);
 			$q[]=$singleQso;
 		}
 
@@ -320,11 +314,7 @@ class Logbookadvanced extends CI_Controller {
 		foreach ($qsos as $qso) {
 			$singleQso = $qso->toArray();
 			$flag = $this->dxccflag->get($qso->getDXCCId());
-			if ($flag != null) {
-				$singleQso['flag'] = ' '.$flag;
-			} else {
-				$singleQso['flag'] = '';
-			}
+			$singleQso['flag'] = $this->flag_html($flag);
 			$q[]=$singleQso;
 		}
 
@@ -333,7 +323,17 @@ class Logbookadvanced extends CI_Controller {
 	}
 
 	public function startAtLabel() {
-		$this->load->view('logbookadvanced/startatform');
+		// Offer Label Designer templates as an alternative to the classic
+		// text layout in the dialog.
+		$this->load->model('Labeldesigner_model');
+		$data['label_templates'] = $this->Labeldesigner_model->list_templates();
+		$this->load->view('logbookadvanced/startatform', $data);
+	}
+
+	public function printQslForm() {
+		$this->load->model('Qslpostcard_model');
+		$data['templates'] = $this->Qslpostcard_model->list_templates();
+		$this->load->view('logbookadvanced/printQsl', $data);
 	}
 
 	public function qslSlideshow() {
@@ -387,8 +387,6 @@ class Logbookadvanced extends CI_Controller {
 			'continent' => '',
 			'comment' => '*',
 			'dok' => '*',
-			'qrzSent' => '',
-			'qrzReceived' => '',
 			'distance' => '*',
 			'qrzSent' => '',
 			'qrzReceived' => '',
@@ -400,19 +398,19 @@ class Logbookadvanced extends CI_Controller {
 		);
 
 		$result = $this->logbookadvanced_model->getSearchResultArray($searchCriteria);
-		$this->prepareMappedQSos($result);
+		$this->prepareMappedQsos($result);
 	}
 
 	public function mapQsos() {
-        $this->load->model('logbookadvanced_model');
+		$this->load->model('logbookadvanced_model');
 
 		$searchCriteria = $this->mapParameters();
 
 		$result = $this->logbookadvanced_model->getSearchResultArray($searchCriteria);
-		$this->prepareMappedQSos($result);
+		$this->prepareMappedQsos($result);
 	}
 
-	public function prepareMappedQSos($qsos) {
+	public function prepareMappedQsos($qsos) {
 		if ($this->session->userdata('user_measurement_base') == NULL) {
 			$measurement_base = $this->config->item('measurement_base');
 		}
@@ -439,11 +437,14 @@ class Logbookadvanced extends CI_Controller {
 			case 'K':
 				$var_dist = " kilometers";
 				break;
+			default:
+				log_message('error', 'Invalid measurement base: ' . $measurement_base);
+				return;
 		}
 
 		$mappedcoordinates = array();
 		foreach ($qsos as $qso) {
-			if (!empty($qso['station_gridsquare']) && $this->isValidMaidenheadGrid($qso['station_gridsquare'])) {
+			if ($this->isValidMaidenheadGrid($qso['station_gridsquare']) || empty($qso['station_gridsquare'])) {
 				if (!empty($qso['COL_GRIDSQUARE'])  || !empty($qso['COL_VUCC_GRIDS'])) {
 					$mappedcoordinates[] = $this->calculate($qso, ($qso['station_gridsquare'] ?? ''), ($qso['COL_GRIDSQUARE'] ?? '') == '' ? $qso['COL_VUCC_GRIDS'] : $qso['COL_GRIDSQUARE'], $measurement_base, $var_dist, $custom_date_format);
 				} else {
@@ -493,24 +494,10 @@ class Logbookadvanced extends CI_Controller {
 
 		$this->load->model('logbook_model');
 
-
-		$data['distance'] = $this->qra->distance($locator1, $locator2, $measurement_base, $qso['COL_ANT_PATH']) . $var_dist;
-		$data['bearing'] = $this->qra->get_bearing($locator1, $locator2, $qso['COL_ANT_PATH']) . "&#186;";
-		$latlng1 = $this->qra->qra2latlong($locator1);
-		$latlng2 = $this->qra->qra2latlong($locator2);
-		$latlng1[0] = number_format((float)$latlng1[0], 3, '.', '');;
-		$latlng1[1] = number_format((float)$latlng1[1], 3, '.', '');;
-		$latlng2[0] = number_format((float)$latlng2[0], 3, '.', '');;
-		$latlng2[1] = number_format((float)$latlng2[1], 3, '.', '');;
-
-		$data['latlng1'] = $latlng1;
-		$data['latlng2'] = $latlng2;
-
 		$data['callsign'] = $qso['COL_CALL'];
 		$data['band'] = $qso['COL_BAND'];
 		$data['mode'] = $qso['COL_MODE'];
 		$data['gridsquare'] = $locator2;
-		$data['mygridsquare'] = $locator1;
 		$data['mycallsign'] = $qso['station_callsign'];
 		$data['datetime'] = date($custom_date_format, strtotime($qso['COL_TIME_ON'])). date(' H:i',strtotime($qso['COL_TIME_ON']));
 		$data['satname'] = $qso['COL_SAT_NAME'];
@@ -518,6 +505,23 @@ class Logbookadvanced extends CI_Controller {
 		$data['confirmed'] = ($this->logbook_model->qso_is_confirmed($qso)==true) ? true : false;
 		$data['dxccFlag'] = $this->dxccflag->get($qso['COL_DXCC']);
 		$data['id'] = $qso['COL_PRIMARY_KEY'];
+
+		$latlng2 = $this->qra->qra2latlong($locator2);
+		$latlng2[0] = number_format((float)$latlng2[0], 3, '.', '');;
+		$latlng2[1] = number_format((float)$latlng2[1], 3, '.', '');;
+		$data['latlng2'] = $latlng2;
+
+		if (!empty($locator1)) {
+			$data['distance'] = $this->qra->distance($locator1, $locator2, $measurement_base, $qso['COL_ANT_PATH']) . $var_dist;
+			$data['bearing'] = $this->qra->get_bearing($locator1, $locator2, $qso['COL_ANT_PATH']) . "&#186;";
+			$latlng1 = $this->qra->qra2latlong($locator1);
+			$latlng1[0] = number_format((float)$latlng1[0], 3, '.', '');;
+			$latlng1[1] = number_format((float)$latlng1[1], 3, '.', '');;
+
+			$data['latlng1'] = $latlng1;
+
+			$data['mygridsquare'] = $locator1;
+		}
 
 		return $data;
 	}
@@ -529,16 +533,17 @@ class Logbookadvanced extends CI_Controller {
 
 		$this->load->model('logbook_model');
 
-
-		$latlng1 = $this->qra->qra2latlong($mygrid);
+		if (!empty($mygrid)) {
+			$latlng1 = $this->qra->qra2latlong($mygrid);
+			$latlng1[0] = number_format((float)$latlng1[0], 3, '.', '');;
+			$latlng1[1] = number_format((float)$latlng1[1], 3, '.', '');;
+			$data['latlng1'] = $latlng1;
+		}
 		$latlng2[0] = $lat;
 		$latlng2[1] = $long;
-		$latlng1[0] = number_format((float)$latlng1[0], 3, '.', '');;
-		$latlng1[1] = number_format((float)$latlng1[1], 3, '.', '');;
 		$latlng2[0] = number_format((float)$latlng2[0], 3, '.', '');;
 		$latlng2[1] = number_format((float)$latlng2[1], 3, '.', '');;
 
-		$data['latlng1'] = $latlng1;
 		$data['latlng2'] = $latlng2;
 		$data['callsign'] = $qso['COL_CALL'];
 		$data['band'] = $qso['COL_BAND'];
@@ -611,6 +616,7 @@ class Logbookadvanced extends CI_Controller {
 		$json_string['sota']['show'] = $this->def_boolean($this->input->post('sota'));
 		$json_string['dok']['show'] = $this->def_boolean($this->input->post('dok'));
 		$json_string['sig']['show'] = $this->def_boolean($this->input->post('sig'));
+		$json_string['sig_info']['show'] = $this->def_boolean($this->input->post('sig_info'));
 		$json_string['wwff']['show'] = $this->def_boolean($this->input->post('wwff'));
 		$json_string['continent']['show'] = $this->def_boolean($this->input->post('continent'));
 		$json_string['qrz']['show'] = $this->def_boolean($this->input->post('qrz'));
@@ -647,23 +653,23 @@ class Logbookadvanced extends CI_Controller {
 	}
 
 	public function editDialog() {
-		if(!clubaccess_check(9)) return;
+		if(!clubaccess_check(3)) return;
 
 		$this->load->model('bands');
 		$this->load->model('modes');
 		$this->load->model('logbookadvanced_model');
-		$this->load->model('contesting_model');
+		$this->load->model('contest_admin_model');
 
 		$data['stateDxcc'] = $this->logbookadvanced_model->getPrimarySubdivisonsDxccs();
 
 		$data['modes'] = $this->modes->all();
 		$data['bands'] = $this->bands->get_user_bands_for_qso_entry();
-		$data['contests'] = $this->contesting_model->getActivecontests();
+		$data['contests'] = $this->contest_admin_model->getActiveContests();
 		$this->load->view('logbookadvanced/edit', $data);
 	}
 
 	public function saveBatchEditQsos() {
-		if(!clubaccess_check(9)) return;
+		if(!clubaccess_check(3)) return;
 
 		$ids = xss_clean($this->input->post('ids'));
 		$column = xss_clean($this->input->post('column'));
@@ -671,6 +677,15 @@ class Logbookadvanced extends CI_Controller {
 		$value2 = xss_clean($this->input->post('value2'));
 		$value3 = xss_clean($this->input->post('value3'));
 		$value4 = xss_clean($this->input->post('value4'));
+
+		// Club Member may only edit QSOs he made himself; officers and normal users are unaffected 
+		$ids_array = clubaccess_filter_qso_ids(json_decode($ids, true) ?? []);
+		if (empty($ids_array)) {
+			header("Content-Type: application/json");
+			print json_encode([]);
+			return;
+		}
+		$ids = json_encode($ids_array);
 
 		$this->load->model('logbookadvanced_model');
 		$this->logbookadvanced_model->saveEditedQsos($ids, $column, $value, $value2, $value3, $value4);
@@ -710,12 +725,23 @@ class Logbookadvanced extends CI_Controller {
 	}
 
 	public function batchDeleteQsos() {
-		if(!clubaccess_check(9)) return;
+		if(!clubaccess_check(3)) return;
 
 		$ids = xss_clean($this->input->post('ids'));
 
-		$this->load->model('logbookadvanced_model');
-		$this->logbookadvanced_model->deleteQsos($ids);
+		$requested_ids = json_decode($ids, true) ?? [];
+		// Club Member (3/6) may only delete QSOs he made himself; officers and normal users are unaffected 
+		$ids_array = clubaccess_filter_qso_ids($requested_ids);
+		if (!empty($ids_array)) {
+			$this->load->model('logbookadvanced_model');
+			$this->logbookadvanced_model->deleteQsos(json_encode($ids_array));
+		}
+
+		header("Content-Type: application/json");
+		print json_encode([
+			'deleted'   => array_values($ids_array),
+			'requested' => count($requested_ids),
+		]);
 	}
 
 	public function getSubdivisionsForDxcc() {
@@ -755,6 +781,51 @@ class Logbookadvanced extends CI_Controller {
 		$this->load->view('logbookadvanced/distancedialog');
 	}
 
+	public function mergeDialog() {
+		if(!clubaccess_check(9)) return;
+
+		$qsoIds = $this->input->post('qsoIds', true);
+		if (!is_array($qsoIds) || count($qsoIds) !== 2) {
+			show_error('Invalid QSO IDs');
+		}
+
+		$this->load->model('logbookadvanced_model');
+
+		// Get both QSOs
+		$qso1 = $this->logbookadvanced_model->getQsoForMerge($qsoIds[0]);
+		$qso2 = $this->logbookadvanced_model->getQsoForMerge($qsoIds[1]);
+
+		if (!$qso1 || !$qso2) {
+			show_error('QSO not found');
+		}
+
+		$data['qso1'] = $qso1;
+		$data['qso2'] = $qso2;
+		$data['qsoIds'] = $qsoIds;
+
+		$this->load->view('logbookadvanced/mergedialog', $data);
+	}
+
+	public function mergeQsos() {
+		if(!clubaccess_check(9)) return;
+
+		$qsoIds = $this->input->post('qsoIds', true);
+		$mergeData = $this->input->post('mergeData', true);
+
+		if (!is_array($qsoIds) || count($qsoIds) !== 2) {
+			header("Content-Type: application/json");
+			echo json_encode(['success' => false, 'message' => 'Invalid QSO IDs']);
+			return;
+		}
+
+		$this->load->model('logbookadvanced_model');
+
+		$result = $this->logbookadvanced_model->mergeQsos($qsoIds[0], $qsoIds[1], $mergeData);
+
+		header("Content-Type: application/json");
+		echo json_encode($result);
+	}
+
 	public function fixCqZones() {
 		if(!clubaccess_check(9)) return;
 
@@ -777,19 +848,6 @@ class Logbookadvanced extends CI_Controller {
 
 		header("Content-Type: application/json");
 		print json_encode($result);
-	}
-
-	public function fixContinent() {
-		$this->load->model('logbookadvanced_model');
-
-		$stationid = $this->input->post('stationid', true);
-		$result = $this->logbookadvanced_model->check_missing_continent($stationid);
-
-		$data['result'] = $result;
-
-		$data['type'] = 'continent';
-
-		$this->load->view('logbookadvanced/showUpdateResult', $data);
 	}
 
 	public function fixStateProgress() {
@@ -827,131 +885,14 @@ class Logbookadvanced extends CI_Controller {
 		echo json_encode($result);
 	}
 
-	public function updateDistances() {
-		if(!clubaccess_check(9)) return;
-
-		$stationid = $this->input->post('stationid', true);
-
-		$this->load->model('logbookadvanced_model');
-		$result = $this->logbookadvanced_model->update_distances_batch($stationid);
-
-		$data['result'] = $result;
-
-		$data['type'] = 'distance';
-
-		$this->load->view('logbookadvanced/showUpdateResult', $data);
-	}
-
 	public function callbookDialog() {
 		$this->load->view('logbookadvanced/callbookdialog');
-	}
-
-	public function dbtoolsDialog() {
-		$this->load->model('stations');
-		$data['station_profile'] = $this->stations->all_of_user();
-
-		$this->load->view('logbookadvanced/dbtoolsdialog', $data);
-	}
-
-	public function checkDb() {
-		if(!clubaccess_check(9)) return;
-
-		$type = $this->input->post('type', true);
-		$stationid = $this->input->post('stationid', true);
-		$this->load->model('logbookadvanced_model');
-
-		$data['result'] = $this->logbookadvanced_model->runCheckDb($type, $stationid);
-		if ($type == 'checkstate') {
-			$this->load->view('logbookadvanced/statecheckresult', $data);
-		} else {
-			$data['type'] = $type;
-			$this->load->view('logbookadvanced/checkresult', $data);
-		}
-
-	}
-
-	public function fixStateBatch() {
-		if(!clubaccess_check(9)) return;
-
-		$this->load->model('logbook_model');
-		$this->load->model('logbookadvanced_model');
-
-		$dxcc = $this->input->post('dxcc', true);
-		$stationid = $this->input->post('stationid', true);
-		$data['country'] = $this->input->post('country', true);
-
-		// Process for batch QSO state fix
-		$result = $this->logbookadvanced_model->fixStateBatch($dxcc, $stationid);
-
-		$data['result'] = $result;
-
-		$data['type'] = 'state';
-
-		$this->load->view('logbookadvanced/showUpdateResult', $data);
-	}
-
-	public function openStateList() {
-		if(!clubaccess_check(9)) return;
-
-		$this->load->model('logbookadvanced_model');
-
-		$data['dxcc'] = $this->input->post('dxcc', true);
-		$data['country'] = $this->input->post('country', true);
-		$data['stationid'] = $this->input->post('stationid', true);
-
-		// Process for batch QSO state fix
-		$data['qsos'] = $this->logbookadvanced_model->getStateListQsos($data['dxcc'], $data['stationid']);
-
-		$this->load->view('logbookadvanced/showStateQsos', $data);
-	}
-
-	public function fixMissingGrids() {
-		if(!clubaccess_check(9)) return;
-
-		$type = $this->input->post('type', true);
-		$stationid = $this->input->post('stationid', true);
-		$this->load->model('logbookadvanced_model');
-		$result = $this->logbookadvanced_model->check_missing_grid($stationid);
-
-		$data['result'] = $result;
-		$data['type'] = $type;
-
-		$this->load->view('logbookadvanced/showUpdateResult', $data);
 	}
 
 	function dupeSearchDialog() {
 		if(!clubaccess_check(9)) return;
 
 		$this->load->view('logbookadvanced/dupesearchdialog');
-	}
-
-	function fixDxccSelected() {
-		if(!clubaccess_check(9)) return;
-
-		$ids = xss_clean($this->input->post('ids'));
-
-		$this->load->model('logbookadvanced_model');
-		$result = $this->logbookadvanced_model->fixDxccSelected($ids);
-		$result['message'] = '<div class="alert alert-' . ($result['count'] == 0 ? 'danger' : 'success') . '" role="alert">' . sprintf(__("DXCC updated for %d QSO(s)."), $result['count']) . '</div>';
-
-		header("Content-Type: application/json");
-		print json_encode($result);
-	}
-
-	function showMapForIncorrectGrid() {
-		if(!clubaccess_check(9)) return;
-
-		$this->load->model('logbookadvanced_model');
-		$dxcc = $this->input->post('dxcc', true);
-
-		$data['grids'] = $this->logbookadvanced_model->getGridsForDxcc($dxcc);
-		$data['dxcc'] = $dxcc;
-		$data['gridsquare'] = $this->input->post('gridsquare', true);
-		$dxccname = $this->input->post('dxccname', true);
-		$data['title'] = sprintf(__("Map for DXCC %s and gridsquare %s."), $dxccname, $data['gridsquare']);
-
-		header("Content-Type: application/json");
-		print json_encode($data);
 	}
 
 	function getQsos() {
@@ -976,4 +917,134 @@ class Logbookadvanced extends CI_Controller {
 		echo json_encode($cleaned_qso);
 	}
 
+	private function flag_html($flag) {
+		if ($flag != null) {
+			return ' <span class="flag-emoji">'.$flag.'</span>';
+		} else {
+			return '';
+		}
+	}
+
+
+	public function attachContestDialog() {
+
+		$qsoIds = $this->input->post('qsoIds', true);
+		$data['qsoIds'] = $qsoIds;
+
+		$this->load->model('contesting_model');
+		$data['contests'] = $this->contesting_model->get_user_contests();
+		$data['custom_date_format'] = $this->session->userdata('user_date_format');
+
+		$this->load->view('logbookadvanced/attachContest', $data);
+	}
+
+	public function attachContestQsos() {
+
+		$this->load->model('contesting_model');
+		$this->load->model('logbook_model');
+
+		$qsoIds = $this->input->post('qsoIds', true);
+		$contestId = $this->input->post('selected_contest', true);
+
+		if (!is_array($qsoIds) || count($qsoIds) < 1) {
+			header("Content-Type: application/json");
+			echo json_encode(['success' => false, 'message' => 'Invalid QSO IDs']);
+			return;
+		}
+
+		// Check if permission on contest
+		if (!$this->contesting_model->check_user_contest($contestId)) {
+			header("Content-Type: application/json");
+			echo json_encode(['success' => false, 'message' => 'Invalid contest']);
+			return;
+		}
+
+		$error_count = 0;
+		foreach ($qsoIds as $qsoID) {
+
+			// Check if user has permission on QSO
+			if (!clubaccess_check(3, $qsoID)) {
+				$error_count += 1;
+				continue;
+			}
+
+			// Update Contest
+			$this->contesting_model->link_qso($qsoID, $contestId);
+
+			// Update QSO
+			$contest_adif_id = $this->contesting_model->get_session_info($contestId)['contest_id'];
+			$this->logbook_model->set_contest($qsoID, $contest_adif_id);
+		}
+
+
+		if ($error_count > 0) {
+			$error_message = "Error on " . (string) $error_count . " records, success on " . (string) (count($qsoIds) - $error_count);
+			header("Content-Type: application/json");
+			echo json_encode(['success' => false, 'message' => $error_message]);
+			return;
+		}
+
+		header("Content-Type: application/json");
+		echo json_encode(['success' => true]);
+		return;
+
+	}
+
+	public function detachContestDialog() {
+
+		$qsoIds = $this->input->post('qsoIds', true);
+		$data['qsoIds'] = $qsoIds;
+
+		$this->load->view('logbookadvanced/detachContest', $data);
+	}
+
+	public function detachContestQsos() {
+
+		$this->load->model('contesting_model');
+		$this->load->model('logbook_model');
+
+		$qsoIds = $this->input->post('qsoIds', true);
+
+		if (!is_array($qsoIds) || count($qsoIds) < 1) {
+			header("Content-Type: application/json");
+			echo json_encode(['success' => false, 'message' => 'Invalid QSO IDs']);
+			return;
+		}
+
+
+		$error_count = 0;
+		foreach ($qsoIds as $qsoID) {
+			// Check if user has permission on QSO
+			if (!clubaccess_check(3, $qsoID)) {
+				$error_count += 1;
+				continue;
+			}
+
+			// Check if permission on contest
+			$contestId = $this->contesting_model->get_linked_contest($qsoID);
+			if ($contestId != 0 && !$this->contesting_model->check_user_contest($contestId)) {
+				$error_count += 1;
+				continue;
+			}
+
+			// Update Contest
+			$this->contesting_model->unlink_qso($qsoID, $contestId);
+
+			// Update QSO
+			$this->logbook_model->set_contest($qsoID, 0);
+
+		}
+
+		if ($error_count > 0) {
+			$error_message = "Error on " . (string) $error_count . " records, success on " . (string) (count($qsoIds) - $error_count);
+			header("Content-Type: application/json");
+			echo json_encode(['success' => false, 'message' => $error_message]);
+			return;
+		}
+
+		header("Content-Type: application/json");
+		echo json_encode(['success' => true]);
+		return;
+
+	}
 }

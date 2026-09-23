@@ -16,7 +16,7 @@
  * Debug Mode
  * --------------------------------------------------------------------------
  * 
- * When enabled, the decoded JWT token will be logged on every login attempt.
+ * If enabled, the decoded JWT token will be logged on every login attempt.
  * This is useful for troubleshooting claim mapping and token forwarding issues.
  * Requires 'log_threshold' to be set to 2 (debug) or higher in config.php.
  * 
@@ -30,7 +30,7 @@ $config['auth_header_debug_jwt'] = false;
  * Automatic User Creation
  *--------------------------------------------------------------------------
  *
- * When enabled, Wavelog will automatically create a local user account the
+ * If enabled, Wavelog will automatically create a local user account the
  * first time a valid JWT token is received for an unknown user. The account
  * is created with a random password.
  *
@@ -63,7 +63,7 @@ $config['auth_header_allow_direct_login'] = false;
  * Hide Password Field in User Profile
  * --------------------------------------------------------------------------
  * 
- * When enabled, the password field in the user profile edit page is hidden for users authenticated through SSO.
+ * If enabled, the password field in the user profile edit page is hidden for users authenticated through SSO.
  * While there are legit use cases for allowing users to set a local password (e.g. as a backup login method), 
  * hiding the password field can help avoid confusion and reinforce the idea that the account is managed through the identity provider.
  */
@@ -212,3 +212,43 @@ $config['auth_headers_claim_config'] = [
         'allow_manual_change' => false
     ],
 ];
+
+/**
+ *--------------------------------------------------------------------------
+ * Clubstation Mapping
+ *--------------------------------------------------------------------------
+ *
+ * Assigns users to clubstations during login or on user creation. Leave blank to disable.
+ * 
+ * It is recommended that "show full group path" in Keycloak is disabled to prevent leading slashes.
+ * 
+ * $config['auth_header_clubstation_claim'] should be set to the JWT claim that 
+ * provides a multi-valued group attribute (RFC7643 4.1.2). The common claim 
+ * is "groups" per RFC9068 2.2.3.1.
+ * 
+ * For $config['auth_header_clubstation_direct'] each key is a clubstation id, its values are:
+ * 
+ *   'group'           => The name of the group defined in the IdP.
+ * 
+ *   'update_on_login' => If user membership should be updated on each login. If 
+ *                        false user is only assigned on user creation. If true
+ *                        users are removed and added to clubstations on login.
+ *                        Recommended to be set to true.
+ * 
+ *  Example:
+ *  $config['auth_header_clubstation_direct'] = [
+ *      9 => [
+ *          'group' => 'wl_society_station_group',
+ *          'update_on_login' => true
+ *      ],
+ *      15 => [
+ *          'group' => 'wl_special_event_station',
+ *          'update_on_login' => true
+ *      ],
+ *  ];
+ *
+ *  
+ */
+$config['auth_header_clubstation_claim'] = "";
+
+$config['auth_header_clubstation_direct'] = [];

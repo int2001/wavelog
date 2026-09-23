@@ -1,4 +1,4 @@
-<div class="container qso_panel">
+<div class="container qso_panel" id="main-content">
 <?php
 // Get Date format
 if($this->session->userdata('user_date_format')) {
@@ -36,6 +36,8 @@ switch ($date_format) {
   var lang_lotw_upload_day_ago = "<?= __("LoTW User. Last upload was 1 day ago."); ?>";
   var lang_lotw_upload_days_ago = "<?= __("LoTW User. Last upload was %x days ago."); ?>"; // due to the way the string is built (PHP to JS), %x is replaced with the number of days
   var lang_invalid_ant_el = "<?= __("Invalid value for antenna elevation:"); ?>";
+  var lang_qso_sat_below_horizon_confirm = "<?= __("Satellite appears below the horizon (elevation %s°). The stored TLE may be outdated for this QSO time. Do you really want to log this QSO?"); ?>";
+  var lang_invalid_callsign = "<?= __("Invalid callsign"); ?>";
   var lang_qso_wait_before_saving = "<?= __("Please wait before saving another QSO"); ?>";
   var latlng=[<?php echo $lat.','.$lng;?>];
   var user_date_format = "<?php echo $date_format; ?>"; // Pass the user's date format to JavaScript
@@ -116,9 +118,9 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
           </li>
 
   <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" id="fav_item" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-star"></i></a>
+    <a class="nav-link dropdown-toggle" id="fav_item" href="#" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" aria-label="<?= __("Favourites"); ?>"><i class="fa fa-star" aria-hidden="true"></i></a>
     <div class="dropdown-menu">
-      <a class="dropdown-item" href="#" id="fav_add"><?= __("Add Band/Mode to Favs"); ?></a>
+      <button type="button" class="dropdown-item" id="fav_add"><?= __("Add to Favs"); ?></button>
       <div class="dropdown-divider"></div>
       <div id="fav_menu"></div>
     </div>
@@ -134,14 +136,16 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
 	<?php if ($user_station_to_qso_tab ?? false) { ?>
 	<div class="row">
               <div class="mb-3 col-md-12">
-              <label class="col-sm-3 col-form-label" for="stationProfile"><?= __("Station Location"); ?></label>
+              <label class="col-form-label" for="stationProfile"><?= __("Station Location"); ?></label>
               <select id="stationProfile" class="form-select form-control form-control-sm" name="station_profile" onChange="panMap(this.value);">
                 <?php
                    $power = '';
+				   $station_callsign = '';
+				   	  if ($stations !== FALSE) {
                       foreach ($stations->result() as $stationrow) {
                 ?>
                 <option value="<?php echo $stationrow->station_id; ?>" <?php if($active_station_profile == $stationrow->station_id) { echo "selected=\"selected\""; $power = $stationrow->station_power; $station_callsign = $stationrow->station_callsign; } ?>><?php echo $stationrow->station_profile_name; ?></option>
-                <?php } ?>
+                <?php } } ?>
               </select>
             </div>
 	</div>
@@ -160,9 +164,9 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
                   <div class="input-group">
                     <input type="text" class="form-control form-control-sm input_start_time" name="start_time" id="start_time" tabindex="5" value="<?php echo $manual_mode == 0 ? date('H:i:s') : date('H:i'); ?>" size="7" <?php echo ($manual_mode == 0 ? "disabled" : "");  ?> required pattern="[0-2][0-9]:[0-5][0-9]">
                     <?php if ($manual_mode != 1) { ?>
-                      <span class="input-group-text btn-included-on-field"><i id="reset_time" data-bs-toggle="tooltip" title="Reset start time" class="fas fa-stopwatch"></i></span>
+                      <button type="button" class="btn btn-outline-secondary btn-included-on-field" id="reset_time" data-bs-toggle="tooltip" title="<?= __("Reset start time"); ?>" aria-label="<?= __("Reset start time"); ?>"><i class="fas fa-stopwatch" aria-hidden="true"></i></button>
                     <?php } else { ?>
-                      <span class="input-group-text btn-included-on-field"><i id="reset_start_time" data-bs-toggle="tooltip" title="Reset start time" class="fas fa-stopwatch"></i></span>
+                      <button type="button" class="btn btn-outline-secondary btn-included-on-field" id="reset_start_time" data-bs-toggle="tooltip" title="<?= __("Reset start time"); ?>" aria-label="<?= __("Reset start time"); ?>"><i class="fas fa-stopwatch" aria-hidden="true"></i></button>
                     <?php } ?>
                   </div>
                 </div>
@@ -172,7 +176,7 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
                   <div class="input-group">
                     <input type="text" class="form-control form-control-sm input_end_time" name="end_time" id="end_time" tabindex="6" value="<?php echo $manual_mode == 0 ? date('H:i:s') : date('H:i'); ?>" size="7" <?php echo ($manual_mode == 0 ? "disabled" : "");  ?> required pattern="[0-2][0-9]:[0-5][0-9]">
                     <?php if ($manual_mode == 1) { ?>
-                      <span class="input-group-text btn-included-on-field"><i id="reset_end_time" data-bs-toggle="tooltip" title="Reset end time" class="fas fa-stopwatch"></i></span>
+                      <button type="button" class="btn btn-outline-secondary btn-included-on-field" id="reset_end_time" data-bs-toggle="tooltip" title="<?= __("Reset end time"); ?>" aria-label="<?= __("Reset end time"); ?>"><i class="fas fa-stopwatch" aria-hidden="true"></i></button>
                     <?php } ?>
                   </div>
                 </div>
@@ -196,7 +200,7 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
                   <div class="input-group">
                     <input type="text" class="form-control form-control-sm input_start_time" name="start_time" id="start_time" tabindex="5" value="<?php echo $manual_mode == 0 ? date('H:i:s') : date('H:i'); ?>" size="7" <?php echo ($manual_mode == 0 ? "disabled" : "");  ?> required pattern="[0-2][0-9]:[0-5][0-9]">
                     <?php if ($manual_mode == 1) { ?>
-                      <span class="input-group-text btn-included-on-field"><i id="reset_start_time" data-bs-toggle="tooltip" title="Reset start time" class="fas fa-stopwatch"></i></span>
+                      <button type="button" class="btn btn-outline-secondary btn-included-on-field" id="reset_start_time" data-bs-toggle="tooltip" title="<?= __("Reset start time"); ?>" aria-label="<?= __("Reset start time"); ?>"><i class="fas fa-stopwatch" aria-hidden="true"></i></button>
                     <?php } ?>
                   </div>
                 </div>
@@ -211,16 +215,16 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
               <!-- Callsign Input -->
               <div class="row">
                 <div class="mb-3 col-md-12">
-                  <label for="callsign"><?= __("Callsign"); ?></label>&nbsp;<i id="check_cluster" data-bs-toggle="tooltip" title="<?= __("Search DXCluster for latest Spot"); ?>" class="fas fa-search"></i><i id="fetch_status" class="fas fa-spinner fa-spin ms-1" style="display: none;"></i></label>
+                  <label for="callsign"><?= __("Callsign"); ?></label>&nbsp;<button type="button" id="check_cluster" class="btn btn-link text-decoration-none p-0 align-baseline" data-bs-toggle="tooltip" title="<?= __("Search DXCluster for latest Spot"); ?>" aria-label="<?= __("Search DXCluster for latest Spot"); ?>"><i class="fas fa-search" aria-hidden="true"></i></button><i id="fetch_status" class="fas fa-spinner fa-spin ms-1" aria-hidden="true" style="display: none;"></i>
                   <div class="input-group">
                     <input tabindex="7" type="text" class="form-control uppercase" id="callsign" name="callsign" autocomplete="off" required>
                     <span id="qrz_info" class="input-group-text btn-included-on-field d-none py-0"></span>
                     <span id="hamqth_info" class="input-group-text btn-included-on-field d-none py-0"></span>
                   </div>
-                  <div style="min-height: 24px;">
+                  <div style="min-height: 24px;" aria-live="polite" aria-atomic="true">
                     <small id="callsign_info" class="badge text-bg-secondary"></small> <a id="lotw_link"><small id="lotw_info" class="badge text-bg-success"></small></a>
                   </div>
-                  <div id="ham_of_note_line" style="margin-top: 5px; display: none"></div>
+                  <div id="ham_of_note_line" style="margin-top: 5px; display: none" aria-live="polite"></div>
                 </div>
               </div>
 
@@ -259,7 +263,7 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
                   </select>
                 </div>
                 <div class="mb-3 col">
-                  <label for="frequency"><?= __("Frequency"); ?></label>
+                  <label for="freq_calculated"><?= __("Frequency"); ?></label>
                   <div class="input-group input-group-sm">
                     <input type="text" tabindex="3" class="form-control form-control-sm" id="freq_calculated" name="freq_calculated" value="0" />
                     <small class="input-group-text btn-included-on-field" id="qrg_unit">...</small>
@@ -376,7 +380,7 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
                   <label for="locator" class="col-sm-3 col-form-label"><?= __("Gridsquare"); ?></label>
                   <div class="col-sm-9">
                     <input tabindex="19" type="text" class="form-control form-control-sm uppercase" name="locator" id="locator" value="">
-                    <small id="locator_info" class="form-text text-muted" style="min-height: 20px; display: block;">&nbsp;</small>
+                    <small id="locator_info" class="form-text text-muted" style="min-height: 20px; display: block;" aria-live="polite">&nbsp;</small>
                 </div>
               </div>
 
@@ -399,13 +403,15 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
               <select id="stationProfile" class="form-select" name="station_profile" onChange="panMap(this.value);">
                 <?php
                    $power = '';
+				   $station_callsign = '';
+				   if ($stations !== FALSE) {
                       foreach ($stations->result() as $stationrow) {
                 ?>
                 <option value="<?php echo $stationrow->station_id; ?>" <?php if($active_station_profile == $stationrow->station_id) { echo "selected=\"selected\""; $power = $stationrow->station_power; $station_callsign = $stationrow->station_callsign; } ?>><?php echo $stationrow->station_profile_name; ?></option>
                 <?php } ?>
               </select>
             </div>
-		<?php } ?>
+		<?php } } ?>
 
             <div class="mb-3">
               <label for="radio"><?= __("Radio"); ?></label>
@@ -445,7 +451,7 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
 
             <div class="mb-3">
               <label for="transmit_power"><?= __("Transmit Power (W)"); ?></label>
-              <input type="number" inputmode="decimal" step="0.001" pattern="[0-9]*" class="form-control" id="transmit_power" name="transmit_power" value="<?php if ($this->session->userdata('transmit_power')) { echo $this->session->userdata('transmit_power'); } else { echo $power; } ?>" />
+              <input type="number" inputmode="decimal" step="0.001" class="form-control" id="transmit_power" name="transmit_power" value="<?php if ($this->session->userdata('transmit_power')) { echo $this->session->userdata('transmit_power'); } else { echo $power; } ?>" />
               <small id="powerHelp" class="form-text text-muted"><?= __("Give power value in Watts. Include only numbers in the input."); ?></small>
             </div>
 
@@ -537,24 +543,9 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
                   <label for="selectPropagation"><?= __("Propagation Mode"); ?></label>
                   <select class="form-select" id="selectPropagation" name="prop_mode">
                     <option value="" <?php if(!empty($this->session->userdata('prop_mode'))) { echo "selected=\"selected\""; } ?>></option>
-                    <option value="AS" <?php if($this->session->userdata('prop_mode') == "AS") { echo "selected=\"selected\""; } ?>><?= _pgettext("Propagation Mode","Aircraft Scatter"); ?></option>
-                    <option value="AUR" <?php if($this->session->userdata('prop_mode') == "AUR") { echo "selected=\"selected\""; } ?>><?= _pgettext("Propagation Mode","Aurora"); ?></option>
-                    <option value="AUE" <?php if($this->session->userdata('prop_mode') == "AUE") { echo "selected=\"selected\""; } ?>><?= _pgettext("Propagation Mode","Aurora-E"); ?></option>
-                    <option value="BS" <?php if($this->session->userdata('prop_mode') == "BS") { echo "selected=\"selected\""; } ?>><?= _pgettext("Propagation Mode","Back scatter"); ?></option>
-                    <option value="ECH" <?php if($this->session->userdata('prop_mode') == "ECH") { echo "selected=\"selected\""; } ?>><?= _pgettext("Propagation Mode","EchoLink"); ?></option>
-                    <option value="EME" <?php if($this->session->userdata('prop_mode') == "EME") { echo "selected=\"selected\""; } ?>><?= _pgettext("Propagation Mode","Earth-Moon-Earth"); ?></option>
-                    <option value="ES" <?php if($this->session->userdata('prop_mode') == "ES") { echo "selected=\"selected\""; } ?>><?= _pgettext("Propagation Mode","Sporadic E"); ?></option>
-                    <option value="FAI" <?php if($this->session->userdata('prop_mode') == "FAI") { echo "selected=\"selected\""; } ?>><?= _pgettext("Propagation Mode","Field Aligned Irregularities"); ?></option>
-                    <option value="F2" <?php if($this->session->userdata('prop_mode') == "F2") { echo "selected=\"selected\""; } ?>><?= _pgettext("Propagation Mode","F2 Reflection"); ?></option>
-                    <option value="INTERNET" <?php if($this->session->userdata('prop_mode') == "INTERNET") { echo "selected=\"selected\""; } ?>><?= _pgettext("Propagation Mode","Internet-assisted"); ?></option>
-                    <option value="ION" <?php if($this->session->userdata('prop_mode') == "ION") { echo "selected=\"selected\""; } ?>><?= _pgettext("Propagation Mode","Ionoscatter"); ?></option>
-                    <option value="IRL" <?php if($this->session->userdata('prop_mode') == "IRL") { echo "selected=\"selected\""; } ?>><?= _pgettext("Propagation Mode","IRLP"); ?></option>
-                    <option value="MS" <?php if($this->session->userdata('prop_mode') == "MS") { echo "selected=\"selected\""; } ?>><?= _pgettext("Propagation Mode","Meteor scatter"); ?></option>
-                    <option value="RPT" <?php if($this->session->userdata('prop_mode') == "RPT") { echo "selected=\"selected\""; } ?>><?= _pgettext("Propagation Mode","Terrestrial or atmospheric repeater or transponder"); ?></option>
-                    <option value="RS" <?php if($this->session->userdata('prop_mode') == "RS") { echo "selected=\"selected\""; } ?>><?= _pgettext("Propagation Mode","Rain scatter"); ?></option>
-                    <option value="SAT" <?php if($this->session->userdata('prop_mode') == "SAT") { echo "selected=\"selected\""; } ?>><?= _pgettext("Propagation Mode","Satellite"); ?></option>
-                    <option value="TEP" <?php if($this->session->userdata('prop_mode') == "TEP") { echo "selected=\"selected\""; } ?>><?= _pgettext("Propagation Mode","Trans-equatorial"); ?></option>
-                    <option value="TR" <?php if($this->session->userdata('prop_mode') == "TR") { echo "selected=\"selected\""; } ?>><?= _pgettext("Propagation Mode","Tropospheric ducting"); ?></option>
+                    <?php foreach ($adif_propmodes as $mode => $desc) {
+                       echo "<option value=\"$mode\" ".($this->session->userdata('prop_mode') == "$mode" ? "selected=\"selected\"" : "").">".htmlspecialchars_decode($desc)."</option>\n";
+                    } ?>
                   </select>
                 </div>
                 <div class="col">
@@ -674,19 +665,18 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
             <div class="mb-3">
               <label for="sat_name"><?= __("Satellite Name"); ?></label>
 
-              <input list="satellite_names" id="sat_name" type="text" name="sat_name" class="form-control" value="<?php echo $this->session->userdata('sat_name'); ?>">
+              <input type="text" class="form-control" id="sat_name" name="sat_name" value="<?php echo $this->session->userdata('sat_name'); ?>" onblur="setTimeout(() => document.getElementById('satellite_names_list').innerHTML = '', 150)">
+              <ul class="list-group position-absolute" id="satellite_names_list" style="width: 95%; max-height: 512px; overflow-y: auto; z-index: 1100; display: none;"></ul>
               <div style="min-height: 24px;">
                  <small id="lotw_support" class="form-text text-muted" style="min-height: 20px;">&nbsp;</small>
               </div>
-              <datalist id="satellite_names" class="satellite_names_list"></datalist>
             </div>
 
             <div class="mb-3">
               <label for="sat_mode"><?= __("Satellite Mode"); ?></label>
 
-              <input list="satellite_modes" id="sat_mode" type="text" name="sat_mode" class="form-control" value="<?php echo $this->session->userdata('sat_mode'); ?>">
-
-              <datalist id="satellite_modes" class="satellite_modes_list"></datalist>
+              <input type="text" id="sat_mode" name="sat_mode" class="form-control" value="<?php echo $this->session->userdata('sat_mode'); ?>" onblur="setTimeout(() => document.getElementById('satellite_modes_list').innerHTML = '', 150)">
+              <ul class="list-group position-absolute" id="satellite_modes_list" style="width: 95%; max-height: 512px; overflow-y: auto; z-index: 1100; display: none;"></ul>
             </div>
 
             <div class="mb-3">
@@ -697,7 +687,7 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
 
             <div class="mb-3">
               <label for="ant_el"><?= __("Antenna Elevation (°)"); ?></label>
-              <input type="number" inputmode="decimal" step="0.1" min="-5" max="90" class="form-control" id="ant_el" name="ant_el" onInvalid="invalidAntEl()" />
+              <input type="number" inputmode="decimal" step="0.1" max="90" class="form-control" id="ant_el" name="ant_el" onInvalid="invalidAntEl()" />
               <small id="elHelp" class="form-text text-muted"><?= __("Antenna elevation in decimal degrees."); ?></small>
             </div>
           </div>
@@ -748,11 +738,11 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
             </div>
 
            <div class="mb-3">
-            <label for="qslmsg"><?= __("QSL MSG"); ?><span class="qso_eqsl_qslmsg_update" title="<?= __("Get the default message for eQSL, for this station."); ?>"><i class="fas fa-redo-alt"></i></span></label>
-						<label class="position-absolute end-0 mb-2 me-3" for="qslmsg" id="charsLeft"> </label>
-            <textarea  type="text" class="form-control" id="qslmsg" name="qslmsg" rows="5" maxlength="240"><?php echo $qslmsg; ?></textarea>
+            <label for="qslmsg"><?= __("QSL MSG"); ?> <button type="button" class="btn btn-link text-decoration-none p-0 align-baseline qso_eqsl_qslmsg_update" title="<?= __("Get the default message for eQSL, for this station."); ?>" aria-label="<?= __("Get the default message for eQSL, for this station."); ?>"><i class="fas fa-redo-alt" aria-hidden="true"></i></button></label>
+						<span class="position-absolute end-0 mb-2 me-3" id="charsLeft" aria-live="polite"> </span>
+            <textarea  type="text" class="form-control" id="qslmsg" name="qslmsg" rows="5" maxlength="240"><?php echo html_escape($qslmsg); ?></textarea>
             <div class="small form-text text-muted"><?= __("Note: Gets exported to third-party services.") ?></div>
-            <div id="qslmsg_hide" style="display:none;"><?php echo $qslmsg; ?></div>
+            <div id="qslmsg_hide" style="display:none;"><?php echo html_escape($qslmsg); ?></div>
             </div>
           </div>
         </div>
@@ -765,9 +755,9 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
 
         <div class="btn-group" role="group">
               <button tabindex="22" type="button" class="btn btn-secondary" id="btn_reset"><?= __("Clear"); ?></button>
-        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"></button>
+        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" aria-label="<?= __("More options"); ?>"></button>
         <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                <li><a class="dropdown-item" href="#" id="btn_fullreset"><?= __("Reset to Default"); ?></a></li>
+                <li><button type="button" class="dropdown-item" id="btn_fullreset"><?= __("Reset to Default"); ?></button></li>
             </ul>
         </div>
         <button tabindex="21" type="submit" id="saveQso" name="saveQso" class="btn btn-primary"><i class="fas fa-save"></i> <?= __("Save QSO"); ?></button>
@@ -782,17 +772,17 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
 	</script>
 
 	<div class="card callsign-notes" id="callsign-notes" style="display: none;">
-        <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#callsign-notes-body" aria-expanded="false" aria-controls="callsign-notes-body" style="cursor: pointer;">
-          <h4 style="font-size: 16px; font-weight: bold;" class="card-title mb-0">
+        <button type="button" class="card-header d-flex justify-content-between align-items-center w-100 text-start" data-bs-toggle="collapse" data-bs-target="#callsign-notes-body" aria-expanded="false" aria-controls="callsign-notes-body" style="cursor: pointer;">
+          <span style="font-size: 16px; font-weight: bold;" class="card-title mb-0">
             <?= __("Callsign Notes"); ?>
             <span class="ms-1" data-bs-toggle="tooltip" title="<?= __("Store private information about your QSO partner. These notes are never shared or exported to external services.") ?>">
-              <i class="fa fa-question-circle"></i>
+              <i class="fa fa-question-circle" aria-hidden="true"></i>
             </span>
-          </h4>
-          <span>
+          </span>
+          <span aria-hidden="true">
             <i class="fas fa-up-down"></i>
           </span>
-        </div>
+        </button>
 		<div class="card-body collapse" id="callsign-notes-body">
 				<textarea id="callsign_note_content" class="form-control" rows="6"></textarea>
 				<input type="hidden" id="callsign-note-id" value="" />
@@ -832,7 +822,7 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
     // if isWinkeyEnabled in session data is true
     if ($this->session->userdata('isWinkeyEnabled')) { ?>
 
-    <div id="winkey" class="card winkey-settings" style="margin-bottom: 10px;">
+    <div id="winkey" class="card winkey-settings" style="margin-bottom: 10px; display: none;">
         <div class="card-header">
 			<h4 style="font-size: 16px; font-weight: bold;" class="card-title"><?= __("Winkey"); ?>
 
@@ -914,16 +904,19 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
     <div class="card previous-qsos">
       <div class="card-header"><h4 class="card-title" id="timesWorked" style="font-size: 16px; font-weight: bold;"><?= __("Previous Contacts"); ?></h4></div>
 
-        <div id="partial_view" style="font-size: 0.95rem;"></div>
+        <div id="partial_view" style="font-size: 0.95rem;" aria-live="polite" aria-atomic="true"></div>
 
-		<?php
-		$result = $this->optionslib->get_option('disable_refresh_past_contacts');
-		if($result === null) { ?>
-			<div id="qso-last-table" hx-get="<?php echo site_url('/qso/component_past_contacts'); ?>" hx-trigger="load, qso_event, every 15s">
-		<?php } else { ?>
-			<div id="qso-last-table" hx-get="<?php echo site_url('/qso/component_past_contacts'); ?>" hx-trigger="load, qso_event">
-		<?php } ?>
-
+		<?php $result = $this->optionslib->get_option('disable_refresh_past_contacts'); ?>
+			  <div 
+          id="qso-last-table" 
+          data-past-contacts-url="<?php echo site_url('/qso/component_past_contacts'); ?>" 
+          data-auto-refresh="<?php echo $result === null ? '1' : '0'; ?>"
+          <?php if (!empty($past_contacts_worker)) { ?> 
+            data-worker-topic="<?php echo html_escape($past_contacts_worker['topic']); ?>" 
+            data-worker-token="<?php echo html_escape($past_contacts_worker['token']); ?>"
+          <?php } ?> 
+          aria-live="polite" 
+          aria-atomic="true">
         </div>
       </div>
       <small style="float: right;"><?= sprintf(_ngettext("Max. %d previous contact is shown", "Max. %d previous contacts are shown", intval($qso_count)), intval($qso_count)); ?></small>
@@ -934,6 +927,9 @@ if (typeof window.DX_WATERFALL_FIELD_MAP === 'undefined') {
 
 </div>
 
+<?php $this->load->view('qso/components/fav_modal'); ?>
+
 <script>
 	var station_callsign = "<?php echo $station_callsign; ?>";
+  window.radioWorkerTopics = <?php echo json_encode($radio_worker_topics ?? []); ?>;
 </script>

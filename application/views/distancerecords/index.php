@@ -1,7 +1,11 @@
-<div class="container">
-	<br>
+<div class="container px-3 px-lg-4 mt-3 mb-3">
 		<h2><?php echo $page_title; ?></h2>
-	<p><?= __("This page lists distance records per satellite based on gridsquares."); ?>
+
+		<div class="card">
+		  <div class="card-header">
+		    <?= __("Satellite Distance Records"); ?> - <?= __("This page lists distance records per satellite based on gridsquares."); ?>
+		  </div>
+		  <div class="card-body">
 	<?php
 		if ($distances) {
 	?>
@@ -31,11 +35,11 @@
 
 	<tr>
 		<td style="text-align: center"><?php echo $i; ?></td>
-		<td style="text-align: center"><a href="javascript:displayDistanceQsos('<?php echo $row->sat; ?>')"><?php echo ($row->sat_displayname != null ? $row->sat_displayname." (".$row->sat.")" : $row->sat); ?></a></td>
+		<td style="text-align: center"><a href='javascript:displayDistanceQsos(<?php echo js_escape($row->sat); ?>)'><?php echo html_escape($row->sat_displayname != null ? $row->sat_displayname." (".$row->sat.")" : $row->sat); ?></a></td>
 		<td style="text-align: right"><?php printf("%.01f", (floatval($row->distance) * $factor)); echo ' '.$unit; ?></td>
 		<td style="text-align: center"><?php $timestamp = strtotime($row->time ?? ''); echo date($custom_date_format, $timestamp); ?></td>
 		<td style="text-align: center"><?php $timestamp = strtotime($row->time ?? ''); echo date('H:i', $timestamp); ?></td>
-		<td style="text-align: center"><a href="javascript:displayQso(<?php echo $row->primarykey; ?>)"><?php echo $row->callsign; ?></a></td>
+		<td style="text-align: center" class="callsign"><a href="javascript:displayQso(<?php echo $row->primarykey; ?>)"><?php echo $row->callsign; ?></a></td>
 		<td style="text-align: center"><?php echo $row->mode; ?></td>
 		<td style="text-align: center"><?php echo $row->mygrid; ?></td>
 		<td style="text-align: center"><?php echo $row->grid; ?></td>
@@ -49,6 +53,8 @@
 	</tbody>
 	</table>
 	<?php } else {
-        echo '<div class="alert alert-danger" role="alert">' . __("Nothing found!") . '</div>';
+        echo '<div class="alert alert-danger" role="alert">' . __("No QSOs found matching the criteria for this page!") . '</div>';
     }?>
+		  </div>
+		</div>
 </div>

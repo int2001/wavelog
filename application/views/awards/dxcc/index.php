@@ -3,24 +3,12 @@
 </script>
 <style>
     #dxccmap {
-	height: calc(100vh - 300px) !important;
-	max-height: 900px !important;
-}
-
-    .dropdown-filters-responsive {
-        width: 800px;
-    }
-
-    @media (max-width: 900px) {
-        .dropdown-filters-responsive {
-            width: 90vw;
-            max-width: none;
-        }
-    }
+		height: calc(100vh - 300px) !important;
+		max-height: 900px !important;
+	}
 </style>
-<div class="container">
+<div class="container px-3 px-lg-4 mt-3 mb-3">
 	<!-- Award Info Box -->
-	<br>
 	<div id="awardInfoButton">
 		<script>
 		var lang_awards_info_button = "<?= __("Award Info"); ?>";
@@ -35,9 +23,23 @@
 		<button type="button" class="btn btn-sm btn-primary me-1" id="displayAwardInfo"><?= __("Award Info"); ?></button>
 	</div>
 	<!-- End of Award Info Box -->
-
+<div class="card">
+		<div class="card-header">
+			<ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active" id="table-tab" data-bs-toggle="tab" href="#table" role="tab" aria-controls="table" aria-selected="true"><i class="fas fa-table"></i> <?= __("Table"); ?></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="map-tab" onclick="load_dxcc_map();" data-bs-toggle="tab" href="#dxccmaptab" role="tab" aria-controls="home" aria-selected="false"><i class="fas fa-map"></i> <?= __("Map"); ?></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="progress-tab" data-bs-toggle="tab" href="#progress" role="tab" aria-controls="progress" aria-selected="false" data-load-on-show="true"><i class="fas fa-chart-bar"></i> <?= __("Progress"); ?></a>
+				</li>
+			</ul>
+		</div>
+		<div class="card-body">
     <form class="form" action="<?php echo site_url('awards/dxcc'); ?>" method="post" enctype="multipart/form-data">
-		<div class="mb-4 text-center">
+		<div class="mb-1 text-center">
 				<div class="dropdown" data-bs-auto-close="outside">
 					<button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false"><?= __("Filters") ?></button>
 					<button id="button1id" type="submit" name="button1id" class="btn btn-sm btn-primary"><?= __("Show"); ?></button>
@@ -46,132 +48,133 @@
 				<?php }?>
 
 		<!-- Dropdown Menu with Filter Content -->
-		<div class="dropdown-menu start-50 translate-middle-x p-3 mt-5 dropdown-filters-responsive" aria-labelledby="filterDropdown" style="max-width: 800px;">
+		<div class="dropdown-menu start-50 translate-middle-x p-3 mt-5 dropdown-filters-responsive" aria-labelledby="filterDropdown">
 			<div class="card-body filterbody">
+					<div class="d-flex justify-content-between align-items-center mb-1">
+						<h5><i class="fas fa-filter me-1"></i> <?= __("Filters"); ?></h5>
+						<span><?= __("Press 'Apply' to update the table"); ?></span>
+					</div>
+				<div class="filter-section">
 				<div class="row mb-3">
-					<label class="form-label" for="checkboxes"><?= __("Date Presets") . ": " ?></label>
-						<div class="d-flex gap-1 d-flex flex-wrap">
-							<button type="button" class="btn btn-primary btn-sm flex-shrink-0" onclick="applyPreset('today')"><?= __("Today") ?></button>
-							<button type="button" class="btn btn-primary btn-sm flex-shrink-0" onclick="applyPreset('yesterday')"><?= __("Yesterday") ?></button>
-							<button type="button" class="btn btn-primary btn-sm flex-shrink-0" onclick="applyPreset('last7days')"><?= __("Last 7 Days") ?></button>
-							<button type="button" class="btn btn-primary btn-sm flex-shrink-0" onclick="applyPreset('last30days')"><?= __("Last 30 Days") ?></button>
-							<button type="button" class="btn btn-primary btn-sm flex-shrink-0" onclick="applyPreset('thismonth')"><?= __("This Month") ?></button>
-							<button type="button" class="btn btn-primary btn-sm flex-shrink-0" onclick="applyPreset('lastmonth')"><?= __("Last Month") ?></button>
-							<button type="button" class="btn btn-primary btn-sm flex-shrink-0" onclick="applyPreset('thisyear')"><?= __("This Year") ?></button>
-							<button type="button" class="btn btn-primary btn-sm flex-shrink-0" onclick="applyPreset('lastyear')"><?= __("Last Year") ?></button>
-							<button type="button" class="btn btn-danger btn-sm flex-shrink-0" onclick="resetDates()"><i class="fas fa-times"></i> <?= __("Clear") ?></button>
+					<label class="form-label mb-2 w-100"><div class="d-flex align-items-center gap-2"><i class="fas fa-calendar-days"></i><?= __("Date Range"); ?></div></label>
+						<div class="d-flex flex-wrap gap-1">
+							<button type="button" class="btn btn-outline-primary btn-sm flex-shrink-0" onclick="applyPreset('today')"><?= __("Today") ?></button>
+							<button type="button" class="btn btn-outline-primary btn-sm flex-shrink-0" onclick="applyPreset('yesterday')"><?= __("Yesterday") ?></button>
+							<button type="button" class="btn btn-outline-primary btn-sm flex-shrink-0" onclick="applyPreset('last7days')"><?= __("Last 7 Days") ?></button>
+							<button type="button" class="btn btn-outline-primary btn-sm flex-shrink-0" onclick="applyPreset('last30days')"><?= __("Last 30 Days") ?></button>
+							<button type="button" class="btn btn-outline-primary btn-sm flex-shrink-0" onclick="applyPreset('thismonth')"><?= __("This Month") ?></button>
+							<button type="button" class="btn btn-outline-primary btn-sm flex-shrink-0" onclick="applyPreset('lastmonth')"><?= __("Last Month") ?></button>
+							<button type="button" class="btn btn-outline-primary btn-sm flex-shrink-0" onclick="applyPreset('thisyear')"><?= __("This Year") ?></button>
+							<button type="button" class="btn btn-outline-primary btn-sm flex-shrink-0" onclick="applyPreset('lastyear')"><?= __("Last Year") ?></button>
+							<button type="button" class="btn btn-outline-danger btn-sm flex-shrink-0" onclick="resetDates()"><i class="fas fa-times"></i> <?= __("Clear") ?></button>
 						</div>
 				</div>
 
 				<div class="mb-3 row">
-					<div class="col-md-2 control-label" for="checkboxes"><?= __("Date from"); ?></div>
-					<div class="col-md-10">
-						<div class="form-check-inline">
-							<input name="dateFrom" id="dateFrom" type="date" class="form-control form-control-sm w-auto border border-secondary" <?php if ($this->input->post('dateFrom')) echo 'value="' . $this->input->post('dateFrom') . '"'; ?>>
-						</div>
+					<div class="col-sm-6">
+						<label class="form-label  mb-1" for="dateFrom"><?= __("Date from"); ?></label>
+						<input name="dateFrom" id="dateFrom" type="date" class="form-control form-control-sm" <?php if ($this->input->post('dateFrom')) echo 'value="' . $this->input->post('dateFrom') . '"'; ?>>
+					</div>
+					<div class="col-sm-6">
+						<label class="form-label  mb-1" for="dateTo"><?= __("Date to"); ?></label>
+						<input name="dateTo" id="dateTo" type="date" class="form-control form-control-sm" <?php if ($this->input->post('dateTo')) echo 'value="' . $this->input->post('dateTo') . '"'; ?>>
 					</div>
 				</div>
+
+				</div>
+				<div class="filter-section">
 				<div class="mb-3 row">
-					<div class="col-md-2 control-label" for="checkboxes"><?= __("Date to"); ?></div>
+					<div class="w-100 d-flex align-items-center gap-2 mb-2"><i class="fas fa-circle-check"></i><?= __("Status"); ?></div>
 					<div class="col-md-10">
 						<div class="form-check-inline">
-							<input name="dateTo" id="dateTo" type="date" class="form-control form-control-sm w-auto border border-secondary" <?php if ($this->input->post('dateTo')) echo 'value="' . $this->input->post('dateTo') . '"'; ?>>
+							<input class="btn-check" type="checkbox" name="worked" id="worked" value="1" <?php if ($this->input->post('worked') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
+							<label class="btn btn-outline-primary btn-sm" for="worked"><?= __("Show worked"); ?></label>
+						</div>
+						<div class="form-check-inline">
+							<input class="btn-check" type="checkbox" name="confirmed" id="confirmed" value="1" <?php if ($this->input->post('confirmed') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
+							<label class="btn btn-outline-primary btn-sm" for="confirmed"><?= __("Show confirmed"); ?></label>
+						</div>
+						<div class="form-check-inline">
+							<input class="btn-check" type="checkbox" name="notworked" id="notworked" value="1" <?php if ($this->input->post('notworked') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
+							<label class="btn btn-outline-primary btn-sm" for="notworked"><?= __("Show not worked"); ?></label>
+						</div>
+						<div class="form-check-inline">
+							<input class="btn-check" type="checkbox" name="includedeleted" id="includedeleted" value="1" <?php if ($this->input->post('includedeleted')) echo ' checked="checked"'; ?> >
+							<label class="btn btn-outline-warning btn-sm" for="includedeleted"><?= __("Include deleted"); ?></label>
 						</div>
 					</div>
 				</div>
 
+				</div>
+				<div class="filter-section">
 				<div class="mb-3 row">
-					<div class="col-md-2 control-label" for="checkboxes"><?= __("Deleted DXCC"); ?></div>
+					<div class="w-100 d-flex align-items-center gap-2 mb-2"><i class="fas fa-envelope-open-text"></i><?= __("Confirmation"); ?></div>
 					<div class="col-md-10">
 						<div class="form-check-inline">
-							<input class="form-check-input" type="checkbox" name="includedeleted" id="includedeleted" value="1" <?php if ($this->input->post('includedeleted')) echo ' checked="checked"'; ?> >
-							<label class="form-check-label" for="includedeleted"><?= __("Include deleted"); ?></label>
+							<input class="btn-check" type="checkbox" name="qsl" value="1" id="qsl" <?php if ($this->input->post('qsl') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
+							<label class="btn btn-outline-primary btn-sm" for="qsl"><?= __("QSL"); ?></label>
+						</div>
+						<div class="form-check-inline">
+							<input class="btn-check" type="checkbox" name="lotw" value="1" id="lotw" <?php if ($this->input->post('lotw') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
+							<label class="btn btn-outline-primary btn-sm" for="lotw"><?= __("LoTW"); ?></label>
+						</div>
+						<div class="form-check-inline">
+							<input class="btn-check" type="checkbox" name="eqsl" value="1" id="eqsl" <?php if ($this->input->post('eqsl')) echo ' checked="checked"'; ?> >
+							<label class="btn btn-outline-primary btn-sm" for="eqsl"><?= __("eQSL"); ?></label>
+						</div>
+						<div class="form-check-inline">
+							<input class="btn-check" type="checkbox" name="qrz" value="1" id="qrz" <?php if ($this->input->post('qrz')) echo ' checked="checked"'; ?> >
+							<label class="btn btn-outline-primary btn-sm" for="qrz"><?= __("QRZ.com"); ?></label>
+						</div>
+						<div class="form-check-inline">
+							<input class="btn-check" type="checkbox" name="clublog" value="1" id="clublog" <?php if ($this->input->post('clublog')) echo ' checked="checked"'; ?> >
+							<label class="btn btn-outline-primary btn-sm" for="clublog"><?= __("Clublog"); ?></label>
 						</div>
 					</div>
 				</div>
 
-				<!-- Multiple Checkboxes (inline) -->
+				</div>
+				<div class="filter-section">
 				<div class="mb-3 row">
-					<div class="col-md-2" for="checkboxes"><?= __("Worked / Confirmed"); ?></div>
-					<div class="col-md-10">
+					<div class="w-100 d-flex align-items-center gap-2 mb-2"><i class="fas fa-globe-americas"></i><?= __("Continents"); ?></div>
+					<div class="col-12">
 						<div class="form-check-inline">
-							<input class="form-check-input" type="checkbox" name="worked" id="worked" value="1" <?php if ($this->input->post('worked') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
-							<label class="form-check-label" for="worked"><?= __("Show worked"); ?></label>
+							<input class="btn-check" type="checkbox" name="Antarctica" id="Antarctica" value="1" <?php if ($this->input->post('Antarctica') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
+							<label class="btn btn-outline-primary btn-sm" for="Antarctica"><?= __("Antarctica"); ?></label>
 						</div>
 						<div class="form-check-inline">
-							<input class="form-check-input" type="checkbox" name="confirmed" id="confirmed" value="1" <?php if ($this->input->post('confirmed') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
-							<label class="form-check-label" for="confirmed"><?= __("Show confirmed"); ?></label>
+							<input class="btn-check"  type="checkbox" name="Africa" id="Africa" value="1" <?php if ($this->input->post('Africa') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
+							<label class="btn btn-outline-primary btn-sm" for="Africa"><?= __("Africa"); ?></label>
 						</div>
 						<div class="form-check-inline">
-							<input class="form-check-input" type="checkbox" name="notworked" id="notworked" value="1" <?php if ($this->input->post('notworked') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
-							<label class="form-check-label" for="notworked"><?= __("Show not worked"); ?></label>
+							<input class="btn-check"  type="checkbox" name="Asia" id="Asia" value="1" <?php if ($this->input->post('Asia') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
+							<label class="btn btn-outline-primary btn-sm" for="Asia"><?= __("Asia"); ?></label>
+						</div>
+						<div class="form-check-inline">
+							<input class="btn-check"  type="checkbox" name="Europe" id="Europe" value="1" <?php if ($this->input->post('Europe') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
+							<label class="btn btn-outline-primary btn-sm" for="Europe"><?= __("Europe"); ?></label>
+						</div>
+						<div class="form-check-inline">
+							<input class="btn-check"  type="checkbox" name="NorthAmerica" id="NorthAmerica" value="1" <?php if ($this->input->post('NorthAmerica') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
+							<label class="btn btn-outline-primary btn-sm" for="NorthAmerica"><?= __("North America"); ?></label>
+						</div>
+						<div class="form-check-inline">
+							<input class="btn-check"  type="checkbox" name="SouthAmerica" id="SouthAmerica" value="1" <?php if ($this->input->post('SouthAmerica') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
+							<label class="btn btn-outline-primary btn-sm" for="SouthAmerica"><?= __("South America"); ?></label>
+						</div>
+						<div class="form-check-inline">
+							<input class="btn-check"  type="checkbox" name="Oceania" id="Oceania" value="1" <?php if ($this->input->post('Oceania') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
+							<label class="btn btn-outline-primary btn-sm" for="Oceania"><?= __("Oceania"); ?></label>
 						</div>
 					</div>
 				</div>
 
-				<div class="mb-3 row">
-					<div class="col-md-2"><?= __("Show QSO with QSL Type"); ?></div>
-					<div class="col-md-10">
-						<div class="form-check-inline">
-							<input class="form-check-input" type="checkbox" name="qsl" value="1" id="qsl" <?php if ($this->input->post('qsl') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
-							<label class="form-check-label" for="qsl"><?= __("QSL"); ?></label>
-						</div>
-						<div class="form-check-inline">
-							<input class="form-check-input" type="checkbox" name="lotw" value="1" id="lotw" <?php if ($this->input->post('lotw') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
-							<label class="form-check-label" for="lotw"><?= __("LoTW"); ?></label>
-						</div>
-						<div class="form-check-inline">
-							<input class="form-check-input" type="checkbox" name="eqsl" value="1" id="eqsl" <?php if ($this->input->post('eqsl')) echo ' checked="checked"'; ?> >
-							<label class="form-check-label" for="eqsl"><?= __("eQSL"); ?></label>
-						</div>
-						<div class="form-check-inline">
-							<input class="form-check-input" type="checkbox" name="qrz" value="1" id="qrz" <?php if ($this->input->post('qrz')) echo ' checked="checked"'; ?> >
-							<label class="form-check-label" for="qrz"><?= __("QRZ.com"); ?></label>
-						</div>
-						<div class="form-check-inline">
-							<input class="form-check-input" type="checkbox" name="clublog" value="1" id="clublog" <?php if ($this->input->post('clublog')) echo ' checked="checked"'; ?> >
-							<label class="form-check-label" for="clublog"><?= __("Clublog"); ?></label>
-						</div>
-					</div>
 				</div>
-
+				<div class="filter-section">
 				<div class="mb-3 row">
-					<div class="col-md-2"><?= __("Continents"); ?></div>
-					<div class="col-md-10">
-						<div class="form-check-inline">
-							<input class="form-check-input" type="checkbox" name="Antarctica" id="Antarctica" value="1" <?php if ($this->input->post('Antarctica') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
-							<label class="form-check-label" for="Antarctica"><?= __("Antarctica"); ?></label>
-						</div>
-						<div class="form-check-inline">
-							<input class="form-check-input"  type="checkbox" name="Africa" id="Africa" value="1" <?php if ($this->input->post('Africa') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
-							<label class="form-check-label" for="Africa"><?= __("Africa"); ?></label>
-						</div>
-						<div class="form-check-inline">
-							<input class="form-check-input"  type="checkbox" name="Asia" id="Asia" value="1" <?php if ($this->input->post('Asia') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
-							<label class="form-check-label" for="Asia"><?= __("Asia"); ?></label>
-						</div>
-						<div class="form-check-inline">
-							<input class="form-check-input"  type="checkbox" name="Europe" id="Europe" value="1" <?php if ($this->input->post('Europe') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
-							<label class="form-check-label" for="Europe"><?= __("Europe"); ?></label>
-						</div>
-						<div class="form-check-inline">
-							<input class="form-check-input"  type="checkbox" name="NorthAmerica" id="NorthAmerica" value="1" <?php if ($this->input->post('NorthAmerica') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
-							<label class="form-check-label" for="NorthAmerica"><?= __("North America"); ?></label>
-						</div>
-						<div class="form-check-inline">
-							<input class="form-check-input"  type="checkbox" name="SouthAmerica" id="SouthAmerica" value="1" <?php if ($this->input->post('SouthAmerica') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
-							<label class="form-check-label" for="SouthAmerica"><?= __("South America"); ?></label>
-						</div>
-						<div class="form-check-inline">
-							<input class="form-check-input"  type="checkbox" name="Oceania" id="Oceania" value="1" <?php if ($this->input->post('Oceania') || $this->input->method() !== 'post') echo ' checked="checked"'; ?> >
-							<label class="form-check-label" for="Oceania"><?= __("Oceania"); ?></label>
-						</div>
-					</div>
-				</div>
-
-				<div class="mb-3 row">
-					<label class="col-md-2 control-label" for="band2"><?= __("Band"); ?></label>
-					<div class="col-md-3">
+					<div class="w-100 d-flex align-items-center gap-2 mb-2"><i class="fas fa-tower-broadcast"></i><?= __("Band & Mode"); ?></div>
+						<div class="col-sm-6">
+							<label class="form-label  mb-1" for="band2"><?= __("Band"); ?></label>
 						<select id="band2" name="band" class="form-select form-select-sm">
 							<option value="All" <?php if ($this->input->post('band') == "All" || $this->input->method() !== 'post') echo ' selected'; ?> ><?= __("Every band (w/o SAT)"); ?></option>
 							<?php foreach($worked_bands as $band) {
@@ -181,73 +184,78 @@
 							} ?>
 						</select>
 					</div>
+						<div class="col-sm-6">
+							<label class="form-label  mb-1" for="mode"><?= __("Mode"); ?></label>
+							<select id="mode" name="mode" class="form-select form-select-sm">
+								<option value="All" <?php if ($this->input->post('mode') == "All" || $this->input->method() !== 'mode') echo ' selected'; ?>><?= __("All"); ?></option>
+								<?php
+								foreach($modes->result() as $mode){
+									if ($mode->submode == null) {
+										echo '<option value="' . $mode->mode . '"';
+										if ($this->input->post('mode') == $mode->mode) echo ' selected';
+										echo '>'. $mode->mode . '</option>'."\n";
+									} else {
+										echo '<option value="' . $mode->submode . '"';
+										if ($this->input->post('mode') == $mode->submode) echo ' selected';
+										echo '>' . $mode->submode . '</option>'."\n";
+									}
+								}
+								?>
+							</select>
+						</div>
 				</div>
 				<div id="satrow" class="mb-3 row" <?php if ($this->input->post('band') != 'SAT' && $this->input->post('band') != 'All') echo "style=\"display: none\""; ?>>
 				<?php if (count($sats_available) != 0) { ?>
-					<label class="col-md-2 control-label" id="satslabel" for="sats"><?= __("Satellite"); ?></label>
-					<div class="col-md-3">
+				<div class="col-sm-6">
+					<label class="form-label  mb-1" id="satslabel" for="sats"><?= __("Satellite"); ?></label>
 					<select class="form-select form-select-sm"  id="sats" name="sats">
 						<option value="All" <?php if ($this->input->post('sats') == "All" || $this->input->method() !== 'post') echo ' selected'; ?>><?= __("All")?></option>
 						<?php foreach($sats_available as $sat) {
-							echo '<option value="' . $sat . '"';
+							echo '<option value="' . html_escape($sat) . '"';
 							if ($this->input->post('sats') == $sat) echo ' selected';
-							echo '>' . $sat . '</option>'."\n";
+							echo '>' . html_escape($sat) . '</option>'."\n";
 						} ?>
 					</select>
 					</div>
 				<?php } else { ?>
-					<input id="sats" type="hidden" value="All"></input>
+					<input id="sats" type="hidden" value="All">
 				<?php } ?>
-				</div>
-			<div id="orbitrow" class="mb-3 row" <?php if ($this->input->post('band') != 'SAT' && $this->input->post('band') != 'All') echo "style=\"display: none\""; ?>>
-				<label class="col-md-2 control-label" id="orbitslabel" for="orbits"><?= __("Orbit"); ?></label>
-					<div class="col-md-3">
-						<select class="form-select form-select-sm"  id="orbits" name="orbits">
-							<option value="All" <?php if ($this->input->post('orbits') == "All" || $this->input->method() !== 'post') echo ' selected'; ?>><?= __("All")?></option>
-							<?php
-							foreach($orbits as $orbit){
-								echo '<option value="' . $orbit . '"';
-								if ($this->input->post('orbits') == $orbit) echo ' selected';
-								echo '>' . strtoupper($orbit) . '</option>'."\n";
-							}
-							?>
-						</select>
-					</div>
-			</div>
-		</div>
-			<div class="mb-3 row">
-				<label class="col-md-2 control-label" for="mode"><?= __("Mode"); ?></label>
-				<div class="col-md-3">
-					<select id="mode" name="mode" class="form-select form-select-sm">
-						<option value="All" <?php if ($this->input->post('mode') == "All" || $this->input->method() !== 'mode') echo ' selected'; ?>><?= __("All"); ?></option>
+							<div id="orbitrow" class="col-sm-6">
+					<label class="form-label  mb-1" id="orbitslabel" for="orbits"><?= __("Orbit"); ?></label>
+					<select class="form-select form-select-sm"  id="orbits" name="orbits">
+						<option value="All" <?php if ($this->input->post('orbits') == "All" || $this->input->method() !== 'post') echo ' selected'; ?>><?= __("All")?></option>
 						<?php
-						foreach($modes->result() as $mode){
-							if ($mode->submode == null) {
-								echo '<option value="' . $mode->mode . '"';
-								if ($this->input->post('mode') == $mode->mode) echo ' selected';
-								echo '>'. $mode->mode . '</option>'."\n";
-							} else {
-								echo '<option value="' . $mode->submode . '"';
-								if ($this->input->post('mode') == $mode->submode) echo ' selected';
-								echo '>' . $mode->submode . '</option>'."\n";
-							}
+						foreach($orbits as $orbit){
+							echo '<option value="' . $orbit . '"';
+							if ($this->input->post('orbits') == $orbit) echo ' selected';
+							echo '>' . strtoupper($orbit) . '</option>'."\n";
 						}
 						?>
 					</select>
+			</div>
+</div>
+			<div class="mb-3 row">
+				<div class="col-sm-6">
+					<label class="form-label  mb-1" for="prop_mode"><?= __("Propagation"); ?></label>
+					<select id="prop_mode" name="prop_mode" class="form-select form-select-sm">
+						<option value="All" <?php if ($this->input->post('prop_mode') == "All" || $this->input->method() !== 'post') echo ' selected'; ?>><?= __("All"); ?></option>
+						<?php foreach ($adif_propmodes as $prop_code => $prop_desc) {
+							echo '<option value="' . $prop_code . '"';
+							if ($this->input->post('prop_mode') == $prop_code) echo ' selected';
+							echo '>' . htmlspecialchars_decode($prop_desc) . '</option>' . "\n";
+						} ?>
+					</select>
 				</div>
 			</div>
+				</div>
+				<div class="d-grid gap-2 mt-3">
+						<button type="submit" name="button1id" class="btn btn-primary"><i class="fas fa-check me-1"></i> <?= __("Apply"); ?></button>
+				</div>
+		</div>
+		</div>
+		</div>
 		</div>
     </form>
-
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="table-tab" data-bs-toggle="tab" href="#table" role="tab" aria-controls="table" aria-selected="true"><?= __("Table"); ?></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="map-tab" onclick="load_dxcc_map();" data-bs-toggle="tab" href="#dxccmaptab" role="tab" aria-controls="home" aria-selected="false"><?= __("Map"); ?></a>
-        </li>
-    </ul>
-    <br />
 
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade" id="dxccmaptab" role="tabpanel" aria-labelledby="home-tab">
@@ -256,11 +264,178 @@
 
     </div>
 
-        <div class="tab-pane fade show active" id="table" role="tabpanel" aria-labelledby="table-tab">
-
     <?php
     $i = 1;
     if ($dxcc_array) {
+		echo '<div class="tab-pane fade" id="progress" role="tabpanel" aria-labelledby="progress-tab">';
+		// Progress summary
+    	// Calculate total DXCC entities from the actual array (respects include deleted filter)
+		$total_dxcc_entities = count($dxcc_array); ?>
+
+		<ul class="nav nav-pills nav-pills-sm mb-3" id="progressTabs" role="tablist">
+			<li class="nav-item">
+				<button class="nav-link active" id="band-progress-tab" data-bs-toggle="tab" data-bs-target="#band-progress" type="button" role="tab" aria-controls="band-progress" aria-selected="true"><i class="fas fa-tower-broadcast"></i> <?= __("By Band") ?></button>
+			</li>
+			<li class="nav-item">
+				<button class="nav-link" id="continent-progress-tab" data-bs-toggle="tab" data-bs-target="#continent-progress" type="button" role="tab" aria-controls="continent-progress" aria-selected="false"><i class="fas fa-globe-americas"></i> <?= __("By Continent") ?></button>
+			</li>
+			<li class="nav-item">
+				<button class="nav-link" id="mode-progress-tab" data-bs-toggle="tab" data-bs-target="#mode-progress" type="button" role="tab" aria-controls="mode-progress" aria-selected="false"><i class="fas fa-wave-square"></i> <?= __("By Mode") ?></button>
+			</li>
+		</ul>
+
+		<div class="tab-content mt-3" id="progressTabContent">
+
+		<div class="tab-pane fade show active" id="band-progress" role="tabpanel" aria-labelledby="band-progress-tab">
+		<table class="table table-sm table-hover table-striped">
+			<thead>
+				<tr>
+					<th><?= __("Band") ?></th>
+					<th><?= __("Worked") ?></th>
+					<th><?= __("Confirmed") ?></th>
+					<th><?= __("Worked Progress") ?></th>
+					<th><?= __("Confirmed Progress") ?></th>
+				</tr>
+			</thead>
+		<tbody>
+
+		<?php
+		foreach ($bands as $band) {
+			if (($posted_band != 'SAT') && ($band == 'SAT')) {
+				continue;
+			}
+
+			// Skip if band is not in the posted data
+			if (!isset($dxcc_summary['worked'][$band])) {
+				continue;
+			}
+
+			$worked_count = $dxcc_summary['worked'][$band];
+			$confirmed_count = isset($dxcc_summary['confirmed'][$band]) ? $dxcc_summary['confirmed'][$band] : 0;
+
+			$worked_percentage = ($worked_count / $total_dxcc_entities) * 100;
+			$confirmed_percentage = ($confirmed_count / $total_dxcc_entities) * 100;
+
+			$worked_progress_class = $worked_percentage == 100 ? 'success' : ($worked_percentage >= 50 ? 'warning' : 'danger');
+			$confirmed_progress_class = $confirmed_percentage == 100 ? 'success' : ($confirmed_percentage >= 50 ? 'warning' : 'danger');
+			?>
+
+			<tr>
+				<td><strong><?= $band ?></strong></td>
+				<td><?= $worked_count . '/' . $total_dxcc_entities . ' (' . number_format($worked_percentage, 1) . '%)' ?></td>
+				<td><?= $confirmed_count . '/' . $total_dxcc_entities . ' (' . number_format($confirmed_percentage, 1) . '%)' ?></td>
+				<td><div class="progress" style="height: 20px; position: relative;"><div class="progress-bar bg-<?= $worked_progress_class ?>" role="progressbar" style="width: <?= number_format($worked_percentage, 2) ?>%; font-size: 14px;"><?= number_format($worked_percentage, 1) ?>%</div></div></td>
+				<td><div class="progress" style="height: 20px; position: relative;"><div class="progress-bar bg-<?= $confirmed_progress_class ?>" role="progressbar" style="width: <?= number_format($confirmed_percentage, 2) ?>%; font-size: 14px;"><?= number_format($confirmed_percentage, 1) ?>%</div></div></td>
+			</tr>
+		<?php }
+
+		// Add total row if applicable
+		if ($posted_band != 'SAT' && isset($dxcc_summary['worked']['Total'])) {
+			$worked_count = $dxcc_summary['worked']['Total'];
+			$confirmed_count = isset($dxcc_summary['confirmed']['Total']) ? $dxcc_summary['confirmed']['Total'] : 0;
+
+			$worked_percentage = ($worked_count / $total_dxcc_entities) * 100;
+			$confirmed_percentage = ($confirmed_count / $total_dxcc_entities) * 100;
+
+			$worked_progress_class = $worked_percentage == 100 ? 'success' : ($worked_percentage >= 50 ? 'warning' : 'danger');
+			$confirmed_progress_class = $confirmed_percentage == 100 ? 'success' : ($confirmed_percentage >= 50 ? 'warning' : 'danger');
+			?>
+
+			<tr>
+				<td><strong><?= __("Total (ex SAT)") ?></strong></td>
+				<td><?= $worked_count . '/' . $total_dxcc_entities . ' (' . number_format($worked_percentage, 1) . '%)' ?></td>
+				<td><?= $confirmed_count . '/' . $total_dxcc_entities . ' (' . number_format($confirmed_percentage, 1) . '%)' ?></td>
+				<td><div class="progress" style="height: 20px; position: relative;"><div class="progress-bar bg-<?= $worked_progress_class ?>" role="progressbar" style="width: <?= number_format($worked_percentage, 2) ?>%; font-size: 14px;"><?= number_format($worked_percentage, 1) ?>%</div></div></td>
+				<td><div class="progress" style="height: 20px; position: relative;"><div class="progress-bar bg-<?= $confirmed_progress_class ?>" role="progressbar" style="width: <?= number_format($confirmed_percentage, 2) ?>%; font-size: 14px;"><?= number_format($confirmed_percentage, 1) ?>%</div></div></td>
+			</tr>
+
+		<?php } ?>
+
+		</tbody></table>
+		</div>
+
+		<div class="tab-pane fade" id="continent-progress" role="tabpanel" aria-labelledby="continent-progress-tab">
+
+		<?php
+		// Add continent progress if available
+		if (isset($dxcc_continent_summary) && is_array($dxcc_continent_summary)) {
+		?>
+			<table class="table table-sm table-hover table-striped">
+				<thead>
+					<tr>
+						<th><?= __("Continent") ?></th>
+						<th><?= __("Worked") ?></th>
+						<th><?= __("Confirmed") ?></th>
+						<th><?= __("Worked Progress") ?></th>
+						<th><?= __("Confirmed Progress") ?></th>
+					</tr>
+				</thead>
+			<tbody>
+
+		<?php
+			$has_data = false;
+			foreach ($dxcc_continent_summary as $continent_code => $continent_data) {
+				// Skip if no total entities for this continent
+				if (!isset($continent_data['total']) || $continent_data['total'] == 0) {
+					continue;
+				}
+
+				$has_data = true;
+
+				// Get totals for all bands combined
+				$total_worked = isset($continent_data['worked']['Total']) ? $continent_data['worked']['Total'] : 0;
+				$total_confirmed = isset($continent_data['confirmed']['Total']) ? $continent_data['confirmed']['Total'] : 0;
+				$continent_total = $continent_data['total'];
+
+				$worked_percentage = ($total_worked / $continent_total) * 100;
+				$confirmed_percentage = ($total_confirmed / $continent_total) * 100;
+
+				$worked_progress_class = $worked_percentage == 100 ? 'success' : ($worked_percentage >= 50 ? 'warning' : 'danger');
+				$confirmed_progress_class = $confirmed_percentage == 100 ? 'success' : ($confirmed_percentage >= 50 ? 'warning' : 'danger');
+
+				?>
+
+				<tr>
+					<td><strong> <?php echo htmlspecialchars($continent_data['name']); ?></strong></td>
+					<td><?php echo $total_worked . '/' . $continent_total . ' (' . number_format($worked_percentage, 1) . '%)'; ?></td>
+					<td><?php echo $total_confirmed . '/' . $continent_total . ' (' . number_format($confirmed_percentage, 1) . '%)'; ?></td>
+					<td><?php echo '<div class="progress" style="height: 20px; position: relative;"><div class="progress-bar bg-' . $worked_progress_class . '" role="progressbar" style="width: ' . number_format($worked_percentage, 2) . '%; font-size: 14px;">' . number_format($worked_percentage, 1) . '%' . '</div></div>'; ?></td>
+					<td><?php echo '<div class="progress" style="height: 20px; position: relative;"><div class="progress-bar bg-' . $confirmed_progress_class . '" role="progressbar" style="width: ' . number_format($confirmed_percentage, 2) . '%; font-size: 14px;">' . number_format($confirmed_percentage, 1) . '%' . '</div></div>'; ?></td>
+				</tr>
+			<?php }
+
+			if (!$has_data) {
+				echo '<tr><td colspan="5" class="text-center">No continent data available</td></tr>';
+			}
+
+			echo '</tbody></table>';
+		} else {
+			echo '<div class="alert alert-info" role="alert">' . __("No continent data available.") . '</div>';
+		} ?>
+
+		</div>
+
+		<div class="tab-pane fade" id="mode-progress" role="tabpanel" aria-labelledby="mode-progress-tab">
+
+			<div id="progress-loading" class="text-center p-5">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden"><?= __("Loading..."); ?></span>
+            </div>
+            <p class="mt-3"><?= __("Loading progress data..."); ?></p>
+        </div>
+        <div id="progress-content"></div>
+        </div>
+
+		</div>
+
+		</div>
+
+        <div class="tab-pane fade show active" id="table" role="tabpanel" aria-labelledby="table-tab">
+
+    <?php }
+    $i = 1;
+    if ($dxcc_array) {
+		echo '<div class="text-center">';
 		echo __('Legend:');
 		echo '<pre>'.__("(Q)SL-Paper-Card").", ";
 		echo __("(L)oTW").", ";
@@ -268,18 +443,18 @@
 		echo __('QR(Z)-"confirmation"').", ";
 		echo __("(C)lublog").", ";
 		echo __("(W)orked").'</pre>';
-		echo '
+		echo '</div>
 		<table style="width:100%" class="table-sm table tabledxcc table-bordered table-hover table-striped table-condensed text-center">
 			<thead>
 			<tr>
-			<td>#</td>
-			<td>' . __("DXCC Name") . '</td>
-			<td>' . __("Prefix") . '</td>';
+			<th>#</th>
+			<th>' . __("DXCC Name") . '</th>
+			<th>' . __("Prefix") . '</th>';
 		foreach($bands as $band) {
 			if (($posted_band != 'SAT') && ($band == 'SAT')) {
 				continue;
 			}
-			echo '<td>' . $band . '</td>';
+			echo '<th>' . $band . '</th>';
 		}
 		echo '</tr>
 			</thead>
@@ -292,13 +467,15 @@
 					echo '<td style="text-align: center">' . $key . ' <span class="badge text-bg-danger">'.__("Deleted DXCC").'</span></td>';
 				} else if ($name == "Deleted") {
 					continue;
+				} else if ($name == "prefix") {
+					echo '<td style="text-align: center" class="callsign">' . $key . '</td>';
 				} else {
 					echo '<td style="text-align: center">' . $key . '</td>';
 				}
 			}
 			echo '</tr>';
 		}
-		echo '</table>
+		echo '</tbody></table>
 			<h2>' . __("Summary") . '</h2>
 
 			<table class="table-sm tablesummary table table-bordered table-hover table-striped table-condensed text-center">
@@ -314,6 +491,9 @@
 				if ($posted_band != 'SAT') {
 					echo '<td><b>' . __("Total (ex SAT)") . '</b></td>';
 				}
+				if ($posted_band == 'All') {
+					echo '<td>' . __("Slots") . '</td>';
+				}
 				echo '
 	</tr>
 	</thead>
@@ -327,6 +507,10 @@
 		}
 
 		if (($posted_band == 'SAT') && ($band == 'Total')) {
+			continue;
+		}
+
+		if (($posted_band != 'All') && ($band == 'Slots')) {
 			continue;
 		}
 
@@ -351,6 +535,10 @@
 			continue;
 		}
 
+        if (($posted_band != 'All') && ($band == 'Slots')) {
+			continue;
+		}
+
 		echo '<td style="text-align: center">';
 		if (($posted_band != 'SAT') && ($band == 'Total')) {
 			echo '<b>'.$dxcc.'</b>';
@@ -362,6 +550,7 @@
 	}
 
 	echo '</tr>
+	</tbody>
 	</table>
 	</div>';
 
@@ -371,4 +560,5 @@
     ?>
                 </div>
         </div>
+</div>
 </div>

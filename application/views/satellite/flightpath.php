@@ -1,9 +1,9 @@
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
 <script>
-	const homelat = "<?php echo $latlng[0]; ?>";
-	const homelon = "<?php echo $latlng[1]; ?>";
-	const homegrid = "<?php echo $homegrid; ?>";
+	const homelat = "<?php echo $latlng[0] ?? ''; ?>";
+	const homelon = "<?php echo $latlng[1] ?? ''; ?>";
+	const homegrid = "<?php echo $homegrid ?? ''; ?>";
 	var icon_home_url = "<?php echo $this->paths->cache_buster('/assets/images/dot.png'); ?>";
 	var tileUrl = "<?php echo $this->optionslib->get_option('option_map_tile_server'); ?>";
 </script>
@@ -29,33 +29,38 @@
     }
 
   </style>
-<div class="container">
-
-	<br>
+<div class="container px-3 px-lg-4 mt-3 mb-3">
 
 	<h2><?php echo $page_title; ?></h2>
 
-	<?php if ($satellites) { ?>
-		<form class="d-flex align-items-center">
-			<label class="my-1 me-2" id="satslabel" for="distplot_sats"><?= __("Satellite"); ?></label>
-			<select class="form-select my-1 me-sm-2 w-auto"  id="sats" onchange="plot_sat()">
-				<?php foreach($satellites as $sat) {
-					echo '<option value="' . ($sat->satname != null ? $sat->satname : $sat->displayname) . '"';
-					if (($sat->displayname == $selsat) || ($sat->satname == $selsat)) { echo ' selected'; }
-					echo '>' . ($sat->satname != null ? ($sat->satname.' ('.$sat->displayname.')') : $sat->displayname). '</option>'."\n";
-				} ?>
-			</select>
-		</form>
+	<div class="card">
+		<div class="card-header">
+			<?= __("View a map with satellite flightpaths"); ?>
+		</div>
+		<div class="card-body">
+			<?php if ($homegrid == '') { ?>
+				<p><span class="badge text-bg-warning"><?= __("Warning"); ?></span> <?= __("Active station location does not have a gridsquare configured. Please check"); ?></p>
+			<?php } ?>
+			<?php if ($satellites) { ?>
+				<form class="d-flex align-items-center">
+					<label class="my-1 me-2" id="satslabel" for="distplot_sats"><?= __("Satellite"); ?></label>
+					<select class="form-select my-1 me-sm-2 w-auto"  id="sats" onchange="plot_sat()">
+						<?php foreach($satellites as $sat) {
+							echo '<option value="' . ($sat->satname != null ? $sat->satname : $sat->displayname) . '"';
+							if (($sat->displayname == $selsat) || ($sat->satname == $selsat)) { echo ' selected'; }
+							echo '>' . ($sat->satname != null ? ($sat->satname.' ('.$sat->displayname.')') : $sat->displayname). '</option>'."\n";
+						} ?>
+					</select>
+				</form>
 
-		<?php } else { ?>
-			<?= __("No satellites with TLE found. Please update via CRON or satellite page. If you have no access to do this, ask your admin!"); ?>
-		<?php } ?>
-
-
-
-</div>
-<?php if ($satellites) { ?>
-	<div id="satcontainer">
-		<div id="sat_map" class="map-leaflet" style="width: 100%; height: 85vh"></div>
+			<?php } else { ?>
+				<?= __("No satellites with TLE found. Please update via CRON or satellite page. If you have no access to do this, ask your admin!"); ?>
+			<?php } ?>
+		</div>
+		<?php if ($satellites) { ?>
+		<div id="satcontainer">
+			<div id="sat_map" class="map-leaflet" style="width: 100%; height: 80vh"></div>
+		</div>
+			<?php } ?>
 	</div>
-<?php } ?>
+</div>

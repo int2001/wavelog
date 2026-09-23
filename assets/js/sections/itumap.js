@@ -1,7 +1,7 @@
-let osmUrl = tileUrl;
+var osmUrl = tileUrl;
 let ituz;
 let geojson;
-let map;
+var map;
 let info;
 
 let confirmedColor = 'rgba(144,238,144)';
@@ -204,6 +204,7 @@ function load_itu_map2(data) {
         div.innerHTML += "<i style='background: " + confirmedColor + "'></i><span>" + lang_general_word_confirmed + " (" + confirmed + ")</span><br>";
         div.innerHTML += "<i style='background: " + workedColor + "'></i><span>" + lang_general_word_worked_not_confirmed + " (" + workednotconfirmed + ")</span><br>";
         div.innerHTML += "<i style='background: " + unworkedColor + "'></i><span>" + lang_general_word_not_worked + " (" + notworked + ")</span><br>";
+        L.DomEvent.disableClickPropagation(div);
         return div;
     };
 
@@ -214,6 +215,7 @@ function load_itu_map2(data) {
 	info.onAdd = function (map) {
 		this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
 		this.update();
+		L.DomEvent.disableClickPropagation(this._div);
 		return this._div;
 	};
 
@@ -278,14 +280,14 @@ function style(feature) {
 
 function onClick(e) {
     var marker = e.target;
-    displayContactsOnMap($("#itumap"),marker.options.title, $('#band2').val(), 'All', 'All', $('#mode').val(), 'ITU');
+    displayContactsOnMap($("#itumap"),marker.options.title, $('#band2').val(), 'All', 'All', $('#mode').val(), 'ITUZone');
 }
 
 function onClick2(e) {
 	zoomToFeature(e);
 	console.log(e);
     var marker = e.target;
-    displayContactsOnMap($("#itumap"),marker.feature.properties.itu_zone_number, $('#band2').val(), 'All', 'All', $('#mode').val(), 'ITU');
+    displayContactsOnMap($("#itumap"),marker.feature.properties.itu_zone_number, $('#band2').val(), 'All', 'All', $('#mode').val(), 'ITUZone');
 }
 
 function createContentITU(zone, text){
@@ -363,7 +365,13 @@ $(document).ready(function(){
 		},
 		dom: 'Bfrtip',
 		buttons: [
-			'csv'
+			{
+				extend: 'csv',
+				className: 'mb-1 btn btn-primary', // Bootstrap classes
+					init: function(api, node, config) {
+						$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
+					},
+			}
 		]
 	});
 
@@ -380,7 +388,13 @@ $(document).ready(function(){
 			url: getDataTablesLanguageUrl(),
 		},
 		buttons: [
-			'csv'
+			{
+				extend: 'csv',
+				className: 'mb-1 btn btn-primary', // Bootstrap classes
+					init: function(api, node, config) {
+						$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
+					},
+			}
 		]
 	});
 

@@ -4,7 +4,6 @@ class User_Options extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
-		$this->load->model('user_model');
 		$this->load->model('user_options_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 	}
@@ -14,11 +13,14 @@ class User_Options extends CI_Controller {
 		foreach($obj as $option_key => $option_value) {
 			$obj[$option_key]=$this->security->xss_clean($option_value);
 		}
-		if ($obj['sat_name'] ?? '' != '') {
+		if (($obj['fav_name'] ?? '') !== '') {
+			$option_name = $obj['fav_name'];
+		} elseif ($obj['sat_name'] ?? '' != '') {
 			$option_name=$obj['sat_name'].'/'.$obj['mode'];
 		} else {
 			$option_name=$obj['band'].'/'.$obj['mode'];
 		}
+		$option_name = mb_substr($option_name, 0, 45);
 		$this->user_options_model->set_option('Favourite',$option_name, $obj);
 		$jsonout['success']=1;
 		header('Content-Type: application/json');
@@ -26,6 +28,8 @@ class User_Options extends CI_Controller {
 	}
 
 	public function get_fav() {
+		session_write_close();
+
 		$result=$this->user_options_model->get_options('Favourite');
 		$jsonout=[];
 		foreach($result->result() as $options) {
@@ -49,6 +53,43 @@ class User_Options extends CI_Controller {
 
 	public function dismissVersionDialog() {
 		$this->user_options_model->set_option('version_dialog', 'confirmed', array('boolean' => 'true'));
+	}
+
+	/**
+	 * Save a dashboard layout preference from the dashboard context menu.
+	 * Body: {"pref":"kpi|solar|map|dxpeditions|contests|dxcc|vucc|qslcards|eqsl|qrz|clublog|lotw","value":...}
+	 */
+	public function save_dashboard_pref() {
+		$obj = json_decode(file_get_contents("php://input"), true);
+		$pref = $this->security->xss_clean($obj['pref'] ?? '');
+		$value = $this->security->xss_clean($obj['value'] ?? '');
+
+		if ($pref === 'kpi' && in_array($value, ['1', '0'], true)) {
+			$this->user_options_model->set_option('dashboard', 'show_kpi_stats', array('boolean' => $value));
+			$this->session->set_userdata('user_dashboard_show_kpi_stats', $value);
+		} elseif ($pref === 'solar' && in_array($value, ['top', 'bottom', 'N'], true)) {
+			$this->user_options_model->set_option('dashboard', 'show_dashboard_solar', array('boolean' => $value));
+			$this->session->set_userdata('user_dashboard_solar', $value);
+		} elseif ($pref === 'map' && in_array($value, ['Y', 'map_at_left', 'map_at_right', 'N'], true)) {
+			$this->user_options_model->set_option('dashboard', 'show_map', array('boolean' => $value));
+			$this->session->set_userdata('user_dashboard_map', $value);
+		} elseif ($pref === 'dxpeditions' && in_array($value, ['1', '0'], true)) {
+			$this->user_options_model->set_option('dashboard', 'show_dxpeditions', array('boolean' => $value));
+			$this->session->set_userdata('user_dashboard_show_dxpeditions', $value);
+		} elseif ($pref === 'contests' && in_array($value, ['1', '0'], true)) {
+			$this->user_options_model->set_option('dashboard', 'show_contests', array('boolean' => $value));
+			$this->session->set_userdata('user_dashboard_show_contests', $value);
+		} elseif (in_array($pref, ['dxcc', 'vucc', 'qslcards', 'eqsl', 'qrz', 'clublog', 'lotw'], true) && in_array($value, ['1', '0'], true)) {
+			$this->user_options_model->set_option('dashboard', 'show_' . $pref, array('boolean' => $value));
+			$this->session->set_userdata('user_dashboard_show_' . $pref, $value);
+		} else {
+			header('Content-Type: application/json');
+			echo json_encode(['success' => 0, 'error' => 'Invalid data']);
+			return;
+		}
+
+		header('Content-Type: application/json');
+		echo json_encode(['success' => 1]);
 	}
 
 	/**
@@ -99,6 +140,7 @@ class User_Options extends CI_Controller {
 	}
 
 	public function get_qrg_units() {
+		session_write_close();
 
 		$qrg_units = [];
 

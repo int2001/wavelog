@@ -25,4 +25,4 @@
   <title><?php if (isset($page_title)) { echo $page_title; } ?> - Wavelog</title>
 </head>
 
-<body>
+<body class="<?= map_style_class(); ?>">

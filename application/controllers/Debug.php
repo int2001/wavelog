@@ -5,8 +5,7 @@ class Debug extends CI_Controller
 	function __construct() {
 		parent::__construct();
 
-		$this->load->model('user_model');
-		if (!$this->user_model->authorize(2)) {
+		if (!$this->user_model->authorize(99)) {
 			$this->session->set_flashdata('error', __("You're not allowed to do that!"));
 			redirect('dashboard');
 		}
@@ -116,11 +115,13 @@ class Debug extends CI_Controller
 		$data['using_backup'] = !empty($cache_info['active']['using_backup']);
 		$data['details_cache_size'] = $cache_info['details']['size'] ?? '0 B';
 		$data['details_cache_keys_count'] = $cache_info['details']['keys_count'] ?? 0;
+		$data['cache_roundtrip'] = $this->Debug_model->test_cache_roundtrip();
 		
 		$data['dxcc_update'] = $this->cron_model->cron('update_dxcc')->row();
 		$data['dok_update'] = $this->cron_model->cron('update_update_dok')->row();
 		$data['lotw_user_update'] = $this->cron_model->cron('update_lotw_users')->row();
 		$data['pota_update'] = $this->cron_model->cron('update_update_pota')->row();
+		$data['pota_boundaries_update'] = $this->cron_model->cron('update_pota_boundaries')->row();
 		$data['scp_update'] = $this->cron_model->cron('update_update_clublog_scp')->row();
 		$data['sota_update'] = $this->cron_model->cron('update_update_sota')->row();
 		$data['wwff_update'] = $this->cron_model->cron('update_update_wwff')->row();
@@ -130,6 +131,18 @@ class Debug extends CI_Controller
 		$data['vucc_grids_update'] = $this->cron_model->cron('vucc_grid_file')->row();
 
 		$data['page_title'] = __("Debug");
+
+		$this->load->library('worker');
+		$data['worker_status_topic'] = '';
+		$data['worker_status_token'] = '';
+		$data['worker_enabled'] = $this->worker->is_enabled();
+		$data['worker_legacy_config'] = $this->worker->is_legacy_config();
+		if ($data['worker_enabled'] && $this->worker->client_url() !== '') {
+			$debug_topic = 'worker.status';
+			$data['worker_status_topic'] = $debug_topic;
+			$data['worker_status_token'] = $this->worker->create_token($debug_topic);
+			$this->worker->register_topic($debug_topic,$data['worker_status_token']);
+		}
 
 		$this->load->view('interface_assets/header', $data);
 		$this->load->view('debug/index');
@@ -196,9 +209,9 @@ class Debug extends CI_Controller
 
 		$call = xss_clean(($this->input->post('call')));
 		$qsoids = xss_clean(($this->input->post('qsoids')));
-		$station_profile_id = xss_clean(($this->input->post('station_id')));
+		$station_profile_id = xss_clean(($this->input->post('station_id') ?? 0));
 
-		log_message('debug', 'station_profile_id:', $station_profile_id);
+		log_message('debug', 'station_profile_id: '. $station_profile_id);
 		// Check if target-station-id exists
 		$allowed = false;
 		$status = false;
@@ -272,29 +285,41 @@ class Debug extends CI_Controller
 		redirect('debug');
 	}
 
+	private function git_usable() {
+		if (!function_usable('exec')) {
+			return false;
+		}
+		if (!is_dir(FCPATH.'.git')) {
+			return false;
+		}
+		exec('command -v git 2>/dev/null', $out, $ret);
+		return $ret === 0 && !empty($out);
+	}
+
 	public function wavelog_fetch() {
-		$a_versions=[];
-		if (function_usable('exec')) {
+		$versions=[];
+		if ($this->git_usable()) {
 			try {
-				$st=exec('git fetch');	// Fetch latest things from Repo. ONLY Fetch. Doesn't hurt since it isn't a pull!
-							$versions['branch'] = trim(exec('git rev-parse --abbrev-ref HEAD')); // Get ONLY Name of the Branch we're on
-				$versions['latest_commit_hash']=substr(trim(exec('git log --pretty="%H" -n1 origin'.'/'.$versions['branch'])),0,8);	// fetch latest commit-hash from repo
+				$st=exec('git fetch 2>/dev/null');	// Fetch latest things from Repo. ONLY Fetch. Doesn't hurt since it isn't a pull!
+							$versions['branch'] = trim(exec('git rev-parse --abbrev-ref HEAD 2>/dev/null')); // Get ONLY Name of the Branch we're on
+				$versions['latest_commit_hash']=substr(trim(exec('git log --pretty="%H" -n1 origin'.'/'.$versions['branch'].' 2>/dev/null')),0,8);	// fetch latest commit-hash from repo
 			}  catch (Exception $e) {
 				$versions['latest_commit_hash']='';
 				$versions['branch']='';
 			}
 		} else {
-			log_message('error', 'wavelog_fetch() not available. Function exec() not usable.');
+			log_message('debug', 'wavelog_fetch() skipped: git not usable (no git binary or not a checkout).');
 		}
 		header('Content-Type: application/json');
 		echo json_encode($versions);
 	}
 
 	public function wavelog_version() {
-		if (function_usable('exec')) {
-			$commit_hash=substr(trim(exec('git log --pretty="%H" -n1 HEAD')),0,8);	// Get latest LOCAL Hash
+		$commit_hash='';
+		if ($this->git_usable()) {
+			$commit_hash=substr(trim(exec('git log --pretty="%H" -n1 HEAD 2>/dev/null')),0,8);	// Get latest LOCAL Hash
 		} else {
-			log_message('error', 'wavelog_version() not available. Function exec() not usable.');
+			log_message('debug', 'wavelog_version() skipped: git not usable (no git binary or not a checkout).');
 		}
 		header('Content-Type: application/json');
 		echo json_encode($commit_hash);
@@ -314,11 +339,50 @@ class Debug extends CI_Controller
 		$migrate = $this->debug_model->migrate_userdata();
 
 		if ($migrate == true) {
-			$this->session->set_flashdata('success', __("File Migration was successfull, but please check also manually. If everything seems right you can delete the folders 'assets/qslcard' and 'images/eqsl_card_images'."));
+			$this->session->set_flashdata('success', __("File Migration was successful, but please check also manually. If everything seems right you can delete the folders 'assets/qslcard' and 'images/eqsl_card_images'."));
 			redirect('debug');
 		} else {
 			$this->session->set_flashdata('error', __("File Migration failed. Please check the Error Log."));
 			redirect('debug');
 		}
 	}
+
+	/**
+	 * Returns a simple status summary for the Debug page (no secret required,
+	 * but only accessible to logged-in admin users via AJAX).
+	 */
+	public function worker_status() {
+		header('Content-Type: application/json');
+
+		if (!$this->user_model->authorize(2)) {
+			http_response_code(403);
+			echo json_encode(['success' => false]);
+			return;
+		}
+
+		$this->load->library('worker');
+		$status = $this->worker->status();
+
+		if (!$status['enabled']) {
+			echo json_encode(['success' => true, 'disabled' => true, 'workers' => []]);
+			return;
+		}
+
+		// Map the shared status shape to this endpoint's historic JSON contract.
+		$workers = array_map(function ($node) {
+			return [
+				'public_url'        => $node['url'],
+				'alive'             => $node['alive'],
+				'version'           => $node['version'],
+				'active_topics'     => $node['active_topics'],
+				'connected_clients' => $node['connected_clients'],
+				'worker_uptime'     => $node['uptime'],
+			];
+		}, $status['nodes']);
+
+		$vip = $status['vip'] !== null ? ['url' => $status['vip']] : null;
+
+		echo json_encode(['success' => true, 'vip' => $vip, 'workers' => $workers]);
+	}
+
 }

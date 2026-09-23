@@ -7,7 +7,6 @@ class Distances extends CI_Controller {
     {
         parent::__construct();
 
-        $this->load->model('user_model');
         if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
     }
 
@@ -19,8 +18,12 @@ class Distances extends CI_Controller {
         $this->load->model('bands');
         $data['bands_available'] = $this->bands->get_worked_bands_distances();
         $data['sats_available'] = $this->bands->get_worked_sats();
-		$data['orbits'] = $this->bands->get_worked_orbits();
-		$data['user_default_band'] = $this->session->userdata('user_default_band');
+        $data['orbits'] = $this->bands->get_worked_orbits();
+        $data['user_default_band'] = $this->session->userdata('user_default_band');
+        $data['adif_propmodes'] = $this->config->item('adif_propmodes');
+
+        $this->load->model('distances_model');
+        $data['modes'] = $this->distances_model->get_worked_modes();
 
         $this->load->view('interface_assets/header', $data);
         $this->load->view('distances/index');
@@ -71,12 +74,14 @@ class Distances extends CI_Controller {
 	public function getDistanceQsos(){
 		$this->load->model('distances_model');
 
-		$distance = $this->security->xss_clean($this->input->post('distance'));
-		$band = $this->security->xss_clean($this->input->post('band'));
-		$sat = $this->security->xss_clean($this->input->post('sat'));
-		$propagation = $this->security->xss_clean($this->input->post('propagation'));
+		$distance = $this->input->post('distance', true);
+		$band = $this->input->post('band', true);
+		$sat = $this->input->post('sat', true);
+		$propagation = $this->input->post('propagation', true);
+		$mode = $this->input->post('mode', true);
 
-		$data['results'] = $this->distances_model->qso_details($distance, $band, $sat, $propagation);
+		$data['results'] = $this->distances_model->qso_details($distance, $band, $sat, $propagation, $mode);
+		$data['adif_propmodes'] = $this->config->item('adif_propmodes');
 
 		// Render Page
 		$data['page_title'] = "Log View - " . $distance;

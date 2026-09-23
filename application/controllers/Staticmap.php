@@ -26,16 +26,62 @@ class Staticmap extends CI_Controller {
         }
 
         // Optional override-parameters
-        $band = $this->input->get('band', TRUE) ?? 'nbf';
-        $orbit = ($this->input->get('orbit', TRUE) ?? '') == '' ? 'nOrb' : strtoupper($this->input->get('orbit', TRUE));
-        $continent = ($this->input->get('continent', TRUE) ?? '') == '' ? 'nC' : strtoupper($this->input->get('continent', TRUE));
+        $band = strtolower($this->input->get('band', TRUE) ?? '');
+        if ($band === 'sat') {
+            $band = 'SAT'; // we need to uppercase SAT for the query, but for the cache key we want it lowercase as all other bands are lowercase
+        } elseif ($band !== 'nbf' && !in_array($band, $this->config->item('bands_available') ?? [], true)) {
+            $band = 'nbf';
+        }
+
+        // Orbit: only LEO/MEO/GEO are meaningful, anything else means "no orbit"
+        $orbit = strtoupper($this->input->get('orbit', TRUE) ?? '');
+        if (!in_array($orbit, ['LEO', 'MEO', 'GEO'], true)) {
+            $orbit = 'nOrb';
+        }
+
+        // Continent: fixed set of seven continents, else "no continent"
+        $continent = strtoupper($this->input->get('continent', TRUE) ?? '');
+        if (!in_array($continent, ['AF', 'AN', 'AS', 'EU', 'NA', 'OC', 'SA'], true)) {
+            $continent = 'nC';
+        }
+
         $thememode = ($this->input->get('theme', TRUE) ?? '') == '' ? '' : strtolower($this->input->get('theme', TRUE));
         $hide_home = $this->input->get('hide_home', TRUE) == 1 ? true : false;
-        $contest = ($this->input->get('contest', TRUE) ?? '') == '' ? 'nContest' : strtoupper($this->input->get('contest', TRUE));
 
-        $start_date = $this->input->get('start_date', TRUE) ?? 'noStart';   // Format YYYY-MM-DD
-        $end_date = $this->input->get('end_date', TRUE) ?? 'noEnd';          // Format YYYY-MM-DD
+        // Contest: validate against the known contest adifnames (cached for 24h)
+        $contest = strtoupper($this->input->get('contest', TRUE) ?? '');
+        if ($contest != '') {
+            $this->load->is_loaded('cache') ?: $this->load->driver('cache', [
+                'adapter' => $this->config->item('cache_adapter') ?? 'file',
+                'backup' => $this->config->item('cache_backup') ?? 'file',
+                'key_prefix' => $this->config->item('cache_key_prefix') ?? ''
+            ]);
+            if (!$valid_contests = $this->cache->get('valid_contests')) {
+                $this->load->model('contesting_model');
+                $valid_contests = array_map('strtoupper', array_filter(array_column($this->contesting_model->getAllContests(), 'adifname')));
+                $this->cache->save('valid_contests', $valid_contests, 60 * 60 * 24);
+            }
+            if (!in_array($contest, $valid_contests, true)) {
+                $contest = 'nContest';
+            }
+        } else {
+            $contest = 'nContest';
+        }
+
+        // Date range: normalize to canonical Y-m-d and clamp to a 80-year sanity
+        // window. Garbage or out-of-range values collapse onto the no-date default,
+        // so they all share a single cache key instead of one file per input.
+        $minDate = strtotime('-80 years');
+        $ts = strtotime($this->input->get('start_date', TRUE) ?? '');
+        $start_date = ($ts === false || $ts < $minDate || $ts > time()) ? 'noStart' : date('Y-m-d', $ts);
+        $ts = strtotime($this->input->get('end_date', TRUE) ?? '');
+        $end_date = ($ts === false || $ts < $minDate || $ts > time()) ? 'noEnd' : date('Y-m-d', $ts);
+
+        // Day: only today/yesterday are handled by the query, else "no day filter"
         $day = $this->input->get('day', TRUE) ?? '';
+        if (!in_array($day, ['today', 'yesterday'], true)) {
+            $day = '';
+        }
 
         // if the user defines an Satellite Orbit, we need to set the band to SAT
         if ($orbit != 'nOrb') {
@@ -81,6 +127,13 @@ class Staticmap extends CI_Controller {
             $ituzones = $r == 'true' ? true : false;
         }
 
+        // Custom map center (gridsquare) for the static map, if provided by the user.
+        $this->load->is_loaded('Qra') ?: $this->load->library('Qra');
+        $custom_center = strtoupper($this->input->get('center', TRUE) ?? '');
+        if (strlen($custom_center) < 4 || !$this->qra->validate_grid($custom_center, 'grid')) {
+            $custom_center = NULL;
+        }
+
         // Watermark
         $watermark = $this->input->get('wm', TRUE) ?? '';
         if ($watermark == '' || ($watermark != 1 && $watermark != 0)) {
@@ -121,7 +174,8 @@ class Staticmap extends CI_Controller {
                      . $start_date
                      . $end_date
                      . $day
-                     . $watermark;
+                     . $watermark
+                     . ($custom_center ?? '');
 
         $filename = crc32('staticmap_' . $slug) . '_' . substr(md5($filenameRaw), 0, 12) . '.png';
         $filepath = $cacheDir . '/' . $filename;
@@ -136,7 +190,7 @@ class Staticmap extends CI_Controller {
             }
         }
 
-        if ($this->staticmap_model->validate_cached_image($filepath, $cacheDir, $maxAge, $slug)) {
+        if ($this->staticmap_model->validate_cached_image($filepath, $cacheDir, $maxAge, $slug, $day)) {
             log_message('debug', 'Static map image found in cache: ' . $filename);
             header('Content-Type: image/png');
             readfile($filepath);
@@ -154,12 +208,14 @@ class Staticmap extends CI_Controller {
                 } else {
                     log_message('error', $slug . ' has no associated station locations');
                     show_404(__("Unknown Public Page."));
+                    die;
                 }
 
                 // we need to get an array of all coordinates of the stations
                 if (!$this->load->is_loaded('logbook_model')) {
                     $this->load->model('logbook_model');
                 }
+
                 $grids = [];
                 foreach ($logbooks_locations_array as $location) {
                     $station_info = $this->logbook_model->check_station($location);
@@ -167,21 +223,24 @@ class Staticmap extends CI_Controller {
                         $grids[] = $station_info['station_gridsquare'];
                     }
                 }
-                if (!$this->load->is_loaded('Qra')) {
-                    $this->load->library('Qra');
-                }
+
                 $coordinates = [];
                 foreach ($grids as $grid) {
                     $coordinates[] = $this->qra->qra2latlong($grid);
                 }
-                $centerMap = $this->qra->getCenterLatLng($coordinates);
+
+                if ($custom_center) {
+                    $centerMap = $this->qra->qra2latlong($custom_center);
+                } else {
+                    $centerMap = $this->qra->getCenterLatLng($coordinates);
+                }
 
                 $qsos = $this->visitor_model->get_qsos(
-                    $qsocount, 
-                    $logbooks_locations_array, 
-                    $band == 'nbf' ? '' : $band, 
-                    $continent == 'nC' ? '' : $continent, 
-                    $orbit == 'nOrb' ? '' : $orbit, 
+                    $qsocount,
+                    $logbooks_locations_array,
+                    $band == 'nbf' ? '' : $band,
+                    $continent == 'nC' ? '' : $continent,
+                    $orbit == 'nOrb' ? '' : $orbit,
                     $contest == 'nContest' ? '' : $contest,
                     $start_date == 'noStart' ? '' : $start_date,
                     $end_date == 'noEnd' ? '' : $end_date,

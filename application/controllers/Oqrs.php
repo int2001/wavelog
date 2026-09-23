@@ -9,9 +9,6 @@ class Oqrs extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
-		// Commented out to get public access
-		// $this->load->model('user_model');
-		// if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		if (($this->config->item('disable_oqrs') ?? false)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 	}
 
@@ -61,8 +58,8 @@ class Oqrs extends CI_Controller {
 			$data['disable_oqrs'] = $this->config->item('disable_oqrs');
 			$data['stations'] = $this->oqrs_model->get_oqrs_stations($data['userid']);
 			$data['page_title'] = __("Log Search & OQRS");
-			$data['global_oqrs_text'] = $this->user_options_model->get_options('oqrs',array('option_name'=>'global_oqrs_text','option_key'=>'text'))->row()->option_value ?? '';
-			$data['groupedSearch'] = $this->user_options_model->get_options('oqrs',array('option_name'=>'oqrs_grouped_search','option_key'=>'boolean'), $data['userid'])->row()->option_value;
+			$data['global_oqrs_text'] = $this->user_options_model->get_options('oqrs',array('option_name'=>'global_oqrs_text','option_key'=>'text'))->row()?->option_value ?? '';
+			$data['groupedSearch'] = $this->user_options_model->get_options('oqrs',array('option_name'=>'oqrs_grouped_search','option_key'=>'boolean'), $data['userid'])->row()?->option_value ?? false;
 		}
 
 		$this->load->view('visitor/layout/header', $data);
@@ -104,15 +101,22 @@ class Oqrs extends CI_Controller {
 
 		$slug = $this->input->post('slug', TRUE);
 		$userid = $this->publicsearch->get_userid_for_slug($slug);
+		if ($userid === null) {
+			echo __("Invalid station slug");
+			return;
+		}
 		$data['disable_oqrs'] = $this->config->item('disable_oqrs');
 		$data['oqrs_enabled'] = $this->oqrs_model->oqrs_enabled($slug);
 		$data['public_search_enabled'] = $this->publicsearch->public_search_enabled($slug);
-		$data['groupedSearchShowStationName'] = $this->user_options_model->get_options('oqrs',array('option_name'=>'oqrs_grouped_search_show_station_name','option_key'=>'boolean'), $userid)->row()->option_value;
+		$data['groupedSearchShowStationName'] = $this->user_options_model->get_options('oqrs',array('option_name'=>'oqrs_grouped_search_show_station_name','option_key'=>'boolean'), $userid)->row()?->option_value ?? false;
 
 		$data['result'] = $this->oqrs_model->getQueryDataGrouped($this->input->post('callsign', TRUE), $userid);
 		$data['callsign'] = $this->input->post('callsign', TRUE);
 		$data['userid'] = $this->input->post('userid', TRUE);
 		$data['slug'] = $this->input->post('slug', TRUE);
+		$data['oqrs_delivery_method'] = $this->user_options_model
+			->get_options('oqrs', array('option_name' => 'oqrs_delivery_method', 'option_key' => 'setting'), $userid)
+			->row()?->option_value ?? 'both';
 
 		if($this->input->post('widget') != 'true') {
 			$this->load->view('oqrs/request_grouped', $data);
@@ -142,9 +146,15 @@ class Oqrs extends CI_Controller {
 
 		$postdata = $this->input->post(NULL, TRUE); // index is null means we get all postdata, TRUE means we XSS clean everything
 		$this->load->model('oqrs_model');
+		$err = $this->_validate_oqrs_times($postdata);
+		if ($err !== null) {
+			$this->output->set_status_header(400)->set_content_type('application/json')
+				->set_output(json_encode(['error' => $err]));
+			return;
+		}
 		$this->oqrs_model->save_not_in_log($postdata);
 		array_push($station_ids, $this->input->post('station_id', TRUE));
-		$this->alert_oqrs_request($postdata, $station_ids);
+		$this->_alert_oqrs_request($postdata, $station_ids);
 	}
 
 	/*
@@ -152,17 +162,22 @@ class Oqrs extends CI_Controller {
 	*/
 	public function request_form() {
 		$this->load->model('oqrs_model');
-		$data['result'] = $this->oqrs_model->getQueryData($this->input->post('station_id', TRUE), $this->input->post('callsign', TRUE));
+		$station_id = $this->input->post('station_id', TRUE);
+		$data['result'] = $this->oqrs_model->getQueryData($station_id, $this->input->post('callsign', TRUE));
 		$data['callsign'] = $this->input->post('callsign', TRUE);
-		$data['qslinfo'] =  $this->oqrs_model->getQslInfo($this->input->post('station_id', TRUE));
+		$data['qslinfo'] =  $this->oqrs_model->getQslInfo($station_id);
+
+		$owner_id = $this->oqrs_model->get_user_id_for_station($station_id);
+		$data['oqrs_delivery_method'] = $this->user_options_model
+			->get_options('oqrs', array('option_name' => 'oqrs_delivery_method', 'option_key' => 'setting'), $owner_id)
+			->row()?->option_value ?? 'both';
 
 		$this->load->view('oqrs/request', $data);
 	}
 
 	public function requests() {
+		$this->_check_auth();
 		$data['page_title'] = __("OQRS Requests");
-		$this->load->model('user_model');
-		if(!$this->user_model->authorize(2) || !clubaccess_check(9)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$this->load->model('logbooks_model');
 		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
@@ -185,30 +200,46 @@ class Oqrs extends CI_Controller {
 	public function save_oqrs_request() {
 		$postdata = $this->input->post(NULL, TRUE); // index is null means we get all postdata, TRUE means we XSS clean everything
 		$this->load->model('oqrs_model');
+		$err = $this->_validate_oqrs_times($postdata);
+		if ($err !== null) {
+			$this->output->set_status_header(400)->set_content_type('application/json')
+				->set_output(json_encode(['error' => $err]));
+			return;
+		}
 		$station_ids = $this->oqrs_model->save_oqrs_request($postdata);
-		$this->alert_oqrs_request($postdata, $station_ids);
+		$this->_alert_oqrs_request($postdata, $station_ids);
 	}
 
 	public function save_oqrs_request_grouped() {
 		$postdata = $this->input->post(NULL, TRUE); // index is null means we get all postdata, TRUE means we XSS clean everything
 		$this->load->model('oqrs_model');
+        $err = $this->_validate_oqrs_times($postdata);
+		if ($err !== null) {
+			$this->output->set_status_header(400)->set_content_type('application/json')
+				->set_output(json_encode(['error' => $err]));
+			return;
+		}
 		$station_ids = $this->oqrs_model->save_oqrs_request_grouped($postdata);
-		$this->alert_oqrs_request($postdata, $station_ids);
+		$this->_alert_oqrs_request($postdata, $station_ids);
 	}
 
 	public function delete_oqrs_line() {
+		$this->_check_auth();
 		$id = $this->input->post('id', TRUE);
 		$this->load->model('oqrs_model');
 		$this->oqrs_model->delete_oqrs_line($id);
 	}
 
 	public function reject_oqrs_line() {
+		$this->_check_auth();
 		$id = $this->input->post('id', TRUE);
 		$this->load->model('oqrs_model');
 		$this->oqrs_model->reject_oqrs_line($id);
 	}
 
 	public function search_log() {
+		$this->_check_auth();
+
 		$this->load->model('oqrs_model');
 		$callsign = $this->input->post('callsign', TRUE);
 		$data['qsoid'] = $this->input->post('qsoid', TRUE);
@@ -220,6 +251,8 @@ class Oqrs extends CI_Controller {
 	}
 
 	public function search_log_time_date() {
+		$this->_check_auth();
+
 		// Get user-preferred date format
 		if ($this->session->userdata('user_date_format')) {
 			$date_format = $this->session->userdata('user_date_format');
@@ -246,8 +279,40 @@ class Oqrs extends CI_Controller {
 		$this->load->view('oqrs/qsolist', $data);
 	}
 
-	public function alert_oqrs_request($postdata, $station_ids) {
-		foreach ($station_ids as $id) {
+	private function _validate_oqrs_times(&$postdata) {
+		foreach ($postdata['qsos'] ?? [] as $i => $qso) {
+			$d = $this->oqrs_model->normalize_date($qso[0] ?? '');
+			if ($d === null) {
+				return __("Please enter a valid date.");
+			}
+			$postdata['qsos'][$i][0] = $d;
+			$t = $this->oqrs_model->normalize_time($qso[1] ?? '');
+			if ($t === null) {
+				return __("Please enter a valid time.");
+			}
+			$postdata['qsos'][$i][1] = $t;
+		}
+		return null;
+	}
+
+	private function _alert_oqrs_request($postdata, $station_ids) {
+    	
+        $callsigns = [];	
+        foreach ($station_ids as $sid) {	
+            $station = $this->stations->profile($sid)->row();	
+            if ($station) {	
+                $callsigns[] = $station->station_callsign;	
+            }	
+        }	
+        $dxcallsigns = implode(', ', array_unique($callsigns));
+        // send email 1 only
+        $station_ids = array_values(array_unique($station_ids));
+        if (empty($station_ids)) {
+        return;
+        }
+        $id = $station_ids[0];
+        
+		//foreach ($station_ids as $id) {
 			$this->load->model('user_model');
 
 			$email = $this->user_model->get_email_address($id);
@@ -282,9 +347,22 @@ class Oqrs extends CI_Controller {
 
 				$data['callsign'] = $this->security->xss_clean($postdata['callsign']);
 				$data['usermessage'] = $this->security->xss_clean($postdata['message']);
+                $data['email'] = $this->security->xss_clean($postdata['email']);	
+                $data['qslroute'] = $this->security->xss_clean($postdata['qslroute'] ?? '');
 
-				$this->load->model('Stations');
-				$uid = $this->Stations->profile($id)->row()->user_id;
+                foreach ($postdata['qsos'] as &$qso) {
+                    if (isset($qso[4]) && is_numeric($qso[4])) {
+                        $station = $this->stations->profile($qso[4])->row();
+                        if ($station) {
+                            $qso[4] = $station->station_callsign;
+                        }
+                    }
+                }
+                unset($qso);
+                $data['qsos'] = $postdata['qsos'];
+                $data['dxcallsigns'] = $dxcallsigns;            
+
+				$uid = $this->stations->profile($id)->row()->user_id;
 				$message = $this->email->load('email/oqrs_request', $data,  $this->user_model->get_by_id($uid)->row()->user_language);
 
 				$this->email->from($this->optionslib->get_option('emailAddress'), $this->optionslib->get_option('emailSenderName'));
@@ -301,9 +379,10 @@ class Oqrs extends CI_Controller {
 				}
 			}
 		}
-	}
+	
 
 	public function add_oqrs_to_print_queue() {
+		$this->_check_auth();
 		$this->load->model('oqrs_model');
 		$id = $this->input->post('id', TRUE);
 
@@ -311,6 +390,7 @@ class Oqrs extends CI_Controller {
 	}
 
 	public function mark_oqrs_line_as_done() {
+		$this->_check_auth();
 		$this->load->model('oqrs_model');
 		$id = $this->input->post('id', TRUE);
 
@@ -318,6 +398,7 @@ class Oqrs extends CI_Controller {
 	}
 
 	public function search() {
+		$this->_check_auth();
 		// Get Date format
 		if($this->session->userdata('user_date_format')) {
 			// If Logged in and session exists
@@ -349,10 +430,12 @@ class Oqrs extends CI_Controller {
 	}
 
 	public function status_info() {
+		$this->_check_auth();
 		$this->load->view('oqrs/status_info');
 	}
 
 	public function delete_oqrs_qso_match() {
+		$this->_check_auth();
 		$this->load->model('oqrs_model');
 		$id = $this->input->post('id', TRUE);
 		$qsoid = $this->input->post('qsoid', TRUE);
@@ -362,12 +445,21 @@ class Oqrs extends CI_Controller {
 	}
 
 	public function add_qso_match_to_oqrs() {
+		$this->_check_auth();
 		$this->load->model('oqrs_model');
 		$qsoid = $this->input->post('qsoid', TRUE);
 		$oqrsid = $this->input->post('oqrsid', TRUE);
 		$this->oqrs_model->add_qso_match_to_oqrs($qsoid, $oqrsid);
 		header('Content-Type: application/json');
 		echo json_encode(array('status' => 'success', 'message' => __("QSO match added successfully.")));
+	}
+
+	private function _check_auth() {
+		if(!$this->user_model->authorize(2) || !clubaccess_check(9)) { 
+			$this->session->set_flashdata('error', __("You're not allowed to do that!")); 
+			redirect('dashboard');
+			die;
+		}
 	}
 
 }

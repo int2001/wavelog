@@ -6,7 +6,6 @@ class Timeline extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 	}
 
@@ -99,7 +98,9 @@ class Timeline extends CI_Controller {
 		$data['user_default_band'] = $this->session->userdata('user_default_band');
 		$data['years'] = $this->Timeline_model->get_years();
 		$data['onlynew'] = $onlynew;
+		$data['confirm'] = ($qsl == '1' || $lotw == '1' || $eqsl == '1' || $clublog == '1' || $qrz == '1');
 		$data['selectedyear'] = $year;
+		$data['adif_propmodes'] = $this->config->item('adif_propmodes');
 
 		$footerData['scripts'] = [ 'assets/js/sections/timeline.js' ];
 		$this->load->view('interface_assets/header', $data);
@@ -119,6 +120,7 @@ class Timeline extends CI_Controller {
 		$propmode = str_replace('"', "", $this->security->xss_clean($this->input->post("Propmode")));
 
 		$data['results'] = $this->timeline_model->timeline_qso_details($querystring, $band, $propmode, $mode, $type);
+		$data['adif_propmodes'] = $this->config->item('adif_propmodes');
 
 
 		switch($type) {

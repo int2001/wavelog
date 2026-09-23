@@ -186,7 +186,7 @@ class QSO
 		$this->qsoDateTime = date($custom_date_format . " H:i", strtotime($data['COL_TIME_ON'] ?? '1970-01-01 00:00:00'));
 
 		$this->de = $data['station_callsign'];
-		$this->dx = $data['COL_CALL'];
+		$this->dx = xss_clean($data['COL_CALL']);
 		$this->continent = $data['COL_CONT'] ?? '';
 		$this->region = $this->getRegionString(strtoupper($data['COL_REGION'] ?? ''));
 
@@ -449,7 +449,7 @@ class QSO
 				$qslstring .= " (".__("Direct").")";
 					break;
 				case "M":
-				$qslstring .= " (".__("Via").": ".($data['COL_QSL_VIA'] !="" ? $data['COL_QSL_VIA']:"n/a").")";
+				$qslstring .= " (".__("Via").": ".($data['COL_QSL_VIA'] !="" ? '<span class="callsign">'.html_escape($data['COL_QSL_VIA']).'</span>':"n/a").")";
 					break;
 				case "E":
 				$qslstring .= " (".__("Electronic").")";
@@ -869,7 +869,7 @@ class QSO
 	 */
 	public function getQsoDateTime(): string
 	{
-		return $this->qsoDateTime;
+		return '<span id="qsoDateTime">' . $this->qsoDateTime . '</span>';
 	}
 
 	/**
@@ -885,7 +885,55 @@ class QSO
 	 */
 	public function getDx(): string
 	{
-		return $this->dx;
+		$dx = $this->dx;
+
+		if ($dx === '') {
+			return '<span class="bg-danger">Missing callsign</span>';
+		}
+
+		return '<span class="qso_call d-flex align-items-center justify-content-between">'
+			. '<a id="edit_qso" href="javascript:displayQso(' . (int) $this->qsoID . ')"><span id="lbadx" class="callsign">' . html_escape($dx) . '</span></a>'
+			. '<span class="qso_icons ms-3 d-flex align-items-center" style="gap: 2px;">'
+			. $this->lotwBadge()
+			. $this->lookupLink('https://www.qrz.com/db/' . $this->dx, 'qrz.png', sprintf(__("Lookup %s on QRZ.com"), $dx))
+			. $this->lookupLink('https://www.hamqth.com/' . $this->dx, 'hamqth.png', sprintf(__("Lookup %s on HamQTH"), $dx))
+			. $this->lookupLink('https://clublog.org/logsearch.php?log=' . $this->dx . '&call=' . $this->de, 'clublog.png', __("Clublog Log Search"))
+			. '</span>'
+			. '</span>';
+	}
+
+	/**
+	 * LoTW badge — emitted only when the callsign is known to LoTW.
+	 * The fragment is space-prefixed so it joins cleanly inside .qso_icons.
+	 */
+	private function lotwBadge(): string
+	{
+		if ($this->callsign === '') {
+			return '';
+		}
+
+		return sprintf(
+			' <a href="https://lotw.arrl.org/lotwuser/act?act=%1$s" target="_blank">'
+			. '<small id="lotw_info" class="badge bg-success%2$s" data-bs-toggle="tooltip" '
+			. 'title="%3$s%4$s">L</small></a>',
+			$this->callsign,
+			$this->lotw_hint,
+			__("LoTW User. Last upload was "),
+			$this->lastupload,
+		);
+	}
+
+	/**
+	 * A space-prefixed 16×16 lookup icon link (QRZ, HamQTH, Clublog, …).
+	 */
+	private function lookupLink(string $href, string $icon, string $alt): string
+	{
+		return sprintf(
+			' <a target="_blank" href="%1$s"><img width="16" height="16" src="%2$s" alt="%3$s"></a>',
+			html_escape($href),
+			base_url() . 'images/icons/' . $icon,
+			html_escape($alt),
+		);
 	}
 
 	/**
@@ -911,20 +959,20 @@ class QSO
 	{
 		$returnstring = '';
 		if ($this->srx != '' || $this->srxstring != '') {
-			$returnstring = '<span data-bs-toggle="tooltip" title="'. $this->contest .'" class="badge text-bg-light">';
+			$returnstring = '<span data-bs-toggle="tooltip" title="'. html_escape($this->contest) .'" class="badge text-bg-light">';
 
 			if ($this->srx != '') {
 				$returnstring .= sprintf("%03d", $this->srx);
 			}
 
 			if ($this->srxstring != '') {
-				$returnstring .= $this->srxstring;
+				$returnstring .= html_escape($this->srxstring);
 			}
 
 			$returnstring .= '</span>';
 		}
 
-		return $this->rstR . $returnstring;
+		return html_escape($this->rstR) . $returnstring;
 	}
 
 	/**
@@ -934,20 +982,20 @@ class QSO
 	{
 		$returnstring = '';
 		if ($this->stx != '' || $this->stxstring != '') {
-			$returnstring = '<span data-bs-toggle="tooltip" title="'. $this->contest .'" class="badge text-bg-light">';
+			$returnstring = '<span data-bs-toggle="tooltip" title="'. html_escape($this->contest) .'" class="badge text-bg-light">';
 
 			if ($this->stx != '') {
 				$returnstring .= sprintf("%03d", $this->stx);
 			}
 
 			if ($this->stxstring != '') {
-				$returnstring .= $this->stxstring;
+				$returnstring .= html_escape($this->stxstring);
 			}
 
 			$returnstring .= '</span>';
 		}
 
-		return $this->rstS . $returnstring;
+		return html_escape($this->rstS) . $returnstring;
 	}
 
 	/**
@@ -1061,9 +1109,9 @@ class QSO
 	{
 		$returnstring = '';
 		if ($this->dxVUCCGridsquares !== '') {
-			$returnstring = '<span id="dxgrid">' . $this->dxVUCCGridsquares . '</span> ' . $this->getQrbLink($this->deGridsquare, $this->dxVUCCGridsquares, $this->dxGridsquare);
+			$returnstring = '<span id="dxgrid">' . html_escape($this->dxVUCCGridsquares) . '</span> ' . $this->getQrbLink($this->deGridsquare, $this->dxVUCCGridsquares, $this->dxGridsquare);
 		} else if ($this->dxGridsquare !== '') {
-			$returnstring = '<span id="dxgrid">' . $this->dxGridsquare . '</span> ' . $this->getQrbLink($this->deGridsquare, $this->dxVUCCGridsquares, $this->dxGridsquare);
+			$returnstring = '<span id="dxgrid">' . html_escape($this->dxGridsquare) . '</span> ' . $this->getQrbLink($this->deGridsquare, $this->dxVUCCGridsquares, $this->dxGridsquare);
 		}
 		return $returnstring;
 	}
@@ -1255,7 +1303,7 @@ class QSO
 
 	public function getState(): string
 	{
-		return '<span id="state">' . $this->state . '</span>';
+		return '<span id="state">' . html_escape($this->state) . '</span>';
 	}
 
 	public function getIOTA(): string
@@ -1265,14 +1313,14 @@ class QSO
 
 	public function getOperator(): string
 	{
-		return '<span id="operator">' . $this->operator . '</span>';
+		return '<span id="operator">' . html_escape($this->operator) . '</span>';
 	}
 
 	public function toArray(): array
 	{
 		return [
 			'qsoID' => $this->qsoID,
-			'qsoDateTime' => $this->qsoDateTime,
+			'qsoDateTime' => $this->getQsoDateTime(),
 			'de' => $this->de,
 			'dx' => $this->getDx(),
 			'mode' => $this->getFormattedMode(),
@@ -1311,13 +1359,14 @@ class QSO
 			'dok' => $this->getFormattedDok(),
 			'wwff' => $this->getFormattedWwff(),
 			'sig' => $this->getFormattedSig(),
+			'sig_info' => $this->dxSigInfo,
 			'continent' => $this->getContinentLink(),
 			'profilename' => $this->profilename,
 			'stationpower' => empty($this->stationpower) ? null : $this->stationpower.' W',
 			'distance' => $this->getFormattedDistance(),
 			'region' => $this->region,
-			'antennaelevation' => $this->antennaelevation == null ? null : $this->antennaelevation.'°',
-			'antennaazimuth' => $this->antennaazimuth == null ? null : $this->antennaazimuth.'°',
+			'antennaelevation' => $this->antennaelevation == null ? null : round((float)$this->antennaelevation, 1).'°',
+			'antennaazimuth' => $this->antennaazimuth == null ? null : round((float)$this->antennaazimuth, 1).'°',
 			'county' => $this->county,
 			'qth' => $this->qth,
 			'frequency' => $this->getFormattedFrequency(),
@@ -1373,18 +1422,19 @@ class QSO
 
 	private function getFormattedDok(): string
 	{
+		$dok = html_escape($this->dxDARCDOK);
 		$dokstring = '';
 		if (preg_match('/^[A-Y]\d{2}$/', $this->dxDARCDOK)) {
-			$dokstring = '<a href="https://www.darc.de/' .  $this->dxDARCDOK . '" target="_blank">' . $this->dxDARCDOK . '</a>';
+			$dokstring = '<a href="https://www.darc.de/' .  $dok . '" target="_blank">' . $dok . '</a>';
 		} else if (preg_match('/^DV[ABCDEFGHIKLMNOPQRSTUVWXY]$/', $this->dxDARCDOK)) {
-			$dokstring = '<a href="https://www.darc.de/der-club/distrikte/' . strtolower(substr($this->dxDARCDOK, 2, 1)) . '" target="_blank">' . $this->dxDARCDOK . '</a>';
+			$dokstring = '<a href="https://www.darc.de/der-club/distrikte/' . strtolower(substr($this->dxDARCDOK, 2, 1)) . '" target="_blank">' . $dok . '</a>';
 		} else if (preg_match('/^Z\d{2}$/', $this->dxDARCDOK)) {
-			$dokstring = '<a href="https://' . $this->dxDARCDOK . '.vfdb.org" target="_blank">' . $this->dxDARCDOK . '</a>';
+			$dokstring = '<a href="https://' . $dok . '.vfdb.org" target="_blank">' . $dok . '</a>';
 		} else {
-			$dokstring = $this->dxDARCDOK;
+			$dokstring = $dok;
 		}
 		if ($dokstring !== '') {
-			$dokstring .= '<a href="javascript:spawnLookupModal(\''.$this->dxDARCDOK.'\',\'dok\');"> <i class="fas fa-globe"></a>';
+			$dokstring .= '<a href=\'javascript:spawnLookupModal(' . js_escape($this->dxDARCDOK) . ',"dok");\'> <i class="fas fa-globe"></a>';
 		}
 
 		return $dokstring;
@@ -1392,11 +1442,17 @@ class QSO
 
 	private function getFormattedMode(): string
 	{
-		if ($this->submode !== '') {
-			return $this->submode;
-		} else {
-			return $this->mode;
+		if ($this->mode === '' && $this->submode === '') {
+			return '<span class="bg-danger">Missing mode</span>';
 		}
+		$mode = '<span id="lbamode">';
+		if ($this->submode !== '') {
+			$mode .= html_escape($this->submode);
+		} else {
+			$mode .= html_escape($this->mode);
+		}
+		$mode .= '</span>';
+		return $mode;
 	}
 
 	private function getFormattedBand(): string
@@ -1415,7 +1471,11 @@ class QSO
 		if ($this->bandRX !== '' && $this->band !== '') {
 			$label .= "/" . $this->bandRX;
 		}
-		return trim($label);
+
+		if (trim($label) === '') {
+			return '<span class="bg-danger">Missing band</span>';
+		}
+		return '<span id="lbaband">' . html_escape($label) . '</span>';
 	}
 
 	private function getFormattedFrequency(): string
@@ -1472,7 +1532,8 @@ class QSO
 	}
 
 	private function getFormattedSotaLink() {
-		return '<span id="dxsota"><a href="https://summits.sota.org.uk/summit/' . $this->dxSOTAReference . '" target="_blank">' . $this->dxSOTAReference . '</a></span>';
+		$ref = html_escape($this->dxSOTAReference);
+		return '<span id="dxsota"><a href="https://summits.sota.org.uk/summit/' . $ref . '" target="_blank">' . $ref . '</a></span>';
 	}
 
 	private function getFormattedSig(): string
@@ -1484,11 +1545,13 @@ class QSO
 	}
 
 	private function getFormattedWwff() {
-		return '<a href="https://www.cqgma.org/zinfo.php?ref=' . $this->dxWWFFReference . '" target="_blank"><span id="dxwwff">'. $this->dxWWFFReference . '</span></a>';
+		$ref = html_escape($this->dxWWFFReference);
+		return '<a href="https://www.cqgma.org/zinfo.php?ref=' . $ref . '" target="_blank"><span id="dxwwff">'. $ref . '</span></a>';
 	}
 
 	private function getFormattedPota() {
-		return '<a href="https://pota.app/#/park/' . $this->dxPOTAReference . '" target="_blank"><span id="dxpota">'. $this->dxPOTAReference . '</span></a>';
+		$ref = html_escape($this->dxPOTAReference);
+		return '<a href="https://pota.app/#/park/' . $ref . '" target="_blank"><span id="dxpota">'. $ref . '</span></a>';
 	}
 
 	private function getFormattedQSLSent(): string
@@ -1587,10 +1650,11 @@ class QSO
 
 	private function getQrbLink($mygrid, $grid, $vucc) : string
 	{
-		if (!empty($grid)) {
-			return '<a href="javascript:spawnQrbCalculator(\'' . $mygrid . '\',\'' . $grid . '\')"><i class="fas fa-globe"></i></a>';
-		} else if (!empty($vucc)) {
-			return '<a href="javascript:spawnQrbCalculator(\'' . $mygrid . '\',\'' . $vucc . '\')"><i class="fas fa-globe"></i></a>';
+		$target = !empty($grid) ? $grid : $vucc;
+		if (!empty($mygrid)) {
+			if (!empty($target)) {
+				return '<a href=\'javascript:spawnQrbCalculator(' . js_escape($mygrid) . ',' . js_escape($target) . ')\'><i class="fas fa-globe"></i></a>';
+			}
 		}
 		return '';
 	}
@@ -1598,7 +1662,7 @@ class QSO
 	private function getIotaLink($iota) : string
 	{
 		if ($iota !== '') {
-			return '<a href="javascript:spawnLookupModal(\''.$iota.'\',\'iota\');">'.$iota.'</a> <a href="https://www.iota-world.org/iotamaps/?grpref=' .$iota . '" target="_blank"><i class="fas fa-globe"></i></a>';
+			return '<a href=\'javascript:spawnLookupModal(' . js_escape($iota) . ',"iota");\'>' . html_escape($iota) . '</a> <a href="https://www.iota-world.org/iotamaps/?grpref=' .html_escape($iota) . '" target="_blank"><i class="fas fa-globe"></i></a>';
 		}
 		return '';
 	}

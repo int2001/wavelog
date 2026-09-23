@@ -261,6 +261,16 @@ $config['languages'] = array(
 		'code'      => 'cnr',
 		'flag'      => 'me',
 	),
+	'norwegian_bokmal' => array(
+		'name'      => 'Norsk bokmål',
+		'name_en'   => 'Norwegian Bokmål',
+		'folder'    => 'norwegian_bokmal',
+		'locale'    => 'nb-NO',
+		'gettext'   => 'nb_NO',
+		'direction' => 'ltr',
+		'code'      => 'nb',
+		'flag'      => 'no',
+	),
 	'polish' => array(
 		'name'      => 'Polski',
 		'name_en'   => 'Polish',
@@ -280,6 +290,16 @@ $config['languages'] = array(
 		'direction' => 'ltr',
 		'code'      => 'pt',
 		'flag'      => 'pt',
+	),
+	'romanian' => array(
+		'name'      => 'Română',
+		'name_en'   => 'Romanian',
+		'folder'    => 'romanian',
+		'locale'    => 'ro',
+		'gettext'   => 'ro',
+		'direction' => 'ltr',
+		'code'      => 'ro',
+		'flag'      => 'ro',
 	),
 	'russian' => array(
 		'name'      => 'Русский',

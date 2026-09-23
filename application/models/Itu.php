@@ -100,9 +100,6 @@ class ITU extends CI_Model{
 
 		if ($postdata['band'] == 'SAT') {
 			foreach ($itudata_sat as $itu) {
-				if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
-					continue;
-				}
 				// Skip if this band is not in our requested bands list
 				if (!isset($validBands[$itu->col_band])) {
 					continue;
@@ -266,7 +263,7 @@ class ITU extends CI_Model{
 			$bindings[]=$postdata['dateto'] . ' 23:59:59';
 		}
 
-		$sql .= " and col_prop_mode != 'SAT'";
+		$sql .= " and (col_prop_mode != 'SAT' or col_prop_mode is NULL)";
 
 		$sql .= " GROUP BY thcv.col_ituz, thcv.col_band";
 

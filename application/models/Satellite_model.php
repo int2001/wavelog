@@ -7,14 +7,14 @@ class Satellite_model extends CI_Model {
 		from satellite
 		left outer join satellitemode on satellite.id = satellitemode.satelliteid
 		left outer join tle on satellite.id = tle.satelliteid
-		group by satellite.name, satellite.displayname, satellite.orbit, satellite.id, tle.updated";
+		group by satellite.name, satellite.id, tle.id, satellite.displayname, satellite.orbit, satellite.id, tle.updated, satellite.lotw, tle.tle";
 
 		return $this->db->query($sql)->result();
 	}
 
 	function get_satellite_information($satname = null) {
 		$bindings = [];
-		$sql = "select satellite.id, coalesce(nullif(satellite.name, ''), satellite.displayname) as satname, satellitemode.name as modename, satellite.displayname, satellite.orbit, satellite.lotw as lotw, tle.updated, satellitemode.uplink_mode, satellitemode.downlink_mode, FORMAT((satellitemode.uplink_freq / 1000000), 3) AS uplink_freq, FORMAT((satellitemode.downlink_freq / 1000000), 3) AS downlink_freq
+		$sql = "select satellite.id, coalesce(nullif(satellite.name, ''), satellite.displayname) as satname, satellitemode.name as modename, satellite.displayname, satellite.orbit, satellite.lotw as lotw, tle.updated, satellitemode.uplink_mode, satellitemode.downlink_mode, FORMAT((satellitemode.uplink_freq / 1000000), 3) AS uplink_freq, FORMAT((satellitemode.downlink_freq / 1000000), 3) AS downlink_freq, satellite.norad_id AS norad_id
 		from satellite
 		left outer join satellitemode on satellite.id = satellitemode.satelliteid
 		left outer join tle on satellite.id = tle.satelliteid ";
@@ -85,17 +85,19 @@ class Satellite_model extends CI_Model {
 			$tleline2 = trim($tlelines[1]);
 		}
 
+		$text = $tleline1 . "\n" . $tleline2;
+
 		$this->db->where('satelliteid', $id);
 		if ($this->db->get('tle')->num_rows() > 0) {
 			$data = array(
-				'tle'			=> $tleline1 . "\n" . $tleline2,
+				'tle'			=> $text,
 			);
 			$this->db->where('satelliteid', $id);
 			$this->db->update('tle', $data);
 		} else {
 			$data = array(
 				'satelliteid' 	=> $id,
-				'tle'			=> $tleline1 . "\n" . $tleline2,
+				'tle'			=> $text,
 			);
 			$this->db->insert('tle', $data);
 			$insert_id = $this->db->insert_id();
@@ -125,18 +127,18 @@ class Satellite_model extends CI_Model {
 
 	function add() {
 		$data = array(
-			'name' 			=> xss_clean($this->input->post('name', true)),
-			'displayname' 	=> xss_clean($this->input->post('displayname', true)),
-			'orbit' 		=> xss_clean($this->input->post('orbit', true)),
+			'name' 			=> $this->input->post('name', true),
+			'displayname' 	=> $this->input->post('displayname', true),
+			'orbit' 		=> $this->input->post('orbit', true),
 		);
-		if (xss_clean($this->input->post('lotw', true)) == 'Y') {
+		if ($this->input->post('lotw', true) == 'Y') {
 			$data['lotw'] = 'Y';
 		} else {
 			$data['lotw'] = 'N';
 		}
 
-		$this->db->where('name', xss_clean($this->input->post('name', true)));
-		$this->db->where('displayname', xss_clean($this->input->post('displayname', true)));
+		$this->db->where('name', $this->input->post('name', true));
+		$this->db->where('displayname', $this->input->post('displayname', true));
 		$result = $this->db->get('satellite');
 
 		if ($result->num_rows() == 0) {
@@ -144,12 +146,12 @@ class Satellite_model extends CI_Model {
 			$insert_id = $this->db->insert_id();
 
 			$data = array(
-				'name' 				=> xss_clean($this->input->post('modename', true)),
+				'name' 				=> $this->input->post('modename', true),
 				'satelliteid' 		=> $insert_id,
-				'uplink_mode'		=> xss_clean($this->input->post('uplinkmode', true)),
-				'uplink_freq'		=> xss_clean($this->input->post('uplinkfrequency', true)),
-				'downlink_mode'		=> xss_clean($this->input->post('downlinkmode', true)),
-				'downlink_freq'		=> xss_clean($this->input->post('downlinkfrequency', true)),
+				'uplink_mode'		=> $this->input->post('uplinkmode', true),
+				'uplink_freq'		=> $this->input->post('uplinkfrequency', true),
+				'downlink_mode'		=> $this->input->post('downlinkmode', true),
+				'downlink_freq'		=> $this->input->post('downlinkfrequency', true),
 			);
 
 			$this->db->insert('satellitemode', $data);
@@ -171,12 +173,12 @@ class Satellite_model extends CI_Model {
 
 	function insertSatelliteMode() {
 		$data = array(
-			'name' 				=> xss_clean($this->input->post('name', true)),
-			'satelliteid' 		=> xss_clean($this->input->post('id', true)),
-			'uplink_mode'		=> xss_clean($this->input->post('uplink_mode', true)),
-			'uplink_freq'		=> xss_clean($this->input->post('uplink_freq', true)),
-			'downlink_mode'		=> xss_clean($this->input->post('downlink_mode', true)),
-			'downlink_freq'		=> xss_clean($this->input->post('downlink_freq', true)),
+			'name' 				=> $this->input->post('name', true),
+			'satelliteid' 		=> $this->input->post('id', true),
+			'uplink_mode'		=> $this->input->post('uplink_mode', true),
+			'uplink_freq'		=> $this->input->post('uplink_freq', true),
+			'downlink_mode'		=> $this->input->post('downlink_mode', true),
+			'downlink_freq'		=> $this->input->post('downlink_freq', true),
 		);
 		$this->db->insert('satellitemode', $data);
 		$insert_id = $this->db->insert_id();
@@ -189,20 +191,6 @@ class Satellite_model extends CI_Model {
 		$this->db->order_by('satellite', 'ASC');
 		$query = $this->db->get('satellite');
 		return $query->result();
-	}
-
-    function array_group_by($flds, $arr) {
-		$groups = array();
-		foreach ($arr as $rec) {
-			$keys = array_map(function($f) use($rec) { return $rec[$f]; }, $flds);
-			$k = implode('@', $keys);
-			if (isset($groups[$k])) {
-				$groups[$k][] = $rec;
-			} else {
-				$groups[$k] = array($rec);
-			}
-		}
-		return $groups;
 	}
 
 	function get_sat_info($sat) {

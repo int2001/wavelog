@@ -6,6 +6,7 @@ class IOTA extends CI_Model {
 	}
 
 	function get_iota_array($iotaArray, $bands, $postdata, $location_list) {
+		$iotaMatrix = [];
 		foreach ($bands as $band) {             	// Looping through bands and iota to generate the array needed for display
 			if (($postdata['band'] != 'SAT') && ($band == 'SAT')) {
 				continue;
@@ -151,7 +152,7 @@ class IOTA extends CI_Model {
 					$sql .= " and col_prop_mode = ?";
 					$binding[] = $postdata['band'];
 				} else {
-					$sql .= " and col_prop_mode !='SAT'";
+					$sql .= " and (col_prop_mode !='SAT' or col_prop_mode is NULL)";
 					$sql .= " and col_band = ?";
 					$binding[] = $postdata['band'];
 				}
@@ -165,6 +166,31 @@ class IOTA extends CI_Model {
 		$query = $this->db->query($sql, $binding);
 
 		return $query->result();
+	}
+
+	/*
+	 * The full IOTA directory with bounding boxes only — no QSO or
+	 * worked/confirmed status. Powers the optional rectangle overlay on the
+	 * Activation Planner map. Deleted references (status 'D') are excluded.
+	 */
+	function get_directory() {
+		$sql = "select tag, name, prefix, lat1, lat2, lon1, lon2 from iota where coalesce(status, '') <> 'D' order by tag";
+		$query = $this->db->query($sql);
+
+		$result = [];
+		foreach ($query->result() as $row) {
+			$result[] = [
+				'tag'     => $row->tag,
+				'name'    => mb_convert_case($row->name, MB_CASE_TITLE, 'UTF-8'),
+				'prefix'  => $row->prefix,
+				'lat1'    => $row->lat1 !== null ? (float) $row->lat1 : null,
+				'lat2'    => $row->lat2 !== null ? (float) $row->lat2 : null,
+				'lon1'    => $row->lon1 !== null ? (float) $row->lon1 : null,
+				'lon2'    => $row->lon2 !== null ? (float) $row->lon2 : null,
+			];
+		}
+
+		return $result;
 	}
 
 	function getIotaWorked($location_list, $postdata) {
@@ -305,9 +331,9 @@ class IOTA extends CI_Model {
 			$bandslots = $this->bands->get_worked_bands('iota');
 			$bandslots_list = "'".implode("','",$bandslots)."'";
 			$sql .= " and thcv.col_band in (" . $bandslots_list . ")";
-			$sql .= " and thcv.col_prop_mode !='SAT'";
+			$sql .= " and (thcv.col_prop_mode !='SAT' or thcv.col_prop_mode is NULL)";
 		} else {
-			$sql .= " and thcv.col_prop_mode !='SAT'";
+			$sql .= " and (thcv.col_prop_mode !='SAT' or thcv.col_prop_mode is NULL)";
 			$sql .= " and thcv.col_band = ?";
 			$binding[] = $band;
 		}
@@ -338,9 +364,9 @@ class IOTA extends CI_Model {
 			$bandslots = $this->bands->get_worked_bands('iota');
 			$bandslots_list = "'".implode("','",$bandslots)."'";
 			$sql .= " and thcv.col_band in (" . $bandslots_list . ")";
-			$sql .= " and thcv.col_prop_mode !='SAT'";
+			$sql .= " and (thcv.col_prop_mode !='SAT' or thcv.col_prop_mode is NULL)";
 		} else {
-			$sql .= " and thcv.col_prop_mode !='SAT'";
+			$sql .= " and (thcv.col_prop_mode !='SAT' or thcv.col_prop_mode is NULL)";
 			$sql .= " and thcv.col_band = ?";
 			$binding[] = $band;
 		}

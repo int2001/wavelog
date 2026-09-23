@@ -91,6 +91,11 @@ $(function() {
 
 	// Debounced applyFilters
 	let applyFiltersTimer = null;
+
+	function statusColor(confirmed, worked) {
+		return confirmed ? user_color_confirmed : worked ? user_color_worked : user_color_unworked;
+	}
+
 	function debouncedApplyFilters(delay = 150) {
 		if (applyFiltersTimer) clearTimeout(applyFiltersTimer);
 		applyFiltersTimer = setTimeout(() => {
@@ -199,7 +204,8 @@ $(function() {
 			band: $('#band').val() || [],
 			mode: $('#mode').val() || [],
 			additionalFlags: $('#additionalFlags').val() || [],
-			requiredFlags: ($('#requiredFlags').val() || []).filter(v => v !== 'None')
+			requiredFlags: ($('#requiredFlags').val() || []).filter(v => v !== 'None'),
+			source: $('#sourceSelect').val() || []
 		};
 	}
 
@@ -242,8 +248,9 @@ $(function() {
 		const isDefaultMode = isDefaultFilterValue(filters.mode);
 		const isDefaultFlags = isDefaultFilterValue(filters.additionalFlags);
 		const isDefaultRequired = filters.requiredFlags.length === 0;
+		const isDefaultSource = isDefaultFilterValue(filters.source);
 
-		return !(isDefaultCwn && isDefaultDecont && isDefaultContinent && isDefaultBand && isDefaultMode && isDefaultFlags && isDefaultRequired);
+		return !(isDefaultCwn && isDefaultDecont && isDefaultContinent && isDefaultBand && isDefaultMode && isDefaultFlags && isDefaultRequired && isDefaultSource);
 	}
 
 	/**
@@ -409,7 +416,7 @@ $(function() {
 		}
 
 		// List of all filter select IDs
-		const FILTER_SELECT_IDS = ['cwnSelect', 'decontSelect', 'continentSelect', 'band', 'mode', 'additionalFlags', 'requiredFlags'];
+		const FILTER_SELECT_IDS = ['cwnSelect', 'decontSelect', 'continentSelect', 'band', 'mode', 'additionalFlags', 'requiredFlags', 'sourceSelect'];
 
 		// Map of storage keys to select IDs
 		const FILTER_KEY_TO_SELECT = {
@@ -419,7 +426,8 @@ $(function() {
 			band: 'band',
 			mode: 'mode',
 			additionalFlags: 'additionalFlags',
-			requiredFlags: 'requiredFlags'
+			requiredFlags: 'requiredFlags',
+			source: 'sourceSelect'
 		};
 
 		// Map currentFilters keys to storage keys
@@ -430,7 +438,8 @@ $(function() {
 			band: 'band',
 			mode: 'mode',
 			additionalFlags: 'additionalFlags',
-			requiredFlags: 'requiredFlags'
+			requiredFlags: 'requiredFlags',
+			source: 'source'
 		};
 
 		/**
@@ -506,7 +515,7 @@ $(function() {
 		}
 
 		// Apply "All" handler to all filter dropdowns
-		['cwnSelect', 'decontSelect', 'continentSelect', 'band', 'mode', 'additionalFlags'].forEach(handleAllOption);
+		['cwnSelect', 'decontSelect', 'continentSelect', 'band', 'mode', 'additionalFlags', 'sourceSelect'].forEach(handleAllOption);
 
 		// Required flags filter - handle "None" option
 		$('#requiredFlags').on('change', function() {
@@ -671,7 +680,8 @@ $(function() {
 		cwn: ['All'],
 		mode: ['All'],
 		additionalFlags: ['All'],
-		requiredFlags: []
+		requiredFlags: [],
+		source: ['All']
 	};
 
 	// ========================================
@@ -972,6 +982,11 @@ $(function() {
 			});
 		}
 
+		// Source filter
+		if (currentFilters.source && !currentFilters.source.includes('All')) {
+			filters.push('"' + lang_bandmap_source + ': ' + currentFilters.source.join('/') + '"');
+		}
+
 		return filters;
 	}
 
@@ -1003,6 +1018,7 @@ $(function() {
 		let cwnSet = arrayToFilterSet(currentFilters.cwn);
 		let modeSet = arrayToFilterSet(currentFilters.mode);
 		let flagSet = arrayToFilterSet(currentFilters.additionalFlags);
+		let sourceSet = arrayToFilterSet(currentFilters.source);
 		let requiredFlags = currentFilters.requiredFlags || [];
 		const hasRequiredFlags = requiredFlags.length > 0;
 		const hasCwnFilter = cwnSet !== null;
@@ -1089,6 +1105,9 @@ $(function() {
 		// Apply mode filter (API already returns mode categories)
 		if (modeSet && (!single.mode || !modeSet.has(single.mode))) return;
 
+		// Apply source filter (backwards-compat: spots without a source field pass through)
+		if (sourceSet && single.source && !sourceSet.has(single.source)) return;
+
 		// Apply additional flags filter (POTA, SOTA, WWFF, IOTA, Contest, Fresh)
 		if (hasFlagFilter) {
 			let passesFlagsFilter = false;
@@ -1117,23 +1136,9 @@ $(function() {
 		// Build table row data
 		spots2render++;
 		var data = [];
-		var dxcc_wked_info, wked_info;			// Color code DXCC entity: green=confirmed, yellow=worked, red=new
 
-			if (single.cnfmd_dxcc) {
-				dxcc_wked_info = "text-success";
-			} else if (single.worked_dxcc) {
-				dxcc_wked_info = "text-warning";
-			} else {
-				dxcc_wked_info = "text-danger";
-			}
-		// Color code callsign: green=confirmed, yellow=worked, red=new
-		if (single.cnfmd_call) {
-			wked_info = "text-success";
-		} else if (single.worked_call) {
-			wked_info = "text-warning";
-		} else {
-			wked_info = "text-danger";
-		}		// Build LoTW badge with color coding based on last upload age
+		var dxcc_wked_info = statusColor(single.cnfmd_dxcc, single.worked_dxcc);
+		var wked_info = statusColor(single.cnfmd_call, single.worked_call);		// Build LoTW badge with color coding based on last upload age
 		var lotw_badge = '';
 		if (single.dxcc_spotted && single.dxcc_spotted.lotw_user) {
 			let lclass = '';
@@ -1229,22 +1234,15 @@ $(function() {
 	let submode = (single.submode && single.submode !== '') ? single.submode : '';
 	data[0].push(submode);		// Callsign column: wrap in callstats link with color coding
 		let callstatsLink = '<a href="javascript:displayCallstatsContacts(\'' + single.spotted + '\',\'All\',\'All\',\'All\',\'All\',\'\');" onclick="event.stopPropagation();">' + single.spotted + '</a>';
-		wked_info = ((wked_info != '' ? '<span class="' + wked_info + '">' : '') + callstatsLink + (wked_info != '' ? '</span>' : ''));
+		wked_info = '<span style="color:' + wked_info + '">' + callstatsLink + '</span>';
 		var spotted = wked_info;
 		data[0].push(spotted);
 
 	// Continent column: color code based on worked/confirmed status
-	var continent_wked_info;
-	if (single.cnfmd_continent) {
-		continent_wked_info = "text-success";
-	} else if (single.worked_continent) {
-		continent_wked_info = "text-warning";
-	} else {
-		continent_wked_info = "text-danger";
-	}
+	var continent_wked_info = statusColor(single.cnfmd_continent, single.worked_continent);
 	let continent_value = (single.dxcc_spotted && single.dxcc_spotted.cont) ? single.dxcc_spotted.cont : '';
 	if (continent_value) {
-		let continent_display = (continent_wked_info != '' ? '<span class="' + continent_wked_info + '">' : '') + continent_value + (continent_wked_info != '' ? '</span>' : '');
+		let continent_display = '<span style="color:' + continent_wked_info + '">' + continent_value + '</span>';
 		continent_wked_info = '<a href="javascript:spawnLookupModal(\'' + continent_value.toLowerCase() + '\',\'continent\')"; data-bs-toggle="tooltip" title="' + lang_bandmap_see_details_continent + ' ' + continent_value + '">' + continent_display + '</a>';
 	} else {
 		continent_wked_info = '';
@@ -1273,7 +1271,7 @@ $(function() {
 
 	// Entity column: entity name with color coding (no flag)
 	let dxcc_entity_full = single.dxcc_spotted ? (single.dxcc_spotted.entity || '') : '';
-	let entity_colored = dxcc_entity_full ? ((dxcc_wked_info != '' ? '<span class="' + dxcc_wked_info + '">' : '') + dxcc_entity_full + (dxcc_wked_info != '' ? '</span>' : '')) : '';
+	let entity_colored = dxcc_entity_full ? '<span style="color:' + dxcc_wked_info + '">' + dxcc_entity_full + '</span>' : '';
 	if (single.dxcc_spotted && single.dxcc_spotted.dxcc_id && dxcc_entity_full) {
 		data[0].push('<a href="javascript:spawnLookupModal(\'' + single.dxcc_spotted.dxcc_id + '\',\'dxcc\')"; data-bs-toggle="tooltip" title="' + lang_bandmap_see_details + ' ' + dxcc_entity_full + '">' + entity_colored + '</a>');
 	} else {
@@ -1770,6 +1768,21 @@ $(function() {
 	// BACKEND DATA FETCH
 	// ========================================
 
+	// Rebuild #sourceSelect options from spot data, preserving current selection
+	function updateSourceOptions(spots) {
+		let sources = [...new Set(spots.map(s => s.source).filter(Boolean))].sort();
+		let $sel = $('#sourceSelect');
+		let currentVal = $sel.val() || ['All'];
+		$sel.find('option:not([value="All"])').remove();
+		sources.forEach(function(src) {
+			$sel.append($('<option>', { value: src, text: src }));
+		});
+		// Keep current selection; fall back to 'All' if selected sources no longer exist
+		let validVals = currentVal.filter(function(v) { return v === 'All' || sources.includes(v); });
+		$sel.val(validVals.length ? validVals : ['All']);
+		updateSelectCheckboxes('sourceSelect');
+	}
+
 	// Fetch spot data from DX cluster API
 	// Backend filters: band, de continent (where spotter is), mode
 	// Client filters applied after fetch: cwn, spotted continent, additionalFlags
@@ -1919,6 +1932,8 @@ $(function() {
 				cachedSpotData = [];
 			}
 
+			updateSourceOptions(cachedSpotData);  // Rebuild source filter options
+
 			lastFetchParams.timestamp = new Date();
 			isFetchInProgress = false;
 
@@ -2004,6 +2019,7 @@ $(function() {
 		let mode = getSelectedValues('mode');
 		let additionalFlags = getSelectedValues('additionalFlags');
 		let requiredFlags = ($('#requiredFlags').val() || []).filter(v => v !== 'None');  // Remove "None"
+		let source = getSelectedValues('sourceSelect');
 
 		let continentForAPI = 'Any';
 		if (de.length === 1 && !de.includes('Any')) {
@@ -2035,7 +2051,8 @@ $(function() {
 			cwn: cwn,
 			mode: mode,
 			requiredFlags: requiredFlags,
-			additionalFlags: additionalFlags
+			additionalFlags: additionalFlags,
+			source: source
 		};
 
 		if (backendParamsChanged) {
@@ -2078,7 +2095,8 @@ $(function() {
 			band: currentBand || ['All'],
 			mode: ['All'],
 			additionalFlags: ['All'],
-			requiredFlags: []
+			requiredFlags: [],
+			source: ['All']
 		});
 
 		// Update checkbox indicators for all selects
@@ -2115,6 +2133,7 @@ $(function() {
 		$('#mode').val(['All']).trigger('change');
 		$('#additionalFlags').val(['All']).trigger('change');
 		$('#requiredFlags').val([]).trigger('change');
+		$('#sourceSelect').val(['All']).trigger('change');
 
 		// Restore De Continent
 		$('#decontSelect').val(currentDecont).trigger('change');
@@ -2437,6 +2456,24 @@ $(function() {
 		bc_qsowin.postMessage('ping');
 	},500);
 
+	let contest_window_last_seen = Date.now() - 3600;
+	let contest_pong_rcvd = false;
+	let bc_contestwin = new BroadcastChannel('contest_window');
+
+	bc_contestwin.onmessage = function (ev) {
+		if (ev.data === 'pong') {
+			contest_window_last_seen = Date.now();
+			contest_pong_rcvd = true;
+		}
+	};
+
+	setInterval(function () {
+		if (contest_window_last_seen < (Date.now() - 1000)) {
+			contest_pong_rcvd = false;
+		}
+		bc_contestwin.postMessage('ping');
+	}, 500);
+
 	let bc2qso = new BroadcastChannel('qso_wish');
 
 	let wait4pong = 2000;
@@ -2564,6 +2601,13 @@ $(function() {
 		}
 
 
+
+		// Contest logger takes priority — send directly and skip QSO window flow
+		if (contest_pong_rcvd || ((Date.now() - contest_window_last_seen) < wait4pong)) {
+			bc2qso.postMessage(message);
+			showToast(lang_bandmap_qso_prepared, `${lang_bandmap_callsign_sent} ${call} ${lang_bandmap_sent_to_form}`, 'bg-success text-white', 3000);
+			return;
+		}
 
 		let check_pong = setInterval(function() {
 			if (pong_rcvd || ((Date.now() - qso_window_last_seen) < wait4pong)) {
@@ -3841,9 +3885,12 @@ $(function() {
 				updateFromCAT();
 			}
 
-			// Show gradient if we have frequency data
-			if (window.lastCATData && window.lastCATData.frequency) {
-				updateFrequencyGradientColors();
+			// For websocket radios, replay cached data if fresh enough
+			if (selectedRadio === 'ws' && window.lastCATData && typeof window.updateCATui === 'function') {
+				var replayMinutes = typeof cat_timeout_minutes !== 'undefined' ? cat_timeout_minutes : 5;
+				if (window.lastCATData.updated_minutes_ago <= replayMinutes) {
+					window.updateCATui(window.lastCATData);
+				}
 			}
 
 			updateCatButtonVisual(true);
@@ -3964,13 +4011,11 @@ $(function() {
 			$('.spottable th:nth-child(8), .spottable td:nth-child(8)').addClass('column-hidden'); // CQZ
 			$('.spottable th:nth-child(12), .spottable td:nth-child(12)').addClass('column-hidden'); // de Cont
 			$('.spottable th:nth-child(13), .spottable td:nth-child(13)').addClass('column-hidden'); // de CQZ
-			$('.spottable th:nth-child(14), .spottable td:nth-child(14)').addClass('column-hidden'); // Last QSO
 		} else if (containerWidth <= 1374) {
 			// Hide: CQZ, de CQZ, Last QSO, Mode
 			$('.spottable th:nth-child(4), .spottable td:nth-child(4)').addClass('column-hidden'); // Mode
 			$('.spottable th:nth-child(8), .spottable td:nth-child(8)').addClass('column-hidden'); // CQZ
 			$('.spottable th:nth-child(13), .spottable td:nth-child(13)').addClass('column-hidden'); // de CQZ
-			$('.spottable th:nth-child(14), .spottable td:nth-child(14)').addClass('column-hidden'); // Last QSO
 		}
 		// else: containerWidth > 1374 - show all columns (already reset above)
 
@@ -4326,32 +4371,6 @@ $(function() {
 	}
 
 	/**
-	 * Get border color based on continent status (matching bandmap table colors)
-	 */
-	function getContinentStatusColor(cnfmdContinent, workedContinent) {
-		// Green = confirmed, Yellow = worked (not confirmed), Red = new (not worked)
-		if (cnfmdContinent) {
-			return '#28a745'; // Bootstrap success green (confirmed)
-		} else if (workedContinent) {
-			return '#ffc107'; // Bootstrap warning yellow (worked but not confirmed)
-		}
-		return '#dc3545'; // Bootstrap danger red (new/not worked)
-	}
-
-	/**
-	 * Get fill color based on DXCC status (matching bandmap table colors)
-	 */
-	function getDxccStatusColor(cnfmdDxcc, workedDxcc) {
-		// Green = confirmed, Yellow = worked (not confirmed), Red = new (not worked)
-		if (cnfmdDxcc) {
-			return '#28a745'; // Bootstrap success green (confirmed)
-		} else if (workedDxcc) {
-			return '#ffc107'; // Bootstrap warning yellow (worked but not confirmed)
-		}
-		return '#dc3545'; // Bootstrap danger red (new/not worked)
-	}
-
-	/**
 	 * Get darker border color for map markers (30% darker than fill)
 	 */
 	function getDarkerBorderColor(fillColor) {
@@ -4508,8 +4527,8 @@ $(function() {
 				}
 			});
 
-			const borderColor = getContinentStatusColor(bestContinentConfirmed, bestContinentWorked);
-			const fillColor = getDxccStatusColor(bestDxccConfirmed, bestDxccWorked);
+			const borderColor = statusColor(bestContinentConfirmed, bestContinentWorked);
+			const fillColor = statusColor(bestDxccConfirmed, bestDxccWorked);
 			// Use darker border to ensure visibility even when border and fill are the same
 			const darkerBorder = getDarkerBorderColor(fillColor);
 

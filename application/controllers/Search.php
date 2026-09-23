@@ -2,17 +2,17 @@
 
 class Search extends CI_Controller {
 
-
 	function __construct() {
 		parent::__construct();
 
 		$this->load->helper(array('form', 'url'));
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 	}
 
 	public function index() {
 		$data['page_title'] = __("Search");
+
+		$data['stations_active_log_only'] = !empty($this->session->userdata('user_stations_active_log_only'));
 
 		$this->load->view('interface_assets/header', $data);
 		$this->load->view('search/main');
@@ -29,6 +29,8 @@ class Search extends CI_Controller {
 
 		$data['get_table_names'] = $this->Search_filter->get_table_columns();
 		$data['stored_queries'] = $this->Search_filter->get_stored_queries();
+
+		$data['stations_active_log_only'] = !empty($this->session->userdata('user_stations_active_log_only'));
 
 		//print_r($this->Search_filter->get_table_columns());
 
@@ -48,7 +50,13 @@ class Search extends CI_Controller {
 	public function lotw_unconfirmed() {
 		$this->load->model('stations');
 
-		$data['station_profile'] = $this->stations->all_of_user();
+		if (!empty($this->session->userdata('user_stations_active_log_only'))) {
+			$data['station_profile'] = $this->logbooks_model->list_logbooks_linked($this->session->userdata('active_station_logbook'));
+			$data['stations_active_log_only'] = true;
+		} else {
+			$data['station_profile'] = $this->stations->all_of_user();
+			$data['stations_active_log_only'] = false;
+		}
 		$data['page_title'] = __("QSOs unconfirmed on LoTW, but the callsign has uploaded to LoTW after QSO date");
 
 		$this->load->view('interface_assets/header', $data);
@@ -81,6 +89,7 @@ class Search extends CI_Controller {
 
 	function export_stored_query_to_adif() {
 		$this->db->where('id', xss_clean($this->input->post('id')));
+		$this->db->where('userid', $this->session->userdata['user_id']);
 		$sql = $this->db->get('queries')->result();
 
 		$query = $sql[0]->query;
@@ -93,7 +102,7 @@ class Search extends CI_Controller {
 
 		// Security: Block dangerous SQL keywords to prevent SQL injection
 		// Note: 'join' is NOT blocked because legitimate queries use JOINs
-		$blocked = ['insert', 'drop', 'alter', 'create', 'exec', 'script', 'into outfile', 'load_file'];
+		$blocked = ['insert', 'drop', 'alter', 'create', 'exec', 'script', 'into outfile', 'load_file', 'update', 'delete', 'truncate', 'replace', 'rename', 'grant', 'revoke'];
 		foreach ($blocked as $word) {
 			if (stristr($query, $word)) {
 				show_error("Invalid query: contains blocked keyword", 403);
@@ -107,6 +116,7 @@ class Search extends CI_Controller {
 
 	function run_query() {
 		$this->db->where('id', xss_clean($this->input->post('id')));
+		$this->db->where('userid', $this->session->userdata['user_id']);
 		$sql = $this->db->get('queries')->result();
 		$sql = $sql[0]->query;
 
@@ -120,7 +130,7 @@ class Search extends CI_Controller {
 
 			// Security: Block dangerous SQL keywords to prevent SQL injection
 			// Note: 'join' is NOT blocked because legitimate queries use JOINs
-			$blocked = ['insert', 'drop', 'alter', 'create', 'exec', 'script', 'into outfile', 'load_file'];
+			$blocked = ['insert', 'drop', 'alter', 'create', 'exec', 'script', 'into outfile', 'load_file', 'update', 'delete', 'truncate', 'replace', 'rename', 'grant', 'revoke'];
 			foreach ($blocked as $word) {
 				if (stristr($sql, $word)) {
 					show_error("Invalid query: contains blocked keyword", 403);
@@ -171,6 +181,23 @@ class Search extends CI_Controller {
 		$this->db->update('queries', $data);
 	}
 
+	/**
+	 * Returns the list of valid searchable column names from the main logbook table.
+	 * Cached statically so the DESCRIBE query runs only once per request.
+	 *
+	 * @return array<string> Column names (e.g. ['COL_CALL', 'COL_BAND', ...])
+	 */
+	private function _get_valid_search_fields(): array {
+		static $valid_fields = null;
+		if ($valid_fields === null) {
+			$columns = $this->db->query('DESCRIBE ' . $this->config->item('table_name'))->result();
+			$valid_fields = array_map(function($col) {
+				return $col->Field;
+			}, $columns);
+		}
+		return $valid_fields;
+	}
+
 	function buildWhere(array $object, ?string $condition = null): void {
 		/*
 		 * The $object is one of the following:
@@ -192,6 +219,15 @@ class Search extends CI_Controller {
 			}
 			$this->db->group_end();
 		} else {
+			// Validate field name: must be alphanumeric/underscore AND exist in the table schema
+			if (!is_string($object['field'] ?? null) || !preg_match('/^[A-Za-z0-9_]+$/', $object['field'])) {
+				log_message('error', 'Search filter rejected: invalid field identifier');
+				show_error('Invalid search field', 400);
+			}
+			if (!in_array($object['field'], $this->_get_valid_search_fields(), true)) {
+				log_message('error', 'Search filter rejected: unknown field "' . $object['field'] . '"');
+				show_error('Invalid search field', 400);
+			}
 			$object['field'] = $this->config->item('table_name') . '.' . $object['field'];
 
 			if ($object['operator'] == "equal") {
@@ -303,6 +339,11 @@ class Search extends CI_Controller {
 
 	function fetchQueryResult($json, $returnquery) {
 		$search_items = json_decode($json, true);
+
+		if (!empty($this->session->userdata('user_stations_active_log_only'))) {
+			$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
+			$this->db->where_in($this->config->item('table_name').'.station_id', $logbooks_locations_array);
+		}
 
 		$this->db->select($this->config->item('table_name').'.*, station_profile.station_profile_name, station_profile.station_gridsquare, station_profile.station_city, station_profile.station_iota, station_profile.station_callsign, station_profile.station_sota, station_profile.station_wwff, station_profile.station_dxcc, station_profile.station_pota, station_profile.station_cq, station_profile.station_itu, station_profile.station_sig, station_profile.station_sig_info, station_profile.station_cnty, station_profile.county, station_profile.state, dxcc_entities.name as station_country');
 

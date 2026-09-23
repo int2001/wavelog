@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    loadPassSettingsList();
+	loadPassSettingsList();
 
 	$('#satlist').multiselect({
 		// template is needed for bs5 support
@@ -7,11 +7,12 @@ $(document).ready(function() {
 		enableCaseInsensitiveFiltering: true,
 		filterPlaceholder: lang_general_word_search,
 		templates: {
-		  button: '<button type="button" class="multiselect dropdown-toggle btn btn-sm btn-secondary me-2 w-auto" data-bs-toggle="dropdown" aria-expanded="false"><span class="multiselect-selected-text"></span></button>',
+		  button: '<button type="button" class="multiselect dropdown-toggle btn btn-sm btn-secondary" data-bs-toggle="dropdown" aria-expanded="false"><span class="multiselect-selected-text"></span></button>',
 		},
 		numberDisplayed: 1,
 		inheritClass: true,
-		includeSelectAllOption: true
+		includeSelectAllOption: true,
+		buttonTextAlignment: 'left'
 	});
 
 	if (localStorage.hasOwnProperty(`user_${user_id}_selectedsatellites`)) {
@@ -31,25 +32,22 @@ $(document).ready(function() {
 });
 
 function searchpasses() {
+	if ($("#yourgrid").val() != '') {
+		$('#nogridhint').attr('style', 'display: none;');
+	}
 	localStorage.setItem(`user_${user_id}_selectedsatellites`, $('#satlist').val());
 	if ($("#satlist").val().length > 0) {;
 		$(".ld-ext-right-plot").addClass('running');
 		$(".ld-ext-right-plot").prop('disabled', true);
 		$('#searchpass').prop("disabled", true);
-		if ($('#addskedpartner').is(':hidden')) {
-			loadPasses();
-		} else {
-			let skedgrid = $("#skedgrid").val();
-			if (skedgrid == '') {
-				$(".ld-ext-right-plot").removeClass('running');
-				$(".ld-ext-right-plot").prop('disabled', false);
-				$('#searchpass').prop("disabled", false);
-				return;
-			}
+		let skedgrid = $("#skedgrid").val();
+		if (skedgrid != '') {
 			loadSkedPasses();
+		} else {
+			loadPasses();
 		}
+		return;
 	}
-	return;
 
 }
 
@@ -67,12 +65,16 @@ function loadPasses() {
 			'maxtime': $("#maxtime").val(),
 		},
 		success: function (html) {
+			$("#resultsCard").show();
 			$("#resultpasses").html(html);
 			$(".ld-ext-right-plot").removeClass('running');
 			$(".ld-ext-right-plot").prop('disabled', false);
 			$('#searchpass').prop("disabled", false);
 			$('.satelliteinfo').click(function (event) {
 				getSatelliteInfo(this);
+			});
+			$('.hamsatposting').click(function (event) {
+				prepHamsAtPosting(this);
 			});
 		},
 		error: function(e) {
@@ -109,6 +111,56 @@ function getSatelliteInfo(element) {
     });
 }
 
+function prepHamsAtPosting(element) {
+	var satname = $(element).closest('td').contents().first().text().trim();
+	var row = $(element).closest('tr');
+	var aos = row.find('.aos').data('aos');
+	var tca = row.find('.tca').data('tca');
+	var los = row.find('.los').data('los');
+	var duration = row.find('.duration').contents().text().trim();
+	$.ajax({
+		url: base_url + 'index.php/satellite/prepHamsAtPosting',
+		type: 'post',
+		data: {
+			'sat': satname,
+			'aos': aos,
+			'tca': tca,
+			'los': los,
+			'duration': duration,
+		},
+		success: function (html) {
+			BootstrapDialog.show({
+				title: lang_gen_hamradio_sat_hamsat_post,
+				size: BootstrapDialog.SIZE_WIDE,
+				cssClass: 'preparehamsat-dialog bg-opacity-50',
+				nl2br: false,
+				message: html,
+				onshown: function(){
+					toggleTpx();
+				},
+				buttons: [{
+					icon: 'fas fa-arrow-up-right-from-square',
+					label: lang_admin_post,
+					autospin: true,
+					cssClass: 'btn-primary',
+					action: function () {
+						post_hamsat();
+					},
+				},
+				{
+					label: lang_admin_close,
+					cssClass: 'btn-secondary',
+					action: function (dialogItself) {
+						dialogItself.close();
+					}
+				}]
+			});
+		},
+		error: function(e) {
+		}
+	});
+}
+
 function loadSkedPasses() {
 	$.ajax({
         url: base_url + 'index.php/satellite/searchSkedPasses',
@@ -125,6 +177,7 @@ function loadSkedPasses() {
 			'minskedelevation': $("#minskedelevation").val(),
         },
         success: function (html) {
+			$("#resultsCard").show();
             $("#resultpasses").html(html);
 			$(".ld-ext-right-plot").removeClass('running');
             $(".ld-ext-right-plot").prop('disabled', false);
@@ -246,4 +299,34 @@ function loadPassSettingsList() {
             console.log(e);
         }
     });
+}
+
+function toggleTpx() {
+	const mode = $("#mode option:selected").text();
+	const dir = $("input[name='mhz_direction']:checked").val();
+	const ssb = ['SSB', 'USB', 'LSB'];
+	const matchers = {
+		Data: {
+			up: t => t.uplink_mode == 'PKT' || ssb.includes(t.uplink_mode),
+			down: t => t.downlink_mode == 'PKT' || ssb.includes(t.uplink_mode),
+		},
+		FM: {
+			up: t => t.uplink_mode == 'FM',
+			down: t => t.downlink_mode == 'FM',
+		},
+	};
+	matchers.SSB = matchers.CW = { up: t => ssb.includes(t.uplink_mode), down: t => ssb.includes(t.uplink_mode) };
+	for (const tpx of JSON.parse($("#tpxdata").val())) {
+		if (!matchers[mode] || !matchers[mode][dir] || !matchers[mode][dir](tpx)) {
+			continue;
+		}
+		$("#tpx_center_freq").html(dir == 'up' ? tpx.uplink_freq : tpx.downlink_freq);
+		const fixed = mode == 'Data' && tpx.uplink_freq == tpx.downlink_freq;
+		$("#mhz").prop('disabled', fixed);
+		$("#mhz_direction_up").prop('disabled', fixed);
+		$("#mhz_direction_down").prop('disabled', fixed);
+		if (fixed) {
+			$("#mhz_direction_down").prop('checked', true);
+		}
+	}
 }

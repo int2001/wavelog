@@ -48,6 +48,9 @@ $(document).ready(function() {
     // Cache for radio names to avoid repeated AJAX calls
     var radioNameCache = {};
 
+    // Session cache: remembers which protocol actually worked per stored catUrl (no persistence)
+    var catWorkingUrlCache = {};
+
     // Global CAT state - stores last received data from radio
     // This allows other components (like DX Waterfall) to read radio state
     // without depending on form fields
@@ -70,6 +73,7 @@ $(document).ready(function() {
     let hasTriedWsFallback = false; // Track if we've already tried WS fallback after WSS failed
     let activeWebSocketProtocol = 'wss'; // Track which protocol is currently active ('wss' or 'ws')
     let CATInterval=null;
+    let radioWorkerSub = null; // Active wavelog worker subscription for the selected radio (null = polling/none)
     var updateFromCAT_lock = 0; // This mechanism prevents multiple simultaneous calls to query the CAT interface information
     var updateFromCAT_lockTimeout = null; // Timeout to release lock if AJAX fails
 
@@ -218,6 +222,16 @@ $(document).ready(function() {
 
         // Handle radio status updates
         if (data.type === 'radio_status' && data.radio && ($(".radios option:selected").val() == 'ws')) {
+            // Calculate age from timestamp, defaulting to 0 (fresh) if timestamp is missing
+            if (data.timestamp) {
+                data.updated_minutes_ago = Math.floor((Date.now() - data.timestamp) / 60000);
+            } else {
+                data.updated_minutes_ago = 0; // Assume fresh if no timestamp
+            }
+
+            // Cache data so it's available when CAT tracking is enabled later
+            window.lastCATData = data;
+
             // On bandmap page, check CAT Control state
             if (typeof window.isCatTrackingEnabled !== 'undefined') {
                 if (!window.isCatTrackingEnabled) {
@@ -229,13 +243,6 @@ $(document).ready(function() {
                 }
             }
 
-            // Calculate age from timestamp, defaulting to 0 (fresh) if timestamp is missing
-            if (data.timestamp) {
-                data.updated_minutes_ago = Math.floor((Date.now() - data.timestamp) / 60000);
-            } else {
-                data.updated_minutes_ago = 0; // Assume fresh if no timestamp
-            }
-            // Cache the radio data
             updateCATui(data);
         }
     }
@@ -388,8 +395,8 @@ $(document).ready(function() {
     /**
      * Perform the actual radio tuning via CAT interface
      * Sends frequency and mode to radio via HTTP/HTTPS request with failover
-     * Tries HTTPS first, falls back to HTTP on failure
-     * @param {string} catUrl - CAT interface URL for the radio
+     * Uses the protocol from catUrl as primary; retries with the opposite protocol on failure
+     * @param {string} catUrl - CAT interface URL for the radio (must include http:// or https://)
      * @param {number} freqHz - Frequency in Hz
      * @param {string} mode - Radio mode (validated against supported modes)
      * @param {function} onSuccess - Callback on successful tuning
@@ -399,59 +406,32 @@ $(document).ready(function() {
         // Validate and normalize mode parameter
         const validModes = ['lsb', 'usb', 'cw', 'fm', 'am', 'rtty', 'pkt', 'dig', 'pktlsb', 'pktusb', 'pktfm'];
         const catMode = mode && validModes.includes(mode.toLowerCase()) ? mode.toLowerCase() : 'usb';
+        // Use cached working base URL if available (session-only, cleared on radio change)
+        const primaryBase = catWorkingUrlCache[catUrl] || catUrl;
+        const fallbackBase = primaryBase.startsWith('https://')
+            ? primaryBase.replace(/^https:\/\//, 'http://')
+            : primaryBase.replace(/^http:\/\//, 'https://');
+        const requestUrl = primaryBase + '/' + freqHz + '/' + catMode;
+        const fallbackUrl = fallbackBase + '/' + freqHz + '/' + catMode;
 
-        // Determine which protocol to try first
-        // If URL is already HTTPS, use it. If HTTP, upgrade to HTTPS for first attempt.
-        const isHttps = catUrl.startsWith('https://');
-        const httpsUrl = isHttps ? catUrl : catUrl.replace(/^http:\/\//, 'https://');
-        const httpUrl = isHttps ? catUrl.replace(/^https:\/\//, 'http://') : catUrl;
+        let successBase = primaryBase;
 
-        // Build the full URLs with frequency and mode
-        const httpsRequestUrl = httpsUrl + '/' + freqHz + '/' + catMode;
-        const httpRequestUrl = httpUrl + '/' + freqHz + '/' + catMode;
-
-        // Try HTTPS first (unless original URL was already HTTPS, then just try that)
-        const tryHttps = !isHttps;
-
-        // Function to attempt tuning with a specific URL
-        const tryTuning = function(url, isFallback) {
-            return fetch(url, {
-                method: 'GET'
-            })
+        const tryFetch = (url) => fetch(url, { method: 'GET' })
             .then(response => {
                 if (response.ok) {
-                    // Success - HTTP 200-299, get response text
                     return response.text();
                 } else {
-                    // HTTP error status (4xx, 5xx)
                     throw new Error('HTTP ' + response.status);
                 }
-            })
+            });
+
+        tryFetch(requestUrl)
+            .catch(() => { successBase = fallbackBase; return tryFetch(fallbackUrl); })
             .then(data => {
-                // Call success callback with response data
+                catWorkingUrlCache[catUrl] = successBase;  // remember working protocol for this session
                 if (typeof onSuccess === 'function') {
                     onSuccess(data);
                 }
-                return data;
-            });
-        };
-
-        // Execute failover logic: try HTTPS first, then HTTP
-        const primaryUrl = tryHttps ? httpsRequestUrl : httpRequestUrl;
-        const fallbackUrl = tryHttps ? httpRequestUrl : null;
-
-        tryTuning(primaryUrl, false)
-            .catch(error => {
-                // If HTTPS was attempted and failed, try HTTP fallback
-                if (fallbackUrl !== null) {
-                    return tryTuning(fallbackUrl, true)
-                        .catch(fallbackError => {
-                            // Both HTTPS and HTTP failed
-                            throw fallbackError;
-                        });
-                }
-                // No fallback available (was already HTTPS or only one URL to try)
-                throw error;
             })
             .catch(error => {
                 // All attempts failed - show error
@@ -1054,7 +1034,7 @@ $(document).ready(function() {
                     $frequency.trigger('change'); // Trigger for other event handlers
                     const newBand = frequencyToBand(d);
                     // Auto-update band based on frequency
-                    if ($band.val() != newBand) {
+                    if (newBand && $band.val() != newBand) {
                         $band.val(newBand).trigger('change'); // Trigger band change
                         // Update callsign status when band changes via CAT
                         if ($('#callsign').val().length >= 3) {
@@ -1068,8 +1048,9 @@ $(document).ready(function() {
             cat2UI($frequency,data.frequency,false,true,function(d){
                 $frequency.trigger('change');
                 // Auto-update band based on frequency
-                if ($band.val() != frequencyToBand(d)) {
-                    $band.val(frequencyToBand(d)).trigger('change');
+                var nb = frequencyToBand(d);
+                if (nb && $band.val() != nb) {
+                    $band.val(nb).trigger('change');
                     // Update callsign status when band changes via CAT
                     if ($('#callsign').val().length >= 3) {
                         $('#callsign').blur();
@@ -1229,6 +1210,27 @@ $(document).ready(function() {
         }
     };
 
+    var pending = null;
+    var missed = false;
+    var latestData = null;
+    function throttleUpdateCATui(data) {
+        // Load at most once every 1 seconds. If more pushes arrive during the
+		// lockout, refresh once afterwards so no update is lost.
+        if (pending) {
+            missed = true;
+            latestData = data;
+            return;
+        }
+        updateCATui(data);
+        pending = setTimeout(function () {
+            pending = null;
+            if (missed) {
+                missed = false;
+                throttleUpdateCATui(latestData);
+            }
+        }, 1000);
+    }
+
     /******************************************************************************
      * RADIO CAT INITIALIZATION AND EVENT HANDLERS
      ******************************************************************************/
@@ -1251,6 +1253,7 @@ $(document).ready(function() {
         // Clear both caches when radio changes
         radioCatUrlCache = {};
         radioNameCache = {};
+        catWorkingUrlCache = {};
 
         // Reset Hybrid Mode flag
         isHybridMode = false;
@@ -1275,6 +1278,16 @@ $(document).ready(function() {
             websocket.close();
             websocketEnabled = false;
         }
+        if (radioWorkerSub) {	// close any active wavelog worker subscription
+            radioWorkerSub.close();
+            radioWorkerSub = null;
+        }
+        if (pending) {	// drop any pending throttled update for the old radio
+            clearTimeout(pending);
+            pending = null;
+        }
+        missed = false;
+        latestData = null;
         if (selectedRadioId == '0') {
             $('#sat_name').val('');
             $('#sat_mode').val('');
@@ -1320,8 +1333,34 @@ $(document).ready(function() {
             }
             $('#toggleCatTracking').prop('disabled', false).removeClass('disabled');
 
-            // Start standard polling
-            CATInterval = setInterval(updateFromCAT, CAT_CONFIG.POLL_INTERVAL);
+            var radioTopic = (window.radioWorkerTopics || {})[selectedRadioId];
+            if (radioTopic && window.WavelogWorker && WavelogWorker.isAvailable()) {
+                updateFromCAT(); // one initial fetch to populate the form immediately
+                radioWorkerSub = WavelogWorker.subscribe({
+                    topic: radioTopic.topic,
+                    token: radioTopic.token,
+                    onMessage: function(frame) {
+                        if (frame.type !== 'push' || !frame.payload || frame.payload.type !== 'radio_updated' || !frame.payload.radio_status) {
+                            return;
+                        }
+                        // Respect the bandmap CAT Control toggle, mirroring the poll path
+                        if (typeof window.isCatTrackingEnabled !== 'undefined' && !window.isCatTrackingEnabled) {
+                            return;
+                        }
+                        var d = frame.payload.radio_status;
+                        // Server sends 0; derive real staleness from the push timestamp
+                        d.updated_minutes_ago = d.timestamp ? Math.floor((Date.now() - d.timestamp) / 60000) : 0;
+                        throttleUpdateCATui(d);
+                    },
+                    onReconnect: function() {
+                        // one ajax on reconnect to make sure everything is up2date
+                        updateFromCAT();
+                    }
+                });
+            } else {
+                // Start standard polling
+                CATInterval = setInterval(updateFromCAT, CAT_CONFIG.POLL_INTERVAL);
+            }
 
             // Attempt Hybrid WebSocket Connection (Silent, limited retries)
             // We try to connect to localhost to receive metadata/lookup broadcasts

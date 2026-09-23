@@ -11,7 +11,7 @@ class Clublog extends CI_Controller
 	{
 		parent::__construct();
 
-		if (ENVIRONMENT == 'maintenance' && $this->session->userdata('user_id') == '') {
+		if (MAINTENANCE_MODE && $this->session->userdata('user_id') == '') {
 			echo __("Maintenance Mode is active. Try again later.")."\n";
 			redirect('dashboard');
 		}
@@ -27,6 +27,12 @@ class Clublog extends CI_Controller
 	// Upload ADIF to Clublog
 	public function upload()
 	{
+		$this->load->helper('cronauth');
+		if (!cronauth_allowed(3)) {
+			// return a 403
+			$this->output->set_status_header(403);
+			exit();
+		}
 
 		$this->load->model('clublog_model');
 
@@ -36,6 +42,7 @@ class Clublog extends CI_Controller
 
 		$users = $this->clublog_model->get_clublog_users();
 
+		$r = '';
 		if (!empty($users)) {
 			foreach ($users as $user) {
 				$r = $this->clublog_model->uploadUser($user->user_id, $user->user_clublog_name, $user->user_clublog_password);
@@ -58,6 +65,7 @@ class Clublog extends CI_Controller
 
 		$users = $this->clublog_model->get_clublog_users();
 
+		$r = '';
 		if (!empty($users)) {
 			foreach ($users as $user) {
 				$r = $this->clublog_model->downloadUser($user->user_id, $user->user_clublog_name, $user->user_clublog_password);
@@ -77,7 +85,6 @@ class Clublog extends CI_Controller
 	 * Used for displaying the uid for manually selecting log for upload to Clublog
 	 */
 	public function export() {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2) || !clubaccess_check(9)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$this->load->model('clublog_model');
@@ -136,7 +143,6 @@ class Clublog extends CI_Controller
 	public function importlog() {
 		if (!($this->config->item('disable_manual_clublog'))) {
 
-			$this->load->model('user_model');
 			if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 			$data['page_title'] = __("Clublog QSL Import");
@@ -152,6 +158,7 @@ class Clublog extends CI_Controller
 			}
 			$users = $this->clublog_model->get_clublog_users($this->session->userdata('user_id'));
 
+			$r = '';
 			if (!empty($users)) {
 				foreach ($users as $user) {
 					$r = $this->clublog_model->downloadUser($user->user_id, $user->user_clublog_name, $user->user_clublog_password, $clublog_last_date);

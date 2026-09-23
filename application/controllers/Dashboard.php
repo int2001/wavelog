@@ -5,7 +5,6 @@ class Dashboard extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 
-		$this->load->model('user_model');
 		if (!$this->user_model->authorize(2)) {
 			redirect('user/login');
 		}
@@ -98,28 +97,43 @@ class Dashboard extends CI_Controller {
 
 		$data['radio_status'] = $this->cat->recent_status();
 
+		$this->load->is_loaded('worker') ?: $this->load->library('worker');
+		$data['worker_enabled'] = $this->worker->is_enabled(); // without this line the worker.js is not loaded!
+		$data['radios_user_worker'] = null;
+		if ($this->worker->is_enabled()) {
+			$topic = 'radios_user.' . $this->session->userdata('user_id');
+			$this->worker->register_topic($topic);
+			$data['radios_user_worker'] = ['topic' => $topic, 'token' => $this->worker->create_token($topic)];
+		}
+
 		$qso_counts = $this->logbook_model->get_qso_counts($logbooks_locations_array);
 		$data['todays_qsos'] = $qso_counts['today'];
 		$data['total_qsos'] = $qso_counts['total'];
 		$data['month_qsos'] = $qso_counts['month'];
 		$data['year_qsos'] = $qso_counts['year'];
 
-		$rawstreak=$this->dayswithqso_model->getAlmostCurrentStreak();
+		$rawstreak = $this->dayswithqso_model->getCurrentStreak();
 		if (is_array($rawstreak)) {
-			$data['current_streak']=$rawstreak['highstreak'];
+			$data['current_streak'] = $rawstreak['highstreak'];
 		} else {
-			$data['current_streak']=0;
+			$rawstreak = $this->dayswithqso_model->getAlmostCurrentStreak();
+			if (is_array($rawstreak)) {
+				$data['current_streak'] = $rawstreak['highstreak'];
+			} else {
+				$data['current_streak'] = 0;
+			}
 		}
 
-		// Load Dashboard stats (countries + QSL stats in one query)
-		$stats = $this->logbook_model->dashboard_stats_batch($logbooks_locations_array);
+		$data['almost_current_streak'] = $data['current_streak'];
+
+		// Load Dashboard stats (countries + QSL stats in one query).
+		// DXCC groups are band-based: HF only counts bands the user checked
+		// for the DXCC award, VHF+ is derived from the band's group.
+		$this->load->model('bands');
+		$stats = $this->logbook_model->dashboard_stats_batch($logbooks_locations_array, $this->bands->get_user_bands('dxcc'));
 
 		// Country stats
-		$data['total_countries'] = $stats['Countries_Worked'];
-		$data['total_countries_confirmed_paper'] = $stats['Countries_Worked_QSL'];
-		$data['total_countries_confirmed_eqsl'] = $stats['Countries_Worked_EQSL'];
-		$data['total_countries_confirmed_lotw'] = $stats['Countries_Worked_LOTW'];
-		$current = $stats['Countries_Current'];
+		$data['unique_callsigns'] = $stats['Unique_Callsigns'];
 
 		// QSL stats
 		$data['total_qsl_sent'] = $stats['QSL_Sent'];
@@ -202,11 +216,24 @@ class Dashboard extends CI_Controller {
 			$data['firstloginwizard'] = $this->load->view('user/modals/first_login_wizard', $viewdata, true);
 		}
 
-		$data['total_countries_needed'] = count($dxcc->result()) - $current;
+		// DXCC breakdown sections: HF always, SAT/VHF+ only when such QSOs exist
+		$groups = $stats['DXCC_Groups'] ?? [];
+		$current_count = count($dxcc->result());
+		$zero_group = ['qsos' => 0, 'worked' => 0, 'deleted' => 0, 'qsl' => 0, 'deleted_qsl' => 0, 'lotw' => 0, 'deleted_lotw' => 0, 'confirmed' => 0, 'deleted_confirmed' => 0];
+		$data['dxcc_sections'] = [];
+		foreach (['hf' => __("HF"), 'sat' => __("SAT"), 'vhf' => __("VHF+")] as $key => $label) {
+			$group = array_merge($zero_group, $groups[$key] ?? []);
+			if ($key != 'hf' && $group['qsos'] == 0) {
+				continue;
+			}
+			$group['label'] = $label;
+			$group['needed'] = max(0, $current_count - $group['worked']);
+			$data['dxcc_sections'][$key] = $group;
+		}
 
 		// Check user preferrence to show Solar Data on Dashboard and load data if yes
 		// Default to not show
-		if($data['dashboard_solar'] == 'Y') {
+		if (in_array($data['dashboard_solar'], ['top', 'bottom', 'Y'], true)) {
 			$this->load->model('Hamqsl_model');	// Load HAMQSL model
 
 			if (!$this->Hamqsl_model->set_solardata()) {
@@ -220,6 +247,23 @@ class Dashboard extends CI_Controller {
 			}
 		}
 
+		// Active Expeditions and Contests for Dashboard cards
+		$data['dashboard_show_dxpeditions'] = ($this->session->userdata('user_dashboard_show_dxpeditions') ?? '0') == '1' ? true : false;
+		$data['dashboard_show_contests'] = ($this->session->userdata('user_dashboard_show_contests') ?? '0') == '1' ? true : false;
+		$data['dashboard_show_kpi_stats'] = ($this->session->userdata('user_dashboard_show_kpi_stats') ?? '1') == '1' ? true : false;
+		// Dashboard right column cards (default to shown)
+		foreach (['dxcc', 'vucc', 'qslcards', 'eqsl', 'qrz', 'clublog', 'lotw'] as $__card) {
+			$data['dashboard_show_' . $__card] = ($this->session->userdata('user_dashboard_show_' . $__card) ?? '1') == '1' ? true : false;
+		}
+		$data['active_dxpeditions'] = false;
+		$data['active_contests'] = false;
+
+		if ($data['dashboard_show_dxpeditions'] || $data['dashboard_show_contests']) {
+			$this->load->model('Calendar_model');
+			$data['active_dxpeditions'] = $data['dashboard_show_dxpeditions'] ? $this->Calendar_model->get_active_dxpeditions() : false;
+			$data['active_contests'] = $data['dashboard_show_contests'] ? $this->Calendar_model->get_contests_today() : false;
+		}
+
 		// Load the views
 		$this->load->view('interface_assets/header', $data);
 		$this->load->view('dashboard/index');
@@ -227,6 +271,8 @@ class Dashboard extends CI_Controller {
 	}
 
 	function radio_display_component() {
+		session_write_close();
+
 		$this->load->model('cat');
 
 		$data['radio_status'] = $this->cat->recent_status();

@@ -42,21 +42,21 @@
 		<tbody>
 		<?php
 			echo '<tr>';
-			echo '<td>'.$image->COL_CALL.'</td>';
-			echo '<td>'.$image->COL_TIME_ON.'</td>';
-			echo '<td>'.$image->COL_MODE.'</td>';
-			echo '<td>'.$image->COL_BAND.'</td>';
-			echo '<td>'.$image->COL_NAME.'</td>';
-			echo '<td>'.$image->COL_COUNTRY.'</td>';
-			echo '<td>'.$image->COL_STATE.'</td>';
-			echo '<td>'.$image->COL_CQZ.'</td>';
-			echo '<td>'.$image->COL_IOTA.'</td>';
-			echo '<td>'.$image->COL_GRIDSQUARE.'</td>';
+			echo '<td>'.html_escape($image->COL_CALL).'</td>';
+			echo '<td>'.html_escape($image->COL_TIME_ON).'</td>';
+			echo '<td>'.html_escape($image->COL_MODE).'</td>';
+			echo '<td>'.html_escape($image->COL_BAND).'</td>';
+			echo '<td>'.html_escape($image->COL_NAME).'</td>';
+			echo '<td>'.html_escape($image->COL_COUNTRY).'</td>';
+			echo '<td>'.html_escape($image->COL_STATE).'</td>';
+			echo '<td>'.html_escape($image->COL_CQZ).'</td>';
+			echo '<td>'.html_escape($image->COL_IOTA).'</td>';
+			echo '<td>'.html_escape($image->COL_GRIDSQUARE).'</td>';
 			echo '</tr>';
 		?>
 		</tbody>
 </table>
-        <?php echo '<img class="img-fluid w-qsl" src="' . base_url() . '/'. $this->paths->getPathQsl() .'/' . $image->filename .'" alt="' . __("QSL picture #") . $i++.'">';
+        <?php echo '<img class="img-fluid w-qsl" src="' . base_url() . '/'. $this->paths->getUserdataPath('qsl_card') .'/' . $image->filename .'" alt="' . __("QSL picture #") . $i++.'">';
         echo '</div>';
     }
     ?>

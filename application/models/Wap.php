@@ -130,9 +130,9 @@ class wap extends CI_Model {
 			$bandslots_list = "'".implode("','",$bandslots)."'";
 
 			$sql .= " and thcv.col_band in (" . $bandslots_list . ")" .
-				" and thcv.col_prop_mode !='SAT'";
+				" and (thcv.col_prop_mode !='SAT' or thcv.col_prop_mode is NULL)";
 		} else {
-			$sql .= " and thcv.col_prop_mode !='SAT'";
+			$sql .= " and (thcv.col_prop_mode !='SAT' or thcv.col_prop_mode is NULL)";
 			$sql .= " and thcv.col_band = ?";
 			$bindings[]=$band;
 		}
@@ -167,9 +167,9 @@ class wap extends CI_Model {
 			$bandslots_list = "'".implode("','",$bandslots)."'";
 
 			$sql .= " and thcv.col_band in (" . $bandslots_list . ")" .
-				" and thcv.col_prop_mode !='SAT'";
+				" and (thcv.col_prop_mode !='SAT' or thcv.col_prop_mode is NULL)";
 		} else {
-			$sql .= " and thcv.col_prop_mode !='SAT'";
+			$sql .= " and (thcv.col_prop_mode !='SAT' or thcv.col_prop_mode is NULL)";
 			$sql .= " and thcv.col_band = ?";
 			$bindings[]=$band;
 		}
@@ -195,7 +195,7 @@ class wap extends CI_Model {
 	 */
 	function getwapWorked($location_list, $band, $postdata) {
 		$bindings=[];
-		$sql = "SELECT distinct col_state FROM " . $this->config->item('table_name') . " thcv
+		$sql = "SELECT distinct UPPER(col_state) as col_state FROM " . $this->config->item('table_name') . " thcv
 			where station_id in (" . $location_list . ")";
 
 		if ($postdata['mode'] != 'All') {
@@ -237,7 +237,7 @@ class wap extends CI_Model {
 	 */
 	function getwapConfirmed($location_list, $band, $postdata) {
 		$bindings=[];
-		$sql = "SELECT distinct col_state FROM " . $this->config->item('table_name') . " thcv
+		$sql = "SELECT distinct UPPER(col_state) as col_state FROM " . $this->config->item('table_name') . " thcv
 			where station_id in (" . $location_list . ")";
 
 		if ($postdata['mode'] != 'All') {
@@ -249,7 +249,6 @@ class wap extends CI_Model {
 		$sql .= $this->addStateToQuery();
 
 		$sql .= $this->genfunctions->addBandToQuery($band,$bindings);
-
 		$sql .= $this->genfunctions->addQslToQuery($postdata);
 
 		$query = $this->db->query($sql,$bindings);

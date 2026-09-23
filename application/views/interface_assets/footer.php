@@ -33,10 +33,14 @@
     var lang_general_share_qso = "<?= __("Share QSO"); ?>";
     var lang_general_word_danger = "<?= __("DANGER"); ?>";
     var lang_general_word_error = "<?= __("ERROR"); ?>";
+    var lang_general_word_query_failed_unkown = "<?= __("The query failed for a unknown reason"); ?>";
     var lang_general_word_attention = "<?= __("Attention"); ?>";
     var lang_general_word_warning = "<?= __("Warning"); ?>";
     var lang_general_word_success = "<?= __("Success"); ?>";
     var lang_general_word_info = "<?= __("Info"); ?>";
+    var lang_worker_token_expired_title = "<?= __("Session expired"); ?>";
+    var lang_worker_token_expired_msg = "<?= __("Your live connection has expired. Please reload the page to keep receiving live updates."); ?>";
+    var lang_worker_reload_now = "<?= __("Reload now"); ?>";
     var lang_general_word_cancel = "<?= __("Cancel"); ?>";
     var lang_general_word_ok = "<?= __("OK"); ?>";
     var lang_general_word_search = "<?= __("Search"); ?>";
@@ -50,14 +54,17 @@
     var lang_admin_close = "<?= __("Close"); ?>";
     var lang_admin_save = "<?= __("Save"); ?>";
     var lang_admin_clear = "<?= __("Clear"); ?>";
+    var lang_admin_post = "<?= __("Post"); ?>";
     var lang_lotw_propmode_hint = "<?= __("Propagation mode is not supported by LoTW. LoTW QSL fields disabled."); ?>";
     var lang_no_states_for_dxcc_available = "<?= html_entity_decode(__("No states for this DXCC available")); ?>";
     var lang_qrbcalc_title = '<?= __("Compute QRB and QTF"); ?>';
     var lang_qrbcalc_errmsg = '<?= __("Error in locators. Please check."); ?>';
+    var lang_qrbcalc_empty_loc = '<?= __("At least one of the locators is empty. Calculation not possible. Possibly missing locator in station location. Please check."); ?>';
     var lang_general_refresh_list = '<?= __("Refresh List"); ?>';
     var lang_general_word_please_wait = "<?= __("Please Wait ..."); ?>";
     var lang_general_states_deprecated = "<?= _pgettext("Word for country states that are deprecated but kept for legacy reasons.", "deprecated"); ?>";
     var lang_gen_hamradio_sat_info = "<?= __("Satellite Information"); ?>";
+    var lang_gen_hamradio_sat_hamsat_post = "<?= __("Prepare hams.at Activation Posting"); ?>";
 
     var lang_notes_error_loading = "<?= __("Error loading notes"); ?>";
     var lang_notes_sort = "<?= __("Sorting"); ?>";
@@ -77,6 +84,7 @@
     var lang_qso_note_saved = "<?= __("Note saved successfully"); ?>";
     var lang_qso_note_error_saving = "<?= __("Error saving note"); ?>";
     var lang_qso_added = "<?= __("QSO with %s by %s was added to logbook."); ?>";
+    var lang_qso_realtime_export_failed = "<?= __("Realtime upload failed: %s"); ?>";
     var lang_qso_added_to_backlog = "<?= __("QSO Added to Backlog"); ?>";
     var lang_qso_send_email_to = "<?= __("Send email to %s"); ?>";
     var lang_qso_callsign_confirmed = "<?= __("Callsign was already worked and confirmed in the past on this band and mode!"); ?>";
@@ -132,6 +140,8 @@
     var lang_cat_websocket_radio = "<?= __("WebSocket Radio"); ?>";
     var lang_qso_location_is_fetched_from_provided_gridsquare = "<?= __("Location is fetched from provided gridsquare"); ?>";
     var lang_qso_location_is_fetched_from_dxcc_coordinates = "<?= __("Location is fetched from DXCC coordinates (no gridsquare provided)"); ?>";
+    var lang_qso_dxcc_none_location = "<?= __("Location could not be determined as gridsquare is empty and DXCC is -NONE-"); ?>";
+    var lang_operator_modal_save_error = "<?= __("Error saving operator callsign. Please try again."); ?>";
 
     // CAT Offline Status Messages
     var lang_cat_working_offline = "<?= __("Working without CAT connection"); ?>";
@@ -167,14 +177,12 @@
 		polyfillCountryFlagEmojis();
 </script>
 
-<script src="<?php echo $this->paths->cache_buster('/assets/js/htmx.min.js'); ?>"></script>
 
-<script>
-    // Reinitialize tooltips after new content has been loaded
-    document.addEventListener('htmx:afterSwap', function(event) {
-        $('[data-bs-toggle="tooltip"]').tooltip();
-    });
-</script>
+<?php if ($worker_enabled ?? false) { ?>
+    <!-- Wavelog Worker JS -->
+    <script>window.WavelogWorker = <?php echo json_encode(['url' => $this->worker->client_url()]); ?>;</script>
+	<script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/worker.js'); ?>"></script>
+<?php } ?>
 
 
 <!-- DATATABLES LANGUAGE -->
@@ -211,11 +219,11 @@ if ($lang_code !== 'en' && file_exists(FCPATH . "assets/json/datatables_language
 if($this->session->userdata('user_id') != null) {
     $versionDialog = $this->optionslib->get_option('version_dialog');
     if (empty($versionDialog)) {
-        $this->optionslib->update('version_dialog', 'release_notes', 'yes');
+        $this->optionslib->update('version_dialog', 'release_notes');
     }
     $versionDialogHeader = $this->optionslib->get_option('version_dialog_header');
     if (empty($versionDialogHeader)) {
-        $this->optionslib->update('version_dialog_header', __("Version Info"), 'yes');
+        $this->optionslib->update('version_dialog_header', __("Version Info"));
     }
     if($versionDialog != "disabled" && !($is_first_login ?? false)) {
         $confirmed = $this->user_options_model->get_options('version_dialog', array('option_name'=>'confirmed'))->result();
@@ -233,7 +241,7 @@ if($this->session->userdata('user_id') != null) {
 <!-- Version Dialog END -->
 
 <!-- SPECIAL CALLSIGN OPERATOR FEATURE -->
-<?php if ($this->config->item('special_callsign') && $this->uri->segment(1) == "dashboard" && $this->session->userdata('clubstation') == 1) { ?>
+<?php if ($this->config->item('special_callsign') && $this->session->userdata('clubstation') == 1) { ?>
 <script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/sections/operator.js'); ?>"></script>
 <script>
 	<?php
@@ -246,8 +254,7 @@ if($this->session->userdata('user_id') != null) {
     let sc_account_call = '<?php echo $account_call; ?>'
 
 	<?php
-    # if the operator call and the account call is the same we show the dialog (except for admins!)
-    if ($op_call == $account_call && $user_type != '99') { ?>
+    if ($this->uri->segment(1) == "dashboard" && $op_call == $account_call && $user_type != '99') { ?>
 
         // load the dialog with javascript
         displayOperatorDialog();
@@ -295,13 +302,6 @@ function stopImpersonate_modal() {
 <!-- SPECIAL CALLSIGN OPERATOR FEATURE END -->
 
 <script>
-    // Replace all Ø in the searchbar
-    $('#nav-bar-search-input').on('input', function () {
-        $(this).val($(this).val().replace(/0/g, 'Ø'));
-    });
-</script>
-
-<script>
     var current_active_location = "<?php echo $this->stations->find_active(); ?>";
     quickswitcher_show_activebadge(current_active_location);
 </script>
@@ -335,8 +335,27 @@ function stopImpersonate_modal() {
     <script id="dxccmapjs" type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/sections/dxccmap.js'); ?>" tileUrl="<?php echo $this->optionslib->get_option('option_map_tile_server');?>"></script>
 <?php } ?>
 
+<?php if ($this->uri->segment(1) == "awards" && ($this->uri->segment(2) == "wwff") ) { ?>
+    <script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/leaflet/leaflet.markercluster.js'); ?>"></script>
+    <script id="wwffmapjs" type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/sections/wwffmap.js'); ?>" tileUrl="<?php echo $this->optionslib->get_option('option_map_tile_server');?>"></script>
+<?php } ?>
+
+<?php if ($this->uri->segment(1) == "awards" && ($this->uri->segment(2) == "sota") ) { ?>
+    <script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/leaflet/leaflet.markercluster.js'); ?>"></script>
+    <script id="sotamapjs" type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/sections/sotamap.js'); ?>" tileUrl="<?php echo $this->optionslib->get_option('option_map_tile_server');?>"></script>
+<?php } ?>
+
+<?php if ($this->uri->segment(1) == "awards" && ($this->uri->segment(2) == "pota") ) { ?>
+    <script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/leaflet/leaflet.markercluster.js'); ?>"></script>
+    <script id="potamapjs" type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/sections/potamap.js'); ?>" tileUrl="<?php echo $this->optionslib->get_option('option_map_tile_server');?>"></script>
+<?php } ?>
+
 <?php if ($this->uri->segment(1) == "awards" && ($this->uri->segment(2) == "wae") ) { ?>
     <script id="waejs" type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/sections/wae.js'); ?>"></script>
+<?php } ?>
+
+<?php if ($this->uri->segment(1) == "awards" && ($this->uri->segment(2) == "amsat_rover") ) { ?>
+    <script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/sections/amsat_award.js'); ?>"></script>
 <?php } ?>
 
 <?php if ($this->uri->segment(1) == "statistics" && $this->uri->segment(2) == "") { ?>
@@ -351,12 +370,13 @@ function stopImpersonate_modal() {
     <script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/sections/continents.js'); ?>"></script>
 <?php } ?>
 
-<?php if ($this->uri->segment(1) == "adif" || $this->uri->segment(1) == "qrz" || $this->uri->segment(1) == "hrdlog" || $this->uri->segment(1) == "webadif" || $this->uri->segment(1) == "sattimers") { ?>
+<?php if ($this->uri->segment(1) == "adif" || $this->uri->segment(1) == "qrz" || $this->uri->segment(1) == "hrdlog" || $this->uri->segment(1) == "webadif") { ?>
     <!-- Javascript used for ADIF Import and Export Areas -->
     <script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/moment.min.js'); ?>"></script>
 <?php } ?>
 
 <?php if ($this->uri->segment(1) == "adif" ) { ?>
+	<script src="<?php echo $this->paths->cache_buster('/assets/js/bootstrap-multiselect.js'); ?>"></script>
     <script src="<?php echo $this->paths->cache_buster('/assets/js/sections/adif.js'); ?>"></script>
     <script src="<?php echo $this->paths->cache_buster('/assets/js/jszip.min.js'); ?>"></script>
 <?php } ?>
@@ -869,12 +889,12 @@ document.onkeyup = function(e) {
 
 
 
-function showActivatorsMap(call, count, grids) {
+function showActivatorsMap(call, count, grids, grid_color) {
 
     let re = /,/g;
     grids = grids.replace(re, ', ');
 
-    var result = '<?= __("Callsign: "); ?>'+call.replace('0', '&Oslash;')+"<br />";
+    var result = '<?= __("Callsign: "); ?>'+'<span class="callsign">'+call+'</span>'+"<br />";
     result +=    '<?= __("Count: "); ?>'+count+"<br/>";
     result +=    '<?= __("Grids: "); ?>'+grids+"<br/><br />";
 
@@ -887,11 +907,13 @@ function showActivatorsMap(call, count, grids) {
         container._leaflet_id = null;
     }
 
-    const map = new L.map('mapactivators').setView([30, 0], 1.5);
+    const map = new L.map('mapactivators', {
+        fullscreenControl: true,
+    }).setView([30, 0], 1.5);
 
     var grid_four = grids.split(', ');
 
-    var maidenhead = new L.maidenheadactivators(grid_four).addTo(map);
+    var maidenhead = new L.maidenheadactivators(grid_four, grid_color).addTo(map);
 
     var osmUrl = '<?php echo $this->optionslib->get_option('option_map_tile_server');?>';
     var osmAttrib = option_map_tile_server_copyright;
@@ -930,7 +952,9 @@ function showActivatorsMap(call, count, grids) {
             <?php } ?>
 
             <?php printf("var dashboard_qso_count = '%d';", $this->session->userdata('dashboard_last_qso_count')) ?>
-            initmap(grid,'map',{'dataPost':{'nb_qso': dashboard_qso_count}});
+            <?php if (($this->session->userdata('user_dashboard_map') ?? 'Y') != 'N') { ?>
+                initmap(grid,'map',{'dataPost':{'nb_qso': dashboard_qso_count}});
+            <?php } ?>
 
             <?php if ($is_first_login ?? false) : ?>
                 $('#firstLoginWizardModal').modal('show');
@@ -997,12 +1021,28 @@ function findlotwunconfirmed(){
     });
 }
 
-function searchButtonPress() {
+function searchButtonPress(searchDxcc) {
     if (event) { event.preventDefault(); }
     if ($('#callsign').val()) {
 		$('#btn-lba').removeAttr('hidden');
         let fixedcall = $('#callsign').val().trim();
-        $('#partial_view').load("logbook/search_result/" + fixedcall.replaceAll('Ø', '0'), function() {
+        $('#partial_view').load("logbook/search_result/" + fixedcall, function() {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+            $('.table-responsive .dropdown-toggle').off('mouseenter').on('mouseenter', function() {
+                showQsoActionsMenu($(this).closest('.dropdown'));
+            });
+        });
+    } else if (searchDxcc) {
+        $('#partial_view').load("<?php echo site_url('search/search_result'); ?>", {
+            search: JSON.stringify({
+                condition: "AND",
+                rules: [{
+                    field: "COL_DXCC",
+                    operator: "equal",
+                    value: searchDxcc
+                }]
+            })
+        }, function() {
             $('[data-bs-toggle="tooltip"]').tooltip();
             $('.table-responsive .dropdown-toggle').off('mouseenter').on('mouseenter', function() {
                 showQsoActionsMenu($(this).closest('.dropdown'));
@@ -1015,6 +1055,9 @@ $(document).ready(function(){
     <?php if($this->input->post('callsign') != "") { ?>
         $('#callsign').val('<?php echo $this->input->post('callsign'); ?>');
         searchButtonPress();
+    <?php } ?>
+    <?php if($this->input->post('dxcc') !== null && is_numeric($this->input->post('dxcc'))) { ?>
+        searchButtonPress(<?php echo (int) $this->input->post('dxcc'); ?>);
     <?php } ?>
 
 $($('#callsign')).on('keypress',function(e) {
@@ -1029,9 +1072,11 @@ $($('#callsign')).on('keypress',function(e) {
 </script>
 <?php } ?>
 
-<?php if ($this->uri->segment(1) == "logbook" && $this->uri->segment(2) != "view") { ?>
+<?php if ($this->uri->segment(1) == "logbook" || $this->uri->segment(1) == "logbookadvanced" || $this->uri->segment(1) == "eqsl" || $this->uri->segment(1) == "generic_qsl" || $this->uri->segment(1) == "activators" || $this->uri->segment(1) == "distances" || $this->uri->segment(1) == "distancerecords" || $this->uri->segment(1) == "timeline" || $this->uri->segment(1) == "callstats" || $this->uri->segment(1) == "statistics" || $this->uri->segment(1) == "countqsoby" || $this->uri->segment(1) == "awards" || $this->uri->segment(1) == "calltester" || $this->uri->segment(1) == "zonechecker" || $this->uri->segment(1) == "qslprint" || $this->uri->segment(1) == "qso" || $this->uri->segment(1) == "dbtools" || $this->uri->segment(1) == "qsl" || $this->uri->segment(1) == "search" || $this->uri->segment(1) == "adif" || $this->uri->segment(1) == "lotw" || $this->uri->segment(1) == "qrz") { ?>
     <script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/leaflet/L.Maidenhead.js'); ?>"></script>
     <script id="leafembed" type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/leaflet/leafembed.js'); ?>" tileUrl="<?php echo $this->optionslib->get_option('option_map_tile_server');?>"></script>
+<?php } ?>
+<?php if ($this->uri->segment(1) == "logbook" && $this->uri->segment(2) != "view" && $this->optionslib->get_option('logbook_map') != "false") { ?>
     <script type="text/javascript">
       $(function () {
          $('[data-bs-toggle="tooltip"]').tooltip()
@@ -1061,6 +1106,7 @@ $($('#callsign')).on('keypress',function(e) {
 
 <?php if ($this->uri->segment(1) == "qso") { ?>
 
+<script src="<?php echo $this->paths->cache_buster('/assets/js/sections/callsign_validation.js'); ?>"></script>
 <script src="<?php echo $this->paths->cache_buster('/assets/js/sections/qso.js'); ?>"></script>
 <script src="<?php echo $this->paths->cache_buster('/assets/js/sections/satellite_functions.js'); ?>"></script>
 <script src="<?php echo $this->paths->cache_buster('/assets/js/bootstrap-multiselect.js'); ?>"></script>
@@ -1075,13 +1121,6 @@ $($('#callsign')).on('keypress',function(e) {
     $active_station_id = $this->stations->find_active();
     $station_profile = $this->stations->profile($active_station_id);
     $active_station_info = $station_profile->row();
-
-    if (strpos(($active_station_info->station_gridsquare ?? ''), ',') !== false) {
-        $gridsquareArray = explode(',', $active_station_info->station_gridsquare);
-        $user_gridsquare = $gridsquareArray[0];
-    } else {
-        $user_gridsquare = ($active_station_info->station_gridsquare ?? '');
-    }
 ?>
 <style>
 .grid-text {
@@ -1106,24 +1145,18 @@ $($('#callsign')).on('keypress',function(e) {
   var mymap = L.map('qsomap', {
     fullscreenControl: true,
     fullscreenControlOptions: {
-			position: 'topleft'
-		},
-}).setView(pos, 12);
+      position: 'topleft'
+    },
+  }).setView(pos, 12);
 
 maidenhead = L.maidenheadqrb().addTo(mymap);
 mymap.on('mousemove', onQsoMapMove);
+<?php if (($active_station_info->station_gridsquare ?? '') != "") { ?>
   $.ajax({
      url: base_url + 'index.php/logbook/qralatlngjson',
      type: 'post',
      data: {
-<?php if (($active_station_info->station_gridsquare ?? '') != "") { ?>
-        qra: '<?php echo $user_gridsquare; ?>',
-<?php } else if (null !== $this->config->item('locator')) { ?>
-        qra: '<?php echo $this->config->item('locator'); ?>',
-<?php } else { ?>
-        // Fallback to London in case all else fails
-        qra: 'IO91WM',
-<?php } ?>
+        qra: "<?=$active_station_info->station_gridsquare; ?>",
      },
      success: function(data) {
         result = JSON.parse(data);
@@ -1135,6 +1168,27 @@ mymap.on('mousemove', onQsoMapMove);
      error: function() {
      },
   });
+<?php } else if (($active_station_info->dxcc_lat ?? '') != '' && ($active_station_info->dxcc_lon ?? '') != '') { ?>
+     pos = [<?= $active_station_info->dxcc_lat;?> , <?= $active_station_info->dxcc_lon; ?>];
+     mymap.panTo(pos);
+<?php } else if (($this->config->item('locator') ?? '') != '') { ?>
+  $.ajax({
+     url: base_url + 'index.php/logbook/qralatlngjson',
+     type: 'post',
+     data: {
+     qra: "<?= $this->config->item('locator'); ?>",
+     },
+     success: function(data) {
+        result = JSON.parse(data);
+        if (typeof result[0] !== "undefined" && typeof result[1] !== "undefined") {
+           mymap.panTo([result[0], result[1]]);
+           pos = result;
+        }
+     },
+     error: function() {
+     },
+  });
+<?php } ?>
 
   L.tileLayer('<?php echo $this->optionslib->get_option('option_map_tile_server');?>', {
     maxZoom: 18,
@@ -1156,6 +1210,7 @@ mymap.on('mousemove', onQsoMapMove);
         var div = L.DomUtil.create("div", "legend");
         div.innerHTML += '<div id="qsomapgrid"></div>';
 		div.innerHTML += '<input type="checkbox" onclick="toggleGridsquares(this.checked)" ' + (typeof gridsquare_layer !== 'undefined' && gridsquare_layer ? 'checked' : '') + ' style="outline: none;"><span> ' + lang_gen_hamradio_gridsquares + '</span><br>';
+        L.DomEvent.disableClickPropagation(div);
         return div;
     };
 
@@ -1304,7 +1359,7 @@ mymap.on('mousemove', onQsoMapMove);
   </script>
 
 <?php } ?>
-<?php if ( $this->uri->segment(1) == "qso" || ($this->uri->segment(1) == "contesting" && $this->uri->segment(2) != "add")) { ?>
+<?php if ( $this->uri->segment(1) == "qso") { ?>
 	<!--- Frequency input functionality --->
     <script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/sections/qrg_handler.js'); ?>"></script>
     <script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/moment.min.js'); ?>"></script>
@@ -1699,6 +1754,10 @@ $(document).ready(function(){
 	<script src="<?php echo $this->paths->cache_buster('/assets/js/sections/distances.js'); ?>"></script>
 <?php } ?>
 
+<?php if ($this->uri->segment(1) == "countqsoby") { ?>
+	<script src="<?php echo $this->paths->cache_buster('/assets/js/sections/countqsoby.js'); ?>"></script>
+<?php } ?>
+
 
     <?php if ($this->uri->segment(1) == "hrdlog") { ?>
 		<script src="<?php echo $this->paths->cache_buster('/assets/js/sections/hrdlog.js'); ?>"></script>
@@ -1715,7 +1774,7 @@ $(document).ready(function(){
     $('.tabledxcc').DataTable({
         "pageLength": 25,
         responsive: false,
-        ordering: false,
+        ordering: true,
         "scrollY":        "400px",
         "scrollCollapse": true,
         "paging":         false,
@@ -2171,7 +2230,7 @@ $('#sats').change(function(){
     <?php if ($this->uri->segment(1) == "timeline") { ?>
         <script>
          $.fn.dataTable.ext.buttons.clear = {
-               className: 'buttons-clear',
+               className: 'buttons-clear btn-sm',
                action: function ( e, dt, node, config ) {
                   dt.search('');
                   dt.draw();
@@ -2189,10 +2248,24 @@ $('#sats').change(function(){
                     url: getDataTablesLanguageUrl(),
                 },
                 dom: 'Bfrtip',
+                initComplete: function() {
+                    document.querySelectorAll('.timelinetable [data-bs-toggle="tooltip"]').forEach(el => {
+                        new bootstrap.Tooltip(el, {
+                            container: 'body',
+                            html: true,
+                            placement: 'right',
+                            fallbackPlacements: ['right', 'top'],
+                            trigger: 'hover',
+                            offset: [0, 2],
+                            customClass: 'tooltip-tl',
+                            delay: { show: 200, hide: 150 }
+                        });
+                    });
+                },
                 buttons: [
                     {
 						extend: 'csv',
-						className: 'mb-1 btn btn-primary', // Bootstrap classes
+						className: 'mb-1 btn btn-sm btn-primary', // Bootstrap classes
 							init: function(api, node, config) {
 								$(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
 						},
@@ -2349,19 +2422,6 @@ $('#sats').change(function(){
         if (isDarkModeTheme()) {
             $('[class*="buttons"]').css("color", "white");
         }
-	$(document).ready(function() {
-		var target = document.body;
-		var observer = new MutationObserver(function() {
-			$('#dt-search-0').on('keyup', function (e) {
-				tocrappyzero=$(this).val().toUpperCase().replaceAll(/0/g, 'Ø');
-				$(this).val(tocrappyzero);
-				$(this).trigger("input");
-			});
-		});
-		var config = { childList: true, subtree: true};
-		// pass in the target node, as well as the observer options
-		observer.observe(target, config);
-	});
 
     </script>
 <?php } ?>
@@ -2370,14 +2430,14 @@ $('#sats').change(function(){
 <script>
 function viewQsl(picture, callsign) {
 
-            var webpath_qsl = "<?php echo $this->paths->getPathQsl(); ?>";
+            var webpath_qsl = "<?php echo method_exists($this->paths, 'getUserdataPath') ? $this->paths->getUserdataPath('qsl_card') : $this->paths->getPathQsl(); ?>";
             var textAndPic = $('<div class="text-center"></div>');
                 textAndPic.append('<img class="img-fluid w-qsl" style="height:auto;width:auto;"src="'+base_url+webpath_qsl+'/'+picture+'" />');
             var title = '';
             if (callsign == null) {
                 title = "<?= __("QSL Card"); ?>";
             } else {
-                title = "<?= __("QSL Card for "); ?>" + callsign.replace('0', '&Oslash;');
+                title = "<?= __("QSL Card for "); ?>" + '<span class="callsign">'+callsign+'</span>';
             }
 
             BootstrapDialog.show({
@@ -2431,7 +2491,7 @@ function deleteQsl(id) {
 </script>
 <script>
 function viewEqsl(picture, callsign) {
-            var webpath_eqsl = '<?php echo $this->paths->getPathEqsl(); ?>';
+            var webpath_eqsl = '<?php echo method_exists($this->paths, 'getUserdataPath') ? $this->paths->getUserdataPath('eqsl_card') : $this->paths->getPathEqsl(); ?>';
             var baseURL= "<?php echo base_url(); ?>";
             var $textAndPic = $('<div></div>');
                 $textAndPic.append('<img class="img-fluid" style="height:auto;width:auto;"src="'+baseURL+webpath_eqsl+'/'+picture+'" />');
@@ -2439,7 +2499,7 @@ function viewEqsl(picture, callsign) {
             if (callsign == null) {
                 title = "<?= __("eQSL Card"); ?>";
             } else {
-                title = "<?= __("eQSL Card for "); ?>" + callsign.replace('0', '&Oslash;');
+                title = "<?= __("eQSL Card for "); ?>" + '<span class="callsign">'+callsign+'</span>';
             }
 
             BootstrapDialog.show({
@@ -2477,7 +2537,7 @@ function viewEqsl(picture, callsign) {
   /*
    * Used to fetch QSOs from the logbook in the awards
    */
-    function displayContacts(searchphrase, band, sat, orbit, mode, type, qsl, datefrom, dateto) {
+    function displayContacts(searchphrase, band, sat, orbit, mode, type, qsl, datefrom, dateto, propagation) {
         $.ajax({
             url: base_url + 'index.php/awards/qso_details_ajax',
             type: 'post',
@@ -2490,7 +2550,8 @@ function viewEqsl(picture, callsign) {
                 'Type': type,
                 'QSL' : qsl,
 				'dateFrom': datefrom,
-				'dateTo': dateto
+				'dateTo': dateto,
+				'Propagation': (propagation && propagation !== 'All') ? propagation : '',
             },
             success: function (html) {
                 BootstrapDialog.show({
@@ -2526,20 +2587,8 @@ function viewEqsl(picture, callsign) {
                         $('.table-responsive .dropdown-toggle').off('mouseenter').on('mouseenter', function () {
                             showQsoActionsMenu($(this).closest('.dropdown'));
                         });
-
-                       var target = document.body;
-                       var observer = new MutationObserver(function() {
-                               $('#dt-search-0').on('keyup', function (e) {
-                                       tocrappyzero=$(this).val().toUpperCase().replaceAll(/0/g, 'Ø');
-                                       $(this).val(tocrappyzero);
-                                       $(this).trigger("input");
-                               });
-                       });
-                       var config = { childList: true, subtree: true};
-                       // pass in the target node, as well as the observer options
-                       observer.observe(target, config);
-                    },
-                    buttons: [{
+                     },
+                     buttons: [{
                         label: lang_admin_close,
                         action: function (dialogItself) {
                             dialogItself.close();
@@ -2551,7 +2600,7 @@ function viewEqsl(picture, callsign) {
         });
     }
 
-    function displayContactsOnMap(target, searchphrase, band, sat, orbit, mode, type, qsl, datefrom, dateto) {
+    function displayContactsOnMap(target, searchphrase, band, sat, orbit, mode, type, qsl, datefrom, dateto, propagation) {
 	    $.ajax({
 	    url: base_url + 'index.php/awards/qso_details_ajax',
 		    type: 'post',
@@ -2564,7 +2613,8 @@ function viewEqsl(picture, callsign) {
 			    'Type': type,
 			    'QSL' : qsl,
 				'dateFrom': datefrom,
-				'dateTo': dateto
+				'dateTo': dateto,
+				'Propagation': (propagation && propagation !== 'All') ? propagation : '',
         },
 	    success: function (html) {
 		    var dialog = new BootstrapDialog({
@@ -2625,7 +2675,7 @@ function viewEqsl(picture, callsign) {
     }
 
     function uploadQsl() {
-        var webpath_qsl = "<?php echo $this->paths->getPathQsl(); ?>";
+        var webpath_qsl = "<?php echo method_exists($this->paths, 'getUserdataPath') ? $this->paths->getUserdataPath('qsl_card') : $this->paths->getPathQsl(); ?>";
         var formdata = new FormData(document.getElementById("fileinfo"));
 
         $.ajax({
@@ -2670,9 +2720,7 @@ function viewEqsl(picture, callsign) {
                     }
 
                 } else if (data.status.front.status != '') {
-                    $("#qslupload").append('<div class="alert alert-danger">'+"<?= __("Front QSL Card:"); ?>  " +
-                    data.status.front.error +
-                        '</div>');
+                    showToast("<?= __("Front QSL Card"); ?>", data.status.front.error, 'bg-danger text-white', 5000);
                 }
                 if (data.status.back.status == 'Success') {
                     var qsoid = $("#qsoid").text();
@@ -2708,10 +2756,11 @@ function viewEqsl(picture, callsign) {
                         $("#qslcardback").val(null);
                     }
                 } else if (data.status.back.status != '') {
-                    $("#qslupload").append('<div class="alert alert-danger">\n'+"<?= __("Back QSL Card:"); ?>  " +
-                    data.status.back.error +
-                        '</div>');
+                    showToast("<?= __("Back QSL Card"); ?>", data.status.back.error, 'bg-danger text-white', 5000);
                 }
+            },
+            error: function () {
+                showToast("<?= __("Upload failed"); ?>", "<?= __("The QSL card upload could not be completed."); ?>", 'bg-danger text-white', 5000);
             }
         });
     }
@@ -2762,21 +2811,15 @@ function viewEqsl(picture, callsign) {
 	}
 
 </script>
-<?php if ($this->uri->segment(1) == "contesting" && ($this->uri->segment(2) != "add" && $this->uri->segment(2) != "edit")) { ?>
-    <script>
-        var manual = <?php echo $manual_mode; ?>;
-    </script>
-<?php } ?>
 
-<?php if ($this->uri->segment(2) == "counties" || $this->uri->segment(2) == "counties_details") { ?>
+<?php if ($this->uri->segment(2) == "counties") { ?>
 <script>
-    $('.countiestable').DataTable({
+    $('.countiesprogresstable').DataTable({
         "pageLength": 25,
         responsive: false,
         ordering: false,
-        "scrollY":        "390px",
-        "scrollCollapse": true,
-        "paging":         false,
+		"scrollY":        "390px",
+        "paging":  false,
         "scrollX": true,
         "language": {
             url: getDataTablesLanguageUrl(),
@@ -2803,7 +2846,7 @@ function viewEqsl(picture, callsign) {
         $.ajax({
             url: baseURL + 'index.php/awards/counties_details_ajax',
             type: 'post',
-            data: {'State': state, 'County': county },
+            data: $.extend({'State': state, 'County': county }, countiesQslFilterData()),
             success: function(html) {
                 BootstrapDialog.show({
                     title: lang_general_word_qso_data,
@@ -2812,7 +2855,133 @@ function viewEqsl(picture, callsign) {
                     nl2br: false,
                     message: html,
                     onshown: function(dialog) {
-                       $('[data-bs-toggle="tooltip"]').tooltip();
+						$('[data-bs-toggle="tooltip"]').tooltip();
+                    },
+                    buttons: [{
+                        label: lang_admin_close,
+                        action: function (dialogItself) {
+                            dialogItself.close();
+                        }
+                    }]
+                });
+            }
+        });
+    }
+
+    function countiesQslFilterData() {
+        var sources = ['qsl', 'lotw', 'eqsl', 'qrz', 'clublog'];
+        var data = {};
+        var $qslCheckbox = $('#countiesQsl');
+        if ($qslCheckbox.length) {
+            sources.forEach(function(source) {
+                data[source] = $('#counties' + source.charAt(0).toUpperCase() + source.slice(1)).is(':checked') ? 1 : 0;
+            });
+            data['band'] = $('#countiesBand').val() || [];
+            data['mode'] = $('#countiesMode').val() || [];
+        }
+        return data;
+    }
+
+    function displayStateCounties(state) {
+        var baseURL= "<?php echo base_url(); ?>";
+        $.ajax({
+            url: baseURL + 'index.php/awards/counties_state_ajax',
+            type: 'post',
+            data: $.extend({'State': state }, countiesQslFilterData()),
+            success: function(html) {
+                BootstrapDialog.show({
+                    title: "<?php echo __("US Counties for state"); ?>" + ': ' + state,
+                    size: BootstrapDialog.SIZE_WIDE,
+                    cssClass: 'counties-state-dialog',
+                    nl2br: false,
+                    message: html,
+                    onshown: function(dialog) {
+                        $('[data-bs-toggle="tooltip"]').tooltip();
+                        $('.counties_states_table').DataTable({
+                            "pageLength": 25,
+                            responsive: true,
+                            ordering: false,
+                            "scrollCollapse": true,
+                            "scrollY":        "390px",
+                            "paging":  false,
+                            "scrollX": false,
+                            "language": {
+                                url: getDataTablesLanguageUrl(),
+                            },
+                            dom: 'Bfrtip',
+                            buttons: [
+                                {
+                                    extend: 'csv',
+                                    className: 'mb-1 btn btn-primary', // Bootstrap classes
+                                    init: function(api, node, config) {
+                                        $(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
+                                    },
+                                }
+                            ]
+                        });
+                        // change color of csv-button if dark mode is chosen
+                        if (isDarkModeTheme()) {
+                            $(".buttons-csv").css("color", "white");
+                        }
+                    },
+                    buttons: [{
+                        label: lang_admin_close,
+                        action: function (dialogItself) {
+                            dialogItself.close();
+                        }
+                    }]
+                });
+            }
+        });
+    }
+
+    function displayStateCountiesList(state, type) {
+        var baseURL= "<?php echo base_url(); ?>";
+        var titles = {
+            worked: "<?php echo __("Worked counties for state:"); ?>",
+            confirmed: "<?php echo __("Confirmed counties for state:"); ?>",
+            target: "<?php echo __("Counties in state:"); ?>",
+            needed: "<?php echo __("Needed counties for state:"); ?>"
+        };
+        $.ajax({
+            url: baseURL + 'index.php/awards/counties_list_ajax',
+            type: 'post',
+            data: $.extend({'State': state, 'Type': type }, countiesQslFilterData()),
+            success: function(html) {
+                BootstrapDialog.show({
+                    title: (titles[type] || titles.worked) + " " +state,
+                    size: BootstrapDialog.SIZE_WIDE,
+                    cssClass: 'counties-list-dialog',
+                    nl2br: false,
+                    message: html,
+                    onshown: function(dialog) {
+                        $('[data-bs-toggle="tooltip"]').tooltip();
+                        $('.countiestable').DataTable({
+                            "pageLength": 25,
+                            responsive: false,
+                            ordering: false,
+                            "scrollY":        "390px",
+                            "scrollCollapse": true,
+                            "paging":         false,
+                            "scrollX": true,
+                            "language": {
+                                url: getDataTablesLanguageUrl(),
+                            },
+                            dom: 'Bfrtip',
+                            buttons: [
+                                {
+                                    extend: 'csv',
+                                    className: 'mb-1 btn btn-primary', // Bootstrap classes
+                                    init: function(api, node, config) {
+                                        $(node).removeClass('dt-button').addClass('btn btn-primary'); // Ensure Bootstrap class applies
+                                    },
+                                }
+                            ]
+                        });
+                        // change color of csv-button if dark mode is chosen
+                        if (isDarkModeTheme()) {
+                            $(".buttons-csv").css("color", "white");
+                        }
                     },
                     buttons: [{
                         label: lang_admin_close,
@@ -2857,10 +3026,6 @@ function viewEqsl(picture, callsign) {
 			$(".buttons-csv").css("color", "white");
 		}
 	</script>
-<?php } ?>
-
-<?php if ($this->uri->segment(1) == "contesting" && $this->uri->segment(2) == "add") { ?>
-	<script src="<?php echo $this->paths->cache_buster('/assets/js/sections/contestingnames.js'); ?>"></script>
 <?php } ?>
 
 <?php if ($this->uri->segment(1) == "themes") { ?>
@@ -2980,21 +3145,6 @@ function viewEqsl(picture, callsign) {
     }
 
     ?>
-    <script>
-    	    $(document).ready(function() {
-		    var target = document.body;
-		    var observer = new MutationObserver(function() {
-			    $('#dt-search-1').on('keyup', function (e) {
-				    tocrappyzero=$(this).val().toUpperCase().replaceAll(/0/g, 'Ø');
-				    $(this).val(tocrappyzero);
-				    $(this).trigger("input");
-			    });
-		    });
-		    var config = { childList: true, subtree: true};
-		    // pass in the target node, as well as the observer options
-		    observer.observe(target, config);
-	    });
-    </script>
     <script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/moment.min.js'); ?>"></script>
     <script type="text/javascript" src="<?php echo $this->paths->cache_buster('/assets/js/datetime-moment.js'); ?>"></script>
     <?php if ($this->uri->segment(2) == "wwff") { ?>
@@ -3014,6 +3164,7 @@ function viewEqsl(picture, callsign) {
                 "scrollCollapse": true,
                 "paging":         false,
                 "scrollX": true,
+                columnDefs: [ { className: 'text-center', targets: '_all' } ],
                 "language": {
                     url: getDataTablesLanguageUrl(),
                 },
@@ -3055,6 +3206,7 @@ function viewEqsl(picture, callsign) {
                 "pageLength": 25,
                 responsive: false,
                 ordering: true,
+				columnDefs: [ { className: 'text-center', targets: '_all' } ],
                 "scrollY":        "500px",
                 "scrollCollapse": true,
                 "paging":         false,
@@ -3100,6 +3252,7 @@ function viewEqsl(picture, callsign) {
                 "pageLength": 25,
                 responsive: false,
                 ordering: true,
+				columnDefs: [ { className: 'text-center', targets: '_all' } ],
                 "scrollY":        "500px",
                 "scrollCollapse": true,
                 "paging":         false,

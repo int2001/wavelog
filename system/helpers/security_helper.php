@@ -111,3 +111,41 @@ if ( ! function_exists('encode_php_tags'))
 		return str_replace(array('<?', '?>'), array('&lt;?', '?&gt;'), $str);
 	}
 }
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('valid_uid'))
+{
+	/**
+	 * Validate user id
+	 * Returns TRUE if the value is a positive integer, otherwise FALSE.
+	 *
+	 * @param	mixed	$value
+	 * @return	bool
+	 */
+	function valid_uid($value)
+	{
+		return filter_var($value, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1))) !== FALSE;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if (!function_exists('js_escape')) {
+	/**
+	 * Returns a JavaScript literal, safe to embed in inline handlers
+	 * (onclick="...", href='javascript:...') and <script> blocks.
+	 *
+	 * The returned value brings its own quotes, so don't add any. Since those
+	 * are double quotes, the surrounding HTML attribute must be single quoted:
+	 *   onclick='qso_delete(<?php echo js_escape($call); ?>)'
+	 *
+	 * @param  mixed  $var  Any value json_encode() accepts
+	 * @return string       JS literal, '""' if the value cannot be encoded
+	 */
+	function js_escape($var) {
+		$json = json_encode($var, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_INVALID_UTF8_SUBSTITUTE);
+
+		return ($json === false) ? '""' : $json;
+	}
+}

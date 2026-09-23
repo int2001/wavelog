@@ -401,25 +401,6 @@ class VUCC extends CI_Model
         return $results;
     }
 
-	function grid_detail($gridsquare, $band) {
-		$location_list = "'".implode("','",$this->logbooks_locations_array)."'";
-        $sql = "select COL_CALL from " . $this->config->item('table_name') .
-                " where station_id in (" . $location_list . ")" .
-                " and (col_gridsquare like '" . $gridsquare. "%'
-                    or col_vucc_grids like '%" . $gridsquare. "%')";
-
-        if ($band != 'All') {
-            if ($band == 'SAT') {
-                $sql .= " and col_prop_mode ='" . $band . "'";
-            } else {
-                $sql .= " and col_prop_mode !='SAT'";
-                $sql .= " and col_band ='" . $band . "'";
-            }
-        }
-
-        return $this->db->query($sql);
-    }
-
     /*
      * Fetches VUCC data for ALL bands in 2 queries (optimized)
      * Similar approach to CQ model's getCqZoneData()
@@ -525,13 +506,13 @@ class VUCC extends CI_Model
 	/*
     * Builds the array to display worked/confirmed vucc on dashboard page
     */
-    function fetchVuccSummary($band = 'All') {
+    function fetchVuccSummary($band = 'All',$type = null) {
         // Use associative arrays for O(1) lookups instead of O(n) in_array()
         $totalGridWorked = [];
         $totalGridConfirmed = [];
 
         // Get combined data (2 queries instead of 4)
-        $data = $this->get_vucc_combined_data($band);
+        $data = $this->get_vucc_combined_data($band, $type = null);
 
         // Process col_gridsquare data
         if (!empty($data['gridsquare'])) {
@@ -568,7 +549,7 @@ class VUCC extends CI_Model
         return $vuccArray;
     }
 
-	private function get_vucc_combined_data($band = 'All') {
+	private function get_vucc_combined_data($band = 'All', $type = null) {
         if (!$this->logbooks_locations_array) {
             return ['gridsquare' => [], 'vucc_grids' => []];
         }
@@ -594,7 +575,7 @@ class VUCC extends CI_Model
 
         $sql1 = "SELECT
             DISTINCT UPPER(SUBSTRING(col_gridsquare, 1, 4)) as gridsquare,
-            MAX(CASE WHEN (col_qsl_rcvd='Y' OR col_lotw_qsl_rcvd='Y') THEN 1 ELSE 0 END) as confirmed
+            MAX(CASE WHEN (col_lotw_qsl_rcvd='Y') THEN 1 ELSE 0 END) as confirmed
             FROM " . $this->config->item('table_name') . " log
             INNER JOIN bands b ON (b.band = log.col_band)
             WHERE log.station_id IN (" . $location_list . ")
@@ -626,7 +607,7 @@ class VUCC extends CI_Model
 
         $sql2 = "SELECT
             DISTINCT col_vucc_grids,
-            MAX(CASE WHEN (col_qsl_rcvd='Y' OR col_lotw_qsl_rcvd='Y') THEN 1 ELSE 0 END) as confirmed
+            MAX(CASE WHEN (col_lotw_qsl_rcvd='Y') THEN 1 ELSE 0 END) as confirmed
             FROM " . $this->config->item('table_name') . "
             WHERE station_id IN (" . $location_list . ")
                 AND col_vucc_grids <> ''"

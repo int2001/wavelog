@@ -63,7 +63,7 @@
     let lang_gen_advanced_logbook_error_saving_options = '<?= __("An error occurred while saving options: "); ?>';
     let lang_gen_advanced_logbook_select_at_least_one_row_delete = '<?= __("You need to select a least 1 row to delete!"); ?>';
     let lang_gen_advanced_logbook_select_at_least_one_row_callbook = '<?= __("You need to select a least 1 row to update from callbook!"); ?>';
-    let lang_gen_advanced_logbook_an_error_ocurred_while_making_request = '<?= __("An error ocurred while making the request"); ?>';
+    let lang_gen_advanced_logbook_an_error_occurred_while_making_request = '<?= __("An error occurred while making the request"); ?>';
     let lang_gen_advanced_logbook_select_at_least_one_location = '<?= __("You need to select at least 1 location to do a search!"); ?>';
     let lang_gen_advanced_logbook_update_distances = '<?= __("Update Distances"); ?>';
     let lang_gen_advanced_logbook_records_updated = '<?= __("QSO records updated."); ?>';
@@ -80,6 +80,33 @@
 	let lang_gen_advanced_logbook_confirmedLabel = '<?= __("Gridsquares for"); ?>';
 	let lang_gen_advanced_logbook_workedLabel = '<?= __("Non DXCC matching gridsquare"); ?>';
 	let lang_label_print_options = "<?= __("Label Print Options"); ?>";
+
+	let lang_gen_advanced_logbook_select_row_merge_qso = '<?= __("You need to select exactly 2 QSOs to merge!"); ?>';
+	let lang_gen_advanced_logbook_merge_qsos = '<?= __("Merge QSOs"); ?>';
+	let lang_gen_advanced_logbook_confirm_merge_qsos = '<?= __("Are you really sure you want to merge these QSOs? This operation CAN\'T be undone!"); ?>';
+	let lang_gen_advanced_logbook_danger = '<?= __("Danger"); ?>';
+	let lang_gen_advanced_logbook_cancel = '<?= __("Cancel"); ?>';
+	let lang_gen_advanced_logbook_yes_merge_qsos = '<?= __("Yes, Merge QSOs"); ?>';
+	let lang_gen_advanced_logbook_qsos_merged = '<?= __("QSOs merged successfully!"); ?>';
+	let lang_gen_advanced_logbook_error_merging_qsos = '<?= __("Error merging QSOs"); ?>';
+	let lang_gen_advanced_logbook_error_loading_merge_dialog = '<?= __("Error loading merge dialog"); ?>';
+
+    let lang_gen_advanced_logbook_least_one = '<?= __("You need at least 1 QSO!"); ?>';
+	let lang_gen_advanced_logbook_attach_qsos = '<?= __("Attach QSOs to Contest"); ?>';
+    let lang_gen_advanced_logbook_error_loading_attach_dialog = '<?= __("Error loading attach to contest dialog"); ?>';
+	let lang_gen_advanced_logbook_qsos_attached = '<?= __("QSOs attached to contest successfully!"); ?>';
+	let lang_gen_advanced_logbook_error_attaching = '<?= __("Error attaching QSOs"); ?>';
+
+	let lang_gen_advanced_logbook_detach_qsos = '<?= __("Detach QSOs to Contest"); ?>';
+    let lang_gen_advanced_logbook_error_loading_detach_dialog = '<?= __("Error loading detach to contest dialog"); ?>';
+	let lang_gen_advanced_logbook_qsos_detached = '<?= __("QSOs detached to contest successfully!"); ?>';
+	let lang_gen_advanced_logbook_error_detaching = '<?= __("Error detaching QSOs"); ?>';
+
+	let lang_lba_edit_skipped   = '<?= __("%d of %d selected QSOs were skipped because you can only edit your own QSOs."); ?>';
+	let lang_lba_delete_skipped = '<?= __("%d of %d selected QSOs were skipped because you can only delete your own QSOs."); ?>';
+
+	let lang_gen_advanced_logbook_select_at_least_one_row_qslcard_print = '<?= __("You need to select at least 1 row to print a QSL card!"); ?>';
+	let lang_gen_advanced_logbook_qslcard_print_option = '<?= __("QSL Card print options"); ?>';
 
     let homegrid ='<?php echo strtoupper($homegrid[0]); ?>';
     <?php
@@ -116,6 +143,7 @@
             \"dok\":{\"show\":\"true\"},
             \"wwff\":{\"show\":\"true\"},
             \"sig\":{\"show\":\"true\"},
+            \"sig_info\":{\"show\":\"false\"},
             \"continent\":{\"show\":\"true\"},
             \"qrz\":{\"show\":\"true\"},
             \"profilename\":{\"show\":\"true\"},
@@ -188,6 +216,10 @@
     }
     if (!isset($current_opts->sig)) {
         echo "\nvar o_template = { sig: {show: 'true'}};";
+        echo "\nuser_options={...user_options, ...o_template};";
+    }
+    if (!isset($current_opts->sig_info)) {
+        echo "\nvar o_template = { sig_info: {show: 'false'}};";
         echo "\nuser_options={...user_options, ...o_template};";
     }
     if (!isset($current_opts->continent)) {
@@ -263,6 +295,9 @@
         padding-right: 5px;
         padding-left: 5px;
     }
+    #csv-button-container .dt-buttons {
+        display: contents;
+    }
     .btn-filter-active {
         background-color: #ffc107 !important;
         border-color: #ffc107 !important;
@@ -296,6 +331,7 @@ $options = json_decode($options);
 				<input type="hidden" id="dupemode" name="dupemode" value="" class="filter-field">
 				<input type="hidden" id="dupeband" name="dupeband" value="" class="filter-field">
 				<input type="hidden" id="dupesat" name="dupesat" value="" class="filter-field">
+				<input type="hidden" id="dupedateval" name="dupedateval" value="1800" class="filter-field">
 
         <div class="row pt-2">
 			<div class="d-flex flex-wrap btn-group w-auto mx-auto">
@@ -412,24 +448,9 @@ $options = json_decode($options);
                                         <select id="selectPropagation" class="form-select form-select-sm border border-secondary filter-field" name="propmode">
                                             <option value=""><?= __("All"); ?></option>
                                             <option value="None"><?= _pgettext("Propagation Mode", "None/Empty"); ?></option>
-                                            <option value="AS"><?= _pgettext("Propagation Mode", "Aircraft Scatter"); ?></option>
-                                            <option value="AUR"><?= _pgettext("Propagation Mode", "Aurora"); ?></option>
-                                            <option value="AUE"><?= _pgettext("Propagation Mode", "Aurora-E"); ?></option>
-                                            <option value="BS"><?= _pgettext("Propagation Mode", "Back scatter"); ?></option>
-                                            <option value="ECH"><?= _pgettext("Propagation Mode", "EchoLink"); ?></option>
-                                            <option value="EME"><?= _pgettext("Propagation Mode", "Earth-Moon-Earth"); ?></option>
-                                            <option value="ES"><?= _pgettext("Propagation Mode", "Sporadic E"); ?></option>
-                                            <option value="FAI"><?= _pgettext("Propagation Mode", "Field Aligned Irregularities"); ?></option>
-                                            <option value="F2"><?= _pgettext("Propagation Mode", "F2 Reflection"); ?></option>
-                                            <option value="INTERNET"><?= _pgettext("Propagation Mode", "Internet-assisted"); ?></option>
-                                            <option value="ION"><?= _pgettext("Propagation Mode", "Ionoscatter"); ?></option>
-                                            <option value="IRL"><?= _pgettext("Propagation Mode", "IRLP"); ?></option>
-                                            <option value="MS"><?= _pgettext("Propagation Mode", "Meteor scatter"); ?></option>
-                                            <option value="RPT"><?= _pgettext("Propagation Mode", "Terrestrial or atmospheric repeater or transponder"); ?></option>
-                                            <option value="RS"><?= _pgettext("Propagation Mode", "Rain scatter"); ?></option>
-                                            <option value="SAT"><?= _pgettext("Propagation Mode", "Satellite"); ?></option>
-                                            <option value="TEP"><?= _pgettext("Propagation Mode", "Trans-equatorial"); ?></option>
-                                            <option value="TR"><?= _pgettext("Propagation Mode", "Tropospheric ducting"); ?></option>
+                                            <?php foreach ($adif_propmodes as $mode => $desc) {
+                                               echo "<option value=\"$mode\">".htmlspecialchars_decode($desc)."</option>\n";
+                                            } ?>
                                         </select>
                                     </div>
                                     <div <?php if (($options->cqzone->show ?? "true") == "false") { echo 'style="display:none"'; } ?> class="mb-3 col-lg-2 col-md-2 col-sm-3 col-xl">
@@ -745,106 +766,101 @@ $options = json_decode($options);
                     <!-- Quickfilters Dropdown -->
                     <div class="dropdown d-inline-block" data-bs-auto-close="outside">
                         <button class="btn btn-sm btn-primary dropdown-toggle me-1" type="button" id="quickfilterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-filter"></i> <?= __("Quickfilters"); ?>
+                            <i class="fas fa-filter me-1"></i> <?= __("Quickfilters"); ?>
                         </button>
-						<div class="dropdown-menu dropdown-menu-start" aria-labelledby="quickfilterDropdown" style="min-width: 300px;">
-							<div class="card">
-								<div class="card-header p-2">
-									<span class="h6 w-100 mt-0 mb-0"><?= __("Quicksearch with selected: "); ?></span>
-								</div>
-								<div class="card-body p-2">
-									<div class="d-grid gap-2">
-										<?php if (($options->datetime->show ?? "true") == "true") { ?>
-											<button type="button" class="btn btn-sm btn-primary dropdown-action" id="searchDate"><?= __("Search Date"); ?></button>
-										<?php } ?>
-										<?php if (($options->dx->show ?? "true") == "true") { ?>
-											<button type="button" class="btn btn-sm btn-primary dropdown-action" id="searchCallsign"><?= __("Search Callsign"); ?></button>
-										<?php } ?>
-										<?php if (($options->dxcc->show ?? "true") == "true") { ?>
-											<button type="button" class="btn btn-sm btn-primary dropdown-action" id="searchDxcc"><?= __("Search DXCC"); ?></button>
-										<?php } ?>
-										<?php if (($options->state->show ?? "true") == "true") { ?>
-											<button type="button" class="btn btn-sm btn-primary dropdown-action" id="searchState"><?= __("Search State"); ?></button>
-										<?php } ?>
-										<?php if (($options->gridsquare->show ?? "true") == "true") { ?>
-											<button type="button" class="btn btn-sm btn-primary dropdown-action" id="searchGridsquare"><?= __("Search Gridsquare"); ?></button>
-										<?php } ?>
-										<?php if (($options->cqzone->show ?? "true") == "true") { ?>
-											<button type="button" class="btn btn-sm btn-primary dropdown-action" id="searchCqZone"><?= __("Search CQ Zone"); ?></button>
-										<?php } ?>
-										<?php if (($options->ituzone->show ?? "true") == "true") { ?>
-											<button type="button" class="btn btn-sm btn-primary dropdown-action" id="searchItuZone"><?= __("Search ITU Zone"); ?></button>
-										<?php } ?>
-										<?php if (($options->mode->show ?? "true") == "true") { ?>
-											<button type="button" class="btn btn-sm btn-primary dropdown-action" id="searchMode"><?= __("Search Mode"); ?></button>
-										<?php } ?>
-										<?php if (($options->band->show ?? "true") == "true") { ?>
-											<button type="button" class="btn btn-sm btn-primary dropdown-action" id="searchBand"><?= __("Search Band"); ?></button>
-										<?php } ?>
-										<?php if (($options->iota->show ?? "true") == "true") { ?>
-											<button type="button" class="btn btn-sm btn-primary dropdown-action" id="searchIota"><?= __("Search IOTA"); ?></button>
-										<?php } ?>
-										<?php if (($options->sota->show ?? "true") == "true") { ?>
-											<button type="button" class="btn btn-sm btn-primary dropdown-action" id="searchSota"><?= __("Search SOTA"); ?></button>
-										<?php } ?>
-										<?php if (($options->pota->show ?? "true") == "true") { ?>
-											<button type="button" class="btn btn-sm btn-primary dropdown-action" id="searchPota"><?= __("Search POTA"); ?></button>
-										<?php } ?>
-										<?php if (($options->wwff->show ?? "true") == "true") { ?>
-											<button type="button" class="btn btn-sm btn-primary dropdown-action" id="searchWwff"><?= __("Search WWFF"); ?></button>
-										<?php } ?>
-										<?php if (($options->operator->show ?? "true") == "true") { ?>
-											<button type="button" class="btn btn-sm btn-primary dropdown-action" id="searchOperator"><?= __("Search Operator"); ?></button>
-										<?php } ?>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</div>
+                        <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="quickfilterDropdown">
+                            <li><h6 class="dropdown-header text-body"><?= __("Quicksearch with selected: "); ?></h6></li>
+                            <?php if (($options->datetime->show ?? "true") == "true") { ?>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="searchDate"><i class="fas fa-fw fa-calendar-days me-1"></i><?= __("Search Date"); ?></button></li>
+                            <?php } ?>
+                            <?php if (($options->dx->show ?? "true") == "true") { ?>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="searchCallsign"><i class="fas fa-fw fa-tower-broadcast me-1"></i><?= __("Search Callsign"); ?></button></li>
+                            <?php } ?>
+                            <?php if (($options->dxcc->show ?? "true") == "true") { ?>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="searchDxcc"><i class="fas fa-fw fa-globe me-1"></i><?= __("Search DXCC"); ?></button></li>
+                            <?php } ?>
+                            <?php if (($options->state->show ?? "true") == "true") { ?>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="searchState"><i class="fas fa-fw fa-map-location-dot me-1"></i><?= __("Search State"); ?></button></li>
+                            <?php } ?>
+                            <?php if (($options->gridsquare->show ?? "true") == "true") { ?>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="searchGridsquare"><i class="fas fa-fw fa-table-cells me-1"></i><?= __("Search Gridsquare"); ?></button></li>
+                            <?php } ?>
+                            <?php if (($options->cqzone->show ?? "true") == "true") { ?>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="searchCqZone"><i class="fas fa-fw fa-layer-group me-1"></i><?= __("Search CQ Zone"); ?></button></li>
+                            <?php } ?>
+                            <?php if (($options->ituzone->show ?? "true") == "true") { ?>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="searchItuZone"><i class="fas fa-fw fa-border-all me-1"></i><?= __("Search ITU Zone"); ?></button></li>
+                            <?php } ?>
+                            <?php if (($options->mode->show ?? "true") == "true") { ?>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="searchMode"><i class="fas fa-fw fa-wave-square me-1"></i><?= __("Search Mode"); ?></button></li>
+                            <?php } ?>
+                            <?php if (($options->band->show ?? "true") == "true") { ?>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="searchBand"><i class="fas fa-fw fa-signal me-1"></i><?= __("Search Band"); ?></button></li>
+                            <?php } ?>
+                            <?php if (($options->iota->show ?? "true") == "true") { ?>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="searchIota"><i class="fas fa-fw fa-umbrella-beach me-1"></i><?= __("Search IOTA"); ?></button></li>
+                            <?php } ?>
+                            <?php if (($options->sota->show ?? "true") == "true") { ?>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="searchSota"><i class="fas fa-fw fa-mountain me-1"></i><?= __("Search SOTA"); ?></button></li>
+                            <?php } ?>
+                            <?php if (($options->pota->show ?? "true") == "true") { ?>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="searchPota"><i class="fas fa-fw fa-tree me-1"></i><?= __("Search POTA"); ?></button></li>
+                            <?php } ?>
+                            <?php if (($options->wwff->show ?? "true") == "true") { ?>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="searchWwff"><i class="fas fa-fw fa-leaf me-1"></i><?= __("Search WWFF"); ?></button></li>
+                            <?php } ?>
+                            <?php if (($options->operator->show ?? "true") == "true") { ?>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="searchOperator"><i class="fas fa-fw fa-user me-1"></i><?= __("Search Operator"); ?></button></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
 
 				<!-- End of Main Filters Dropdown -->
 
-				<?php if(clubaccess_check(9)) { ?>
-                    <!-- Actions Dropdown -->
-                    <div class="dropdown d-inline-block" data-bs-auto-close="outside">
-                        <button class="btn btn-sm btn-success dropdown-toggle me-1" type="button" id="actionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-tasks"></i> <?= __("Actions"); ?>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-start" aria-labelledby="actionsDropdown" style="min-width: 300px;">
-                            <script>
-                                var lang_filter_actions_delete_warning = '<?= __("Warning! Are you sure you want to delete the marked QSO(s)?"); ?>';
-                                var lang_filter_actions_delete_warning_details = '<?= __(" QSO(s) will be deleted"); ?>';
-                            </script>
-                            <div class="card">
-								<div class="card-header p-2">
-									<span class="h6 w-100 mt-0 mb-0"><?= __("With selected: "); ?></span>
-								</div>
-								<div class="card-body p-2">
-									<div class="d-grid gap-2">
-										<button type="button" class="btn btn-sm btn-primary dropdown-action" id="btnUpdateFromCallbook"><?= __("Update from Callbook"); ?></button>
-										<button type="button" class="btn btn-sm btn-primary dropdown-action" id="queueBureau"><?= __("Queue Bureau"); ?></button>
-										<button type="button" class="btn btn-sm btn-primary dropdown-action" id="queueDirect"><?= __("Queue Direct"); ?></button>
-										<button type="button" class="btn btn-sm btn-primary dropdown-action" id="queueElectronic"><?= __("Queue Electronic"); ?></button>
-										<button type="button" class="btn btn-sm btn-success dropdown-action" id="sentBureau"><?= __("Sent (Bureau)"); ?></button>
-										<button type="button" class="btn btn-sm btn-success dropdown-action" id="sentDirect"><?= __("Sent (Direct)"); ?></button>
-										<button type="button" class="btn btn-sm btn-success dropdown-action" id="sentElectronic"><?= __("Sent (Electronic)"); ?></button>
-										<button type="button" class="btn btn-sm btn-danger dropdown-action" id="dontSend"><?= __("Not Sent"); ?></button>
-										<button type="button" class="btn btn-sm btn-danger dropdown-action" id="notRequired"><?= __("QSL Not Required"); ?></button>
-										<button type="button" class="btn btn-sm btn-danger dropdown-action" id="notReceived"><?= __("Not Received"); ?></button>
-										<button type="button" class="btn btn-sm btn-warning dropdown-action" id="receivedBureau"><?= __("Received (Bureau)"); ?></button>
-										<button type="button" class="btn btn-sm btn-warning dropdown-action" id="receivedDirect"><?= __("Received (Direct)"); ?></button>
-										<button type="button" class="btn btn-sm btn-warning dropdown-action" id="receivedElectronic"><?= __("Received (Electronic)"); ?></button>
-										<button type="button" class="btn btn-sm btn-info dropdown-action" id="exportAdif"><?= __("Create ADIF"); ?></button>
-										<button type="button" class="btn btn-sm btn-info dropdown-action" id="printLabel"><?= __("Print Label"); ?></button>
-										<button type="button" class="btn btn-sm btn-info dropdown-action" id="qslSlideshow"><?= __("QSL Slideshow"); ?></button>
-										<button type="button" class="btn btn-sm btn-success dropdown-action" id="fixState"><?= __("Fix State"); ?></button>
-									</div>
-								</div>
-							</div>
-                        </div>
-                    </div>
-				<?php } ?>
+                <!-- Actions Dropdown -->
+                <script>
+                    var lang_filter_actions_delete_warning = '<?= __("Warning! Are you sure you want to delete the marked QSO(s)?"); ?>';
+                    var lang_filter_actions_delete_warning_details = '<?= __(" QSO(s) will be deleted"); ?>';
+                </script>
+                <div class="dropdown d-inline-block" data-bs-auto-close="outside">
+                    <button class="btn btn-sm btn-success dropdown-toggle me-1" type="button" id="actionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-tasks me-1"></i> <?= __("Actions"); ?>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="actionsDropdown">
+                        <?php if(clubaccess_check(9)) { ?>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="btnUpdateFromCallbook"><i class="fas fa-fw fa-sync-alt me-1"></i><?= __("Update from Callbook"); ?></button></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="queueBureau"><i class="fas fa-fw fa-inbox me-1"></i><?= __("Queue Bureau"); ?></button></li>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="queueDirect"><i class="fas fa-fw fa-inbox me-1"></i><?= __("Queue Direct"); ?></button></li>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="queueElectronic"><i class="fas fa-fw fa-inbox me-1"></i><?= __("Queue Electronic"); ?></button></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="sentBureau"><i class="fas fa-fw fa-paper-plane me-1"></i><?= __("Sent (Bureau)"); ?></button></li>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="sentDirect"><i class="fas fa-fw fa-paper-plane me-1"></i><?= __("Sent (Direct)"); ?></button></li>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="sentElectronic"><i class="fas fa-fw fa-paper-plane me-1"></i><?= __("Sent (Electronic)"); ?></button></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="dontSend"><i class="fas fa-fw fa-times me-1"></i><?= __("Not Sent"); ?></button></li>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="notRequired"><i class="fas fa-fw fa-ban me-1"></i><?= __("QSL Not Required"); ?></button></li>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="notReceived"><i class="fas fa-fw fa-times-circle me-1"></i><?= __("Not Received"); ?></button></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="receivedBureau"><i class="fas fa-fw fa-check-circle me-1"></i><?= __("Received (Bureau)"); ?></button></li>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="receivedDirect"><i class="fas fa-fw fa-check-circle me-1"></i><?= __("Received (Direct)"); ?></button></li>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="receivedElectronic"><i class="fas fa-fw fa-check-circle me-1"></i><?= __("Received (Electronic)"); ?></button></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="exportAdif"><i class="fas fa-fw fa-file-export me-1"></i><?= __("Create ADIF"); ?></button></li>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="printLabel"><i class="fas fa-fw fa-tag me-1"></i><?= __("Print Label"); ?></button></li>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="qslSlideshow"><i class="fas fa-fw fa-images me-1"></i><?= __("QSL Slideshow"); ?></button></li>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="printQslCard"><i class="fas fa-fw fa-id-card me-1"></i><?= __("Print QSL Card"); ?></button></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="fixState"><i class="fas fa-fw fa-map-marker-alt me-1"></i><?= __("Fix State"); ?></button></li>
+                            <li><button type="button" class="dropdown-item dropdown-action" id="mergeQsos"><i class="fas fa-fw fa-code-branch me-1"></i><?= __("Merge QSOs"); ?></button></li>
+                            <li><hr class="dropdown-divider"></li>
+                        <?php } ?>
+                        <li><button type="button" class="dropdown-item dropdown-action" id="attachContest"><i class="fas fa-fw fa-link me-1"></i><?= __("Attach to Contest"); ?></button></li>
+                        <li><button type="button" class="dropdown-item dropdown-action" id="detachContest"><i class="fas fa-fw fa-unlink me-1"></i><?= __("Detach from Contest"); ?></button></li>
+                        <li><button type="button" class="dropdown-item dropdown-action" id="lbaExportCsv"><i class="fas fa-fw fa-file-csv me-1"></i><?= __("Export to CSV"); ?></button></li>
+                    </ul>
+                </div>
+                <div id="csv-button-container" style="display:none"></div>
 				<label for="qsoResults" class="me-2" style="white-space: nowrap;"><?= __("# Results"); ?></label>
 				<select id="qsoResults" name="qsoresults" class="form-select form-select-sm w-auto me-2" style="height: calc(1.5em + .5rem + 2px) !important;">
 					<option value="250">250</option>
@@ -854,13 +870,13 @@ $options = json_decode($options);
 				</select>
 				<label class="me-2" for="de"><?= __("Location"); ?></label>
 				<select class="form-select form-select-sm w-auto me-2" id="de" name="de" multiple="multiple">
-					<?php foreach ($station_profile->result() as $station) { ?>
+					<?php if($station_profile !== FALSE) { foreach ($station_profile->result() as $station) { ?>
 						<option value="<?php echo $station->station_id; ?>" <?php if ($station->station_id == $active_station_id) {
 							echo " selected =\"selected\""; } ?>>
-							<?= __("Callsign: ") . " " ?>
-							<?php echo str_replace("0", "&Oslash;", strtoupper($station->station_callsign)); ?> (<?php echo $station->station_profile_name; ?>)
+						<?= __("Callsign: ") . " " ?>
+						<span class="callsign"><?php echo strtoupper($station->station_callsign); ?></span> (<?php echo $station->station_profile_name; ?>)
 						</option>
-					<?php } ?>
+					<?php } } ?>
 				</select>
 				<button type="submit" class="btn btn-sm btn-success me-1 ld-ext-right flex-grow-0 mb-2" aria-label="<?= __("Search"); ?>" id="searchButton" style="white-space: nowrap;" data-bs-toggle="tooltip" data-bs-placement="top" title="<?= __("Search"); ?>">
 					<i class="fas fa-search"></i><div class="ld ld-ring ld-spin"></div>
@@ -871,7 +887,7 @@ $options = json_decode($options);
 				<button type="button" class="btn btn-sm btn-primary me-1 ld-ext-right flex-grow-0 mb-2" id="invalidButton" style="white-space: nowrap;">
 					<i class="fa fa-exclamation-triangle"></i> <?= __("Invalid"); ?><div class="ld ld-ring ld-spin"></div>
 				</button>
-				<?php if(clubaccess_check(9)) { ?>
+				<?php if(clubaccess_check(3)) { ?>
 				<button type="button" class="btn btn-sm btn-primary me-1 ld-ext-right flex-grow-0 mb-2" id="editButton" style="white-space: nowrap;">
 					<i class="fas fa-edit"></i> <?= __("Edit"); ?><div class="ld ld-ring ld-spin"></div>
 				</button>
@@ -889,9 +905,8 @@ $options = json_decode($options);
 					<button type="options" class="btn btn-sm btn-primary me-1 flex-grow-0 mb-2" id="optionButton" aria-label="<?= __("Options"); ?>" style="white-space: nowrap;" data-bs-toggle="tooltip" data-bs-placement="top" title="<?= __("Options"); ?>">
 						<i class="fas fa-cog"></i>
 					</button>
-					<button type="button" class="btn btn-sm btn-primary me-1 flex-grow-0 mb-2" id="dbtools" style="white-space: nowrap;" aria-label="<?= __("Database Tools"); ?>"  data-bs-toggle="tooltip" data-bs-placement="top" title="<?= __("Database Tools"); ?>">
-						<i class="fas fa-wrench"></i>
-					</button>
+				<?php } ?>
+				<?php if(clubaccess_check(3)) { ?>
 					<button type="button" class="btn btn-sm btn-danger me-1 flex-grow-0 mb-2" id="deleteQsos" style="white-space: nowrap;" aria-label="<?= __("Delete"); ?>"  data-bs-toggle="tooltip" data-bs-placement="top" title="<?= __("Delete"); ?>">
 						<i class="fas fa-trash-alt"></i>
 					</button>
@@ -906,12 +921,11 @@ $options = json_decode($options);
 		</div>
 
         </form>
-        <div id="csv-button-container" class="mb-2"></div>
-        <table style="width:100%" class="table-sm table table-hover table-striped table-bordered table-condensed text-center" id="qsoList">
+        <table style="width:100%" class="table-sm lbatable table table-hover table-striped table-bordered table-condensed text-center" id="qsoList">
             <thead>
                 <tr>
                     <th>
-                        <div class="form-check" style="margin-top: -1.5em"><input class="form-check-input" type="checkbox" id="checkBoxAll" /></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox" id="checkBoxAll" /></div>
                     </th>
                     <?php if (($options->datetime->show ?? "true") == "true") {
                         echo '<th>' . __("Date/Time") . '</th>';
@@ -1011,6 +1025,9 @@ $options = json_decode($options);
                     } ?>
                     <?php if (($options->sig->show ?? "true") == "true") {
                         echo '<th>SIG</th>';
+                    } ?>
+                    <?php if (($options->sig_info->show ?? "false") == "true") {
+                        echo '<th>' . __("SIG Info") . '</th>';
                     } ?>
                     <?php if (($options->region->show ?? "true") == "true") {
                         echo '<th>' . __("Region") . '</th>';

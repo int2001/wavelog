@@ -9,7 +9,6 @@ class Hamsat extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 	}
 
@@ -152,6 +151,7 @@ class Hamsat extends CI_Controller {
 				$decoded_json->data[$i]->sat_export_name = $decoded_json->data[$i]->satellite->name;
 			}
 			$decoded_json->data[$i]->my_gridsquare = $my_gridsquare;
+			$decoded_json->data[$i]->last_lotw_upload = $this->logbook_model->check_last_lotw($decoded_json->data[$i]->callsign);
 
 		}
 

@@ -11,6 +11,34 @@ if (typeof(user_map_custom.unworked) !== 'undefined') {
 	unworkedColor = user_map_custom.unworked.color;
 }
 
+function getDxccFilterData() {
+    return {
+        band: $('#band2').val(),
+        mode: $('#mode').val(),
+        worked: +$('#worked').prop('checked'),
+        confirmed: +$('#confirmed').prop('checked'),
+        notworked: +$('#notworked').prop('checked'),
+        qsl: +$('#qsl').prop('checked'),
+        lotw: +$('#lotw').prop('checked'),
+        qrz: +$('#qrz').prop('checked'),
+        eqsl: +$('#eqsl').prop('checked'),
+        clublog: +$('#clublog').prop('checked'),
+        includedeleted: +$('#includedeleted').prop('checked'),
+        Africa: +$('#Africa').prop('checked'),
+        Asia: +$('#Asia').prop('checked'),
+        Europe: +$('#Europe').prop('checked'),
+        NorthAmerica: +$('#NorthAmerica').prop('checked'),
+        SouthAmerica: +$('#SouthAmerica').prop('checked'),
+        Oceania: +$('#Oceania').prop('checked'),
+        Antarctica: +$('#Antarctica').prop('checked'),
+        sat: $("#sats").val(),
+        orbit: $("#orbits").val(),
+        dateFrom: $('#dateFrom').val(),
+        dateTo: $('#dateTo').val(),
+        prop_mode: $('#prop_mode').val(),
+    };
+}
+
 document.addEventListener("DOMContentLoaded", function() {
   document.querySelectorAll('.dropdown').forEach(dd => {
 		dd.addEventListener('hide.bs.dropdown', function (e) {
@@ -37,9 +65,13 @@ $('#band2').change(function(){
       $("#orbits").val('All');
       $("#satrow").hide();
       $("#orbitrow").hide();
+      if ($("#prop_mode").val() == "SAT") {
+         $("#prop_mode").val('All');
+      }
    } else {
       $("#satrow").show();
       $("#orbitrow").show();
+      $("#prop_mode").val('SAT');
    }
 });
 
@@ -48,6 +80,7 @@ $('#band2').change();	// trigger the change on fresh-load to hide/show SAT-Param
 $('#sats').change(function(){
    var sat = $("#sats option:selected").text();
       $("#band2").val('SAT');
+      $("#prop_mode").val('SAT');
    if (sat != "All") {
    }
 });
@@ -57,34 +90,16 @@ function load_dxcc_map() {
     $.ajax({
         url: base_url + 'index.php/awards/dxcc_map',
         type: 'post',
-        data: {
-            band: $('#band2').val(),
-            mode: $('#mode').val(),
-            worked: +$('#worked').prop('checked'),
-            confirmed: +$('#confirmed').prop('checked'),
-            notworked: +$('#notworked').prop('checked'),
-            qsl: +$('#qsl').prop('checked'),
-            lotw: +$('#lotw').prop('checked'),
-            qrz: +$('#qrz').prop('checked'),
-            eqsl: +$('#eqsl').prop('checked'),
-            includedeleted: +$('#includedeleted').prop('checked'),
-            Africa: +$('#Africa').prop('checked'),
-            Asia: +$('#Asia').prop('checked'),
-            Europe: +$('#Europe').prop('checked'),
-            NorthAmerica: +$('#NorthAmerica').prop('checked'),
-            SouthAmerica: +$('#SouthAmerica').prop('checked'),
-            Oceania: +$('#Oceania').prop('checked'),
-            Antarctica: +$('#Antarctica').prop('checked'),
-            sat: $("#sats").val(),
-            orbit: $("#orbits").val(),
-			dateFrom: $('#dateFrom').val(),
-			dateTo: $('#dateTo').val(),
-        },
+        data: getDxccFilterData(),
         success: function(data) {
             load_dxcc_map2(data, worked, confirmed, notworked);
         },
         error: function() {
-
+            BootstrapDialog.alert({
+                title: lang_general_word_error,
+                message: 'Error loading DXCC map data',
+                type: BootstrapDialog.TYPE_DANGER,
+            });
         },
     });
 }
@@ -166,6 +181,7 @@ function load_dxcc_map2(data, worked, confirmed, notworked) {
         div.innerHTML += '<i style="background: ' + confirmedColor + '"></i><span>' + lang_general_word_confirmed + ' ('+confirmedcount+')</span><br>';
         div.innerHTML += '<i style="background: ' + workedColor + '"></i><span>' + lang_general_word_worked_not_confirmed + ' ('+workednotconfirmedcount+')</span><br>';
         div.innerHTML += '<i style="background: ' + unworkedColor + '"></i><span>' + lang_general_word_not_worked + ' ('+notworkedcount+')</span><br>';
+        L.DomEvent.disableClickPropagation(div);
         return div;
     };
 
@@ -215,7 +231,7 @@ function addMarker(L, D, mapColor, map) {
 
 function onClick(e) {
     var marker = e.target;
-    displayContactsOnMap($("#dxccmap"),marker.options.adif, $('#band2').val(), $('#sats').val(), $('#orbits').val(), $('#mode').val(), 'DXCC2', '', $('#dateFrom').val(), $('#dateTo').val());
+    displayContactsOnMap($("#dxccmap"),marker.options.adif, $('#band2').val(), $('#sats').val(), $('#orbits').val(), $('#mode').val(), 'DXCC2', '', $('#dateFrom').val(), $('#dateTo').val(), $('#prop_mode').val());
 }
 
 // Preset functionality
@@ -300,3 +316,40 @@ function onClick(e) {
         dateFrom.value = '';
         dateTo.value = '';
     }
+
+// Lazy load progress tab content
+let progressLoaded = false;
+let progressFilterSnapshot = null;
+
+document.getElementById('progress-tab').addEventListener('shown.bs.tab', function () {
+    const currentFilters = JSON.stringify(getDxccFilterData());
+    if (!progressLoaded || progressFilterSnapshot !== currentFilters) {
+        progressFilterSnapshot = currentFilters;
+        loadProgressContent();
+    }
+});
+
+function loadProgressContent() {
+    const loadingEl = document.getElementById('progress-loading');
+    const contentEl = document.getElementById('progress-content');
+    loadingEl.style.display = '';
+    contentEl.innerHTML = '';
+    progressLoaded = true;
+
+	$.ajax({
+        url: base_url + 'index.php/awards/dxcc_progress',
+        type: 'post',
+        data: getDxccFilterData(),
+        success: function(data) {
+            if (data.success) {
+            contentEl.innerHTML = data.html;
+            loadingEl.style.display = 'none';
+        } else {
+            loadingEl.innerHTML = '<div class="alert alert-danger">' + (data.message || 'Error loading progress data') + '</div>';
+        }
+        },
+        error: function() {
+            loadingEl.innerHTML = '<div class="alert alert-danger">Error loading progress data</div>';
+        },
+    });
+}

@@ -9,7 +9,6 @@ class Satellite extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->helper(array('form', 'url'));
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(3)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 	}
 
@@ -83,7 +82,7 @@ class Satellite extends CI_Controller {
 
 		$this->load->model('satellite_model');
 
-		$id = $this->security->xss_clean($this->input->post('id', true));
+		$id = $this->input->post('id', true);
 		$satellite['name'] 	= $this->security->xss_clean($this->input->post('name'));
 		$satellite['displayname'] 	= $this->security->xss_clean($this->input->post('displayname'));
 		$satellite['orbit'] 	= $this->security->xss_clean($this->input->post('orbit'));
@@ -158,6 +157,7 @@ class Satellite extends CI_Controller {
 	}
 
 	public function satellite_data() {
+		session_write_close();
 
 		$this->load->model('satellite_model');
 		$satellite_data = $this->satellite_model->satellite_data();
@@ -180,7 +180,7 @@ class Satellite extends CI_Controller {
 		$this->load->model('stations');
 
 		$pageData['satellites'] = $this->satellite_model->get_all_satellites_with_tle();
-		$data['selsat']=strtoupper($sat ?? $this->satellite_model->get_last_worked_sat());
+		$data['selsat'] = strtoupper($sat ?? $this->satellite_model->get_last_worked_sat() ?? '');
 
 		$footerData = [];
 		$footerData['scripts'] = [
@@ -221,6 +221,19 @@ class Satellite extends CI_Controller {
 		$this->load->model('satellite_model');
 		$satellite_data = $this->satellite_model->get_sat_info($sat);
 
+		// Synthesize TLE text at render time for the legacy JS propagator (OMM-stored sats).
+		if ($satellite_data && !empty($satellite_data->tle)) {
+			require_once './src/predict/Predict/TLE.php';
+			if (Predict_TLE::isOmmJson($satellite_data->tle)) {
+				try {
+					$t = Predict_TLE::fromOmmJson($satellite_data->tle);
+					$satellite_data->tle = $t->toTwolineTle();
+				} catch (\Throwable $e) {
+					log_message('error', 'OMM->TLE synthesis failed for "'.$sat.'": '.$e->getMessage());
+				}
+			}
+		}
+
 		header('Content-Type: application/json');
 		echo json_encode($satellite_data, JSON_FORCE_OBJECT);
 	}
@@ -239,7 +252,13 @@ class Satellite extends CI_Controller {
 		$this->load->model('satellite_model');
 		$this->load->model('stations');
 		$active_station_id = $this->stations->find_active();
-		$pageData['activegrid'] = $this->stations->gridsquare_from_station($active_station_id);
+		// Prefer a gridsquare passed in the query string (e.g. a link from the
+		// activation planner); otherwise fall back to the active station's grid.
+		$grid_param = strtoupper((string) $this->input->get('gridsquare', TRUE));
+		if (!preg_match('/^[A-R]{2}[0-9A-X]{0,8}$/', $grid_param)) {
+			$grid_param = '';
+		}
+		$pageData['activegrid'] = ($grid_param !== '') ? $grid_param : $this->stations->gridsquare_from_station($active_station_id);
 
 		$pageData['satellites'] = $this->satellite_model->get_all_satellites_with_tle();
 
@@ -264,7 +283,9 @@ class Satellite extends CI_Controller {
 			$date = $this->security->xss_clean($this->input->post('date'));
 			$mintime = $this->security->xss_clean($this->input->post('mintime'));
 			$minelevation = $this->security->xss_clean($this->input->post('minelevation'));
-			$data = $this->calcPasses($tles, $yourgrid, $date, $mintime,$minelevation);
+			$data = $this->calcPasses($tles, $yourgrid, $date, $mintime, $minelevation);
+			$hkey_opt = $this->user_options_model->get_options('hamsat',array('option_name'=>'hamsat_key','option_key'=>'api'))->result();
+			$data['hamsat_key'] = $hkey_opt[0]->option_value ?? '';
 
 			$this->load->view('satellite/passtable', $data);
 		}
@@ -372,6 +393,15 @@ class Satellite extends CI_Controller {
 		echo $r;
 	}
 
+	/**
+	 * Build a Predict_TLE from stored elements, handling both legacy TLE text
+	 * and CCSDS OMM JSON.
+	 */
+	private function build_predict_tle($sat_tle) {
+		$this->load->library('satpredict');
+		return $this->satpredict->build_tle($sat_tle);
+	}
+
 	public function get_tle_for_predict() {
 
 		$input_sat = (array) ($this->security->xss_clean($this->input->post('sat')) ?? []);
@@ -393,159 +423,30 @@ class Satellite extends CI_Controller {
 	}
 
 	function calcPasses($sat_tles, $yourgrid, $date, $mintime, $minelevation, $timezone = 'UTC') {
-
-		require_once "./src/predict/Predict.php";
-		require_once "./src/predict/Predict/Sat.php";
-		require_once "./src/predict/Predict/QTH.php";
-		require_once "./src/predict/Predict/Time.php";
-		require_once "./src/predict/Predict/TLE.php";
-
-		// The observer or groundstation is called QTH in ham radio terms
-		$predict  = new Predict();
-		$qth      = new Predict_QTH();
-		$qth->alt = 100;
-
-		$strQRA = $yourgrid;
-
-		if ((strlen($strQRA) % 2 == 0) && (strlen($strQRA) <= 10)) {	// Check if QRA is EVEN (the % 2 does that) and smaller/equal 8
-			$strQRA = strtoupper($strQRA);
-			if (strlen($strQRA) == 4)  $strQRA .= "LL";	// Only 4 Chars? Fill with center "LL" as only A-R allowed
-			if (strlen($strQRA) == 6)  $strQRA .= "55";	// Only 6 Chars? Fill with center "55"
-			if (strlen($strQRA) == 8)  $strQRA .= "LL";	// Only 8 Chars? Fill with center "LL" as only A-R allowed
-
-			if (!preg_match('/^[A-R]{2}[0-9]{2}[A-X]{2}[0-9]{2}[A-X]{2}$/', $strQRA)) {
-				return false;
-			}
-		}
-
-		if(!$this->load->is_loaded('Qra')) {
-			$this->load->library('Qra');
-		}
-		$homecoordinates = $this->qra->qra2latlong($yourgrid);
-
-		$qth->lat = $homecoordinates[0];
-		$qth->lon = $homecoordinates[1];
-
-		$filtered=[];
-		foreach ($sat_tles as $sat_tle) {
-			if ($sat_tle->tle == null) {
-				continue;
-			}
-			try {
-				$temp = preg_split('/\n/', $sat_tle->tle);
-
-				$tle     = new Predict_TLE(($sat_tle->satellite ? $sat_tle->satellite : $sat_tle->displayname), $temp[0], $temp[1]); // Instantiate it
-				$sat     = new Predict_Sat($tle); // Load up the satellite data
-
-				$now     = $this->get_daynum_from_date($date)+($mintime/24); // get the current time as Julian Date (daynum)
-
-				// You can modify some preferences in Predict(), the defaults are below
-				//
-				$predict->minEle     = intval($minelevation); // Minimum elevation for a pass
-				$predict->timeRes    = 1; // Pass details: time resolution in seconds
-				$predict->numEntries = 20; // Pass details: number of entries per pass
-				// $predict->threshold  = -6; // Twilight threshold (sun must be at this lat or lower)
-
-				// Get the passes and filter visible only, takes about 4 seconds for 10 days
-				$results  = $predict->get_passes($sat, $qth, $now, 1);
-				$all_of_sat = $predict->filterVisiblePasses($results);
-				array_push($filtered, ...$all_of_sat);
-			} catch (\Throwable $th) {
-				log_message("Error", "Exception while calculating passes for SAT ".$sat_tle->satellite);
-			}
-		}
-		$sortKey = array_column($filtered, 'aos');
-		array_multisort($sortKey, SORT_ASC, $filtered);
-		// Get Date format
-		if ($this->session->userdata('user_date_format')) {
-			// If Logged in and session exists
-			$custom_date_format = $this->session->userdata('user_date_format');
-		} else {
-			// Get Default date format from /config/wavelog.php
-			$custom_date_format = $this->config->item('qso_date_format');
-		}
-
-		$data['format'] = $custom_date_format . ' H:i:s';
-
-		$data['filtered'] = $filtered;
-		$data['zone'] = $timezone;
-
-		return $data;
-
+		$this->load->library('satpredict');
+		return $this->satpredict->calcPasses($sat_tles, $yourgrid, $date, $mintime, $minelevation, $timezone);
 	}
 
 	function calcPass($sat_tle, $yourgrid, $date, $mintime, $minelevation, $timezone = 'UTC') {
-
-		require_once "./src/predict/Predict.php";
-		require_once "./src/predict/Predict/Sat.php";
-		require_once "./src/predict/Predict/QTH.php";
-		require_once "./src/predict/Predict/Time.php";
-		require_once "./src/predict/Predict/TLE.php";
-
-		// The observer or groundstation is called QTH in ham radio terms
-		$predict  = new Predict();
-		$qth      = new Predict_QTH();
-		$qth->alt = 100;
-
-		$strQRA = $yourgrid;
-
-		if ((strlen($strQRA) % 2 == 0) && (strlen($strQRA) <= 10)) {	// Check if QRA is EVEN (the % 2 does that) and smaller/equal 8
-			$strQRA = strtoupper($strQRA);
-			if (strlen($strQRA) == 4)  $strQRA .= "LL";	// Only 4 Chars? Fill with center "LL" as only A-R allowed
-			if (strlen($strQRA) == 6)  $strQRA .= "55";	// Only 6 Chars? Fill with center "55"
-			if (strlen($strQRA) == 8)  $strQRA .= "LL";	// Only 8 Chars? Fill with center "LL" as only A-R allowed
-
-			if (!preg_match('/^[A-R]{2}[0-9]{2}[A-X]{2}[0-9]{2}[A-X]{2}$/', $strQRA)) {
-				return false;
-			}
-		}
-
-		if(!$this->load->is_loaded('Qra')) {
-			$this->load->library('Qra');
-		}
-		$homecoordinates = $this->qra->qra2latlong($yourgrid);
-
-		$qth->lat = $homecoordinates[0];
-		$qth->lon = $homecoordinates[1];
-
-		$temp = preg_split('/\n/', $sat_tle->tle);
-
-		$tle     = new Predict_TLE($sat_tle->satellite, $temp[0], $temp[1]); // Instantiate it
-		$sat     = new Predict_Sat($tle); // Load up the satellite data
-
-		$now     = $this->get_daynum_from_date($date)+($mintime/24); // get the current time as Julian Date (daynum)
-
-		// You can modify some preferences in Predict(), the defaults are below
-		//
-		$predict->minEle     = intval($minelevation); // Minimum elevation for a pass
-		$predict->timeRes    = 1; // Pass details: time resolution in seconds
-		$predict->numEntries = 20; // Pass details: number of entries per pass
-		// $predict->threshold  = -6; // Twilight threshold (sun must be at this lat or lower)
-
-		// Get the passes and filter visible only, takes about 4 seconds for 10 days
-		$results  = $predict->get_passes($sat, $qth, $now, 1);
-		$filtered = $predict->filterVisiblePasses($results);
-
-		// Get Date format
-		if ($this->session->userdata('user_date_format')) {
-			// If Logged in and session exists
-			$custom_date_format = $this->session->userdata('user_date_format');
-		} else {
-			// Get Default date format from /config/wavelog.php
-			$custom_date_format = $this->config->item('qso_date_format');
-		}
-
-		$data['format'] = $custom_date_format . ' H:i:s';
-
-		$data['filtered'] = $filtered;
-		$data['zone'] = $timezone;
-
-		return $data;
-
+		$this->load->library('satpredict');
+		return $this->satpredict->calcPass($sat_tle, $yourgrid, $date, $mintime, $minelevation, $timezone);
 	}
 
 	function calcSkedPasses($tles) {
 		$overlaps=[];
+		$yourgrid = '';
+		$skedgrid = '';
+		$date = '';
+		
+		// Get Date format
+		if ($this->session->userdata('user_date_format')) {
+			// If Logged in and session exists
+			$custom_date_format = $this->session->userdata('user_date_format');
+		} else {
+			// Get Default date format from /config/wavelog.php
+			$custom_date_format = $this->config->item('qso_date_format');
+		}
+
 		foreach ($tles as $tle) {
 
 			$yourgrid = $this->security->xss_clean($this->input->post('yourgrid'));
@@ -559,15 +460,6 @@ class Satellite extends CI_Controller {
 			$minskedelevation = $this->security->xss_clean($this->input->post('minskedelevation'));
 
 			$skedPass = $this->calcPass($tle, $skedgrid, $date, $mintime, $minskedelevation);
-
-			// Get Date format
-			if ($this->session->userdata('user_date_format')) {
-				// If Logged in and session exists
-				$custom_date_format = $this->session->userdata('user_date_format');
-			} else {
-				// Get Default date format from /config/wavelog.php
-				$custom_date_format = $this->config->item('qso_date_format');
-			}
 
 			$data['format'] = $custom_date_format . ' H:i:s';
 
@@ -611,6 +503,7 @@ class Satellite extends CI_Controller {
 	}
 
 	public static function get_daynum_from_date($date) {
+		require_once "./src/predict/Predict/Time.php";
 		// Convert a Y-m-d date to a day number
 
 		// Convert date to Unix timestamp
@@ -634,12 +527,38 @@ class Satellite extends CI_Controller {
 
 		$data['custom_date_format'] = $custom_date_format;
 
-		$satname = $this->security->xss_clean($this->input->post('sat', true));
+		$satname = $this->input->post('sat', true);
 		$this->load->model('satellite_model');
 
 		$data['satinfo'] = $this->satellite_model->get_satellite_information($satname);
 
 		$this->load->view('satellite/satinfo', $data);
+	}
+
+	public function prepHamsAtPosting() {
+		if ($this->session->userdata('user_date_format')) {
+			// If Logged in and session exists
+			$custom_date_format = $this->session->userdata('user_date_format');
+		} else {
+			// Get Default date format from /config/wavelog.php
+			$custom_date_format = $this->config->item('qso_date_format');
+		}
+		$data['custom_date_format'] = $custom_date_format;
+		$satname = $this->input->post('sat', true);
+		$data['aos'] = $this->input->post('aos', true);
+		$data['tca'] = $this->input->post('tca', true);
+		$data['los'] = $this->input->post('los', true);
+		$data['duration'] = $this->input->post('duration', true);
+		$this->load->model('satellite_model');
+		$data['satinfo'] = $this->satellite_model->get_satellite_information($satname);
+		$this->load->model('stations');
+		$active_station_id = $this->stations->find_active();
+		$data['homegrid'] = $this->stations->gridsquare_from_station($active_station_id);
+		$data['callsign'] = $this->stations->get_station_power($active_station_id)['station_callsign'];
+		$this->load->library('Qra');
+		[$data['lat'], $data['lon']] = $this->qra->qra2latlong($data['homegrid']);
+		$data['refs'] = $this->stations->get_station_refs($active_station_id);
+		$this->load->view('satellite/hamsatpost', $data);
 	}
 
 	public function editTleDialog() {
@@ -653,7 +572,7 @@ class Satellite extends CI_Controller {
 
 		$data['custom_date_format'] = $custom_date_format;
 
-		$id = $this->security->xss_clean($this->input->post('id', true));
+		$id = $this->input->post('id', true);
 		$this->load->model('satellite_model');
 
 		$data['satinfo'] = $this->satellite_model->getsatellite($id)->result();
@@ -679,5 +598,66 @@ class Satellite extends CI_Controller {
 		$this->load->model('satellite_model');
 
 		$this->satellite_model->saveTle($id, $tle);
+	}
+
+	public function post_hams_at() {
+		$ci = & get_instance();
+		$tca = $this->input->post('tca', true);
+		$mode = $this->input->post('mode', true);
+		$catnr = $this->input->post('catnr', true);
+		$lat = (float)$this->input->post('lat', true);
+		$lon = (float)$this->input->post('lon', true);
+		$callsign = $this->input->post('callsign', true);
+		$comment = $this->input->post('comment', true);
+		$grid0 = $this->input->post('grid0', true);
+		$grid1 = $this->input->post('grid1', true);
+		$grid2 = $this->input->post('grid2', true);
+		$grid3 = $this->input->post('grid3', true);
+		$chat = $this->input->post('chat', true);
+		$mhz = $this->input->post('mhz', true);
+		$mhz_direction = $this->input->post('mhz_direction', true);
+		$data = array(
+			'mode' => $mode,
+			'comment' => $comment,
+			'satellite_number' => $catnr,
+			'callsign' => $callsign,
+			'chat_enabled' => $chat == 'true' ? true : false,
+			'grids' => [$grid0, $grid1, $grid2, $grid3],
+			'max_at' => $tca,
+			'mhz' => $mhz,
+			'mhz_direction' => $mhz_direction,
+			'observer_lat' => $lat,
+			'observer_lon' => $lon,
+		);
+		if (ENVIRONMENT == "development" || (ENVIRONMENT == "docker" && filter_var($_ENV['DOCKER_DEVELOPMENT'] ?? false, FILTER_VALIDATE_BOOLEAN))) {
+			$data['test'] = true;
+		}
+		$jsondata = json_encode($data);
+		$hkey_opt=$this->user_options_model->get_options('hamsat',array('option_name'=>'hamsat_key','option_key'=>'api'))->result();
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, 'https://hams.at/api/alerts');
+		curl_setopt($ch, CURLOPT_USERAGENT, 'Wavelog/'.$ci->optionslib->get_option('version'));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Authorization: Bearer '.($hkey_opt[0]->option_value ?? '')));
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS,$jsondata);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+		$result = json_decode(curl_exec($ch), true);
+		$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		if ($httpcode == 422) {
+			log_message('error', 'Error posting to hams.at: '.($result['errors'][0] ?? 'unknown'));
+			$this->output->set_status_header(422);
+			print __("Generic error posting to hams.at. Please check the input values.");
+		} else if ($httpcode == 401) {
+			log_message('error', 'Error authenticating to hams.at: '.($result['errors'][0] ?? 'unknown'));
+			$this->output->set_status_header(401);
+			print __("Error authenticating to hams.at. Please check API key.");
+		} else if ($httpcode < 200 || $httpcode > 299) {
+			log_message('error', 'Error posting to hams.at: HTTP '.$httpcode);
+			$this->output->set_status_header(500);
+			print __("Generic error posting to hams.at. Please try again later.");
+		}
+
 	}
 }

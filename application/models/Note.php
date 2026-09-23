@@ -19,9 +19,11 @@ class Note extends CI_Model {
 	// Return note ID for given category and title (callsign for Contacts), else false
 	public function get_note_id_by_category($user_id, $category, $title) {
 		$check_title = $title;
+		$check_title_slashed = $title;
 		if ($category === 'Contacts') {
 			$this->load->library('callbook'); // Used for callsign parsing
 			$check_title = strtoupper($this->callbook->get_plaincall($title));
+			// Legacy notes may have been stored with Ø instead of 0; match both forms.
 			$check_title_slashed = str_replace('0', 'Ø', $check_title);
 		}
 		$sql = "SELECT id FROM notes WHERE cat = ? AND user_id = ? AND (title = ? OR title = ?) LIMIT 1";
@@ -35,6 +37,7 @@ class Note extends CI_Model {
 	// List all notes for a user or API key
 	function list_all($api_key = null) {
 		// Determine user ID
+		$user_id = null;
 		if ($api_key == null) {
 			$user_id = $this->session->userdata('user_id');
 		} else {
@@ -51,10 +54,11 @@ class Note extends CI_Model {
 	// Add a new note for the logged-in user
 	function add($category, $title, $content, $local_time = null) {
 		$user_id = $this->session->userdata('user_id');
+		$title = $title ?? '';
 		$check_title = $title;
 		if ($category === 'Contacts') {
 			$check_title = trim(strtoupper($title));
-			$title = str_replace('0', 'Ø', $check_title);
+			$title = $check_title;
 		}
 		// Check for existing note with same title in Contacts category
 		if ($this->get_note_id_by_category($user_id, $category, $check_title) && $category === 'Contacts') {
@@ -74,6 +78,7 @@ class Note extends CI_Model {
 	// Edit an existing note for the logged-in user
 	function edit($note_id, $category, $title, $content, $local_time = null) {
 		$user_id = $this->session->userdata('user_id');
+		$title = $title ?? '';
 		$check_title = $title;
 
 		if($this->belongs_to_user($note_id, $user_id) === false) {
@@ -83,7 +88,7 @@ class Note extends CI_Model {
 
 		if ($category === 'Contacts') {
 			$check_title = trim(strtoupper($title));
-			$title = str_replace('0', 'Ø', $check_title);
+			$title = $check_title;
 		}
 		// Check for existing note with same title in Contacts category
 		$existing_id = $this->get_note_id_by_category($user_id, $category, $check_title);
@@ -170,18 +175,6 @@ class Note extends CI_Model {
 
 		$query = $this->db->query($sql, $params);
 		return $query->row()->count;
-	}
-
-	// Get categories with their respective note counts for the logged-in user
-	public function get_categories_with_counts() {
-		$user_id = $this->session->userdata('user_id');
-		$sql = "SELECT cat, COUNT(*) as count FROM notes WHERE user_id = ? GROUP BY cat";
-		$query = $this->db->query($sql, array($user_id));
-		$result = [];
-		foreach ($query->result() as $row) {
-			$result[$row->cat] = (int)$row->count;
-		}
-		return $result;
 	}
 
 	// Search notes with pagination and sorting for the logged-in user

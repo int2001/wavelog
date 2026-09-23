@@ -10,7 +10,7 @@ class Qrz extends CI_Controller {
 	{
 		parent::__construct();
 		
-		if (ENVIRONMENT == 'maintenance' && $this->session->userdata('user_id') == '') {
+		if (MAINTENANCE_MODE && $this->session->userdata('user_id') == '') {
             echo __("Maintenance Mode is active. Try again later.")."\n";
 			redirect('user/login');
 		}
@@ -18,15 +18,15 @@ class Qrz extends CI_Controller {
 
 	// Show frontend if there is one
 	public function index() {
-		$this->config->load('config');
+		redirect('dashboard');
 	}
 
 	/* 
 	 * API Key Status Test
 	 */
-
 	public function qrz_apitest() {
-		$apikey = xss_clean($this->input->post('APIKEY'));
+		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
+		$apikey = trim(xss_clean($this->input->post('APIKEY')));
 		$url = 'https://logbook.qrz.com/api'; // TODO: Move this to database
   
 		$post_data['KEY'] = $apikey;
@@ -42,6 +42,8 @@ class Qrz extends CI_Controller {
 		curl_setopt( $ch, CURLOPT_USERAGENT, 'Wavelog/'.$this->optionslib->get_option('version'));
 		
 		$content = curl_exec($ch);
+		
+		$result = [];
 
 		if ($content){
 			if (stristr($content,'RESULT=OK')) {
@@ -67,6 +69,14 @@ class Qrz extends CI_Controller {
 	 * All QSOs not previously uploaded, will then be uploaded, one at a time
 	 */
 	public function upload() {
+
+		$this->load->helper('cronauth');
+		if (!cronauth_allowed(3)) {
+			// return a 403
+			$this->output->set_status_header(403);
+			exit();
+		}
+
 		$this->setOptions();
 
 		// set the last run in cron table for the correct cron id
@@ -96,7 +106,7 @@ class Qrz extends CI_Controller {
 		}
 	}
 
-	function setOptions() {
+	private function setOptions() {
 		$this->config->load('config');
 		ini_set('memory_limit', '-1');
 		ini_set('display_errors', 1);
@@ -106,7 +116,7 @@ class Qrz extends CI_Controller {
 
 	/*
 	 * Function gets all QSOs from given station_id, that are not previously uploaded to qrz.
-	 * Adif is build for each qso, and then uploaded, one at a time
+	 * Adif is build for each qso, and then uploaded in parallel (curl_multi, sliding window)
 	 */
 	function mass_upload_qsos($station_id, $qrz_api_key, $trusted = false) {
 		$i = 0;
@@ -118,58 +128,122 @@ class Qrz extends CI_Controller {
 		}
 
 		if ($data['qsos']) {
+			$queue = array();
 			foreach ($data['qsos']->result() as $qso) {
-				$adif = $this->adifhelper->getAdifLine($qso);
+				$queue[] = array(
+					'pk'      => $qso->COL_PRIMARY_KEY,
+					'adif'    => $this->adifhelper->getAdifLine($qso),
+					'replace' => ($qso->COL_QRZCOM_QSO_UPLOAD_STATUS == 'M'),
+					'qso'     => $qso,
+				);
+			}
+			$queue_count = count($queue);
 
-				if ($qso->COL_QRZCOM_QSO_UPLOAD_STATUS == 'M') {
-					$result = $this->logbook_model->push_qso_to_qrz($qrz_api_key, $adif, true);
-				} else {
-					$result = $this->logbook_model->push_qso_to_qrz($qrz_api_key, $adif);
+			$max_parallel = 5;
+			$useragent = 'Wavelog/'.$this->optionslib->get_option('version');
+
+			$mh = curl_multi_init();
+			$active_handles = array();
+			$queue_index = 0;
+			$station_aborted = false;
+
+			while ($queue_index < $queue_count && count($active_handles) < $max_parallel) {
+				$entry = $queue[$queue_index];
+				$ch = $this->qrz_upload_handle($qrz_api_key, $entry['adif'], $entry['replace'], $useragent);
+				curl_multi_add_handle($mh, $ch);
+				$active_handles[(int)$ch] = array_merge($entry, array('ch' => $ch));
+				$queue_index++;
+			}
+
+			$result = array('status' => 'OK');
+
+			while (count($active_handles) > 0) {
+				curl_multi_exec($mh, $running);
+
+				while ($info = curl_multi_info_read($mh)) {
+					$ch = $info['handle'];
+					$entry = $active_handles[(int)$ch];
+					unset($active_handles[(int)$ch]);
+					curl_multi_remove_handle($mh, $ch);
+
+					$qso = $entry['qso'];
+					$content = curl_multi_getcontent($ch);
+					$errno = curl_errno($ch);
+
+					if ($content) {
+						if (stristr($content, 'RESULT=OK') || stristr($content, 'RESULT=REPLACE')) {
+							$result['status'] = 'OK';
+						} else {
+							$result['status'] = 'error';
+							$result['message'] = $content;
+						}
+					} elseif ($errno) {
+						$result['status'] = 'error';
+						$result['message'] = 'Curl error: ' . $errno;
+					} else {
+						$result['status'] = 'error';
+						$result['message'] = 'Empty response from QRZ.com';
+					}
+
+					if ( ($result['status'] == 'OK') || ( ($result['status'] == 'error') && ( ($result['message'] == 'STATUS=FAIL&RESULT=FAIL&REASON=Unable to add QSO to database: duplicate&EXTENDED=') || ($result['message'] == 'STATUS=FAIL&REASON=Unable to add QSO to database: duplicate&EXTENDED='))) ){
+						$this->markqso($qso->COL_PRIMARY_KEY);
+						$i++;
+						$result['status'] = 'OK';
+					} elseif ( ($result['status']=='error') && (str_contains($result['message'],'add_qso: outside date range')) ) {
+						log_message('error', 'QRZ upload failed for qso for Station_ID '.$station_id.' //  Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON . ' // Message: '.$result['message']);
+						$this->markqso($qso->COL_PRIMARY_KEY,'I');
+						$result['status'] = 'Error';
+						$errormessages[] = $result['message'] . ' Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
+					} elseif ( ($result['status']=='error') && (str_contains($result['message'],'wrong station_callsign')) ) {
+						log_message('error', 'QRZ upload failed for qso for Station_ID '.$station_id.' //  Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON . ' // Message: '.$result['message']);
+						$this->markqso($qso->COL_PRIMARY_KEY,'I');
+						$result['status'] = 'Error';
+						$errormessages[] = $result['message'] . ' Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
+					} elseif ( ($result['status']=='error') && (str_contains($result['message'],'DXCC could not be determined')) ) {
+						log_message('error', 'QRZ upload failed for qso for Station_ID '.$station_id.' //  Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON . ' // Message: '.$result['message']);
+						$this->markqso($qso->COL_PRIMARY_KEY,'I');
+						$result['status'] = 'Error';
+						$errormessages[] = $result['message'] . ' Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
+					} elseif ( ($result['status']=='error') && (str_contains($result['message'],'cannot determine band from')) ) {
+						log_message('error', 'QRZ upload failed for qso for Station_ID '.$station_id.' //  Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON . ' // Message: '.$result['message']);
+						$this->markqso($qso->COL_PRIMARY_KEY,'I');
+						$result['status'] = 'Error';
+						$errormessages[] = $result['message'] . ' Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
+					} elseif ( ($result['status']=='error') && (str_contains($result['message'],'required field missing mode')) ) {
+						log_message('error', 'QRZ upload failed for qso for Station_ID '.$station_id.' //  Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON . ' // Message: '.$result['message']);
+						$this->markqso($qso->COL_PRIMARY_KEY,'I');
+						$result['status'] = 'Error';
+						$errormessages[] = $result['message'] . ' Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
+					} elseif ( ($result['status']=='error') && (substr($result['message'],0,11)  == 'STATUS=AUTH')) {
+						log_message('error', 'QRZ upload failed for qso for Station_ID '.$station_id.' //  Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON . ' // Message: '.$result['message']);
+						$errormessages[] = $result['message'] . ' Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
+						$result['status'] = 'Error';
+            				$sql = 'update station_profile set qrzrealtime = -1 where station_id = ?';
+            				$this->db->query($sql,$station_id);
+						$station_aborted = true; /* If key is invalid, immediate stop syncing for more QSOs of this station */
+					} else {
+						log_message('error', 'QRZ upload failed for qso: Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON);
+						log_message('error', 'QRZ upload failed with the following message: ' .$result['message']);
+						$errormessages[] = $result['message'] . ' Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
+						$result['status'] = 'Error';
+					}
+
+					if (!$station_aborted && $queue_index < $queue_count) {
+						$entry = $queue[$queue_index];
+						$new_ch = $this->qrz_upload_handle($qrz_api_key, $entry['adif'], $entry['replace'], $useragent);
+						curl_multi_add_handle($mh, $new_ch);
+						$active_handles[(int)$new_ch] = array_merge($entry, array('ch' => $new_ch));
+						$queue_index++;
+					}
 				}
 
-				if ( ($result['status'] == 'OK') || ( ($result['status'] == 'error') && ( ($result['message'] == 'STATUS=FAIL&RESULT=FAIL&REASON=Unable to add QSO to database: duplicate&EXTENDED=') || ($result['message'] == 'STATUS=FAIL&REASON=Unable to add QSO to database: duplicate&EXTENDED='))) ){
-					$this->markqso($qso->COL_PRIMARY_KEY);
-					$i++;
-					$result['status'] = 'OK';
-				} elseif ( ($result['status']=='error') && (str_contains($result['message'],'add_qso: outside date range')) ) {
-					log_message('error', 'QRZ upload failed for qso for Station_ID '.$station_id.' //  Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON . ' // Message: '.$result['message']);
-					$this->markqso($qso->COL_PRIMARY_KEY,'I');
-					$result['status'] = 'Error';
-					$errormessages[] = $result['message'] . ' Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
-				} elseif ( ($result['status']=='error') && (str_contains($result['message'],'wrong station_callsign')) ) {
-					log_message('error', 'QRZ upload failed for qso for Station_ID '.$station_id.' //  Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON . ' // Message: '.$result['message']);
-					$this->markqso($qso->COL_PRIMARY_KEY,'I');
-					$result['status'] = 'Error';
-					$errormessages[] = $result['message'] . ' Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
-				} elseif ( ($result['status']=='error') && (str_contains($result['message'],'DXCC could not be determined')) ) {
-					log_message('error', 'QRZ upload failed for qso for Station_ID '.$station_id.' //  Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON . ' // Message: '.$result['message']);
-					$this->markqso($qso->COL_PRIMARY_KEY,'I');
-					$result['status'] = 'Error';
-					$errormessages[] = $result['message'] . ' Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
-				} elseif ( ($result['status']=='error') && (str_contains($result['message'],'cannot determine band from')) ) {
-					log_message('error', 'QRZ upload failed for qso for Station_ID '.$station_id.' //  Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON . ' // Message: '.$result['message']);
-					$this->markqso($qso->COL_PRIMARY_KEY,'I');
-					$result['status'] = 'Error';
-					$errormessages[] = $result['message'] . ' Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
-				} elseif ( ($result['status']=='error') && (str_contains($result['message'],'required field missing mode')) ) {
-					log_message('error', 'QRZ upload failed for qso for Station_ID '.$station_id.' //  Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON . ' // Message: '.$result['message']);
-					$this->markqso($qso->COL_PRIMARY_KEY,'I');
-					$result['status'] = 'Error';
-					$errormessages[] = $result['message'] . ' Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
-				} elseif ( ($result['status']=='error') && (substr($result['message'],0,11)  == 'STATUS=AUTH')) {
-					log_message('error', 'QRZ upload failed for qso for Station_ID '.$station_id.' //  Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON . ' // Message: '.$result['message']);
-					$errormessages[] = $result['message'] . ' Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
-					$result['status'] = 'Error';
-        				$sql = 'update station_profile set qrzrealtime = -1 where station_id = ?';
-        				$this->db->query($sql,$station_id);
-					break; /* If key is invalid, immediate stop syncing for more QSOs of this station */
-				} else {
-					log_message('error', 'QRZ upload failed for qso: Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON);
-					log_message('error', 'QRZ upload failed with the following message: ' .$result['message']);
-					$errormessages[] = $result['message'] . ' Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
-					$result['status'] = 'Error';
+				if (count($active_handles) > 0) {
+					curl_multi_select($mh, 1.0);
 				}
 			}
+
+			curl_multi_close($mh);
+
 			if ($i == 0) {
 			    $result['status']='OK';
 		    }
@@ -184,10 +258,31 @@ class Qrz extends CI_Controller {
 		}
 	}
 
+	private function qrz_upload_handle($qrz_api_key, $adif, $replaceoption, $useragent) {
+		$post_data['KEY'] = $qrz_api_key;
+		$post_data['ACTION'] = 'INSERT';
+		$post_data['ADIF'] = $adif;
+
+		if ($replaceoption) {
+			$post_data['OPTION'] = 'REPLACE';
+		}
+
+		$ch = curl_init('https://logbook.qrz.com/api');
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+		curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
+		return $ch;
+	}
+
 	/*
 	 * Function marks QSO with given primarykey as uploaded to qrz
 	 */
-	function markqso($primarykey,$state = 'Y') {
+	private function markqso($primarykey,$state = 'Y') {
 		$this->logbook_model->mark_qrz_qsos_sent($primarykey, $state);
 	}
 
@@ -195,7 +290,6 @@ class Qrz extends CI_Controller {
 	 * Used for displaying the uid for manually selecting log for upload to qrz
 	 */
 	public function export() {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2) || !clubaccess_check(9)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$this->load->model('stations');
@@ -219,6 +313,7 @@ class Qrz extends CI_Controller {
 	 * Used for ajax-function when selecting log for upload to qrz
 	 */
 	public function upload_station() {
+		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		if (!($this->config->item('disable_manual_qrz'))) {
 			$this->setOptions();
 			$this->load->model('stations');
@@ -282,7 +377,6 @@ class Qrz extends CI_Controller {
 	}
 
 	public function import_qrz() {
-		$this->load->model('user_model');
 		if(!$this->user_model->authorize(2)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 
 		$data['page_title'] = __("QRZ QSL Import");
@@ -300,7 +394,12 @@ class Qrz extends CI_Controller {
 	} // end function
 
 	function download($user_id_to_load = null, $lastqrz = null, $show_views = false) {
-		$this->load->model('user_model');
+		$this->load->helper('cronauth');
+		if (!cronauth_allowed(3)) {
+			// return a 403
+			$this->output->set_status_header(403);
+			exit();
+		}
 		$this->load->model('logbook_model');
 
 		$this->load->model('cron_model');
@@ -335,7 +434,6 @@ class Qrz extends CI_Controller {
 			log_message('error', "No station profiles with a QRZ API Key found.");
 		}
 
-		$this->load->model('user_model');
 		if ($this->user_model->authorize(2)) {	// Only Output results if authorized User
 			if(isset($data['tableheaders'])) {
 				if ($data['table'] != '') {
@@ -469,21 +567,21 @@ class Qrz extends CI_Controller {
 					$qrz_status = $this->logbook_model->qrz_update($status[1], $qsl_date, $record['qsl_rcvd']);
 					// log_message('error', $record['call'].": ".$qrz_status);
 					$table .= "<tr>";
-					$table .= "<td>".$record['station_callsign']."</td>";
+					$table .= "<td>".html_escape($record['station_callsign'])."</td>";
 					$table .= "<td>".$time_on."</td>";
-					$table .= "<td><a id=\"view_qrz_qso\" href=\"javascript:displayQso(".$status[1].")\">".$record['call']."</a></td>";
-					$table .= "<td>".($record['mode'] ?? '')."</td>";
-					$table .= "<td>".$record['qsl_rcvd']."</td>";
+					$table .= "<td><a id=\"view_qrz_qso\" href=\"javascript:displayQso(".(int) $status[1].")\">".html_escape($record['call'])."</a></td>";
+					$table .= "<td>".html_escape($record['mode'] ?? '')."</td>";
+					$table .= "<td>".html_escape($record['qsl_rcvd'])."</td>";
 					$table .= "<td>".$qsl_date."</td>";
 					$table .= "<td>QSO Record: ".$status[0]."</td>";
 					$table .= "</tr>";
 				} else {
 					$table .= "<tr>";
-					$table .= "<td>".$record['station_callsign']."</td>";
+					$table .= "<td>".html_escape($record['station_callsign'])."</td>";
 					$table .= "<td>".$time_on."</td>";
-					$table .= "<td>".$record['call']."</td>";
-					$table .= "<td>".($record['mode'] ?? '')."</td>";
-					$table .= "<td>".$record['qsl_rcvd']."</td>";
+					$table .= "<td>".html_escape($record['call'])."</td>";
+					$table .= "<td>".html_escape($record['mode'] ?? '')."</td>";
+					$table .= "<td>".html_escape($record['qsl_rcvd'])."</td>";
 					$table .= "<td>QSO Record: ".$status[0]."</td>";
 					$table .= "</tr>";
 				}

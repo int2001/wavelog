@@ -1,6 +1,16 @@
 totalSatQsos();
 totalQsosPerYear();
 
+// Activate tab from URL hash (e.g. #uniquetab)
+$(function() {
+	if (window.location.hash) {
+		var triggerEl = document.querySelector('a[data-bs-toggle="tab"][href="' + window.location.hash + '"]');
+		if (triggerEl) {
+			bootstrap.Tab.getOrCreateInstance(triggerEl).show();
+		}
+	}
+});
+
 var activeTab='totalQsosPerYear()';
 
 // Preset functionality
@@ -789,7 +799,7 @@ function totalOperatorQsos() {
 					var $row = $('<tr></tr>');
 
 					var $iterator = $('<td></td>').html(i++);
-					var $type = $('<td></td>').html(row.operator);
+					var $type = $('<td class="callsign"></td>').html(row.operator);
 					var $content = $('<td></td>').html(row.count);
 
 					$row.append($iterator, $type, $content);
