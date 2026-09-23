@@ -26,8 +26,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-09-23 05:36+0000\n"
-"PO-Revision-Date: 2026-09-17 10:21+0000\n"
+"POT-Creation-Date: 2026-09-23 08:23+0000\n"
+"PO-Revision-Date: 2026-09-23 06:07+0000\n"
 "Last-Translator: Florian Wolters <wavelog@df2et.de>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
@@ -3106,6 +3106,7 @@ msgstr "Radio-Timeout-Warnung geändert zu "
 
 #: application/controllers/Options.php:236
 #: application/controllers/Options.php:248
+#: application/views/email/oqrs_request.php:57
 #: application/views/options/tabs.php:17
 msgid "Email"
 msgstr "E-Mail"
@@ -4983,74 +4984,86 @@ msgstr "VuccGrids Tabelle ist leer. Bitte aktualisiere die VUCC-Grid-Daten."
 msgid ""
 "No working adapter available - cache is running on the no-op 'dummy' driver."
 msgstr ""
+"Kein funktionierender Cache-Adapter verfügbar - Cache läuft auf 'dummy'-"
+"Treiber."
 
 #: application/models/Debug_model.php:322
 #: application/models/Debug_model.php:370
 msgid "Adapter not supported."
-msgstr ""
+msgstr "Adapter wird nicht unterstützt."
 
 #: application/models/Debug_model.php:351
 #, php-format
 msgid "%s adapter threw an exception: %s"
-msgstr ""
+msgstr "%s Adapter hat einen Fehler gemeldet: %s"
 
 #: application/models/Debug_model.php:358
 #, php-format
 msgid "PHP extension '%s' is not loaded."
-msgstr ""
+msgstr "PHP Erweiterung '%s' nicht geladen."
 
 #: application/models/Debug_model.php:362
 #, php-format
 msgid "Cache directory is not writable: %s"
-msgstr ""
+msgstr "Das Cache-Verzeichnis (/application/cache) ist nicht beschreibbar: %s"
 
 #: application/models/Debug_model.php:364
 msgid ""
 "Redis server unreachable - check settings in application/config/redis.php."
-msgstr ""
+msgstr "Der Redis-Server ist nicht erreichbar - prüfe die Einstellungen."
 
 #: application/models/Debug_model.php:366
 msgid ""
 "No Memcached server responded - check settings in application/config/"
 "memcached.php."
 msgstr ""
+"Memecached ist nicht erreichbat - prüfe die Einstellungen in application/"
+"config/."
 
 #: application/models/Debug_model.php:368
 msgid "APCu loaded but not usable in this PHP interface (apc.enabled=0?)."
-msgstr ""
+msgstr "APCu ist geladen aber nicht nutzbar via php (apc.enabled=0?)."
 
 #: application/models/Debug_model.php:377
 #, php-format
 msgid "Cannot write to cache directory %s - check permissions."
 msgstr ""
+"Das Cache-Directory %s ist nicht beschreibbar - prüfe die Berechtigungen."
 
 #: application/models/Debug_model.php:379
 msgid "Redis write failed - server down or maxmemory reached?"
 msgstr ""
+"Kann nicht in Redis schreiben - Redis nicht heruntergefahren, oder an der "
+"Kapazitätsgrenze?"
 
 #: application/models/Debug_model.php:381
 msgid "Memcached write failed - server down?"
-msgstr ""
+msgstr "Kann nicht nach Memcached schreiben - Server heruntergefahren?"
 
 #: application/models/Debug_model.php:383
 msgid "APCu write failed - shared memory full?"
-msgstr ""
+msgstr "Kann nicht nach APCu schreiben - Speicher voll?"
 
 #: application/models/Debug_model.php:389
 msgid "Write succeeded but read failed - cache directory readable?"
 msgstr ""
+"Schreiben erfolgreich, aber Lesen nicht - Ist das Cacheverzeichnis lesbar?"
 
 #: application/models/Debug_model.php:391
 msgid "Write succeeded but read failed - key evicted by Redis?"
 msgstr ""
+"Schreiben war erfolgreich, aber Lesen ist fehlgeschlagen - Schlüssel durch "
+"Redis abgewiesen?"
 
 #: application/models/Debug_model.php:393
 msgid "Write succeeded but read failed."
-msgstr ""
+msgstr "Schreiben erfolgreich, Lesen schlägt fehl."
 
 #: application/models/Debug_model.php:395
 msgid "Test key could not be deleted - check permissions/access."
 msgstr ""
+"Der Testwert im Cache kann nicht gelöscht werden. Prüfe Berechtigungen/"
+"Zugriffseinstellung des Caches."
 
 #: application/models/Eqslmethods_model.php:291
 msgid "Your eQSL username and/or password is incorrect."
@@ -6229,8 +6242,9 @@ msgstr "Nichts gefunden!"
 #: application/views/dbtools/showUpdateResult.php:106
 #: application/views/dcl_views/index.php:27
 #: application/views/distancerecords/index.php:22
-#: application/views/dxatlas/index.php:23 application/views/eqsl/import.php:42
-#: application/views/eqslcard/index.php:32
+#: application/views/dxatlas/index.php:23
+#: application/views/email/oqrs_request.php:56
+#: application/views/eqsl/import.php:42 application/views/eqslcard/index.php:32
 #: application/views/gridmap/index.php:71 application/views/hamsat/index.php:37
 #: application/views/labels/index.php:125
 #: application/views/logbookadvanced/help.php:55
@@ -15358,7 +15372,7 @@ msgstr "Wavelog Worker Backend"
 
 #: application/views/debug/index.php:145
 msgid "Worker configuration has changed"
-msgstr ""
+msgstr "Die Worker-Konfiguration hat sich geändert"
 
 #: application/views/debug/index.php:146
 #, php-format
@@ -15366,10 +15380,12 @@ msgid ""
 "%s and %s are deprecated and will be removed in Wavelog Worker 1.0.0. Please "
 "set %s in your worker config instead."
 msgstr ""
+"%s und %s sind veraltet und werden in Wavelog Worker 1.0.0 entfernt. Bitte "
+"konfiguriere stattdessen %s in deiner Worker-Konfiguration."
 
 #: application/views/debug/index.php:147
 msgid "Everything keeps working until then."
-msgstr ""
+msgstr "Alles funktioniert bis dahin weiter."
 
 #: application/views/debug/index.php:153
 msgid "Worker"
@@ -15549,11 +15565,11 @@ msgstr "Anzahl der Keys"
 
 #: application/views/debug/index.php:559
 msgid "Round-Trip Test (write - read - delete)"
-msgstr ""
+msgstr "Schreiben - Lesen - Löschen Test für Cache"
 
 #: application/views/debug/index.php:566
 msgid "Working"
-msgstr ""
+msgstr "Funktioniert"
 
 #: application/views/debug/index.php:579
 msgid "Cache is working properly. Everything okay!"
@@ -16084,6 +16100,10 @@ msgstr "Der Benutzer hat die folgende Nachricht eingegeben: "
 msgid "The user did not enter any additional message."
 msgstr "Der Benutzer hat keine zusätzliche Nachricht eingegeben."
 
+#: application/views/email/oqrs_request.php:18
+msgid "Requested QSOs"
+msgstr ""
+
 #: application/views/email/oqrs_request.php:50
 #, php-format
 msgid ""
@@ -16094,6 +16114,16 @@ msgstr ""
 "Hi,\n"
 "\n"
 "Du hast eine OQRS-Anfrage von %s erhalten."
+
+#: application/views/email/oqrs_request.php:58
+#: application/views/oqrs/request.php:42
+#: application/views/oqrs/request_grouped.php:46
+msgid "QSL Route"
+msgstr "QSL-Route"
+
+#: application/views/email/oqrs_request.php:59
+msgid "DX Callsign"
+msgstr ""
 
 #: application/views/email/oqrs_request.php:65
 msgid ""
@@ -20647,11 +20677,6 @@ msgid ""
 msgstr ""
 "Die folgenden QSO(s) wurden gefunden. Bitte fülle Datum/Zeit aus und sende "
 "die Anfrage ab."
-
-#: application/views/oqrs/request.php:42
-#: application/views/oqrs/request_grouped.php:46
-msgid "QSL Route"
-msgstr "QSL-Route"
 
 #: application/views/oqrs/request.php:55
 #: application/views/oqrs/request_grouped.php:59
