@@ -26,7 +26,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-09-24 06:59+0000\n"
+"POT-Creation-Date: 2026-09-26 08:28+0000\n"
 "PO-Revision-Date: 2026-09-24 06:28+0000\n"
 "Last-Translator: Florian Wolters <wavelog@df2et.de>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
@@ -3041,8 +3041,8 @@ msgstr ""
 "Bitte gib ein einzigartiges Rufzeichen ein."
 
 #: application/controllers/Operator.php:30
-#: application/models/Logbook_model.php:98
-#: application/models/Logbook_model.php:1547
+#: application/models/Logbook_model.php:109
+#: application/models/Logbook_model.php:1588
 #: application/views/contesting/logger/components/qso-form.php:44
 #: application/views/qso/index.php:40
 msgid "Invalid callsign"
@@ -3965,123 +3965,123 @@ msgstr "Zeitplotter"
 msgid "Updates"
 msgstr "Aktualisierungen"
 
-#: application/controllers/Update.php:70
+#: application/controllers/Update.php:73
 msgid "Preparing DXCC-Entries: "
 msgstr "Bereite DXCC-Einträge vor: "
 
-#: application/controllers/Update.php:131
+#: application/controllers/Update.php:137
 msgid "Preparing DXCC Exceptions: "
 msgstr "Bereite DXCC-Ausnahmen vor: "
 
-#: application/controllers/Update.php:178
+#: application/controllers/Update.php:187
 msgid "Preparing DXCC Prefixes: "
 msgstr "Bereite DXCC-Präfixe vor: "
 
-#: application/controllers/Update.php:267
+#: application/controllers/Update.php:307
 msgid "DONE"
 msgstr "FERTIG"
 
-#: application/controllers/Update.php:312
+#: application/controllers/Update.php:359
 msgid "Updating..."
 msgstr "Aktualisierung läuft ..."
 
-#: application/controllers/Update.php:315
+#: application/controllers/Update.php:362
 msgid "Dxcc Entities:"
 msgstr "DXCC-Entitäten:"
 
-#: application/controllers/Update.php:316
+#: application/controllers/Update.php:363
 msgid "Dxcc Exceptions:"
 msgstr "DXCC-Ausnahmen:"
 
-#: application/controllers/Update.php:317
+#: application/controllers/Update.php:364
 msgid "Dxcc Prefixes:"
 msgstr "DXCC-Präfixe:"
 
-#: application/controllers/Update.php:348
+#: application/controllers/Update.php:395
 msgid "SCP Update complete. Result: "
 msgstr "SCP-Update abgeschlossen. Ergebnis: "
 
-#: application/controllers/Update.php:350
+#: application/controllers/Update.php:397
 msgid "SCP Update failed. Result: "
 msgstr "SCP-Update fehlgeschlagen. Ergebnis: "
 
-#: application/controllers/Update.php:387
+#: application/controllers/Update.php:434
 msgid "LoTW Users Update complete. Result: "
 msgstr "LoTW-Benutzer-Update abgeschlossen. Ergebnis: "
 
-#: application/controllers/Update.php:389
+#: application/controllers/Update.php:436
 msgid "LoTW Users Update failed. Result: "
 msgstr "LoTW-Benutzer-Update fehlgeschlagen. Ergebnis: "
 
-#: application/controllers/Update.php:424
+#: application/controllers/Update.php:471
 msgid "DOK Update complete. Result: "
 msgstr "DOK-Update abgeschlossen. Ergebnis: "
 
-#: application/controllers/Update.php:426
+#: application/controllers/Update.php:473
 msgid "DOK Update failed. Result: "
 msgstr "DOK-Update fehlgeschlagen. Ergebnis: "
 
-#: application/controllers/Update.php:459
+#: application/controllers/Update.php:506
 msgid "SOTA Update complete. Result: "
 msgstr "SOTA-Update abgeschlossen. Ergebnis: "
 
-#: application/controllers/Update.php:461
+#: application/controllers/Update.php:508
 msgid "SOTA Update failed. Result: "
 msgstr "SOTA-Update fehlgeschlagen. Ergebnis: "
 
-#: application/controllers/Update.php:494
+#: application/controllers/Update.php:541
 msgid "WWFF Update complete. Result: "
 msgstr "WWFF-Update abgeschlossen. Ergebnis: "
 
-#: application/controllers/Update.php:496
+#: application/controllers/Update.php:543
 msgid "WWFF Update failed. Result: "
 msgstr "WWFF-Update fehlgeschlagen. Ergebnis: "
 
-#: application/controllers/Update.php:530
+#: application/controllers/Update.php:577
 msgid "HAMqsl Update complete. Result: "
 msgstr "HAMqsl-Update abgeschlossen. Ergebnis: "
 
-#: application/controllers/Update.php:532
+#: application/controllers/Update.php:579
 msgid "HAMqsl Update failed. Result: "
 msgstr "HAMqsl-Update fehlgeschlagen. Ergebnis: "
 
-#: application/controllers/Update.php:565
+#: application/controllers/Update.php:612
 msgid "POTA Update complete. Result: "
 msgstr "POTA-Update abgeschlossen. Ergebnis: "
 
-#: application/controllers/Update.php:567
+#: application/controllers/Update.php:614
 msgid "POTA Update failed. Result: "
 msgstr "POTA-Update fehlgeschlagen. Ergebnis: "
 
-#: application/controllers/Update.php:616
+#: application/controllers/Update.php:663
 msgid "POTA boundaries update complete. Result: "
 msgstr "Update der POTA-Parkgrenzen fertig. Ergebnis: "
 
-#: application/controllers/Update.php:618
+#: application/controllers/Update.php:665
 msgid "POTA boundaries update failed. Result: "
 msgstr "Update der POTA-Parkgrenzen fehlgeschlagen. Ergebnis: "
 
-#: application/controllers/Update.php:635
+#: application/controllers/Update.php:682
 msgid "TLE Update complete. Result: "
 msgstr "TLE-Update abgeschlossen. Ergebnis: "
 
-#: application/controllers/Update.php:637
+#: application/controllers/Update.php:684
 msgid "TLE Update failed. Result: "
 msgstr "TLE-Update fehlgeschlagen. Ergebnis: "
 
-#: application/controllers/Update.php:664
+#: application/controllers/Update.php:711
 msgid "LoTW SAT Update"
 msgstr "LoTW SAT-Aktualisierung"
 
-#: application/controllers/Update.php:692
+#: application/controllers/Update.php:739
 msgid "Update of Hams of Note"
 msgstr "Update von 'Hams of Note'"
 
-#: application/controllers/Update.php:732
+#: application/controllers/Update.php:779
 msgid "VUCC Grid file update complete. Result: "
 msgstr "Update der VUCC-Planquadat-Datei erfolgt. Ergebnis: "
 
-#: application/controllers/Update.php:734
+#: application/controllers/Update.php:781
 msgid "VUCC Grid file update failed. Result: "
 msgstr "Update der VUCC-Planquadrat-Datei fehlgeschlagen. Ergebnis: "
 
@@ -5173,28 +5173,28 @@ msgstr "Importiertes Papier"
 msgid "Imported label type"
 msgstr "Importierter Labeltyp"
 
-#: application/models/Logbook_model.php:359
+#: application/models/Logbook_model.php:370
 msgid "Station not accessible"
 msgstr "Station nicht verfügbar"
 
-#: application/models/Logbook_model.php:1000
+#: application/models/Logbook_model.php:1041
 msgid "Realtime upload disabled"
 msgstr "Echtzeit-Upload deaktiviert"
 
-#: application/models/Logbook_model.php:1537
+#: application/models/Logbook_model.php:1578
 msgid "Station ID not allowed"
 msgstr "Stations ID nicht erlaubt"
 
-#: application/models/Logbook_model.php:1542
+#: application/models/Logbook_model.php:1583
 msgid "No Call given"
 msgstr "Kein Rufzeichen angegeben"
 
-#: application/models/Logbook_model.php:1618
-#: application/models/Logbook_model.php:1836
+#: application/models/Logbook_model.php:1659
+#: application/models/Logbook_model.php:1877
 msgid "DXCC has to be Numeric"
 msgstr "DXCC muss numerisch sein"
 
-#: application/models/Logbook_model.php:5060
+#: application/models/Logbook_model.php:5101
 #, php-format
 msgid ""
 "Differing station callsign %s while importing QSO with %s for %s: SKIPPED"
@@ -5202,7 +5202,7 @@ msgstr ""
 "Abweichendes Stationsrufzeichen %s beim Import des QSO mit %s für %s: "
 "ÜBERSPRUNGEN"
 
-#: application/models/Logbook_model.php:5068
+#: application/models/Logbook_model.php:5109
 #, php-format
 msgid ""
 "Differing locator %s while importing QSO with %s for station locator %s: "
@@ -5211,7 +5211,7 @@ msgstr ""
 "Abweichendes Planquadrat %s beim Import des QSO mit %s für "
 "Stationsplanquadrat %s: ÜBERSPRUNGEN"
 
-#: application/models/Logbook_model.php:5084
+#: application/models/Logbook_model.php:5125
 msgid ""
 "You tried to import a QSO without valid date. This QSO wasn't imported. It's "
 "invalid"
@@ -5219,7 +5219,7 @@ msgstr ""
 "Du hast versucht, ein QSO mit ungültigem Datum zu importieren. Dieses QSO "
 "wurde nicht importiert. Es ist ungültig"
 
-#: application/models/Logbook_model.php:5094
+#: application/models/Logbook_model.php:5135
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given CALL. This QSO wasn't "
@@ -5228,7 +5228,7 @@ msgstr ""
 "QSO bei %s: Du hast versucht, ein QSO ohne jedes Rufzeichen zu importieren. "
 "Dieses QSO wurde nicht importiert. Es ist ungültig."
 
-#: application/models/Logbook_model.php:5101
+#: application/models/Logbook_model.php:5142
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO with an invalid CALL. This QSO wasn't "
@@ -5237,7 +5237,7 @@ msgstr ""
 "QSO bei %s: Du hast versucht, ein QSO mit einem ungültigen Rufzeichen zu "
 "importieren. Dieses QSO wurde nicht importiert. Der ungültige Wert ist '%s'."
 
-#: application/models/Logbook_model.php:5171
+#: application/models/Logbook_model.php:5212
 #, php-format
 msgid ""
 "QSO on %s: Band '%s' is not in the band configuration. This QSO wasn't "
@@ -5246,7 +5246,7 @@ msgstr ""
 "QSO bei %s: Band '%s' ist nicht in der Bandkonfiguration. Dieses QSO wurde "
 "nicht importiert."
 
-#: application/models/Logbook_model.php:5178
+#: application/models/Logbook_model.php:5219
 #, php-format
 msgid ""
 "QSO on %s: You tried to import a QSO without any given Band. This QSO wasn't "
@@ -5255,63 +5255,63 @@ msgstr ""
 "QSO um %s: Du hast versucht, ein QSO ohne Bandinformationen zu importieren. "
 "Dieses QSO wurde nicht importiert. Es ist ungültig"
 
-#: application/models/Logbook_model.php:5453
+#: application/models/Logbook_model.php:5494
 msgid "the qslrdate is invalid (YYYYMMDD)"
 msgstr "Das (Papier-)QSL-Empfangsdatum hat das falsche Format (JJJJMMDD)"
 
-#: application/models/Logbook_model.php:5464
+#: application/models/Logbook_model.php:5505
 msgid "the qslsdate is invalid (YYYYMMDD)"
 msgstr "Das (Papier-)QSL Sendedatum hat das falsche Format (JJJJMMTT)"
 
-#: application/models/Logbook_model.php:5525
+#: application/models/Logbook_model.php:5566
 msgid "the clublog_qso_upload_date is invalid (YYYYMMDD)"
 msgstr "Das Format des Clublog-Upload-Datums ist falsch (JJJJMMTT)"
 
-#: application/models/Logbook_model.php:5901
+#: application/models/Logbook_model.php:5942
 #: application/views/simplefle/index.php:41
 msgid "Duplicate for"
 msgstr "Doublette zu"
 
-#: application/models/Logbook_model.php:5968
-#: application/models/Logbook_model.php:6068
+#: application/models/Logbook_model.php:6009
+#: application/models/Logbook_model.php:6109
 msgid "QSO could not be matched"
 msgstr "QSO konnte nicht gefunden werden"
 
-#: application/models/Logbook_model.php:5976
+#: application/models/Logbook_model.php:6017
 msgid "confirmed by LoTW/Clublog/eQSL/Contest"
 msgstr "bestätigt durch LoTW/Clublog/eQSL/Contest"
 
-#: application/models/Logbook_model.php:5982
+#: application/models/Logbook_model.php:6023
 msgid "confirmed by award manager"
 msgstr "bestätigt durch Diplommananger"
 
-#: application/models/Logbook_model.php:5986
+#: application/models/Logbook_model.php:6027
 msgid "confirmed by cross-check of DCL data"
 msgstr "bestätigt durch Cross-Check von DCL-Daten"
 
-#: application/models/Logbook_model.php:5990
+#: application/models/Logbook_model.php:6031
 msgid "confirmation pending"
 msgstr "Bestätigung ausstehend"
 
-#: application/models/Logbook_model.php:5993
+#: application/models/Logbook_model.php:6034
 msgid "unconfirmed"
 msgstr "nicht bestätigt"
 
-#: application/models/Logbook_model.php:5996
+#: application/models/Logbook_model.php:6037
 #: application/views/satellite/index.php:82
 #: application/views/satellite/satinfo.php:41
 msgid "unknown"
 msgstr "unbekannt"
 
-#: application/models/Logbook_model.php:6071
+#: application/models/Logbook_model.php:6112
 msgid "POTA reference already in log"
 msgstr "POTA Referenz bereits im Log"
 
-#: application/models/Logbook_model.php:6074
+#: application/models/Logbook_model.php:6115
 msgid "QSO updated"
 msgstr "QSO aktualisiert"
 
-#: application/models/Logbook_model.php:6495
+#: application/models/Logbook_model.php:6536
 #: application/views/activated_gridmap/index.php:109
 #: application/views/activationplanner/index.php:9
 #: application/views/awards/ffma/index.php:42
