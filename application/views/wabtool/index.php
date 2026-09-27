@@ -18,6 +18,15 @@
 	}
 </style>
 
+<script>
+	/* wab.js is shared with the awards page; these globals let its legend and
+	   custom colors render inside the map modal too */
+	let user_map_custom = JSON.parse('<?php echo $user_map_custom; ?>');
+	var lang_wab_total_squares = "<?= __("Total squares"); ?>";
+	var lang_wab_total_worked = "<?= __("Total worked"); ?>";
+	var lang_wab_squares_by_dxcc = "<?= __("Squares by DXCC"); ?>";
+</script>
+
 <div class="container px-3 px-lg-4 mt-3 mb-3">
 
 	<h2><?php echo $page_title; ?></h2>

@@ -32,6 +32,7 @@ class Wabtool extends CI_Controller {
 
 	public function index() {
 		$data['station_profile'] = $this->stations->all_of_user();
+		$data['user_map_custom'] = $this->optionslib->get_map_custom(); // for the map modal legend
 
 		$footerData = [];
 		$footerData['scripts'] = [
