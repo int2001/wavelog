@@ -105,10 +105,9 @@ class Wab extends CI_Model {
 	}
 
 	/*
-	 * Function returns one row per WAB QSO, for the WAB list. Applies the
-	 * same band/sat/mode/orbit filters as getWabWorked(), but no
-	 * confirmation filter: the list shows every QSO with its own
-	 * confirmation state per QSL system.
+	 * Function returns one row per WAB QSO, for the WAB list. Same filters
+	 * as getWabWorked() but no confirmation filter: each row carries its own
+	 * per-QSL-system confirmation state.
 	 */
 	function get_wab_qsos($location_list, $postdata) {
 		$bindings=[];
@@ -155,12 +154,10 @@ class Wab extends CI_Model {
 	}
 
 	/*
-	 * WAB tool: shared WHERE for the candidate queries. QSOs with a
-	 * gridsquare (>= 6 chars) that have no SIG set (or are marked WAB with
-	 * an empty square). QSOs carrying another SIG (e.g. SOTA) are never
-	 * returned. $search filters on callsign and gridsquare. $full_grids,
-	 * when an array, restricts the rows to QSOs whose normalized grid is in
-	 * the list (the "100% match" filter; an empty array matches nothing).
+	 * WAB tool: shared WHERE for the candidate queries — gridsquare >= 6
+	 * chars and no foreign SIG (empty, or WAB with empty square). $search
+	 * filters callsign/grid; $full_grids (array) restricts to the given
+	 * normalized grids (empty array matches nothing).
 	 */
 	private function wab_candidates_sql($station_id, $dxcc_ids, $search, &$bindings, $full_grids = null) {
 		$sql = "from " . $this->config->item('table_name') . " thcv
@@ -186,8 +183,7 @@ class Wab extends CI_Model {
 			$bindings[] = '%' . $search . '%';
 		}
 
-		// normalized the same way as get_wab_candidate_grids(), so the
-		// grid list resolved in PHP matches the rows this query returns
+		// grid normalization must match get_wab_candidate_grids()
 		if (is_array($full_grids)) {
 			if (count($full_grids) === 0) {
 				$sql .= " and 1=0";
@@ -201,11 +197,9 @@ class Wab extends CI_Model {
 	}
 
 	/*
-	 * WAB tool: candidate rows for the paginated scan table. $order_col is
-	 * the DataTables column index (1 = date/time, 2 = callsign, 3 = band,
-	 * 4 = grid, 6 = station); the checkbox and square columns are not
-	 * sortable server side. $limit/$offset page the result. A null $limit
-	 * returns everything (bulk apply).
+	 * WAB tool: candidate rows for the paginated scan table. $order_col is a
+	 * DataTables column index (see $sortable below); null $limit = everything
+	 * (bulk apply).
 	 */
 	function get_wab_candidates($station_id = null, $dxcc_ids = null, $search = '', $order_col = 1, $order_dir = 'desc', $limit = null, $offset = 0, $full_grids = null) {
 		$bindings=[];
@@ -222,8 +216,7 @@ class Wab extends CI_Model {
 		$sql .= " order by " . $order_by . " " . $order_dir . ", col_primary_key " . $order_dir;
 
 		if ($limit !== null) {
-			// limit/offset are int-cast inline: CI3 query bindings are escaped
-			// as values, so they cannot be bound as placeholders
+			// int-cast inline: CI3 bindings escape values, not placeholders
 			$sql .= " limit " . (int)$limit . " offset " . (int)$offset;
 		}
 
@@ -232,10 +225,7 @@ class Wab extends CI_Model {
 		return $query;
 	}
 
-	/*
-	 * WAB tool: number of candidate rows (without/with the search filter),
-	 * for the DataTables recordsTotal / recordsFiltered counters
-	 */
+	// WAB tool: candidate row count, for recordsTotal / recordsFiltered
 	function count_wab_candidates($station_id = null, $dxcc_ids = null, $search = '', $full_grids = null) {
 		$bindings=[];
 		$sql = "select count(*) as n " . $this->wab_candidates_sql($station_id, $dxcc_ids, $search, $bindings, $full_grids);
@@ -245,10 +235,7 @@ class Wab extends CI_Model {
 		return (int)$query->row()->n;
 	}
 
-	/*
-	 * WAB tool: distinct normalized gridsquares among the candidates, so the
-	 * scan summary can be computed per grid instead of per QSO row
-	 */
+	// WAB tool: distinct normalized candidate grids (summary per grid, not per QSO)
 	function get_wab_candidate_grids($station_id = null, $dxcc_ids = null) {
 		$bindings=[];
 		$sql = "select distinct upper(left(trim(col_gridsquare), 8)) as grid
@@ -264,15 +251,17 @@ class Wab extends CI_Model {
 		return $grids;
 	}
 
-/*
-	 * WAB tool: re-fetch candidate QSOs by primary key. Ownership, the
-	 * empty-SIG policy and the valid-DXCC check are re-applied so apply()
-	 * can recompute squares server side without trusting anything submitted
-	 * by the client.
+	/*
+	 * WAB tool: re-fetch candidates by primary key. Ownership, empty-SIG
+	 * policy and the DXCC check are re-applied, so apply() never trusts the
+	 * client-submitted id list.
 	 */
 	function get_wab_candidates_by_ids($ids, $user_station_ids, $dxcc_ids) {
 		$bindings=[];
-		$sql = "select col_primary_key, col_gridsquare
+		$sql = "select col_primary_key, col_gridsquare,
+				col_qsl_rcvd, col_lotw_qsl_rcvd, col_eqsl_qsl_rcvd,
+				COL_QRZCOM_QSO_DOWNLOAD_STATUS as qrz,
+				COL_CLUBLOG_QSO_DOWNLOAD_STATUS as clublog
 			from " . $this->config->item('table_name') . " thcv
 			where thcv.station_id in (" . implode(',', array_fill(0, count($user_station_ids), '?')) . ")
 			and col_primary_key in (" . implode(',', array_fill(0, count($ids), '?')) . ")
@@ -286,11 +275,7 @@ class Wab extends CI_Model {
 		return $query->result();
 	}
 
-	/*
-	 * WAB tool: write the WAB square into the given QSOs. The empty-SIG
-	 * policy is re-checked at write time, so QSOs that gained another SIG
-	 * between scan and apply are never touched.
-	 */
+	// WAB tool: write the square; empty-SIG policy re-checked at write time
 	function apply_wab_square($square, $ids, $user_station_ids) {
 		$bindings = array_merge(
 			array('WAB', strtoupper($square)),
@@ -307,6 +292,24 @@ class Wab extends CI_Model {
 		$this->db->query($sql, $bindings);
 
 		return $this->db->affected_rows();
+	}
+
+	/**
+	 * Build the confirmation letters for a QSO row, one per QSL system that
+	 * confirmed it: Q = QSL card, L = LoTW, E = eQSL, Z = QRZ.com, C = Clublog.
+	 *
+	 * @param object $qso Row object with col_qsl_rcvd, col_lotw_qsl_rcvd,
+	 *                     col_eqsl_qsl_rcvd, qrz and clublog fields
+	 * @return string Concatenated letters, '' when the QSO is unconfirmed
+	 */
+	function confirmation_letters($qso) {
+		$letters = '';
+		if ($qso->col_qsl_rcvd == 'Y') { $letters .= 'Q'; }
+		if ($qso->col_lotw_qsl_rcvd == 'Y') { $letters .= 'L'; }
+		if ($qso->col_eqsl_qsl_rcvd == 'Y') { $letters .= 'E'; }
+		if ($qso->qrz == 'Y') { $letters .= 'Z'; }
+		if ($qso->clublog == 'Y') { $letters .= 'C'; }
+		return $letters;
 	}
 
 }

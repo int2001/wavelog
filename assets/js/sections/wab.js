@@ -1,5 +1,6 @@
- let confirmedColor = user_map_custom.qsoconfirm.color;
-let workedColor = user_map_custom.qso.color;
+// user_map_custom is only injected by the awards view; defaults for the modal
+let confirmedColor = (typeof user_map_custom !== 'undefined' && user_map_custom.qsoconfirm) ? user_map_custom.qsoconfirm.color : '#28a745';
+let workedColor = (typeof user_map_custom !== 'undefined' && user_map_custom.qso) ? user_map_custom.qso.color : '#ffc107';
 
 $('#band').change(function(){
 	var band = $("#band option:selected").text();
@@ -42,6 +43,30 @@ var wabDxccNames = {
 	GJ: 'Jersey',
 	GU: 'Guernsey'
 };
+
+var wabLeafletMap = null; // set by wabmap(), for invalidateSize on tab switch
+var wabSquareIndex = {}; // name -> { latlng, ring }, filled by wabmap()
+var wabSquareHighlight = null; // currently highlighted square layer
+
+// Highlight the named square on the current map and fly to it (search + modal)
+function highlightSquare(name) {
+	var square = wabSquareIndex[name];
+	if (square === undefined || wabLeafletMap === null) {
+		return false;
+	}
+	if (wabSquareHighlight !== null) {
+		wabLeafletMap.removeLayer(wabSquareHighlight);
+	}
+	wabSquareHighlight = L.polygon(square.ring.map(function(c) { return [c[1], c[0]]; }), {
+		color: '#ffff00',
+		weight: 3,
+		fill: true,
+		fillColor: '#ffff00',
+		fillOpacity: 0.3
+	}).addTo(wabLeafletMap);
+	wabLeafletMap.flyTo(square.latlng, 12);
+	return true;
+}
 
 function showlist() {
 	$(".ld-ext-right-list").addClass('running');
@@ -118,7 +143,9 @@ function plotmap() {
 	})
 }
 
-function wabmap(data) {
+function wabmap(data, containerId) {
+	containerId = containerId || 'mapcontainer';
+
 	if (!wab_squares.responseJSON) { // geojson failed to load (already alerted)
 		$(".ld-ext-right-plot").removeClass('running');
 		$(".ld-ext-right-plot").prop('disabled', false);
@@ -131,8 +158,8 @@ function wabmap(data) {
 		container._leaflet_id = null;
 		container.remove();
 	}
-	$("#mapcontainer").append('<div id="wabmap" class="map-leaflet" style="width: 100%;"></div>');
-	$('#squaresearch').removeClass('d-none').addClass('d-inline-flex');
+	$("#" + containerId).append('<div id="wabmap" class="map-leaflet" style="width: 100%;"></div>');
+	$('#squaresearch').removeClass('d-none').addClass('d-inline-flex'); // no-op when absent (modal)
 
 	$(".ld-ext-right-plot").removeClass('running');
 	$(".ld-ext-right-plot").prop('disabled', false);
@@ -143,7 +170,7 @@ function wabmap(data) {
 		},
 		minZoom: 6,
 	}).setView([52, -2], 8);
-	wabLeafletMap = map;
+	wabLeafletMap = map; // module-level: also drives highlightSquare()
 
 	var confirmedcount = 0;
 	var workedcount = 0;
@@ -164,8 +191,12 @@ function wabmap(data) {
 		});
 	}
 
-	L.tileLayer(tileUrl, {
-		attribution: attributionInfo
+	// tileUrl/attributionInfo are awards-view-only; footer globals cover the modal
+	var tiles = (typeof tileUrl !== 'undefined') ? tileUrl : option_map_tile_server;
+	var attribution = (typeof attributionInfo !== 'undefined') ? attributionInfo : option_map_tile_server_copyright;
+
+	L.tileLayer(tiles, {
+		attribution: attribution
 	}).addTo(map);
 
 	// Add requested external GeoJSON to map
@@ -221,7 +252,8 @@ function wabmap(data) {
 		},
 		onEachFeature: function(feature, layer) {
 			layer.on('click', function() {
-				// Code to execute when the area is clicked
+				// the filter form only exists on the awards page, not the modal
+				if (document.getElementById('band') == null) return;
 				displayContactsOnMap($("#wabmap"), feature.properties.name, $('#band').val(), $('#sats').val(), $('#orbits').val(), $('#mode').val(), 'WAB');
 			});
 		}
@@ -257,49 +289,39 @@ function wabmap(data) {
 	// Update labels immediately after adding the GeoJSON data to the map
 	updateLabels();
 
-	// Coordinates readout under the map (latitude/longitude/gridsquare)
-	map.on('mousemove', onMapMove);
-	$('.cohidden').show();
+	// Coordinates readout; onMapMove (geocoding.js) is awards-page-only
+	if (typeof onMapMove === 'function') {
+		map.on('mousemove', onMapMove);
+		$('.cohidden').show();
+	}
 
 	// Square search: center on the named square, zoom in and highlight it
-	var squaresIndex = {}; // name -> { latlng, ring }
+	wabSquareIndex = {}; // name -> { latlng, ring }
 	wab_squares.responseJSON.features.forEach(function(feature) {
 		var name = feature.properties.name;
-		squaresIndex[name] = squaresIndex[name] || {};
+		wabSquareIndex[name] = wabSquareIndex[name] || {};
 		if (feature.geometry.type == 'Point') {
-			squaresIndex[name].latlng = [feature.geometry.coordinates[1], feature.geometry.coordinates[0]];
+			wabSquareIndex[name].latlng = [feature.geometry.coordinates[1], feature.geometry.coordinates[0]];
 		} else {
-			squaresIndex[name].ring = feature.geometry.coordinates[0];
+			wabSquareIndex[name].ring = feature.geometry.coordinates[0];
 		}
 	});
 
-	var squareHighlight = null;
 	function gotoSquare() {
 		if ($('#wabmap').length == 0) return; // list shown, or map not plotted yet
 		var name = $('#squareinput').val().trim().toUpperCase();
-		var square = squaresIndex[name];
-		if (square === undefined) {
+		if (wabSquareIndex[name] === undefined) {
 			alert(lang_wab_square_not_found);
 			return;
 		}
-		if (squareHighlight !== null) {
-			map.removeLayer(squareHighlight);
-		}
-		squareHighlight = L.polygon(square.ring.map(function(c) { return [c[1], c[0]]; }), {
-			color: '#ffff00',
-			weight: 3,
-			fill: true,
-			fillColor: '#ffff00',
-			fillOpacity: 0.3
-		}).addTo(map);
-		map.flyTo(square.latlng, 12);
+		highlightSquare(name);
 	}
 
 	$('#squaregoto').off('click').on('click', gotoSquare);
 	$('#squareclear').off('click').on('click', function() {
-		if (squareHighlight !== null) {
-			map.removeLayer(squareHighlight);
-			squareHighlight = null;
+		if (wabSquareHighlight !== null) {
+			wabLeafletMap.removeLayer(wabSquareHighlight);
+			wabSquareHighlight = null;
 		}
 		$('#squareinput').val('');
 	});
@@ -311,7 +333,7 @@ function wabmap(data) {
 	});
 
 	var printer = L.easyPrint({
-		tileLayer: tileUrl,
+		tileLayer: tiles,
 		sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
 		filename: 'Wavelog',
 		exportOnly: true,
@@ -352,16 +374,19 @@ function wabmap(data) {
         return div;
     };
 
-    legend.addTo(map);
+    // legend needs the lang_wab_* vars (awards view only); skip in the modal
+    if (typeof lang_wab_total_worked !== 'undefined') {
+        legend.addTo(map);
+    }
 };
 
 // Tabs + autoload: the active view loads on page load; the other one loads
 // lazily on first tab switch. Filter changes (dropdown close) reload the
 // active view only, so a hidden map is never built.
 var viewLoaded = { map: false, list: false };
-var wabLeafletMap = null; // set by wabmap(), for invalidateSize on tab switch
 
 function loadActiveView() {
+	if (!$('#wabTabs').length) return; // not the awards page (this script is shared with the WAB tool)
 	if ($('#wab-map-pane').hasClass('active')) {
 		viewLoaded.map = true;
 		plotmap();
@@ -406,3 +431,50 @@ $('#filterDropdown').on('hidden.bs.dropdown', function () {
 $(function () {
 	loadActiveView();
 });
+
+// Show the full worked/confirmed WAB map in a modal, optionally highlighting
+// one square and marking the QSO partner's grid with a needle. Shared entry
+// point for other pages (the WAB tool); default filters.
+function showWabMapModal(square, callsign, lat, lng) {
+	var dialog = BootstrapDialog.show({
+		title: square ? ('WAB ' + square) : 'WAB',
+		size: BootstrapDialog.SIZE_WIDE,
+		nl2br: false,
+		message: '<div class="text-center p-3"><div class="spinner-border text-primary" role="status"></div></div>',
+		buttons: [{ label: 'Close', action: function(d) { d.close(); } }]
+	});
+
+	$.ajax({
+		url: site_url + '/awards/wab_map',
+		type: 'post',
+		data: { band: 'All', mode: 'All', sat: 'All', orbit: 'All' },
+		success: function(data) {
+			// wait for the square/dxcc geojsons before drawing (autoload races these)
+			$.when(wab_squares, wab_dxcc).always(function() {
+				if (!wab_squares.responseJSON) {
+					dialog.setMessage('<div class="alert alert-warning mb-0">WAB square data failed to load.</div>');
+					return;
+				}
+				wabSquareHighlight = null; // stale layer of a previous (closed) map
+				dialog.setMessage('<div id="wabmapmodal" style="width:100%;"></div>');
+				wabmap(data, 'wabmapmodal');
+				L.maidenheadqrb().addTo(wabLeafletMap); // gridsquare overlay (as on the QRB map)
+				if (callsign && lat !== null && lng !== null) {
+					// QSO partner: same red dot as the QSO dialog map
+					L.marker([parseFloat(lat), parseFloat(lng)], { icon: L.icon({ iconUrl: icon_dot_url, iconSize: [18, 18] }) })
+						.addTo(wabLeafletMap)
+						.bindTooltip(callsign);
+				}
+				if (square) {
+					highlightSquare(square);
+				}
+				setTimeout(function() {
+					if (wabLeafletMap !== null) wabLeafletMap.invalidateSize();
+				}, 120);
+			});
+		},
+		error: function() {
+			dialog.setMessage('<div class="alert alert-warning mb-0">Error loading map.</div>');
+		}
+	});
+}

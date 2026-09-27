@@ -3,6 +3,19 @@
 	#wabtoolTable thead th {
 		text-align: left !important;
 	}
+
+	/* In the WAB map modal the square names are the primary information:
+	   bigger than the maidenhead overlay labels */
+	.bootstrap-dialog .text-labels,
+	.bootstrap-dialog .confirmed-labels,
+	.bootstrap-dialog .worked-labels {
+		font-size: 1.4rem;
+		font-weight: 700;
+	}
+
+	.bootstrap-dialog .grid-text font {
+		font-size: 0.8rem !important; /* beats the maidenhead inline per-zoom size */
+	}
 </style>
 
 <div class="container px-3 px-lg-4 mt-3 mb-3">
@@ -33,7 +46,7 @@
 				<?= __("Apply Selected"); ?><div class="ld ld-ring ld-spin"></div>
 			</button>
 			<div class="applyresult"></div>
-			<div class="scanresult"></div>
+			<div class="scanresult" data-confirmlegend="<?= __("Q = QSL card, L = LoTW, E = eQSL, Z = QRZ.com, C = Clublog"); ?>"></div>
 		</div>
 	</div>
 

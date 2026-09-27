@@ -1,13 +1,10 @@
 // WAB from Gridsquare tool: batch assign WAB squares from logged gridsquares
-// (functions are prefixed wabtool* because section scripts share the global scope)
-//
-// The preview table is a server-side DataTable: the candidate set can reach
-// log size (tens of thousands of rows), so only one page is ever fetched
-// and rendered. Selection state lives in wabtoolSelected (per id) plus the
-// wabtoolAllMatching flag ("apply everything the scan matches"). The
-// wabtoolOnlyFull flag filters the scan server side down to "100% matches"
-// (grids fully inside one WAB square); select-all and the bulk apply
-// follow that filter.
+// (wabtool* prefix because section scripts share the global scope; escapeHtml
+// comes from common.js, showWabMapModal from wab.js). Server-side DataTable
+// (only one page is ever fetched); selection state in wabtoolSelected plus
+// the wabtoolAllMatching flag ("apply everything the scan matches").
+// wabtoolOnlyFull filters to "100% matches" (grids fully inside one square).
+// Confirmed QSOs are shown but never selectable; the server skips them too.
 
 var wabtoolTable = null; // DataTables API instance of the preview table
 var wabtoolSelected = {}; // qso id -> 1, rows checked by the user
@@ -16,15 +13,9 @@ var wabtoolOnlyFull = false; // only gridsquares fully inside a single WAB squar
 var wabtoolRecordsFiltered = 0; // rows matching the current table filter
 var wabtoolSummaryPending = false; // request the one-time scan summary on the next ajax
 
-function wabtoolEscapeHtml(s) {
-	return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
-		return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
-	});
-}
-
 function wabtoolCornerTooltip(cornerSquares) {
 	var squares = (cornerSquares && cornerSquares.length) ? cornerSquares.join(', ') : '';
-	return '<span class="text-warning" data-bs-toggle="tooltip" title="Gridsquare corners fall into: ' + wabtoolEscapeHtml(squares) + '"><i class="fas fa-exclamation-triangle"></i></span>';
+	return '<span class="text-warning" data-bs-toggle="tooltip" title="Gridsquare corners fall into: ' + escapeHtml(squares) + '"><i class="fas fa-exclamation-triangle"></i></span>';
 }
 
 function wabtoolRenderSummary(summary) {
@@ -63,7 +54,8 @@ function wabtoolUpdateSelectAllButton() {
 }
 
 function wabtoolSyncHeaderCheckbox() {
-	var $rows = $('#wabtoolTable tbody .wabtool-row');
+	// only selectable (enabled) rows count; confirmed rows are greyed out
+	var $rows = $('#wabtoolTable tbody .wabtool-row:enabled');
 	$('#wabtoolSelectAll').prop('checked', $rows.length > 0 && $rows.length === $rows.filter(':checked').length);
 }
 
@@ -104,21 +96,25 @@ function wabtoolInitTable() {
 			url: getDataTablesLanguageUrl(),
 		},
 		columns: [
-			{
-				data: null,
-				orderable: false,
-				searchable: false,
-				render: function(data, type, row) {
-					if (type !== 'display') {
-						return '';
-					}
-					if (!row.square) {
-						return ''; // unresolvable rows are never selectable
-					}
-					return '<input type="checkbox" class="wabtool-row" value="' + row.id + '"'
-						+ ((wabtoolAllMatching || wabtoolSelected[row.id]) ? ' checked' : '') + '>';
+		{
+			data: null,
+			orderable: false,
+			searchable: false,
+			render: function(data, type, row) {
+				if (type !== 'display') {
+					return '';
 				}
-			},
+				if (!row.square) {
+					return ''; // unresolvable rows are never selectable
+				}
+				if (row.confirmed) {
+					// already confirmed QSOs are never modified by this tool
+					return '<input type="checkbox" class="wabtool-row" value="' + row.id + '" disabled title="Already confirmed QSO">';
+				}
+				return '<input type="checkbox" class="wabtool-row" value="' + row.id + '"'
+					+ ((wabtoolAllMatching || wabtoolSelected[row.id]) ? ' checked' : '') + '>';
+			}
+		},
 			{ data: 'datetime', render: wabtoolRenderCell },
 			{
 				data: 'callsign',
@@ -127,7 +123,7 @@ function wabtoolInitTable() {
 					if (type !== 'display') {
 						return data;
 					}
-					return '<a href="#" class="wabtool-qso" data-id="' + row.id + '">' + wabtoolEscapeHtml(data) + '</a>';
+					return '<a href="#" class="wabtool-qso" data-id="' + row.id + '">' + escapeHtml(data) + '</a>';
 				}
 			},
 			{
@@ -138,9 +134,9 @@ function wabtoolInitTable() {
 					}
 					// sat QSOs: show the satellite instead of the bare 'SAT' band
 					if (row.sat) {
-						return '<a href="https://db.satnogs.org/search/?q=' + wabtoolEscapeHtml(row.sat) + '" target="_blank">' + wabtoolEscapeHtml(row.sat) + '</a>';
+						return '<a href="https://db.satnogs.org/search/?q=' + escapeHtml(row.sat) + '" target="_blank">' + escapeHtml(row.sat) + '</a>';
 					}
-					return wabtoolEscapeHtml(data);
+					return escapeHtml(data);
 				}
 			},
 			{ data: 'grid', render: wabtoolRenderCell },
@@ -152,12 +148,15 @@ function wabtoolInitTable() {
 						return row.square || '';
 					}
 					var html = row.square
-						? '<span class="badge bg-primary">' + wabtoolEscapeHtml(row.square) + '</span>'
+						? '<span class="badge bg-primary">' + escapeHtml(row.square) + '</span>'
 						: '<span class="text-muted">&mdash;</span>';
 					if (row.square && row.ambiguous) {
 						html += ' ' + wabtoolCornerTooltip(row.corner_squares);
 					}
-					html += ' <a href="#" class="wabtool-map text-muted" data-grid="' + wabtoolEscapeHtml(row.grid) + '" data-bs-toggle="tooltip" title="Show on map"><i class="fas fa-map-marked-alt"></i></a>';
+					html += ' <a href="#" class="wabtool-map text-muted" data-square="' + escapeHtml(row.square || '') + '"'
+					+ ' data-call="' + escapeHtml(row.callsign || '') + '"'
+					+ ' data-lat="' + (row.lat === null ? '' : row.lat) + '" data-lng="' + (row.lng === null ? '' : row.lng) + '"'
+					+ ' data-bs-toggle="tooltip" title="Show on map"><i class="fas fa-map-marked-alt"></i></a>';
 					return html;
 				}
 			},
@@ -166,19 +165,21 @@ function wabtoolInitTable() {
 				data: 'confirmed',
 				orderable: false,
 				searchable: false,
-				render: function(data, type) {
-					if (type !== 'display') {
-						return data || '';
-					}
-					if (!data) {
-						return '<span class="text-muted">&mdash;</span>';
-					}
-					// one badge per letter: Q = QSL card, L = LoTW, E = eQSL, Z = QRZ.com, C = Clublog
-					var badges = data.split('').map(function(l) {
-						return '<span class="badge bg-success">' + l + '</span>';
-					}).join(' ');
-					return '<span data-bs-toggle="tooltip" title="Q = QSL card, L = LoTW, E = eQSL, Z = QRZ.com, C = Clublog">' + badges + '</span>';
+			render: function(data, type) {
+				if (type !== 'display') {
+					return data || '';
 				}
+				if (!data) {
+					return '<span class="text-muted">&mdash;</span>';
+				}
+				// one badge per letter: Q = QSL card, L = LoTW, E = eQSL, Z = QRZ.com, C = Clublog
+				// (tooltip text is i18n'd by the view via the data-confirmlegend attribute)
+				var legend = $('.scanresult').data('confirmlegend') || 'Q = QSL card, L = LoTW, E = eQSL, Z = QRZ.com, C = Clublog';
+				var badges = data.split('').map(function(l) {
+					return '<span class="badge bg-success">' + l + '</span>';
+				}).join(' ');
+				return '<span data-bs-toggle="tooltip" title="' + escapeHtml(legend) + '">' + badges + '</span>';
+			}
 			}
 		],
 		createdRow: function(row) {
@@ -186,8 +187,7 @@ function wabtoolInitTable() {
 		}
 	});
 
-	// Every ajax response updates the counters, the summary area and the
-	// selection affordances (the one-time summary rides the first response)
+	// Every ajax response updates counters and selection affordances
 	wabtoolTable.on('xhr', function(e, settings, json) {
 		if (!json || json.error) {
 			return;
@@ -222,12 +222,12 @@ function wabtoolRenderCell(data, type) {
 	if (type !== 'display') {
 		return data;
 	}
-	return wabtoolEscapeHtml(data);
+	return escapeHtml(data);
 }
 
 function wabtoolRenderApplyResult(data) {
 	if (!data || data.error) {
-		$('.applyresult').html('<div class="alert alert-danger mb-0">' + ((data && data.error) ? wabtoolEscapeHtml(data.error) : 'An error occurred while processing the request.') + '</div>');
+		$('.applyresult').html('<div class="alert alert-danger mb-0">' + ((data && data.error) ? escapeHtml(data.error) : 'An error occurred while processing the request.') + '</div>');
 		return;
 	}
 
@@ -238,7 +238,7 @@ function wabtoolRenderApplyResult(data) {
 	var html = '<div class="alert alert-success mb-2">'
 		+ '<strong>' + data.updated + '</strong> QSO(s) updated'
 		+ (data.skipped ? ', <strong>' + data.skipped + '</strong> skipped' : '')
-		+ (squares ? ' &mdash; ' + wabtoolEscapeHtml(squares) : '')
+		+ (squares ? ' &mdash; ' + escapeHtml(squares) : '')
 		+ '</div>';
 
 	$('.applyresult').html(html);
@@ -267,81 +267,6 @@ function wabtoolStartScan(clearApplyResult) {
 	wabtoolInitTable();
 }
 
-// Map popup: grid rectangle + WAB square outline(s)
-function wabtoolOpenMap(grid) {
-	var dialog = BootstrapDialog.show({
-		title: grid,
-		size: BootstrapDialog.SIZE_WIDE,
-		nl2br: false,
-		message: '<div class="text-center p-3"><div class="spinner-border text-primary" role="status"></div></div>',
-		buttons: [{ label: 'Close', action: function(d) { d.close(); } }]
-	});
-
-	$.ajax({
-		url: site_url + '/wabtool/map_data',
-		type: 'POST',
-		dataType: 'json',
-		data: {
-			grid: grid
-		},
-		success: function(data) {
-			wabtoolRenderMap(data, dialog);
-		},
-		error: function() {
-			wabtoolRenderMap(null, dialog);
-		}
-	});
-}
-
-function wabtoolRenderMap(data, dialog) {
-	if (!data || data.error) {
-		dialog.setMessage('<div class="alert alert-warning mb-0">' + ((data && data.error) ? wabtoolEscapeHtml(data.error) : 'Error loading map data.') + '</div>');
-		return;
-	}
-
-	var mapId = 'wabtool_map_' + Math.random().toString(36).slice(2, 10);
-	dialog.setMessage('<div id="' + mapId + '" style="width:100%; height:60vh;"></div>');
-
-	var map = L.map(mapId).setView([data.lat, data.lng], 11);
-	L.tileLayer(option_map_tile_server, {
-		attribution: option_map_tile_server_copyright,
-		maxZoom: 18
-	}).addTo(map);
-
-	var gridBounds = L.latLngBounds(
-		[data.grid_bounds.south, data.grid_bounds.west],
-		[data.grid_bounds.north, data.grid_bounds.east]
-	);
-
-	// WAB square outlines: assigned square in blue, extra corner squares dashed orange
-	var squareLayer = L.geoJSON({ type: 'FeatureCollection', features: data.features }, {
-		style: function(feature) {
-			return feature.properties.role === 'assigned'
-				? { color: '#2196f3', weight: 2, fillColor: '#2196f3', fillOpacity: 0.15 }
-				: { color: '#ff9800', weight: 2, fillColor: '#ff9800', fillOpacity: 0.1, dashArray: '6 4' };
-		},
-		onEachFeature: function(feature, layer) {
-			layer.bindTooltip(feature.properties.name, { permanent: true, direction: 'center' });
-		}
-	}).addTo(map);
-
-	// gridsquare rectangle in red
-	L.rectangle(gridBounds, { color: '#ff4136', weight: 2, fillOpacity: 0.08, dashArray: '4 3' }).addTo(map);
-
-	L.marker([data.lat, data.lng]).addTo(map).bindPopup(
-		'<b>' + wabtoolEscapeHtml(data.grid) + '</b><br>WAB: ' + (data.square ? wabtoolEscapeHtml(data.square) : '&mdash;')
-	).openPopup();
-
-	var fitBounds = gridBounds;
-	try { fitBounds = fitBounds.extend(squareLayer.getBounds()); } catch (e) { /* no square features */ }
-
-	try {
-		map.fitBounds(fitBounds.pad(0.3));
-	} catch (e) { /* invalid bounds */ }
-
-	setTimeout(function() { map.invalidateSize(); }, 120);
-}
-
 // Bind the WAB tool handlers (defined once, bound once jQuery is available)
 function bindWabTool() {
 
@@ -352,8 +277,7 @@ function bindWabTool() {
 	$('#applyWab').on('click', function() {
 		var payloadIds, count, searchData;
 		if (wabtoolAllMatching) {
-			// let the server enumerate the matching set; station filter and
-			// table search mirror the scan request
+			// server enumerates the matching set; filters mirror the scan
 			payloadIds = 'ALL';
 			count = wabtoolRecordsFiltered;
 			searchData = {
@@ -376,9 +300,8 @@ function bindWabTool() {
 			}
 			payloadIds = JSON.stringify(ids);
 			count = ids.length;
-			// One JSON string var, not ids[]: arrays post one PHP input var
-			// per row and max_input_vars silently drops the excess, causing
-			// a partial apply
+			// One JSON string, not ids[]: array posts would exceed
+			// max_input_vars and silently cause a partial apply
 			searchData = { ids: payloadIds };
 		}
 
@@ -416,9 +339,8 @@ function bindWabTool() {
 		});
 	});
 
-	// Row checkbox: track per-id selection. Unchecking a row while
-	// "select all matching" is active leaves that mode (everything else
-	// would otherwise still be applied).
+	// Row checkbox: unchecking while "select all matching" is active
+	// leaves that mode (everything else would still be applied)
 	$(document).on('change', '.wabtool-row', function() {
 		var id = $(this).val();
 		if (this.checked) {
@@ -439,7 +361,7 @@ function bindWabTool() {
 	// Header checkbox toggles the selectable rows on the current page only
 	$(document).on('change', '#wabtoolSelectAll', function() {
 		var headerChecked = this.checked;
-		$('#wabtoolTable tbody .wabtool-row').each(function() {
+		$('#wabtoolTable tbody .wabtool-row:enabled').each(function() {
 			$(this).prop('checked', headerChecked);
 			var id = $(this).val();
 			if (headerChecked) {
@@ -456,14 +378,13 @@ function bindWabTool() {
 		if (!wabtoolAllMatching) {
 			wabtoolSelected = {};
 		}
-		$('.wabtool-row').prop('checked', wabtoolAllMatching);
+		$('.wabtool-row:enabled').prop('checked', wabtoolAllMatching);
 		wabtoolSyncHeaderCheckbox();
 		wabtoolUpdateSelectAllButton();
 	});
 
-	// "Only 100% matches": refetch the table without gridsquares that
-	// straddle a square boundary. Select-all and the bulk apply follow the
-	// filter, so "select all matching" then selects exactly the 100% matches.
+	// "Only 100% matches": refetch without boundary-straddling grids;
+	// select-all and the bulk apply follow the filter
 	$(document).on('click', '#wabtoolOnlyFull', function() {
 		wabtoolOnlyFull = !wabtoolOnlyFull;
 		$(this).toggleClass('active', wabtoolOnlyFull).attr('aria-pressed', String(wabtoolOnlyFull));
@@ -476,38 +397,21 @@ function bindWabTool() {
 		}
 	});
 
-	// Map popup per preview row (delegated so it survives re-rendering)
+	// Map per preview row: full WAB map from wab.js, square highlighted
 	$(document).on('click', '.wabtool-map', function(e) {
 		e.preventDefault();
-		wabtoolOpenMap($(this).attr('data-grid'));
+		var $a = $(this);
+		showWabMapModal($a.attr('data-square') || null, $a.attr('data-call') || null, $a.attr('data-lat') || null, $a.attr('data-lng') || null);
 	});
 
-	// QSO detail dialog per callsign (delegated so it survives re-rendering)
+	// QSO detail dialog per callsign
 	$(document).on('click', '.wabtool-qso', function(e) {
 		e.preventDefault();
 		displayQso($(this).attr('data-id'));
 	});
 }
 
-// Check if jQuery is loaded, if not wait for it
-if (typeof $ === 'undefined') {
-	// jQuery not yet loaded, add event listener
-	document.addEventListener('DOMContentLoaded', function() {
-		if (typeof $ === 'undefined') {
-			// Wait for jQuery to load
-			var checkJQuery = setInterval(function() {
-				if (typeof $ !== 'undefined') {
-					clearInterval(checkJQuery);
-					bindWabTool();
-				}
-			}, 100);
-		} else {
-			bindWabTool();
-		}
-	});
-} else {
-	// jQuery already loaded
-	$(document).ready(function() {
-		bindWabTool();
-	});
-}
+// section scripts load after jQuery in the footer, so $ is always defined
+$(function() {
+	bindWabTool();
+});

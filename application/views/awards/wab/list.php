@@ -13,15 +13,10 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($qsos as $qso) {
-					$ts = strtotime($qso->col_time_on);
-					$letters = '';
-					if ($qso->col_qsl_rcvd == 'Y') { $letters .= 'Q'; }
-					if ($qso->col_lotw_qsl_rcvd == 'Y') { $letters .= 'L'; }
-					if ($qso->col_eqsl_qsl_rcvd == 'Y') { $letters .= 'E'; }
-					if ($qso->qrz == 'Y') { $letters .= 'Z'; }
-					if ($qso->clublog == 'Y') { $letters .= 'C'; }
-				?>
+			<?php foreach ($qsos as $qso) {
+				$ts = strtotime($qso->col_time_on);
+				$letters = $this->wab->confirmation_letters($qso);
+			?>
 				<tr>
 					<td data-order="<?= html_escape($qso->dxcc); ?>"><?= $qso->dxcc != '' ? html_escape($dxcc_names[$qso->dxcc] ?? $qso->dxcc) . ' (' . html_escape($qso->dxcc) . ')' : '&mdash;'; ?></td>
 					<td><?php echo '<a href=\'javascript:displayContacts(' . js_escape($qso->col_sig_info) . ',' . js_escape($postdata['band']) . ',' . js_escape($postdata['sat']) . ',' . js_escape($postdata['orbit']) . ',' . js_escape($postdata['mode']) . ',"WAB")\'>' . html_escape($qso->col_sig_info) . '</a>'; ?></td>
