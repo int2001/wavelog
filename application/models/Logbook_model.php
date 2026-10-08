@@ -330,7 +330,7 @@ class Logbook_model extends CI_Model {
 		if (!isset($qso_data['band'])) {
 			$band = $this->frequency->GetBand($qso_data['freq_display']);
 		} else {
-			$band = $qso_data['band'];
+			$band = ($b = trim($qso_data['band'] ?? '')) === 'SAT' ? $b : strtolower($b);
 		}
 
 		// Create array with QSO Data
@@ -339,7 +339,7 @@ class Logbook_model extends CI_Model {
 			'COL_TIME_OFF' => $datetime_off,
 			'COL_CALL' => strtoupper(trim($callsign)),
 			'COL_BAND' => $band,
-			'COL_BAND_RX' => $qso_data['band_rx'] ?? NULL,
+			'COL_BAND_RX' => ($b = trim($qso_data['band_rx'] ?? '')) === '' ? NULL : ($b === 'SAT' ? $b : strtolower($b)),
 			'COL_FREQ' => $this->parse_frequency($qso_data['freq_display']),
 			'COL_MODE' => $mode,
 			'COL_SUBMODE' => $submode,
