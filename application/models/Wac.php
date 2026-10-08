@@ -15,7 +15,7 @@ class Wac extends CI_Model{
 	 */
 	function getWacData($location_list, $postdata) {
 		$bindings = [];
-		$sql = "SELECT thcv.col_cont, thcv.col_band,
+		$sql = "SELECT thcv.col_cont, LOWER(thcv.col_band) AS col_band,
 			MAX(case when thcv.col_lotw_qsl_rcvd ='Y' then 1 else 0 end) as lotw,
 			MAX(case when thcv.col_qsl_rcvd = 'Y' then 1 else 0 end) as qsl,
 			MAX(case when thcv.col_eqsl_qsl_rcvd = 'Y' then 1 else 0 end) as eqsl,
@@ -35,7 +35,7 @@ class Wac extends CI_Model{
 
 		$sql .= " AND (thcv.col_prop_mode != 'SAT' or thcv.col_prop_mode is NULL)";
 
-		$sql .= " GROUP BY thcv.col_cont, thcv.col_band";
+		$sql .= " GROUP BY thcv.col_cont, LOWER(thcv.col_band)";
 
 		$query = $this->db->query($sql, $bindings);
 		return $query->result();

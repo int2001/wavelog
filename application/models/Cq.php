@@ -249,7 +249,7 @@ class CQ extends CI_Model{
 
 	function getCqZoneData($location_list, $postdata) {
 		$bindings=[];
-		$sql = "SELECT thcv.col_cqz, thcv.col_band,
+		$sql = "SELECT thcv.col_cqz, LOWER(thcv.col_band) AS col_band,
 			MAX(case when thcv.col_lotw_qsl_rcvd ='Y' then 1 else 0 end) as lotw,
 			MAX(case when thcv.col_qsl_rcvd = 'Y' then 1 else 0 end) as qsl,
 			MAX(case when thcv.col_eqsl_qsl_rcvd = 'Y' then 1 else 0 end) as eqsl,
@@ -276,7 +276,7 @@ class CQ extends CI_Model{
 
 		$sql .= " and (col_prop_mode != 'SAT' or col_prop_mode is NULL)";
 
-		$sql .= " GROUP BY thcv.col_cqz, thcv.col_band";
+		$sql .= " GROUP BY thcv.col_cqz, LOWER(thcv.col_band)";
 
 		$query = $this->db->query($sql,$bindings);
 

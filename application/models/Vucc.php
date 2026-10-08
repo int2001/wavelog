@@ -419,13 +419,13 @@ class VUCC extends CI_Model
 
         $sql1 = "SELECT
             DISTINCT UPPER(SUBSTRING(col_gridsquare, 1, 4)) as gridsquare,
-            col_band,
+            LOWER(col_band) AS col_band,
             MAX(CASE WHEN (col_qsl_rcvd='Y' OR col_lotw_qsl_rcvd='Y') THEN 1 ELSE 0 END) as confirmed
             FROM " . $this->config->item('table_name') . " log
             WHERE log.station_id IN (" . $location_list . ")
                 AND log.col_gridsquare <> ''
                 AND log.col_prop_mode != 'SAT'
-            GROUP BY UPPER(SUBSTRING(col_gridsquare, 1, 4)), col_band";
+            GROUP BY UPPER(SUBSTRING(col_gridsquare, 1, 4)), LOWER(col_band)";
 
         $query1 = $this->db->query($sql1);
         if ($query1->num_rows() > 0) {
@@ -436,13 +436,13 @@ class VUCC extends CI_Model
 
         $sql2 = "SELECT
             DISTINCT col_vucc_grids,
-            col_band,
+            LOWER(col_band) AS col_band,
             MAX(CASE WHEN (col_qsl_rcvd='Y' OR col_lotw_qsl_rcvd='Y') THEN 1 ELSE 0 END) as confirmed
             FROM " . $this->config->item('table_name') . "
             WHERE station_id IN (" . $location_list . ")
                 AND col_vucc_grids <> ''
                 AND col_prop_mode != 'SAT'
-            GROUP BY col_vucc_grids, col_band";
+            GROUP BY col_vucc_grids, LOWER(col_band)";
 
         $query2 = $this->db->query($sql2);
         if ($query2->num_rows() > 0) {

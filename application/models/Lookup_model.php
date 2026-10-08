@@ -150,7 +150,7 @@ class Lookup_model extends CI_Model{
 	function getQueryData($queryinfo) {
 		$binds = [];
 
-		$sql = "SELECT CASE WHEN col_prop_mode = 'SAT' THEN 'SAT' ELSE col_band END as col_band,
+		$sql = "SELECT CASE WHEN col_prop_mode = 'SAT' THEN 'SAT' ELSE LOWER(col_band) END as col_band,
 			LOWER(COALESCE(NULLIF(col_submode, ''), col_mode)) as col_mode,
 			MAX(case when col_qsl_rcvd = 'Y' then 1 else 0 end) as qsl,
 			MAX(case when col_lotw_qsl_rcvd = 'Y' then 1 else 0 end) as lotw,

@@ -459,7 +459,7 @@ class DXCC extends CI_Model {
 	 */
 	function getDxccData($location_list, $postdata) {
 		$bindings = [];
-		$sql = "SELECT thcv.col_dxcc as dxcc, thcv.col_band,
+		$sql = "SELECT thcv.col_dxcc as dxcc, LOWER(thcv.col_band) AS col_band,
 			MAX(case when thcv.col_lotw_qsl_rcvd ='Y' then 1 else 0 end) as lotw,
 			MAX(case when thcv.col_qsl_rcvd = 'Y' then 1 else 0 end) as qsl,
 			MAX(case when thcv.col_eqsl_qsl_rcvd = 'Y' then 1 else 0 end) as eqsl,
@@ -498,7 +498,7 @@ class DXCC extends CI_Model {
 			$sql .= " AND (SELECT end FROM dxcc_entities d WHERE d.adif = thcv.col_dxcc) IS NULL";
 		}
 
-		$sql .= " GROUP BY thcv.col_dxcc, thcv.col_band";
+		$sql .= " GROUP BY thcv.col_dxcc, LOWER(thcv.col_band)";
 
 		$query = $this->db->query($sql, $bindings);
 		return $query->result();

@@ -315,7 +315,7 @@ class WAE extends CI_Model {
 					COALESCE(thcv.col_region, CAST(thcv.col_dxcc AS CHAR)) as entity_key,
 					thcv.col_dxcc as dxcc,
 					thcv.col_region,
-					thcv.col_band,
+					LOWER(thcv.col_band) AS col_band,
 					MAX(case when thcv.col_lotw_qsl_rcvd ='Y' then 1 else 0 end) as lotw,
 					MAX(case when thcv.col_qsl_rcvd = 'Y' then 1 else 0 end) as qsl,
 					MAX(case when thcv.col_eqsl_qsl_rcvd = 'Y' then 1 else 0 end) as eqsl,
@@ -351,7 +351,7 @@ class WAE extends CI_Model {
 		// Orbit filter
 		$sql .= $this->addOrbitToQuery($postdata, $bindings);
 
-		$sql .= " GROUP BY COALESCE(thcv.col_region, CAST(thcv.col_dxcc AS CHAR)), thcv.col_dxcc, thcv.col_region, thcv.col_band";
+		$sql .= " GROUP BY COALESCE(thcv.col_region, CAST(thcv.col_dxcc AS CHAR)), thcv.col_dxcc, thcv.col_region, LOWER(thcv.col_band)";
 
 		$query = $this->db->query($sql, $bindings);
 		return $query->result();

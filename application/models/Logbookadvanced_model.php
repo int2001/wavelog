@@ -1265,6 +1265,8 @@ class Logbookadvanced_model extends CI_Model {
 
 			if ($value == '') return;
 
+			$value = strtolower($value);
+			$value2 = strtolower($value2 ?? '');
 			$bandrx = $value2 == '' ? '' : $value2;
 			$sql = "UPDATE ".$this->config->item('table_name')." JOIN station_profile ON ". $this->config->item('table_name').".station_id = station_profile.station_id" .
 			" SET " . $this->config->item('table_name').".COL_BAND = ?" .
