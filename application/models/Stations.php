@@ -306,7 +306,6 @@ class Stations extends CI_Model {
 		$this->db->query("DELETE c FROM contest_session c WHERE c.station_id =?",$clean_id);
 		$this->db->query("DELETE FROM oqrs WHERE station_id = ?",$clean_id);
 		$this->db->query("DELETE FROM station_logbooks_relationship WHERE station_location_id = ?",$clean_id);
-		$this->db->query("DELETE FROM messages WHERE message_scope = 'station' AND message_ref_id = ?",$clean_id);
 		$this->db->delete('station_profile', array('station_id' => $clean_id));
 	}
 
