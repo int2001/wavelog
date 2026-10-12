@@ -2,7 +2,7 @@
 // render "interface was auto-disabled" warning for the given message context (XSS-escaped)
 $im = $interface_messages ?? [];
 $im_html = function(string $ctx) use ($im): string {
-	$m = $interface_messages[$ctx] ?? null;
+	$m = $im[$ctx] ?? null;
 	if ($m === null) {
 		return '';
 	}
