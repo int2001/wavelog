@@ -418,6 +418,8 @@ class User extends CI_Controller {
 		if ( ($this->session->userdata('user_id') == '') || ((!$this->user_model->authorize(99)) && ($this->session->userdata('user_id') != $this->uri->segment(3))) ) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		if (!clubaccess_check(9)) { $this->session->set_flashdata('error', __("You're not allowed to do that!")); redirect('dashboard'); }
 		$query = $this->user_model->get_by_id($this->uri->segment(3));
+		$this->load->model('messages_model');
+		$data['interface_messages'] = $this->messages_model->get_messages('interface_disabled', 'user', (int)$this->uri->segment(3));
 
 		$data['existing_languages'] = $this->config->item('languages');
 

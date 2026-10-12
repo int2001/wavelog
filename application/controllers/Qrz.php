@@ -214,13 +214,16 @@ class Qrz extends CI_Controller {
 						$this->markqso($qso->COL_PRIMARY_KEY,'I');
 						$result['status'] = 'Error';
 						$errormessages[] = $result['message'] . ' Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
-					} elseif ( ($result['status']=='error') && (substr($result['message'],0,11)  == 'STATUS=AUTH')) {
-						log_message('error', 'QRZ upload failed for qso for Station_ID '.$station_id.' //  Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON . ' // Message: '.$result['message']);
-						$errormessages[] = $result['message'] . ' Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
-						$result['status'] = 'Error';
+				} elseif ( ($result['status']=='error') && (substr($result['message'],0,11)  == 'STATUS=AUTH')) {
+					log_message('error', 'QRZ upload failed for qso for Station_ID '.$station_id.' //  Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON . ' // Message: '.$result['message']);
+					$errormessages[] = $result['message'] . ' Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
+					$result['status'] = 'Error';
+					$last_state = $this->db->query('select qrzrealtime from station_profile where station_id = ?', [$station_id])->row()->qrzrealtime ?? null;
             				$sql = 'update station_profile set qrzrealtime = -1 where station_id = ?';
-            				$this->db->query($sql,$station_id);
-						$station_aborted = true; /* If key is invalid, immediate stop syncing for more QSOs of this station */
+            				$this->db->query($sql,[$station_id]);
+					$this->load->model('messages_model');
+					$this->messages_model->add_message('interface_disabled', 'qrz', 'station', $station_id, 'QRZ upload rejected (API key invalid): ' . $result['message'], $last_state);
+					$station_aborted = true; /* If key is invalid, immediate stop syncing for more QSOs of this station */
 					} else {
 						log_message('error', 'QRZ upload failed for qso: Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON);
 						log_message('error', 'QRZ upload failed with the following message: ' .$result['message']);

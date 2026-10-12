@@ -148,9 +148,21 @@ class Lotw_model extends CI_Model {
 		}
 	}
 
-	function remove_lotw_credentials($user_id = null) {
+	/**
+	 * Remove the LoTW password of a user and remember why.
+	 *
+	 * @param int|null $user_id owner of the LoTW account
+	 * @param string   $reason  why the credentials were removed
+	 *
+	 * @return bool true if a row was updated
+	 */
+	function remove_lotw_credentials($user_id = null, $reason = '') {
 		$sql = "UPDATE ".$this->config->item('auth_table')." SET user_lotw_password = '' WHERE user_id = ?;";
 		$query = $this->db->query($sql, array($user_id));
+		if ($reason != '') {
+			$this->load->model('messages_model');
+			$this->messages_model->add_message('interface_disabled', 'lotw', 'user', $user_id, $reason);
+		}
 		if ($this->db->affected_rows() == 1) {
 			return true;
 		} else {

@@ -516,9 +516,23 @@ class User_Model extends CI_Model {
 					$data['user_eqsl_password'] = NULL;
 				}
 
-				// Update the user
-				$this->db->where('user_id', $fields['id']);
-				$this->db->update($this->config->item('auth_table'), $data);
+			// Update the user
+			$this->db->where('user_id', $fields['id']);
+			$this->db->update($this->config->item('auth_table'), $data);
+
+			/*
+			 * Clear "interface disabled" messages for credentials the user just re-entered.
+			 */
+			$reenabled = [
+				'lotw'     => $fields['user_lotw_password'] != '' && $fields['user_lotw_password'] !== $pwd_placeholder,
+				'eqsl_user' => $fields['user_eqsl_password'] != '' && $fields['user_eqsl_password'] !== $pwd_placeholder,
+			];
+			$this->load->model('messages_model');
+			foreach ($reenabled as $context => $is_on) {
+				if ($is_on) {
+					$this->messages_model->clear_message('interface_disabled', $context, 'user', (int)$fields['id']);
+				}
+			}
 
 				// Remove static map images in cache to make sure they are updated
 				$this->load->model('Stations');

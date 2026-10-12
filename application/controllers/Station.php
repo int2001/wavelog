@@ -86,6 +86,8 @@ class Station extends CI_Controller
 		if ($this->stations->check_station_is_accessible($id)) {
 			$data = $this->load_station_for_editing($id);
 			$data['page_title'] = __("Edit Station Location: ") . $data['my_station_profile']->station_profile_name;
+			$this->load->model('messages_model');
+			$data['interface_messages'] = $this->messages_model->get_messages('interface_disabled', 'station', $id);
 
 			$this->form_validation->set_rules('dxcc', 'DXCC', 'required');
 			$this->form_validation->set_rules('gridsquare', 'Locator', 'callback_check_locator');

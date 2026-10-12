@@ -1,3 +1,14 @@
+<?php
+// render "interface was auto-disabled" warning for the given message context (XSS-escaped)
+$im = $interface_messages ?? [];
+$im_html = function(string $ctx) use ($im): string {
+	$m = $interface_messages[$ctx] ?? null;
+	if ($m === null) {
+		return '';
+	}
+	return '<div class="alert alert-warning mt-2">' . __("This interface was disabled automatically to protect your account") . ': ' . htmlspecialchars($m->message_text, ENT_QUOTES, 'UTF-8') . '</div>';
+};
+?>
 <div class="container">
 	<br>
 	<div class="d-flex justify-content-between align-items-center flex-wrap">
@@ -1123,6 +1134,7 @@
 											echo "<small class=\"badge bg-danger\">".$lotwpassword_error."</small>";
 											} else if (!isset($user_add)) { ?>
 										<?php } ?>
+										<?= $im_html('lotw') ?>
 									</div>
 								</div>
 							</div>
@@ -1133,11 +1145,12 @@
 							<div class="card">
 								<div class="card-header"><?= __("eQSL"); ?> <span class="badge text-bg-warning"><?= sprintf(__("Trouble? Check the %swiki%s."), '<a href="https://docs.wavelog.org/user-guide/qsl/eqsl/" target="_blank">', '</a>'); ?></span></div>
 								<div class="card-body">
-									<div class="mb-3">
-										<label><?= __("eQSL.cc Username"); ?></label>
-										<input class="form-control" type="text" name="user_eqsl_name" value="<?php if(isset($user_eqsl_name)) { echo $user_eqsl_name; } ?>" />
-											<?php if(isset($eqslusername_error)) { echo "<small class=\"badge bg-danger\">".$eqslusername_error."</small>"; } ?>
-									</div>
+								<div class="mb-3">
+									<label><?= __("eQSL.cc Username"); ?></label>
+									<input class="form-control" type="text" name="user_eqsl_name" value="<?php if(isset($user_eqsl_name)) { echo $user_eqsl_name; } ?>" />
+										<?php if(isset($eqslusername_error)) { echo "<small class=\"badge bg-danger\">".$eqslusername_error."</small>"; } ?>
+										<?= $im_html('eqsl_user') ?>
+								</div>
 
 									<div class="mb-3">
 										<label><?= __("eQSL.cc Password"); ?></label>

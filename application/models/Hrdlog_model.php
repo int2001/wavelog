@@ -73,8 +73,8 @@ class Hrdlog_model extends CI_Model {
 					log_message('error', 'hrdlog upload failed for qso: Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON);
 					log_message('error', 'hrdlog upload failed with the following message: ' . $result['message']);
 					log_message('error', 'hrdlog upload stopped and disabled for Station_ID: ' . $station_id);
-					$errormessages[] = $result['message'] . 'Invalid HRDLog-Code, stopped at Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
-					$this->disable_hrdlog_station($station_id);
+				$errormessages[] = $result['message'] . 'Invalid HRDLog-Code, stopped at Call: ' . $qso->COL_CALL . ' Band: ' . $qso->COL_BAND . ' Mode: ' . $qso->COL_MODE . ' Time: ' . $qso->COL_TIME_ON;
+				$this->disable_hrdlog_station($station_id, 'HRDLog upload rejected: ' . $result['message']);
 					$result['status'] = 'Error';
 					break; /* If key is invalid, immediate stop syncing for more QSOs of this station */
 				} else {
@@ -118,10 +118,23 @@ class Hrdlog_model extends CI_Model {
 		return 0;
 	}
 
-	function disable_hrdlog_station($station_id) {
-		$sql='update station_profile set hrdlogrealtime=-1 where station_id=?';
-		$bindings=[$station_id];
-		$this->db->query($sql,$bindings);
+	/**
+	 * Disable HRDLog realtime upload for a station and remember why.
+	 *
+	 * @param int    $station_id station_profile key
+	 * @param string $reason     why the upload was disabled
+	 *
+	 * @return void
+	 */
+	function disable_hrdlog_station($station_id, $reason = '') {
+		$last_state = $this->db->query('select hrdlogrealtime from station_profile where station_id=?', [$station_id])->row()->hrdlogrealtime ?? null;
+		$sql = 'update station_profile set hrdlogrealtime=-1 where station_id=?';
+		$bindings = [$station_id];
+		$this->db->query($sql, $bindings);
+		if ($reason != '') {
+			$this->load->model('messages_model');
+			$this->messages_model->add_message('interface_disabled', 'hrdlog', 'station', $station_id, $reason, $last_state);
+		}
 		return;
 	}
 

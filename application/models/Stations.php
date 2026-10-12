@@ -263,6 +263,26 @@ class Stations extends CI_Model {
 		$this->db->where('station_id', $this->input->post('station_id', true));
 		$this->db->update('station_profile', $data);
 
+		/*
+		 * Clear "interface disabled" messages for interfaces the user just re-enabled.
+		 * Ownership re-check: the update above is user-scoped, but the POSTed
+		 * station_id is independent input — never clear messages of a foreign station.
+		 */
+		if ($this->check_station_is_accessible((int)$this->input->post('station_id', true))) {
+			$reenabled = [
+				'clublog'     => $data['clublogignore'] == 0,
+				'eqsl_station' => ($data['eqslqthnickname'] ?? '') != '',
+				'hrdlog'      => $data['hrdlogrealtime'] >= 0,
+				'qrz'         => $data['qrzrealtime'] >= 0,
+			];
+			$this->load->model('messages_model');
+			foreach ($reenabled as $context => $is_on) {
+				if ($is_on) {
+					$this->messages_model->clear_message('interface_disabled', $context, 'station', (int)$this->input->post('station_id', true));
+				}
+			}
+		}
+
 		$eqsl_default_qslmsg = $this->input->post('eqsl_default_qslmsg', true) ?? '';
 		$this->user_options_model->set_option('eqsl_default_qslmsg', 'key_station_id', array($this->input->post('station_id', true) => $eqsl_default_qslmsg));
 	}

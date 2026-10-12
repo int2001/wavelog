@@ -413,14 +413,14 @@ class Eqslmethods_model extends CI_Model {
 				$status = $this->map_eqsl_response($result, $chi, $qsl, $ch);
 				$statuses[$qsl['COL_PRIMARY_KEY']] = $status;
 
-				if ($status == 'Login Error') {
-					log_message('error', 'eQSL credentials error (user, pass or QTH Nickname) for '.$qsl['station_callsign'].'. Login will be disabled!');
-					$this->disable_eqsl_uid($userid);
-					$aborted = true;
-				} elseif ($status == 'Nick Error') {
-					log_message('error', 'eQSL error for user '.$qsl['station_callsign'].' with QTH Nickname '.($qsl['eqslqthnickname'] ?? '').' at station_profile '.($qsl['eqsl_station_id'] ?? '').'. eQSL QTH Nickname will be removed from station location!');
-					$this->disable_eqsl_station_id($userid, $qsl['eqsl_station_id']);
-					$aborted = true;
+			if ($status == 'Login Error') {
+				log_message('error', 'eQSL credentials error (user, pass or QTH Nickname) for ' . $qsl['station_callsign'] . '. Login will be disabled!');
+				$this->disable_eqsl_uid($userid, 'eQSL login error (username, password or QTH nickname) for station ' . $qsl['station_callsign'] . '. eQSL credentials were removed.');
+				$aborted = true;
+			} elseif ($status == 'Nick Error') {
+				log_message('error', 'eQSL error for user ' . $qsl['station_callsign'] . ' with QTH Nickname ' . ($qsl['eqslqthnickname'] ?? '') . ' at station_profile ' . ($qsl['eqsl_station_id'] ?? '') . '. eQSL QTH Nickname will be removed from station location!');
+				$this->disable_eqsl_station_id($userid, $qsl['eqsl_station_id'], 'eQSL rejected the QTH nickname \'' . ($qsl['eqslqthnickname'] ?? '') . '\'. The nickname was removed from the station location.', ($qsl['eqslqthnickname'] ?? null));
+				$aborted = true;
 				} elseif ($status == 'Error') {
 					log_message('error', 'eQSL Error for '.$qsl['station_callsign']);
 					$aborted = true;
@@ -480,17 +480,43 @@ class Eqslmethods_model extends CI_Model {
 		}
 	}
 
-	function disable_eqsl_station_id($user_id,$station_id) {
-		$sql='update station_profile set eqslqthnickname=null where user_id=? and station_id=?';
-		$bindings=[$user_id,$station_id];
-		$this->db->query($sql,$bindings);
+	/**
+	 * Remove the eQSL QTH nickname from a station location and remember why.
+	 *
+	 * @param int         $user_id    owner of the station location
+	 * @param int         $station_id station_profile key
+	 * @param string      $reason     why the nickname was removed
+	 * @param string|null $last_state nickname value before it was removed
+	 *
+	 * @return void
+	 */
+	function disable_eqsl_station_id($user_id, $station_id, $reason = '', $last_state = null) {
+		$sql = 'update station_profile set eqslqthnickname=null where user_id=? and station_id=?';
+		$bindings = [$user_id, $station_id];
+		$this->db->query($sql, $bindings);
+		if ($reason != '') {
+			$this->load->model('messages_model');
+			$this->messages_model->add_message('interface_disabled', 'eqsl_station', 'station', $station_id, $reason, $last_state);
+		}
 		return;
 	}
 
-	function disable_eqsl_uid($userid) {
-		$sql='update '.$this->config->item('auth_table').' set user_eqsl_password=null, user_eqsl_name=null where user_id=?';
-		$bindings=[$userid];
-		$this->db->query($sql,$bindings);
+	/**
+	 * Remove the eQSL credentials of a user and remember why.
+	 *
+	 * @param int    $userid owner of the eQSL account
+	 * @param string $reason why the credentials were removed
+	 *
+	 * @return void
+	 */
+	function disable_eqsl_uid($userid, $reason = '') {
+		$sql = 'update ' . $this->config->item('auth_table') . ' set user_eqsl_password=null, user_eqsl_name=null where user_id=?';
+		$bindings = [$userid];
+		$this->db->query($sql, $bindings);
+		if ($reason != '') {
+			$this->load->model('messages_model');
+			$this->messages_model->add_message('interface_disabled', 'eqsl_user', 'user', $userid, $reason);
+		}
 		return;
 	}
 		

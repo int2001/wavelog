@@ -202,6 +202,15 @@ class Station_resource extends Api_v2_resource {
 
 		if (!empty($data)) {
 			$this->CI->stationsetup_model->update_location((int) $id, $data, $this->user_id());
+
+			// Clear auto-disable messages for interfaces this PATCH re-enabled.
+			$this->CI->load->model('messages_model');
+			if (isset($data['clublogignore']) && (int) $data['clublogignore'] === 0) {
+				$this->CI->messages_model->clear_message('interface_disabled', 'clublog', 'station', (int) $id);
+			}
+			if (isset($data['eqslqthnickname']) && (string) $data['eqslqthnickname'] !== '') {
+				$this->CI->messages_model->clear_message('interface_disabled', 'eqsl_station', 'station', (int) $id);
+			}
 		}
 		if ($set_active) {
 			// Same call the web UI makes (Stationsetup::setActiveStation_json),

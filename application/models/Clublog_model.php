@@ -111,7 +111,7 @@ class Clublog_model extends CI_Model
 									$log = "Clublog returned HTML error page for " . $station_row->station_callsign . " (access denied)";
 									log_message('Error', $log);
 									$return .= $log."<br>";
-									$this->disable_sync4call($station_row->station_callsign, $station_row->station_id);
+									$this->disable_sync4call($station_row->station_callsign, $station_row->station_id, $log);
 								} else if (preg_match('/too many uploads already queued/', $response)) {	// New Error, Clublog has Backlog, skip for NOW
 									$return = 'Clublog upload for ' . $station_row->station_callsign . ' failed, clublog tells backlog there. Skipping whole account for this cycle. Detailled reason ' . $response.' // HTTP:'.$httpcode.' / '.$return;
 									log_message('Error', 'Clublog upload for ' . $station_row->station_callsign . ' has become a victim of clublog-Backlog. Skipping full User for this cycle.');
@@ -129,15 +129,18 @@ class Clublog_model extends CI_Model
 								} else {
 									$return = 'Clublog upload for ' . $station_row->station_callsign . ' failed reason ' . $response.' // HTTP:'.$httpcode.' / '.$return;
 									log_message('error', $return);
-									if (substr($response,0,13) == 'Upload denied') {	// Deactivate Upload for Station if Clublog rejects it due to non-configured Call (prevent being blacklisted at Clublog)
-										log_message('Error', 'Deactivated upload for station ' . $station_row->station_callsign . ' due to non-configured Call (prevent being blacklisted at Clublog.');
-										$this->disable_sync4call($station_row->station_callsign, $station_row->station_id);
-									} else if (substr($response,0,14) == 'Login rejected') {	// Deactivate Upload for Station if Clublog rejects it due to wrong credentials (prevent being blacklisted at Clublog)
-										log_message('Error', 'Deactivated upload for station ' . $station_row->station_callsign . ' due to wrong credentials (prevent being blacklisted at Clublog.');
-										$this->disable_sync4call($station_row->station_callsign, $station_row->station_id);
-									} else if ($httpcode == 403) {
-										log_message('Error', 'Deactivated upload for station ' . $station_row->station_callsign . ' due to 403 (prevent being blacklisted at Clublog.');
-										$this->disable_sync4call($station_row->station_callsign, $station_row->station_id);
+								if (substr($response,0,13) == 'Upload denied') {	// Deactivate Upload for Station if Clublog rejects it due to non-configured Call (prevent being blacklisted at Clublog)
+									$reason = 'Clublog upload denied (call not configured at Clublog) for station ' . $station_row->station_callsign;
+									log_message('Error', 'Deactivated upload for station ' . $station_row->station_callsign . ' due to non-configured Call (prevent being blacklisted at Clublog.');
+									$this->disable_sync4call($station_row->station_callsign, $station_row->station_id, $reason);
+								} else if (substr($response,0,14) == 'Login rejected') {	// Deactivate Upload for Station if Clublog rejects it due to wrong credentials (prevent being blacklisted at Clublog)
+									$reason = 'Clublog login rejected (wrong credentials) for station ' . $station_row->station_callsign;
+									log_message('Error', 'Deactivated upload for station ' . $station_row->station_callsign . ' due to wrong credentials (prevent being blacklisted at Clublog.');
+									$this->disable_sync4call($station_row->station_callsign, $station_row->station_id, $reason);
+								} else if ($httpcode == 403) {
+									$reason = 'Clublog returned HTTP 403 (access denied) for station ' . $station_row->station_callsign;
+									log_message('Error', 'Deactivated upload for station ' . $station_row->station_callsign . ' due to 403 (prevent being blacklisted at Clublog.');
+									$this->disable_sync4call($station_row->station_callsign, $station_row->station_id, $reason);
 									} else {
 										log_message('error', 'Some uncaught exception for station ' . $station_row->station_callsign);
 									}
@@ -206,21 +209,21 @@ class Clublog_model extends CI_Model
 					if ($c_err == 7) { // We're victim of the Clublog Firewall
                                                 return 'Impossible to reach Clublog';
                                         }
-				} elseif (preg_match_all('/Login rejected/', $response)) {
-					$this->disable_sync4call($station_row->station_callsign, $station_row->station_ids);
-					$log = "Wrong Clublog username and password for Callsign: '" . $station_row->station_callsign . "'. 'LOGIN REJECTED'.";
-					log_message('debug', $log);
-					$return .= $log."<br>";
-				} elseif (preg_match_all('/Invalid callsign/', $response)) {	// We're trying to download calls for a station we're not granted. Disable Clublog-Transfer for that station(s)
-					$this->disable_sync4call($station_row->station_callsign, $station_row->station_ids);
-					$log = "The callsign '" . $station_row->station_callsign . "' does not match the user account at Clublog. 'INVALID CALLSIGN'.";
-					log_message('debug', $log);
-					$return .= $log."<br>";
-				} elseif ($httpcode == 403) {
-					$log = "Clublog returned HTML error page for " . $station_row->station_callsign . " (possibly access denied)";
-					log_message('debug', $log);
-					$return .= $log."<br>";
-					$this->disable_sync4call($station_row->station_callsign, $station_row->station_ids);
+			} elseif (preg_match_all('/Login rejected/', $response)) {
+				$log = "Wrong Clublog username and password for Callsign: '" . $station_row->station_callsign . "'. 'LOGIN REJECTED'.";
+				$this->disable_sync4call($station_row->station_callsign, $station_row->station_ids, $log);
+				log_message('debug', $log);
+				$return .= $log."<br>";
+			} elseif (preg_match_all('/Invalid callsign/', $response)) {	// We're trying to download calls for a station we're not granted. Disable Clublog-Transfer for that station(s)
+				$log = "The callsign '" . $station_row->station_callsign . "' does not match the user account at Clublog. 'INVALID CALLSIGN'.";
+				$this->disable_sync4call($station_row->station_callsign, $station_row->station_ids, $log);
+				log_message('debug', $log);
+				$return .= $log."<br>";
+			} elseif ($httpcode == 403) {
+				$log = "Clublog returned HTML error page for " . $station_row->station_callsign . " (possibly access denied)";
+				log_message('debug', $log);
+				$return .= $log."<br>";
+				$this->disable_sync4call($station_row->station_callsign, $station_row->station_ids, $log);
 				} else {
 					try {
 						$cl_qsls = json_decode($response);
@@ -304,7 +307,16 @@ class Clublog_model extends CI_Model
 		}
 	}
 
-	function disable_sync4call($call, $stations) {
+	/**
+	 * Disable Clublog sync for the given station(s) and remember why.
+	 *
+	 * @param string $call     station callsign
+	 * @param mixed  $stations comma separated station_ids (or single id)
+	 * @param string $reason   why the sync was disabled
+	 *
+	 * @return void
+	 */
+	function disable_sync4call($call, $stations, $reason = '') {
 		if (empty($stations) || trim($stations) === '') {
 			return;
 		}
@@ -321,6 +333,13 @@ class Clublog_model extends CI_Model
 		$sql = "UPDATE station_profile SET clublogignore=1 WHERE station_callsign=? AND station_id IN (" . $placeholders . ")";
 		$bindings = array_merge([$call], $station_ids);
 		$query = $this->db->query($sql, $bindings);
+
+		if ($reason != '') {
+			$this->load->model('messages_model');
+			foreach ($station_ids as $station_id) {
+				$this->messages_model->add_message('interface_disabled', 'clublog', 'station', (int)trim($station_id), $reason);
+			}
+		}
 	}
 
 	function all_enabled($userid) {
@@ -418,11 +437,11 @@ class Clublog_model extends CI_Model
 			$returner['status'] = 'OK';
 		} elseif ($httpcode == 403) { 	// New Message from clublog. HTTP 403 response check.
 			log_message('Error',"Clublog returned HTML error page for " . $station_callsign . " (access denied)");
-			$this->disable_sync4call($station_callsign, $station_id);
+			$this->disable_sync4call($station_callsign, $station_id, 'Clublog returned HTTP 403 (access denied) for station ' . $station_callsign);
 			$returner['status'] = $response;
 		} elseif (substr($response,0,14) == 'Login rejected') {	// Deactivate Upload for Station if Clublog rejects it due to wrong credentials (prevent being blacklisted at Clublog)
 			log_message("Error","Clublog deactivated for ".$cl_username." because of wrong creds at Realtime-Pusher");
-			$this->disable_sync4call($station_callsign, $station_id);
+			$this->disable_sync4call($station_callsign, $station_id, 'Clublog login rejected (wrong credentials) for station ' . $station_callsign);
 			$returner['status'] = $response;
 		} else {
 			log_message("Error","Uncaught exception at ClubLog-RT for ".$cl_username." / Details: ".$httpcode." : ".$response);

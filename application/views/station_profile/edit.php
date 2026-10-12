@@ -1,3 +1,15 @@
+<?php
+// render "interface was auto-disabled" warning for the given message context (XSS-escaped)
+$im = $interface_messages ?? [];
+$im_html = function(string $ctx) use ($im): string {
+	$m = $interface_messages[$ctx] ?? null;
+	if ($m === null) {
+		return '';
+	}
+	$last = $m->message_last_state !== null ? ' (' . __("previous value") . ': ' . htmlspecialchars((string)$m->message_last_state, ENT_QUOTES, 'UTF-8') . ')' : '';
+	return '<div class="alert alert-warning mt-2 mb-0">' . __("This interface was disabled automatically to protect your account") . ': ' . htmlspecialchars($m->message_text, ENT_QUOTES, 'UTF-8') . $last . '</div>';
+};
+?>
 <script>
 var dxccarray = [];
 dxccarray.push({
@@ -302,6 +314,7 @@ if ($dxcc_list->result() > 0) {
 						<label for="eqslNickname"><?php echo _pgettext("Probably no translation needed","eQSL QTH Nickname"); ?></label> <!-- This does not need Multilanguage Support -->
 						<input type="text" class="form-control" name="eqslnickname" id="eqslNickname" aria-describedby="eqslhelp" value="<?php if(set_value('eqslnickname') != "") { echo set_value('eqslnickname'); } else { echo $my_station_profile->eqslqthnickname; } ?>">
 						<small id="eqslhelp" class="form-text text-muted"><?= __("The QTH Nickname which is configured in your eQSL Profile"); ?></small>
+						<?= $im_html('eqsl_station') ?>
 					</div>
 					<div class="mb-3">
 						<label for="eqslDefaultQSLMsg"><?= __("Default QSLMSG"); ?></label>
@@ -335,6 +348,7 @@ if ($dxcc_list->result() > 0) {
 							<option value="1" <?php if ($my_station_profile->qrzrealtime == 1) { echo ' selected'; } ?>><?= __("Realtime"); ?></option>
 							<option value="0" <?php if ($my_station_profile->qrzrealtime == 0) { echo ' selected'; } ?>><?= __("Enabled"); ?></option>
 						</select>
+						<?= $im_html('qrz') ?>
 					</div>
 				</div>
 			</div>
@@ -354,6 +368,7 @@ if ($dxcc_list->result() > 0) {
 							<option value="0" <?php if ($my_station_profile->clublogignore == 0) { echo ' selected'; } ?>><?= __("No"); ?></option>
 						</select>
 						<small class="form-text text-muted"><?= __("If enabled, the QSOs made from this location will not be uploaded to Clublog. If this is deactivated on it's own please check if the Call is properly configured at Clublog"); ?></small>
+						<?= $im_html('clublog') ?>
 					</div>
 					<div class="mb-3" id="clublogrealtimediv">
 						<label for="clublogrealtime"><?= __("ClubLog Realtime Upload"); ?></label>
@@ -392,6 +407,7 @@ if ($dxcc_list->result() > 0) {
 							<option value="0" <?php if ($my_station_profile->hrdlogrealtime == 0) { echo ' selected'; } ?>><?= __("No"); ?></option>
 							<option value="-1" <?php if ($my_station_profile->hrdlogrealtime == -1) { echo ' selected'; } ?>><?= __("Disabled"); ?></option>
 						</select>
+						<?= $im_html('hrdlog') ?>
 					</div>
 				</div>
 			</div>
