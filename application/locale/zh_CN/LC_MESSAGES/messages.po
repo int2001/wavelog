@@ -38,7 +38,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-10-12 06:19+0000\n"
+"POT-Creation-Date: 2026-10-12 10:21+0000\n"
 "PO-Revision-Date: 2026-10-08 15:28+0000\n"
 "Last-Translator: \"Xu, Zefan (BI1GHZ)\" <ceba_robot@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.wavelog."
@@ -264,6 +264,7 @@ msgstr "Tropospheric ducting"
 #: application/controllers/User.php:1911 application/controllers/User.php:1935
 #: application/controllers/User_options.php:8
 #: application/controllers/Usermode.php:14
+#: application/controllers/Wabtool.php:30
 #: application/controllers/Webadif.php:10
 #: application/controllers/Webadif.php:103
 #: application/controllers/Zonechecker.php:16
@@ -1493,7 +1494,8 @@ msgstr "WWFF 编号"
 #: application/views/station_profile/edit.php:461
 #: application/views/user/edit.php:403 application/views/user/edit.php:918
 #: application/views/view_log/partial/log_ajax.php:19
-#: application/views/view_log/qso.php:9 application/views/webadif/export.php:75
+#: application/views/view_log/qso.php:9 application/views/wabtool/index.php:18
+#: application/views/webadif/export.php:75
 #: application/views/webadif/export.php:125
 #: application/views/zonechecker/index.php:11
 msgid "Station Location"
@@ -1569,12 +1571,12 @@ msgstr "禁用"
 msgid "Run Now"
 msgstr "立即运行"
 
-#: application/controllers/Cron.php:425
+#: application/controllers/Cron.php:429
 #: application/views/interface_assets/footer.php:45
 msgid "OK"
 msgstr "OK"
 
-#: application/controllers/Cron.php:429
+#: application/controllers/Cron.php:433
 #, php-format
 msgid ""
 "Last run occurred more than %s seconds ago.%sPlease check your master cron! "
@@ -1582,7 +1584,7 @@ msgid ""
 msgstr ""
 "上次执行在 %s 秒前。%s请检查你的主计划任务！它应当每分钟运行一次(* * * * *)。"
 
-#: application/controllers/Cron.php:432
+#: application/controllers/Cron.php:436
 #, php-format
 msgid ""
 "Last run occurred more than %s minutes ago.%sSeems like your Mastercron "
@@ -1591,7 +1593,7 @@ msgstr ""
 "上次执行是 %s 分钟之前。 %s 你的 计划任务似乎没有配置好，%s 它应当设置为每分"
 "钟执行 (* * * * *)。"
 
-#: application/controllers/Cron.php:437 application/views/cron/index.php:43
+#: application/controllers/Cron.php:441 application/views/cron/index.php:43
 msgctxt "Master Cron"
 msgid "Not running"
 msgstr "未运行"
@@ -2718,7 +2720,8 @@ msgstr "距离"
 #: application/views/user/edit.php:388
 #: application/views/view_log/partial/log_ajax.php:16
 #: application/views/view_log/qso.php:94 application/views/visitor/index.php:33
-#: application/views/visitor/mini.php:184 application/views/widgets/qsos.php:21
+#: application/views/visitor/mini.php:184
+#: application/views/wabtool/table.php:19 application/views/widgets/qsos.php:21
 #: application/views/zonechecker/result.php:69
 msgid "Band"
 msgstr "频段"
@@ -3930,111 +3933,111 @@ msgstr "正在准备 DXCC 例外名单： "
 msgid "Preparing DXCC Prefixes: "
 msgstr "正在准备 DXCC 前缀： "
 
-#: application/controllers/Update.php:307
+#: application/controllers/Update.php:294
 msgid "DONE"
 msgstr "完成"
 
-#: application/controllers/Update.php:359
+#: application/controllers/Update.php:367
 msgid "Updating..."
 msgstr "更新中…"
 
-#: application/controllers/Update.php:362
+#: application/controllers/Update.php:370
 msgid "Dxcc Entities:"
 msgstr "DXCC 实体："
 
-#: application/controllers/Update.php:363
+#: application/controllers/Update.php:371
 msgid "Dxcc Exceptions:"
 msgstr "DXCC 例外："
 
-#: application/controllers/Update.php:364
+#: application/controllers/Update.php:372
 msgid "Dxcc Prefixes:"
 msgstr "DXCC 前缀："
 
-#: application/controllers/Update.php:395
+#: application/controllers/Update.php:403
 msgid "SCP Update complete. Result: "
 msgstr "SCP 更新已完成。结果为： "
 
-#: application/controllers/Update.php:397
+#: application/controllers/Update.php:405
 msgid "SCP Update failed. Result: "
 msgstr "SCP 更新失败。结果为： "
 
-#: application/controllers/Update.php:434
+#: application/controllers/Update.php:442
 msgid "LoTW Users Update complete. Result: "
 msgstr "LoTW 用户更新完成。结果为： "
 
-#: application/controllers/Update.php:436
+#: application/controllers/Update.php:444
 msgid "LoTW Users Update failed. Result: "
 msgstr "LoTW 用户更新失败。结果为： "
 
-#: application/controllers/Update.php:471
+#: application/controllers/Update.php:479
 msgid "DOK Update complete. Result: "
 msgstr "DOK 更新完成。结果为： "
 
-#: application/controllers/Update.php:473
+#: application/controllers/Update.php:481
 msgid "DOK Update failed. Result: "
 msgstr "DOK 更新失败。结果为： "
 
-#: application/controllers/Update.php:506
+#: application/controllers/Update.php:514
 msgid "SOTA Update complete. Result: "
 msgstr "SOTA 更新完成。结果为： "
 
-#: application/controllers/Update.php:508
+#: application/controllers/Update.php:516
 msgid "SOTA Update failed. Result: "
 msgstr "SOTA 更新失败。结果为： "
 
-#: application/controllers/Update.php:541
+#: application/controllers/Update.php:549
 msgid "WWFF Update complete. Result: "
 msgstr "WWFF 更新成功。结果为： "
 
-#: application/controllers/Update.php:543
+#: application/controllers/Update.php:551
 msgid "WWFF Update failed. Result: "
 msgstr "WWFF 更新失败。结果为： "
 
-#: application/controllers/Update.php:577
+#: application/controllers/Update.php:585
 msgid "HAMqsl Update complete. Result: "
 msgstr "HAMqsl 更新完成。结果： "
 
-#: application/controllers/Update.php:579
+#: application/controllers/Update.php:587
 msgid "HAMqsl Update failed. Result: "
 msgstr "HAMqsl 更新失败。结果： "
 
-#: application/controllers/Update.php:612
+#: application/controllers/Update.php:620
 msgid "POTA Update complete. Result: "
 msgstr "POTA 更新完成。结果为： "
 
-#: application/controllers/Update.php:614
+#: application/controllers/Update.php:622
 msgid "POTA Update failed. Result: "
 msgstr "POTA 更新失败。结果为： "
 
-#: application/controllers/Update.php:663
+#: application/controllers/Update.php:671
 msgid "POTA boundaries update complete. Result: "
 msgstr "POTA 边界更新完成。结果为： "
 
-#: application/controllers/Update.php:665
+#: application/controllers/Update.php:673
 msgid "POTA boundaries update failed. Result: "
 msgstr "POTA 边界更新失败。结果为： "
 
-#: application/controllers/Update.php:682
+#: application/controllers/Update.php:690
 msgid "TLE Update complete. Result: "
 msgstr "TLE 更新完成。结果为： "
 
-#: application/controllers/Update.php:684
+#: application/controllers/Update.php:692
 msgid "TLE Update failed. Result: "
 msgstr "TLE 更新失败。结果为： "
 
-#: application/controllers/Update.php:711
+#: application/controllers/Update.php:719
 msgid "LoTW SAT Update"
 msgstr "LoTW 卫星数据更新"
 
-#: application/controllers/Update.php:739
+#: application/controllers/Update.php:747
 msgid "Update of Hams of Note"
 msgstr "Hams of Note 更新"
 
-#: application/controllers/Update.php:779
+#: application/controllers/Update.php:787
 msgid "VUCC Grid file update complete. Result: "
 msgstr "VUCC 网格文件更新完成。结果： "
 
-#: application/controllers/Update.php:781
+#: application/controllers/Update.php:789
 msgid "VUCC Grid file update failed. Result: "
 msgstr "VUCC 网格文件更新失败。结果： "
 
@@ -4330,6 +4333,25 @@ msgstr "公开搜索"
 msgid "Export Map"
 msgstr "导出地图"
 
+#: application/controllers/Wabtool.php:41
+#: application/views/dbtools/index.php:145
+msgid "WAB from Gridsquare"
+msgstr ""
+
+#: application/controllers/Wabtool.php:100
+msgid "No station locations found"
+msgstr ""
+
+#: application/controllers/Wabtool.php:107
+#: application/controllers/Wabtool.php:113
+msgid "No QSOs selected"
+msgstr ""
+
+#: application/controllers/Wabtool.php:174
+#: application/controllers/Zonechecker.php:483
+msgid "Invalid gridsquare"
+msgstr "无效的网格"
+
 #: application/controllers/Webadif.php:108
 #: application/controllers/Webadif.php:189
 #: application/views/interface_assets/header.php:586
@@ -4385,10 +4407,6 @@ msgstr "网格区域查找器"
 #: application/controllers/Zonechecker.php:477
 msgid "GeoJSON data unavailable"
 msgstr "GeoJSON 数据不可用"
-
-#: application/controllers/Zonechecker.php:483
-msgid "Invalid gridsquare"
-msgstr "无效的网格"
 
 #: application/libraries/Callbook.php:72
 msgid "Lookup not configured. Please review configuration."
@@ -5497,6 +5515,7 @@ msgstr "差异"
 #: application/views/timeplotter/index.php:63
 #: application/views/user/edit.php:1026
 #: application/views/visitor/layout/footer.php:168
+#: application/views/wabtool/index.php:20
 msgid "All"
 msgstr "所有"
 
@@ -6181,6 +6200,7 @@ msgstr "未找到！"
 #: application/views/user/index.php:153 application/views/user/profile.php:29
 #: application/views/view_log/qso.php:83 application/views/view_log/qso.php:620
 #: application/views/visitor/mini.php:183
+#: application/views/wabtool/table.php:18
 #: application/views/widgets/lotw_upload.php:97
 #: application/views/zonechecker/result.php:64
 msgid "Callsign"
@@ -7626,6 +7646,7 @@ msgstr "网格激活"
 #: application/views/contesting/logger/components/qso-form.php:155
 #: application/views/satellite/skedtable.php:40
 #: application/views/stationsetup/locationlist.php:14
+#: application/views/wabtool/table.php:20
 msgid "Grid"
 msgstr "网格"
 
@@ -7940,6 +7961,7 @@ msgstr "已确认 %s%%"
 #: application/views/interface_assets/footer.php:49
 #: application/views/map/qso_map.php:25 application/views/search/result.php:32
 #: application/views/visitor/index.php:270
+#: application/views/wabtool/table.php:23
 msgid "Confirmed"
 msgstr "已确认"
 
@@ -9472,7 +9494,7 @@ msgstr "QSO 列表"
 #: application/views/map/qso_map.php:31
 #: application/views/qso/components/previous_contacts.php:6
 #: application/views/search/lotw_unconfirmed_result.php:7
-#: application/views/view_log/qso.php:72
+#: application/views/view_log/qso.php:72 application/views/wabtool/table.php:17
 msgid "Date/Time"
 msgstr "日期/时间"
 
@@ -9630,6 +9652,7 @@ msgid "List"
 msgstr "表格"
 
 #: application/views/awards/wab/list.php:6
+#: application/views/wabtool/table.php:21
 msgid "WAB Square"
 msgstr "WAB 分区"
 
@@ -11449,6 +11472,7 @@ msgstr "呼号 DXCC 识别"
 #: application/views/dbtools/index.php:33
 #: application/views/interface_assets/footer.php:897
 #: application/views/logbookadvanced/index.php:876
+#: application/views/wabtool/index.php:23
 #: application/views/zonechecker/index.php:16
 msgid "Callsign: "
 msgstr "呼号： "
@@ -12560,6 +12584,7 @@ msgstr "卫星路径"
 #: application/views/view_log/qso.php:692
 #: application/views/view_log/qso.php:699
 #: application/views/view_log/qso.php:704
+#: application/views/wabtool/table.php:22
 msgid "Station"
 msgstr "电台站"
 
@@ -14497,6 +14522,14 @@ msgstr "检查 IOTA 是否符合 DXCC"
 #: application/views/dbtools/index.php:135
 msgid "Use Wavelog to check IOTA against DXCC"
 msgstr "使用 Wavelog 检查 IOTA 是否符合 DXCC"
+
+#: application/views/dbtools/index.php:146
+msgid "Batch assign WAB squares from logged gridsquares"
+msgstr ""
+
+#: application/views/dbtools/index.php:149
+msgid "Open"
+msgstr ""
 
 #: application/views/dbtools/missinggridlist.php:12
 #, php-format
@@ -24092,6 +24125,30 @@ msgstr "请输入呼号！"
 #: application/views/visitor/punchcard.php:147
 msgid "No QSOs"
 msgstr "没有 QSO"
+
+#: application/views/wabtool/index.php:14
+msgid "Batch Assign WAB from Gridsquare"
+msgstr ""
+
+#: application/views/wabtool/index.php:28
+msgid "Scan Log"
+msgstr ""
+
+#: application/views/wabtool/index.php:31
+msgid "Apply WAB squares"
+msgstr ""
+
+#: application/views/wabtool/index.php:32
+msgid "Write the computed WAB square into the selected QSOs?"
+msgstr ""
+
+#: application/views/wabtool/index.php:33
+msgid "Apply Selected"
+msgstr ""
+
+#: application/views/wabtool/table.php:10
+msgid "No 100% matching QSOs found."
+msgstr ""
 
 #: application/views/webadif/export.php:22
 msgid ""
