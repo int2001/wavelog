@@ -19,6 +19,9 @@ class Countqsoby_model extends CI_Model
 		if ($logbooks_locations_array === null) {
 			return array('Error' => 'No QSOs found.');
 		}
+		if (($cached = $this->stats_cache->read('cqcounts', [$type, $clean], $logbooks_locations_array)) !== null) {
+			return $cached;
+		}
 
 		$table = $this->config->item('table_name');
 		$conf = $this->confirm_condition($clean);
@@ -120,7 +123,7 @@ class Countqsoby_model extends CI_Model
 			$total_qsos += $row['qso_count'];
 		}
 
-		return array(
+		return $this->stats_cache->write('cqcounts', [$type, $clean], array(
 			'ok' => 'OK',
 			'type' => $type,
 			'summary' => array(
@@ -129,7 +132,7 @@ class Countqsoby_model extends CI_Model
 				'qsos' => $total_qsos,
 			),
 			'groups' => $rows,
-		);
+		), $logbooks_locations_array);
 	}
 
 	/*

@@ -32,6 +32,9 @@ class DXCC extends CI_Model {
 	}
 
 	function get_dxcc_array($dxccArray, $bands, $postdata, $location_list, $map = false) {
+		if (($cached = $this->stats_cache->read($map ? 'dxccmap' : 'dxccarr', [$bands, $postdata, $map], $location_list)) !== null) {
+			return $cached;
+		}
 		$qsl = $this->genfunctions->gen_qsl_from_postdata($postdata);
 
 		// Create DXCC to continent lookup array
@@ -355,7 +358,7 @@ class DXCC extends CI_Model {
 					}
 				}
 			}
-			return $mapDxccs;
+			return $this->stats_cache->write('dxccmap', [$bands, $postdata, $map], $mapDxccs, $location_list);
 		}
 
 		if (isset($dxccMatrix)) {
@@ -448,7 +451,7 @@ class DXCC extends CI_Model {
 			}
 
 			// Return the matrix data, summary and continent summary
-			return ['matrix' => $dxccMatrix, 'summary' => $summary, 'continent_summary' => $continentSummary];
+			return $this->stats_cache->write('dxccarr', [$bands, $postdata, $map], ['matrix' => $dxccMatrix, 'summary' => $summary, 'continent_summary' => $continentSummary], $location_list);
 		} else {
 			return 0;
 		}

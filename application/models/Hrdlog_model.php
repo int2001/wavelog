@@ -113,6 +113,7 @@ class Hrdlog_model extends CI_Model {
 			}
 			$sql="update ".$this->config->item('table_name')." set COL_HRDLOG_QSO_UPLOAD_DATE='".date("Y-m-d H:i:s", strtotime("now"))."', COL_HRDLOG_QSO_UPLOAD_STATUS='Y'  where COL_HRDLOG_QSO_UPLOAD_STATUS != 'Y' and col_primary_key in (".implode(',', array_values($mark_them)).") and station_id=".$station_id;
 			$query = $this->db->query($sql);
+			$this->stats_cache->invalidate_stations($station_id);
 			return $this->db->affected_rows();
 		}
 		return 0;

@@ -476,6 +476,7 @@ class Eqslmethods_model extends CI_Model {
 				$this->db->group_end();
 
 				$this->db->update($this->config->item('table_name'), $data);
+				$this->stats_cache->invalidate_stations($logbooks_locations_array);
 			}
 		}
 	}
@@ -583,6 +584,7 @@ class Eqslmethods_model extends CI_Model {
 		$this->db->where('COL_PRIMARY_KEY', $primarykey);
 
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_for_qsos($primarykey);
 
 		return "eQSL Sent";
 	}
@@ -596,6 +598,7 @@ class Eqslmethods_model extends CI_Model {
 		$this->db->where('COL_PRIMARY_KEY', $primarykey);
 
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_for_qsos($primarykey);
 
 		return "eQSL Invalid";
 	}
@@ -661,6 +664,7 @@ class Eqslmethods_model extends CI_Model {
 		$this->db->where('COL_PRIMARY_KEY', $qsoid);
 
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_for_qsos($qsoid);
 
 		return "Updated";
 	}

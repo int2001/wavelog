@@ -303,6 +303,7 @@ class Stations extends CI_Model {
 		}
 		// Delete QSOs
 		$this->db->query("DELETE FROM ".$this->config->item('table_name')." WHERE station_id = ?",$clean_id);
+		$this->stats_cache->invalidate_stations($clean_id);
 
 		// Also clean up static map images
 		if (!$this->load->is_loaded('staticmap_model')) {
@@ -473,6 +474,7 @@ class Stations extends CI_Model {
 		}
 
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_stations($row->station_id);
 
 		$str = $this->db->last_query();
 

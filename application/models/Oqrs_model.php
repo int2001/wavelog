@@ -264,6 +264,7 @@ class Oqrs_model extends CI_Model {
 		$binding = [$id, $this->session->userdata('user_id')];
 
 		$this->db->query($sql, $binding);
+		$this->stats_cache->invalidate_user($this->session->userdata('user_id'));
 
 		$binding = [];
 
@@ -287,6 +288,7 @@ class Oqrs_model extends CI_Model {
 		$binding = [$id, $this->session->userdata('user_id')];
 
 		$this->db->query($sql, $binding);
+		$this->stats_cache->invalidate_user($this->session->userdata('user_id'));
 
 		$binding = [];
 
@@ -434,6 +436,7 @@ class Oqrs_model extends CI_Model {
 		$this->db->where('COL_PRIMARY_KEY', $qso_id);
 
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_for_qsos($qso_id);
 	}
 
 	function search_log($callsign) {

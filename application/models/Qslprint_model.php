@@ -44,6 +44,7 @@ class Qslprint_model extends CI_Model {
 		$this->db->where("coalesce(COL_QSL_SENT_VIA, '') = ''");
 
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_stations($station_ids);
 	}
 
 	/*
@@ -60,6 +61,7 @@ class Qslprint_model extends CI_Model {
 		$this->db->where("coalesce(COL_QSL_SENT_VIA, '') != ''");
 
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_stations($station_ids);
 	}
 
 	/*
@@ -127,6 +129,7 @@ class Qslprint_model extends CI_Model {
 
 		$this->db->where("COL_PRIMARY_KEY", $id);
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_for_qsos($id);
 
 		return true;
 	}
@@ -144,6 +147,7 @@ class Qslprint_model extends CI_Model {
 
 		$this->db->where("COL_PRIMARY_KEY", $id);
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_for_qsos($id);
 
 		$this->db->where('qsoid', $id);
 		$this->db->where_not_in('status', [2, 4]);

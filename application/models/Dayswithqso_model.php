@@ -12,7 +12,11 @@ class Dayswithqso_model extends CI_Model
             return null;
         }
 
-		$location_list = "'".implode("','",$logbooks_locations_array)."'";
+        $location_list = "'".implode("','",$logbooks_locations_array)."'";
+
+        if (($cached = $this->stats_cache->read('dayswqso', [], $logbooks_locations_array)) !== null) {
+            return $cached;
+        }
 
         $sql = "select year(COL_TIME_ON) Year, COUNT(DISTINCT TO_DAYS(COL_TIME_ON)) as Days from "
             .$this->config->item('table_name'). " thcv
@@ -20,7 +24,7 @@ class Dayswithqso_model extends CI_Model
 
         $query = $this->db->query($sql);
 
-        return $query->result();
+        return $this->stats_cache->write('dayswqso', [], $query->result(), $logbooks_locations_array);
     }
 
     /*
@@ -166,16 +170,26 @@ class Dayswithqso_model extends CI_Model
 
     /*
      * Returns all distinct dates from db on active profile
+     * $locations allows session-less callers (e.g. prewarm cron) to pass an
+     * explicit station location list.
      */
-    function getDates() {
-		$this->load->model('logbooks_model');
-		$logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
+    function getDates($locations = null) {
+        if ($locations === null) {
+            $this->load->model('logbooks_model');
+            $logbooks_locations_array = $this->logbooks_model->list_logbook_relationships($this->session->userdata('active_station_logbook'));
 
-        if ($logbooks_locations_array[0] === -1) {
-            return null;
+            if ($logbooks_locations_array[0] === -1) {
+                return null;
+            }
+        } else {
+            $logbooks_locations_array = $locations;
         }
 
-		$location_list = "'".implode("','",$logbooks_locations_array)."'";
+        $location_list = "'".implode("','",$logbooks_locations_array)."'";
+
+        if (($cached = $this->stats_cache->read('dates', [], $logbooks_locations_array)) !== null) {
+            return $cached;
+        }
 
         $sql = "select distinct cast(col_time_on as date) as date from "
             .$this->config->item('table_name'). " thcv
@@ -183,7 +197,7 @@ class Dayswithqso_model extends CI_Model
 
         $query = $this->db->query($sql);
 
-        return $query->result();
+        return $this->stats_cache->write('dates', [], $query->result(), $logbooks_locations_array);
     }
 
     function getPunchvals($yr, $locations = null) {
@@ -201,7 +215,11 @@ class Dayswithqso_model extends CI_Model
 	    $location_list = "'".implode("','",$logbooks_locations_array)."'";
 	    $bindings=[];
 
-	    $sql = "select count(1) as qsos, date_format(col_time_on,'%Y-%c-%e') as date from "
+	    if (($cached = $this->stats_cache->read('punch', [$yr], $logbooks_locations_array)) !== null) {
+		    return $cached;
+	    }
+
+        $sql = "select count(1) as qsos, date_format(col_time_on,'%Y-%c-%e') as date from "
 		    .$this->config->item('table_name'). " thcv
 		    where station_id in (" . $location_list . ") and col_time_on >= ? and col_time_on <= ? group by date_format(col_time_on,'%Y-%c-%e')";
 	    $bindings[]=$yr.'-01-01 00:00:00';
@@ -209,7 +227,7 @@ class Dayswithqso_model extends CI_Model
 
 	    $query = $this->db->query($sql,$bindings);
 
-	    return $query->result();
+	    return $this->stats_cache->write('punch', [$yr], $query->result(), $logbooks_locations_array);
     }
 
 	/*
@@ -225,13 +243,17 @@ class Dayswithqso_model extends CI_Model
 
 		$location_list = "'".implode("','",$logbooks_locations_array)."'";
 
+		if (($cached = $this->stats_cache->read('dow', [], $logbooks_locations_array)) !== null) {
+			return $cached;
+		}
+
         $sql = "SELECT DAYNAME(col_time_off) AS weekday, COUNT(*) AS qsos FROM " . $this->config->item('table_name')
 				. " WHERE WEEKDAY(col_time_off) BETWEEN 0 AND 6 AND station_id in (" . $location_list . ")"
 				. " GROUP BY weekday ORDER BY FIELD(weekday, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')";
 
         $query = $this->db->query($sql);
 
-        return $query->result();
+        return $this->stats_cache->write('dow', [], $query->result(), $logbooks_locations_array);
     }
 
 	/*
@@ -247,6 +269,10 @@ class Dayswithqso_model extends CI_Model
 
 		$location_list = "'".implode("','",$logbooks_locations_array)."'";
 
+		if (($cached = $this->stats_cache->read('moy', [], $logbooks_locations_array)) !== null) {
+			return $cached;
+		}
+
         $sql = "SELECT MONTHNAME(col_time_off) AS month, COUNT(*) AS qsos
         FROM " . $this->config->item('table_name') . "
 					WHERE MONTH(col_time_off) BETWEEN 1 AND 12
@@ -257,7 +283,7 @@ class Dayswithqso_model extends CI_Model
 
         $query = $this->db->query($sql);
 
-        return $query->result();
+        return $this->stats_cache->write('moy', [], $query->result(), $logbooks_locations_array);
     }
 
 }

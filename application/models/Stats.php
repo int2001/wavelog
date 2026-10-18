@@ -420,6 +420,9 @@
 		if ($logbooks_locations_array[0] === -1) {
 		  return null;
 		}
+		if (($cached = $this->stats_cache->read('ucalls', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+		  return $cached;
+		}
 
 		$bands = array();
 
@@ -430,7 +433,7 @@
 
 		$query = $this->db->get($this->config->item('table_name'));
 
-		return $query->result();
+		return $this->stats_cache->write('ucalls', [$dateFrom, $dateTo], $query->result(), $logbooks_locations_array);
 	}
 
 	function getUniqueCallsignsModes($dateFrom = null, $dateTo = null) {
@@ -439,6 +442,9 @@
 
 		if ($logbooks_locations_array[0] === -1) {
 		  return null;
+		}
+		if (($cached = $this->stats_cache->read('ucallsm', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+		  return $cached;
 		}
 
 		$bands = array();
@@ -450,7 +456,7 @@
 
 		$query = $this->db->get($this->config->item('table_name'));
 
-		return $query->result();
+		return $this->stats_cache->write('ucallsm', [$dateFrom, $dateTo], $query->result(), $logbooks_locations_array);
 	}
 
 	function getUniqueSatGridModes($dateFrom = null, $dateTo = null) {
@@ -459,6 +465,9 @@
 
 		if ($logbooks_locations_array[0] === -1) {
 		  return null;
+		}
+		if (($cached = $this->stats_cache->read('usgridm', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+		  return $cached;
 		}
 
 		$bands = array();
@@ -472,7 +481,7 @@
 
 		$query = $this->db->get($this->config->item('table_name'));
 
-		return $query->result();
+		return $this->stats_cache->write('usgridm', [$dateFrom, $dateTo], $query->result(), $logbooks_locations_array);
 	}
 
 	function getUniqueSatCallsignsModes($dateFrom = null, $dateTo = null) {
@@ -481,6 +490,9 @@
 
 		if ($logbooks_locations_array[0] === -1) {
 		  return null;
+		}
+		if (($cached = $this->stats_cache->read('uscalls', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+		  return $cached;
 		}
 
 		$bands = array();
@@ -494,7 +506,7 @@
 
 		$query = $this->db->get($this->config->item('table_name'));
 
-		return $query->result();
+		return $this->stats_cache->write('uscalls', [$dateFrom, $dateTo], $query->result(), $logbooks_locations_array);
 	}
 
 	function getUniqueCallsignsBands($dateFrom = null, $dateTo = null) {
@@ -503,6 +515,9 @@
 
 		if ($logbooks_locations_array[0] === -1) {
 		  return null;
+		}
+		if (($cached = $this->stats_cache->read('ucallsb', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+		  return $cached;
 		}
 
 		$bands = array();
@@ -514,7 +529,7 @@
 
 		$query = $this->db->get($this->config->item('table_name'));
 
-		return $query->result();
+		return $this->stats_cache->write('ucallsb', [$dateFrom, $dateTo], $query->result(), $logbooks_locations_array);
 	}
 
 	function getUniqueSatGridsTotal($dateFrom = null, $dateTo = null) {
@@ -523,6 +538,9 @@
 
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
+		}
+		if (($cached = $this->stats_cache->read('usgridt', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+			return $cached;
 		}
 
 		$this->db->select('distinct col_gridsquare, col_vucc_grids', FALSE);
@@ -553,7 +571,7 @@
 				}
 			}
 		}
-		return (object) ['grids' => count($uniqueGrids)];
+		return $this->stats_cache->write('usgridt', [$dateFrom, $dateTo], (object) ['grids' => count($uniqueGrids)], $logbooks_locations_array);
 	}
 
 
@@ -563,6 +581,9 @@
 
 		if ($logbooks_locations_array[0] === -1) {
 		  return null;
+		}
+		if (($cached = $this->stats_cache->read('uscallst', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+		  return $cached;
 		}
 
 		$bands = array();
@@ -575,7 +596,7 @@
 
 		$query = $this->db->get($this->config->item('table_name'));
 
-		return $query->row();
+		return $this->stats_cache->write('uscallst', [$dateFrom, $dateTo], $query->row(), $logbooks_locations_array);
 	}
 
 	function getUniqueCallsignsTotal($dateFrom = null, $dateTo = null) {
@@ -584,6 +605,9 @@
 
 		if ($logbooks_locations_array[0] === -1) {
 		  return null;
+		}
+		if (($cached = $this->stats_cache->read('ucallst', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+		  return $cached;
 		}
 
 		$bands = array();
@@ -594,7 +618,7 @@
 
 		$query = $this->db->get($this->config->item('table_name'));
 
-		return $query->row();
+		return $this->stats_cache->write('ucallst', [$dateFrom, $dateTo], $query->row(), $logbooks_locations_array);
 	}
 
 	function total_sat_qsos($dateFrom = null, $dateTo = null) {
@@ -771,6 +795,9 @@
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
 		}
+		if (($cached = $this->stats_cache->read('mbqsl', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+			return $cached;
+		}
 
 		$sql = "select lower(col_band) as band, col_mode, coalesce(col_submode, '') col_submode,
 				count(1) qsos,
@@ -793,7 +820,7 @@
 		group by lower(col_band), col_mode, coalesce(col_submode, '')";
 
 		$result = $this->db->query($sql,$binding);
-		return $result->result();
+		return $this->stats_cache->write('mbqsl', [$dateFrom, $dateTo], $result->result(), $logbooks_locations_array);
 	}
 
 	function modeSatQsl($dateFrom = null, $dateTo = null) {
@@ -802,6 +829,9 @@
 		$binding=[];
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
+		}
+		if (($cached = $this->stats_cache->read('satqsl', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+			return $cached;
 		}
 
 		$sql = "select upper(col_sat_name) as sat, col_mode, coalesce(col_submode, '') col_submode,
@@ -826,7 +856,7 @@
 		group by upper(col_sat_name), col_mode, coalesce(col_submode, '')";
 
 		$result = $this->db->query($sql,$binding);
-		return $result->result();
+		return $this->stats_cache->write('satqsl', [$dateFrom, $dateTo], $result->result(), $logbooks_locations_array);
 	}
 
 	function modeSatQso($dateFrom = null, $dateTo = null) {
@@ -835,6 +865,9 @@
 
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
+		}
+		if (($cached = $this->stats_cache->read('satqso', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+			return $cached;
 		}
 
 		$bands = array();
@@ -848,7 +881,7 @@
 
 		$query = $this->db->get($this->config->item('table_name'));
 
-		return $query->result();
+		return $this->stats_cache->write('satqso', [$dateFrom, $dateTo], $query->result(), $logbooks_locations_array);
 	}
 
 	function modeBandQso($dateFrom = null, $dateTo = null) {
@@ -858,6 +891,9 @@
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
 		}
+		if (($cached = $this->stats_cache->read('mbqso', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+			return $cached;
+		}
 
 		$this->db->select('count(*) as count, lower(col_band) as band, col_mode, coalesce(col_submode, "") col_submode', FALSE);
 		$this->filter_date_range($dateFrom, $dateTo);
@@ -866,7 +902,7 @@
 
 		$query = $this->db->get($this->config->item('table_name'));
 
-		return $query->result();
+		return $this->stats_cache->write('mbqso', [$dateFrom, $dateTo], $query->result(), $logbooks_locations_array);
 	}
 
 	function get_sats($dateFrom = null, $dateTo = null) {
@@ -875,6 +911,9 @@
 
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
+		}
+		if (($cached = $this->stats_cache->read('sats', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+			return $cached;
 		}
 
 		$sats = array();
@@ -891,7 +930,7 @@
 		foreach($query->result() as $sat){
 			array_push($sats, $sat->sat);
 		}
-		return $sats;
+		return $this->stats_cache->write('sats', [$dateFrom, $dateTo], $sats, $logbooks_locations_array);
 	}
 
 	function get_bands($dateFrom = null, $dateTo = null) {
@@ -900,6 +939,9 @@
 
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
+		}
+		if (($cached = $this->stats_cache->read('bands', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+			return $cached;
 		}
 
 		$bands = array();
@@ -927,7 +969,7 @@
 			}
 		);
 
-		return $bands;
+		return $this->stats_cache->write('bands', [$dateFrom, $dateTo], $bands, $logbooks_locations_array);
 	}
 
 	function get_sat_modes($dateFrom = null, $dateTo = null) {
@@ -936,6 +978,9 @@
 
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
+		}
+		if (($cached = $this->stats_cache->read('satmodes', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+			return $cached;
 		}
 
 		$modes = array();
@@ -957,7 +1002,7 @@
 			}
 		}
 
-		return $modes;
+		return $this->stats_cache->write('satmodes', [$dateFrom, $dateTo], $modes, $logbooks_locations_array);
 	}
 
 	function get_modes($dateFrom = null, $dateTo = null) {
@@ -966,6 +1011,9 @@
 
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
+		}
+		if (($cached = $this->stats_cache->read('modes', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+			return $cached;
 		}
 
 		$modes = array();
@@ -985,7 +1033,7 @@
 			}
 		}
 
-		return $modes;
+		return $this->stats_cache->write('modes', [$dateFrom, $dateTo], $modes, $logbooks_locations_array);
 	}
 
 	function elevationdata($sat, $orbit, $dateFrom = null, $dateTo = null) {
@@ -997,6 +1045,9 @@
 
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
+		}
+		if (($cached = $this->stats_cache->read('elev', [$sat, $orbit, $dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+			return $cached;
 		}
 
 		$conditions[] = "COL_PROP_MODE = 'SAT'";
@@ -1033,7 +1084,7 @@
 		order by elevation asc";
 
 		$result = $this->db->query($sql, $binding);
-		return $result->result();
+		return $this->stats_cache->write('elev', [$sat, $orbit, $dateFrom, $dateTo], $result->result(), $logbooks_locations_array);
 	}
 
 	function azimuthdata($band, $mode, $sat, $orbit, $dateFrom = null, $dateTo = null) {
@@ -1045,6 +1096,9 @@
 
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
+		}
+		if (($cached = $this->stats_cache->read('azim', [$band, $mode, $sat, $orbit, $dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+			return $cached;
 		}
 
 		// sat and orbit are satellite-only filters, so they live inside the SAT branch:
@@ -1095,7 +1149,7 @@
 		order by azimuth asc";
 
 		$result = $this->db->query($sql, $binding);
-		return $result->result();
+		return $this->stats_cache->write('azim', [$band, $mode, $sat, $orbit, $dateFrom, $dateTo], $result->result(), $logbooks_locations_array);
 	}
 
 	public function sat_qsos($sat,$dateFrom,$dateTo,$mode) {
@@ -1130,6 +1184,9 @@
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
 		}
+		if (($cached = $this->stats_cache->read('initials', [$band, $mode], $logbooks_locations_array)) !== null) {
+			return $cached;
+		}
 
 		$sql = "select thcv.col_call, thcv.col_time_on, thcv.col_band, thcv.col_mode, thcv.col_submode, thcv.col_primary_key, thcv.col_vucc_grids, thcv.col_gridsquare, thcv.col_distance, thcv.col_state FROM ". $this->config->item('table_name') . " thcv";
 
@@ -1152,7 +1209,7 @@
 
 		$result = $this->db->query($sql, $binding);
 
-		return $result->result();
+		return $this->stats_cache->write('initials', [$band, $mode], $result->result(), $logbooks_locations_array);
 	}
 
 	function get_eme_modes() {

@@ -289,6 +289,9 @@ class Distances_model extends CI_Model
 			$data['qsodata'] = $dataarray;
 			$data['unit'] = $unit;
 
+			// per-QSO distance/azimuth writes above may change azimuth stats
+			$this->stats_cache->invalidate_user($this->session->userdata('user_id'));
+
 			return $data;
 		}
 	}
@@ -384,6 +387,8 @@ class Distances_model extends CI_Model
 			}
 			$this->db->trans_complete();
 		}
+		// azimuth/elevation stats depend on the backfilled columns
+		$this->stats_cache->invalidate_user($this->session->userdata('user_id'));
 	}
 
     /*

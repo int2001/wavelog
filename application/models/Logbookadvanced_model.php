@@ -909,6 +909,7 @@ class Logbookadvanced_model extends CI_Model {
 			$binding[] = $method ?? '';
 			$binding[] = $user_id;
 			$this->db->query($sql, $binding);
+			$this->stats_cache->invalidate_for_qsos($sanitized_ids);
 
 			return array('message' => 'OK');
 		}
@@ -954,6 +955,7 @@ class Logbookadvanced_model extends CI_Model {
 			$binding[] = $method;
 			$binding[] = $user_id;
 			$this->db->query($sql, $binding);
+			$this->stats_cache->invalidate_for_qsos($sanitized_ids);
 			return array('message' => 'OK');
 		}
 	}
@@ -1064,6 +1066,7 @@ class Logbookadvanced_model extends CI_Model {
 		if (count($updatedData) > 0) {
 			$this->db->where('COL_PRIMARY_KEY', $qsoID);
 			$this->db->update($this->config->item('table_name'), $updatedData);
+			$this->stats_cache->invalidate_for_qsos($qsoID);
 			return true;
 		}
 
@@ -1560,6 +1563,7 @@ class Logbookadvanced_model extends CI_Model {
 		}
 
 		$this->db->trans_complete();
+		$this->stats_cache->invalidate_user($this->session->userdata('user_id'));
 
 		return array('message' => 'OK');
     }
@@ -1603,6 +1607,7 @@ class Logbookadvanced_model extends CI_Model {
 
 		$query = $this->db->query($sql, array(json_decode($ids, true), $this->session->userdata('user_id')));
 		$this->db->trans_complete();
+		$this->stats_cache->invalidate_user($this->session->userdata('user_id'));
     }
 
 	function getPrimarySubdivisonsDxccs() {
@@ -1629,6 +1634,7 @@ class Logbookadvanced_model extends CI_Model {
 					" WHERE station_profile.user_id = ? and " . $this->config->item('table_name') . ".COL_CQZ IS NULL";
 
 			$query = $this->db->query($sql, array($this->session->userdata('user_id')));
+			$this->stats_cache->invalidate_user($this->session->userdata('user_id'));
 			return $this->db->affected_rows();
 		}
 		$sql = "UPDATE ".$this->config->item('table_name')." JOIN dxcc_entities ON ". $this->config->item('table_name').".col_dxcc = dxcc_entities.adif JOIN station_profile ON ". $this->config->item('table_name').".station_id = station_profile.station_id" .
@@ -1636,6 +1642,7 @@ class Logbookadvanced_model extends CI_Model {
 			" WHERE " . $this->config->item('table_name').".col_primary_key in ? and station_profile.user_id = ?";
 
 		$query = $this->db->query($sql, array(json_decode($ids, true), $this->session->userdata('user_id')));
+		$this->stats_cache->invalidate_user($this->session->userdata('user_id'));
 		return $this->db->affected_rows();
 	}
 
@@ -1646,6 +1653,7 @@ class Logbookadvanced_model extends CI_Model {
 					" SET " . $this->config->item('table_name').".COL_ITUZ = dxcc_entities.ituz" .
 					" WHERE station_profile.user_id = ? and " . $this->config->item('table_name') . ".COL_ITUZ IS NULL";
 			$query = $this->db->query($sql, array($this->session->userdata('user_id')));
+			$this->stats_cache->invalidate_user($this->session->userdata('user_id'));
 			return $this->db->affected_rows();
 		}
 		$sql = "UPDATE ".$this->config->item('table_name')." JOIN dxcc_entities ON ". $this->config->item('table_name').".col_dxcc = dxcc_entities.adif JOIN station_profile ON ". $this->config->item('table_name').".station_id = station_profile.station_id" .
@@ -1653,6 +1661,7 @@ class Logbookadvanced_model extends CI_Model {
 			" WHERE " . $this->config->item('table_name').".col_primary_key in ? and station_profile.user_id = ?";
 
 		$query = $this->db->query($sql, array(json_decode($ids, true), $this->session->userdata('user_id')));
+		$this->stats_cache->invalidate_user($this->session->userdata('user_id'));
 		return $this->db->affected_rows();
     }
 
@@ -1762,6 +1771,7 @@ class Logbookadvanced_model extends CI_Model {
 					   WHERE COL_PRIMARY_KEY = ?";
 
 		$this->db->query($update_sql, [$state['code'], $qso_id]);
+		$this->stats_cache->invalidate_for_qsos($qso_id);
 
 		return [
 			'success' => true,
@@ -1897,6 +1907,7 @@ class Logbookadvanced_model extends CI_Model {
 		// Delete the secondary QSO
 		$this->db->where('COL_PRIMARY_KEY', $secondaryId);
 		$this->db->delete($this->config->item('table_name'));
+		$this->stats_cache->invalidate_for_qsos([$primaryId, $secondaryId]);
 
 		return [
 			'success' => true,

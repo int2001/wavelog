@@ -259,6 +259,7 @@ class Clublog_model extends CI_Model
 		$this->db->or_where("COL_CLUBLOG_QSO_UPLOAD_STATUS", "M");
 		$this->db->group_end();
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_stations($station_id);
 	}
 
 	function get_clublog_qsos($station_id) {

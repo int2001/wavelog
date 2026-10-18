@@ -446,6 +446,9 @@ $config['error_views_path'] = '';
 |     applications sharing the same cache storage.
 |
 | Note: Redis configuration is stored separately in application/config/redis.php
+| Note: The QSO statistics cache (Stats_cache library) shares this adapter.
+|       On multi-web-node installs use redis/memcached here - file/apcu are
+|       per-node and would serve stale stats until the nightly prewarm cron.
 |
 */
 $config['cache_path'] = '';

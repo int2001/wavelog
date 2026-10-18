@@ -445,6 +445,7 @@ class Dbtools_model extends CI_Model {
 				$this->db->set('COL_GRIDSQUARE', $callbook['gridsquare']);
 				$this->db->where('COL_PRIMARY_KEY', $qsoID);
 				$this->db->update($this->config->item('table_name'));
+				$this->stats_cache->invalidate_for_qsos($qsoID);
 
 				return ['status' => 'updated', 'gridsquare' => $callbook['gridsquare']];
 			}
@@ -576,6 +577,7 @@ class Dbtools_model extends CI_Model {
 		}
 
 		$result['count'] = $count;
+		$this->stats_cache->invalidate_user($this->session->userdata('user_id'));
 		return $result;
 	}
 

@@ -10,6 +10,9 @@ class Accumulate_model extends CI_Model
         if ($logbooks_locations_array[0] === -1) {
             return array();
         }
+        if (($cached = $this->stats_cache->read('accum', [$band, $award, $mode, $propmode, $period], $logbooks_locations_array)) !== null) {
+            return $cached;
+        }
 
         $location_list = "'" . implode("','", $logbooks_locations_array) . "'";
 
@@ -34,7 +37,7 @@ class Accumulate_model extends CI_Model
                 break;
         }
 
-        return $result ?? [];
+        return $this->stats_cache->write('accum', [$band, $award, $mode, $propmode, $period], $result ?? [], $logbooks_locations_array);
     }
 
     function get_accumulated_by_column($band, $mode, $propmode, $period, $location_list, $column, $where_condition = '', $where_check = '', $outer_where_condition = '') {

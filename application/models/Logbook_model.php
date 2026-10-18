@@ -1026,6 +1026,9 @@ class Logbook_model extends CI_Model {
 
 			$last_id = $this->db->insert_id();
 
+			// Keep cached stats in sync (patch dashboard/counts, mark the rest dirty)
+			$this->stats_cache->insert_delta($data, $last_id);
+
 			if ($this->session->userdata('user_amsat_status_upload') && $data['COL_PROP_MODE'] == "SAT") {
 				$this->upload_amsat_status($data);
 			}
@@ -1392,13 +1395,14 @@ class Logbook_model extends CI_Model {
 		$this->db->where('COL_PRIMARY_KEY', $primarykey);
 
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_for_qsos($primarykey);
 
 		return true;
 	}
 
 
 	/*
-   * Function marks QSOs as uploaded to HRDLog.
+    * Function marks QSOs as uploaded to HRDLog.
    * $primarykey is the unique id for that QSO in the logbook
    */
 	function mark_hrdlog_qsos_sent($primarykey) {
@@ -1410,12 +1414,13 @@ class Logbook_model extends CI_Model {
 		$this->db->where('COL_PRIMARY_KEY', $primarykey);
 
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_for_qsos($primarykey);
 
 		return true;
 	}
 
 	/*
-   * Function marks QSOs as uploaded to QRZ.
+    * Function marks QSOs as uploaded to QRZ.
    * $primarykey is the unique id for that QSO in the logbook
    */
 	function mark_qrz_qsos_sent($primarykey, $state = 'Y') {
@@ -1427,6 +1432,7 @@ class Logbook_model extends CI_Model {
 		$this->db->where('COL_PRIMARY_KEY', $primarykey);
 
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_for_qsos($primarykey);
 
 		return true;
 	}
@@ -2034,6 +2040,7 @@ class Logbook_model extends CI_Model {
 			$retvals['success']=true;
 			$this->notify_qso_change($station_profile->user_id);
 			$this->notify_contest_change($this->contest_session_for_notify($this->input->post('id', true)));
+			$this->stats_cache->invalidate_for_qsos($this->input->post('id', true));
 
 			// Invalidate DXCluster cache for this callsign
 			$this->dxclustercache->invalidate_for_callsign($data['COL_CALL']);
@@ -2076,6 +2083,8 @@ class Logbook_model extends CI_Model {
 
 		$this->db->where('COL_PRIMARY_KEY', $id);
 		$this->db->update($this->config->item('table_name'), $data);
+
+		$this->stats_cache->invalidate_for_qsos($id);
 
 		if (($old_clublog == 'I' || $old_clublog == 'Y') && $clublog_relevant_update) {
 			$this->set_clublog_modified($id);
@@ -2998,6 +3007,7 @@ class Logbook_model extends CI_Model {
 		$this->db->or_where($column, 'I');
 		$this->db->group_end();
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_for_qsos($qso_id);
 	}
 
 	/**
@@ -4143,6 +4153,9 @@ class Logbook_model extends CI_Model {
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
 		}
+		if (($cached = $this->stats_cache->read('tyear', [], $logbooks_locations_array)) !== null) {
+			return $cached instanceof Stats_cached_result ? $cached : new Stats_cached_result((array)$cached);
+		}
 
 		$this->db->select('DATE_FORMAT(COL_TIME_ON, \'%Y\') as \'year\',COUNT(COL_PRIMARY_KEY) as \'total\'', FALSE);
 		$this->db->where_in('station_id', $logbooks_locations_array);
@@ -4151,7 +4164,7 @@ class Logbook_model extends CI_Model {
 
 		$query = $this->db->get($this->config->item('table_name'));
 
-		return $query;
+		return $this->stats_cache->write('tyear', [], new Stats_cached_result($query->result()), $logbooks_locations_array);
 	}
 
 	function totals_year_month($dateFrom = null, $dateTo = null) {
@@ -4161,6 +4174,9 @@ class Logbook_model extends CI_Model {
 
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
+		}
+		if (($cached = $this->stats_cache->read('tym', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+			return $cached instanceof Stats_cached_result ? $cached : new Stats_cached_result((array)$cached);
 		}
 
 		$location_list = implode(',', array_fill(0, count($logbooks_locations_array), '?'));
@@ -4192,7 +4208,7 @@ class Logbook_model extends CI_Model {
 
 		$query = $this->db->query($sql, $params);
 
-		return $query;
+		return $this->stats_cache->write('tym', [$dateFrom, $dateTo], new Stats_cached_result($query->result()), $logbooks_locations_array);
 	}
 
 	/* Return total number of qsos */
@@ -4217,13 +4233,16 @@ class Logbook_model extends CI_Model {
 		}
 
 		if ($logbooks_locations_array) {
+			if (($cached = $this->stats_cache->read('ttotal', [], $logbooks_locations_array)) !== null) {
+				return $cached;
+			}
 			$this->db->select('COUNT( * ) as count', FALSE);
 			$this->db->where_in('station_id', $logbooks_locations_array);
 			$query = $this->db->get($this->config->item('table_name'));
 
 			if ($query->num_rows() > 0) {
 				foreach ($query->result() as $row) {
-					return $row->count;
+					return $this->stats_cache->write('ttotal', [], $row->count, $logbooks_locations_array);
 				}
 			}
 		} else {
@@ -4264,6 +4283,10 @@ class Logbook_model extends CI_Model {
 			];
 		}
 
+		if (($cached = $this->stats_cache->read('counts', [], $logbooks_locations_array)) !== null) {
+			return $cached;
+		}
+
 		// Calculate date boundaries once
 		$todayStart = date('Y-m-d 00:00:00');
 		$todayEnd = date('Y-m-d 23:59:59');
@@ -4289,12 +4312,12 @@ class Logbook_model extends CI_Model {
 
 		if ($query->num_rows() > 0) {
 			$row = $query->row();
-			return [
+			return $this->stats_cache->write('counts', [], [
 				'total' => (int)$row->total,
 				'today' => (int)$row->today,
 				'month' => (int)$row->month,
 				'year' => (int)$row->year
-			];
+			], $logbooks_locations_array);
 		}
 
 		return [
@@ -4335,6 +4358,9 @@ class Logbook_model extends CI_Model {
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
 		}
+		if (($cached = $this->stats_cache->read('tssb', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+			return $cached;
+		}
 		$mode[] = 'SSB';
 		$mode[] = 'LSB';
 		$mode[] = 'USB';
@@ -4347,7 +4373,7 @@ class Logbook_model extends CI_Model {
 
 		if ($query->num_rows() > 0) {
 			foreach ($query->result() as $row) {
-				return $row->count;
+				return $this->stats_cache->write('tssb', [$dateFrom, $dateTo], $row->count, $logbooks_locations_array);
 			}
 		}
 	}
@@ -4361,6 +4387,9 @@ class Logbook_model extends CI_Model {
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
 		}
+		if (($cached = $this->stats_cache->read('tsat', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+			return $cached instanceof Stats_cached_result ? $cached : new Stats_cached_result((array)$cached);
+		}
 
 		$this->db->select('COL_SAT_NAME, COUNT( * ) as count', FALSE);
 		$this->db->where_in('station_id', $logbooks_locations_array);
@@ -4372,7 +4401,7 @@ class Logbook_model extends CI_Model {
 		$this->db->group_by('COL_SAT_NAME');
 		$query = $this->db->get($this->config->item('table_name'));
 
-		return $query;
+		return $this->stats_cache->write('tsat', [$dateFrom, $dateTo], new Stats_cached_result($query->result()), $logbooks_locations_array);
 	}
 
 	/* Return total number of QSOs per continent */
@@ -4383,6 +4412,9 @@ class Logbook_model extends CI_Model {
 
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
+		}
+		if (($cached = $this->stats_cache->read('tcont', [$searchCriteria], $logbooks_locations_array)) !== null) {
+			return $cached instanceof Stats_cached_result ? $cached : new Stats_cached_result((array)$cached);
 		}
 
 		$this->db->select('COL_CONT, COUNT( * ) as count', FALSE);
@@ -4411,7 +4443,7 @@ class Logbook_model extends CI_Model {
 		$this->db->group_by('COL_CONT');
 		$query = $this->db->get($this->config->item('table_name'));
 
-		return $query;
+		return $this->stats_cache->write('tcont', [$searchCriteria], new Stats_cached_result($query->result()), $logbooks_locations_array);
 	}
 
 	/* Return total number of CW QSOs */
@@ -4424,6 +4456,10 @@ class Logbook_model extends CI_Model {
 			return null;
 		}
 
+		if (($cached = $this->stats_cache->read('tcw', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+			return $cached;
+		}
+
 		$this->db->select('COUNT( * ) as count', FALSE);
 		$this->db->where_in('station_id', $logbooks_locations_array);
 		$this->db->where('COL_MODE', 'CW');
@@ -4432,7 +4468,7 @@ class Logbook_model extends CI_Model {
 
 		if ($query->num_rows() > 0) {
 			foreach ($query->result() as $row) {
-				return $row->count;
+				return $this->stats_cache->write('tcw', [$dateFrom, $dateTo], $row->count, $logbooks_locations_array);
 			}
 		}
 	}
@@ -4447,6 +4483,10 @@ class Logbook_model extends CI_Model {
 			return null;
 		}
 
+		if (($cached = $this->stats_cache->read('tam', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+			return $cached;
+		}
+
 		$this->db->select('COUNT( * ) as count', FALSE);
 		$this->db->where_in('station_id', $logbooks_locations_array);
 		$this->db->where('COL_MODE', 'AM');
@@ -4455,7 +4495,7 @@ class Logbook_model extends CI_Model {
 
 		if ($query->num_rows() > 0) {
 			foreach ($query->result() as $row) {
-				return $row->count;
+				return $this->stats_cache->write('tam', [$dateFrom, $dateTo], $row->count, $logbooks_locations_array);
 			}
 		}
 	}
@@ -4469,6 +4509,10 @@ class Logbook_model extends CI_Model {
 			return null;
 		}
 
+		if (($cached = $this->stats_cache->read('tfm', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+			return $cached;
+		}
+
 		$this->db->select('COUNT( * ) as count', FALSE);
 		$this->db->where_in('station_id', $logbooks_locations_array);
 		$this->db->where('COL_MODE', 'FM');
@@ -4477,7 +4521,7 @@ class Logbook_model extends CI_Model {
 
 		if ($query->num_rows() > 0) {
 			foreach ($query->result() as $row) {
-				return $row->count;
+				return $this->stats_cache->write('tfm', [$dateFrom, $dateTo], $row->count, $logbooks_locations_array);
 			}
 		}
 	}
@@ -4490,6 +4534,10 @@ class Logbook_model extends CI_Model {
 
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
+		}
+
+		if (($cached = $this->stats_cache->read('tdigi', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+			return $cached;
 		}
 
 		$this->db->select('COUNT( * ) as count', FALSE);
@@ -4505,7 +4553,7 @@ class Logbook_model extends CI_Model {
 
 		if ($query->num_rows() > 0) {
 			foreach ($query->result() as $row) {
-				return $row->count;
+				return $this->stats_cache->write('tdigi', [$dateFrom, $dateTo], $row->count, $logbooks_locations_array);
 			}
 		}
 	}
@@ -4524,6 +4572,9 @@ class Logbook_model extends CI_Model {
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
 		}
+		if (($cached = $this->stats_cache->read('tbands', [$dateFrom, $dateTo, $limit], $logbooks_locations_array)) !== null) {
+			return $cached instanceof Stats_cached_result ? $cached : new Stats_cached_result((array)$cached);
+		}
 
 		$this->db->select('COL_BAND AS band, count( * ) AS count', FALSE);
 		$this->db->where_in('station_id', $logbooks_locations_array);
@@ -4536,7 +4587,7 @@ class Logbook_model extends CI_Model {
 
 		$query = $this->db->get($this->config->item('table_name'));
 
-		return $query;
+		return $this->stats_cache->write('tbands', [$dateFrom, $dateTo, $limit], new Stats_cached_result($query->result()), $logbooks_locations_array);
 	}
 
 	/* Return total number of QSOs per mode (mirror of total_bands()). */
@@ -4550,6 +4601,9 @@ class Logbook_model extends CI_Model {
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
 		}
+		if (($cached = $this->stats_cache->read('tmodes', [$dateFrom, $dateTo, $limit], $logbooks_locations_array)) !== null) {
+			return $cached instanceof Stats_cached_result ? $cached : new Stats_cached_result((array)$cached);
+		}
 
 		$this->db->select('COL_MODE AS mode, count( * ) AS count', FALSE);
 		$this->db->where_in('station_id', $logbooks_locations_array);
@@ -4562,7 +4616,7 @@ class Logbook_model extends CI_Model {
 
 		$query = $this->db->get($this->config->item('table_name'));
 
-		return $query;
+		return $this->stats_cache->write('tmodes', [$dateFrom, $dateTo, $limit], new Stats_cached_result($query->result()), $logbooks_locations_array);
 	}
 
 	/* Return total number of QSOs per operator */
@@ -4575,6 +4629,9 @@ class Logbook_model extends CI_Model {
 		if ($logbooks_locations_array[0] === -1) {
 			return null;
 		}
+		if (($cached = $this->stats_cache->read('tops', [$dateFrom, $dateTo], $logbooks_locations_array)) !== null) {
+			return $cached instanceof Stats_cached_result ? $cached : new Stats_cached_result((array)$cached);
+		}
 
 		//get statistics from database
 		$this->db->select('IFNULL(IF(COL_OPERATOR = "", COL_STATION_CALLSIGN, COL_OPERATOR), COL_STATION_CALLSIGN) AS operator, count( * ) AS count', FALSE);
@@ -4586,7 +4643,7 @@ class Logbook_model extends CI_Model {
 		$query = $this->db->get($this->config->item('table_name'));
 
 		//return result
-		return $query;
+		return $this->stats_cache->write('tops', [$dateFrom, $dateTo], new Stats_cached_result($query->result()), $logbooks_locations_array);
 	}
 
 	/* Return combined countries breakdown + QSL stats in one query
@@ -4610,6 +4667,10 @@ class Logbook_model extends CI_Model {
 			$tomorrowStartSql = $this->db->escape($tomorrowStart);
 
 			$location_list = "'" . implode("','", $logbooks_locations_array) . "'";
+
+			if (($cached = $this->stats_cache->read('dash', $dxcc_bands, $logbooks_locations_array)) !== null) {
+				return $cached;
+			}
 
 			$sql = "SELECT
 				-- Country stats (COUNT DISTINCT - filtered to valid DXCC only)
@@ -4705,7 +4766,7 @@ class Logbook_model extends CI_Model {
 
 			if ($query->num_rows() > 0) {
 				$row = $query->row();
-				return [
+				$result = [
 					// Country stats
 					'Unique_Callsigns' => $row->Unique_Callsigns,
 					'Countries_Worked' => $row->Countries_Worked,
@@ -4741,10 +4802,11 @@ class Logbook_model extends CI_Model {
 					'LoTW_Received_today' => $row->LoTW_Received_today,
 					'QRZ_Sent_today' => $row->QRZ_Sent_today,
 					'QRZ_Received_today' => $row->QRZ_Received_today,
-					'ClubLog_Sent_today' => $row->ClubLog_Sent_today,
-					'ClubLog_Received_today' => $row->ClubLog_Received_today
+				'ClubLog_Sent_today' => $row->ClubLog_Sent_today,
+				'ClubLog_Received_today' => $row->ClubLog_Received_today
 				];
-			}
+			return $this->stats_cache->write('dash', $dxcc_bands, $result, $logbooks_locations_array);
+		}
 		}
 
 		// Return zero values if no data
@@ -4794,7 +4856,8 @@ class Logbook_model extends CI_Model {
 			// Get callsign before deleting for cache invalidation. Accessibility
 			// was just verified, so read it trusted (works without a session too).
 			$qso = $this->get_qso($id, true);
-			$callsign = ($qso !== null && $qso->num_rows() > 0) ? $qso->row()->COL_CALL : null;
+			$qso_row = ($qso !== null && $qso->num_rows() > 0) ? $qso->row() : null;
+			$callsign = $qso_row->COL_CALL ?? null;
 
 			// Look up before the delete, contest_qsos cascades with it
 			$contest_session_id = $this->contest_session_for_notify($id);
@@ -4810,6 +4873,8 @@ class Logbook_model extends CI_Model {
 
 			$this->db->where('qsoid', $id);
 			$this->db->delete("oqrs");
+
+			$this->stats_cache->invalidate_stations($qso_row->station_id ?? 0);
 
 			// qso was accessible so notify qso_changed for the current user_id (can also be a clubstation)
 			$this->notify_qso_change($user_id ?? $this->session->userdata('user_id'));
@@ -4891,6 +4956,7 @@ class Logbook_model extends CI_Model {
 		$this->db->where_in('station_id', $logbooks_locations_array);
 
 		if ($this->db->update($this->config->item('table_name') . ' use index (idx_HRD_COL_CALL_station_id)', $data)) {
+			$this->stats_cache->invalidate_stations($logbooks_locations_array);
 			unset($data);
 			return "Updated";
 		} else {
@@ -4909,6 +4975,7 @@ class Logbook_model extends CI_Model {
 		$this->db->where('COL_PRIMARY_KEY', $primarykey);
 
 		if ($this->db->update($this->config->item('table_name'), $data)) {
+			$this->stats_cache->invalidate_for_qsos($primarykey);
 			unset($data);
 			return "Updated";
 		} else {
@@ -4993,6 +5060,7 @@ class Logbook_model extends CI_Model {
 		$this->db->where('station_id in (' . $station_ids . ')');
 
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_stations($station_ids);
 
 		return "Updated";
 	}
@@ -5171,6 +5239,7 @@ class Logbook_model extends CI_Model {
 			// it here before any later inserts (AMSAT) can overwrite it.
 			$custom_errors['inserted_id'] = $this->db->insert_id();
 			$this->notify_qso_change($station_profile->user_id);
+			$this->stats_cache->invalidate_stations($station_id);
 		}
 		foreach ($amsat_qsos as $amsat_qso) {
 			$this->upload_amsat_status($data);
@@ -6239,6 +6308,7 @@ class Logbook_model extends CI_Model {
 
 		$this->db->where(array('COL_PRIMARY_KEY' => $key));
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_for_qsos($key);
 		return;
 	}
 
@@ -6261,6 +6331,7 @@ class Logbook_model extends CI_Model {
 		$table_name = $this->config->item('table_name');
 		$sql = "UPDATE {$table_name} SET COL_CONTEST_ID = ? WHERE COL_PRIMARY_KEY = ?;";
 		$this->db->query($sql, [$adifname, $qso_id]);
+		$this->stats_cache->invalidate_for_qsos($qso_id);
 		return;
 	}
 
@@ -6271,6 +6342,7 @@ class Logbook_model extends CI_Model {
 
 		$this->db->where(array('COL_PRIMARY_KEY' => $key));
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_for_qsos($key);
 		return;
 	}
 
@@ -6286,6 +6358,7 @@ class Logbook_model extends CI_Model {
 		}
 		$this->db->where(array('COL_PRIMARY_KEY' => $key));
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_for_qsos($key);
 		return;
 	}
 
@@ -6357,6 +6430,7 @@ class Logbook_model extends CI_Model {
 			}
 			$this->db->update($this->config->item('table_name'), $data);
 			if ($this->db->affected_rows() > 0) {
+				$this->stats_cache->invalidate_stations($station_id);
 				return TRUE;
 			} else {
 				return FALSE;
@@ -6469,9 +6543,10 @@ class Logbook_model extends CI_Model {
 			'COL_LOTW_QSLSDATE' => date("Y-m-d H:i:s"),
 			'COL_LOTW_QSL_SENT' => 'Y',
 		);
-
 		$this->db->where('COL_PRIMARY_KEY', $qso_id);
+
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_for_qsos($qso_id);
 
 		return "Updated";
 	}
@@ -6526,6 +6601,7 @@ class Logbook_model extends CI_Model {
 			}
 		$this->db->group_end();
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_stations($station_id);
 	}
 
 	function county_qso_details($state, $county, $postdata = array()) {
@@ -6815,6 +6891,7 @@ class Logbook_model extends CI_Model {
 
 		//update data and return
 		$this->db->update($this->config->item('table_name'), $data);
+		$this->stats_cache->invalidate_for_qsos($qso_primary_key);
 		return;
 	}
 }

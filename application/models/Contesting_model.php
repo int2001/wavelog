@@ -521,6 +521,7 @@ class Contesting_model extends CI_Model {
 	function update_contest_qso($qso_id, $fields) {
 		$table = $this->config->item('table_name');
 		$this->db->where('COL_PRIMARY_KEY', $qso_id)->update($table, $fields);
+		$this->stats_cache->invalidate_for_qsos($qso_id);
 		return $this->db->affected_rows() > 0;
 	}
 
