@@ -36,10 +36,19 @@ class Bands extends CI_Model {
 		"SAT"=>0,
 	);
 
-	function get_user_bands($award = 'None') {
+	/**
+	 * Band names the given user has activated for an award (bandxuser).
+	 *
+	 * @param  string   $award   bandxuser award column ('None' = only active bands)
+	 * @param  int|null $user_id user id; defaults to the session user, can be
+	 *                           passed explicitly for session-less contexts (cron)
+	 * @return array              list of band names
+	 */
+	function get_user_bands($award = 'None', $user_id = null) {
+		$user_id = $user_id ?? $this->session->userdata('user_id');
 		$this->db->from('bands');
 		$this->db->join('bandxuser', 'bandxuser.bandid = bands.id');
-		$this->db->where('bandxuser.userid', $this->session->userdata('user_id'));
+		$this->db->where('bandxuser.userid', $user_id);
 		$this->db->where('bandxuser.active', 1);
 
 		if ($award != 'None') {

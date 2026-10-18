@@ -111,8 +111,10 @@ class Stats_cache {
 
 	/**
 	 * Normalize a station id set to a sorted, de-duplicated array of positive ints.
- * When null, resolve the station ids of the session's active station logbook
-	 * (same resolution the calling model functions use internally).
+	 * Accepts plain arrays, single ids, comma strings and SQL-quoted lists
+	 * ("'1','2'", as passed by the award controllers). When null, resolve the
+	 * station ids of the session's active station logbook (same resolution
+	 * the calling model functions use internally).
 	 *
 	 * @param  array|int|string|null $stations station ids or null for session scope
 	 * @return array                            empty array = nothing cacheable
@@ -128,9 +130,11 @@ class Stats_cache {
 			$stations = self::$scope_stations[$lbid];
 		}
 		if (!is_array($stations)) {
-			$stations = [$stations];
+			$stations = is_string($stations) ? explode(',', $stations) : [$stations];
 		}
-		$stations = array_map('intval', $stations);
+		$stations = array_map(function ($s) {
+			return (int)trim((string)$s, " '\"");
+		}, $stations);
 		$stations = array_values(array_unique(array_filter($stations, function ($s) {
 			return $s > 0;
 		})));
@@ -287,8 +291,11 @@ class Stats_cache {
 	 * Fast-path for single QSO inserts: mark the station dirty (everything
 	 * except dashboard/counts recomputes after the debounce window) and patch
 	 * the cached "counts" and "dash" entries in place so the dashboard stays
-	 * exact while logging. Skipped when the inserted QSO already carries
-	 * confirmation flags (rare; the debounce recompute covers those).
+	 * exact while logging. The counts entry (total/today/month/year) is
+	 * always exactly patchable; the dash patch is skipped when the inserted
+	 * QSO already carries confirmation flags (received or sent side, e.g.
+	 * via API imports) that feed dash counters which are not patched - the
+	 * debounce recompute then covers the dash entry.
 	 *
 	 * @param  array $data   insert data array (COL_TIME_ON, COL_CALL, COL_BAND, COL_DXCC, COL_PROP_MODE, station_id, ...)
 	 * @param  int   $qso_id COL_PRIMARY_KEY of the inserted QSO
@@ -301,11 +308,7 @@ class Stats_cache {
 			return;
 		}
 		$this->invalidate_stations($station_id);
-		foreach (['COL_QSL_RCVD', 'COL_LOTW_QSL_RCVD', 'COL_EQSL_QSL_RCVD', 'COL_QRZCOM_QSO_DOWNLOAD_STATUS', 'COL_CLUBLOG_QSO_DOWNLOAD_STATUS'] as $col) {
-			if (strtoupper((string)($data[$col] ?? '')) === 'Y') {
-				return;
-			}
-		}
+		$dash_safe = !$this->dash_flags_present($data);
 
 		$logbooks = $ci->db->query(
 			'SELECT DISTINCT station_logbook_id FROM station_logbooks_relationship WHERE station_location_id = ?',
@@ -328,10 +331,43 @@ class Stats_cache {
 				continue;
 			}
 			$this->patch_counts($st, $data);
-			foreach ($dash_filters as $f) {
-				$this->patch_dash($st, $data, $qso_id, $f);
+			if ($dash_safe) {
+				foreach ($dash_filters as $f) {
+					$this->patch_dash($st, $data, $qso_id, $f);
+				}
 			}
 		}
+	}
+
+	/**
+	 * Whether the insert data carries any confirmation flag (received or
+	 * sent side) that feeds dashboard counters insert_delta() does not
+	 * patch: QSL/eQSL/LoTW received, paper QSL sent/requested, QRZ and
+	 * ClubLog upload/download statuses.
+	 *
+	 * @param  array $data insert data array
+	 * @return bool
+	 */
+	private function dash_flags_present(array $data) {
+		$skip_if = [
+			'COL_QSL_RCVD' => ['Y'],
+			'COL_LOTW_QSL_RCVD' => ['Y'],
+			'COL_EQSL_QSL_RCVD' => ['Y'],
+			'COL_QRZCOM_QSO_DOWNLOAD_STATUS' => ['Y'],
+			'COL_CLUBLOG_QSO_DOWNLOAD_STATUS' => ['Y'],
+			'COL_QSL_SENT' => ['Y', 'Q', 'R'],
+			'COL_EQSL_QSL_SENT' => ['Y'],
+			'COL_LOTW_QSL_SENT' => ['Y'],
+			'COL_QRZCOM_QSO_UPLOAD_STATUS' => ['Y'],
+			'COL_CLUBLOG_QSO_UPLOAD_STATUS' => ['Y'],
+		];
+		foreach ($skip_if as $col => $vals) {
+			$v = strtoupper(trim((string)($data[$col] ?? '')));
+			if (in_array($v, $vals, true)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -503,24 +539,9 @@ class Stats_cache {
 		}
 		$ci->load->model('logbook_model');
 		$ci->load->model('dayswithqso_model');
+		$ci->load->model('bands');
 		$ci->logbook_model->get_qso_counts($st);
-		$ci->logbook_model->dashboard_stats_batch($st, $this->user_dxcc_bands($user_id));
+		$ci->logbook_model->dashboard_stats_batch($st, $ci->bands->get_user_bands('dxcc', $user_id));
 		$ci->dayswithqso_model->getDates($st);
-	}
-
-	/**
-	 * DXCC award bands of a user; replicates Bands::get_user_bands('dxcc')
-	 * for session-less contexts (cron). Same query shape, so the resulting
-	 * dash cache key matches the one built from the session call.
-	 *
-	 * @param  int $user_id
-	 * @return array band names
-	 */
-	private function user_dxcc_bands($user_id) {
-		$rows = self::ci()->db->query(
-			'SELECT bands.band FROM bands JOIN bandxuser ON bandxuser.bandid = bands.id WHERE bandxuser.userid = ? AND bandxuser.active = 1 AND bandxuser.dxcc = 1',
-			[(int)$user_id]
-		)->result();
-		return array_column($rows, 'band');
 	}
 }

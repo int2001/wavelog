@@ -23,6 +23,12 @@ class Statistics_cache extends CI_Controller {
 			exit();
 		}
 
+		// The 280s time-box below is the real budget: don't let a default
+		// 30s max_execution_time kill the loop before the cursor is saved,
+		// and finish even if the cron dispatcher disconnects early.
+		set_time_limit(0);
+		ignore_user_abort(true);
+
 		$this->load->is_loaded('cache') ?: $this->load->driver('cache', [
 			'adapter' => $this->config->item('cache_adapter') ?? 'file',
 			'backup' => $this->config->item('cache_backup') ?? 'file',
@@ -38,7 +44,7 @@ class Statistics_cache extends CI_Controller {
 		// one batch per run; the daily cron advances the cursor until the
 		// active-user list is exhausted, then wraps around
 		$users = $this->db->query(
-			'SELECT user_id FROM users WHERE last_login_date >= (NOW() - INTERVAL 30 DAY) AND user_id > ? ORDER BY user_id LIMIT 500',
+			'SELECT user_id FROM users WHERE last_seen >= (NOW() - INTERVAL 30 DAY) AND user_id > ? ORDER BY user_id LIMIT 500',
 			[$cursor]
 		)->result();
 
