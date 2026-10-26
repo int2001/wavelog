@@ -2399,7 +2399,6 @@ $(function() {
 				if (window.isFrequencyMarkerEnabled) {
 					window.isFrequencyMarkerEnabled = false;
 					enableBandFilterControls();
-					unlockTableSorting();
 					clearFrequencyGradientColors();
 					updateLockButtonVisual(false);
 				}
@@ -2830,7 +2829,10 @@ $(function() {
 		});
 
 		// Only show purple border markers in purple mode (when isFrequencyMarkerEnabled is true)
-		if (isFrequencyMarkerEnabled && coloredCount === 0) {
+		// Border direction assumes frequency-descending row order, so skip markers on any other sort
+		const currentOrder = table.order()[0];
+		const isFreqDesc = currentOrder && currentOrder[0] === 2 && currentOrder[1] === 'desc';
+		if (isFrequencyMarkerEnabled && coloredCount === 0 && isFreqDesc) {
 			// First, remove any existing border classes from all rows
 			table.rows().every(function() {
 				$(this.node()).removeClass('cat-nearest-above cat-nearest-below');
@@ -3622,66 +3624,6 @@ $(function() {
 		$('.cat-control-info').remove();
 	}
 
-	// ========================================
-	// CAT CONTROL - TABLE SORTING LOCK
-	// ========================================
-
-	/**
-	 * Lock table sorting to frequency column only (descending) when CAT Control is active
-	 */
-	function lockTableSortingToFrequency() {
-		var table = get_dtable();
-
-		// Add class to table for CSS styling
-		$('.spottable').addClass('cat-sorting-locked');
-
-		// Force sort by frequency (column 2) descending
-		table.order([2, 'desc']).draw();
-
-		// Disable sorting on all columns
-		table.settings()[0].aoColumns.forEach(function(col, index) {
-			col.bSortable = false;
-		});
-
-		// Disable click events on all column headers
-		$('.spottable thead th').off('click.DT');
-
-		// Redraw column headers to update sort icons
-		table.columns.adjust();
-	}
-
-	/**
-	 * Unlock table sorting when CAT Control is disabled
-	 */
-	function unlockTableSorting() {
-		var table = get_dtable();
-
-		// Remove class from table
-		$('.spottable').removeClass('cat-sorting-locked');
-
-		// Re-enable sorting on all columns that were originally sortable
-		// Based on columnDefs: columns 6, 8, 15 are not sortable (Cont, Flag, Message)
-		const nonSortableColumns = [6, 8, 15];
-
-		table.settings()[0].aoColumns.forEach(function(col, index) {
-			if (!nonSortableColumns.includes(index)) {
-				col.bSortable = true;
-			}
-		});
-
-		// Re-enable DataTables default click handlers
-		table.off('click.DT', 'thead th');
-
-		// Reset to default sort (frequency ascending)
-		table.order([2, 'asc']).draw();
-
-		// Redraw column headers to update sort icons
-		table.columns.adjust();
-
-		// Clear frequency gradient colors
-		clearFrequencyGradientColors();
-	}
-
 	/**
 	 * Clear all frequency gradient colors from table rows
 	 */
@@ -3816,7 +3758,7 @@ $(function() {
 		if (window.lastCATData && window.lastCATData.frequency) {
 			updateFrequencyGradientColors();
 		}
-		lockTableSortingToFrequency();
+		get_dtable().order([2, 'desc']).draw();
 		updateLockButtonVisual(true);
 
 		// Show toast notifications
@@ -3845,7 +3787,6 @@ $(function() {
 		syncQuickFilterButtons();
 		applyFilters(true);
 
-		unlockTableSorting();
 		clearFrequencyGradientColors();
 		updateLockButtonVisual(false);
 	}
@@ -3919,7 +3860,6 @@ $(function() {
 			}
 
 			enableBandFilterControls();
-			unlockTableSorting();
 			clearFrequencyGradientColors();
 
 			updateCatButtonVisual(false);

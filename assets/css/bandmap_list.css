@@ -240,15 +240,6 @@ html { overflow-y: scroll; }
    7. SPOT TABLE - CAT CONTROL
    =========================================== */
 
-.spottable.cat-sorting-locked thead th {
-	cursor: not-allowed !important;
-	pointer-events: none;
-	opacity: 0.6;
-}
-
-.spottable.cat-sorting-locked thead th.sorting_asc::after,
-.spottable.cat-sorting-locked thead th.sorting_desc::after { opacity: 1 !important; }
-
 .cat-frequency-gradient { transition: background-color 0.3s ease !important; }
 .cat-frequency-gradient:hover { filter: brightness(0.95); }
 
