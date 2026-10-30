@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-10-29 07:06+0000\n"
-"PO-Revision-Date: 2026-10-28 06:11+0000\n"
+"POT-Creation-Date: 2026-10-29 22:58+0000\n"
+"PO-Revision-Date: 2026-10-28 19:55+0000\n"
 "Last-Translator: Lars Granheim <lb3qj.lars@gmail.com>\n"
 "Language-Team: Norwegian Bokmål <https://translate.wavelog.org/projects/"
 "wavelog/main-translation/nb/>\n"
@@ -1938,23 +1938,23 @@ msgstr ""
 #, php-format
 msgid "%d QSO is now uploaded to HRDlog"
 msgid_plural "%d QSOs are now uploaded to HRDlog"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d QSO er nå lastet opp til HRDlog"
+msgstr[1] "%d QSO-er er nå lastet opp til HRDlog"
 
 #: application/controllers/Hrdlog.php:102
 msgid "No QSOs found to upload."
-msgstr ""
+msgstr "Ingen QSOer funnet for opplasting."
 
 #: application/controllers/Kmlexport.php:24
 #: application/views/interface_assets/header.php:556
 #: application/views/kml/index.php:3
 msgid "KML Export"
-msgstr ""
+msgstr "KML-eksport"
 
 #: application/controllers/Labeldesigner.php:22
 #: application/views/labels/index.php:36
 msgid "Label Designer"
-msgstr ""
+msgstr "Etikett designer"
 
 #: application/controllers/Labeldesigner.php:114
 #: application/controllers/Labels.php:213
@@ -1962,7 +1962,7 @@ msgstr ""
 #: application/controllers/Qslpostcard.php:243
 #: application/controllers/Qslpostcard.php:307
 msgid "Template not found"
-msgstr ""
+msgstr "Mal ikke funnet"
 
 #: application/controllers/Labeldesigner.php:120
 #: application/controllers/Labels.php:219
@@ -1970,22 +1970,22 @@ msgstr ""
 #: application/controllers/Qslpostcard.php:249
 #: application/controllers/Qslpostcard.php:313
 msgid "Template JSON is invalid"
-msgstr ""
+msgstr "Malens JSON er ugyldig"
 
 #: application/controllers/Labeldesigner.php:125
 msgid "Template has no elements"
-msgstr ""
+msgstr "Malen har ingen elementer"
 
 #: application/controllers/Labeldesigner.php:131
 msgid "Label type not found"
-msgstr ""
+msgstr "Etikettype ikke funnet"
 
 #: application/controllers/Labeldesigner.php:136
 #: application/controllers/Labels.php:225
 #: application/controllers/Labels.php:315
 #: application/controllers/Labels.php:318
 msgid "You need to assign a paperType to the label before printing"
-msgstr ""
+msgstr "Du må tilordne en paper type til etiketten før utskrift"
 
 #: application/controllers/Labeldesigner.php:149
 #: application/controllers/Qslpostcard.php:207
@@ -4642,15 +4642,15 @@ msgstr ""
 msgid "Look up callsigns and grids"
 msgstr ""
 
-#: application/libraries/api_v2/Qso_resource.php:48
+#: application/libraries/api_v2/Qso_resource.php:50
 msgid "Read QSOs"
 msgstr ""
 
-#: application/libraries/api_v2/Qso_resource.php:49
+#: application/libraries/api_v2/Qso_resource.php:51
 msgid "Create and update QSOs"
 msgstr ""
 
-#: application/libraries/api_v2/Qso_resource.php:50
+#: application/libraries/api_v2/Qso_resource.php:52
 msgid "Delete QSOs"
 msgstr ""
 
