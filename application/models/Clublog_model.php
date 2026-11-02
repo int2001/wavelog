@@ -237,6 +237,7 @@ class Clublog_model extends CI_Model
 					log_message('info', $log);
 					$return .= $log."<br>";
 				}
+				sleep(11);
 			}
 		} else {
 			$return = "Nothing to download";
