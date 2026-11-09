@@ -38,8 +38,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-11-08 07:22+0000\n"
-"PO-Revision-Date: 2026-11-02 10:49+0000\n"
+"POT-Creation-Date: 2026-11-09 08:15+0000\n"
+"PO-Revision-Date: 2026-11-09 08:11+0000\n"
 "Last-Translator: \"Xu, Zefan (BI1GHZ)\" <ceba_robot@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translate.wavelog.org/projects/wavelog/main-translation/zh_Hans/>\n"
@@ -48,7 +48,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.10.1\n"
+"X-Generator: Weblate 2026.11.1\n"
 
 #: application/config/adif_propmodes.php:7
 msgctxt "Propagation Mode"
@@ -4530,7 +4530,7 @@ msgstr "损坏的 CBR 文件 - 文件头不完整。"
 msgid ""
 "No valid gridsquare given. Please set your station location or enter a valid "
 "gridsquare."
-msgstr ""
+msgstr "未提供有效的网格。请设置你的台站位置或输入有效的网格。"
 
 #: application/libraries/Subdivisions.php:31
 msgctxt "Division Name (States in various countries)."
@@ -5130,38 +5130,38 @@ msgstr "写入成功但读取失败。"
 msgid "Test key could not be deleted - check permissions/access."
 msgstr "测试键无法删除 - 请检查权限/访问权限。"
 
-#: application/models/Eqslmethods_model.php:270
+#: application/models/Eqslmethods_model.php:277
 msgid "Empty response from eQSL.cc!"
 msgstr "eQSL.cc 的响应为空！"
 
-#: application/models/Eqslmethods_model.php:278
+#: application/models/Eqslmethods_model.php:286
 msgid "Your eQSL username and/or password is incorrect."
 msgstr "你的 eQSL 用户名或密码错误。"
 
-#: application/models/Eqslmethods_model.php:283
+#: application/models/Eqslmethods_model.php:291
 msgid "Something went wrong with eQSL.cc!"
 msgstr "eQSL 服务异常！"
 
-#: application/models/Eqslmethods_model.php:294
+#: application/models/Eqslmethods_model.php:302
 msgid "QTH Nickname does not exist at eQSL"
 msgstr "QTH 昵称在 eQSL 中不存在"
 
-#: application/models/Eqslmethods_model.php:302
+#: application/models/Eqslmethods_model.php:316
 msgid "eQSL.cc is experiencing issues. Please try exporting QSOs later."
 msgstr "eQSL 网站出了一些问题，请稍后重试。"
 
-#: application/models/Eqslmethods_model.php:307
+#: application/models/Eqslmethods_model.php:321
 msgid ""
 "There was an error in one of the QSOs. You might want to manually upload "
 "them."
 msgstr "上传的 QSO 有问题，你可能需要手动录入。"
 
-#: application/models/Eqslmethods_model.php:312
+#: application/models/Eqslmethods_model.php:326
 msgid ""
 "It seems that the eQSL site has changed. Please open up an issue on GitHub."
 msgstr "eQSL 网站似乎更改了地址，请在 GitHub 上创建一个 issue。"
 
-#: application/models/Eqslmethods_model.php:318
+#: application/models/Eqslmethods_model.php:332
 msgid ""
 "An uncaught Error occured while uploading QSOs. Perhaps eQSL has hiccups"
 msgstr "上传 QSO 时发生未捕获的错误。也许 eQSL 出现了问题"
