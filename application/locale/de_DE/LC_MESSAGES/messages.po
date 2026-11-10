@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-11-10 11:21+0000\n"
-"PO-Revision-Date: 2026-11-07 06:29+0000\n"
+"PO-Revision-Date: 2026-11-10 11:42+0000\n"
 "Last-Translator: Florian Wolters <wavelog@df2et.de>\n"
 "Language-Team: German <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/de/>\n"
@@ -36,7 +36,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.10.1\n"
+"X-Generator: Weblate 2026.11.1\n"
 
 #: application/config/adif_propmodes.php:7
 msgctxt "Propagation Mode"
@@ -1855,7 +1855,7 @@ msgstr "Download der eQSL Bilddaten fehlgeschlagen"
 
 #: application/controllers/Eqsl.php:396
 msgid "Check credentials. Login to eQSL denied"
-msgstr ""
+msgstr "Prüfe deine Zugangsdaten. Login bei eQSL abgelehnt"
 
 #: application/controllers/Eqsl.php:398 application/controllers/Eqsl.php:418
 msgid "eQSL image not available"
@@ -3072,11 +3072,13 @@ msgstr "VUCC-Locator-Daten nicht verfügbar."
 #: application/controllers/Mostwantedgrids.php:12
 #: application/views/debug/index.php:815
 msgid "Most Wanted Grids (Satellite)"
-msgstr ""
+msgstr "Meistgesuchte Planquadrate (Satellit)"
 
 #: application/controllers/Mostwantedgrids.php:38
 msgid "Most wanted grid table is empty. Please update the table first."
 msgstr ""
+"Die Tabelle der meistgesuchten Planquadrate ist leer. Bitte aktualisiere die "
+"Tabelle zuerst."
 
 #: application/controllers/Notes.php:31
 #: application/views/interface_assets/header.php:158
@@ -6140,7 +6142,7 @@ msgstr ""
 #: application/views/activationplanner/index.php:20
 #, php-format
 msgid "In log of %s (SAT)"
-msgstr ""
+msgstr "Im Log bei %s (SAT)"
 
 #: application/views/activationplanner/index.php:23
 #: application/views/satellite/pass.php:21
@@ -7033,6 +7035,9 @@ msgid ""
 "ADIF format. It will only import references for existing QSOs. It will not "
 "import QSO data itself."
 msgstr ""
+"Diese Funktion kann genutzt werden, um POTA-Referenzen aus einem POTA-Jäger-"
+"Log im ADIF-Format zu importieren. Es werden nur Referenzen für "
+"exisitierende QSOs importiert. Es werden keine QSO-Daten selbst importiert."
 
 #: application/views/adif/import.php:408
 #, php-format
@@ -17438,7 +17443,7 @@ msgstr "Analysen"
 
 #: application/views/interface_assets/header.php:176
 msgid "Most Wanted Grids"
-msgstr ""
+msgstr "Meistgesuchte Planquadrate"
 
 #: application/views/interface_assets/header.php:192
 msgid "Callsign Statistics"
@@ -20421,7 +20426,7 @@ msgstr "Quadrate ohne Landmasse ausschließen"
 
 #: application/views/mostwantedgrids/index.php:61
 msgid "View a map of most wanted gridsquares on satellite"
-msgstr ""
+msgstr "Zeige eine Karte der meistgesuchten Planquadrate auf Satellit"
 
 #: application/views/mostwantedgrids/index.php:77
 #, php-format
@@ -20430,6 +20435,10 @@ msgid ""
 "logs there to help making this data more convenient. If you have an account "
 "already you can find your own satellite %smap%s or %slist%s here."
 msgstr ""
+"Die dargestellten Daten werden bereitgestellt von %s. Bitte ziehe in "
+"Erwägung, deine SAT Logs dort hochzuladen, um die Datenqualität zu steigern. "
+"Wenn du bereits einen Account hast, findest du deine eigene Satelliten "
+"%sKarte%s oder %sListe%s hier."
 
 #: application/views/mostwantedgrids/index.php:79
 #, php-format
@@ -20437,14 +20446,16 @@ msgid ""
 "There are %s grids in the database. The most active grid is contained in "
 "%s%% of the logs."
 msgstr ""
+"Es sind %s Planquadrate in der Datenbank vorhanden. Das meist aktivierte "
+"Planquadrat ist in %s%% aller Logs enthalten."
 
 #: application/views/mostwantedgrids/index.php:84
 msgid "Min"
-msgstr ""
+msgstr "Min"
 
 #: application/views/mostwantedgrids/index.php:91
 msgid "Max"
-msgstr ""
+msgstr "Max"
 
 #: application/views/notes/add.php:9 application/views/notes/edit.php:10
 #: application/views/notes/main.php:9 application/views/notes/view.php:10
@@ -25209,11 +25220,11 @@ msgstr "QSL Verwaltung"
 
 #: application/views/view_log/qso.php:74
 msgid "at"
-msgstr ""
+msgstr "um"
 
 #: application/views/view_log/qso.php:76
 msgid "UTC"
-msgstr ""
+msgstr "UTC"
 
 #: application/views/view_log/qso.php:87
 msgid "View note for this callsign"
@@ -25439,8 +25450,8 @@ msgid ""
 "None of your Logbooks are configured to export data to the QO-100 Dx Club's "
 "API."
 msgstr ""
-"Keines deiner Logbücher ist konfiguriert, um Daten mit der QO-100 Dx Club "
-"API zu exportieren."
+"Keines deiner Logbücher ist konfiguriert, um Daten zur QO-100 Dx Club API zu "
+"exportieren."
 
 #: application/views/webadif/export.php:74
 #: application/views/webadif/export.php:124
@@ -25464,7 +25475,7 @@ msgid ""
 "Then, navigate to your %s and configure your station with the key you have "
 "created at the club."
 msgstr ""
-"Dann, gehe zu deiner %s und konfiguriere den Stationsstandort mit dem "
+"Dann gehe zu deinem %s und konfiguriere den Stationsstandort mit dem "
 "Schlüssel, welchen du beim Club erstellt hast."
 
 #: application/views/webadif/export.php:93
