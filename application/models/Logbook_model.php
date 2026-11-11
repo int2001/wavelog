@@ -1298,15 +1298,34 @@ class Logbook_model extends CI_Model {
 	}
 
 	/*
-   * Function uploads a QSO to QRZ with the API given.
-   * $adif contains a line with the QSO in the ADIF format. QSO ends with an <EOR>
-   */
+	 * Function transliterates non-ASCII characters in an ADIF record to plain ASCII
+	 * for QRZ.com logbook upload (QRZ API fails with a 500 error page on e.g. Cyrillic CNTY).
+	 * ADIF field lengths are recomputed to match the transliterated values.
+	 *
+	 * @param string $adif ADIF line(s) for one QSO, fields as <TAG:len>value
+	 * @return string ASCII-only ADIF, structure unchanged (<EOR> preserved)
+	 */
+	function sanitize_adif_for_qrz($adif) {
+		return preg_replace_callback('/<([A-Z0-9_]+):(\d+)(?::[A-Z])?>([^<]*)/s', function ($m) {
+			$v = $m[3];
+			if (!preg_match('/[^\x20-\x7E]/', $v)) return $m[0];
+			$t = function_exists('transliterator_transliterate') ? transliterator_transliterate('Any-Latin; Latin-ASCII', $v) : false;
+			if ($t === false || $t === '') $t = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $v);
+			if ($t === false || $t === '') $t = preg_replace('/[^\x20-\x7E]/', '', $v);
+			return '<' . $m[1] . ':' . mb_strlen($t, 'UTF-8') . '>' . $t;
+		}, $adif);
+	}
+
+	/*
+	   * Function uploads a QSO to QRZ with the API given.
+	   * $adif contains a line with the QSO in the ADIF format. QSO ends with an <EOR>
+	   */
 	function push_qso_to_qrz($apikey, $adif, $replaceoption = false) {
 		$url = 'https://logbook.qrz.com/api'; // TODO: Move this to database
 
 		$post_data['KEY'] = $apikey;
 		$post_data['ACTION'] = 'INSERT';
-		$post_data['ADIF'] = $adif;
+		$post_data['ADIF'] = $this->sanitize_adif_for_qrz($adif);
 
 		if ($replaceoption) {
 			$post_data['OPTION'] = 'REPLACE';

@@ -264,7 +264,7 @@ class Qrz extends CI_Controller {
 	private function qrz_upload_handle($qrz_api_key, $adif, $replaceoption, $useragent) {
 		$post_data['KEY'] = $qrz_api_key;
 		$post_data['ACTION'] = 'INSERT';
-		$post_data['ADIF'] = $adif;
+		$post_data['ADIF'] = $this->logbook_model->sanitize_adif_for_qrz($adif);
 
 		if ($replaceoption) {
 			$post_data['OPTION'] = 'REPLACE';
