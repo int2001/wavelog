@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
-"POT-Creation-Date: 2026-11-17 17:45+0000\n"
-"PO-Revision-Date: 2026-11-05 19:57+0000\n"
+"POT-Creation-Date: 2026-11-18 05:04+0000\n"
+"PO-Revision-Date: 2026-11-17 07:56+0000\n"
 "Last-Translator: Alexander <alexander@pa8s.nl>\n"
 "Language-Team: Dutch <https://translate.wavelog.org/projects/wavelog/main-"
 "translation/nl/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.10.1\n"
+"X-Generator: Weblate 2026.11.1\n"
 
 #: application/config/adif_propmodes.php:7
 msgctxt "Propagation Mode"
@@ -1799,7 +1799,7 @@ msgstr "Je hebt je eQSL.cc gegevens nog niet ingesteld!"
 
 #: application/controllers/Eqsl.php:141
 msgid "Please chose a Station Location"
-msgstr ""
+msgstr "Kies een stationslocatie alstublieft"
 
 #: application/controllers/Eqsl.php:145
 msgid "eQSL Import"
@@ -5079,18 +5079,26 @@ msgstr ""
 "minste versie 2.1.0 van WaveLogGate."
 
 #: application/models/Api_v2_model.php:112
+msgid "Log and Station Upload"
+msgstr ""
+
+#: application/models/Api_v2_model.php:113
+msgid "Upload QSOs and manage station locations and logbooks."
+msgstr ""
+
+#: application/models/Api_v2_model.php:119
 msgid "Read-only"
 msgstr "Alleen lezen"
 
-#: application/models/Api_v2_model.php:113
+#: application/models/Api_v2_model.php:120
 msgid "Read access to everything, no changes to your data."
 msgstr "Lees toegang tot alles, geen wijzigingen aan je gegevens."
 
-#: application/models/Api_v2_model.php:119
+#: application/models/Api_v2_model.php:126
 msgid "Statistics only"
 msgstr "Alleen statistieken"
 
-#: application/models/Api_v2_model.php:120
+#: application/models/Api_v2_model.php:127
 msgid "Statistics only, no changes to your data."
 msgstr "Alleen statistieken, geen wijzigingen aan je gegevens."
 
