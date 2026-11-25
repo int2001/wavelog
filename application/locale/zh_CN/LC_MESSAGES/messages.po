@@ -40,8 +40,8 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@wavelog.org\n"
 "POT-Creation-Date: 2026-11-25 05:47+0000\n"
-"PO-Revision-Date: 2026-11-22 14:42+0000\n"
-"Last-Translator: Yuanhang Liu <1258306366@qq.com>\n"
+"PO-Revision-Date: 2026-11-25 15:34+0000\n"
+"Last-Translator: \"Xu, Zefan (BI1GHZ)\" <ceba_robot@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translate.wavelog.org/projects/wavelog/main-translation/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -3763,7 +3763,7 @@ msgstr "台站位置 %s 已更新"
 
 #: application/controllers/Station.php:121
 msgid "Duplicate Station Location:"
-msgstr "台站位置重复："
+msgstr "复制台站位置："
 
 #: application/controllers/Station.php:266
 #: application/controllers/User.php:1565 application/controllers/User.php:1818
@@ -3901,7 +3901,7 @@ msgstr "编辑导出地图选项"
 #, php-format
 msgid ""
 "Are you sure you want to make the station profile %s the active station?"
-msgstr "你确定要将台站配置文件%s 设定为激活状态吗?"
+msgstr "你确定要将台站位置 %s 设定为激活状态吗?"
 
 #: application/controllers/Stationsetup.php:391
 #: application/views/stationsetup/stationsetup.php:189
@@ -3933,7 +3933,7 @@ msgstr[0] "QSO"
 #: application/controllers/Stationsetup.php:405
 #: application/views/stationsetup/stationsetup.php:220
 msgid "Are you sure you want to delete all QSOs within this station profile?"
-msgstr "确认删除台站下的所有 QSO？"
+msgstr "确认删除此台站位置下的所有 QSO？"
 
 #: application/controllers/Stationsetup.php:405
 #: application/views/stationsetup/stationsetup.php:170
@@ -3955,7 +3955,7 @@ msgstr "复制"
 msgid ""
 "Are you sure you want delete station profile '%s'? This will delete all QSOs "
 "within this station profile."
-msgstr "确定要删除台站 '%s' 吗？这会删除此台站下的所有 QSO。"
+msgstr "确定要删除台站位置 '%s' 吗？这会删除此台站位置下的所有 QSO。"
 
 #: application/controllers/Stationsetup.php:421
 #: application/views/qso/edit_ajax.php:221
@@ -6826,7 +6826,7 @@ msgstr "%s详细日志%s 中可使用更多筛选器选项，也可导出日志�
 #: application/views/adif/import.php:275
 #: application/views/search/lotw_unconfirmed.php:24
 msgid "All is limited to station locations linked to active logbook"
-msgstr "“所有”选项仅限已激活日志簿绑定的台站位置"
+msgstr "“全部”选项仅包含与当前启用的日志簿关联的台站位置"
 
 #: application/views/adif/import.php:296
 #: application/views/clublog/export.php:73 application/views/csv/index.php:104
@@ -9293,7 +9293,7 @@ msgstr "没有通联过或已确认的 JCC 匹配当前筛选器。"
 
 #: application/views/awards/jcg/index.php:11
 msgid "JCG - Japan Century Gun/County Award"
-msgstr "JCG - 日本世纪郡奖状"
+msgstr "JCG - 日本百郡奖"
 
 #: application/views/awards/jcg/index.php:12
 msgid ""
@@ -9410,7 +9410,7 @@ msgstr "Polska 奖项类别根据全部 16 个省各自的已确认 QSO 数量�
 
 #: application/views/awards/pl_polska/index.php:140
 msgid "1 QSO per voivodeship"
-msgstr "1 QSO 来自省内"
+msgstr "每个省份完成 1 次 QSO"
 
 #: application/views/awards/pl_polska/index.php:140
 msgid "Basic Class"
@@ -9418,7 +9418,7 @@ msgstr "基础级"
 
 #: application/views/awards/pl_polska/index.php:141
 msgid "3 QSOs per voivodeship"
-msgstr "3 QSO 来自省内"
+msgstr "每个省份完成 3 次 QSO"
 
 #: application/views/awards/pl_polska/index.php:141
 msgid "Bronze Class (3rd)"
@@ -9426,7 +9426,7 @@ msgstr "铜级（3rd）"
 
 #: application/views/awards/pl_polska/index.php:146
 msgid "7 QSOs per voivodeship"
-msgstr "7 QSO 来自省内"
+msgstr "每个省份完成 7 次 QSO"
 
 #: application/views/awards/pl_polska/index.php:146
 msgid "Silver Class (2nd)"
@@ -9434,7 +9434,7 @@ msgstr "白银级(2nd)"
 
 #: application/views/awards/pl_polska/index.php:147
 msgid "12 QSOs per voivodeship"
-msgstr "12 QSO 来自省内"
+msgstr "每个省份完成 12 次 QSO"
 
 #: application/views/awards/pl_polska/index.php:147
 msgid "Gold Class (1st)"
@@ -14036,7 +14036,7 @@ msgstr "你的活动电台位置未关联到你的活动电台日志簿。点击
 #, php-format
 msgctxt "Dashboard Warning"
 msgid "You have no station linked to your logbook. Click %shere%s to do it."
-msgstr "你的日志簿没有绑定电台。单击 %s这里%s 进行设置。"
+msgstr "你的日志簿没有绑定台站地址。单击 %s这里%s 进行设置。"
 
 #: application/views/dashboard/index.php:175
 #, php-format
@@ -19803,8 +19803,8 @@ msgid ""
 "The list contains all not worked gridsquares within %d km of the gridsquare "
 "%s of the active station location %s (%s)."
 msgstr ""
-"列表包含当前台站所在网格 %d 公里范围内所有未通联过的网格；当前网格 %s，当前台"
-"站位置 %s（%s）。"
+"此列表包含当前启用的台站位置 %3$s（%4$s）所在网格 %2$s 周围 %1$d 公里范围内所"
+"有尚未通联的网格。"
 
 #: application/views/most_wanted_squares/index.php:34
 msgid "Exclude squares that contain no land"
@@ -19818,7 +19818,7 @@ msgstr "最近 %s 的 %s 次激活"
 #: application/views/mostwantedgrids/details.php:9
 #, php-format
 msgid "Grid is contained in %s%% of all logs on %s"
-msgstr "在 %s 的所有记录中，有 %s%% 包含该网格"
+msgstr "在 %2$s 的所有记录中，有 %1$s%% 包含该网格"
 
 #: application/views/mostwantedgrids/index.php:61
 msgid "View a map of most wanted gridsquares on satellite"
@@ -22754,7 +22754,7 @@ msgstr "上方的已启用日志，会显示在关联的台站位置的 “已�
 
 #: application/views/stationsetup/stationsetup.php:132
 msgid "Create a Station Location"
-msgstr "创建一个台站位置"
+msgstr "创建台站位置"
 
 #: application/views/stationsetup/stationsetup.php:132
 msgid "Show only locations from the active logbook"
@@ -23702,11 +23702,11 @@ msgstr ""
 
 #: application/views/user/edit.php:992
 msgid "Automatic OQRS matching for direct requests"
-msgstr "对于直接请求的自动OQRS匹配"
+msgstr "对于直邮请求的自动OQRS匹配"
 
 #: application/views/user/edit.php:993
 msgid "If this is on, automatic OQRS matching for direct request will happen."
-msgstr "如果此功能启用，直接请求将自动进行OQRS匹配。"
+msgstr "启用此选项后，将自动为直邮请求进行 OQRS 匹配。"
 
 #: application/views/user/edit.php:998
 msgid "QSL delivery methods offered via OQRS"
